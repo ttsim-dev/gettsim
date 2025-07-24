@@ -72,3 +72,4 @@ docs/_build
 docs/tutorials/sandbox_cz.ipynb
 _version.py
 .pixi/
+prof/

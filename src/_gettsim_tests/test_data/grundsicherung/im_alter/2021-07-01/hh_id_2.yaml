@@ -1,0 +1,114 @@
+---
+info:
+  note: Beispielperson Harald F.
+  precision_atol: 0.01
+  source: https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/grundsicherung_hilfe_fuer_rentner.pdf?__blob=publicationFile&v=2
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+      p_id_einstandspartner:
+        - -1
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1951
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 2
+    kindergeld:
+      betrag_m_eg:
+        - 0.0
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 3
+    schwerbehindert_grad_g:
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 94.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 850.0
+        bezieht_rente:
+          - true
+        grundrente:
+          grundrentenzeiten_monate:
+            - 420
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m_eg:
+        - 0.0
+    vermögen_eg:
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 405.0
+      heizkosten_m_hh:
+        - 40.0
+      wohnfläche_hh:
+        - 45.0
+outputs:
+  grundsicherung:
+    im_alter:
+      betrag_m_eg:
+        - 358.0

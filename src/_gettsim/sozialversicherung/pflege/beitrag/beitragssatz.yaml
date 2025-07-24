@@ -1,0 +1,89 @@
+---
+beitragssatz:
+  name:
+    de: Beitragssatz zur gesetzlichen Pflegeversicherung
+    en: Contribution rate to statutory care insurance
+  description:
+    de: >-
+      Beitragssatz ist unabhängig von der Anzahl der Kinder.
+    en: >-
+      Contribution rate is independent of the number of children.
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1995-01-01:
+    value: 0.01
+  1997-01-01:
+    value: 0.017
+  2005-01-01:
+    note: >-
+      Special contribution rate for childless individuals. See
+      beitragssatz_nach_kinderzahl.
+beitragssatz_nach_kinderzahl:
+  name:
+    de: Beitragssätze zur gesetzlichen Pflegeversicherung
+    en: Contribution rate to statutory care insurance
+  description:
+    de: >-
+      Beitragssatz ist abhängig von der Anzahl der Kinder.
+    en: >-
+      Contribution rate is dependent on the number of children.
+  unit: Share
+  reference_period: null
+  type: dict
+  add_jahresanfang: true
+  2005-01-01:
+    standard: 0.017
+    zusatz_kinderlos: 0.0025
+  2008-01-01:
+    standard: 0.0195
+    zusatz_kinderlos: 0.0025
+  2013-01-01:
+    updates_previous: true
+    standard: 0.0205
+  2015-01-01:
+    standard: 0.0235
+    zusatz_kinderlos: 0.0025
+  2017-01-01:
+    updates_previous: true
+    standard: 0.0255
+  2019-01-01:
+    standard: 0.0305
+    zusatz_kinderlos: 0.0025
+  2022-01-01:
+    updates_previous: true
+    zusatz_kinderlos: 0.0035
+    reference: Art. 2 Nr. 14 G. v. 11.07.2021, BGBl. I S. 2754.
+  2023-07-01:
+    standard: 0.034
+    zusatz_kinderlos: 0.006
+    abschlag_für_kinder_bis_24: 0.0025
+    note: >-
+      Pflegeunterstützungs- und -entlastungsgesetz - PUEG
+      Increase of contribution rates and introduction of reduction of contribution rates
+      for people with children.
+  2025-01-01:
+    updates_previous: true
+    standard: 0.036
+    reference: >-
+      Pflege-Beitragssatz-Anpassungsverordnung 2025, Bundestag-Drucksache 20/1371
+zusatz_kinderlos_mindestalter:
+  name:
+    de: Mindestalter Beitragszuschlag für Kinderlose
+    en: Minimum age for additional contribution for childless
+  description:
+    de: >-
+      § 55 Abs. 3 SGB XI, KiBG Art. 1
+      Kinderlose Mitglieder der sozialen Pflegeversicherung, die das 23. Lebensjahr
+      vollendet haben, müssen seit dem 1. Januar 2005 einen erhöhten Beitragssatz
+      entrichten.
+    en: >-
+      § 55 Abs. 3 SGB XI, KiBG Art. 1
+      Childless members of the social care insurance, who have reached the age of 23,
+      have to pay a higher contribution rate since January 1, 2005.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2005-01-01:
+    value: 23

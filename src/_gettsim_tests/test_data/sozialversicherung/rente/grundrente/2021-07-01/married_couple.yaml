@@ -1,0 +1,96 @@
+---
+info:
+  note: Regression test. See issue
+  precision_atol: 1
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alleinstehend:
+      - false
+      - false
+    alter:
+      - 70
+      - 70
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    geburtsjahr:
+      - 1951
+      - 1951
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        altersrente:
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+            - 0.0
+          zugangsfaktor:
+            - 1.0
+            - 1.0
+        bezieht_rente:
+          - true
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+          - 0.0
+        entgeltpunkte_west:
+          - 19.2
+          - 19.2
+        grundrente:
+          bewertungszeiten_monate:
+            - 300
+            - 300
+          bruttolohn_vorjahr_m:
+            - 0.0
+            - 0.0
+          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
+            - 0.0
+            - 0.0
+          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
+            - 0.0
+            - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+            - 0.0
+          grundrentenzeiten_monate:
+            - 480
+            - 480
+          mean_entgeltpunkte:
+            - 15.0
+            - 15.0
+          gesamteinnahmen_aus_renten_vorjahr_m:
+            - 0.0
+            - 0.0
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        betrag_m:
+          - 806.2
+          - 806.2
+      grundrente:
+        basisbetrag_m:
+          - 149.72
+          - 149.72
+        betrag_m:
+          - 149.75
+          - 149.75
+        mean_entgeltpunkte_zuschlag:
+          - 0.014583333
+          - 0.014583333

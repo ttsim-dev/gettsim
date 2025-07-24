@@ -1,0 +1,125 @@
+---
+info:
+  note: Made up using the text of the law
+  precision_atol: 0.1
+  source: ''
+inputs:
+  assumed:
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    sozialversicherung:
+      rente:
+        anrechnungsmonate_35_jahre_wartezeit:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 540.0
+          - 400.0
+          - 120.0
+        anrechnungsmonate_45_jahre_wartezeit:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 420.0
+          - 120.0
+        ersatzzeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 120.0
+        freiwillige_beitragsmonate:
+          - 0.0
+          - 0.0
+          - 60.0
+          - 0.0
+          - 12.0
+          - 0.0
+          - 0.0
+          - 120.0
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 120.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 120.0
+        pflichtbeitragsmonate:
+          - 0.0
+          - 60.0
+          - 0.0
+          - 408.0
+          - 408.0
+          - 0.0
+          - 120.0
+          - 120.0
+  provided: {}
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        besonders_langjährig:
+          grundsätzlich_anspruchsberechtigt:
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - true
+            - true
+        langjährig:
+          grundsätzlich_anspruchsberechtigt:
+            - false
+            - false
+            - false
+            - false
+            - true
+            - true
+            - true
+            - true
+        regelaltersrente:
+          grundsätzlich_anspruchsberechtigt:
+            - false
+            - true
+            - true
+            - true
+            - true
+            - false
+            - true
+            - true

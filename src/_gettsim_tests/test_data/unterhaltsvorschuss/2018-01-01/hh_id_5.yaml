@@ -1,0 +1,96 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 10
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
+    einkommensteuer:
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 6
+      p_id_elternteil_2:
+        - -1
+        - -1
+    hh_id:
+      - 5
+      - 5
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 6
+    monat:
+      - 1
+      - 1
+    p_id:
+      - 6
+      - 7
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+outputs:
+  unterhaltsvorschuss:
+    betrag_m:
+      - 0.0
+      - 205.0
+    elternteil_alleinerziehend:
+      - false
+      - true

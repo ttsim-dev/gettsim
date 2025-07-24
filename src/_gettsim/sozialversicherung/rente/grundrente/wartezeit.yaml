@@ -1,0 +1,21 @@
+---
+berücksichtigte_wartezeit_monate:
+  name:
+    de: Berücksichtigte Wartezeit für Grundrente
+    en: Recognized waiting time for basic pension
+  description:
+    de: >-
+      § 76g Abs. 4 S. 5,6 / Abs. 1 S. 1 SGB VI
+      Minimal benötigte Grundrentenzeiten um zur Grundrente berechtigt zu sein und Zahl
+      an Grundrentenzeiten ab der zusätzliche Monate an Grundrentenzeiten nicht
+      berücksichtigt werden
+    en: >-
+      § 76g Abs. 4 S. 5,6 / Abs. 1 S. 1 SGB VI
+      Minimal number of Grundrentenzeiten required to be entitled to Grundrente and
+      maximum number of months that are considered for Grundrente.
+  unit: Months
+  reference_period: null
+  type: dict
+  2021-01-01:
+    min: 396
+    max: 420

@@ -1,0 +1,51 @@
+---
+info:
+  note: Update rule differs between East and West, Rentenwert is the same.
+  precision_atol: 0.001
+  source: Calculated by hand.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    wohnort_ost_hh:
+      - true
+      - false
+    alter:
+      - 40
+      - 40
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+            - 3000.0
+    sozialversicherung:
+      rente:
+        entgeltpunkte:
+          - 30.0
+          - 30.0
+        bezieht_rente:
+          - true
+          - true
+        altersrente:
+          zugangsfaktor:
+            - 1.0
+            - 1.0
+outputs:
+  sozialversicherung:
+    rente:
+      entgeltpunkte_updated:
+        - 30.827
+        - 30.805
+      neue_entgeltpunkte:
+        - 0.827
+        - 0.805
+      altersrente:
+        bruttorente_basisbetrag_m:
+          - 1128.0
+          - 1128.0

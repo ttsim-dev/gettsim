@@ -1,0 +1,115 @@
+---
+altersgrenze:
+  name:
+    de: Einheitliches Eintrittsalter für Regelaltersrente
+    en: Uniform entry age for receiving regelaltersrente - normal retirement age (NRA)
+  description:
+    de: >-
+      § 35 Satz 2 SGB VI
+      Regelaltersgrenze ab der Renteneintritt möglich ist. Wenn früher oder später in
+      Rente gegangen wird, wird der Zugangsfaktor und damit der Rentenanspruch höher
+      oder niedriger, sofern keine Sonderregelungen gelten.
+    en: >-
+      § 35 Satz 2 SGB VI
+      Normal retirement age from which pension can be received. If retirement benefits
+      are claimed earlier or later, the Zugangsfaktor and thus the pension entitlement
+      is higher or lower unless special regulations apply.
+  unit: Years
+  reference_period: null
+  type: scalar
+  1957-02-26:
+    reference: Rentenreformgesetz 1957 BGBl. I S. 88
+    value: 65.0
+  2007-04-19:
+    note: >-
+      Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964. See
+      `altersgrenze_gestaffelt`.
+  2031-01-01:
+    value: 67.0
+    note: Phase-in period is over
+altersgrenze_gestaffelt:
+  name:
+    de: Gestaffeltes Eintrittsalter für Regelaltersrente nach Geburtsjahr
+    en: Staggered normal retirement age (NRA) for Regelaltersrente by birth year
+  description:
+    de: >-
+      § 35 Satz 2 SGB VI
+      Regelaltersgrenze ab der Renteneintritt möglich ist. Wenn früher oder später in
+      Rente gegangen wird, wird der Zugangsfaktor und damit der Rentenanspruch höher
+      oder niedriger, sofern keine Sonderregelungen gelten.
+    en: >-
+      § 35 Satz 2 SGB VI
+      Normal retirement age from which pension can be received. If retirement benefits
+      are claimed earlier or later, the Zugangsfaktor and thus the pension entitlement
+      is higher or lower unless special regulations apply.
+  unit: Years
+  reference_period: null
+  type: year_based_phase_inout_of_age_thresholds
+  2007-04-20:
+    reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554
+    note: >-
+      Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964.
+      Vertrauensschutz (Art. 56) applies for birth cohorts before 1955 who were in
+      Altersteilzeit before January 1st, 2007 or received "Anpassungsgeld für
+      entlassene Arbeitnehmer des Bergbaus".
+    first_year_to_consider: 1900
+    last_year_to_consider: 2031
+    1946:
+      years: 65
+      months: 0
+    1947:
+      years: 65
+      months: 1
+    1948:
+      years: 65
+      months: 2
+    1949:
+      years: 65
+      months: 3
+    1950:
+      years: 65
+      months: 4
+    1951:
+      years: 65
+      months: 5
+    1952:
+      years: 65
+      months: 6
+    1953:
+      years: 65
+      months: 7
+    1954:
+      years: 65
+      months: 8
+    1955:
+      years: 65
+      months: 9
+    1956:
+      years: 65
+      months: 10
+    1957:
+      years: 65
+      months: 11
+    1958:
+      years: 66
+      months: 0
+    1959:
+      years: 66
+      months: 2
+    1960:
+      years: 66
+      months: 4
+    1961:
+      years: 66
+      months: 6
+    1962:
+      years: 66
+      months: 8
+    1963:
+      years: 66
+      months: 10
+    1964:
+      years: 67
+      months: 0
+  2031-01-01:
+    note: last cohort with entry age < 67 will have passed that age

@@ -1,0 +1,156 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: http://www.dr-wolters.de/content/inhalte/steuerberater_service/onlinerechner/einkommensteuer_berechnung/einkommensteuer_rechner/index.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+    arbeitsstunden_w:
+      - 40.0
+      - 30.0
+    behinderungsgrad:
+      - 0
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
+        vorsorgeaufwendungen_y_sn:
+          - 7700.0
+          - 7700.0
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+            - 2000.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 24
+        - 23
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1975
+      - 1975
+    hh_id:
+      - 17
+      - 17
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 23
+      - 24
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2040
+          - 2040
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      alleinerziehend_betrag_y:
+        - 0
+        - 0
+      altersfreibetrag_y:
+        - 0
+        - 0
+      pauschbetrag_behinderung_y:
+        - 0
+        - 0
+    einkünfte:
+      gesamtbetrag_der_einkünfte_y:
+        - 35000
+        - 23000
+    gesamteinkommen_y:
+      - 50228.0
+      - 50228.0
+    kinderfreibetrag_y_sn:
+      - 0
+      - 0
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+      - 50228.0
+      - 50228.0

@@ -142,7 +142,7 @@ post a message with a first line like:
 
 > \## Proposal to accept GEP #\<number>: \<title>
 
-to the Zulip stream GEPs / GEP \[XY\].
+to the Zulip stream GEPs / GEP [XY].
 
 In the body of your message, you should:
 
@@ -239,14 +239,14 @@ This document has been placed in the public domain.
 
 [^id3]: This historical record is available by the normal git commands for retrieving older
     revisions, and can also be browsed on
-    [GitHub](https://github.com/iza-institute-of-labor-economics/gettsim/tree/main/docs/geps).
+    [GitHub](https://github.com/ttsim-dev/gettsim/tree/main/docs/geps).
 
 [^id4]: The URL for viewing GEPs on the web is
     <https://gettsim.readthedocs.io/en/latest/geps>.
 
 [#geps]: https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs
-[github pull request]: https://github.com/iza-institute-of-labor-economics/gettsim/pulls
-[repository]: https://github.com/iza-institute-of-labor-economics/gettsim
+[github pull request]: https://github.com/ttsim-dev/gettsim/pulls
+[repository]: https://github.com/ttsim-dev/gettsim
 [restructuredtext]: http://docutils.sourceforge.net/rst.html
 [restructuredtextprimer]: http://www.sphinx-doc.org/en/stable/rest.html
 [sphinx]: http://www.sphinx-doc.org/en/stable/

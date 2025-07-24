@@ -1,0 +1,37 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      abgeltungssteuer:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+      betrag_mit_kinderfreibetrag_y_sn:
+        - 36000.0
+        - 36000.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      p_id_ehepartner:
+        - 3
+        - 2
+    hh_id:
+      - 1
+      - 1
+    p_id:
+      - 2
+      - 3
+    zusammen_veranlagt:
+      - true
+      - true
+outputs:
+  solidaritätszuschlag:
+    betrag_y_sn:
+      - 0.0
+      - 0.0

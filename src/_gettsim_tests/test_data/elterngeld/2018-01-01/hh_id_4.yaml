@@ -1,0 +1,102 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 0
+      - 42
+    alter_monate:
+      - 0
+      - 516
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 33.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 3600.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+      claimed:
+        - false
+        - true
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
+        - 3400.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 0.0
+        - 37406.0
+    familie:
+      alleinerziehend:
+        - false
+        - true
+      p_id_ehepartner:
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - 57
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 2017
+      - 1976
+    geburtsmonat:
+      - 6
+      - 9
+    geburtstag:
+      - 12
+      - 9
+    hh_id:
+      - 4
+      - 4
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+    p_id:
+      - 59
+      - 57
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - true
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  elterngeld:
+    anzahl_mehrlinge_fg:
+      - 0
+      - 0
+    betrag_m:
+      - 0.0
+      - 0.0
+    geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
+      - false
+      - false
+    grundsätzlich_anspruchsberechtigt:
+      - false
+      - false

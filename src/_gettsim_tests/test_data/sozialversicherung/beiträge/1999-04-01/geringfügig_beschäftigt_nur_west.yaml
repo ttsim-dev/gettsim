@@ -1,0 +1,109 @@
+---
+info:
+  precision_atol: 1
+  source: Regression test. Unclear whether numbers are correct by external standards.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 300.0
+            - 300.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+    wohnort_ost_hh:
+      - false
+      - true
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 0.0
+          - 9.75
+        betrag_versicherter_m:
+          - 0.0
+          - 9.75
+    beiträge_arbeitgeber_m:
+      - 66.0
+      - 63.15
+    beiträge_gesamt_m:
+      - 66.0
+      - 126.3
+    beiträge_versicherter_m:
+      - 0.0
+      - 63.15
+    geringfügig_beschäftigt:
+      - true
+      - false
+    kranken:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 30.0
+          - 20.4
+        betrag_versicherter_m:
+          - 0.0
+          - 20.4
+    pflege:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 0.0
+          - 2.55
+        betrag_versicherter_m:
+          - 0.0
+          - 2.55
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 36.0
+          - 30.45
+        betrag_versicherter_m:
+          - 0.0
+          - 30.45

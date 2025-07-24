@@ -1,0 +1,70 @@
+---
+info:
+  note: Made up using the text of the law
+  precision_atol: 0.1
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1942
+    geburtsmonat:
+      - 1
+    hh_id:
+      - 7
+    p_id:
+      - 7
+    sozialversicherung:
+      rente:
+        altersrente:
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 0.0
+          wegen_arbeitslosigkeit:
+            arbeitslos_für_1_jahr_nach_alter_58_ein_halb:
+              - true
+            pflichtbeitragsjahre_8_von_10:
+              - true
+        ersatzzeiten_monate:
+          - 0.0
+        freiwillige_beitragsmonate:
+          - 0.0
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+        monate_in_mutterschutz:
+          - 0.0
+        monate_in_schulausbildung:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+        pflichtbeitragsmonate:
+          - 300.0
+    weiblich:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 60.333333
+        altersgrenze_vorzeitig:
+          - 60.0
+        referenzalter_abschlag:
+          - 60.333333
+        vorzeitig_grundsätzlich_anspruchsberechtigt:
+          - true
+        wegen_arbeitslosigkeit:
+          altersgrenze:
+            - 60.333333
+          altersgrenze_vorzeitig:
+            - 60.0
+          grundsätzlich_anspruchsberechtigt:
+            - true

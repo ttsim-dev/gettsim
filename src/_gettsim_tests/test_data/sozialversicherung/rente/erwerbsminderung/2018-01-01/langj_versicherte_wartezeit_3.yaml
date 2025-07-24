@@ -1,0 +1,33 @@
+---
+info:
+  precision_atol: 0.01
+  source: Own calculations
+inputs:
+  assumed:
+    p_id:
+      - 23
+    sozialversicherung:
+      rente:
+        ersatzzeiten_monate:
+          - 0.0
+        freiwillige_beitragsmonate:
+          - 100.0
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+        monate_geringfügiger_beschäftigung:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 100.0
+        pflichtbeitragsmonate:
+          - 250.0
+  provided: {}
+outputs:
+  sozialversicherung:
+    rente:
+      erwerbsminderung:
+        wartezeit_langjährig_versichert_erfüllt:
+          - true

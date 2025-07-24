@@ -1,0 +1,139 @@
+---
+beitragssatz:
+  name:
+    de: Einheitlicher Beitragssatz zur gesetzlichen Krankenversicherung
+    en: Uniform contribution rate to statutory health insurance
+  description:
+    de: >-
+      Einheitlicher Beitragssatz für die gesetzliche Krankenversicherung über alle
+      Versicherungsträger.
+    en: >-
+      Uniform contribution rate for statutory health insurance over all insurance
+      providers.
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1984-01-01:
+    value: 0.1144
+  1985-01-01:
+    value: 0.118
+  1986-01-01:
+    value: 0.122
+  1987-01-01:
+    value: 0.1248
+  1988-01-01:
+    value: 0.1288
+  1989-01-01:
+    value: 0.129
+  1990-01-01:
+    value: 0.125
+  1991-01-01:
+    value: 0.128
+  1993-01-01:
+    value: 0.134
+  1995-01-01:
+    value: 0.132
+  1997-01-01:
+    value: 0.134
+  1998-01-01:
+    value: 0.136
+  2000-01-01:
+    value: 0.1357
+  2001-01-01:
+    value: 0.1358
+  2002-01-01:
+    value: 0.14
+  2003-01-01:
+    value: 0.144
+  2004-01-01:
+    value: 0.142
+  2005-01-01:
+    value: 0.142
+  2005-07-01:
+    note: >-
+      Einführung von Sonder- und Zusatzbeiträgen. See
+      ``parameter_beitragssatz``.
+parameter_beitragssatz:
+  name:
+    de: Beitragssatz zur gesetzlichen Krankenversicherung mit Zusatzbeitrag
+    en: Contribution rate to statutory health insurance with top-up contribution
+  description:
+    de: >-
+      Beitragssätze für gesetzliche Krankenversicherung. mean_allgemein -
+      durchschnittlicher Beitragssatz, bis 2008 allgemein - allgemeiner Satz (§241 SGB
+      V), ab 2009 sonderbeitrag - bezahlt von Arbeitnehmern, ab Jul 2005 bis 2014
+      ermäßigt - ermäßigter Satz (§243 SGB V) zusatz - durchschnittlicher
+      Zusatzbeitragssatz.
+    en: >-
+      Statury Contribution Rates for mandatory health insurance. mean_allgemein -
+      average contribution rate, 1992 to 2008 allgemein - general statutory
+      contribution rate, since 2009 sonderbeitrag - paid by employees, Jul 2005 to
+      2014 ermäßigt - reduced rate zusatz - average top-up contribution rate
+  unit: Share
+  reference_period: null
+  type: dict
+  add_jahresanfang: true
+  2005-07-01:
+    mean_allgemein: 0.133
+    sonderbeitrag: 0.009
+    note: >-
+      Allgemeiner Beitragssatz wird nicht mehr gleichmäßig aufgeteilt, Einführung des
+      Sonderbeitrags
+    reference: Art. 1 G. v. 15.12.2004, BGBl I S. 3445.
+  2007-01-01:
+    updates_previous: true
+    mean_allgemein: 0.139
+  2008-01-01:
+    updates_previous: true
+    mean_allgemein: 0.14
+  2009-01-01:
+    allgemein: 0.146
+    sonderbeitrag: 0.009
+    ermäßigt: 0.140
+  2009-07-01:
+    updates_previous: true
+    allgemein: 0.14
+    ermäßigt: 0.134
+  2011-01-01:
+    updates_previous: true
+    allgemein: 0.146
+    ermäßigt: 0.14
+    reference: Art. 1 G. v. 22.12.2010 BGBl. I S. 2309
+  2015-01-01:
+    allgemein: 0.146
+    ermäßigt: 0.14
+    mean_zusatzbeitrag: 0.009
+    note: Abschaffung Sonderbeitrag, Einführung kassenabhängiger Zusatzbeitrag
+  2016-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.011
+    note: Bekanntmachung Bundesanzeiger 30.12.2015
+  2018-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.01
+  2019-01-01:
+    allgemein: 0.146
+    ermäßigt: 0.14
+    mean_zusatzbeitrag: 0.009
+    note: Wiedereinführung der Parität. Art. 2 G. v. 11.12.2018, BGBl. I S. 2387
+  2020-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.011
+    reference: BAnz AT 28.10.2019 B3
+  2021-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.013
+    reference: BAnz AT 30.10.2020 B5
+  2023-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.016
+    reference: BAnz AT 31.10.2022 B5
+  2024-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.017
+    reference: BAnz AT 31.10.2023 B3
+  2025-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.025
+    reference: BAnz AT 07.11.2024 B4

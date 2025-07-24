@@ -1,0 +1,17 @@
+---
+info:
+  note: ''
+  precision_atol: 0.00001
+  source: >-
+    Bekanntmachung des Gesamtsozialversicherungsbeitragssatzes und des Faktors F für das
+    Jahr 2025
+inputs:
+  provided:
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  sozialversicherung:
+    midijob_faktor_f:
+      - 0.6683

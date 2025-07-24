@@ -1,0 +1,122 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+      eigenbedarf_gedeckt:
+        - false
+      p_id_einstandspartner:
+        - -1
+    arbeitsstunden_w:
+      - 20.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 600.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+          rente:
+            geförderte_private_vorsorge_m:
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+    elterngeld:
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1960
+    hh_id:
+      - 8
+    kindergeld:
+      betrag_m_bg:
+        - 0.0
+      in_ausbildung:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 4
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 92.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        bezieht_rente:
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen:
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 300.0
+      heizkosten_m_hh:
+        - 100.0
+      wohnfläche_hh:
+        - 20.0
+    wohngeld:
+      anspruchshöhe_m_bg:
+        - 0.0
+outputs:
+  arbeitslosengeld_2:
+    anrechnungsfreies_einkommen_m:
+      - 92.534
+    betrag_m_bg:
+      - 122.53
+    kosten_der_unterkunft_m_bg:
+      - 200.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 415.466
+    regelsatz_m_bg:
+      - 338.0

@@ -1,0 +1,134 @@
+---
+satz:
+  name:
+    de: Ersatzrate des Elterngelds
+    en: Replacement rate of Elterngeld
+  description:
+    de: >-
+      § 2 (1) BEEG
+      Faktor bei der ElG-Berechung, 2. Stufe.
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2007-01-01:
+    value: 0.67
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+höchstbetrag:
+  name:
+    de: Höchstbetrag des Elterngeldes
+    en: Maximum Elterngeld
+  description:
+    de: § 2 (1) BEEG
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2007-01-01:
+    value: 1800.0
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+mindestbetrag:
+  name:
+    de: Mindestbetrag des Elterngeldes
+    en: Minimum amount of parental benefit
+  description:
+    de: § 2 (5) BEEG
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2007-01-01:
+    value: 300
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+max_zu_berücksichtigendes_einkommen:
+  name:
+    de: Maximal zu berücksichtigendes Einkommen vor Geburt.
+    en: Maximum income to be considered before birth.
+  description:
+    de: § 2 (3) BEEG
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2007-01-01:
+    value: 2700.0
+    reference: BGBl. I S. 2748 Art. 1 G. v. 05.12.2006
+  2012-09-18:
+    value: 2770.0
+    reference: Artikel 1 G. v. 10.09.2012 BGBl. I S. 1878
+nettoeinkommensstufen_für_lohnersatzrate:
+  name:
+    de: Nettoeinkommen an 1. und 2. Stufe
+    en: Net income where the first and second bracket starts
+  description:
+    de: >-
+      § 2 (2) BEEG. Maßgeblich ist das durchschnittlich erzielte monatliche Einkommen
+      vor der Geburt
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: dict
+  2007-01-01:
+    lower_threshold: 1000.0
+    upper_threshold: 1001.0
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+  2011-01-01:
+    lower_threshold: 1000.0
+    upper_threshold: 1201.0
+    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+prozent_korrektur:
+  name:
+    de: Korrektur des Prozentsatzes für hohe und niedrige Einkommen
+    en: Percentage correction for lower or high incomes
+  description:
+    de: § 2 (2) BEEG
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2007-01-01:
+    value: 0.001
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+prozent_minimum:
+  name:
+    de: Minimaler Anteil des Elterngelds am vorherigen Nettoeinkommen
+    en: Percentage deduction limit for higher incomes
+  description:
+    de: § 2 (2) BEEG
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2007-01-01:
+    value: 0.67
+    note: implizit
+  2011-01-01:
+    value: 0.65
+    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+einkommensschritte_korrektur:
+  name:
+    de: Einkommensschritte für die Korrektur
+    en: Income steps for percentage correction
+  description:
+    de: § 2 (2) BEEG
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2007-01-01:
+    value: 2
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+sozialversicherungspauschale:
+  name:
+    de: Sozialversicherungspauschale zur Berechnung des Nettoeinkommens
+    en: null
+  description:
+    de: §2f BEEG. Vor 2012 waren es die eigentlichen Pflichtbeiträge.
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2012-09-18:
+    value: 0.21
+    reference: Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+    note: 0.09 + 0.1 + 0.02

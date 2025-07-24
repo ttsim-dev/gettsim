@@ -1,0 +1,61 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      abgeltungssteuer:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+          - 0.0
+      betrag_mit_kinderfreibetrag_y_sn:
+        - 10000.0
+        - 10000.0
+        - 0.0
+      betrag_ohne_kinderfreibetrag_y_sn:
+        - 12000.0
+        - 12000.0
+        - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+      gesamteinkommen_y:
+        - 120000.0
+        - 120000.0
+        - 0.0
+      relevantes_kindergeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 109740.0
+        - 109740.0
+        - 0.0
+    familie:
+      p_id_ehepartner:
+        - 10
+        - 9
+        - -1
+    hh_id:
+      - 5
+      - 5
+      - 5
+    p_id:
+      - 9
+      - 10
+      - 11
+outputs:
+  einkommensteuer:
+    betrag_y_sn:
+      - 19344.0
+      - 19344.0
+      - 0.0
+    zu_versteuerndes_einkommen_y_sn:
+      - 109740.0
+      - 109740.0
+      - 0.0

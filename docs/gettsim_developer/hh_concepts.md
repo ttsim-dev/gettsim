@@ -8,21 +8,21 @@ individuals (e.g. Kindergeld).
 If transfers are calculated on the unit level, the unit is specified under "Aggregation
 unit". Under "Pointers", we describe the pointer columns (columns that contain the
 `p_id` of another individual) that are used to i) determine endogenous units (like
-`bg_id`, `sn_id`,...) and/or ii) connect individuals because their relationship makes
-them eligible for some transfer (i.e. parent-child relationships create eligibility for
-child allowances).
+`arbeitslosengeld_2__bg_id`, `einkommensteuer__sn_id`,...) and/or ii) connect
+individuals because their relationship makes them eligible for some transfer (i.e.
+parent-child relationships create eligibility for child allowances).
 
 The units are:
 
-| Unit                             | ID      | Description                                                                                                                                                                     | Endogenous |
-| -------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| Haushalt                         | hh_id   | Individuals that live together in one household in the Wohngeld sense (§5 WoGG).                                                                                                | no         |
-| wohngeldrechtlicher Teilhaushalt | wthh_id | The relevant unit for Wohngeld. Encompasses all members of a household for whom the Vorrangprüfung of Wohngeld against ALG2/Kinderzuschlag has the same result ∈ {True, False}. | yes        |
-| Familiengemeinschaft             | fg_id   | Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld 2, before excluding children who have enough income fend for themselves.                   | yes        |
-| Bedarfsgemeinschaft              | bg_id   | Familiengemeinschaft except for children who have enough income to fend for themselves. Relevant unit for Bürgergeld / Arbeitslosengeld 2.                                      | yes        |
-| Steuernummer                     | sn_id   | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
-| Ehepartner                       | ehe_id  | Couples that are either married or in a civil union.                                                                                                                            | yes        |
-| Einstandsgemeinschaft            | eg_id   | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
+| Unit                             | ID                          | Description                                                                                                                                                                     | Endogenous |
+| -------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| Haushalt                         | hh_id                       | Individuals that live together in one household in the Wohngeld sense (§5 WoGG).                                                                                                | no         |
+| wohngeldrechtlicher Teilhaushalt | wohngeld\_\_wthh_id         | The relevant unit for Wohngeld. Encompasses all members of a household for whom the Vorrangprüfung of Wohngeld against ALG2/Kinderzuschlag has the same result ∈ {True, False}. | yes        |
+| Familiengemeinschaft             | familie\_\_fg_id            | Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld 2, before excluding children who have enough income fend for themselves.                   | yes        |
+| Bedarfsgemeinschaft              | arbeitslosengeld_2\_\_bg_id | Familiengemeinschaft except for children who have enough income to fend for themselves. Relevant unit for Bürgergeld / Arbeitslosengeld 2.                                      | yes        |
+| Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
+| Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
+| Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
 ## Taxes
 
@@ -34,11 +34,11 @@ The units are:
 
 #### Aggregation unit
 
-- `sn_id` (endogenous)
+- `einkommensteuer__sn_id` (endogenous)
 
 #### Pointers
 
-- `p_id_ehepartner`
+- `familie__p_id_ehepartner`
 
 ### Kinderfreibeträge
 
@@ -52,19 +52,21 @@ The units are:
 
 #### Pointers
 
-- `p_id_kinderfreib_empfänger_1` and `p_id_kinderfreib_empfänger_2` (either set by the
-  user or calculated endogenously via `p_id_elternteil_1` and `p_id_elternteil_2`)
+- `einkommensteuer__p_id_kinderfreibetragsempfänger_1` and
+  `einkommensteuer__p_id_kinderfreibetragsempfänger_2` (either set by the user or
+  calculated endogenously via `familie__p_id_elternteil_1` and
+  `familie__p_id_elternteil_2`)
 
 ## Kindergeld
 
 #### Description
 
-- Only one parent receives child allowances (specified via `p_id_kindergeld_empf`)
+- Only one parent receives child allowances (specified via `kindergeld__p_id_empfänger`)
 - Relevant for alimony payment of the other parent, if separate
 
 #### Pointers
 
-- `p_id_kindergeld_empf` (exogenous)
+- `kindergeld__p_id_empfänger` (exogenous)
 
 ## Kinderzuschlag
 
@@ -76,11 +78,12 @@ The units are:
 
 #### Aggregation unit
 
-- `bg_id` (endogenous)
+- `arbeitslosengeld_2__bg_id` (endogenous)
 
 #### Pointers
 
-- `p_id_einstandspartner`, `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
+  `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
 
@@ -92,7 +95,7 @@ The units are:
 
 #### Pointers
 
-- `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Unterhalt / Unterhaltsvorschuss
 
@@ -103,7 +106,7 @@ The units are:
 
 #### Pointers
 
-- `p_id_kindergeld_empf` (exogenous)
+- `kindergeld__p_id_empfänger` (exogenous)
 
 ## Pflegeversicherung
 
@@ -116,7 +119,7 @@ The units are:
 
 #### Pointers
 
-- `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Rente
 
@@ -128,11 +131,11 @@ The units are:
 
 #### Aggregation unit
 
-- `ehe_id` (endogenous)
+- `familie__ehe_id` (endogenous)
 
 #### Pointers
 
-- `p_id_ehepartner` (exogenous)
+- `familie__p_id_ehepartner` (exogenous)
 
 ### Verwitwetenrente
 
@@ -143,11 +146,11 @@ The units are:
 
 #### Aggregation unit
 
-- `ehe_id` (endogenous)
+- `familie__ehe_id` (endogenous)
 
 #### Pointers
 
-- `p_id_ehepartner` (exogenous)
+- `familie__p_id_ehepartner` (exogenous)
 
 ## Bürgergeld und Sozialhilfe
 
@@ -167,11 +170,12 @@ The units are:
 
 #### Aggregation unit
 
-- `bg_id` (endogenous)
+- `arbeitslosengeld_2__bg_id` (endogenous)
 
 #### Pointers
 
-- `p_id_einstandspartner`, `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
+  `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Hilfe zum Lebensunterhalt)
 
@@ -201,13 +205,14 @@ Regarding the household definition:
 
 #### Aggregation unit
 
-- Not implemented yet. The current `eg_id` is not sufficient as it doesn't include
-  children (it follows the SGB II definition).
-- Potentially, `bg_id` could be used as the aggregation unit.
+- Not implemented yet. The current `arbeitslosengeld_2__eg_id` is not sufficient as it
+  doesn't include children (it follows the SGB II definition).
+- Potentially, `arbeitslosengeld_2__bg_id` could be used as the aggregation unit.
 
 #### Pointers
 
-- `hh_id`, `p_id_einstandspartner`, `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `hh_id`, `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
+  `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Grundsicherung im Alter / bei Erwerbsminderung)
 
@@ -225,14 +230,15 @@ Government expenditures: 7 Mrd €
 
 #### Aggregation unit
 
-- Currently: `eg_id` (endogenous)
-- The current implementation of `eg_id` is not sufficient as it doesn't include children
-  (it follows the SGB II definition).
-- Potentially, `bg_id` could be used as the aggregation unit.
+- Currently: `arbeitslosengeld_2__eg_id` (endogenous)
+- The current implementation of `arbeitslosengeld_2__eg_id` is not sufficient as it
+  doesn't include children (it follows the SGB II definition).
+- Potentially, `arbeitslosengeld_2__bg_id` could be used as the aggregation unit.
 
 #### Pointers
 
-- `p_id_einstandspartner`, `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
+  `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Eingliederungshilfe für Menschen mit Behinderung)
 
@@ -284,17 +290,19 @@ Government expenditures: 4 Mrd €
   - Wohngeld has priority over SGB II transfers. The Vorrangprüfung decides which
     Bedarfsgemeinschaft gets Wohngeld and which gets SGB II.
   - If no or all household members receive Bürgergeld instead of an SGB II transfer, the
-    wohngeldrechtlicher Teilhaushalt equals the Haushalt, i.e. `wthh_id = hh_id`.
+    wohngeldrechtlicher Teilhaushalt equals the Haushalt, i.e.
+    `wohngeld__wthh_id = hh_id`.
   - Households that consist of at least one Bedarfsgemeinschaft and one
     wohngeldrechtlicher Teilhaushalt are called "Mischhaushalte".
 
 #### Aggregation unit
 
-- `wthh_id` (endogenous)
+- `wohngeld__wthh_id` (endogenous)
 
 #### Pointers
 
-- `hh_id`, `p_id_einstandspartner`, `p_id_elternteil_1`, `p_id_elternteil_2` (exogenous)
+- `hh_id`, `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
+  `familie__p_id_elternteil_2` (exogenous)
 
 ### Kinderwohngeld
 

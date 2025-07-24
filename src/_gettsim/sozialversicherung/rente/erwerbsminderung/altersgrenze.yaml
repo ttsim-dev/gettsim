@@ -1,0 +1,134 @@
+---
+altersgrenze:
+  name:
+    de: Altersgrenze für Erwerbsminderungsrente
+    en: Statutory retirement age for disability pension
+  description:
+    de: >-
+      § 77 SGB VI
+      Altersgrenze bis zu der man die Erwerbsminderungsrente ohne Abzüge in
+      Anspruch nehmen kann.
+    en: >-
+      § 77 SGB VI
+      Age limit up to which one can claim the public disability insurance without
+      deductions.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2001-01-01:
+    value: 63
+altersgrenze_gestaffelt:
+  name:
+    de: Altersgrenze für Erwerbsminderungsrente
+    en: Statutory retirement age for disability pension
+  description:
+    de: >-
+      § 77 SGB VI / § 264d SGB VI
+      Altersgrenze bis zu der man die Erwerbsminderungsrente ohne Abzüge in
+      Anspruch nehmen kann. Bis 2012 lag die Altersgrenze bei 63. Ab dann
+      schrittweise Anhebung bis 65.
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/295-erwerbsminderungsrente-und-rentenabschlaege.html
+    en: >-
+      § 77 SGB VI / § 264d SGB VI
+      Age limit up to which one can claim the public disability insurance without
+      deductions. Up to 2012, the standard retirement age was 63.
+      From then on gradual increase until 65.
+  unit: Years
+  reference_period: null
+  type: month_based_phase_inout_of_age_thresholds
+  2012-01-01:
+    reference: Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+    first_year_to_consider: 1990
+    last_year_to_consider: 2030
+    2011:
+      12:
+        years: 63
+        months: 0
+    2012:
+      1:
+        years: 63
+        months: 1
+      2:
+        years: 63
+        months: 2
+      3:
+        years: 63
+        months: 3
+      4:
+        years: 63
+        months: 4
+      5:
+        years: 63
+        months: 5
+      6:
+        years: 63
+        months: 6
+    2013:
+      1:
+        years: 63
+        months: 7
+    2014:
+      1:
+        years: 63
+        months: 8
+    2015:
+      1:
+        years: 63
+        months: 9
+    2016:
+      1:
+        years: 63
+        months: 10
+    2017:
+      1:
+        years: 63
+        months: 11
+    2018:
+      1:
+        years: 64
+        months: 0
+    2019:
+      1:
+        years: 64
+        months: 2
+    2020:
+      1:
+        years: 64
+        months: 4
+    2021:
+      1:
+        years: 64
+        months: 6
+    2022:
+      1:
+        years: 64
+        months: 8
+    2023:
+      1:
+        years: 64
+        months: 10
+    2024:
+      1:
+        years: 65
+        months: 0
+altersgrenze_langjährig_versichert:
+  # TODO(@MImmesberger): Probably delete this.
+  # https://github.com/ttsim-dev/gettsim/issues/838
+  name:
+    de: Altersgrenze für langjährige Versicherte
+    en: Statutory retirement age for long-term insured persons
+  description:
+    de: >-
+      § 77 Abs. 4 SGB VI
+      Altersgrenze bis zu der man die Erwerbsminderungsrente ohne Abzüge in Anspruch
+      nehmen kann, wenn man bestimmte zeitliche Bedingungen erfüllt. Bedingungen werden
+      in § 77 Abs. 4 SGB VI definiert.
+    en: >-
+      § 77 Abs. 4 SGB VI
+      Age limit up to which one can claim public disability insurance without deductions
+      under certain time conditions. These conditions are defined in § 77 4 SGB VI.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2001-01-01:
+    value: 63

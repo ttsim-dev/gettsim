@@ -1,0 +1,308 @@
+---
+zurechnungszeitgrenze:
+  name:
+    de: Alter bis zu dem Zurechnungszeiten angerechnet werden
+    en: Age limit for the supplementary period of the public disability insurance
+  description:
+    de: >-
+      § 59 SGB VI (after July 2014)
+      Zurechnungszeiten werden bis zu dieser Altersgrenze gewährt.
+    en: >-
+      § 59 SGB VI (after July 2014)
+      Supplementary periods are granted up to this age limit.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2014-07-01:
+    value: 62
+  2017-07-17:
+    note: Claiming year and month based limit. See `zurechnungszeitgrenze`.
+    reference: G. v. 17.07.2017 BGBl. I S. 2509
+zurechnungszeitgrenze_gestaffelt:
+  name:
+    de: Alter bis zu dem Zurechnungszeiten angerechnet werden
+    en: Age limit for the supplementary period of the public disability insurance
+  description:
+    de: >-
+      § 253a (Anlage 23 bis 2014)
+      Zurechnungszeiten werden bis zu dieser Altersgrenze gewährt.
+    en: >-
+      § 253a (Anlage 23 until 2014)
+      Supplementary periods are granted up to this age limit.
+  unit: Years
+  reference_period: null
+  type: month_based_phase_inout_of_age_thresholds
+  2000-12-23:
+    reference: Anlage 23, G. v. 20.12.2000 BGBl. I S. 1827
+    first_year_to_consider: 1990
+    last_year_to_consider: 2030
+    2000:
+      12:
+        years: 63
+        months: 0
+    2001:
+      1:
+        years: 62
+        months: 11
+      2:
+        years: 62
+        months: 10
+      3:
+        years: 62
+        months: 9
+      4:
+        years: 62
+        months: 8
+      5:
+        years: 62
+        months: 7
+      6:
+        years: 62
+        months: 6
+      7:
+        years: 62
+        months: 5
+      8:
+        years: 62
+        months: 4
+      9:
+        years: 62
+        months: 3
+      10:
+        years: 62
+        months: 2
+      11:
+        years: 62
+        months: 1
+      12:
+        years: 62
+        months: 0
+    2002:
+      1:
+        years: 61
+        months: 11
+      2:
+        years: 61
+        months: 10
+      3:
+        years: 61
+        months: 9
+      4:
+        years: 61
+        months: 8
+      5:
+        years: 61
+        months: 7
+      6:
+        years: 61
+        months: 6
+      7:
+        years: 61
+        months: 5
+      8:
+        years: 61
+        months: 4
+      9:
+        years: 61
+        months: 3
+      10:
+        years: 61
+        months: 2
+      11:
+        years: 61
+        months: 1
+      12:
+        years: 61
+        months: 0
+    2003:
+      1:
+        years: 60
+        months: 11
+      2:
+        years: 60
+        months: 10
+      3:
+        years: 60
+        months: 9
+      4:
+        years: 60
+        months: 8
+      5:
+        years: 60
+        months: 7
+      6:
+        years: 60
+        months: 6
+      7:
+        years: 60
+        months: 5
+      8:
+        years: 60
+        months: 4
+      9:
+        years: 60
+        months: 3
+      10:
+        years: 60
+        months: 2
+      11:
+        years: 60
+        months: 1
+      12:
+        years: 60
+        months: 0
+  2014-07-01:
+    reference: Art. 1 Nr. 4 G. v. 23.06.2014 BGBl. I S. 787
+    note: Uniform age threshold of 62 years. See `zurechnungszeitgrenze`.
+  2017-07-17:
+    reference: G. v. 17.07.2017 BGBl. I S. 2509
+    first_year_to_consider: 1990
+    last_year_to_consider: 2030
+    2017:
+      12:
+        years: 62
+        months: 0
+    2018:
+      1:
+        years: 62
+        months: 3
+    2019:
+      1:
+        years: 62
+        months: 6
+    2020:
+      1:
+        years: 63
+        months: 0
+    2021:
+      1:
+        years: 63
+        months: 6
+    2022:
+      1:
+        years: 64
+        months: 0
+    2023:
+      1:
+        years: 64
+        months: 6
+    2024:
+      1:
+        years: 65
+        months: 0
+  2018-11-28:
+    reference: Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+    first_year_to_consider: 1990
+    last_year_to_consider: 2040
+    2018:
+      12:
+        years: 62
+        months: 3
+    2019:
+      1:
+        years: 65
+        months: 8
+    2020:
+      1:
+        years: 65
+        months: 9
+    2021:
+      1:
+        years: 65
+        months: 10
+    2022:
+      1:
+        years: 65
+        months: 11
+    2023:
+      1:
+        years: 66
+        months: 0
+    2024:
+      1:
+        years: 66
+        months: 1
+    2025:
+      1:
+        years: 66
+        months: 2
+    2026:
+      1:
+        years: 66
+        months: 3
+    2027:
+      1:
+        years: 66
+        months: 4
+    2028:
+      1:
+        years: 66
+        months: 6
+    2029:
+      1:
+        years: 66
+        months: 8
+    2030:
+      1:
+        years: 66
+        months: 10
+    2031:
+      1:
+        years: 67
+        months: 0
+min_zugangsfaktor:
+  name:
+    de: Kleinster möglicher Zugangsfaktor bei der Erwerbsminderungsrente
+    en: Smallest possible access factor for public disability insurance
+  description:
+    de: >-
+      Abzüge wegen frühzeitigem Eintritt in die Erwerbsminderungsrente
+      sind bei 10.8% gedeckelt.
+      § 77 SGB VI, Rentenreformgesetz 1999 (RRG 1999)
+      http://www.portal-sozialpolitik.de/index.php?page=rentenversicherung
+    en: Deductions for early retirement are capped at 10.8%.
+  unit: null
+  reference_period: null
+  type: scalar
+  2000-01-01:
+    value: 0.892
+parameter_rentenartfaktor:
+  name:
+    de: Rentenartfaktor für teilweise Erwerbsminderungsrente
+    en: Pension type factor for partial reduction in public disability insurance
+  description:
+    de: >-
+      § 67 SGB VI
+      Der Rentenartfaktor ist ein festgelegter Faktor für die Rentenberechnung und
+      bestimmt das Sicherungsziel der Rentenart im Verhältnis zu einer Altersrente.
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/1051-rentenartfaktor.html
+    en: >-
+      § 67 SGB VI
+      The pension type factor is a fixed factor for the pension calculation and
+      determines the security target of the pension type in relation to an old-age
+      pension.
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/1051-rentenartfaktor.html
+  unit: null
+  reference_period: null
+  type: dict
+  2001-01-01:
+    teilweise: 0.5
+    voll: 1.0
+altersgrenze_grundbewertung:
+  name:
+    de: Altersgrenze des belegungsfähigen Gesamtzeitraum
+    en: Age limit of belegungsfähiger Gesamtzeitraum
+  description:
+    de: >-
+      SGB VI § 72
+      Als Teil der Grundbewertung wird der belegungsfähige Gesamtzeitraum berechnet.
+      Dieser entspricht dem Zeitraum vom 17. Lebensjahr bis zum Beginn der Rente.
+    en: >-
+      SGB VI § 72
+      As part of the "Grundbewertung" the "belegungsfähige Gesamtzeitraum" will be
+      calculated, which is the period from the age of 17 until the start of the pension.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2001-01-01:
+    value: 16

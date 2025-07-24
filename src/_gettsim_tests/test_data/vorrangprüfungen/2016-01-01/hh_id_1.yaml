@@ -1,0 +1,108 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 30
+      - 30
+      - 2
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      kindergeld_zur_bedarfsdeckung_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kindergeldübertrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      nettoeinkommen_nach_abzug_freibetrag_m:
+        - 1100.0
+        - 200.0
+        - 0.0
+      p_id_einstandspartner:
+        - 2
+        - 1
+        - -1
+      regelbedarf_m_bg:
+        - 1765.0
+        - 1765.0
+        - 1765.0
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 2
+    geburtsjahr:
+      - 1986
+      - 1986
+      - 2014
+    hh_id:
+      - 1
+      - 1
+      - 1
+    kinderzuschlag:
+      basisbetrag_m_bg:
+        - 140.0
+        - 140.0
+        - 140.0
+    p_id:
+      - 1
+      - 2
+      - 3
+    sozialversicherung:
+      rente:
+        bezieht_rente:
+          - false
+          - false
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohngeld:
+      anspruchshöhe_m_bg:
+        - 350.0
+        - 350.0
+        - 350.0
+      anspruchshöhe_m_wthh:
+        - 350.0
+        - 350.0
+        - 350.0
+outputs:
+  arbeitslosengeld_2:
+    betrag_m_bg:
+      - 0.0
+      - 0.0
+      - 0.0
+  kinderzuschlag:
+    betrag_m_bg:
+      - 140
+      - 140
+      - 140
+  wohngeld:
+    betrag_m_wthh:
+      - 350
+      - 350
+      - 350

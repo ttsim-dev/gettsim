@@ -1,0 +1,132 @@
+---
+info:
+  note: ''
+  precision_atol: 0.02
+  source: https://www.ihre-vorsorge.de/rechner/midijob-rechner
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 45
+      - 45
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 950.0
+            - 950.0
+            - 950.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+            - 1
+            - 2
+          hat_kinder:
+            - false
+            - true
+            - true
+      rente:
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 14.12
+          - 14.12
+          - 14.12
+        betrag_versicherter_m:
+          - 7.09
+          - 7.09
+          - 7.09
+    kranken:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 92.86
+          - 92.86
+          - 92.86
+        betrag_versicherter_m:
+          - 46.66
+          - 46.66
+          - 46.66
+    midijob_bemessungsentgelt_m:
+      - 815.89
+      - 815.89
+      - 815.89
+    pflege:
+      beitrag:
+        betrag_arbeitgeber_in_gleitzone_m:
+          - 19.56
+          - 19.56
+          - 19.56
+        betrag_gesamt_in_gleitzone_m:
+          - 34.27
+          - 29.37
+          - 27.33
+        betrag_versicherter_m:
+          - 14.72
+          - 9.82
+          - 8.46
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 101.01
+          - 101.01
+          - 101.01
+        betrag_versicherter_m:
+          - 50.75
+          - 50.75
+          - 50.75

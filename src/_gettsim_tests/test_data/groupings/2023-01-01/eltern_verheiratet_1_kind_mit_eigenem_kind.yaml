@@ -1,0 +1,116 @@
+---
+info:
+  note: >-
+    Child in separate Familiengemeinschaft if it has children (Bedarfsgemeinschaft
+    never covers more than 2 generations)
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 19
+      - 22
+      - 1
+      - 49
+      - 50
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+        - 4
+        - 3
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - true
+        - true
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - 4
+        - 3
+      p_id_elternteil_1:
+        - 3
+        - -1
+        - 0
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - 4
+        - -1
+        - 1
+        - -1
+        - -1
+    geburtsjahr:
+      - 2004
+      - 2001
+      - 2022
+      - 1974
+      - 1973
+    geburtsmonat:
+      - 7
+      - 7
+      - 3
+      - 2
+      - 1
+    geburtstag:
+      - 14
+      - 14
+      - 1
+      - 13
+      - 2
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+outputs:
+  bg_id:
+    - 0
+    - 0
+    - 0
+    - 1
+    - 1
+  eg_id:
+    - 0
+    - 0
+    - 1
+    - 2
+    - 2
+  ehe_id:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 3
+  fg_id:
+    - 0
+    - 0
+    - 0
+    - 1
+    - 1
+  sn_id:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 3

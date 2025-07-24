@@ -1,0 +1,105 @@
+---
+parameter_behindertenpauschbetrag:
+  name:
+    de: Behindertenpauschbetrag in Abhängigkeit des Behinderungsgrads.
+    en: Tax Credit for disabled, depending on degree of disability.
+  description:
+    de: § 33b (3) EStG.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: piecewise_constant
+  1975-01-01:
+    reference: G. v. 05.08.1974 BGBl. I S. 1769.
+    note: DM converted to Euro.
+    0:
+      lower_threshold: -inf
+      intercept_at_lower_threshold: 0
+    1:
+      lower_threshold: 25
+      intercept_at_lower_threshold: 307
+    2:
+      lower_threshold: 35
+      intercept_at_lower_threshold: 429
+    3:
+      lower_threshold: 45
+      intercept_at_lower_threshold: 568
+    4:
+      lower_threshold: 55
+      intercept_at_lower_threshold: 721
+    5:
+      lower_threshold: 65
+      intercept_at_lower_threshold: 890
+    6:
+      lower_threshold: 75
+      intercept_at_lower_threshold: 1058
+    7:
+      lower_threshold: 85
+      intercept_at_lower_threshold: 1227
+    8:
+      lower_threshold: 95
+      upper_threshold: inf
+      intercept_at_lower_threshold: 1411
+  2002-01-01:
+    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790.
+    0:
+      lower_threshold: -inf
+      intercept_at_lower_threshold: 0
+    1:
+      lower_threshold: 25
+      intercept_at_lower_threshold: 310
+    2:
+      lower_threshold: 35
+      intercept_at_lower_threshold: 430
+    3:
+      lower_threshold: 45
+      intercept_at_lower_threshold: 570
+    4:
+      lower_threshold: 55
+      intercept_at_lower_threshold: 720
+    5:
+      lower_threshold: 65
+      intercept_at_lower_threshold: 890
+    6:
+      lower_threshold: 75
+      intercept_at_lower_threshold: 1060
+    7:
+      lower_threshold: 85
+      intercept_at_lower_threshold: 1230
+    8:
+      lower_threshold: 95
+      upper_threshold: inf
+      intercept_at_lower_threshold: 1420
+  2021-01-01:
+    reference: Art. 1 G. v. 09.12.2020 BGBL. I  S. 2770.
+    0:
+      lower_threshold: -inf
+      intercept_at_lower_threshold: 0
+    1:
+      lower_threshold: 20
+      intercept_at_lower_threshold: 384
+    2:
+      lower_threshold: 30
+      intercept_at_lower_threshold: 620
+    3:
+      lower_threshold: 40
+      intercept_at_lower_threshold: 860
+    4:
+      lower_threshold: 50
+      intercept_at_lower_threshold: 1140
+    5:
+      lower_threshold: 60
+      intercept_at_lower_threshold: 1140
+    6:
+      lower_threshold: 70
+      intercept_at_lower_threshold: 1780
+    7:
+      lower_threshold: 80
+      intercept_at_lower_threshold: 2120
+    8:
+      lower_threshold: 90
+      intercept_at_lower_threshold: 2460
+    9:
+      lower_threshold: 100
+      upper_threshold: inf
+      intercept_at_lower_threshold: 2840

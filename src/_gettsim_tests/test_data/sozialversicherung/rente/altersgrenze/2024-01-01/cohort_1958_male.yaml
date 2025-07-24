@@ -1,0 +1,76 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: Made up from the law
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1958
+      - 1958
+      - 1958
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      rente:
+        altersrente:
+          besonders_langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - true
+              - false
+          langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - true
+              - true
+              - false
+    weiblich:
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 66.0
+          - 64.0
+          - 66.0
+        altersgrenze_vorzeitig:
+          - 63.0
+          - 63.0
+          - 66.0
+        besonders_langjährig:
+          altersgrenze:
+            - 64.0
+            - 64.0
+            - 64.0
+        langjährig:
+          altersgrenze:
+            - 66.0
+            - 66.0
+            - 66.0
+          altersgrenze_vorzeitig:
+            - 63.0
+            - 63.0
+            - 63.0
+        referenzalter_abschlag:
+          - 66.0
+          - 66.0
+          - 66.0
+        regelaltersrente:
+          altersgrenze:
+            - 66.0
+            - 66.0
+            - 66.0

@@ -1,0 +1,42 @@
+---
+info:
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+    lohnsteuer:
+      steuerklasse:
+        - 1
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+    alter:
+      - 30
+    arbeitsstunden_w:
+      - 0.0
+    familie:
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1989
+    hh_id:
+      - 1
+    p_id:
+      - 1
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y:
+        - 25181.24

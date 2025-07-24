@@ -1,0 +1,82 @@
+---
+info:
+  note: >-
+    CZ: In case the other parent does not pay child support, the parent with
+    p_id==0 can request full kinderfreibetrag
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 39
+      - 13
+      - 52
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - 2
+        - -1
+    geburtsjahr:
+      - 1984
+      - 2010
+      - 1971
+    geburtsmonat:
+      - 7
+      - 3
+      - 12
+    geburtstag:
+      - 14
+      - 1
+      - 24
+    hh_id:
+      - 0
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  bg_id:
+    - 0
+    - 0
+    - 1
+  eg_id:
+    - 0
+    - 1
+    - 2
+  ehe_id:
+    - 0
+    - 1
+    - 2
+  fg_id:
+    - 0
+    - 0
+    - 1
+  sn_id:
+    - 0
+    - 1
+    - 2

@@ -1,0 +1,79 @@
+---
+info:
+  note: >-
+    Erhöhung der Pflegeversicherungsraten & Änderung der Berechnung für Menschen
+    mit Kindern unter 25 Jahren (ab Juli 2023), Pflegeunterstützungs- und
+    -entlastungsgesetz, keine Kinder
+  precision_atol: 1
+  source: https://www.steuertipps.de/service/rechner/brutto-netto-gehaltsrechner/
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 4000.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    hh_id:
+      - 26
+    p_id:
+      - 26
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 52.0
+    beiträge_arbeitgeber_m:
+      - 816.0
+    beiträge_gesamt_m:
+      - 1656.0
+    beiträge_versicherter_m:
+      - 840.0
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 324.0
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 92.0
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 372.0

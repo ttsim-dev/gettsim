@@ -1,0 +1,155 @@
+---
+info:
+  note: 'Calculation error on the website: should be 210.13 instead of 209.13'
+  precision_atol: 0.01
+  source: https://www.mags.nrw/grundsicherung-im-alter-und-bei-erwerbsminderung-viertes-kapitel-ssss-41-46a-sgb-xii
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 67
+      - 70
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      p_id_einstandspartner:
+        - 25
+        - 24
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 25
+        - 24
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1953
+      - 1950
+    geburtsmonat:
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+    hh_id:
+      - 19
+      - 19
+    kindergeld:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 24
+      - 25
+    schwerbehindert_grad_g:
+      - false
+      - true
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 300.0
+            - 700.0
+        bezieht_rente:
+          - true
+          - true
+        grundrente:
+          grundrentenzeiten_monate:
+            - 144
+            - 300
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 300.0
+        - 300.0
+      heizkosten_m_hh:
+        - 66.0
+        - 66.0
+      wohnfläche_hh:
+        - 40.0
+        - 40.0
+outputs:
+  grundsicherung:
+    im_alter:
+      betrag_m_eg:
+        - 210.13
+        - 210.13

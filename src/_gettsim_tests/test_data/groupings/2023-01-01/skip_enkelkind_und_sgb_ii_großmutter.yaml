@@ -1,0 +1,29 @@
+---
+info:
+  note: Skipping test for now, because input columns are missing.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  provided:
+    geburtsjahr:
+      - 2002
+      - 1966
+    geburtsmonat:
+      - 7
+      - 3
+    geburtstag:
+      - 14
+      - 1
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+outputs:
+  bg_id:
+    - 0
+    - 1
+  sn_id:
+    - 0
+    - 1

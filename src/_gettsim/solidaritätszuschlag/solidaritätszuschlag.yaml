@@ -1,0 +1,106 @@
+---
+parameter_solidaritätszuschlag:
+  name:
+    de: Solidaritätszuschlag
+    en: null
+  description:
+    de: >-
+      Ab 1995, der upper threshold im Intervall 1 ist nach der Formel
+      transition_threshold in soli_st.py berechnet.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: piecewise_linear
+  1991-01-01:
+    reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
+    0:
+      lower_threshold: -inf
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+      upper_threshold: 0
+    1:
+      lower_threshold: 0
+      rate_linear: 0.0375
+      upper_threshold: inf
+  1993-01-01:
+    0:
+      lower_threshold: -inf
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+      upper_threshold: inf
+  1995-01-01:
+    reference: Artikel 31 G. v. 23.06.1993 BGBl. I S. 944.
+    0:
+      lower_threshold: -inf
+      intercept_at_lower_threshold: 0
+      rate_linear: 0
+      upper_threshold: 681
+    1:
+      upper_threshold: 1089.6
+      rate_linear: 0.2
+    2:
+      rate_linear: 0.075
+      upper_threshold: inf
+  1998-01-01:
+    reference: Artikel 1 G. v. 21.11.1997 BGBl. I S. 2743.
+    0:
+      lower_threshold: -inf
+      upper_threshold: 939
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 1295.17
+      rate_linear: 0.2
+    2:
+      rate_linear: 0.055
+      upper_threshold: inf
+  2002-01-01:
+    reference: G. v. 15.10.2002 BGBl. I S. 4131.
+    0:
+      lower_threshold: -inf
+      upper_threshold: 972
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 1340.69
+      rate_linear: 0.2
+    2:
+      rate_linear: 0.055
+      upper_threshold: inf
+  2021-01-01:
+    reference: Artikel 1 G. v. 10.12.2019 BGBl. I S. 2115.
+    0:
+      lower_threshold: -inf
+      upper_threshold: 16956
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 31527.56
+      rate_linear: 0.119
+    2:
+      rate_linear: 0.055
+      upper_threshold: inf
+  2023-01-01:
+    reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
+    updates_previous: true
+    0:
+      upper_threshold: 17543
+    1:
+      upper_threshold: 32619.02
+  2024-01-01:
+    reference: Art. 5 G. v. 08.12.2022 BGBl. I S. 2230.
+    updates_previous: true
+    0:
+      upper_threshold: 18130
+    1:
+      upper_threshold: 33710.47
+  2025-01-01:
+    updates_previous: true
+    reference: Art. 3 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    0:
+      upper_threshold: 19950
+  2026-01-01:
+    updates_previous: true
+    reference: Art. 4 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    0:
+      upper_treshold: 20350

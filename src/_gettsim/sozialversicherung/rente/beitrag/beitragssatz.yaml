@@ -1,0 +1,53 @@
+---
+beitragssatz:
+  name:
+    de: Allgemeiner Beitragssatz zur gesetzlichen Rentenversicherung
+    en: Contribution rate to statutory pension insurance
+  description:
+    de: >-
+      Beitragssatz zur gesetzlichen Rentenversicherung, wird hälftig von
+      Arbeitnehmer/Arbeitgeber getragen.
+    en: >-
+      Contribution rate to statutory pension insurance, which is shared equally by
+      employees and employers.
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1984-01-01:
+    value: 0.185
+  1985-01-01:
+    value: 0.187
+  1986-01-01:
+    value: 0.192
+  1987-01-01:
+    value: 0.187
+  1992-01-01:
+    value: 0.177
+  1993-01-01:
+    value: 0.175
+  1994-01-01:
+    value: 0.192
+  1995-01-01:
+    value: 0.186
+  1996-01-01:
+    value: 0.192
+  1997-01-01:
+    value: 0.203
+  2000-01-01:
+    value: 0.193
+  2001-01-01:
+    value: 0.191
+  2003-01-01:
+    value: 0.195
+  2007-01-01:
+    value: 0.199
+  2012-01-01:
+    value: 0.196
+    note: http://www.bmas.de/DE/Service/Presse/Pressemitteilungen/rentenbericht-16-11-2011.html
+  2013-01-01:
+    value: 0.189
+  2015-01-01:
+    value: 0.187
+  2018-01-01:
+    value: 0.186

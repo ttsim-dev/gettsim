@@ -1,0 +1,175 @@
+---
+bezugsgröße_selbstständige_m:
+  name:
+    de: Einheitliche monatliche Bezugsgröße für Selbstständige
+    en: Uniform monthly reference size for self employed
+  description:
+    de: §18 SGB IV ynd https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
+    en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  add_jahresanfang: true
+  1984-01-01:
+    value: 1396
+  1985-01-01:
+    value: 1432
+  1986-01-01:
+    value: 1467
+  1987-01-01:
+    value: 1539
+  1988-01-01:
+    value: 1575
+  1989-01-01:
+    value: 1611
+  1990-01-01:
+    note: >-
+      Die Bezugsgröße unterscheidet sich zwischen West und Ost. Siehe
+      ``parameter_bezugsgröße_selbstständige_nach_wohnort``.
+  2025-01-01:
+    value: 3745
+    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+bezugsgröße_selbstständige_nach_wohnort:
+  name:
+    de: Monatliche Bezugsgröße für Selbstständige mit Unterschied zwischen West und Ost
+    en: Monthly reference size for self employed with different values for West and East
+  description:
+    de: §18 SGB IV und https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
+    en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
+  unit: Euros
+  reference_period: Month
+  type: dict
+  add_jahresanfang: true
+  1990-01-01:
+    west: 1682
+    ost: 715.8086336747059
+  1991-01-01:
+    west: 1718
+    ost: 787.3894970421765
+  1992-01-01:
+    west: 1790
+    ost: 1073.712950512059
+  1993-01-01:
+    west: 1897
+    ost: 1395.826835665677
+  1994-01-01:
+    west: 2004
+    ost: 1574.778994084353
+  1995-01-01:
+    west: 2076
+    ost: 1682.150289135559
+  1996-01-01:
+    west: 2112
+    ost: 1789.521584186765
+  1997-01-01:
+    west: 2183
+    ost: 1861.102447554235
+  1998-01-01:
+    west: 2219
+    ost: 1896.892879237971
+  1999-01-01:
+    west: 2255
+    ost: 1896.892879237971
+  2000-01-01:
+    west: 2291
+    ost: 1861.102447554235
+  2001-01-01:
+    updates_previous: true
+    ost: 1932.683310921706
+  2002-01-01:
+    west: 2345
+    ost: 1960
+  2003-01-01:
+    west: 2380
+    ost: 1995
+  2004-01-01:
+    west: 2415
+    ost: 2030
+  2006-01-01:
+    west: 2450
+    ost: 2065
+  2007-01-01:
+    updates_previous: true
+    ost: 2100
+  2008-01-01:
+    updates_previous: true
+    west: 2485
+  2009-01-01:
+    west: 2520
+    ost: 2135
+  2010-01-01:
+    west: 2555
+    ost: 2170
+  2011-01-01:
+    updates_previous: true
+    ost: 2240
+  2012-01-01:
+    updates_previous: true
+    west: 2625
+  2013-01-01:
+    west: 2695
+    ost: 2275
+  2014-01-01:
+    note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
+    west: 2765
+    ost: 2345
+  2015-01-01:
+    west: 2835
+    ost: 2415
+  2016-01-01:
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
+    west: 2905
+    ost: 2520
+  2017-01-01:
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
+    west: 2975
+    ost: 2660
+  2018-01-01:
+    west: 3045
+    ost: 2695
+  2019-01-01:
+    note: Sozialversicherungs-Rechengrößenverordnung 2019, BGBl I S. 2024, 27.11.2018
+    west: 3115
+    ost: 2870
+  2020-01-01:
+    reference: §2 V. v. 17.12.2019 BGBl. I S. 2848
+    west: 3185
+    ost: 3010
+  2021-01-01:
+    west: 3290
+    ost: 3115
+    reference: §2 V. v. 30.11.2020, BGBl. I S. 2612.
+  2022-01-01:
+    west: 3290
+    ost: 3150
+    reference: §2 V. v. 30.11.2021, BGBl. I S. 5044.
+  2023-01-01:
+    west: 3395
+    ost: 3290
+    reference: V. v. 28.11.2022 BGBl. I. S. 2128.
+  2024-01-01:
+    west: 3535
+    ost: 3465
+    reference: V. v. 29.11.2023 BGBl. 2023 I Nr. 322.
+  2025-01-01:
+    note: Einheitliche Bezugsgröße für West und Ost
+    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+mindestanteil_bezugsgröße_selbstständige:
+  name:
+    de: Mindestberechungsbeitrag für Selbstständige als Anteil der Bezugsgröße
+    en: Minimum contribution for self employed as fraction of Bezugsgröße
+  description:
+    de: >-
+      §240 SGB V Abs. 4
+      Als beitragspflichtige Einnahmen gilt für den Kalendertag mindestens der
+      neunzigste Teil der monatlichen Bezugsgröße (1/90*30)
+    en: >-
+      §240 SGB V Abs. 4
+      Health Insurance contributions have to be payed, at the minimum, on the ninetieth
+      part of the monthly Bezugsgröße for each calender day
+  unit: Share
+  reference_period: null
+  type: scalar
+  1990-01-01:
+    note: Exact date of introduction of this parameter unclear (was in place in 2006)
+    value: 0.33333333

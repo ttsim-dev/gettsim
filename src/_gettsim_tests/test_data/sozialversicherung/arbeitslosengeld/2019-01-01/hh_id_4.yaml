@@ -1,0 +1,59 @@
+---
+info:
+  precision_atol: 0.01
+  source: none
+inputs:
+  assumed:
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - true
+    sozialversicherung:
+      arbeitslosen:
+        mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 4000.0
+          - 0.0
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 12
+          - 11
+        arbeitssuchend:
+          - true
+          - false
+        monate_durchgängigen_bezugs_von_arbeitslosengeld:
+          - 0.0
+          - 0.0
+        monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+          - 12
+          - 0
+  provided:
+    alter:
+      - 30
+      - 5
+    arbeitsstunden_w:
+      - 20.0
+      - 0.0
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - 5
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1989
+      - 2014
+    hh_id:
+      - 4
+      - 4
+    p_id:
+      - 5
+      - 6
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      betrag_m:
+        - 0.0
+        - 0.0

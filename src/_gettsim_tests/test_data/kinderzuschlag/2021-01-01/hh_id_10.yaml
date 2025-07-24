@@ -1,0 +1,129 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 35
+      - 33
+      - 12
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      mehrbedarf_alleinerziehend_m_bg:
+        - 0.0
+        - 0.0
+        - 0.0
+      p_id_einstandspartner:
+        - 28
+        - 27
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1600.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 27
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 28
+    geburtsjahr:
+      - 1986
+      - 1988
+      - 2009
+    hh_id:
+      - 10
+      - 10
+      - 10
+    kindergeld:
+      betrag_m_hh:
+        - 219.0
+        - 219.0
+        - 219.0
+      grundsätzlich_anspruchsberechtigt:
+        - false
+        - false
+        - true
+      in_ausbildung:
+        - false
+        - false
+        - true
+      p_id_empfänger:
+        - -1
+        - -1
+        - 27
+    kinderzuschlag:
+      bruttoeinkommen_eltern_m:
+        - 1600.0
+        - 0.0
+        - 0.0
+      nettoeinkommen_eltern_m:
+        - 1200.0
+        - 0.0
+        - 0.0
+    p_id:
+      - 27
+      - 28
+      - 29
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bruttokaltmiete_m_hh:
+        - 750.0
+        - 750.0
+        - 750.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+outputs:
+  kinderzuschlag:
+    anspruchshöhe_m_bg:
+      - 205.0
+      - 205.0
+      - 205.0
+    basisbetrag_m_bg:
+      - 205.0
+      - 205.0
+      - 205.0

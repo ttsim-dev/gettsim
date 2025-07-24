@@ -1,0 +1,73 @@
+---
+info:
+  note: >-
+    Adjusted `sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag`
+    since test case uses 0.8 as maximum instead of 0.8004. Beispiel Martin S.
+  precision_atol: 1
+  source: https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/grundrente_zuschlag_zur_rente.html
+inputs:
+  assumed: {}
+  provided:
+    alleinstehend:
+      - true
+    alter:
+      - 70
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    geburtsjahr:
+      - 1951
+    hh_id:
+      - 5
+    p_id:
+      - 5
+    sozialversicherung:
+      rente:
+        altersrente:
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+          zugangsfaktor:
+            - 1.0
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 18.7
+        entgeltpunkte_west:
+          - 0.0
+        grundrente:
+          gesamteinnahmen_aus_renten_vorjahr_m:
+            - 0.0
+          bruttolohn_vorjahr_m:
+            - 0.0
+          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+          bewertungszeiten_monate:
+            - 408
+          grundrentenzeiten_monate:
+            - 408
+          mean_entgeltpunkte:
+            - 18.7
+    wohnort_ost_hh:
+      - true
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        betrag_m:
+          - 677.0
+      grundrente:
+        basisbetrag_m:
+          - 50.98
+        betrag_m:
+          - 50.98
+        mean_entgeltpunkte_zuschlag:
+          - 0.003698333

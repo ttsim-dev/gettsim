@@ -1,0 +1,169 @@
+---
+info:
+  note: >-
+    Test with wealth. Calculated wealth allowance using
+    https://www.steuerschroeder.de/Steuerrechner/Schonverm%C3%B6gen.html
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      p_id_einstandspartner:
+        - 38
+        - 37
+    arbeitsstunden_w:
+      - 20.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 800.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 100.0
+            - 0.0
+          rente:
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 38
+        - 37
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1973
+      - 1973
+    hh_id:
+      - 15
+      - 15
+    kindergeld:
+      betrag_m_bg:
+        - 0.0
+        - 0.0
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 37
+      - 38
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 160.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 14000.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - true
+        - true
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+      wohnfläche_hh:
+        - 70.0
+        - 70.0
+    wohngeld:
+      anspruchshöhe_m_bg:
+        - 0.0
+        - 0.0
+outputs:
+  arbeitslosengeld_2:
+    anrechnungsfreies_einkommen_m:
+      - 240.0
+      - 0.0
+    betrag_m_bg:
+      - 0.0
+      - 0.0
+    kosten_der_unterkunft_m_bg:
+      - 480.0
+      - 480.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 500.0
+      - 0.0
+    regelsatz_m_bg:
+      - 690.0
+      - 690.0

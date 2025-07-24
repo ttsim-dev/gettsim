@@ -1,0 +1,74 @@
+---
+sparerfreibetrag:
+  name:
+    de: Sparerfreibetrag
+    en: Allowance for Capital Gains
+  description:
+    de: >-
+      Früher § 20 (4) EStG. Wert für Einzelpersonen. Wird verdoppelt für
+      gemeinsam veranlagte Paare.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1975-01-01:
+    value: 153
+    note: 300 DM.
+  1990-01-01:
+    value: 307
+    note: 600 DM.
+  1993-01-01:
+    value: 3068
+    note: 6000 DM.
+  2000-01-01:
+    value: 1534
+    note: 3000 DM
+  2002-01-01:
+    value: 1550
+    reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
+  2004-01-01:
+    value: 1370
+  2007-01-01:
+    value: 750
+  2009-01-01:
+    note: >-
+      Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
+      Zinseinkünften in Sparerpauschbetrag.
+sparer_werbungskostenpauschbetrag:
+  name:
+    de: Werbungskostenpauschbetrag bei Zinseinkünften
+    en: null
+  description:
+    de: § 9a EStG
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1975-01-01:
+    value: 51
+    note: 100 DM.
+  2009-01-01:
+    note: >-
+      Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
+      Zinseinkünften in Sparerpauschbetrag.
+sparerpauschbetrag:
+  name:
+    de: Sparerpauschbetrag
+    en: Allowance for Capital Gains
+  description:
+    de: >-
+      § 20 (9) EStG. Wert für Einzelpersonen. Wird verdoppelt für
+      gemeinsam veranlagte Paare.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2009-01-01:
+    value: 801
+    reference: Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
+    note: >-
+      Integration von Werbungskostenpauschbetrag für Zinseinkünfte in
+      Sparerpauschbetrag.
+  2023-01-01:
+    value: 1000
+    reference: G. v. 20.12.2022 BGBl. I S. 2294.

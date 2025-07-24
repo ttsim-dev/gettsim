@@ -1,0 +1,157 @@
+---
+zugangsfaktor_veränderung_pro_jahr:
+  name:
+    de: Veränderung des Zugangsfaktors pro Jahr relativ zur Regelaltersgrenze
+    en: Change in Zugangsfaktor per year relative to the normal retirement age
+  description:
+    de: >-
+      §77 Abs. 2 Nr. 2 SGB VI
+      Faktor um den sich der Zugangsfaktor für die staatliche Rente erhöht/senkt für
+      jedes Jahr, das länger/kürzer gearbeitet wird
+      Achtung: Es gibt viele Ausnahmen von dieser Regel!
+    en: >-
+      §77 Abs. 2 Nr. 2 SGB VI
+      Factor with which the Zugangsfaktor / "access factor" for receiving the statutory
+      pension is increased/decreased for each year of less/more work.
+      Careful: There are many exceptions to this rule!
+  unit: null
+  reference_period: Year
+  type: dict
+  2001-01-01:
+    vorzeitiger_renteneintritt: 0.036
+    späterer_renteneintritt: 0.06
+parameter_rentenwert_nach_wohnort:
+  name:
+    de: Rentenwerte alte und neue Bundesländer
+    en: Pension value old and new federal states
+  description:
+    de: >-
+      statistik-rente.de/drv,  § 68 SGB VI
+      Der aktuelle Rentenwert drückt den Betrag aus, der der monatlichen Rente für
+      einen Entgeltpunkt entspricht.
+    en: >-
+      statistik-rente.de/drv,  § 68 SGB VI
+      The current pension value expresses the amount of monthly pension paid for one
+      Entgeltpunkt.
+  unit: Euros
+  reference_period: null
+  type: dict
+  1992-01-01:
+    west: 21.19
+    ost: 12.05
+  1992-07-01:
+    west: 21.80
+    ost: 13.59
+  1993-01-01:
+    updates_previous: true
+    ost: 14.41
+  1993-07-01:
+    west: 22.75
+    ost: 16.45
+  1994-01-01:
+    updates_previous: true
+    ost: 17.05
+  1994-07-01:
+    west: 23.52
+    ost: 17.63
+  1995-01-01:
+    updates_previous: true
+    ost: 18.13
+  1995-07-01:
+    west: 23.64
+    ost: 18.58
+  1996-01-01:
+    updates_previous: true
+    ost: 19.39
+  1996-07-01:
+    west: 23.86
+    ost: 19.62
+  1997-07-01:
+    west: 24.26
+    ost: 20.71
+  1998-07-01:
+    west: 24.36
+    ost: 20.90
+  1999-07-01:
+    west: 24.69
+    ost: 21.48
+  2000-07-01:
+    west: 24.84
+    ost: 21.61
+  2001-07-01:
+    west: 25.31
+    ost: 22.06
+  2002-07-01:
+    west: 25.86
+    ost: 22.70
+  2003-07-01:
+    west: 26.13
+    ost: 22.97
+  2007-07-01:
+    west: 26.27
+    ost: 23.09
+  2008-07-01:
+    west: 26.56
+    ost: 23.34
+  2009-07-01:
+    west: 27.2
+    ost: 24.13
+  2011-07-01:
+    west: 27.47
+    ost: 24.37
+  2012-07-01:
+    west: 28.07
+    ost: 24.92
+  2013-07-01:
+    west: 28.14
+    ost: 25.74
+  2014-07-01:
+    west: 28.61
+    ost: 26.39
+  2015-07-01:
+    west: 29.21
+    ost: 27.05
+  2016-07-01:
+    west: 30.45
+    ost: 28.66
+  2017-07-01:
+    west: 31.03
+    ost: 29.69
+  2018-07-01:
+    west: 32.03
+    ost: 30.69
+  2019-07-01:
+    west: 33.05
+    ost: 31.89
+  2020-07-01:
+    west: 34.19
+    ost: 33.23
+  2021-07-01:
+    updates_previous: true
+    ost: 33.47
+  2022-07-01:
+    west: 36.02
+    ost: 35.52
+  2023-07-01:
+    note: Rentenwert einheitlich. Siehe `rentenwert`.
+rentenwert:
+  name:
+    de: Rentenwert (Wert eines Entgeltpunktes).
+    en: Value of one Entgeltpunkt.
+  description:
+    de: >-
+      statistik-rente.de/drv,  § 68 SGB VI
+      Der aktuelle Rentenwert drückt den Betrag aus, der der monatlichen Rente für
+      einen Entgeltpunkt entspricht.
+    en: >-
+      statistik-rente.de/drv,  § 68 SGB VI
+      The current pension value expresses the amount of monthly pension paid for one
+      Entgeltpunkt.
+  unit: Euros
+  reference_period: null
+  type: scalar
+  2023-07-01:
+    value: 37.60
+  2024-01-07:
+    value: 39.32
+    reference: V. v. 17.06.2024 BGBl. 2024 I Nr. 194.

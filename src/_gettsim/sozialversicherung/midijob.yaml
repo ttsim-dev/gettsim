@@ -1,0 +1,24 @@
+---
+midijobgrenze:
+  name:
+    de: Midijobgrenze
+    en: Midijob threshold
+  description:
+    de: § 20 (2) SGB IV
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2003-04-01:
+    value: 800
+  2013-01-01:
+    value: 850
+  2019-01-01:
+    value: 1300
+    reference: Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
+  2022-10-01:
+    value: 1600
+    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+  2023-01-01:
+    value: 2000
+    reference: Art. 3 G. v. 11.11.2022 BGBl. I S. 1985

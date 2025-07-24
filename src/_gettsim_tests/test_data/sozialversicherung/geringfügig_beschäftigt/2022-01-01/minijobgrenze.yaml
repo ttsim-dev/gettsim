@@ -1,0 +1,20 @@
+---
+info:
+  note: Minijobgrenze is a parameter.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  provided:
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+outputs:
+  sozialversicherung:
+    minijobgrenze:
+      - 450.0

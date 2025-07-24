@@ -1,0 +1,74 @@
+---
+info:
+  note: check age cut-offs at 18 and 25.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 40
+      - 25
+      - 18
+      - 18
+    arbeitsstunden_w:
+      - 40.0
+      - 0.0
+      - 10.0
+      - 10.0
+      - 30.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+            - 0.0
+            - 700.0
+            - 200.0
+            - 200.0
+      gesamteinkommen_y:
+        - 3000.0
+        - 3000.0
+        - 3000.0
+        - 3000.0
+        - 3000.0
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - true
+        - true
+        - true
+      p_id_empfänger:
+        - -1
+        - -1
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+outputs:
+  kindergeld:
+    betrag_m:
+      - 194
+      - 0
+      - 0
+      - 0
+      - 0
+    betrag_m_hh:
+      - 194
+      - 194
+      - 194
+      - 194
+      - 194

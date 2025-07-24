@@ -15,6 +15,8 @@
   * Standards Track
 - * Created
   * 2022-03-28
+- * Updated
+  * 2025-07-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2004)
 ```
@@ -49,6 +51,9 @@ motivated by two main reasons.
    input variables, it prevents unnecessary calculations, and it increases computation
    speed.
 
+In addition to these requirements, we are using a hierarchical structure of functions to
+allow for a clear separation of concerns.
+
 ## Basic idea
 
 Based on the two requirements above we split the taxes and transfers system into a set
@@ -62,10 +67,12 @@ GETTSIM; this is irrelevant for the DAG.
 
 Function arguments can be of three kinds:
 
-- User-provided input variables (e.g., `bruttolohn_m`).
-- Outputs of other functions in the taxes and transfers system (e.g., `eink_st_y_sn`).
-- Parameters of the taxes and transfers system, which are pre-defined and always end in
-  `_params` (e.g., `ges_rentenv_params`).
+- User-provided input variables (e.g.,
+  `(einkommensteuer, einkünfte, aus_nichtselbstständiger_arbeit, bruttolohn_m)`).
+- Outputs of other functions in the taxes and transfers system (e.g.,
+  `(einkommensteuer, betrag_y_sn)`).
+- Parameters of the taxes and transfers system (e.g.,
+  `(einkommensteuer, abgeltungssteuer, satz)`).
 
 GETTSIM will calculate the variables a researcher is interested in by starting with the
 input variables and calling the required functions in a correct order. This is
@@ -77,47 +84,44 @@ why we use functions when programming: readability, simplicity, lower maintenanc
 potential entry point for a researcher to change the taxes and transfers system if she
 is able to replace this function with her own version.
 
-See the following example for capital income taxes.
+See the following example for capital income taxes (Abgeltungssteuer). Based on the
+location in the file system, the full path is
+`(einkommensteuer, abgeltungssteuer, betrag_y_sn)`.
 
 ```python
-def abgelt_st_y_sn(zu_verst_kapitaleink_y_sn: float, abgelt_st_params: dict) -> float:
-    """Calculate Abgeltungssteuer on Steuernummer-level.
-
-    Parameters
-    ----------
-    zu_verst_kapitaleink_y_sn
-        See :func:`zu_verst_kapitaleink_y_sn`.
-    abgelt_st_params
-        See params documentation :ref:`abgelt_st_params <abgelt_st_params>`.
-
-    Returns
-    -------
-
-    """
-    return abgelt_st_params["satz"] * zu_verst_kapitaleink_y_sn
+@policy_function(start_date="2009-01-01")
+def betrag_y_sn(zu_versteuerndes_kapitaleinkommen_y_sn: float, satz: float) -> float:
+    """Abgeltungssteuer on Steuernummer level."""
+    return satz * zu_versteuerndes_kapitaleinkommen_y_sn
 ```
 
-The function {func}`abgelt_st_y_sn` requires the variable `zu_verst_kapital_eink_y_sn`,
-which is the amount of taxable capital income on the Steuernummer-level (the latter is
-implied by the `_sn` suffix, see {ref}`gep-1`). `zu_verst_kapital_eink_y_sn` must be
-provided by the user as a column of the input data or it has to be the name of another
-function. It is also possible to specify `zu_verst_kapital_eink_y` and aggregation to
-the `sn`-level will happen automatically. `abgelt_st_params` is a dictionary of
-parameters related to the calculation of `abgelt_st_y_sn`.
+The function `(einkommensteuer, abgeltungssteuer, betrag_y_sn)` requires the variable
+`zu_versteuerndes_kapitaleinkommen_y_sn`, which is the amount of taxable capital income
+on the Steuernummer-level (the latter is implied by the `_sn` suffix, see {ref}`gep-1`).
+`zu_versteuerndes_kapitaleinkommen_y_sn` must be provided by the user as a column of the
+input data or it has to be the name of another function (in fact, in the GETTSIM code
+base it will be calculated as income from capital minus expenses). `satz` is a parameter
+coming out of a yaml file in the same directory.
 
-Another function, say
+Another function, say `(solidaritätszuschlag, betrag_y_sn)`,
 
 ```python
-def soli_st_y_sn(
-    eink_st_mit_kinderfreib_y_sn: float,
-    anz_personen_sn: int,
-    abgelt_st_y_sn: float,
-    soli_st_params: dict,
-) -> float: ...
+@policy_function(
+    start_date="2009-01-01", leaf_name="betrag_y_sn", vectorization_strategy="loop"
+)
+def betrag_y_sn_mit_abgelt_st(
+    einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,
+    einkommensteuer__anzahl_personen_sn: int,
+    einkommensteuer__abgeltungssteuer__betrag_y_sn: float,
+    parameter_solidaritätszuschlag: PiecewisePolynomialParameters,
+) -> float:
 ```
 
-may use `abgelt_st_y_sn` as an input argument. The DAG backend ensures that the function
-`abgelt_st_y_sn` will be executed first.
+may use `(einkommensteuer, abgeltungssteuer, betrag_y_sn)` as an input argument. Note
+that because of a different namespace, we need to specify the full path. In order to
+make valid Python identifiers out of paths, we use double underscores. Important for
+this GEP is that the DAG ensures that the function
+`(einkommensteuer, abgeltungssteuer, betrag_y_sn)` will be executed first.
 
 Note that the type annotations (e.g. `float`) indicate the expected type of each input
 and the output of a function, see {ref}`gep-2`.
@@ -125,9 +129,10 @@ and the output of a function, see {ref}`gep-2`.
 ## Directed Acyclic Graph
 
 The relationship between functions and their input variables is a graph where nodes
-represent columns in the data. These columns must either be present in the data supplied
-to GETTSIM or they are computed by functions. Edges are pointing from input columns to
-variables, which require them to be computed.
+represent columns in the data (or parameters of the taxes and transfers system, but
+these will be partialled into the functions first). These columns must either be present
+in the data supplied to GETTSIM or they are computed by functions. Edges are pointing
+from input columns to variables, which require them to be computed.
 
 ```{note}
 GETTSIM allows to visualize the graph, see this [guide](../how_to_guides/visualizing_the_system.ipynb).
@@ -155,51 +160,60 @@ inputs provided by the user:
 >   these functions). These functions need to be written for scalars; they will be
 >   vectorised during the set up of the DAG.
 >
-> - A set of dictionaries specifying aggregation functions, calculating, for example,
->   household-level averages.
->
 > - The target columns of interest.
 
 The DAG is then used to call all required functions in the right order and to calculate
 the requested targets.
 
-### Level of the DAG and limitations
+### Level of the DAG
 
 In principle, GETTSIM will import all functions defined in the modules describing the
 taxes and transfers system. In principle, these functions refer to all years in
 GETTSIM's scope. There has to be some discretion in order to allow for the interface of
 functions to change over time, new functions to appear, or old ones to disappear.
+Because of this, all functions operating on data to be considered by GETTSIM need to be
+decorated as `@policy_function`. For simple cases, the decorator does not require any
+arguments, e.g., the high-level functions to calculate the total amount of income:
 
-Some examples include:
+```python
+@policy_function()
+def gesamteinkommen_y(
+    einkünfte__gesamtbetrag_der_einkünfte_y_sn: float,
+    abzüge__betrag_y_sn: float,
+) -> float:
+    """Gesamteinkommen without Kinderfreibetrag on tax unit level."""
+```
 
-1. `arbeitsl_hilfe` being replaced by `arbeitsl_geld_2`.
-1. `kinderbonus` being active only in a few years.
-1. The introduction of `kinderzuschl`.
-1. Capital income entering `sum_brutto_eink` or not.
+When functions change, different values can be specified for different time periods. The
+`leaf_name` ensures that they can be used without changes elsewhere in the system,
+despite different raw names. For example, the calculation of the Solidaritätszuschlag
+changed with the introduction of the Abgeltungssteuer:
 
-The goal is that the graph for any particular point in time is minimal in the sense that
-`arbeitsl_geld_2` does not appear before it was conceived, it is apparent from the
-interface of `sum_brutto_eink` whether it includes capital income or not, etc..
+```python
+@policy_function(end_date="2008-12-31", leaf_name="betrag_y_sn")
+def betrag_y_sn_ohne_abgelt_st(
+    einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,
+    einkommensteuer__anzahl_personen_sn: int,
+    parameter_solidaritätszuschlag: PiecewisePolynomialParameters,
+) -> float:
+    """Calculate the Solidarity Surcharge on Steuernummer level."""
 
-In the yaml-files corresponding to a particular tax / transfer, functions not present in
-all years will need to be listed with along with the dates for when they are active. See
-:gep-3-keys-referring-to-functions: for the precise syntax. That mechanism should be
-used for:
 
-1. Functions that are newly introduced.
+@policy_function(start_date="2009-01-01", leaf_name="betrag_y_sn")
+def betrag_y_sn_mit_abgelt_st(
+    einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,
+    einkommensteuer__anzahl_personen_sn: int,
+    einkommensteuer__abgeltungssteuer__betrag_y_sn: float,
+    parameter_solidaritätszuschlag: PiecewisePolynomialParameters,
+) -> float:
+    """Calculate the Solidarity Surcharge on Steuernummer level."""
+```
 
-1. Functions that cease to be relevant.
-
-1. Functions whose interface changes over time.
-
-1. Functions whose body changes so much that
-
-   - it is useful to signal that things have changed and/or
-   - it would be awkward to program the different behaviors in one block with case
-     distinctions.
-
-Needless to say, the different reasons may appear at different points in time for the
-same function.
+The above construct ensures that both versions can be accessed as
+`solidaritätszuschlag__betrag_y_sn` in other parts of the code. If a policy environment
+is created for a point in time before 2009, it will be the first version that is used.
+If the policy environment is created for a point in time after 2008, the second version
+will be used.
 
 ## Additional functionalities
 
@@ -214,30 +228,21 @@ Many taxes or transfers require group-level variables. \<GEP-2 describes
 `gep-2-aggregation-functions`> how reductions are handled in terms of the underlying
 data. This section describes how to specify them.
 
-In order to inject aggregation functions at the group level into the graph, scripts with
-functions of the taxes and transfer system should define a dictionary
-`aggregate_by_group_[script_name]` at the module level. This dictionary must specify the
-aggregated columns as keys and a dictionary with keys `source_col` and `aggr` as values.
-If `aggr` is `count`, `source_col` is not needed.
+For example, we may need the number of adult household members. The following code in
+`household_characteristics.py` does this:
 
-For example, in `demographic_vars.py`, we could have:
+```python
+from gettsim.tt import AggType, agg_by_group_function
 
-```
-aggregate_by_group_demographic_vars = {
-    "anz_kinder_hh": {"source_col": "kind", "aggr": "sum"},
-    "anz_personen_hh": {"aggr": "count"},
-}
+
+@agg_by_group_function(agg_type=AggType.SUM)
+def anzahl_erwachsene_hh(familie__erwachsen: bool, hh_id: int) -> int:
+    pass
 ```
 
-The group identifier (`hh_id`, `wthh_id`, `fg_id`, `bg_id`, `eg_id`, `ehe_id`, `sn_id`)
-will be automatically included as an argument; for `count` nothing else is necessary.
-
-The output type will be the same as the input type. Exceptions:
-
-- Input type `bool` and aggregation `sum` leads to output type `int`.
-- Input type `int` and aggregation {math}`\in \{` `any`, `all` {math}`\}` leads to
-  output type `bool`
-- Aggregation `count` will always result in an `int`.
+That is, we need to specify the aggregation type (sum), the input column
+(`familie__erwachsen`), and the group identifier (`hh_id`). GETTSIM will take care of
+the rest.
 
 The most common operation are sums of individual measures. GETTSIM adds the following
 syntactic sugar: In case an individual-level column `my_col` exists, the graph will be
@@ -249,30 +254,31 @@ Automatic summation will only happen in case no column `my_col_hh` is explicitly
 Using a different reduction function than the sum is as easy as explicitly specifying
 `my_col_hh`.
 
-Consider the following example: the function `kindergeld_m` calculates the
-individual-level child benefit payment. `arbeitsl_geld_2_m_bg` calculates
+Consider the following example: the function `kindergeld__betrag_m` calculates the
+individual-level child benefit payment. `arbeitslosengeld_2__betrag_m_bg` calculates
 Arbeitslosengeld 2 on the Bedarfsgemeinschaft (bg) level (as indicated by the suffix).
 One necessary input of this function is the sum of all child benefits on the
-Bedarfsgemeinschaft level. There is no function or input column `kindergeld_m_bg`.
+Bedarfsgemeinschaft level. There is no function or input column
+`kindergeld__betrag_m_bg`.
 
-By including `kindergeld_m_bg` as an argument in the definition of
-`arbeitsl_geld_2_m_bg` as follows:
+By including `kindergeld__betrag_m_bg` as an argument in the definition of
+`arbeitslosengeld_2__betrag_m_bg` as follows:
 
 ```python
-def arbeitsl_geld_2_m_bg(kindergeld_m_bg, other_arguments): ...
+def arbeitslosengeld_2__betrag_m_bg(kindergeld__betrag_m_bg, other_arguments): ...
 ```
 
-a node `kindergeld_m_bg` containing the Bedarfsgemeinschaft-level sum of `kindergeld_m`
-will be automatically added to the graph. Its parents in the graph will be
-`kindergeld_m` and `bg_id`. This is the same as specifying:
+a node `kindergeld__betrag_m_bg` containing the Bedarfsgemeinschaft-level sum of
+`kindergeld__betrag_m` will be automatically added to the graph. Its parents in the
+graph will be `kindergeld__betrag_m` and `bg_id`. This is the same as specifying:
 
-```
-aggregate_by_group_kindergeld =  = {
-    "kindergeld_m_bg": {
-        "source_col": "kindergeld_m",
-        "aggr": "sum"
-    }
-}
+```python
+from gettsim.tt import AggType, agg_by_group_function
+
+
+@agg_by_group_function(agg_type=AggType.SUM)
+def anzahl_erwachsene_hh(kindergeld__betrag_m: float, bg_id: int) -> float:
+    pass
 ```
 
 (gep-4-aggregation-by-p-id-functions)=
@@ -287,66 +293,61 @@ column. This section describes how to specify such taxes and transfers.
 
 The implementation is similar to aggregations to the level of groupings: In order to
 specify new aggregation functions, scripts with functions of the taxes and transfer
-system should define a dictionary `aggregate_by_p_id_[script_name]` at the module level.
-This dictionary must specify the aggregated columns as keys and a dictionary with keys
-`source_col`, `p_id_to_aggregate_by` and `aggr` as values. If `aggr` is `count`,
-`source_col` is not needed.
+system should define a dictionary `aggregation_specs` at the module level. This
+dictionary must specify the aggregated columns as keys and the `AggregateByPIDSpec` data
+class as values. The class specifies the `source`, `p_id_to_aggregate_by`, and `agg`. If
+`agg` is `count`, `source` is not needed.
 
-The key `source_col` specifies which column is the source of the aggregation operation.
-The key `p_id_to_aggregate_by` specifies the column that indicates to which `p_id` the
-values in `source_col` should be ascribed to. The key `aggr` gives the aggregation
-method.
+The key `source` specifies which column is the source of the aggregation operation. The
+key `p_id_to_aggregate_by` specifies the column that indicates to which `p_id` the
+values in `source` should be ascribed to. The key `agg` gives the aggregation method.
 
-For example, in `kindergeld.py`, we could have:
+For example, in the `kindergeld` namespace, we could have:
 
+```python
+from gettsim.tt import AggType, agg_by_p_id_function
+
+
+@agg_by_p_id_function(agg_type=AggType.SUM)
+def anzahl_ansprüche(
+    grundsätzlich_anspruchsberechtigt: bool, p_id_empfänger: int, p_id: int
+) -> int:
+    pass
 ```
-aggregate_by_p_id_kindergeld = {
-    "kindergeld_anz_ansprüche": {
-        "p_id_to_aggregate_by": "p_id_kindergeld_empf",
-        "source_col": "kindergeld_anspruch",
-        "aggr": "sum",
-    },
-}
-```
 
-This dict creates a target function `kindergeld_anz_ansprüche` which gives the amount of
-claims that a person has on Kindergeld, based on the `kindergeld_anspruch` function
-which returns Booleans, which show whether a child is a reason for a Kindergeld claim.
-
-The output type will be the same as the input type. Exceptions:
-
-- Input type `bool` and aggregation `sum` leads to output type `int`.
-- Input type `int` or `float` and aggregation {math}`\in \{` `any`, `all` {math}`\}`
-  leads to output type `bool`
-- Aggregation `count` will always result in an `int`.
+This places a target function `kindergeld__anzahl_ansprüche` which gives the amount of
+claims that a person has on Kindergeld, based on the
+`kindergeld__grundsätzlich_anspruchsberechtigt` function which returns Booleans, which
+show whether a child is a reason for a Kindergeld claim. `p_id` and some `p_id_[target]`
+are required arguments; they will be processed according to naming conventions.
 
 (gep-4-time-unit-conversion)=
 
 ### Conversion between reference periods
 
 Similarly to summations to the group level, GETTSIM will automatically convert values
-referring to different reference periods defined in {ref}`gep-1` (years (default, no
-suffix), months `_m`, weeks `_w`, and days `_d`).
+referring to different reference periods defined in {ref}`gep-1` (years `_y`, quarters
+`_q`, months `_m`, weeks `_w`, and days `_d`).
 
-In case a column with annual values `[column]` exists, the graph will be augmented with
-a node including monthly values like `[column]_m` should that be requested. Requests can
-be either inputs in a downstream function or explicit targets of the calculation. In
-case the column refers to a different level of aggregation, say `[column]_hh`, the same
-applies to `[column]_m_hh`.
+In case a column with annual values `[column]_y` exists, the graph will be augmented
+with a node including monthly values like `[column]_m` should that be requested.
+Requests can be either inputs in a downstream function or explicit targets of the
+calculation. In case the column refers to a different level of aggregation, say
+`[column]_hh`, the same applies to `[column]_m_hh`.
 
-Automatic summation will only happen in case no column `[column]_m` is explicitly set.
+Automatic conversion will only happen in case no column `[column]_m` is explicitly set.
 Using a different conversion function than the sum is as easy as explicitly specifying
 `[column]_m`.
 
 Conversion goes both ways and uses the following formulas:
 
-```{eval-rst}
-| time unit | suffix | factor     |
-| Year      |        | 1          |
-| Month     | ``_m`` | 12         |
-| Week      | ``_w`` | 365.25 / 7 |
-| Day       | ``_d`` | 365.25     |
-```
+| time unit | suffix | factor relative to Year |
+| --------- | ------ | ----------------------- |
+| Year      | `_y`   | 1                       |
+| Quarter   | `_q`   | 4                       |
+| Month     | `_m`   | 12                      |
+| Week      | `_w`   | 365.25 / 7              |
+| Day       | `_d`   | 365.25                  |
 
 These values average over leap years. They ensure that conversion is always possible
 both ways without changing quantities. In case more complex conversions are needed (for
@@ -360,8 +361,7 @@ functions for, say, `[column]_w` need to be set.
   splits and distributes computations.
 - Based on GETTSIM and many other projects, the
   [dags](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2004)
-  project combines the core ideas in one spot. GETTSIM will likely use it to implement
-  functionality at some point.
+  project combines the core ideas in one spot and has become a dependency of GETTSIM.
 
 ## Alternatives
 
@@ -370,8 +370,10 @@ computational advantages.
 
 ## Discussion
 
-- <https://github.com/iza-institute-of-labor-economics/gettsim/pull/178>
+- <https://github.com/ttsim-dev/gettsim/pull/178>
 - <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2004>
+- GitHub PR for update (changes because of `GEP-6 <gep-6>`):
+  <https://github.com/ttsim-dev/gettsim/pull/855>
 
 ## Copyright
 

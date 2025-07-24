@@ -1,0 +1,239 @@
+---
+beitragspflichtiges_durchschnittsentgelt_y:
+  name:
+    de: Beitragspflichtiges Durchschnittsentgelt aller Versicherten
+    en: Mean relevant wage of all insured individuals
+  description:
+    de: >-
+      Anlage 1 SGB VI, Durchschnittsentgelt aller Versicherten im Sinne der deutschen
+      Sozialversicherung. Dieses wird benötigt zur Berechnung der Entgeltpunkte.
+    en: >-
+      Anlage 1 SGB VI, Mean wage of all insured people in the sense of the German social
+      insurance, which is needed to calculate the Entgeltpunkte.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2005-01-01:
+    value: 29202
+  2006-01-01:
+    value: 29494
+  2007-01-01:
+    value: 29951
+  2008-01-01:
+    value: 30625
+  2009-01-01:
+    value: 30506
+  2010-01-01:
+    value: 31144
+  2011-01-01:
+    value: 32100
+  2012-01-01:
+    value: 33002
+  2013-01-01:
+    value: 33659
+  2014-01-01:
+    value: 34514
+  2015-01-01:
+    value: 35363
+  2016-01-01:
+    value: 36187
+  2017-01-01:
+    value: 37077
+  2018-01-01:
+    value: 38212
+    reference: V. v. 17.12.2019 BGBl. I S. 2848.
+  2019-01-01:
+    value: 39301
+    reference: V. v. 30.11.2020 BGBl. I S. 2612.
+  2020-01-01:
+    value: 39167
+    reference: §1 V. v. 30.11.2021, BGBl. I S. 5044.
+  2021-01-01:
+    value: 40463
+    reference: §3 V. v. 28.11.2022 BGBl. I S. 2128 (Nr. 47).
+  2022-01-01:
+    value: 42053
+    reference: §3 V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+  2023-01-01:
+    value: 44732
+    reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+  2024-01-01:
+    value: 45358
+    reference: §3 V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+    note: Vorläufiges Durchschnittsentgelt
+  2025-01-01:
+    value: 50493
+    reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+    note: Vorläufiges Durchschnittsentgelt
+umrechnung_entgeltpunkte_beitrittsgebiet:
+  name:
+    de: Umrechnung der Beitragsbemessungsgrundlagen des Beitrittgebietes
+    en: Conversion of the Beitragsbemessungsgrundlage in former GDR
+  description:
+    de: >-
+      §256a SGB VI and Anlage 10 SGB VI
+      Für die Berechnung der Entgeltpunkte wird das Einkommen im "Beitrittsgebiet" um
+      diesen Faktor erhöht.
+    en: >-
+      §256a SGB VI and Anlage 10 SGB VI
+      To calculate the Entgeltpunkte, income in the former GDR is increased by this
+      factor.
+  unit: null
+  reference_period: null
+  type: scalar
+  1945-01-01:
+    value: 1.0000
+  1950-01-01:
+    value: 0.9931
+  1951-01-01:
+    value: 1.0502
+  1952-01-01:
+    value: 1.0617
+  1953-01-01:
+    value: 1.0458
+  1954-01-01:
+    value: 1.0185
+  1955-01-01:
+    value: 1.0656
+  1956-01-01:
+    value: 1.1029
+  1957-01-01:
+    value: 1.1081
+  1958-01-01:
+    value: 1.0992
+  1959-01-01:
+    value: 1.0838
+  1960-01-01:
+    value: 1.1451
+  1961-01-01:
+    value: 1.2374
+  1962-01-01:
+    value: 1.3156
+  1963-01-01:
+    value: 1.3667
+  1964-01-01:
+    value: 1.4568
+  1965-01-01:
+    value: 1.5462
+  1966-01-01:
+    value: 1.6018
+  1967-01-01:
+    value: 1.5927
+  1968-01-01:
+    value: 1.6405
+  1969-01-01:
+    value: 1.7321
+  1970-01-01:
+    value: 1.8875
+  1971-01-01:
+    value: 2.0490
+  1972-01-01:
+    value: 2.1705
+  1973-01-01:
+    value: 2.3637
+  1974-01-01:
+    value: 2.5451
+  1975-01-01:
+    value: 2.6272
+  1976-01-01:
+    value: 2.7344
+  1977-01-01:
+    value: 2.8343
+  1978-01-01:
+    value: 2.8923
+  1979-01-01:
+    value: 2.9734
+  1980-01-01:
+    value: 3.1208
+  1981-01-01:
+    value: 3.1634
+  1982-01-01:
+    value: 3.2147
+  1983-01-01:
+    value: 3.2627
+  1984-01-01:
+    value: 3.2885
+  1985-01-01:
+    value: 3.3129
+  1986-01-01:
+    value: 3.2968
+  1987-01-01:
+    value: 3.2548
+  1988-01-01:
+    value: 3.2381
+  1989-01-01:
+    value: 3.2330
+  1990-01-01:
+    value: 3.0707
+  1990-06-01:
+    value: 2.3473
+  1991-01-01:
+    value: 1.7235
+  1992-01-01:
+    value: 1.4393
+  1993-01-01:
+    value: 1.3197
+  1994-01-01:
+    value: 1.2687
+  1995-01-01:
+    value: 1.2317
+  1996-01-01:
+    value: 1.2209
+  1997-01-01:
+    value: 1.2089
+  1998-01-01:
+    value: 1.2113
+  1999-01-01:
+    value: 1.2054
+  2000-01-01:
+    value: 1.2030
+  2001-01-01:
+    value: 1.2003
+  2002-01-01:
+    value: 1.1972
+  2003-01-01:
+    value: 1.1943
+  2004-01-01:
+    value: 1.1932
+  2005-01-01:
+    value: 1.1827
+  2006-01-01:
+    value: 1.1827
+  2007-01-01:
+    value: 1.1841
+  2008-01-01:
+    value: 1.1857
+  2009-01-01:
+    value: 1.1712
+  2010-01-01:
+    value: 1.1726
+  2011-01-01:
+    value: 1.1740
+  2012-01-01:
+    value: 1.1785
+  2013-01-01:
+    value: 1.1762
+  2014-01-01:
+    value: 1.1665
+  2015-01-01:
+    value: 1.1502
+  2016-01-01:
+    value: 1.1415
+  2017-01-01:
+    value: 1.1374
+  2018-01-01:
+    value: 1.1339
+  2019-01-01:
+    value: 1.0840
+  2020-01-01:
+    value: 1.0700
+  2021-01-01:
+    value: 1.0560
+  2022-01-01:
+    value: 1.0420
+  2023-01-01:
+    value: 1.0280
+  2024-01-01:
+    value: 1.0140
+  2025-01-01:
+    note: Umrechnung entfällt.

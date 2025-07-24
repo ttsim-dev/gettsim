@@ -1,0 +1,74 @@
+---
+info:
+  note: Änderungen MidiJob 2022 (kinderlos)
+  precision_atol: 1
+  source: https://www.kbs.de/SiteGlobals/Forms/Rechner/Midijobrechner/seite1/node.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 35
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1100.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    hh_id:
+      - 19
+    p_id:
+      - 19
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 10.31
+    beiträge_arbeitgeber_m:
+      - 239.04
+    beiträge_gesamt_m:
+      - 414.28
+    beiträge_versicherter_m:
+      - 175.24
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 68.32
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 16.7
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 79.91

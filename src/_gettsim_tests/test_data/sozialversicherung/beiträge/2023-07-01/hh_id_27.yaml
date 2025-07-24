@@ -1,0 +1,79 @@
+---
+info:
+  note: >-
+    Erhöhung der Pflegeversicherungsraten & Änderung der Berechnung für Menschen
+    mit Kindern unter 25 Jahren (ab Juli 2023), Pflegeunterstützungs- und
+    -entlastungsgesetz, keine Kinder und Midijob
+  precision_atol: 1
+  source: https://www.smart-rechner.de/midijob/rechner.php
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 50
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1000.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    hh_id:
+      - 27
+    p_id:
+      - 27
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 8.43
+    beiträge_arbeitgeber_m:
+      - 231.54
+    beiträge_gesamt_m:
+      - 369.21
+    beiträge_versicherter_m:
+      - 137.67
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 52.54
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 16.38
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 60.32

@@ -1,0 +1,86 @@
+---
+max_bezugsmonate:
+  name:
+    de: Maximale Anzahl an Elterngeldbezugsmonaten.
+    en: Maximum number of months of Elterngeld receipt.
+  description:
+    de: >-
+      § 4 (3) BEEG
+      § 4 (3) BEEG
+      Basismonate plus "Partnermonate" bei gleichzeitiger Inanspruchnahme von Elterngeld
+      bei Paaren. Basismonate bei Alleinerziehenden.
+  unit: Months
+  reference_period: null
+  type: dict
+  2007-01-01:
+    basismonate: 12
+    partnermonate: 2
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+max_zu_versteuerndes_einkommen_vorjahr_nach_alleinerziehendenstatus:
+  name:
+    de: Maximales zu versteuerndes Einkommen im Jahr vor der Geburt des Kindes.
+    en: Maximum taxable income in the year before the birth of the child.
+  description:
+    de: >-
+      Maximales zu versteuerndes Einkommen im letzten Veranlagungszeitraum vor Geburt
+      des Kindes. Einkommen über dieser Grenze schließt den Bezug von Elterngeld aus (§
+      1 (8) BEEG).
+    en: >-
+      Maximum taxable income in the year before the birth of the child. Income above
+      this threshold disqualifies the parent from receiving Elterngeld.
+  unit: Euros
+  reference_period: null
+  type: dict
+  2011-01-01:
+    alleinerziehend: 250000.0
+    paar: 500000.0
+    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+  2021-09-01:
+    updates_previous: true
+    paar: 300000.0
+    reference: Art. 1 G. v. 15.02.2021 BGBl. I S. 239
+  2024-04-01:
+    note: Pauschalisiert, siehe 'max_zu_versteuerndes_einkommen_vorjahr_pauschal'
+max_zu_versteuerndes_einkommen_vorjahr_pauschal:
+  name:
+    de: Maximales zu versteuerndes Einkommen im Jahr vor der Geburt des Kindes.
+    en: Maximum taxable income in the year before the birth of the child.
+  description:
+    de: >-
+      Maximales zu versteuerndes Einkommen im letzten Veranlagungszeitraum vor Geburt
+      des Kindes. Einkommen über dieser Grenze schließt den Bezug von Elterngeld aus (§
+      1 (8) BEEG).
+    en: >-
+      Maximum taxable income in the year before the birth of the child. Income above
+      this threshold disqualifies the parent from receiving Elterngeld.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2024-04-01:
+    value: 200000.0
+    reference: >-
+      Single: Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107, Paar: Art. 1 G. v.
+      22.12.2023 BGBl. 2023 I Nr. 412
+  2025-04-01:
+    value: 175000.0
+    reference: >-
+      Single: Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107, Paar: Art. 1 G. v.
+      22.12.2023 BGBl. 2023 I Nr. 412
+max_arbeitsstunden_w:
+  name:
+    de: >-
+      Maximale Wochenstunden die bei Elterngeldbezug gearbeitet werden dürfen
+    en: >-
+      Maximum amount of weekly hours one is allowed to work while receiving Elterngeld
+  description:
+    de: §1 (6) BEEG
+    en: null
+  unit: Hours
+  reference_period: Week
+  type: scalar
+  2007-01-01:
+    value: 30
+    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+  2021-09-01:
+    value: 32
+    reference: Art. 1 G. v. 15.02.2021 BGBl. I S. 239

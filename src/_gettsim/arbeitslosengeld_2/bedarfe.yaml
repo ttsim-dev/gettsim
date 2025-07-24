@@ -1,0 +1,138 @@
+---
+parameter_regelsatz_anteilsbasiert:
+  name:
+    de: Berechnungsgrundlagen für den Regelsatz
+    en: Calculation basis for the standard rate
+  description:
+    de: >-
+      § 20 V SGB II, siehe Bekanntmachungen zu § 20.
+    en: >-
+      § 20 V SGB II, see regulations for § 20.
+  unit: null
+  reference_period: Month
+  type: require_converter
+  2005-01-01:
+    basissatz: 338
+    anteil_vom_basissatz_bei_zwei_erwachsenen: 0.9
+    anteil_vom_basissatz_bei_weiteren_erwachsenen: 0.8
+    anteil_vom_basissatz_für_kinder:
+      jugendliche_und_junge_erwachsene:
+        min_alter: 14
+        max_alter: 24
+        anteil: 0.8
+      schulkind:
+        min_alter: 6
+        max_alter: 13
+        anteil: 0.6
+      kleinkind:
+        min_alter: 0
+        max_alter: 5
+        anteil: 0.6
+    reference: Artikel 1 G. v. 24.12.2003 BGBl. I S. 2954.
+    note: >-
+      Der tatsächliche Wert unterscheidet sich zwischen Ost und West. Korrekte Werte
+      sind in den alten Bundesländern einschließlich Berlin (Ost) 345 Euro, in den neuen
+      Bundesländern 331 Euro.
+      Anteile vom Regelsatz für erwachsene Haushaltsmitglieder laut § 20 (3) SGB II.
+      Eigentliche Wirknorm ist § 20 IV SGB II i.V.m Absatz V derselben Norm. Der
+      Regelsatz für weitere Haushaltsmitglieder wurde als Anteil des Standardsatzes
+      bestimmt.
+  2005-07-01:
+    updates_previous: true
+    basissatz: 338
+    reference: B. v. 01.09.2005 BGBl. I S. 2718.
+    note: >-
+      Betrag unverändert. Der tatsächliche Wert unterscheidet sich zwischen Ost und
+      West. Hier wurde vereinfachend 338 Euro als ungewichteter Mittelwert genommen.
+      Korrekte Werte für die Zeit ab 1. Juli 2005 sind in den alten Bundesländern
+      einschließlich Berlin (Ost) 345 Euro, in den neuen Bundesländern 331 Euro.
+  2006-07-01:
+    updates_previous: true
+    basissatz: 345
+    reference: B. v. 20.07.2006 BGBl. I S. 1702.
+  2007-07-01:
+    updates_previous: true
+    basissatz: 347
+    reference: B. v. 18.06.2007 BGBl. I S. 1139.
+  2008-07-01:
+    updates_previous: true
+    basissatz: 351
+    reference: B. v. 26.06.2008 BGBl. I S. 1102.
+  2009-07-01:
+    updates_previous: true
+    basissatz: 359
+    anteil_vom_basissatz_für_kinder:
+      jugendliche_und_junge_erwachsene:
+        min_alter: 14
+        max_alter: 24
+        anteil: 0.8
+      schulkind:
+        min_alter: 6
+        max_alter: 13
+        anteil: 0.7
+      kleinkind:
+        min_alter: 0
+        max_alter: 5
+        anteil: 0.6
+    reference: B. v. 17.06.2009 BGBl. I S. 1342.
+  2010-07-01:
+    updates_previous: true
+    basissatz: 359
+    reference: B. v. 07.06.2010 BGBl. I S. 820. Betrag unverändert.
+  2011-01-01:
+    note: Calculation method changed, see regelbedarfsstufen.
+kindersofortzuschlag:
+  name:
+    de: Kindersofortzuschlag für Arbeitslosengeld II
+    en: Instant surcharge for children for unemployment benefit
+  description:
+    de: >-
+      § 72 SGB II
+      Kinder, Jugendliche  und junge Erwachsene, die Anspruch auf
+      Arbeitslosengeld II oder Sozialgeld haben (Regelbedarfsstufen 3, 4, 5, 6),
+      erhalten einen Sofortzuschlag von 20€.
+    en: >-
+      § 72 SGB II
+      Children, adolescents and young adults who are entitled to unemployment benefits
+      or social benefits (Regelbedarfsstufen 3, 4, 5, 6) receive an instant surcharge
+      of 20 Euro.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2022-07-01:
+    value: 20
+  2025-01-01:
+    value: 25
+    note: >-
+      Gesetz zur Fortentwicklung des Steuerrechts und zur  Anpassung des Einkommen-
+      steuertarifs (Steuerfortentwicklungsgesetz - SteFeG)
+    reference: Art. 7 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+parameter_mehrbedarf_alleinerziehend:
+  name:
+    de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
+    en: Parameter for calculating the additional need of single parents
+  description:
+    de: >-
+      § 21 (3) Nr. 1 SGB II. Mehrbedarfe für Alleinerziehende sind als Anteile vom
+      maßgebenden Regelbedarf angegeben. ``kind_bis_6_oder_2_3_kinder_bis_15`` gibt den
+      Anteil bei einem Kind bis 6 Jahren oder zwei oder drei Kindern bis 15 Jahre an.
+      ``basis_je_kind_bis_17`` gibt den maßgeblichen Anteil vom Regelbedarf je Kind an,
+      wenn der daraus resultierende Anspruch größer ist als der Anspruch durch
+      ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gibt den Maximalanteil vom
+      Regelbedarf an, der für Alleinerziehende als Mehrbedarf berücksichtigt wird.
+    en: >-
+      § 21 (3) Nr. 1 SGB II. Additional needs for single parents are given as shares of
+      the relevant Regelbedarf. ``kind_bis_6_oder_2_3_kinder_bis_15`` gives the share
+      when there is one child up to 6 years or two or three children up to 15 years.
+      ``basis_je_kind_bis_17`` gives the relevant share of the Regelbedarf per child
+      when the resulting claim is greater than the claim through
+      ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gives the maximum share of the
+      Regelbedarf that is considered as an additional need for single parents.
+  unit: Share
+  reference_period: Month
+  type: dict
+  2005-01-01:
+    basis_je_kind_bis_17: 0.12
+    kind_bis_6_oder_2_3_kinder_bis_15: 0.36
+    max: 0.6
+    reference: G. v. 24.12.2003 BGBl. I S. 2954.

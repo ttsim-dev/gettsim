@@ -1,0 +1,52 @@
+---
+beitragssatz:
+  name:
+    de: Allgemeiner Beitragssatz zur Arbeitslosenversicherung
+    en: Contribution rate to unemployment insurance.
+  description:
+    de: >-
+      Beitragssatz zur Arbeitslosenversicherung, wird aufgeteilt in Arbeitnehmer- und
+      Arbeitgeberanteil.
+    en: >-
+      Contribution rate to unemployment insurance, split into employee and
+      employer contribution.
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1984-01-01:
+    value: 0.046
+  1985-01-01:
+    value: 0.044
+  1986-01-01:
+    value: 0.041
+  1987-01-01:
+    value: 0.043
+  1992-01-01:
+    value: 0.063
+  1993-01-01:
+    value: 0.065
+  2007-01-01:
+    value: 0.042
+  2008-01-01:
+    value: 0.032
+  2009-01-01:
+    value: 0.028
+  2011-01-01:
+    value: 0.03
+  2019-01-01:
+    value: 0.025
+    note: >-
+      Set to 0.013 in Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651. Temporarily
+      reduced to 0.0125 in BeiSaV 2019.
+    reference: V. v. 21.12.2018 BGBl. I S. 2663
+  2020-01-01:
+    value: 0.024
+    note: Temporarily reduced to 0.012 in BeiSaV 2019.
+    reference: V. v. 02.12.2019 BGBl. I S. 1998
+  2023-01-01:
+    value: 0.026
+    note: >-
+      Contribution rate was temporarily reduced from 2019 to 2022 in BeiSaV 2019. Back
+      to level specified in § 341 Abs. 2 SGB III.
+    reference: Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651

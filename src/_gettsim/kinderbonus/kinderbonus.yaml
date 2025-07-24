@@ -1,0 +1,22 @@
+---
+satz:
+  name:
+    de: Kinderbonus pro Kind
+    en: Child bonus (one-time payment)
+  description:
+    de: >-
+      Aufstockung des Kindergeldes während COVID-19 Pandemie. Wurde im September/Oktober
+      2020 bzw. Mai 2021 ausgezahlt, aber ist hier auf das volle Kalenderjahr
+      angerechnet.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2020-01-01:
+    reference: Art. 1 Zweites Corona-Steuerhilfegesetz v. 29.06.2020 BGBl. I S. 1512
+    value: 300
+  2021-01-01:
+    reference: Art. 1 Drittes Corona-Steuerhilfegesetz v. 10.03.2021 BGBl. I S. 330
+    value: 150
+  2022-01-01:
+    note: ad-hoc measure ended again.

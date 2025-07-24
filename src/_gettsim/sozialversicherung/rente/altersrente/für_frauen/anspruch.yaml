@@ -1,0 +1,42 @@
+---
+kohorte_abschaffung:
+  name:
+    de: Kohorte Abschaffung Rente für Frauen
+    en: Cohort abolishment pension for women
+  description:
+    de: >-
+      Kohorte, ab der die Rente für Frauen abgeschafft ist.
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+    en: >-
+      Cohort from which pension for women has been abolished
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1997-12-16:
+    reference: § 237a SGB VI, Rentenreformgesetz 1999. BGBl. I 1997 S. 2998
+    value: 1952
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.
+mindestpflichtbeitragsjahre_ab_alter_40:
+  name:
+    de: Mindestpflichbeitragsjahre ab 40 für Rente für Frauen
+    en: Minimum contribution since 40 pension for women.
+  description:
+    de: >-
+      Mindestpflichbeitragsjahre, nach dem 40. Lebensjahr,
+      die für Rente für Frauen berechtigt.
+      § 237a SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+    en: >-
+      Minimum number of contribution years starting at age 40 required to be eligible
+      for pension for women.
+      § 237a SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1950-01-01:
+    value: 10
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.

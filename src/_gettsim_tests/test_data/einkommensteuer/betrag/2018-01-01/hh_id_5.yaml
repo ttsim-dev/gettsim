@@ -1,0 +1,38 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+      gesamteinkommen_y:
+        - 200000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 180000.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 5
+    p_id:
+      - 5
+outputs:
+  einkommensteuer:
+    abgeltungssteuer:
+      betrag_y_sn:
+        - 0.0
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 66978
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 75378
+  solidaritätszuschlag:
+    betrag_y_sn:
+      - 3683.79

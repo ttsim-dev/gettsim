@@ -6,72 +6,160 @@ try:
     # Import the version from _version.py which is dynamically created by
     # setuptools-scm upon installing the project with pip.
     # Do not put it under version control!
-    from _gettsim._version import version as __version__
+    from _gettsim._version import __version__, __version_tuple__, version, version_tuple
 except ImportError:
     __version__ = "unknown"
+    __version_tuple__ = ("unknown", "unknown", "unknown")
+    version = "unknown"
+    version_tuple = ("unknown", "unknown", "unknown")
 
-
-import itertools
-import warnings
+from dataclasses import dataclass
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
+import ttsim as _ttsim
+from ttsim import (
+    InputData,
+    Labels,
+    MainTarget,
+    RawResults,
+    Results,
+    SpecializedEnvironment,
+    TTTargets,
+    __version__,
+    __version_tuple__,
+    copy_environment,
+    merge_trees,
+    upsert_tree,
+)
 
-from _gettsim import (
-    aggregation,
-    config,
-    gettsim_typing,
-    piecewise_functions,
-    shared,
-    taxes,
-    transfers,
-    visualization,
-)
-from _gettsim.functions.policy_function import PolicyFunction
-from _gettsim.interface import (
-    FunctionsAndColumnsOverlapWarning,
-    compute_taxes_and_transfers,
-)
-from _gettsim.policy_environment import PolicyEnvironment, set_up_policy_environment
-from _gettsim.synthetic import create_synthetic_data
-from _gettsim.visualization import plot_dag
 from _gettsim_tests import TEST_DIR
 
-COUNTER_TEST_EXECUTIONS = itertools.count()
+if TYPE_CHECKING:
+    import datetime
+    from collections.abc import Iterable
+
+    import plotly.graph_objects as go
+    from ttsim import typing
+    from ttsim.plot_dag import NodeSelector
+    from ttsim.typing import (
+        DashedISOString,
+        FlatColumnObjectsParamFunctions,
+        FlatOrigParamSpecs,
+        NestedTargetDict,
+        PolicyEnvironment,
+        QNameData,
+    )
+
+    typing = typing
+
+InputData = InputData
+Labels = Labels
+MainTarget = MainTarget
+RawResults = RawResults
+Results = Results
+SpecializedEnvironment = SpecializedEnvironment
+TTTargets = TTTargets
+__version__ = __version__
+__version_tuple__ = __version_tuple__
+copy_environment = copy_environment
+merge_trees = merge_trees
+upsert_tree = upsert_tree
 
 
-def test(*args):
-    n_test_executions = next(COUNTER_TEST_EXECUTIONS)
+def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
+    pytest.main([str(TEST_DIR), "--backend", backend])
 
-    if n_test_executions == 0:
-        pytest.main([str(TEST_DIR), "--noconftest", *args])
-    else:
-        warnings.warn(
-            "Repeated execution of the test suite is not possible. Start a new Python "
-            "session or restart the kernel in a Jupyter/IPython notebook to re-run the "
-            "tests.",
-            stacklevel=2,
+
+@dataclass(frozen=True)
+class OrigPolicyObjects(_ttsim.main_args.MainArg):
+    column_objects_and_param_functions: FlatColumnObjectsParamFunctions | None = None
+    param_specs: FlatOrigParamSpecs | None = None
+
+
+def main(
+    *,
+    main_target: str | tuple[str, ...] | NestedTargetDict | None = None,
+    main_targets: Iterable[str | tuple[str, ...]] | None = None,
+    policy_date_str: DashedISOString | None = None,
+    input_data: InputData | None = None,
+    tt_targets: TTTargets | None = None,
+    rounding: bool = True,
+    backend: Literal["numpy", "jax"] = "numpy",
+    evaluation_date_str: DashedISOString | None = None,
+    include_fail_nodes: bool = True,
+    include_warn_nodes: bool = True,
+    orig_policy_objects: OrigPolicyObjects | None = None,
+    raw_results: RawResults | None = None,
+    results: Results | None = None,
+    specialized_environment: SpecializedEnvironment | None = None,
+    policy_environment: PolicyEnvironment | None = None,
+    processed_data: QNameData | None = None,
+    policy_date: datetime.date | None = None,
+    evaluation_date: datetime.date | None = None,
+    labels: Labels | None = None,
+) -> dict[str, Any]:
+    if orig_policy_objects is None:
+        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(
+            root=Path(__file__).parent.parent / "_gettsim"
         )
+
+    return _ttsim.main(**locals())
+
+
+def plot_interface_dag(
+    include_fail_and_warn_nodes: bool = True,
+    show_node_description: bool = False,
+    output_path: Path | None = None,
+) -> go.Figure:
+    return _ttsim.plot_interface_dag(
+        include_fail_and_warn_nodes=include_fail_and_warn_nodes,
+        show_node_description=show_node_description,
+        output_path=output_path,
+        remove_orig_policy_objects__root=True,
+    )
+
+
+def plot_tt_dag(
+    policy_date_str: str,
+    node_selector: NodeSelector | None = None,
+    title: str = "",
+    include_params: bool = True,
+    include_other_objects: bool = False,
+    show_node_description: bool = False,
+    output_path: Path | None = None,
+) -> go.Figure:
+    return _ttsim.plot_tt_dag(
+        policy_date_str=policy_date_str,
+        root=Path(__file__).parent.parent / "_gettsim",
+        node_selector=node_selector,
+        title=title,
+        include_params=include_params,
+        include_other_objects=include_other_objects,
+        show_node_description=show_node_description,
+        output_path=output_path,
+    )
 
 
 __all__ = [
+    "InputData",
+    "Labels",
+    "MainTarget",
+    "OrigPolicyObjects",
+    "RawResults",
+    "Results",
+    "SpecializedEnvironment",
+    "TTTargets",
     "__version__",
-    "FunctionsAndColumnsOverlapWarning",
-    "PolicyEnvironment",
-    "PolicyFunction",
-    "compute_taxes_and_transfers",
-    "set_up_policy_environment",
-    "plot_dag",
-    # TODO (@hmgaudecker): See what can be changed/removed from remainder.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/378
-    "aggregation",
-    "config",
-    "piecewise_functions",
-    "policy_environment",
-    "shared",
-    "social_insurance_contributions",
-    "create_synthetic_data",
-    "taxes",
-    "transfers",
-    "gettsim_typing",
-    "visualization",
+    "__version_tuple__",
+    "copy_environment",
+    "main",
+    "merge_trees",
+    "plot_interface_dag",
+    "plot_tt_dag",
+    "test",
+    "upsert_tree",
+    "version",
+    "version_tuple",
 ]

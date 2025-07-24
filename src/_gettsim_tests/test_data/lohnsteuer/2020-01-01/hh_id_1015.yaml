@@ -1,0 +1,53 @@
+---
+info:
+  note: ''
+  precision_atol: 1.5
+  source: ''
+inputs:
+  assumed:
+    familie:
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+  provided:
+    alter:
+      - 25
+    arbeitsstunden_w:
+      - 40.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1477.2325
+    hh_id:
+      - 1015
+    kindergeld:
+      in_ausbildung:
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 6
+    p_id:
+      - 1015
+    sozialversicherung:
+      kranken:
+        beitrag:
+          zusatzbeitragssatz:
+            - 0.0101
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+          zahlt_zusatzbetrag_kinderlos:
+            - false
+      regulär_beschäftigt:
+        - true
+    wohnort_ost_hh:
+      - false
+outputs:
+  lohnsteuer:
+    betrag_m:
+      - 253.0
+    betrag_soli_m:
+      - 13.933333333333332

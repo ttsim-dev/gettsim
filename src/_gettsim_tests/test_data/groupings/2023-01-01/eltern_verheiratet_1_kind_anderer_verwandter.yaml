@@ -1,0 +1,97 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 39
+      - 42
+      - 13
+      - 10
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+        - -1
+    geburtsjahr:
+      - 1984
+      - 1981
+      - 2010
+      - 2013
+    geburtsmonat:
+      - 7
+      - 7
+      - 3
+      - 5
+    geburtstag:
+      - 14
+      - 14
+      - 1
+      - 12
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+outputs:
+  bg_id:
+    - 0
+    - 0
+    - 0
+    - 1
+  eg_id:
+    - 0
+    - 0
+    - 1
+    - 2
+  ehe_id:
+    - 0
+    - 0
+    - 1
+    - 2
+  fg_id:
+    - 0
+    - 0
+    - 0
+    - 1
+  sn_id:
+    - 0
+    - 0
+    - 1
+    - 2

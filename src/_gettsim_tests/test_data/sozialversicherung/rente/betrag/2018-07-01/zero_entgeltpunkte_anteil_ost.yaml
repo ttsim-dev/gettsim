@@ -1,0 +1,23 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+inputs:
+  assumed: {}
+  provided:
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 0.0
+outputs:
+  sozialversicherung:
+    rente:
+      erwerbsminderung:
+        anteil_entgeltpunkte_ost:
+          - 0.0

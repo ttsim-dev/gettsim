@@ -1,0 +1,140 @@
+---
+info:
+  note: Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
+  precision_atol: 0.01
+  source: https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/stadt-wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2025-artikel.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 57
+    anzahl_personen_hh:
+      - 1
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+      eigenbedarf_gedeckt:
+        - false
+      p_id_einstandspartner:
+        - -1
+    behinderungsgrad:
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 300.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 2000.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+          rente:
+            ertragsanteil:
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1966
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 0
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 0
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 80.0
+      rente:
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        altersrente:
+          betrag_m:
+            - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 100.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen:
+      - 5000.0
+    vorrangprüfungen:
+      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+    wohnen:
+      baujahr_immobilie_hh:
+        - 1982
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 600.0
+      heizkosten_m_hh:
+        - 50.0
+      wohnfläche_hh:
+        - 40.0
+    wohngeld:
+      mietstufe_hh:
+        - 5
+      mindesteinkommen_erreicht_bg:
+        - true
+      mindesteinkommen_erreicht_wthh:
+        - true
+outputs:
+  wohngeld:
+    anspruchshöhe_m_bg:
+      - 145.0
+    anspruchshöhe_m_wthh:
+      - 145.0

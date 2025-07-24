@@ -1,0 +1,156 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 35
+      - 5
+    arbeitsstunden_w:
+      - 20.0
+      - 0.0
+    behinderungsgrad:
+      - 0
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
+        vorsorgeaufwendungen_y_sn:
+          - 3119.94
+          - 3119.94
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_ehepartner:
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - 13
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1984
+      - 2014
+    hh_id:
+      - 13
+      - 13
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - 13
+    p_id:
+      - 13
+      - 14
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2050
+          - 2070
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      alleinerziehend_betrag_y:
+        - 1908
+        - 0
+      altersfreibetrag_y:
+        - 0
+        - 0
+      pauschbetrag_behinderung_y:
+        - 0
+        - 0
+    einkünfte:
+      gesamtbetrag_der_einkünfte_y:
+        - 17000
+        - 0
+    gesamteinkommen_y:
+      - 11936.06
+      - 0.0
+    kinderfreibetrag_y_sn:
+      - 3810
+      - 0.0
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+      - 8126.06
+      - 0.0

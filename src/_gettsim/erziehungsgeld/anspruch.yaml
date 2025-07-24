@@ -1,0 +1,93 @@
+---
+maximale_wochenarbeitszeit:
+  name:
+    de: Wochenarbeitsstundengrenze der Empfänger (Eltern)
+    en: Weekly working hours limit of recipients (parents)
+  description:
+    de: >-
+      Grenze der wöchentlichen Arbeitsstunden bis zu der Erziehungsgeld ausgezahlt wird
+    en: >-
+      Limit of weekly working hours up to which parental leave benefit is paid
+  unit: Hours
+  reference_period: Week
+  type: scalar
+  2004-02-09:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 211
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+    value: 30
+  2008-12-31:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+maximales_kindsalter_regelsatz:
+  name:
+    de: Alter des Kindes bis zu dem der Regelsatz bezogen werden kann.
+    en: Age of the child up to which the Regelsatz can be claimed.
+  description:
+    de: >-
+      Alter des Kindein Monaten bis zu dem der Regelsatz bezogen werden kann.
+    en: >-
+      Age of the child in months up to which the Regelsatz can be claimed.
+  unit: Months
+  reference_period: null
+  type: scalar
+  2004-01-01:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 208
+    value: 24
+  2008-12-31:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+maximales_kindsalter_budgetsatz:
+  name:
+    de: Alter des Kindes bis zu dem der Budgetsatz bezogen werden kann.
+    en: Age of the child up to which the Budgetsatz can be claimed.
+  description:
+    de: >-
+      Alter des Kindein Monaten bis zu dem der Budgetsatz bezogen werden kann.
+    en: >-
+      Age of the child in months up to which the Budgetsatz can be claimed.
+  unit: Months
+  reference_period: null
+  type: scalar
+  2004-01-01:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 208
+    value: 12
+  2008-12-31:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+abolishment_cohort:
+  name:
+    de: Letzte Geburtskohorte, für die Erziehungsgeld ausgezahlt wird
+    en: Last birth cohort for which parental leave benefit is paid
+  description:
+    de: >-
+      Erziehungsgeld wird durch das Elterngeld ersetzt.
+    en: >-
+      Erziehungsgeld is replaced by Elterngeld.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2006-12-11:
+    reference: Art. 3 G. v. 5.12.2006 BGBl. I S. 2748
+    value: 2006
+  2008-12-31:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+altersgrenze_für_reduziertes_einkommenslimit_kind_monate:
+  name:
+    de: Altersgrenze des Kindes in Monaten für das reduzierte Einkommenslimit
+    en: Age limit of the child in months for the reduced income limit
+  description:
+    de: >-
+      Bei Kindern unter der Altersgrenze, wird Erziehungsgeld nicht gezahlt, wenn das
+      Einkommen der Eltern die relevante Einkommensgrenze überschreitet.
+    en: >-
+      For children under a certain age, parental leave benefit is not paid if the
+      income of the parents exceeds the relevant income threshold.
+  unit: Months
+  reference_period: Year
+  type: scalar
+  2004-02-09:
+    reference: 09.02.2004 BGBl. I S. 209
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+      Reduced income limit for children older than 6 months.
+    value: 7
+  2008-12-31:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.

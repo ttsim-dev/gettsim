@@ -1,0 +1,144 @@
+---
+info:
+  note: Zusatzbeitrag is assumed to be 0.013.
+  precision_atol: 0.02
+  source: https://apps.datev.de/help-center/documents/1038903
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 45
+      - 45
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 950.0
+            - 950.0
+            - 950.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+          zusatzbeitragssatz:
+            - 0.013
+            - 0.013
+            - 0.013
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+            - 1
+            - 2
+          hat_kinder:
+            - false
+            - true
+            - true
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m:
+      - 563.61
+      - 563.61
+      - 563.61
+    midijob_bemessungsentgelt_m:
+      - 828.13
+      - 828.13
+      - 828.13
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 7.33
+          - 7.33
+          - 7.33
+        betrag_arbeitgeber_m:
+          - 14.21
+          - 14.21
+          - 14.21
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 44.8
+          - 44.8
+          - 44.8
+        betrag_versicherter_in_gleitzone_m:
+          - 44.8
+          - 44.8
+          - 44.8
+        betrag_arbeitgeber_m:
+          - 86.86
+          - 86.86
+          - 86.86
+        betrag_gesamt_in_gleitzone_m:
+          - 131.66
+          - 131.66
+          - 131.66
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 14.55
+          - 9.58
+          - 8.17
+        betrag_arbeitgeber_m:
+          - 18.58
+          - 18.58
+          - 18.58
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 52.42
+          - 52.42
+          - 52.42
+        betrag_arbeitgeber_m:
+          - 101.62
+          - 101.62
+          - 101.62

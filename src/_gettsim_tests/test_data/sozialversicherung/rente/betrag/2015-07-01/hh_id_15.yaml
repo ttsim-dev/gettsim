@@ -1,0 +1,84 @@
+---
+info:
+  note: 'From eastern Germany: earns more Entgeltpunkte for same wage.'
+  precision_atol: 0.1
+  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 33
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 900.0
+    geburtsjahr:
+      - 1982
+    geburtsmonat:
+      - 1
+    hh_id:
+      - 15
+    p_id:
+      - 15
+    sozialversicherung:
+      rente:
+        altersrente:
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 0.0
+          wegen_arbeitslosigkeit:
+            arbeitslos_für_1_jahr_nach_alter_58_ein_halb:
+              - false
+            pflichtbeitragsjahre_8_von_10:
+              - false
+            vertrauensschutz_1997:
+              - false
+            vertrauensschutz_2004:
+              - false
+        entgeltpunkte_ost:
+          - 10.6965
+        entgeltpunkte_west:
+          - 0.0
+        ersatzzeiten_monate:
+          - 0.0
+        freiwillige_beitragsmonate:
+          - 0.0
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+        monate_geringfügiger_beschäftigung:
+          - 0.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+        monate_in_mutterschutz:
+          - 0.0
+        monate_in_schulausbildung:
+          - 0.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+        pflichtbeitragsmonate:
+          - 60.0
+    weiblich:
+      - false
+    wohnort_ost_hh:
+      - true
+outputs:
+  sozialversicherung:
+    rente:
+      entgeltpunkte_ost_updated:
+        - 11.04777563
+      entgeltpunkte_west_updated:
+        - 0.0
+      neue_entgeltpunkte:
+        - 0.351275627
+      altersrente:
+        altersgrenze:
+          - 67.0

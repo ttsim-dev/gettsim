@@ -5,18 +5,18 @@
 # If extensions (or modules to document with autodoc) are in another directory, add
 # these directories to sys.path here. If the directory is relative to the documentation
 # root, use os.path.abspath to make it absolute, like shown here.
-import datetime as dt
 import pathlib
 import sys
+from datetime import datetime
 
 sys.path.insert(0, str(pathlib.Path("../src").resolve()))
 
 # -- Project information -----------------------------------------------------
 
 project = "GETTSIM"
-copyright = f"2019-{dt.datetime.today().year}, GETTSIM team"  # noqa: A001
+copyright = f"2019-{datetime.today().year}, GETTSIM team"  # noqa: A001, DTZ002
 author = "GETTSIM team"
-release = "0.5.1"
+release = "0.7.0"
 version = ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
@@ -82,7 +82,7 @@ autodoc_mock_imports = [
 extlinks = {
     "ghuser": ("https://github.com/%s", "@%s"),
     "gh": (
-        "https://github.com/iza-institute-of-labor-economics/gettsim/pull/%s",
+        "https://github.com/ttsim-dev/gettsim/pull/%s",
         "#%s",
     ),
 }
@@ -108,7 +108,7 @@ html_theme = "pydata_sphinx_theme"
 html_logo = "_static/images/gettsim_logo.svg"
 
 html_theme_options = {
-    "github_url": "https://github.com/iza-institute-of-labor-economics/gettsim",
+    "github_url": "https://github.com/ttsim-dev/gettsim",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here, relative
@@ -122,7 +122,7 @@ html_sidebars = {
     "**": [
         "relations.html",  # needs 'show_related': True theme option to display
         "searchbox.html",
-    ]
+    ],
 }
 
 # Napoleon settings

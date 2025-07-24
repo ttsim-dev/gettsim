@@ -1,0 +1,74 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: >-
+    Sylvia Dünn, Claudia Bilgen und Sophie-Charlotte Heckenberger, "Das
+    Grundrentengesetz",
+    https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Zeitschriften/DRV_Hefte_deutsch/2020/ausgewaehlter_artikel_heft_3.pdf?__blob=publicationFile&v=4
+inputs:
+  assumed: {}
+  provided:
+    alleinstehend:
+      - true
+    alter:
+      - 70
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    geburtsjahr:
+      - 1951
+    hh_id:
+      - 3
+    p_id:
+      - 3
+    sozialversicherung:
+      rente:
+        altersrente:
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+          zugangsfaktor:
+            - 1.0
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 21.0
+        grundrente:
+          gesamteinnahmen_aus_renten_vorjahr_m:
+            - 0.0
+          bruttolohn_vorjahr_m:
+            - 0.0
+          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+          bewertungszeiten_monate:
+            - 420
+          grundrentenzeiten_monate:
+            - 420
+          mean_entgeltpunkte:
+            - 21.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        betrag_m:
+          - 927.88
+      grundrente:
+        basisbetrag_m:
+          - 209.89
+        betrag_m:
+          - 209.89
+        mean_entgeltpunkte_zuschlag:
+          - 0.014616667

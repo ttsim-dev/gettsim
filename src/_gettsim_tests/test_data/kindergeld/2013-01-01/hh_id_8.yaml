@@ -1,0 +1,74 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 50
+      - 50
+      - 12
+      - 14
+      - 15
+    arbeitsstunden_w:
+      - 40.0
+      - 40.0
+      - 0.0
+      - 25.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 20000.0
+            - 20000.0
+            - 0.0
+            - 800.0
+            - 300.0
+      gesamteinkommen_y:
+        - 200000.0
+        - 200000.0
+        - 200000.0
+        - 200000.0
+        - 200000.0
+    hh_id:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+        - true
+        - true
+      p_id_empfänger:
+        - -1
+        - -1
+        - 29
+        - 29
+        - 29
+    p_id:
+      - 29
+      - 30
+      - 31
+      - 32
+      - 33
+outputs:
+  kindergeld:
+    betrag_m:
+      - 558
+      - 0
+      - 0
+      - 0
+      - 0
+    betrag_m_hh:
+      - 558
+      - 558
+      - 558
+      - 558
+      - 558

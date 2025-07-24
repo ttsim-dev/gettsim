@@ -1,0 +1,395 @@
+---
+info:
+  note: >-
+    Several households that differ in their eligibility for Wohngeld because of
+    Mindesteinkommen.
+  precision_atol: 0.01
+  source: Made up.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+      - 40
+      - 40
+      - 40
+      - 40
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - 5
+        - 4
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 200.0
+        - 200.0
+        - 50.0
+        - 50.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1200.0
+            - 1200.0
+            - 750.0
+            - 750.0
+            - 600.0
+            - 600.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            ertragsanteil:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - 5
+        - 4
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1983
+      - 1983
+      - 1983
+      - 1983
+      - 1983
+      - 1983
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 1
+      - 1
+      - 2
+      - 2
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 200.0
+        - 200.0
+        - 100.0
+        - 100.0
+        - 0.0
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 100.0
+            - 100.0
+            - 50.0
+            - 50.0
+            - 0.0
+            - 0.0
+      rente:
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 100.0
+            - 100.0
+            - 50.0
+            - 50.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      baujahr_immobilie_hh:
+        - 2010
+        - 2010
+        - 2010
+        - 2010
+        - 2010
+        - 2010
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 500.0
+        - 500.0
+        - 500.0
+        - 500.0
+        - 500.0
+        - 500.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+    wohngeld:
+      mietstufe_hh:
+        - 5
+        - 5
+        - 5
+        - 5
+        - 5
+        - 5
+outputs:
+  arbeitslosengeld_2:
+    regelbedarf_m_bg:
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+    regelbedarf_m_wthh:
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+      - 1452.0
+  wohngeld:
+    einkommen_für_mindesteinkommen_m_wthh:
+      - 1983.33
+      - 1983.33
+      - 1295.83
+      - 1295.83
+      - 1200.0
+      - 1200.0
+    mindesteinkommen_erreicht_wthh:
+      - true
+      - true
+      - false
+      - false
+      - false
+      - false
+  wthh_id:
+    - 2
+    - 2
+    - 0
+    - 0
+    - 1
+    - 1

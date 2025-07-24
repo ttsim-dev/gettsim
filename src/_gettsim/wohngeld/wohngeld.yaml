@@ -1,0 +1,592 @@
+---
+max_anzahl_personen:
+  name:
+    de: Maximale Anzahl an Personen für die Wohngeldformel
+    en: Maximum number of persons for the Wohngeld formula
+  description:
+    de: >-
+      Dies sind rein technische Parameter, welche für das korrekte Setzen der
+      Datenstrukturen notwendig sind.
+      - `normale_berechnung` ist der Maximalwert an berücksichtigten Personen, für
+        welche die Wohngeldformel im Gesetz spezifiziert ist.
+      - `indizierung` hat keinerlei Referenz zu einem Gesetz und ist somit kein
+        Politikparameter, sondern bestimmt die Größe der Lookup-Tabellen.
+    en: >-
+      These are purely technical parameters that are necessary for the correct
+      setting of the data structures.
+      - `normale_berechnung` is the maximum number of persons considered for the
+        calculation of the housing allowance.
+      - `indizierung` is not a policy parameter, but determines the size of the
+        lookup tables.
+  unit: null
+  reference_period: null
+  type: dict
+  1984-01-01:
+    normale_berechnung: 12
+    indizierung: 50
+skalierungsfaktor:
+  name:
+    de: Faktor am Anfang der Wohngeldformel
+    en: Factor at the beginning of the Wohngeld formula
+  description:
+    de: Anlage 2 WoGG zu §19 Abs. 2 WoGG
+    en: null
+  unit: null
+  reference_period: null
+  type: scalar
+  1984-01-01:
+    value: 1
+  2009-01-01:
+    value: 1.08
+    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+  2016-01-01:
+    value: 1.15
+    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+koeffizienten_berechnungsformel:
+  name:
+    de: Parameter a, b, c der Wohngeldformel
+    en: Parameters a, b, c of the Wohngeld formula
+  description:
+    de: >-
+      WoGG - Anlage 2 (bis 2019 Anlage 1) (zu § 19 (1)). Seit 2022 auch §24
+      Wohngeldverordnung (WoGV).
+      Die Schlüssel von 1 to 12 beziehen sich auf die Haushaltsgröße.
+    en: The keys from 1 to 12 below refer to the household size.
+  unit: null
+  reference_period: null
+  type: require_converter
+  1984-01-01:
+    note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    1:
+      a: 0.0532
+      b: 0.00135
+      c: 0.0000632
+    2:
+      a: 0.0574
+      b: 0.000957
+      c: 0.0000352
+    3:
+      a: 0.0612
+      b: 0.00078
+      c: 0.0000202
+    4:
+      a: 0.0596
+      b: 0.000613
+      c: 2.78e-06
+    5:
+      a: 0.0572
+      b: 0.000554
+      c: 5.38e-07
+    6:
+      a: 0.0365
+      b: 0.000531
+      c: 4.62e-06
+    7:
+      a: 0.0129
+      b: 0.000502
+      c: 0.0000124
+    8:
+      a: -0.0176
+      b: 0.000468
+      c: 0.0000253
+    9:
+      a: -0.0397
+      b: 0.000424
+      c: 0.0000364
+    10:
+      a: -0.0595
+      b: 0.000373
+      c: 0.0000481
+    11:
+      a: -0.0595
+      b: 0.000373
+      c: 0.0000481
+    12:
+      a: -0.0595
+      b: 0.000373
+      c: 0.0000481
+  1990-01-01:
+    note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    updates_previous: true
+    1:
+      a: 0.0648
+      b: 0.00102
+      c: 0.0000613
+    2:
+      a: 0.0694
+      b: 0.000715
+      c: 0.0000347
+    3:
+      a: 0.0741
+      b: 0.000604
+      c: 0.000011
+    4:
+      a: 0.0669
+      b: 0.000476
+      c: 1.75e-06
+    5:
+      a: 0.064
+      b: 0.00043
+      c: 9.14e-07
+    6:
+      a: 0.0445
+      b: 0.000414
+      c: 4.02e-06
+    7:
+      a: 0.0226
+      b: 0.000397
+      c: 9.44e-06
+    8:
+      a: -0.0005
+      b: 0.000387
+      c: 0.0000136
+    9:
+      a: -0.0281
+      b: 0.000337
+      c: 0.0000308
+    10:
+      a: -0.0455
+      b: 0.000298
+      c: 0.0000386
+    11:
+      a: -0.0455
+      b: 0.000298
+      c: 0.0000386
+    12:
+      a: -0.0455
+      b: 0.000298
+      c: 0.0000386
+  1992-01-01:
+    note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    updates_previous: true
+    1:
+      a: 0.0666
+      b: 0.00102
+      c: 0.0000579
+    2:
+      a: 0.0716
+      b: 0.000713
+      c: 0.0000317
+    3:
+      a: 0.0748
+      b: 0.000604
+      c: 0.0000102
+    4:
+      a: 0.0671
+      b: 0.000475
+      c: 1.63e-06
+    5:
+      a: 0.0642
+      b: 0.00043
+      c: 8.96e-07
+    6:
+      a: 0.0463
+      b: 0.000419
+      c: 1.35e-06
+    7:
+      a: 0.0256
+      b: 0.000404
+      c: 5.66e-06
+    8:
+      a: -0.00252
+      b: 0.000377
+      c: 0.0000173
+    9:
+      a: -0.00252
+      b: 0.000377
+      c: 0.0000173
+    10:
+      a: -0.00252
+      b: 0.000377
+      c: 0.0000173
+    11:
+      a: -0.00252
+      b: 0.000377
+      c: 0.0000173
+    12:
+      a: -0.00252
+      b: 0.000377
+      c: 0.0000173
+  2001-01-01:
+    reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    updates_previous: true
+    1:
+      a: 0.063
+      b: 0.000796
+      c: 0.00009102
+    2:
+      a: 0.057
+      b: 0.000576
+      c: 0.00006431
+    3:
+      a: 0.055
+      b: 0.000518
+      c: 0.0000325
+    4:
+      a: 0.047
+      b: 0.000395
+      c: 0.00002325
+    5:
+      a: 0.042
+      b: 0.000348
+      c: 0.00002151
+    6:
+      a: 0.037
+      b: 0.000327
+      c: 0.00001519
+    7:
+      a: 0.033
+      b: 0.000313
+      c: 8.745e-06
+    8:
+      a: 0.023
+      b: 0.000296
+      c: 7.44e-06
+    9:
+      a: -0.017
+      b: 0.000225
+      c: 0.00003522
+    10:
+      a: -0.037
+      b: 0.000157
+      c: 0.00005547
+    11:
+      a: -0.067
+      b: 0.000153
+      c: 0.00005686
+    12:
+      a: -0.092
+      b: 0.000136
+      c: 0.00006182
+  2009-01-01:
+    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+    1:
+      a: 0.063
+      b: 0.0007963
+      c: 0.00009102
+    2:
+      a: 0.057
+      b: 0.0005761
+      c: 0.00006431
+    3:
+      a: 0.055
+      b: 0.0005176
+      c: 0.0000325
+    4:
+      a: 0.047
+      b: 0.0003945
+      c: 0.00002325
+    5:
+      a: 0.042
+      b: 0.0003483
+      c: 0.00002151
+    6:
+      a: 0.037
+      b: 0.0003269
+      c: 0.00001519
+    7:
+      a: 0.033
+      b: 0.0003129
+      c: 8.745e-06
+    8:
+      a: 0.023
+      b: 0.0002959
+      c: 7.44e-06
+    9:
+      a: -0.0197
+      b: 0.0002245
+      c: 0.00003459
+    10:
+      a: -0.0401
+      b: 0.0001565
+      c: 0.0000514
+    11:
+      a: -0.066
+      b: 0.00012
+      c: 0.00005686
+    12:
+      a: -0.0899
+      b: 0.000109
+      c: 0.00006182
+  2016-01-01:
+    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+    1:
+      a: 0.04
+      b: 0.00063
+      c: 0.000138
+    2:
+      a: 0.03
+      b: 0.00044
+      c: 0.000103
+    3:
+      a: 0.02
+      b: 0.00038
+      c: 0.000083
+    4:
+      a: 0.01
+      b: 0.00034
+      c: 0.000043
+    5:
+      a: 0
+      b: 0.0003
+      c: 0.000042
+    6:
+      a: -0.01
+      b: 0.00028
+      c: 0.000036
+    7:
+      a: -0.02
+      b: 0.00026
+      c: 0.000037
+    8:
+      a: -0.03
+      b: 0.00023
+      c: 0.000037
+    9:
+      a: -0.04
+      b: 0.0002
+      c: 0.000039
+    10:
+      a: -0.06
+      b: 0.00016
+      c: 0.000045
+    11:
+      a: -0.1
+      b: 0.00012
+      c: 0.000053
+    12:
+      a: -0.14
+      b: 0.00011
+      c: 0.00006
+  2020-01-01:
+    reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    updates_previous: true
+    1:
+      a: 0.04
+      b: 0.00058
+      c: 0.000118
+    2:
+      a: 0.03
+      b: 0.000405
+      c: 0.000088
+    3:
+      a: 0.02
+      b: 0.00035
+      c: 0.0000709
+    4:
+      a: 0.01
+      b: 0.000313
+      c: 0.0000368
+    5:
+      a: 0
+      b: 0.000276
+      c: 0.0000359
+    6:
+      a: -0.01
+      b: 0.000258
+      c: 0.0000308
+    7:
+      a: -0.02
+      b: 0.000239
+      c: 0.0000316
+    8:
+      a: -0.03
+      b: 0.000212
+      c: 0.0000316
+    9:
+      a: -0.04
+      b: 0.000184
+      c: 0.0000333
+    10:
+      a: -0.06
+      b: 0.000147
+      c: 0.0000385
+    11:
+      a: -0.1
+      b: 0.00011
+      c: 0.0000453
+    12:
+      a: -0.14
+      b: 0.000101
+      c: 0.0000513
+  2022-01-01:
+    reference: V. v. 03.06.2021 BGBl. I S. 1369.
+    updates_previous: true
+    1:
+      a: 0.04
+      b: 0.000564
+      c: 0.0001157
+    2:
+      a: 0.03
+      b: 0.000394
+      c: 0.0000863
+    3:
+      a: 0.02
+      b: 0.00034
+      c: 0.0000695
+    4:
+      a: 0.01
+      b: 0.000304
+      c: 0.0000361
+    5:
+      a: 0
+      b: 0.000268
+      c: 0.0000352
+    6:
+      a: -0.01
+      b: 0.000251
+      c: 0.0000302
+    7:
+      a: -0.02
+      b: 0.000232
+      c: 0.000031
+    8:
+      a: -0.03
+      b: 0.000206
+      c: 0.000031
+    9:
+      a: -0.04
+      b: 0.000179
+      c: 0.0000326
+    10:
+      a: -0.06
+      b: 0.000143
+      c: 0.0000377
+    11:
+      a: -0.1
+      b: 0.000107
+      c: 0.0000444
+    12:
+      a: -0.14
+      b: 0.000098
+      c: 0.0000503
+  2023-01-01:
+    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+    updates_previous: true
+    1:
+      a: 0.04
+      b: 0.0004991
+      c: 0.0000462
+    2:
+      a: 0.03
+      b: 0.0003716
+      c: 0.0000345
+    3:
+      a: 0.02
+      b: 0.0003035
+      c: 0.0000278
+    4:
+      a: 0.01
+      b: 0.0002251
+      c: 0.00002
+    5:
+      a: 0
+      b: 0.0001985
+      c: 0.0000195
+    6:
+      a: -0.01
+      b: 0.0001792
+      c: 0.0000188
+    7:
+      a: -0.02
+      b: 0.0001657
+      c: 0.0000187
+    8:
+      a: -0.03
+      b: 0.0001648
+      c: 0.0000187
+    9:
+      a: -0.04
+      b: 0.0001432
+      c: 0.0000188
+    10:
+      a: -0.06
+      b: 0.00013
+      c: 0.0000188
+    11:
+      a: -0.09
+      b: 0.0001188
+      c: 0.0000222
+    12:
+      a: -0.12
+      b: 0.0001152
+      c: 0.0000251
+  2025-01-01:
+    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    updates_previous: true
+    1:
+      b: 4.797E-4
+      c: 4.080E-5
+    2:
+      b: 3.571E-4
+      c: 3.040E-5
+    3:
+      b: 2.917E-4
+      c: 2.450E-5
+    4:
+      b: 2.163E-4
+      c: 1.760E-5
+    5:
+      b: 1.907E-4
+      c: 1.720E-5
+    6:
+      b: 1.722E-4
+      c: 1.660E-5
+    7:
+      b: 1.592E-4
+      c: 1.650E-5
+    8:
+      b: 1.583E-4
+      c: 1.650E-5
+    9:
+      b: 1.376E-4
+      c: 1.660E-5
+    10:
+      b: 1.249E-4
+      c: 1.660E-5
+    11:
+      b: 1.141E-4
+      c: 1.960E-5
+    12:
+      b: 1.107E-4
+      c: 2.210E-5
+zusatzbetrag_pro_person_in_großen_haushalten:
+  name:
+    de: Zusätzlicher Betrag pro Person in sehr großen Haushalten
+    en: Additional amount per member in very big households
+  description:
+    de: >-
+      Haushalte mit mehr als 12 Personen erhalten einen zusätzlichen Betrag pro Person,
+      der auf das Wohngeld für einen Haushalt mit 12 Personen angerechnet wird.
+      §19 Abs. 3 WoGG
+      Das Einführungsdatum des Parameters ist nicht ganz klar. Es ist in der
+      Neuverkündung des WoGG 2002 enthalten, aber nicht in der 1993 Novelle, siehe BGBl
+      I 1993 S. 183.
+    en: >-
+      Households with more than 12 persons receive an additional amount per person,
+      which is counted towards the housing allowance for a household of 12 people.
+      §19 Abs. 3 WoGG
+      The introduction date of the parameter is not entirely clear. It is contained in
+      the re-enactment of the WoGG 2002, but not in the 1993 Novelle, see BGBl I 1993
+      S. 183.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2001-01-01:
+    value: 40
+    reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+  2009-01-01:
+    value: 43
+    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+  2016-01-01:
+    value: 47
+    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+  2020-01-01:
+    value: 51
+    reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+  2023-01-01:
+    value: 57
+    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+  2025-01-01:
+    value: 65
+    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314

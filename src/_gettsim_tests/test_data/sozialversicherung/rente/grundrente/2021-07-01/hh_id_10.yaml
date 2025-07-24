@@ -1,0 +1,72 @@
+---
+info:
+  note: Adjusted staatl rente
+  precision_atol: 1
+  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Grundrente/grundrente_fallbeispiele_neu.html
+    (Alexander Langkowski)
+inputs:
+  assumed: {}
+  provided:
+    alleinstehend:
+      - true
+    alter:
+      - 70
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    geburtsjahr:
+      - 1951
+    hh_id:
+      - 10
+    p_id:
+      - 10
+    sozialversicherung:
+      rente:
+        altersrente:
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+          zugangsfaktor:
+            - 1.0
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 41.0
+        grundrente:
+          gesamteinnahmen_aus_renten_vorjahr_m:
+            - 0.0
+          bruttolohn_vorjahr_m:
+            - 0.0
+          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+          bewertungszeiten_monate:
+            - 492
+          grundrentenzeiten_monate:
+            - 492
+          mean_entgeltpunkte:
+            - 41.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        betrag_m:
+          - 1402.0
+      grundrente:
+        basisbetrag_m:
+          - 0.0
+        betrag_m:
+          - 0.0
+        mean_entgeltpunkte_zuschlag:
+          - 0.0

@@ -1,0 +1,29 @@
+---
+arbeitnehmerpauschbetrag:
+  name:
+    de: Arbeitnehmerpauschbetrag bei nichtselbstständiger Arbeit.
+    en: Lump-sum deduction for employment income.
+  description:
+    de: § 9a Nr. 1a) EStG
+    en: This is the minimum amount deducted from any employment income.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1975-01-01:
+    value: 288
+    note: 564 DM
+  1990-01-01:
+    value: 1044
+    note: 2000 DM.
+  2004-01-01:
+    value: 920
+  2012-01-01:
+    value: 1000
+    reference: Art. 1 G. v. 01.11.2011 BGBl. I S. 2131.
+    note: Für Lohnsteuerabzug gültig ab 2011-11-05.
+  2022-01-01:
+    value: 1200
+    reference: Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+  2023-01-01:
+    value: 1230
+    reference: G. v. 20.12.2022 BGBl. I S. 2294.

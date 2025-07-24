@@ -1,0 +1,140 @@
+---
+beitragsbemessungsgrenze_m:
+  name:
+    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
+    en: Maximum income subject to health insurance contributions
+  description:
+    de: >-
+      Die Beitragsbemessungsgrenze ist einheitlich in der gesamten BRD. Die
+      Bemessungsgrenze gilt auch für die Pflegeversicherung.
+    en: >-
+      The income threshold is uniform throughout the Federal Republic of Germany.
+      The threshold also applies to long-term care insurance.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  1984-01-01:
+    value: 1994
+  1985-01-01:
+    value: 2071
+  1986-01-01:
+    value: 2147
+  1987-01-01:
+    value: 2186
+  1988-01-01:
+    value: 2301
+  1989-01-01:
+    value: 2339
+  1990-01-01:
+    note: >-
+      The Bemessungsgrenze differs between West and East Germany. See
+      ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
+  2001-01-01:
+    value: 3336
+  2002-01-01:
+    value: 3375
+  2003-01-01:
+    value: 3450
+  2004-01-01:
+    value: 3488
+  2005-01-01:
+    value: 3525
+  2006-01-01:
+    value: 3562.5
+  2008-01-01:
+    value: 3600
+  2009-01-01:
+    value: 3675
+  2010-01-01:
+    value: 3750
+  2011-01-01:
+    value: 3712.5
+  2012-01-01:
+    value: 3825
+  2013-01-01:
+    value: 3937.5
+  2014-01-01:
+    value: 4050
+    note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
+  2015-01-01:
+    value: 4125
+  2016-01-01:
+    value: 4237.5
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
+  2017-01-01:
+    value: 4350
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
+  2018-01-01:
+    value: 4425
+  2019-01-01:
+    value: 4537.5
+  2020-01-01:
+    value: 4687.5
+    reference: V. v. 17.12.2019 BGBl. I S. 2848
+  2021-01-01:
+    value: 4837.5
+    reference: §3, §4 V. v. 30.11.2020, BGBl. I S. 2612.
+  2022-01-01:
+    value: 4837.5
+    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+  2023-01-01:
+    value: 4987.5
+    reference: V. v. 28.11.2022 BGBl. I. S. 2128.
+  2024-01-01:
+    value: 5175
+    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+  2025-01-01:
+    value: 5512.5
+    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+parameter_beitragsbemessungsgrenze_nach_wohnort:
+  name:
+    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
+    en: Maximum income subject to health insurance contributions
+  description:
+    de: >-
+      Die Beitragsbemessungsgrenze für Krankenversicherung ist unterschiedlich
+      zwischen West- und Ostdeutschland. Die Bemessungsgrenze gilt auch für die
+      Pflegeversicherung.
+    en: >-
+      The income threshold is different for health insurance between West and East
+      Germany. The threshold also applies to long-term care insurance.
+  unit: Euros
+  reference_period: Month
+  type: dict
+  1990-01-01:
+    west: 2416
+    ost: 1035
+  1991-01-01:
+    west: 2493
+    ost: 1151
+  1992-01-01:
+    west: 2608
+    ost: 1841
+  1993-01-01:
+    west: 2761
+    ost: 2032
+  1994-01-01:
+    west: 2914
+    ost: 2262
+  1995-01-01:
+    west: 2991
+    ost: 2454
+  1996-01-01:
+    west: 3068
+    ost: 2608
+  1997-01-01:
+    west: 3144
+    ost: 2723
+  1998-01-01:
+    west: 3221
+    ost: 2684
+  1999-01-01:
+    west: 3259
+    ost: 2761
+  2000-01-01:
+    west: 3298
+    ost: 2723
+  2001-01-01:
+    note: >-
+      The Bemessungsgrenze does not differ between West and East Germany. See
+      ``beitragsbemessungsgrenze_m``.

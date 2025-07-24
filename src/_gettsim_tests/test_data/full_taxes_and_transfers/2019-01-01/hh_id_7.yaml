@@ -1,0 +1,201 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 59
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+      eigenbedarf_gedeckt:
+        - false
+      p_id_einstandspartner:
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+    behinderungsgrad:
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 208.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 700.0
+          bruttolohn_vorjahr_m:
+            - 2500.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 12.0
+        ist_hauptberuflich_selbstständig:
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 50.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+      claimed:
+        - true
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 2500.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 30804.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1960
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 7
+    kindergeld:
+      in_ausbildung:
+        - false
+      p_id_empfänger:
+        - -1
+    lohnsteuer:
+      steuerklasse:
+        - 1
+    p_id:
+      - 13
+    schwerbehindert_grad_g:
+      - false
+    sozialversicherung:
+      arbeitslosen:
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 12
+        arbeitssuchend:
+          - false
+        monate_durchgängigen_bezugs_von_arbeitslosengeld:
+          - 0
+        monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+          - 60
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 1.0
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+        bezieht_rente:
+          - false
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 1.7936
+        ersatzzeiten_monate:
+          - 0.0
+        erwerbsminderung:
+          teilweise_erwerbsgemindert:
+            - false
+          voll_erwerbsgemindert:
+            - true
+        freiwillige_beitragsmonate:
+          - 5.0
+        grundrente:
+          bewertungszeiten_monate:
+            - 41
+          grundrentenzeiten_monate:
+            - 41
+          mean_entgeltpunkte:
+            - 1.7936
+        jahr_renteneintritt:
+          - 2073
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+        monat_renteneintritt:
+          - 1
+        monate_geringfügiger_beschäftigung:
+          - 0.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+        monate_in_mutterschutz:
+          - 0.0
+        monate_in_schulausbildung:
+          - 12.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+        pflichtbeitragsmonate:
+          - 432.0
+    unterhalt:
+      anspruch_m:
+        - 0.0
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    vermögen:
+      - 5500.0
+    weiblich:
+      - true
+    wohnen:
+      baujahr_immobilie_hh:
+        - 3
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+      wohnfläche_hh:
+        - 50.0
+    wohngeld:
+      mietstufe_hh:
+        - 3
+    wohnort_ost_hh:
+      - false
+outputs: {}

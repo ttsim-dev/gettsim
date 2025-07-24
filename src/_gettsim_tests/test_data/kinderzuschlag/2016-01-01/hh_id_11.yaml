@@ -1,0 +1,129 @@
+---
+info:
+  note: Wealth below wealth allowance leading to no deduction in Kinderzuschlag
+  precision_atol: 0.01
+  source: Inspired by Page 12 of https://www.arbeitsagentur.de/datei/ba146349.pdf
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+      - 11
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      mehrbedarf_alleinerziehend_m_bg:
+        - 0.0
+        - 0.0
+        - 0.0
+      p_id_einstandspartner:
+        - 31
+        - 30
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 2000.0
+            - 2000.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 30
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 31
+    geburtsjahr:
+      - 1976
+      - 1976
+      - 2005
+    hh_id:
+      - 11
+      - 11
+      - 11
+    kindergeld:
+      betrag_m_hh:
+        - 190.0
+        - 190.0
+        - 190.0
+      grundsätzlich_anspruchsberechtigt:
+        - false
+        - false
+        - true
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 30
+    kinderzuschlag:
+      bruttoeinkommen_eltern_m:
+        - 1200.0
+        - 0.0
+        - 0.0
+      nettoeinkommen_eltern_m:
+        - 644.0
+        - 0.0
+        - 0.0
+    p_id:
+      - 30
+      - 31
+      - 32
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 4000.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bruttokaltmiete_m_hh:
+        - 700.0
+        - 700.0
+        - 700.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+outputs:
+  kinderzuschlag:
+    anspruchshöhe_m_bg:
+      - 140.0
+      - 140.0
+      - 140.0
+    basisbetrag_m_bg:
+      - 140.0
+      - 140.0
+      - 140.0

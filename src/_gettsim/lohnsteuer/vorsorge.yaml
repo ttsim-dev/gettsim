@@ -1,0 +1,80 @@
+---
+parameter_einführungsfaktor_rentenversicherungsaufwendungen:
+  name:
+    de: Parameter zur Berechnung des Anteils absetzbarer Rentenversicherungsbeiträge
+    en: >-
+      Parameters for calculating the share of deductible pension insurance contributions
+  description:
+    de: >-
+      § 39b (4) EStG
+      Der Anteil der Rentenversicherungsbeiträge, die bei der Lohnsteuerberechnung
+      abgezogen werden
+      Funktion erst ab 2005 vorhanden. Steigt zwischen 2005 und 2025 jährlich um 4
+      Prozentpunkte. 2023 wurde der Wert vorzeitig auf 100% gesetzt.
+    en: >-
+      § 39b (4) EStG
+      The share of pension insurance contributions deducted in the withholding tax
+      calculation.
+      rises between 2005 and 2025 by 4 percentage points annually. In 2023, it was
+      prematurely set to 100 percent.
+  unit: Share
+  reference_period: null
+  # type: require_converter
+  type: piecewise_linear
+  2005-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 2005
+      rate_linear: 0
+      intercept_at_lower_threshold: 0.2
+    1:
+      lower_threshold: 2005
+      upper_threshold: 2025
+      rate_linear: 0.04
+      intercept_at_lower_threshold: 0.2
+    2:
+      lower_threshold: 2025
+      upper_threshold: inf
+      rate_linear: 0
+      intercept_at_lower_threshold: 1
+  2023-01-01:
+    note: Prematurely set to 100% in 2023.
+vorsorgepauschale_mindestanteil:
+  name:
+    de: Mindestanteil für Mindestvorsorgepauschale
+    en: Minimum share for Mindestvorsorgepauschale
+  description:
+    de: >-
+      39b (2) Nr.3 EStG
+      Mindestanteil an Beiträgen zu GKV und GPV, der abgesetzt wird bei
+      Mindestvorsorgepauschale
+    en: >-
+      39b (2) Nr.3 EStG
+      Minimum share of minimum contributions to health care and care insurance deducted
+      from Mindestvorsorgepauschale
+  unit: Share
+  reference_period: null
+  type: scalar
+  2010-01-01:
+    value: 0.12
+    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+maximal_absetzbare_krankenversicherungskosten:
+  name:
+    de: Höchstbetrag Mindestvorsorgepauschale
+    en: Maximum amount Mindestvorsorgepauschale
+  description:
+    de: >-
+      39b (2) Nr.3 EStG. Depends on Steuerklasse.
+      Höchsbetrag für Mindestvorsorgepauschale der Beiträge zu GKV und PKV, die von der
+      Lohnsteuer abgesetzt werden können.
+    en: >-
+      39b (2) Nr.3 EStG. Depends on Steuerklasse.
+      Maximum amount considered for Mindestvorsorgepauschale of contributions to health
+      care and care insurance that can be deducted from withholding tax
+  unit: Euros
+  reference_period: Year
+  type: dict
+  2010-01-01:
+    steuerklasse_3: 3000
+    steuerklasse_nicht_3: 1900
+    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959

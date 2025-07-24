@@ -1,0 +1,286 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: Made up from the law
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 2
+      - 2
+      - 2
+      - 3
+      - 3
+      - 3
+      - 4
+      - 4
+      - 4
+      - 5
+      - 5
+      - 5
+      - 6
+      - 6
+      - 6
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+    sozialversicherung:
+      rente:
+        altersrente:
+          besonders_langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - true
+              - false
+              - false
+              - true
+              - false
+              - false
+              - true
+              - false
+              - false
+              - true
+              - false
+              - false
+              - true
+              - false
+              - false
+              - true
+              - false
+          langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - true
+              - true
+              - false
+              - true
+              - true
+              - false
+              - true
+              - true
+              - false
+              - true
+              - true
+              - false
+              - true
+              - true
+              - false
+              - true
+              - true
+              - false
+    weiblich:
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 65.083333
+          - 63.0
+          - 65.25
+          - 65.166667
+          - 63.0
+          - 65.25
+          - 65.25
+          - 63.0
+          - 65.25
+          - 65.25
+          - 63.0
+          - 65.25
+          - 65.25
+          - 63.0
+          - 65.25
+          - 65.25
+          - 63.0
+          - 65.25
+        altersgrenze_vorzeitig:
+          - 63.0
+          - 63.0
+          - 65.25
+          - 63.0
+          - 63.0
+          - 65.25
+          - 63.0
+          - 63.0
+          - 65.25
+          - 63.0
+          - 63.0
+          - 65.25
+          - 63.0
+          - 63.0
+          - 65.25
+          - 63.0
+          - 63.0
+          - 65.25
+        besonders_langjährig:
+          altersgrenze:
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+        langjährig:
+          altersgrenze:
+            - 65.083333
+            - 65.083333
+            - 65.083333
+            - 65.166667
+            - 65.166667
+            - 65.166667
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+          altersgrenze_vorzeitig:
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+        referenzalter_abschlag:
+          - 65.083333
+          - 65.083333
+          - 65.25
+          - 65.166667
+          - 65.166667
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+          - 65.25
+        regelaltersrente:
+          altersgrenze:
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25
+            - 65.25

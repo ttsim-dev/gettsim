@@ -1,0 +1,108 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: own calculations
+inputs:
+  assumed:
+    alter:
+      - 30
+      - 30
+      - 1
+    alter_monate:
+      - 360
+      - 360
+      - 12
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 4
+        - 3
+        - -1
+    arbeitsstunden_w:
+      - 20.0
+      - 40.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 2500.0
+            - 2500.0
+            - 0.0
+    erziehungsgeld:
+      bruttolohn_vorjahr_nach_abzug_werbungskosten_m:
+        - 2423.33
+        - 2423.33
+        - 0.0
+      budgetsatz:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 3
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 3
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 4
+    geburtsjahr:
+      - 1975
+      - 1975
+      - 2004
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 2
+      - 2
+      - 2
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+    p_id:
+      - 3
+      - 4
+      - 5
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+            - false
+  provided: {}
+outputs:
+  erziehungsgeld:
+    anspruchshöhe_kind_m:
+      - 0.0
+      - 0.0
+      - 108.4597333
+    anzurechnendes_einkommen_y_fg:
+      - 0
+      - 0
+      - 44201.6
+    betrag_m:
+      - 108.4597333
+      - 0.0
+      - 0.0
+    einkommensgrenze_y_fg:
+      - 0
+      - 0
+      - 16500

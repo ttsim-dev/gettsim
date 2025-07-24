@@ -1,0 +1,99 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 34
+      - 34
+      - 10
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    familie:
+      alleinerziehend:
+        - true
+        - false
+        - false
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+    geburtsjahr:
+      - 1990
+      - 1990
+      - 2014
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - true
+      p_id_empfänger:
+        - -1
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  einkommensteuer:
+    anzahl_kinderfreibeträge:
+      - 1
+      - 1
+      - 0
+    kinderfreibetrag_y:
+      - 4770.0
+      - 4770.0
+      - 0.0
+    p_id_kinderfreibetragsempfänger_1:
+      - -1
+      - -1
+      - 0
+    p_id_kinderfreibetragsempfänger_2:
+      - -1
+      - -1
+      - 1
+  kindergeld:
+    anzahl_ansprüche:
+      - 1
+      - 0
+      - 0
+    betrag_m:
+      - 250.0
+      - 0.0
+      - 0.0

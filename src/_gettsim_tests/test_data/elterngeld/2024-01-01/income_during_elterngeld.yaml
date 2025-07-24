@@ -1,0 +1,137 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 43
+      - 0
+      - 43
+    alter_monate:
+      - 516
+      - 0
+      - 516
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 56
+        - -1
+        - 55
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 39.83
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 200.0
+            - 0.0
+            - 3600.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+        - 0
+      claimed:
+        - true
+        - false
+        - false
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 1000.0
+        - 0.0
+        - 3400.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 5760.0
+        - 0.0
+        - 35760.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 56
+        - -1
+        - 55
+      p_id_elternteil_1:
+        - -1
+        - 55
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - 56
+        - -1
+    geburtsjahr:
+      - 1976
+      - 2018
+      - 1976
+    geburtsmonat:
+      - 6
+      - 6
+      - 8
+    geburtstag:
+      - 6
+      - 12
+      - 8
+    hh_id:
+      - 3
+      - 3
+      - 3
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+    lohnsteuer:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 55
+      - 50
+      - 56
+    soli_lohst_m:
+      - 0.0
+      - 0.0
+      - 0.0
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - false
+            - true
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  elterngeld:
+    anzahl_mehrlinge_fg:
+      - 0
+      - 0
+      - 0
+    betrag_m:
+      - 536.0
+      - 0.0
+      - 0.0
+    geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
+      - false
+      - false
+      - false
+    grundsätzlich_anspruchsberechtigt:
+      - true
+      - false
+      - false

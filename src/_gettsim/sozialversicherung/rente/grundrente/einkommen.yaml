@@ -1,0 +1,57 @@
+---
+anzurechnendes_einkommen_ohne_partner:
+  name:
+    de: Einkommensanrechnung Grundrente für Personen ohne verheiratetem Partner
+    en: Crediting of income for basic pension for individuals without married partner
+  description:
+    de: >-
+      § 97a Abs. 4 S. 2, 4 SGB VI
+      Werte werden mit dem Rentenwert multipliziert, um Schwellen der
+      Einkommensanrechnung des Grundrentenzuschlags zu ermitteln
+    en: >-
+      § 97a Abs. 4 S. 2, 4 SGB VI
+      Values are multiplied with the Rentenwert to compute the thresholds of the income
+      crediting rule of Grundrentenzuschlag
+  unit: Share
+  reference_period: null
+  type: piecewise_linear
+  2021-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 36.56
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 46.78
+      rate_linear: 0.6
+    2:
+      upper_threshold: inf
+      rate_linear: 1
+anzurechnendes_einkommen_mit_partner:
+  name:
+    de: Einkommensanrechnung Grundrente für Personen mit verheiratetem Partner
+    en: Crediting of income for basic pension for individuals with married partner
+  description:
+    de: >-
+      § 97a Abs. 4 S. 2, 4 SGB VI
+      Werte werden mit dem Rentenwert multipliziert, um Schwellen der
+      Einkommensanrechnung des Grundrentenzuschlags zu ermitteln
+    en: >-
+      § 97a Abs. 4 S. 2, 4 SGB VI
+      Values are multiplied with the Rentenwert to compute the thresholds of the income
+      crediting rule of Grundrentenzuschlag
+  unit: Share
+  reference_period: null
+  type: piecewise_linear
+  2021-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 57.03
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 67.27
+      rate_linear: 0.6
+    2:
+      upper_threshold: inf
+      rate_linear: 1

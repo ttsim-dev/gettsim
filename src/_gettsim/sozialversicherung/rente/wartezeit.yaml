@@ -1,0 +1,39 @@
+---
+wartezeitgrenzen:
+  name:
+    de: Zeitgrenzen für Wartezeiten
+    en: Time thresholds for waiting times
+  description:
+    de: >-
+      Zeitgrenzen, die für Erfüllung einer Wartezeit  notwendig sind (in Jahren).
+    en: >-
+      Time thresholds for accomplishing waiting times (in years).
+  unit: Years
+  reference_period: null
+  type: dict
+  1980-01-01:
+    wartezeit_5: 5
+    wartezeit_15: 15
+    wartezeit_35: 35
+  2012-01-01:
+    updates_previous: true
+    wartezeit_45: 45
+mindestpflichtbeitragsjahre_für_anrechenbarkeit_freiwilliger_beitragszeiten:
+  name:
+    de: >-
+      Anzahl der Mindestpflichtbeitragsjahre, von der an freiwillige Beiträge
+      angerechnet werden.
+    en: >-
+      Minimum statutory contribution years for the inclusion of voluntary contributions
+  description:
+    de: >-
+      § 51 Abs. 3a SGB VI
+      https://www.gesetze-im-internet.de/sgb_6/__51.html
+    en: >-
+      § 51 Abs. 3a SGB VI
+      https://www.gesetze-im-internet.de/sgb_6/__51.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1980-01-01:
+    value: 18

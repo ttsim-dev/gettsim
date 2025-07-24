@@ -1,0 +1,76 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: Made up from the law
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1951
+      - 1951
+      - 1951
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      rente:
+        altersrente:
+          besonders_langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - true
+              - false
+          langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - true
+              - true
+              - false
+    weiblich:
+      - true
+      - true
+      - true
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 65.416667
+          - 63.0
+          - 65.416667
+        altersgrenze_vorzeitig:
+          - 63.0
+          - 63.0
+          - 65.416667
+        besonders_langjährig:
+          altersgrenze:
+            - 63.0
+            - 63.0
+            - 63.0
+        langjährig:
+          altersgrenze:
+            - 65.416667
+            - 65.416667
+            - 65.416667
+          altersgrenze_vorzeitig:
+            - 63.0
+            - 63.0
+            - 63.0
+        referenzalter_abschlag:
+          - 65.416667
+          - 65.416667
+          - 65.416667
+        regelaltersrente:
+          altersgrenze:
+            - 65.416667
+            - 65.416667
+            - 65.416667

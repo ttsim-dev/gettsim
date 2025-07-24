@@ -2,18 +2,18 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/gettsim)
 [![image](https://img.shields.io/conda/vn/conda-forge/gettsim.svg)](https://anaconda.org/conda-forge/gettsim)
 [![image](https://img.shields.io/conda/pn/conda-forge/gettsim.svg)](https://anaconda.org/conda-forge/gettsim)
-[![main](https://github.com/iza-institute-of-labor-economics/gettsim/actions/workflows/main.yaml/badge.svg)](https://github.com/iza-institute-of-labor-economics/gettsim/actions/workflows/main.yaml)
-[![image](https://codecov.io/gh/iza-institute-of-labor-economics/gettsim/branch/main/graph/badge.svg)](https://codecov.io/gh/iza-institute-of-labor-economics/gettsim)
+[![main](https://github.com/ttsim-dev/gettsim/actions/workflows/main.yaml/badge.svg)](https://github.com/ttsim-dev/gettsim/actions/workflows/main.yaml)
+[![image](https://codecov.io/gh/ttsim-dev/gettsim/branch/main/graph/badge.svg)](https://codecov.io/gh/ttsim-dev/gettsim)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/iza-institute-of-labor-economics/gettsim/main.svg)](https://results.pre-commit.ci/latest/github/iza-institute-of-labor-economics/gettsim/main)
-[![image](https://img.shields.io/github/contributors/iza-institute-of-labor-economics/gettsim.svg)](https://github.com/iza-institute-of-labor-economics/gettsim/graphs/contributors)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/ttsim-dev/gettsim/main.svg)](https://results.pre-commit.ci/latest/github/ttsim-dev/gettsim/main)
+[![image](https://img.shields.io/github/contributors/ttsim-dev/gettsim.svg)](https://github.com/ttsim-dev/gettsim/graphs/contributors)
 [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![image](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://gettsim.zulipchat.com)
 
 <p align="center">
    <br>
    <br>
-   <a href="https://github.com/iza-institute-of-labor-economics/gettsim/">
+   <a href="https://github.com/ttsim-dev/gettsim/">
       <img src="docs/_static/images/gettsim_logo_text.png" width="800" alt="GETTSIM">
    </a>
    <br>

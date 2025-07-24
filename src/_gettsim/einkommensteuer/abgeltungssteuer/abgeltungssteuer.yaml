@@ -1,0 +1,14 @@
+---
+satz:
+  name:
+    de: Abgeltungssteuersatz
+    en: Capital Income Tax Rate
+  description:
+    de: §32d (1) EStG
+    en: §32d (1) EStG
+  unit: Share
+  reference_period: null
+  type: scalar
+  2009-01-01:
+    value: 0.25
+    reference: Art. 1 G. v. 14.08.2007

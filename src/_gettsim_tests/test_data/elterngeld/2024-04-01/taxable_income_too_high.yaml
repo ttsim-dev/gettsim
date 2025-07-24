@@ -1,93 +1,73 @@
 ---
 info:
   note: ''
+  precision_atol: 0.01
   source: Regression test.
 inputs:
+  assumed: {}
   provided:
-    hh_id:
-      - 0
-      - 0
-      - 0
-    p_id:
-      - 0
-      - 1
-      - 2
-    p_id_ehepartner:
-      - 1
-      - 0
-      - -1
-    p_id_einstandspartner:
-      - 1
-      - 0
-      - -1
-    p_id_elternteil_1:
-      - -1
-      - -1
-      - 0
-    p_id_elternteil_2:
-      - -1
-      - -1
-      - 1
-    steuerklasse:
-      - 1
-      - 1
-      - 1
-    ges_pflegev_hat_kinder:
-      - true
-      - true
-      - false
     alter:
       - 43
       - 43
       - 0
-    elterngeld_claimed:
-      - true
-      - false
-      - false
-    in_ausbildung:
-      - false
-      - false
-      - false
-    gemeinsam_veranlagt:
-      - false
-      - false
-      - false
-    alleinerz:
-      - false
-      - false
-      - false
-    kind:
-      - false
-      - false
-      - true
+    alter_monate:
+      - 516
+      - 516
+      - 0
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
     arbeitsstunden_w:
       - 0.0
       - 39.83
       - 0.0
-    bruttolohn_m:
-      - 0.0
-      - 190000.0
-      - 0.0
-    elterngeld_nettoeinkommen_vorjahr_m:
-      - 2000.0
-      - 13000.0
-      - 0.0
-    elterngeld_zu_verst_eink_vorjahr_y_sn:
-      - 2000000.0
-      - 2000000.0
-      - 0.00
-    lohnst_m:
-      - 0.0
-      - 0.0
-      - 0.0
-    soli_lohst_m:
-      - 0.0
-      - 0.0
-      - 0.0
-    wohnort_ost:
-      - false
-      - false
-      - false
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 190000.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+        - 0
+      claimed:
+        - true
+        - false
+        - false
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 2000.0
+        - 13000.0
+        - 0.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 2000000.0
+        - 2000000.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
     geburtsjahr:
       - 1976
       - 1976
@@ -100,13 +80,46 @@ inputs:
       - 6
       - 8
       - 12
-    monate_elterngeldbezug:
+    hh_id:
       - 0
       - 0
       - 0
-  assumed: {}
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+    lohnsteuer:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+    soli_lohst_m:
+      - 0.0
+      - 0.0
+      - 0.0
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+            - false
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
 outputs:
-  elterngeld_m:
-    - 0.0
-    - 0.0
-    - 0.0
+  elterngeld:
+    betrag_m:
+      - 0.0
+      - 0.0
+      - 0.0

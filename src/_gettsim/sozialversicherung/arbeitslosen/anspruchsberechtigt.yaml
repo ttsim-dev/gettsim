@@ -1,0 +1,88 @@
+---
+stundengrenze:
+  name:
+    de: Stundengrenze für Bezug von Arbeitslosengeld
+    en: Working hours limit to receive unemployment benefit
+  description:
+    de: >-
+      §138 (3) SGB III, früher auch §102 (2) AFG. Grenze, ab der keine Arbeitslosigkeit
+      mehr unterstellt wird.
+    en: null
+  unit: Hours
+  reference_period: Week
+  type: scalar
+  1969-07-01:
+    value: 20
+  1986-01-01:
+    value: 19
+    reference: Art. 1 G. v. 20.12.1985 BGBl I S. 2484
+  1989-01-01:
+    value: 18
+    reference: Art. 1 G. v. 20.12.1988 BGBl I S. 2343
+  2012-04-01:
+    value: 15
+    reference: Art. 2 G. v. 20.12.2011 BGBl I S. 2854
+raw_anspruchsdauer_nach_alter:
+  name:
+    de: Anspruchsdauer für ALG 1 nach Alter.
+    en: Period of ALG 1 eligibility based on age.
+  description:
+    de: >-
+      § 147 Abs. 2 SGB III
+      Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie viele Monate
+      eine Person versicherungsplichtig in den letzten 5 Jahren war.
+    en: >-
+      § 147 Abs. 2 SGB III
+      The length of ALG 1 eligibility depends on age and on how many months a
+      person was subject to compulsory insurance
+  unit: Months
+  reference_period: null
+  type: require_converter
+  1997-03-24:
+    0: 12
+    50: 15
+    55: 18
+    58: 24
+    max_age: 120
+raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
+  name:
+    de: Anspruchsdauer für ALG 1 nach versicherungspflichtigen Monaten.
+    en: Period of ALG 1 eligibility based on months of compulsory insurance.
+  description:
+    de: >-
+      § 147 Abs. 2 SGB III
+      Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie viele Monate
+      eine Person versicherungsplichtig in den letzten 5 Jahren war.
+    en: >-
+      § 147 Abs. 2 SGB III
+      The length of ALG 1 eligibility depends on age and on how many months a
+      person was subject to compulsory insurance
+  unit: Months
+  reference_period: null
+  type: require_converter
+  1997-03-24:
+    0: 0
+    12: 6
+    18: 8
+    20: 10
+    24: 12
+    30: 15
+    36: 18
+    48: 24
+    max_months: 700
+mindestversicherungsmonate:
+  name:
+    de: Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten vor ALG 1 Bezug
+    en: Minimum number of months of insurance in the last 30 months before ALG 1 receipt
+  description:
+    de: >-
+      § 142 Abs. 2 SGB III
+      Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten vor ALG 1 Bezug
+    en: >-
+      § 142 Abs. 2 SGB III
+      Minimum number of months of insurance in the last 30 months before ALG 1 receipt
+  unit: Months
+  reference_period: null
+  type: scalar
+  1997-03-24:
+    value: 12

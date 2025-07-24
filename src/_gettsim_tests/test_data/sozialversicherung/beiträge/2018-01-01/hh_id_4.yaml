@@ -1,0 +1,74 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: https://www.brutto-netto-rechner.info/gehalt/gehaltsrechner-arbeitgeber.php
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 25
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1200.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    hh_id:
+      - 4
+    p_id:
+      - 55
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    wohnort_ost_hh:
+      - true
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 18.0
+    beiträge_arbeitgeber_m:
+      - 232.5
+    beiträge_gesamt_m:
+      - 477.0
+    beiträge_versicherter_m:
+      - 244.5
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 99.6
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 15.3
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 111.6

@@ -1,0 +1,74 @@
+---
+info:
+  note: Above old Beitragsbemessungsgrenze (of 2023).
+  precision_atol: 1
+  source: https://www.steuertipps.de/service/rechner/brutto-netto-gehaltsrechner/
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 4990.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 2
+          hat_kinder:
+            - true
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 64.87
+    beiträge_arbeitgeber_m:
+      - 1020.46
+    beiträge_versicherter_m:
+      - 1007.99
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 406.69
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 72.36
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 464.07

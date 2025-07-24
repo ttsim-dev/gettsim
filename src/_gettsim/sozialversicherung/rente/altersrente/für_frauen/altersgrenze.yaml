@@ -1,0 +1,588 @@
+---
+altersgrenze:
+  name:
+    de: Einheitliche Altersgrenze für abschlagsfreie Altersrente für Frauen
+    en: Uniform age threshold for pension for women (without deductions)
+  description:
+    de: >-
+      Renteneintrittsalter für "Altersrente für Frauen", ab dem die Altersrente ohne
+      Abschläge bezogen werden kann.
+      § 237a SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/25-altersrente-fuer-frauen.html
+      Frauen, die vor 1940 geboren wurden, konnten mit 60 abschlagsfrei in Rente gehen,
+      nach einer Wartezeit von 15 Jahren und mit mindestens 10 Beitragsjahren ab dem
+      Alter von 40. Ab 1940 wurde das Eintrittsalter sukzessive erhöhrt um einen Monat
+      pro Geburtsmonat auf das Alter 65.
+    en: >-
+      Full retirement age (FRA) for pathway "Altersrente für Frauen".
+      § 237a SGB VI
+      Women born before 1940 were able to retire at age 60 without deductions (required
+      waiting period of 15 years and 10 years of contributions after age 40). The age
+      threshold was increase by one month for each birthmonth up to age 65 for cohort
+      1945.
+  unit: Years
+  reference_period: null
+  type: scalar
+  1980-01-01:
+    value: 60
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: >-
+      Increase of full retirement age from 60 to 65 for birth cohort 1941-1952. See
+      `altersgrenze_gestaffelt`.
+altersgrenze_gestaffelt:
+  name:
+    de: Gestaffelte Altersgrenze für abschlagsfreie Altersrente für Frauen
+    en: Staggered age threshold for pension for women (without deductions)
+  description:
+    de: >-
+      Renteneintrittsalter für "Altersrente für Frauen", ab dem die Altersrente ohne
+      Abschläge bezogen werden kann.
+      § 237a SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/25-altersrente-fuer-frauen.html
+      Frauen, die vor 1940 geboren wurden, konnten mit 60 abschlagsfrei in Rente gehen,
+      nach einer Wartezeit von 15 Jahren und mit mindestens 10 Beitragsjahren ab dem
+      Alter von 40. Ab 1940 wurde das Eintrittsalter sukzessive erhöhrt um einen Monat
+      pro Geburtsmonat auf das Alter 65.
+    en: >-
+      Full retirement age (FRA) for pathway "Altersrente für Frauen".
+      § 237a SGB VI
+      Women born before 1940 were able to retire at age 60 without deductions (required
+      waiting period of 15 years and 10 years of contributions after age 40). The age
+      threshold was increase by one month for each birthmonth up to age 65 for cohort
+      1945.
+  unit: Years
+  reference_period: null
+  type: month_based_phase_inout_of_age_thresholds
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Increase of full retirement age from 60 to 65 for birth cohort 1941-1952.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2029
+    1940:
+      12:
+        years: 60
+        months: 0
+    1941:
+      1:
+        years: 60
+        months: 1
+      5:
+        years: 60
+        months: 2
+      9:
+        years: 60
+        months: 3
+    1942:
+      1:
+        years: 60
+        months: 4
+      5:
+        years: 60
+        months: 5
+      9:
+        years: 60
+        months: 6
+    1943:
+      1:
+        years: 60
+        months: 7
+      5:
+        years: 60
+        months: 8
+      9:
+        years: 60
+        months: 9
+    1944:
+      1:
+        years: 60
+        months: 10
+      5:
+        years: 60
+        months: 11
+      9:
+        years: 61
+        months: 0
+    1945:
+      1:
+        years: 61
+        months: 1
+      3:
+        years: 61
+        months: 2
+      5:
+        years: 61
+        months: 3
+      7:
+        years: 61
+        months: 4
+      9:
+        years: 61
+        months: 5
+      11:
+        years: 61
+        months: 6
+    1946:
+      1:
+        years: 61
+        months: 7
+      3:
+        years: 61
+        months: 8
+      5:
+        years: 61
+        months: 9
+      7:
+        years: 61
+        months: 10
+      9:
+        years: 61
+        months: 11
+      11:
+        years: 62
+        months: 0
+    1947:
+      1:
+        years: 62
+        months: 1
+      3:
+        years: 62
+        months: 2
+      5:
+        years: 62
+        months: 3
+      7:
+        years: 62
+        months: 4
+      9:
+        years: 62
+        months: 5
+      11:
+        years: 62
+        months: 6
+    1948:
+      1:
+        years: 62
+        months: 7
+      3:
+        years: 62
+        months: 8
+      5:
+        years: 62
+        months: 9
+      7:
+        years: 62
+        months: 10
+      9:
+        years: 62
+        months: 11
+      11:
+        years: 63
+        months: 0
+    1949:
+      1:
+        years: 63
+        months: 1
+      3:
+        years: 63
+        months: 2
+      5:
+        years: 63
+        months: 3
+      7:
+        years: 63
+        months: 4
+      9:
+        years: 63
+        months: 5
+      11:
+        years: 63
+        months: 6
+    1950:
+      1:
+        years: 63
+        months: 7
+      3:
+        years: 63
+        months: 8
+      5:
+        years: 63
+        months: 9
+      7:
+        years: 63
+        months: 10
+      9:
+        years: 63
+        months: 11
+      11:
+        years: 64
+        months: 0
+    1951:
+      1:
+        years: 64
+        months: 1
+      3:
+        years: 64
+        months: 2
+      5:
+        years: 64
+        months: 3
+      7:
+        years: 64
+        months: 4
+      9:
+        years: 64
+        months: 5
+      11:
+        years: 64
+        months: 6
+    1952:
+      1:
+        years: 64
+        months: 7
+      3:
+        years: 64
+        months: 8
+      5:
+        years: 64
+        months: 9
+      7:
+        years: 64
+        months: 10
+      9:
+        years: 64
+        months: 11
+      11:
+        years: 65
+        months: 0
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
+    note: Increase of FRA accelerated with exemption (Vertrauensschutz).
+    first_year_to_consider: 1900
+    last_year_to_consider: 2029
+    1939:
+      12:
+        years: 60
+        months: 0
+    1940:
+      1:
+        years: 60
+        months: 1
+      2:
+        years: 60
+        months: 2
+      3:
+        years: 60
+        months: 3
+      4:
+        years: 60
+        months: 4
+      5:
+        years: 60
+        months: 5
+      6:
+        years: 60
+        months: 6
+      7:
+        years: 60
+        months: 7
+      8:
+        years: 60
+        months: 8
+      9:
+        years: 60
+        months: 9
+      10:
+        years: 60
+        months: 10
+      11:
+        years: 60
+        months: 11
+      12:
+        years: 61
+        months: 0
+    1941:
+      1:
+        years: 61
+        months: 1
+      2:
+        years: 61
+        months: 2
+      3:
+        years: 61
+        months: 3
+      4:
+        years: 61
+        months: 4
+      5:
+        years: 61
+        months: 5
+      6:
+        years: 61
+        months: 6
+      7:
+        years: 61
+        months: 7
+      8:
+        years: 61
+        months: 8
+      9:
+        years: 61
+        months: 9
+      10:
+        years: 61
+        months: 10
+      11:
+        years: 61
+        months: 11
+      12:
+        years: 62
+        months: 0
+    1942:
+      1:
+        years: 62
+        months: 1
+      2:
+        years: 62
+        months: 2
+      3:
+        years: 62
+        months: 3
+      4:
+        years: 62
+        months: 4
+      5:
+        years: 62
+        months: 5
+      6:
+        years: 62
+        months: 6
+      7:
+        years: 62
+        months: 7
+      8:
+        years: 62
+        months: 8
+      9:
+        years: 62
+        months: 9
+      10:
+        years: 62
+        months: 10
+      11:
+        years: 62
+        months: 11
+      12:
+        years: 63
+        months: 0
+    1943:
+      1:
+        years: 63
+        months: 1
+      2:
+        years: 63
+        months: 2
+      3:
+        years: 63
+        months: 3
+      4:
+        years: 63
+        months: 4
+      5:
+        years: 63
+        months: 5
+      6:
+        years: 63
+        months: 6
+      7:
+        years: 63
+        months: 7
+      8:
+        years: 63
+        months: 8
+      9:
+        years: 63
+        months: 9
+      10:
+        years: 63
+        months: 10
+      11:
+        years: 63
+        months: 11
+      12:
+        years: 64
+        months: 0
+    1944:
+      1:
+        years: 64
+        months: 1
+      2:
+        years: 64
+        months: 2
+      3:
+        years: 64
+        months: 3
+      4:
+        years: 64
+        months: 4
+      5:
+        years: 64
+        months: 5
+      6:
+        years: 64
+        months: 6
+      7:
+        years: 64
+        months: 7
+      8:
+        years: 64
+        months: 8
+      9:
+        years: 64
+        months: 9
+      10:
+        years: 64
+        months: 10
+      11:
+        years: 64
+        months: 11
+      12:
+        years: 65
+        months: 0
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.
+altersgrenze_vorzeitig:
+  name:
+    de: Einheitliche Altersgrenze für vorzeitigen Bezug der Altersrente für Frauen.
+    en: Uniform early retirement age for women.
+  description:
+    de: >-
+      § 237a SGB VI
+      Frühestmögliches Alter ab dem die Altersrente für Frauen bezogen werden kann
+      (mit Abschlägen).
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+    en: >-
+      § 237a SGB VI
+      Earliest possible age to receive pension for women (with deductions).
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1980-01-01:
+    value: 60.0
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: >-
+      Increase of early retirement age from 60 to 62 for birth cohort 1949-1952. See
+      `altersgrenze_vorzeitig_gestaffelt`.
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
+    note: Increase of ERA was revoked.
+    value: 60.0
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.
+altersgrenze_vorzeitig_gestaffelt:
+  name:
+    de: Gestaffelte Altersgrenze für vorzeitigen Bezug der Altersrente für Frauen.
+    en: Staggered early retirement age for women.
+  description:
+    de: >-
+      § 237a SGB VI
+      Frühestmögliches Alter ab dem die Altersrente für Frauen bezogen werden kann
+      (mit Abschlägen).
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+    en: >-
+      § 237a SGB VI
+      Earliest possible age to receive pension for women (with deductions).
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
+  unit: Years
+  reference_period: null
+  type: month_based_phase_inout_of_age_thresholds
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Increase of early retirement age from 60 to 62 for birth cohort 1949-1952.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2029
+    1948:
+      12:
+        years: 60
+        months: 0
+    1949:
+      1:
+        years: 60
+        months: 1
+      3:
+        years: 60
+        months: 2
+      5:
+        years: 60
+        months: 3
+      7:
+        years: 60
+        months: 4
+      9:
+        years: 60
+        months: 5
+      11:
+        years: 60
+        months: 6
+    1950:
+      1:
+        years: 60
+        months: 7
+      3:
+        years: 60
+        months: 8
+      5:
+        years: 60
+        months: 9
+      7:
+        years: 60
+        months: 10
+      9:
+        years: 60
+        months: 11
+      11:
+        years: 61
+        months: 0
+    1951:
+      1:
+        years: 61
+        months: 1
+      3:
+        years: 61
+        months: 2
+      5:
+        years: 61
+        months: 3
+      7:
+        years: 61
+        months: 4
+      9:
+        years: 61
+        months: 5
+      11:
+        years: 61
+        months: 6
+    1952:
+      1:
+        years: 61
+        months: 7
+      3:
+        years: 61
+        months: 8
+      5:
+        years: 61
+        months: 9
+      7:
+        years: 61
+        months: 10
+      9:
+        years: 61
+        months: 11
+      11:
+        years: 62
+        months: 0
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
+    note: Increase of ERA was revoked. See `altersgrenze_vorzeitig`.

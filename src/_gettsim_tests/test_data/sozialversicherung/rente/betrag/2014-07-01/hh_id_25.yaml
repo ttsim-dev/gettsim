@@ -1,0 +1,89 @@
+---
+info:
+  note: >-
+    Beispiel: Abwandlung Erna Rüstig (Altersrente für langjährig Versicherte)
+    https://rentenbescheid24.de/die-altersrente-fuer-langjaehrig-versicherte/
+  precision_atol: 0.1
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 65
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+    geburtsjahr:
+      - 1948
+    geburtsmonat:
+      - 12
+    hh_id:
+      - 25
+    p_id:
+      - 25
+    sozialversicherung:
+      rente:
+        altersrente:
+          besonders_langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 15.0
+          wegen_arbeitslosigkeit:
+            arbeitslos_für_1_jahr_nach_alter_58_ein_halb:
+              - false
+            pflichtbeitragsjahre_8_von_10:
+              - false
+            vertrauensschutz_1997:
+              - false
+            vertrauensschutz_2004:
+              - false
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 22.42
+        ersatzzeiten_monate:
+          - 0.0
+        freiwillige_beitragsmonate:
+          - 0.0
+        kinderberücksichtigungszeiten_monate:
+          - 108.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+        monate_geringfügiger_beschäftigung:
+          - 60.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+        monate_in_mutterschutz:
+          - 9.0
+        monate_in_schulausbildung:
+          - 0.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 10.0
+        pflichtbeitragsmonate:
+          - 420.0
+    weiblich:
+      - true
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      entgeltpunkte_ost_updated:
+        - 0.0
+      entgeltpunkte_west_updated:
+        - 22.99796044
+      neue_entgeltpunkte:
+        - 0.577960442
+      altersrente:
+        altersgrenze:
+          - 65.0

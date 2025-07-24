@@ -1,0 +1,161 @@
+---
+beitragsbemessungsgrenze_m:
+  name:
+    de: Beitragsbemessungsgrenzen der gesetzlichen Rentenversicherung
+    en: Maximum income subject to pension insurance contributions
+  description:
+    de: Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung.
+    en: Income threshold for statutory pension insurance.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  1984-01-01:
+    value: 2659
+  1985-01-01:
+    value: 2761
+  1986-01-01:
+    value: 2863
+  1987-01-01:
+    value: 2914
+  1988-01-01:
+    value: 3068
+  1989-01-01:
+    value: 3119
+  1990-01-01:
+    note: >-
+      Die Beitragsbemessungsgrenze unterscheidet sich zwischen West und Ost. Siehe
+      ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
+  2025-01-01:
+    value: 8050
+    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+parameter_beitragsbemessungsgrenze_nach_wohnort:
+  name:
+    de: Beitragsbemessungsgrenze der gesetzlichen Rentenversicherung
+    en: Maximum income subject to pension insurance contributions
+  description:
+    de: >-
+      Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung mit Unterschied
+      zwischen West und Ost
+    en: >-
+      Maximum income subject to statutory pension insurance contributions with
+      different values for West and East
+  unit: Euros
+  reference_period: Month
+  type: dict
+  1990-01-01:
+    west: 3221
+    ost: 1380
+  1991-01-01:
+    west: 3323
+    ost: 1534
+  1992-01-01:
+    west: 3477
+    ost: 2454
+  1993-01-01:
+    west: 3681
+    ost: 2710
+  1994-01-01:
+    west: 3886
+    ost: 3017
+  1995-01-01:
+    west: 3988
+    ost: 3272
+  1996-01-01:
+    west: 4090
+    ost: 3477
+  1997-01-01:
+    west: 4193
+    ost: 3630
+  1998-01-01:
+    west: 4295
+    ost: 3579
+  1999-01-01:
+    west: 4339
+    ost: 3681
+  2000-01-01:
+    west: 4397
+    ost: 3630
+  2001-01-01:
+    west: 4448
+    ost: 3732
+  2002-01-01:
+    west: 4500
+    ost: 3750
+  2003-01-01:
+    west: 5100
+    ost: 4250
+  2004-01-01:
+    west: 5150
+    ost: 4350
+  2005-01-01:
+    west: 5200
+    ost: 4400
+  2006-01-01:
+    west: 5250
+    ost: 4400
+  2007-01-01:
+    west: 5250
+    ost: 4550
+  2008-01-01:
+    west: 5300
+    ost: 4500
+  2009-01-01:
+    west: 5400
+    ost: 4550
+  2010-01-01:
+    west: 5500
+    ost: 4650
+  2011-01-01:
+    west: 5500
+    ost: 4800
+  2012-01-01:
+    west: 5600
+    ost: 4800
+  2013-01-01:
+    west: 5800
+    ost: 4900
+  2014-01-01:
+    west: 5950
+    ost: 5000
+    note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
+  2015-01-01:
+    west: 6050
+    ost: 5200
+  2016-01-01:
+    west: 6200
+    ost: 5400
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
+  2017-01-01:
+    west: 6350
+    ost: 5700
+    note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
+  2018-01-01:
+    west: 6500
+    ost: 5800
+  2019-01-01:
+    west: 6700
+    ost: 6150
+  2020-01-01:
+    west: 6900
+    ost: 6450
+    reference: V. v. 17.12.2019 BGBl. I S. 2848
+  2021-01-01:
+    west: 7100
+    ost: 6700
+    reference: §3, §4 V. v. 30.11.2020, BGBl. I S. 2612.
+  2022-01-01:
+    west: 7050
+    ost: 6750
+    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+  2023-01-01:
+    west: 7300
+    ost: 7100
+    reference: V. v. 28.11.2022 BGBl. I. S. 2128.
+  2024-01-01:
+    west: 7550
+    ost: 7450
+    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+  2025-01-01:
+    note: >-
+      Beitragsbemessungsgrenze ist einheitlich zwischen West und Ost. Siehe
+      ``beitragsbemessungsgrenze_m``.

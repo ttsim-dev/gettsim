@@ -1,0 +1,98 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 28
+      - 1
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      mehrbedarf_alleinerziehend_m_bg:
+        - 0.36
+        - 0.36
+      p_id_einstandspartner:
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 2000.0
+            - 0.0
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 6
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1981
+      - 2008
+    hh_id:
+      - 3
+      - 3
+    kindergeld:
+      betrag_m_hh:
+        - 164.0
+        - 164.0
+      grundsätzlich_anspruchsberechtigt:
+        - false
+        - true
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - 6
+    kinderzuschlag:
+      bruttoeinkommen_eltern_m:
+        - 1000.0
+        - 0.0
+      nettoeinkommen_eltern_m:
+        - 719.0
+        - 0.0
+    p_id:
+      - 6
+      - 7
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+    wohnen:
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+outputs:
+  kinderzuschlag:
+    anspruchshöhe_m_bg:
+      - 140.0
+      - 140.0
+    basisbetrag_m_bg:
+      - 140.0
+      - 140.0

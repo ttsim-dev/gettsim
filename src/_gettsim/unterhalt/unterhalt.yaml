@@ -1,0 +1,25 @@
+---
+abzugsrate_kindergeld:
+  name:
+    de: Verringerung des Kindesunterhalts durch Kindergeld
+    en: Reduction of child alimony payments due to child benefit
+  description:
+    de: >-
+      § 1612b BGB
+      Das Kindergeld zählt als Einkommen des Kindes, weshalb es bei der Berechnung von
+      Unterhalt Berücksichtigung findet. Erhält der betreuende Elternteil das
+      Kindergeld für ein minderjähriges Kind, so kann der andere unterhaltspflichtige
+      Elternteil das hälftige Kindergeld bei der Unterhaltsberechnung in Abzug bringen.
+    en: >-
+      § 1612b BGB
+      Child benefit counts as the child's income, which is why it is taken into
+      account when calculating the child alimony payment. If the parent taking care of
+      the child receives the child benefit for a minor child, the other parent liable
+      for child alimony payments can deduct half of the child benefit when calculating
+      alimony.
+  unit: Share
+  reference_period: null
+  type: dict
+  2008-01-01:
+    minderjährig: 0.5
+    volljährig: 1

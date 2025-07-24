@@ -1,0 +1,15 @@
+---
+mindestpflichtbeitragszeiten_monate:
+  name:
+    de: Mindestpflichtbeitragszeiten für Erwerbsminderungsrente
+    en: Minimum number of required contribution months for disability pension
+  description:
+    de: >-
+      ...
+    en: >-
+      ...
+  unit: Months
+  reference_period: null
+  type: scalar
+  2001-01-01:
+    value: 36

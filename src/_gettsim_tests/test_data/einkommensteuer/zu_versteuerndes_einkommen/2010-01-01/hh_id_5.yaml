@@ -1,0 +1,115 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+    arbeitsstunden_w:
+      - 40.0
+    behinderungsgrad:
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+        vorsorgeaufwendungen_y_sn:
+          - 2554.02
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 100.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1970
+    hh_id:
+      - 5
+    kindergeld:
+      in_ausbildung:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 5
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        jahr_renteneintritt:
+          - 2035
+    wohnort_ost_hh:
+      - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      alleinerziehend_betrag_y:
+        - 0
+      altersfreibetrag_y:
+        - 0
+      pauschbetrag_behinderung_y:
+        - 0
+    einkünfte:
+      gesamtbetrag_der_einkünfte_y:
+        - 17080
+    gesamteinkommen_y:
+      - 14489.98
+    kinderfreibetrag_y_sn:
+      - 0
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+      - 14489.98

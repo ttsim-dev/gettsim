@@ -1,0 +1,74 @@
+---
+info:
+  note: >-
+    Adjusted `sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag`
+    since test case uses 0.8 as maximum instead of 0.8004. Beispiel Richard
+    Frenzel.
+  precision_atol: 1
+  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Grundrente/grundrente_fallbeispiele_neu.html
+inputs:
+  assumed: {}
+  provided:
+    alleinstehend:
+      - true
+    alter:
+      - 70
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    geburtsjahr:
+      - 1951
+    hh_id:
+      - 9
+    p_id:
+      - 9
+    sozialversicherung:
+      rente:
+        altersrente:
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+          zugangsfaktor:
+            - 1.0
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 34.5
+        grundrente:
+          gesamteinnahmen_aus_renten_vorjahr_m:
+            - 0.0
+          bruttolohn_vorjahr_m:
+            - 1380.0
+          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
+            - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+          bewertungszeiten_monate:
+            - 552
+          grundrentenzeiten_monate:
+            - 552
+          mean_entgeltpunkte:
+            - 34.5
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        betrag_m:
+          - 1179.55
+      grundrente:
+        basisbetrag_m:
+          - 53.0
+        betrag_m:
+          - 0.0
+        mean_entgeltpunkte_zuschlag:
+          - 0.0037

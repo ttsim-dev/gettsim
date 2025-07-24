@@ -1,0 +1,358 @@
+---
+altersgrenze:
+  name:
+    de: Einheitlich Altersgrenze für langjährig Versicherte - abschlagsfrei
+    en: Uniform age threshold for long term insured without deductions
+  description:
+    de: >-
+      Eintrittsalter für langjährig Versicherte - abschlagsfrei
+      § 236 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
+    en: >-
+      Entry age for long term insured (35 insurance years) without deductions (FRA)
+      § 236 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1980-01-01:
+    value: 63.0
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
+altersgrenze_gestaffelt:
+  name:
+    de: Gestaffelte Altersgrenze für langjährig Versicherte - abschlagsfrei
+    en: Staggered age threshold for long term insured without deductions
+  description:
+    de: >-
+      Eintrittsalter für langjährig Versicherte - abschlagsfrei
+      § 236 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
+    en: >-
+      Entry age for long term insured (35 insurance years) without deductions (FRA)
+      § 236 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
+  unit: Years
+  reference_period: null
+  type: month_based_phase_inout_of_age_thresholds
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2100
+    1937:
+      12:
+        years: 63
+        months: 0
+    1938:
+      1:
+        years: 63
+        months: 1
+      5:
+        years: 63
+        months: 2
+      9:
+        years: 63
+        months: 3
+    1939:
+      1:
+        years: 63
+        months: 4
+      5:
+        years: 63
+        months: 5
+      9:
+        years: 63
+        months: 6
+    1940:
+      1:
+        years: 63
+        months: 7
+      5:
+        years: 63
+        months: 8
+      9:
+        years: 63
+        months: 9
+    1941:
+      1:
+        years: 63
+        months: 10
+      5:
+        years: 63
+        months: 11
+      9:
+        years: 64
+        months: 0
+    1942:
+      1:
+        years: 64
+        months: 1
+      3:
+        years: 64
+        months: 2
+      5:
+        years: 64
+        months: 3
+      7:
+        years: 64
+        months: 4
+      9:
+        years: 64
+        months: 5
+      11:
+        years: 64
+        months: 6
+    1943:
+      1:
+        years: 64
+        months: 7
+      3:
+        years: 64
+        months: 8
+      5:
+        years: 64
+        months: 9
+      7:
+        years: 64
+        months: 10
+      9:
+        years: 64
+        months: 11
+      11:
+        years: 65
+        months: 0
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
+    note: FRA increase accelerated.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2100
+    1936:
+      12:
+        years: 63
+        months: 0
+    1937:
+      1:
+        years: 63
+        months: 1
+      2:
+        years: 63
+        months: 2
+      3:
+        years: 63
+        months: 3
+      4:
+        years: 63
+        months: 4
+      5:
+        years: 63
+        months: 5
+      6:
+        years: 63
+        months: 6
+      7:
+        years: 63
+        months: 7
+      8:
+        years: 63
+        months: 8
+      9:
+        years: 63
+        months: 9
+      10:
+        years: 63
+        months: 10
+      11:
+        years: 63
+        months: 11
+      12:
+        years: 64
+        months: 0
+    1938:
+      1:
+        years: 64
+        months: 1
+      2:
+        years: 64
+        months: 2
+      3:
+        years: 64
+        months: 3
+      4:
+        years: 64
+        months: 4
+      5:
+        years: 64
+        months: 5
+      6:
+        years: 64
+        months: 6
+      7:
+        years: 64
+        months: 7
+      8:
+        years: 64
+        months: 8
+      9:
+        years: 64
+        months: 9
+      10:
+        years: 64
+        months: 10
+      11:
+        years: 64
+        months: 11
+      12:
+        years: 65
+        months: 0
+  2007-04-20:
+    reference: RV-Altersgrenzenanpassungsgesetz 2007. BGBl. I S. 554 2007
+    note: Increase of FRA from 65 to 67 for birth cohort 1949-1963.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2100
+    1948:
+      12:
+        years: 65
+        months: 0
+    1949:
+      1:
+        years: 65
+        months: 1
+      2:
+        years: 65
+        months: 2
+      3:
+        years: 65
+        months: 3
+    1950:
+      1:
+        years: 65
+        months: 4
+    1951:
+      1:
+        years: 65
+        months: 5
+    1952:
+      1:
+        years: 65
+        months: 6
+    1953:
+      1:
+        years: 65
+        months: 7
+    1954:
+      1:
+        years: 65
+        months: 8
+    1955:
+      1:
+        years: 65
+        months: 9
+    1956:
+      1:
+        years: 65
+        months: 10
+    1957:
+      1:
+        years: 65
+        months: 11
+    1958:
+      1:
+        years: 66
+        months: 0
+    1959:
+      1:
+        years: 66
+        months: 2
+    1960:
+      1:
+        years: 66
+        months: 4
+    1961:
+      1:
+        years: 66
+        months: 6
+    1962:
+      1:
+        years: 66
+        months: 8
+    1963:
+      1:
+        years: 66
+        months: 10
+    1964:
+      1:
+        years: 67
+        months: 0
+altersgrenze_vorzeitig:
+  name:
+    de: >-
+      Einheitliche Altersgrenze für vorzeitigen Bezug der Altersrente für langjährig
+      Versicherte.
+    en: Uniform age threshold for early retirement for long-term employed.
+  description:
+    de: >-
+      Frühestmögliches Alter ab dem die Altersrente für langjährig Versicherte
+      bezogen werden kann (mit Abschlägen).
+      § 236 SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
+    en: >-
+      Earliest possible age to receive pension for long term insured (with deductions).
+      § 236 SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  1980-01-01:
+    value: 63.0
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: >-
+      Early retirement age decreased from 63 to 62 starting from birth cohort 1944. See
+      `altersgrenze_vorzeitig_gestaffelt`.
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
+    note: ERA back to 63.
+    value: 63.0
+  1997-12-16:
+    reference: Rentenreformgesetz 1999. BGBl. I S. 2998 1997
+    note: ERA back to 62.
+    value: 62.0
+  2007-04-20:
+    reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
+    note: ERA back to 63.
+    value: 63.0
+altersgrenze_vorzeitig_gestaffelt:
+  name:
+    de: >-
+      Gestaffelte Altersgrenze für vorzeitigen Bezug der Altersrente für langjährig
+      Versicherte.
+    en: Staggered age threshold for early retirement for long-term employed.
+  description:
+    de: >-
+      Frühestmögliches Alter ab dem die Altersrente für langjährig Versicherte
+      bezogen werden kann (mit Abschlägen).
+      § 236 SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
+    en: >-
+      Earliest possible age to receive pension for long term insured (with deductions).
+      § 236 SGB VI
+      https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
+  unit: Years
+  reference_period: null
+  type: year_based_phase_inout_of_age_thresholds
+  1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Early retirement age decreased from 63 to 62 starting from birth cohort 1944.
+    first_year_to_consider: 1900
+    last_year_to_consider: 2100
+    1943:
+      years: 63
+      months: 0
+    1944:
+      years: 62
+      months: 0
+  1996-09-27:
+    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
+    note: ERA back to 63. See `altersgrenze_vorzeitig`.

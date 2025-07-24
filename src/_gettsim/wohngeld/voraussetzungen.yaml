@@ -1,0 +1,19 @@
+---
+parameter_vermögensfreibetrag:
+  name:
+    de: Vermögensgrundfreibetrag für den Haushalt
+    en: Basic wealth exemption at the household level
+  description:
+    de: >-
+      Wohngeld-Verwaltungsvorschift 21.37. Seit 2009 (G. v. 24.09.2008, BGBl. I S. 1856)
+      wird durch §21 Nr. 3 WoGG geregelt, dass hohes Vermögen ein Ausschlussgrund für
+      Wohngeld sein kann. Die genauen Werte regelt die Verwaltungsvorschrift vom April
+      2009. Vorher war hohes Vermögen laut WoGG kein Ausschlussgrund.
+    en: Since 2009, wealth might be a reason not to grand housing benefit.
+  unit: Euros
+  reference_period: null
+  type: dict
+  2009-01-01:
+    grundfreibetrag: 60000
+    je_weitere_person: 30000
+    reference: Wohngeld-Verwaltungsvorschrift 2009.

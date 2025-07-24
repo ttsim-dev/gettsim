@@ -1,0 +1,42 @@
+---
+mindestlohn:
+  name:
+    de: Allgemeiner gesetzlicher Mindestlohn pro Stunde
+    en: Statutory hourly minimum wage
+  description:
+    de: >-
+      §1 (2) Mindestlohngesetz
+      Der Mindestlohn ist der niedrigste Stundenlohn, den ein Arbeitgeber für eine
+      regelmäßige, nicht mehr als 45 Stunden wöchentlich zu leistende Arbeitsleistung
+      zahlen muss.
+    en: >-
+      §1 (2) Mindestlohngesetz
+      The minimum wage is the lowest hourly wage that an employer must pay for a
+      regular, not more than 45 hours weekly work.
+  unit: Euros
+  reference_period: Hour
+  type: scalar
+  2015-01-01:
+    value: 8.5
+  2017-01-01:
+    value: 8.84
+  2019-01-01:
+    value: 9.19
+  2020-01-01:
+    value: 9.35
+  2021-01-01:
+    value: 9.5
+  2021-07-01:
+    value: 9.6
+  2022-01-01:
+    value: 9.82
+  2022-07-01:
+    value: 10.45
+  2022-10-01:
+    value: 12
+  2024-01-01:
+    value: 12.41
+    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+  2025-01-01:
+    value: 12.82
+    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 321

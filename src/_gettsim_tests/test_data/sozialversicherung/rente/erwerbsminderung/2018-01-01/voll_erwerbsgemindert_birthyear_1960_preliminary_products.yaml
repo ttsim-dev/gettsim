@@ -1,0 +1,55 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1960
+    geburtsmonat:
+      - 2
+    p_id:
+      - 21
+    sozialversicherung:
+      rente:
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 15.0
+        ersatzzeiten_monate:
+          - 0.0
+        erwerbsminderung:
+          teilweise_erwerbsgemindert:
+            - false
+          voll_erwerbsgemindert:
+            - true
+          wartezeit_langjährig_versichert_erfüllt:
+            - false
+        freiwillige_beitragsmonate:
+          - 0.0
+        jahr_renteneintritt:
+          - 2018
+        monat_renteneintritt:
+          - 10
+        pflichtbeitragsmonate:
+          - 60.0
+    wohnort_ost_hh:
+      - false
+  provided: {}
+outputs:
+  sozialversicherung:
+    rente:
+      erwerbsminderung:
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 16.291585
+        grundsätzlich_anspruchsberechtigt:
+          - true
+        rentenartfaktor:
+          - 1.0
+        zugangsfaktor:
+          - 0.892

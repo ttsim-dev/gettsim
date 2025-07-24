@@ -1,0 +1,43 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+        - -1
+        - -1
+        - 6
+        - 5
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+outputs:
+  sn_id:
+    - 0
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5

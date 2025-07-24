@@ -1,0 +1,117 @@
+---
+satz:
+  name:
+    de: Erziehungsgeldsatz
+    en: null
+  description:
+    de: Höhe des Erziehungsgeldes abhängig vom beantragtem Satz
+    en: Amount of the parental leave benefit depending on the rate applied for
+  unit: Euros
+  reference_period: Month
+  type: dict
+  2004-02-09:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 208
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+    regelsatz: 300
+    budgetsatz: 450
+  2009-01-01:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+parameter_einkommensgrenze:
+  name:
+    de: Einkommensgrenze
+    en: Income threshold
+  description:
+    de: >-
+      Einkommensgrenze für den Erhalt von Erziehungsgeld bei jungen Kindern. Bei Kindern
+      unter einer Altersgrenze, wird Erziehungsgeld nicht gezahlt, wenn das Einkommen
+      der Eltern die Einkommensgrenze überschreitet.
+    en: >-
+      Income threshold for the receipt of parental leave benefit for young children.
+      For children under a certain age, parental leave benefit is not paid if the
+      income of the parents exceeds the income threshold.
+  unit: Euros
+  reference_period: Year
+  type: require_converter
+  2004-02-09:
+    reference: 09.02.2004 BGBl. I S. 209
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+      Reduced income limit for children older than 6 months.
+    regulär_alleinerziehend:
+      regelsatz: 23000
+      budgetsatz: 19086
+    regulär_paar:
+      regelsatz: 30000
+      budgetsatz: 22086
+    reduziert_alleinerziehend:
+      regelsatz: 13500
+      budgetsatz: 13500
+    reduziert_paar:
+      regelsatz: 16500
+      budgetsatz: 16500
+  2009-01-01:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+aufschlag_einkommen:
+  name:
+    de: Erhöhung der Einkommensgrenze
+    en: Increase in the income threshold
+  description:
+    de: Erhöhung der Einkommensgrenze pro weiterem Kind
+    en: Increase in the income threshold per additional child
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2004-02-09:
+    reference: 09.02.2004 BGBl. I S. 209
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+    value: 3140
+  2009-01-01:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+abschlagsfaktor:
+  name:
+    de: Abschlagsfaktor
+    en: Deduction factor
+  description:
+    de: >-
+      Faktor zur Berechnung des Abschlags des Erziehungsgeldes bei einer
+      Überschreitung der Einkommensgrenze ab dem 7 Lebensmonat.
+      Der Faktor wird mit dem relevanten Einkommen multipliziert und
+      das Produkt entsprechend vom Erziehungsgeld Anspruch abgezogen
+    en: >-
+      Factor for calculating the reduction of the parental leave benefit in case of
+      exceeding the income threshold after the 7th month of life.
+      The factor is multiplied by the relevant income and
+      the product is deducted from the parental leave benefit entitlement accordingly.
+  unit: null
+  reference_period: null
+  type: scalar
+  2004-02-09:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 207
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+    value: 0.052
+  2009-01-01:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.
+pauschaler_abzug_vom_einkommen:
+  name:
+    de: Pauschaler Abzug vom Einkommen
+    en: null
+  description:
+    de: >-
+      Faktor um den das Einkommen pauschal reduziert wird um das das
+      relevanten Einkommen zu berechnen
+    en: >-
+      Factor by which the income is reduced in a lump sum in order to calculate the
+      relevant income
+  unit: null
+  reference_period: null
+  type: scalar
+  2004-02-09:
+    reference: § 5 G. v. 09.02.2004 BGBl. I S. 209
+    note: >-
+      https://www.bgbl.de/xaver/bgbl/start.xav?startbk=Bundesanzeiger_BGBl&jumpTo=bgbl104s0206.pdf#__bgbl__%2F%2F*%5B%40attr_id%3D%27bgbl104s0206.pdf%27%5D__1685621730529
+    value: 0.76
+  2009-01-01:
+    note: Erziehungsgeld revoked and replaced by Elterngeld.

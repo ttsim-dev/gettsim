@@ -1,0 +1,95 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: https://www.ikk-gesundplus.de/arbeitgeber/service/online-rechner/gehaltsrechner/
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 20
+      - 20
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+            - 1500.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+    hh_id:
+      - 11
+      - 11
+    p_id:
+      - 35
+      - 36
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+      rente:
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 21.0
+          - 21.0
+    beiträge_arbeitgeber_m:
+      - 289.88
+      - 289.88
+    beiträge_gesamt_m:
+      - 593.26
+      - 593.26
+    beiträge_versicherter_m:
+      - 303.375
+      - 303.375
+    kranken:
+      beitrag:
+        betrag_versicherter_m:
+          - 118.5
+          - 118.5
+    pflege:
+      beitrag:
+        betrag_versicherter_m:
+          - 14.625
+          - 14.625
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 149.25
+          - 149.25

@@ -1,0 +1,238 @@
+---
+raw_mindestunterhalt:
+  name:
+    de: Mindestunterhalt für Kinder
+    en: Minimum Child Alimony
+  description:
+    de: >-
+      § 1612a BGB, § 1 Mindesunterhaltsverordnung. Mindestunterhalt für Kinder in
+      Abhängigkeit des Alters (0 - 5 Jahre, 6 - 11 Jahre, 12 - 17 Jahre).
+    en: >-
+      Minimum Child Alimony depending on age of child (0 - 5 years, 6 - 11 years, 12 -
+      17 years).
+  unit: Euros
+  reference_period: Month
+  type: require_converter
+  2016-01-01:
+    kleinkind:
+      min_alter: 0
+      max_alter: 5
+      satz: 335
+    schulkind:
+      min_alter: 6
+      max_alter: 11
+      satz: 384
+    jugendliche:
+      min_alter: 12
+      max_alter: 17
+      satz: 450
+    reference: V. v. 03.12.2015 BGBl. I S. 2188.
+  2017-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 342
+    schulkind:
+      satz: 393
+    jugendliche:
+      satz: 460
+    reference: V. v. 03.12.2015 BGBl. I S. 2188.
+  2018-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 348
+    schulkind:
+      satz: 399
+    jugendliche:
+      satz: 467
+    reference: Artikel 1 V. v. 28.09.2017 BGBl. I S. 3525.
+  2019-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 354
+    schulkind:
+      satz: 406
+    jugendliche:
+      satz: 476
+    reference: Artikel 1 V. v. 28.09.2017 BGBl. I S. 3525.
+  2020-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 369
+    schulkind:
+      satz: 424
+    jugendliche:
+      satz: 497
+    reference: Artikel 1 V. v. 12.09.2019 BGBl. I S. 1393.
+  2021-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 393
+    schulkind:
+      satz: 451
+    jugendliche:
+      satz: 528
+    reference: Artikel 1 V. v. 03.11.2020 BGBl. I S. 2344.
+  2022-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 396
+    schulkind:
+      satz: 455
+    jugendliche:
+      satz: 533
+    reference: Artikel 1 V. v. 30.11.2021 BGBl. I S. 5066.
+  2023-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 437
+    schulkind:
+      satz: 502
+    jugendliche:
+      satz: 588
+    reference: Artikel 1 V. v. 30.11.2022 BGBl. I S. 2130.
+  2024-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 480
+    schulkind:
+      satz: 551
+    jugendliche:
+      satz: 645
+    reference: Artikel 1 V. v. 29.11.2023 BGBl. I Nr. 330.
+  2025-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 482
+    schulkind:
+      satz: 554
+    jugendliche:
+      satz: 649
+    reference: Artikel 1 V. v. 21.11.2024 BGBl. 2024 I Nr. 359
+  2026-01-01:
+    updates_previous: true
+    kleinkind:
+      satz: 486
+    schulkind:
+      satz: 558
+    jugendliche:
+      satz: 653
+    reference: Artikel 1 V. v. 21.11.2024 BGBl. 2024 I Nr. 359
+mindesteinkommen:
+  name:
+    de: >-
+      Monatliches Mindesteinkommen, um Unterhaltsvorschuss für Jugendliche (Kinder von
+      12 bis 17 Jahren; siehe `mindestunterhalt`) zu erhalten.
+    en: >-
+      Monthly minimum income necessary to get Unterhaltsvorschuss for children of age
+      12 to 17 years (see `mindestunterhalt`).
+  description:
+    de: § 1 (1a) Nr. 2 Unterhaltsvorschussgesetz
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2017-07-01:
+    value: 600
+    reference: Art. 23 G. v. 14.08.2017 BGBl. I S. 3122.
+raw_berechtigte_altersgruppen:
+  name:
+    de: Altersgrenzen für den Bezug von Unterhaltsvorschuss.
+    en: Age limits for receiving alimony payments.
+  description:
+    de: >-
+      § 1 Abs. 1, 1a UhVorschG
+      Kinder, die das 12. Lebensjahr noch nicht vollendet haben und bei einem
+      alleinerziehenden Elternteil leben haben Anspruch auf Unterhaltszahlungen.
+    en: >-
+      § 1 Abs. 1, 1a UhVorschG
+      Children under the age of 12 living with a single parent are entitled to alimony
+      payments.
+  unit: Years
+  reference_period: null
+  type: require_converter
+  2008-01-01:
+    kleinkind:
+      min_alter: 0
+      max_alter: 5
+    schulkind:
+      min_alter: 6
+      max_alter: 11
+    reference: G. v. 21.12.2007 BGBl. I S. 3194
+  2017-07-01:
+    note: The age limits of the Mindestunterhalt apply.
+faktor_jüngste_altersgruppe:
+  name:
+    de: Faktor für den Unterhaltsvorschuss in der jüngsten Altersgruppe
+    en: Factor for the advance child alimony of the youngest age group
+  description:
+    de: >-
+      § 1612a Abs. 1 BGB
+      Faktor mit dem das sächliche Existenzminimum multipliziert wird um den
+      Unterhaltsvorschuss für Kinder der jüngsten Altersgruppe zu berechnen.
+    en: >-
+      § 1612a Abs. 1 BGB
+      Factor by which the sächliche Existenzminimum is multiplied to calculate
+      the advance child alimony for children of the youngest age group.
+  unit: null
+  reference_period: null
+  type: scalar
+  2009-01-01:
+    value: 0.87
+  2015-01-01:
+    note: >-
+      Anspruchshöhe is calculated via an Anwendungsvorschrift in 2015. From 2016 it is
+      calculated based on the Mindestunterhalt.
+unterhaltsvorschuss_nach_anwendungsvorschrift:
+  name:
+    de: Unterhaltsvorschuss für Kinder entsprechend Anwendungsvorschriften
+    en: Advance Child Alimony according to application regulations
+  description:
+    de: >-
+      Der Unterhaltsvorschuss wird 2009 bis 2015 prinzipiell berechnet basierend auf den
+      Parametern Kinderfreibetrag für das sächliche Existenzminimum und dem Kindergeld
+      für das erste Kind. Wird das Kindergeld unterjährig geändert oder der
+      Kinderfreibetrag unterjährig rückwirkend geändert, gelten abweichende
+      Anwendungsvorschriften, die von unveränderten Werten für Kindergeld bzw.
+      Kinderfreibetrag ausgehen können. Hier werden die entsprechenden Werte für den
+      Unterhaltsvorschuss (d.h. nach Abzug des unterstellten Kindergeldes) verwendet.
+    en: >-
+      The advance child alimony is calculated in principle from 2009 to 2015 based on
+      the parameters parameters 'child allowance for the material minimum subsistence
+      level' (Kinderfreibetrag für das sächliche Existenzminimum) and Kindergeld for the
+      first child. If the Kindergeld is changed during the year or the or the child
+      allowance is changed retroactively during the year, deviating application rules
+      apply, which can be based on unchanged values for Kindergeld or child child
+      allowance can be assumed. Here, the corresponding values for the advance child
+      alimony (i.e. after deduction of the assumed Kindergeld) are used.
+  unit: Euros
+  reference_period: Month
+  type: dict
+  2015-01-01:
+    kleinkind: 133
+    schulkind: 180
+    note: >-
+      Durch Anpassung des Kinderfreibetrags in der Mitte des Jahres gilt eine vorläufige
+      Anwendungsvorschrift, welche den Mindestunterhalt basierend auf dem alten
+      Kinderfreibetrag berechnet. § 11a Anwendungsvorschrift: "Im Sinne dieses Gesetzes
+      beträgt für die Zeit vom 1. Januar 2015 bis zum 30. Juni 2015 die
+      Unterhaltsleistung nach § 2 Absatz 1 Satz 1 monatlich 317 Euro für ein Kind, das
+      das sechste Lebensjahr noch nicht vollendet hat, und monatlich 364 Euro für ein
+      Kind, das das zwölfte Lebensjahr noch nicht vollendet hat." Der
+      Unterhaltsvorschuss berechnet sich aus diesem Mindestunterhalt abzüglich des
+      Kindergeldes für das erste Kind vor Anpassung des Kinderfreibetrags (hier: 184
+      Euro).
+  2015-07-01:
+    kleinkind: 144
+    schulkind: 192
+    reference: Artikel 9 Gesetz v. 16.07.2015 BGBl. I S. 1202.
+    note: >-
+      § 11a Anwendungsvorschrift: "Für die Zeit vom 1. Juli 2015 bis zum 31. Dezember
+      2015 beträgt die Unterhaltsleistung nach § 2 Absatz 1 Satz 1 monatlich 328 Euro
+      für ein Kind, das das sechste Lebensjahr noch nicht vollendet hat, und monatlich
+      376 Euro für ein Kind, das das zwölfte Lebensjahr noch nicht vollendet hat. 3Bis
+      zum 31. Dezember 2015 gilt als für ein erstes Kind zu zahlendes Kindergeld im
+      Sinne von § 2 Absatz 2 Satz 1 ein Betrag in Höhe von monatlich 184 Euro." Der
+      Unterhaltsvorschuss berechnet sich aus diesem Mindestunterhalt abzüglich des
+      Kindergeldes für das erste Kind vor Anpassung des Kinderfreibetrags (hier: 184
+      Euro). Ab 2016 orientiert sich der Unterhaltsvorschuss wieder an den regulären
+      Mindestunterhaltsbeträgen.

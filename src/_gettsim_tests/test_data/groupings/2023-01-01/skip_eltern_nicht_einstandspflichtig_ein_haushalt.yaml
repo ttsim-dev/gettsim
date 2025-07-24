@@ -1,0 +1,26 @@
+---
+info:
+  note: Skipping test for now, because error assertion is not supported yet.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  - geburtstag: 1984-07-14
+    hh_id: 0
+    id: 0
+  - geburtstag: 1981-07-14
+    hh_id: 0
+    id: 1
+  - geburtstag: 2010-03-01
+    hh_id: 0
+    id: 2
+    id_eltern:
+      - 0
+      - 1
+  - geburtstag: 2013-10-21
+    hh_id: 0
+    id: 3
+    id_eltern:
+      - 0
+      - 1
+outputs:
+  - error: Eltern im selben Haushalt, aber nicht füreinander einstandspflichtig

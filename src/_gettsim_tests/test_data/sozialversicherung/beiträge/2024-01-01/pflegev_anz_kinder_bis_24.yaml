@@ -1,0 +1,52 @@
+---
+info:
+  note: >-
+    Number of children below 25 years of age. Necessary to calculate the
+    long-term care insurance contribution. Does not depend on Kindergeld
+    eligibility.
+  precision_atol: 1
+  source: ''
+inputs:
+  assumed:
+    alter:
+      - 50
+      - 50
+      - 24
+      - 24
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+        - -1
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      grundsätzlich_anspruchsberechtigt:
+        - false
+        - false
+        - false
+        - true
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+  provided: {}
+outputs:
+  sozialversicherung:
+    pflege:
+      beitrag:
+        anzahl_kinder_bis_24:
+          - 2
+          - 1
+          - 0
+          - 0

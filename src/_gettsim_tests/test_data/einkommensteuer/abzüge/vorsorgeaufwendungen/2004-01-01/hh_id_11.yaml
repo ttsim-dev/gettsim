@@ -1,0 +1,47 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: https://www.steuerlex24.de/demoseite/information_steuerlexikon/index/xid/462984
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 150.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+      gemeinsam_veranlagt:
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 11
+    p_id:
+      - 1
+    sozialversicherung:
+      arbeitslosen:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 237.0
+      pflege:
+        beitrag:
+          betrag_versicherter_m:
+            - 36.75
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 294.0
+outputs:
+  einkommensteuer:
+    abzüge:
+      vorsorgeaufwendungen_y_sn:
+        - 2001

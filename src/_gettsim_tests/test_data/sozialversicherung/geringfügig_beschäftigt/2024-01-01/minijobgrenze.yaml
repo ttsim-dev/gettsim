@@ -1,0 +1,25 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+outputs:
+  sozialversicherung:
+    minijobgrenze:
+      - 538.0
+    pflege:
+      beitrag:
+        hat_kinder_hh:
+          - false

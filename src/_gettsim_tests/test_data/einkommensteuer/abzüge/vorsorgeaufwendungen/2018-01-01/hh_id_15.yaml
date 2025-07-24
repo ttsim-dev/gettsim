@@ -1,0 +1,47 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: Testcase from zu_verst_eink
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+      gemeinsam_veranlagt:
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 15
+    p_id:
+      - 16
+    sozialversicherung:
+      arbeitslosen:
+        beitrag:
+          betrag_versicherter_m:
+            - 30.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 120.0
+      pflege:
+        beitrag:
+          betrag_versicherter_m:
+            - 22.5
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 150.0
+outputs:
+  einkommensteuer:
+    abzüge:
+      vorsorgeaufwendungen_y_sn:
+        - 3196

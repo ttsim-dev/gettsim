@@ -1,0 +1,21 @@
+---
+wartezeitgrenze_langjährig_versicherte:
+  name:
+    de: Wartezeitgrenze für Erwerbsminderungsrente
+    en: Waiting time limit for disability pension
+  description:
+    de: >-
+      § 264d SGB VI
+      Anzahl an Wartezeitjahren nach § 51 Absatz 3a SGB VI, die für eine abschlagsfreie
+      Erwerbsminderungsrente mit 63 nachgewiesen werden müssen.
+    en: >-
+      § 264d SGB VI
+      Number of waiting years in accordance with § 51 Absatz 3a SGB VI, which must be
+      proven for a public disability pension at 63 without deductions.
+  unit: Years
+  reference_period: null
+  type: scalar
+  2001-01-01:
+    value: 35
+  2024-01-01:
+    value: 40

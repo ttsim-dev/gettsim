@@ -1,0 +1,40 @@
+---
+info:
+  note: One child in the lower age group (0-5).
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 4
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+    hh_id:
+      - 0
+      - 0
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+outputs:
+  unterhaltsvorschuss:
+    betrag_m:
+      - 0.0
+      - 133.0

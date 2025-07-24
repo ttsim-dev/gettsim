@@ -1,0 +1,44 @@
+---
+info:
+  note: One child in the middle age group (6-11).
+  precision_atol: 0.01
+  source: https://www.lohnsteuer-kompakt.de/steuerwissen/unterhaltsvorschuss-wird-erhoeht/
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 8
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+    hh_id:
+      - 0
+      - 0
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      einkommen_m:
+        - 0.0
+        - 0.0
+outputs:
+  unterhaltsvorschuss:
+    betrag_m:
+      - 0.0
+      - 252.0

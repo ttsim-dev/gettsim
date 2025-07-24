@@ -1,0 +1,104 @@
+---
+info:
+  note: >-
+    Same as hh_id_14.yaml but higher made up vermögen_bg to test wealth
+    exemptions (still below vermögensfreibetrag_in_karenzzeit_bg).
+  precision_atol: 0.01
+  source: https://www.kinderzuschlagrechner24.de/kinderzuschlag/?hp=0&ap0=0&ap1a=0&ap1=1&ap2=0&ap4=0&ap5=0&ww=0&is=0&wgjn=0&kg=0&fuerJ=2023&lS=1&Seite=2#RechnerStart
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 43
+      - 11
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      mehrbedarf_alleinerziehend_m_bg:
+        - 0.36
+        - 0.36
+      p_id_einstandspartner:
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 20.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 41
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1980
+      - 2012
+    hh_id:
+      - 15
+      - 15
+    kindergeld:
+      betrag_m_hh:
+        - 250.0
+        - 250.0
+      grundsätzlich_anspruchsberechtigt:
+        - false
+        - true
+      in_ausbildung:
+        - false
+        - true
+      p_id_empfänger:
+        - -1
+        - 41
+    kinderzuschlag:
+      bruttoeinkommen_eltern_m:
+        - 1660.0
+        - 0.0
+      nettoeinkommen_eltern_m:
+        - 1160.0
+        - 0.0
+    p_id:
+      - 41
+      - 42
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 160.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 30000.0
+      - 0.0
+    wohnen:
+      bruttokaltmiete_m_hh:
+        - 700.0
+        - 700.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+outputs:
+  kinderzuschlag:
+    anspruchshöhe_m_bg:
+      - 178.0
+      - 178.0
+    basisbetrag_m_bg:
+      - 178.0
+      - 178.0

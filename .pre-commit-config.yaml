@@ -38,11 +38,11 @@ repos:
       - id: check-ast
       - id: check-docstring-first
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.35.1
+    rev: v1.37.1
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.2
+    rev: v0.12.2
     hooks:
       # Run the linter.
       - id: ruff
@@ -57,14 +57,14 @@ repos:
           - python
           - jupyter
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.0
+    rev: 0.8.1
     hooks:
       - id: nbstripout
         args:
           - --extra-keys
           - metadata.kernelspec metadata.language_info.version metadata.vscode
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.18
+    rev: 0.7.22
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -75,7 +75,7 @@ repos:
           - '88'
         files: (README\.md)
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.18
+    rev: 0.7.22
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -86,14 +86,30 @@ repos:
           - '88'
         files: (docs/.|CHANGES.md|CODE_OF_CONDUCT.md)
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
+    rev: v1.16.1
     hooks:
       - id: mypy
         args:
           - --ignore-missing-imports
           - --config=pyproject.toml
+          - --allow-redefinition-new
+          - --local-partial-types
         additional_dependencies:
           - types-PyYAML
           - types-pytz
+          - numpy >= 2
+          - jaxtyping
+          # - dags >= 0.3
+          - optree >= 0.15
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.33.2
+    hooks:
+      - id: check-jsonschema
+        name: Validate JSON/YAML files against schema
+        entry: check-jsonschema
+        language: python
+        files: ^src/_gettsim/.*\.(yaml|yml)$
+        args:
+          - --schemafile=docs/geps/params-schema.json
 ci:
   autoupdate_schedule: monthly

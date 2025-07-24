@@ -1,0 +1,31 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Own calculations
+inputs:
+  assumed:
+    p_id:
+      - 11
+    sozialversicherung:
+      rente:
+        erwerbsminderung:
+          entgeltpunkte_ost:
+            - 0.0
+          entgeltpunkte_west:
+            - 15.49902153
+          grundsätzlich_anspruchsberechtigt:
+            - true
+          rentenartfaktor:
+            - 1.0
+          zugangsfaktor:
+            - 0.892
+    wohnort_ost_hh:
+      - false
+  provided: {}
+outputs:
+  sozialversicherung:
+    rente:
+      erwerbsminderung:
+        betrag_m:
+          - 363.1860916

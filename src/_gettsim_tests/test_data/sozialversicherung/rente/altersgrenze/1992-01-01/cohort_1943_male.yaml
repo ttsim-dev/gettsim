@@ -1,0 +1,106 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: Made up from the law
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1943
+      - 1943
+      - 1943
+      - 1943
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    sozialversicherung:
+      rente:
+        altersrente:
+          für_frauen:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - false
+              - false
+              - false
+          langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - true
+              - false
+              - true
+          wegen_arbeitslosigkeit:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - false
+              - true
+              - true
+            vertrauensschutz_1997:
+              - false
+              - false
+              - false
+              - false
+    weiblich:
+      - false
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 65.0
+          - 64.583333
+          - 60.583333
+          - 60.583333
+        altersgrenze_vorzeitig:
+          - 65.0
+          - 63.0
+          - 60.0
+          - 60.0
+        langjährig:
+          altersgrenze:
+            - 64.583333
+            - 64.583333
+            - 64.583333
+            - 64.583333
+          altersgrenze_vorzeitig:
+            - 63.0
+            - 63.0
+            - 63.0
+            - 63.0
+        referenzalter_abschlag:
+          - 65.0
+          - 64.583333
+          - 60.583333
+          - 60.583333
+        regelaltersrente:
+          altersgrenze:
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+        wegen_arbeitslosigkeit:
+          altersgrenze:
+            - 60.583333
+            - 60.583333
+            - 60.583333
+            - 60.583333
+          altersgrenze_vorzeitig:
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0

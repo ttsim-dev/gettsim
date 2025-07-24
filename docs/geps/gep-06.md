@@ -42,10 +42,10 @@ in at least three directions:
    sufficient context — in the examples above, those would be Arbeitslosengeld 2,
    Erziehungsgeld, and Kinderzuschlag.
 1. Handling functions that change over the years is not robust (examples in
-   [Issue 449](https://github.com/iza-institute-of-labor-economics/gettsim/issues/449)).
+   [Issue 449](https://github.com/ttsim-dev/gettsim/issues/449)).
 1. Parameters files do not handle cases well when functions expect parameters in a
    different form than the law specifies them (example:
-   [Issue 444](https://github.com/iza-institute-of-labor-economics/gettsim/issues/444)).
+   [Issue 444](https://github.com/ttsim-dev/gettsim/issues/444)).
 
 These issues severely limit the development of GETTSIM. We have been spending far too
 much time finding names that adhere to our self-imposed character limits. Functions with
@@ -229,19 +229,18 @@ The proposed changes will affect all areas of GETTSIM
    is a standard way mapping dictionary contents in the yaml-files to corresponding data
    classes. Dates are selected by the `policy_environment` date. If there are changes in
    the structure of the parameters over time, a similar mechanism like the `start_date`
-   and `end_date` for the policy functions can be used. The data classes will all
-   inherit from a base class `PolicyParameter`.
+   and `end_date` for the policy functions will be used based on the `YYYY-MM-DD` keys
+   in the yaml-files.
 
    Functions will not have `[x]_params` arguments containing potentially large and
-   unstructured dicts any more. Instead, functions will only use the `PolicyParameters`
-   they require. These could be scalars or structured objects, e.g., the inputs for
-   `piecewise_polynomial`.
+   unstructured dicts any more. Instead, functions will only use the policy parameters
+   they require. These could be scalars, homogenous dictionaries, the inputs for
+   `piecewise_polynomial` parameters, or custom objects.
 
    The namespace makes clear we are talking about, say, the function `beitrag` in the
    namespace `arbeitslosenversicherung` will have an input `beitragssatz`. If we need
    parameters which are external to the current namespace, we will need the same verbose
-   syntax as in 1.
-   (`sozialversicherungsbeiträge__rentenversicherung__beitragsbemessungsgrenze_m`).
+   syntax as in 1. (`sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_m`).
 
 ## Backward compatibility
 
@@ -265,17 +264,17 @@ There have been various discussions and preliminary implementations of some part
 this GEP:
 
 - Pull requests:
-  - [#787](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/787) Model
-    classes for policy functions and policy environments
-  - [#720](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/720)
-    Combined decorator for policy information,
-  - [#638](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/638) Don’t
-    use functions in compute_taxes_and_transfers that are not active
-  - [#804](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/804)
-    Namespaces for policy functions
+  - [#787](https://github.com/ttsim-dev/gettsim/pulls/787) Model classes for policy
+    functions and policy environments
+  - [#720](https://github.com/ttsim-dev/gettsim/pulls/720) Combined decorator for policy
+    information,
+  - [#638](https://github.com/ttsim-dev/gettsim/pulls/638) Don’t use functions in
+    compute_taxes_and_transfers that are not active
+  - [#804](https://github.com/ttsim-dev/gettsim/pulls/804) Namespaces for policy
+    functions
 - Issues:
-  - [#781](https://github.com/iza-institute-of-labor-economics/gettsim/issues/781):
-    Summary of interface discussion from 2024 GETTSIM workshop
+  - [#781](https://github.com/ttsim-dev/gettsim/issues/781): Summary of interface
+    discussion from 2024 GETTSIM workshop
 - [Zulip](https://gettsim.zulipchat.com/#narrow/channel/309998-GEPs/topic/GEP.2006)
 
 ## Copyright

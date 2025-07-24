@@ -1,0 +1,168 @@
+---
+altersentlastungsbetrag_altersgrenze:
+  name:
+    de: Altersgrenze für Altersentlastungsbetrag
+    en: Age limit for old-age relief amount
+  description:
+    de: >-
+      § 24a Art. 3 EStG
+      Der Altersentlastungsbetrag wird einem Steuerpflichtigen gewährt, der vor dem
+      Beginn des Kalenderjahres, in dem er sein Einkommen bezogen hat, das 64.
+      Lebensjahr vollendet hatte.
+    en: >-
+      § 24a Art. 3 EStG
+      The old-age relief amount is granted to a taxpayer who, before the start of the
+      calendar year in which he received his income, had reached the age of 64.
+  unit: Years
+  reference_period: null
+  type: scalar
+  1984-01-01:
+    value: 64
+maximaler_altersentlastungsbetrag:
+  name:
+    de: Höchstbetrag des Altersentlastungsbetrags
+    en: Maximum Amount of Tax Credit for older employees.
+  description:
+    de: >-
+      Bis 2004 erhalten alle Steuerpflichtigen, die im voherigen Kalenderjahr das 64.
+      Lebensjahr vollendet haben, maximal den gleichen Altersentlastungsbetrag.
+    en: >-
+      If someone receives employment income above the age of 64, a share up to this
+      amount is deducted.
+  unit: Euros
+  reference_period: Year
+  type: require_converter
+  1984-01-01:
+    value: 1534
+  1989-01-01:
+    value: 1902
+  2002-01-01:
+    value: 1908
+  2005-01-01:
+    note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_gestaffelt`
+raw_maximaler_altersentlastungsbetrag_gestaffelt:
+  name:
+    de: Höchstbetrag des Altersentlastungsbetrags
+    en: Maximum Amount of Tax Credit for older employees.
+  description:
+    de: 24a EStG S. 5. Tabelle legt die Werte bis 2040 fest.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: require_converter
+  2005-01-01:
+    reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
+    first_birthyear_to_consider: 1900
+    last_birthyear_to_consider: 2100
+    1940: 1900
+    1941: 1824
+    1942: 1748
+    1943: 1672
+    1944: 1596
+    1945: 1520
+    1946: 1444
+    1947: 1368
+    1948: 1292
+    1949: 1216
+    1950: 1140
+    1951: 1064
+    1952: 988
+    1953: 912
+    1954: 836
+    1955: 760
+    1956: 722
+    1957: 684
+    1958: 646
+    1959: 608
+    1960: 570
+    1961: 532
+    1962: 494
+    1963: 456
+    1964: 418
+    1965: 380
+    1966: 342
+    1967: 304
+    1968: 266
+    1969: 228
+    1970: 190
+    1971: 152
+    1972: 114
+    1973: 76
+    1974: 38
+    1975: 0
+altersentlastungsquote:
+  name:
+    de: Anteil des Altersentlastungsbetrags
+    en: Income share deducted for older employees.
+  description:
+    de: >-
+      §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
+      Steuerpflichtigen, die im voherigen Kalenderjahr das 64. Lebensjahr vollendet
+      haben, die gleiche Altersentlastungsquote abgezogen. Ab 2005 hängt diese Quote,
+      den diese Steuerpflichtigen erhalten, vom Geburtsjahr ab.
+    en: >-
+      If someone receives employment income above the age of 64, this share of income is
+      deducted. Since 2005, this share additionally depends on the birth year.
+  unit: Share
+  reference_period: null
+  type: require_converter
+  1984-01-01:
+    value: 0.4
+  2005-01-01:
+    note: Ausschleichung per `raw_altersentlastungsquote_gestaffelt`
+raw_altersentlastungsquote_gestaffelt:
+  name:
+    de: Anteil des Altersentlastungsbetrags
+    en: Income share deducted for older employees.
+  description:
+    de: >-
+      §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
+      Steuerpflichtigen, die im voherigen Kalenderjahr das 64. Lebensjahr vollendet
+      haben, die gleiche Altersentlastungsquote abgezogen. Ab 2005 hängt diese Quote,
+      den diese Steuerpflichtigen erhalten, vom Geburtsjahr ab.
+    en: >-
+      If someone receives employment income above the age of 64, this share of income is
+      deducted. Since 2005, this share additionally depends on the birth year.
+  unit: Share
+  reference_period: null
+  type: require_converter
+  2005-01-01:
+    reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
+    first_birthyear_to_consider: 1900
+    last_birthyear_to_consider: 2100
+    1940: 0.4
+    1941: 0.384
+    1942: 0.368
+    1943: 0.352
+    1944: 0.336
+    1945: 0.32
+    1946: 0.304
+    1947: 0.288
+    1948: 0.272
+    1949: 0.256
+    1950: 0.24
+    1951: 0.224
+    1952: 0.208
+    1953: 0.192
+    1954: 0.176
+    1955: 0.16
+    1956: 0.152
+    1957: 0.144
+    1958: 0.136
+    1959: 0.128
+    1960: 0.12
+    1961: 0.112
+    1962: 0.104
+    1963: 0.096
+    1964: 0.088
+    1965: 0.08
+    1966: 0.072
+    1967: 0.064
+    1968: 0.056
+    1969: 0.048
+    1970: 0.04
+    1971: 0.032
+    1972: 0.024
+    1973: 0.016
+    1974: 0.008
+    1975: 0

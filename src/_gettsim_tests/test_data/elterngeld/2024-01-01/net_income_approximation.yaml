@@ -1,0 +1,65 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 43
+      - 43
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 40.0
+      - 10.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1000.0
+            - 200.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    hh_id:
+      - 0
+      - 0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  elterngeld:
+    mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m:
+      - 790.0
+      - 158.0

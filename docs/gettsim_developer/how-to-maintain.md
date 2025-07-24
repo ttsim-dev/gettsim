@@ -30,8 +30,8 @@ The branching model for GETTSIM is very simple.
 To release a new major or minor version of GETTSIM, do the following.
 
 1. To start the release process for any new version, e.g., `0.2`, first
-   [create a new milestone](https://github.com/iza-institute-of-labor-economics/gettsim/milestones/new)
-   on Github. Set the name to the version number (format is `v[major].[minor]`, in this
+   [create a new milestone](https://github.com/ttsim-dev/gettsim/milestones/new) on
+   Github. Set the name to the version number (format is `v[major].[minor]`, in this
    example: `v0.2`) to collect issues and PRs.
 
    A consensus among developers determines the scope of the new release. Note that
@@ -48,9 +48,8 @@ To release a new major or minor version of GETTSIM, do the following.
 
    1. Create a maintenance branch `[major].[minor]`, i.e., `0.2` in this example.
 
-1. Go to the
-   [page for releases](https://github.com/iza-institute-of-labor-economics/gettsim/releases)
-   and draft a new release.
+1. Go to the [page for releases](https://github.com/ttsim-dev/gettsim/releases) and
+   draft a new release.
 
    - Set both a new tag and the release title to `vX.Y.Z`.
    - Add the release notes. These should include the most important changes in a

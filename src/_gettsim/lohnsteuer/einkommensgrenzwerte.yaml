@@ -1,0 +1,93 @@
+---
+einkommensgrenzwerte_steuerklassen_5_6:
+  name:
+    de: Einkommensgrenzen für Steuerklassen 5 und 6
+    en: Thresholds for withholding tax classes 5 and 6
+  description:
+    de: >-
+      § 39b Absatz 2 Satz 7 EStG
+      Einkommensgrenzen für Steuerklassen 5 und 6, innerhalb derer Mindest- und
+      Maximalsteuern festgelegt sind.
+    en: >-
+      § 39b Absatz 2 Satz 7 EStG
+      Thresholds for withholding tax classes 5 and 6, where minimum and maximum tax
+      rates apply.
+  unit: Euros
+  reference_period: Year
+  type: dict
+  2002-01-01:
+    1: 8946
+    2: 27306
+    3: 10000000
+  2004-01-01:
+    1: 9228
+    2: 26072
+    3: 10000000
+  2005-01-01:
+    1: 9144
+    2: 25812
+    3: 200000
+  2009-01-01:
+    1: 9225
+    2: 26276
+    3: 200320
+  2010-01-01:
+    1: 9429
+    2: 26441
+    3: 200584
+  2013-01-01:
+    1: 9550
+    2: 26441
+    3: 200584
+  2014-01-01:
+    1: 9763
+    2: 26441
+    3: 200584
+  2016-01-01:
+    1: 10070
+    2: 26832
+    3: 203557
+  2017-01-01:
+    1: 10240
+    2: 27029
+    3: 205043
+  2018-01-01:
+    1: 10440
+    2: 27475
+    3: 208426
+  2019-01-01:
+    1: 10635
+    2: 27980
+    3: 212261
+  2020-01-01:
+    1: 10898
+    2: 28526
+    3: 216400
+  2021-01-01:
+    1: 11237
+    2: 28959
+    3: 219690
+  2022-01-01:
+    1: 11793
+    2: 29298
+    3: 222260
+  2023-01-01:
+    note: https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2023-02-13-geaenderte-PAP-2023-anwendung-ab-dem-1-april-2023-anlage-1.pdf?__blob=publicationFile&v=3
+    1: 12485
+    2: 31404
+    3: 222260
+  2024-01-01:
+    note: https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2024-02-23-geaenderte-PAP-2024-anwendung-ab-dem-1-april-2024-anlage-2.pdf?__blob=publicationFile&v=3
+    1: 13279
+    2: 33380
+    3: 222260
+  2025-01-01:
+    note: >-
+      Programmablaufplan für die maschinelle Berechnung der vom Arbeitslohn
+      einzubehaltenden Lohnsteuer für 2025 und Programmablaufplan für die Begrenzung der
+      von Versorgungsbezügen einzubehaltenden Lohnsteuer und des Solidaritätszuschlags
+      nach den Abkommen zur Vermeidung der Doppelbesteuerung ab 2025
+      https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2024-11-22-PAP-2025_anlage.pdf?__blob=publicationFile&v=2
+    1: 13432
+    2: 33380
+    3: 222260

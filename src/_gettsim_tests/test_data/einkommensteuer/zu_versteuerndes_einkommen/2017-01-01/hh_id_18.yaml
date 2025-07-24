@@ -1,0 +1,156 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: https://www.n-heydorn.de/steuer.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 37
+      - 35
+    arbeitsstunden_w:
+      - 38.0
+      - 30.0
+    behinderungsgrad:
+      - 0
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
+        vorsorgeaufwendungen_y_sn:
+          - 10359.0
+          - 10359.0
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3000.0
+            - 2500.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 26
+        - 25
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1980
+      - 1982
+    hh_id:
+      - 18
+      - 18
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 25
+      - 26
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2045
+          - 2047
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      alleinerziehend_betrag_y:
+        - 0
+        - 0
+      altersfreibetrag_y:
+        - 0
+        - 0
+      pauschbetrag_behinderung_y:
+        - 0
+        - 0
+    einkünfte:
+      gesamtbetrag_der_einkünfte_y:
+        - 35000
+        - 29000
+    gesamteinkommen_y:
+      - 53569.0
+      - 53569.0
+    kinderfreibetrag_y_sn:
+      - 0
+      - 0
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+      - 53569.0
+      - 53569.0

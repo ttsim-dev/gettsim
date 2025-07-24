@@ -1,0 +1,34 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 21
+    arbeitsstunden_w:
+      - 10.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 700.0
+      gesamteinkommen_y:
+        - 0.0
+    hh_id:
+      - 3
+    kindergeld:
+      in_ausbildung:
+        - true
+      p_id_empfänger:
+        - 18
+    p_id:
+      - 18
+outputs:
+  kindergeld:
+    betrag_m:
+      - 194
+    betrag_m_hh:
+      - 194

@@ -1,0 +1,54 @@
+---
+info:
+  note: Calculation is not correct due to change in Grundfreibetrag in July 2015.
+  precision_atol: 0.01
+  source: none
+inputs:
+  assumed:
+    kindergeld__ist_leistungsbegründendes_kind:
+      - false
+      - true
+    sozialversicherung__arbeitslosen__mindestversicherungszeit_erreicht:
+      - true
+      - false
+    sozialversicherung__arbeitslosen__arbeitssuchend:
+      - true
+      - false
+    sozialversicherung__arbeitslosen__monate_durchgängigen_bezugs_von_arbeitslosengeld:
+      - 0
+      - 0
+    sozialversicherung__arbeitslosen__monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+      - 12
+      - 0
+  provided:
+    alter:
+      - 30
+      - 5
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_vorjahr_m:
+      - 7000.0
+      - 0.0
+    familie__p_id_elternteil_1:
+      - -1
+      - 7
+    familie__p_id_elternteil_2:
+      - -1
+      - -1
+    geburtsjahr:
+      - 1985
+      - 1985
+    hh_id:
+      - 5
+      - 5
+    p_id:
+      - 7
+      - 8
+    wohnort_ost_hh:
+      - true
+      - true
+outputs:
+  sozialversicherung__arbeitslosen__betrag_m:
+    - 1719.96
+    - 0.0

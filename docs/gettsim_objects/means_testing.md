@@ -10,8 +10,8 @@ This documentation shall help to understand the composition of the
 
 {ref}`basic input variable <input_variables>`
 
-'vermögen_bedürft'. Despite small differences over the transfers, we decided, for now,
-to require only one wealth variable as input and use it for all transfers.
+'vermögen'. Despite small differences over the transfers, we decided, for now, to
+require only one wealth variable as input and use it for all transfers.
 
 Note that GETTSIM requests wealth on the individual level as input. This variable is
 then aggregated on the respective grouping level for each transfer (some transfers are

@@ -1,0 +1,113 @@
+---
+altersgrenze:
+  name:
+    de: Eintrittsalter für besonders langjährig Versicherte - abschlagsfrei
+    en: Entry age for very long term insured (45 insurance years) without deductions
+  description:
+    de: >-
+      § 38 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/249-altersrente-fuer-besonders-langjaehrig-versicherte.html
+    en: >-
+      § 38 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/249-altersrente-fuer-besonders-langjaehrig-versicherte.html
+  unit: Years
+  reference_period: null
+  type: scalar
+  2007-04-30:
+    reference: RV-Altersgrenzenanpassungsgesetz 2007. BGBl. I S. 554 2007
+    value: 65.0
+  2014-06-23:
+    note: Rente mit 63, see `altersgrenze_gestaffelt`
+    reference: RV-Leistungsverbesserungsgesetz 2014. BGBl. I S. 787 2014
+  2029-01-01:
+    value: 65.0
+    note: Phase-in period is over
+altersgrenze_gestaffelt:
+  name:
+    de: >-
+      Gestaffeltes Eintrittsalter der Rente für besonders langjährig Versicherte nach
+      Geburtsjahr
+    en: >-
+      Staggered normal retirement age (NRA) for very long term insured (45 insurance
+      years) without deductions
+  description:
+    de: >-
+      § 38 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/249-altersrente-fuer-besonders-langjaehrig-versicherte.html
+      Stückweise lineare Funktion, die die Regelaltersgrenze angibt, bei der das
+      Individuum mit seinem vollen Rentenanspruch in Rente gehen kann. Geht die Person
+      früher oder später in Rente, ist der Zugangsfaktor und damit der Rentenanspruch
+      höher oder niedriger, wenn keine Ausnahmeregelungen erfüllt sind.
+      Ab dem 1.7.2014 wurde die Altersgrenze für Kohorten bis 1952 auf 63 Jahre
+      gesenkt (für nachfolgende Kohorten steigt sie um 2 Monate pro Kohorte bis
+      65). Personen, die vor dem 1.7.1951 (codiert als 1951.5) geboren wurden,
+      waren zu diesem Zeitpunkt aber schon älter als 63 und hatten ensprechend ein
+      höheres verfügbares Renteneintrittsalter. Nur Personen, die ab dem 1.7.1949
+      geboren wurden konnten überhaupt profitieren, da alle anderen schon über 65
+      waren. Für die Zugangsfaktor berechnung werden die tatsächlich verfügbaren
+      Renteneintrittsalter benötigt. Daher brauchen wir für die inputs eine
+      monatliche Präzision bis Kohorte 1952.
+    en: >-
+      § 38 SGB VI
+      https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/249-altersrente-fuer-besonders-langjaehrig-versicherte.html
+      Stückweise lineare Funktion, die die Regelaltersgrenze angibt, bei der das
+      Piecewise linear function returning the regelaltersgrenze at which the agent
+      is allowed to get pensions with his full claim. If the agent retires earlier or
+      later, the Zugangsfaktor and therefore the pension claim is higher or lower,
+      unless special conditions apply.
+      From 1.7.2014 the retirement thresholds for cohorts born before 1953 was
+      lowered to 63 years (for subsequent cohort it raises by 2 months per cohort
+      up to 65  again). But people born before 1.7.1951 were already older than
+      63 at that date. Only cohorts born after 1.7.1949 could benefit since the
+      others were above 65  already. As the zugangsfaktor function runs on retirement
+      age, we need the actually  feasible retirement ages as inputs. The inputs
+      therefore require monthly precision  up to cohort 1952. From then we need
+      annual precision.
+  unit: Years
+  reference_period: null
+  type: year_based_phase_inout_of_age_thresholds
+  2014-06-23:
+    reference: RV-Leistungsverbesserungsgesetz 2014. BGBl. I S. 787 2014
+    first_year_to_consider: 1900
+    last_year_to_consider: 2031
+    1952:
+      years: 63
+      months: 0
+    1953:
+      years: 63
+      months: 2
+    1954:
+      years: 63
+      months: 4
+    1955:
+      years: 63
+      months: 6
+    1956:
+      years: 63
+      months: 8
+    1957:
+      years: 63
+      months: 10
+    1958:
+      years: 64
+      months: 0
+    1959:
+      years: 64
+      months: 2
+    1960:
+      years: 64
+      months: 4
+    1961:
+      years: 64
+      months: 6
+    1962:
+      years: 64
+      months: 8
+    1963:
+      years: 64
+      months: 10
+    1964:
+      years: 65
+      months: 0
+  2029-01-01:
+    note: last cohort with entry age < 67 will have passed that age

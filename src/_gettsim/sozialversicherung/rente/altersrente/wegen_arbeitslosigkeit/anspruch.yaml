@@ -1,0 +1,16 @@
+---
+kohorte_abschaffung:
+  name:
+    de: Erster Geburtsjahrgang ohne Rente für Arbeitslose
+    en: First birth cohort without pension for unemployed
+  description:
+    de: >-
+      Erster Geburtsjahrgang ohne Rente für Arbeitslose
+      Rentenreformgesetz 1999. BGBl. I S. 2998 1997
+  unit: Years
+  reference_period: null
+  type: scalar
+  1997-12-16:
+    value: 1952
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.

@@ -1,0 +1,39 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 35
+    arbeitsstunden_w:
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+      gesamteinkommen_y:
+        - 0.0
+    hh_id:
+      - 12
+    kindergeld:
+      in_ausbildung:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 39
+outputs:
+  kinderbonus:
+    betrag_m:
+      - 0.0
+    betrag_m_hh:
+      - 0.0
+  kindergeld:
+    betrag_m:
+      - 0
+    betrag_m_hh:
+      - 0

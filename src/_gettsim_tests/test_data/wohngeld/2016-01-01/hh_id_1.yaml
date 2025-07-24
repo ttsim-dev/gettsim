@@ -1,0 +1,236 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 46
+      - 9
+    anzahl_personen_hh:
+      - 3
+      - 3
+      - 3
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 16
+        - 15
+        - -1
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 1000.0
+        - 1000.0
+        - 1000.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 1000.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_y:
+            - 25000.0
+            - 0.0
+            - 0.0
+          bruttolohn_m:
+            - 2000.0
+            - 0.0
+            - 200.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            ertragsanteil:
+              - 0.0
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 16
+        - 15
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 15
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 16
+    geburtsjahr:
+      - 1971
+      - 1970
+      - 2007
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 1
+      - 1
+      - 1
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - true
+      p_id_empfänger:
+        - -1
+        - -1
+        - 15
+    p_id:
+      - 15
+      - 16
+      - 17
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 80.0
+            - 0.0
+            - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 100.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 120000.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+    wohnen:
+      baujahr_immobilie_hh:
+        - 1995
+        - 1995
+        - 1995
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 700.0
+        - 700.0
+        - 700.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+    wohngeld:
+      mietstufe_hh:
+        - 3
+        - 3
+        - 3
+outputs:
+  wohngeld:
+    anspruchshöhe_m_bg:
+      - 75.0
+      - 75.0
+      - 75.0
+    anspruchshöhe_m_wthh:
+      - 75.0
+      - 75.0
+      - 75.0

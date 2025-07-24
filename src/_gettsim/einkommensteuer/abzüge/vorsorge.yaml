@@ -1,0 +1,196 @@
+---
+parameter_altersvorsorgeaufwendungen_regime_bis_2004:
+  name:
+    de: Vorsorgeaufwendungen nach Rechtslage bis 2004.
+    en: Deduction for pension expenses, regime until 2004.
+  description:
+    de: >-
+      Vorwegabzug:
+      § 10 (4a) EStG. Früher §10 (3) EStG. Hier steht jeweils der Wert für den
+      Steuerpflichtigen. Wird verdoppelt für gemeinsam veranlagte Ehegatten. Der gesamte
+      Zeitverlauf wurde bereits 2005 festgelegt.
+      Grundhöchstbetrag:
+      § 10 (3) EStG.
+      Kürzung bei abhängig Beschäftigten:
+      §10 (3) S. 2 EStG (vor 2004). Der Vorwegabzug wird pauschal um einen Anteil
+      gekürzt bei abhängig Beschäftigten (vereinfacht).
+      Achtung: Heterogene Einträge im dict!
+    en: null
+  unit: null
+  reference_period: Year
+  type: dict
+  1985-01-01:
+    vorwegabzug: 1534
+    grundhöchstbetrag: 1196
+    kürzungsanteil_abhängig_beschäftigte: 0.0935
+  1986-01-01:
+    updates_previous: true
+    kürzungsanteil_abhängig_beschäftigte: 0.096
+  1987-01-01:
+    updates_previous: true
+    kürzungsanteil_abhängig_beschäftigte: 0.0935
+  1989-01-01:
+    updates_previous: true
+    vorwegabzug: 2045
+    kürzungsanteil_abhängig_beschäftigte: 0.12
+  1992-01-01:
+    updates_previous: true
+    grundhöchstbetrag: 1334
+  1993-01-01:
+    updates_previous: true
+    vorwegabzug: 3068
+  1994-01-01:
+    updates_previous: true
+    kürzungsanteil_abhängig_beschäftigte: 0.16
+    reference: Art. 1 G. v. 21.12.1993 BGBl. I S. 2310.
+  2011-01-01:
+    updates_previous: true
+    vorwegabzug: 2700
+  2012-01-01:
+    updates_previous: true
+    vorwegabzug: 2400
+  2013-01-01:
+    updates_previous: true
+    vorwegabzug: 2100
+  2014-01-01:
+    updates_previous: true
+    vorwegabzug: 1800
+  2015-01-01:
+    updates_previous: true
+    vorwegabzug: 1500
+  2016-01-01:
+    updates_previous: true
+    vorwegabzug: 1200
+  2017-01-01:
+    updates_previous: true
+    vorwegabzug: 900
+  2018-01-01:
+    updates_previous: true
+    vorwegabzug: 600
+  2019-01-01:
+    updates_previous: true
+    vorwegabzug: 300
+parameter_einführungsfaktor_altersvorsorgeaufwendungen:
+  name:
+    de: Einführungsfaktor für Altersvorsorgeaufwendungen
+    en: Introductory factor for pension contributions
+  description:
+    de: >-
+      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
+      In den Jahren 2005-2022 stieg der Anteil der abzugsfähigen Beiträge von 60% in
+      2005 jährlich um 2 Prozentpunkte an bis 94% in 2022 erreicht wurden. Eigentlich
+      war geplant, dass der Parameter weiter mit dieser Rate steigt, bis ab 2025 100%
+      erreicht sind. Abweichend von diesem Plan, wurden die abzugsfähigen Beiträge schon
+      2023 auf 100% gesetzt.
+    en: >-
+      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
+      In the years 2005-2022, the share of deductible contributions increased by 2
+      percentage points each year from 60% in 2005 to 94% in 2022. It was planned that
+      100% are reached in 2025. Deviating from this plan, the deductible contributions
+      were set to 100% already in 2023.
+  unit: null
+  reference_period: null
+  type: piecewise_linear
+  2005-01-01:
+    0:
+      lower_threshold: -inf
+      rate_linear: 0
+      intercept_at_lower_threshold: 0.6
+    1:
+      lower_threshold: 2005
+      upper_threshold: 2025
+      rate_linear: 0.02
+    2:
+      upper_threshold: inf
+      rate_linear: 0
+  2023-01-01:
+    reference: G. v. 20.12.2022 BGBl. I S. 2294.
+    0:
+      lower_threshold: -inf
+      rate_linear: 0
+      intercept_at_lower_threshold: 0.6
+    1:
+      lower_threshold: 2005
+      rate_linear: 0.02
+    2:
+      lower_threshold: 2022
+      upper_threshold: 2023
+      rate_linear: 0.06
+    3:
+      upper_threshold: inf
+      rate_linear: 0
+maximalbetrag_sonstige_vorsorgeaufwendungen:
+  name:
+    de: >-
+      Regulärer Maximalbetrag für sonstige Vorsorgeaufwendungen (Kranken-, Pflege,
+      AL-V), der für sozialverspfl. Beschäftigte gilt.
+    en: null
+  description:
+    de: §10 Abs. 4 S.1 EStG
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2005-01-01:
+    value: 1500
+    reference: Art. 1 G. v. 05.07.2004 BGBl. I S.1427
+  2010-01-01:
+    value: 1900
+    reference: Art. 1 G. v. 23.07.2009 BGBl. I S.1959.
+maximalbetrag_altersvorsorgeaufwendungen:
+  name:
+    de: Maximalbetrag der Altersvorsorgeaufwendungen, 2005er Rechtsstand
+    en: null
+  description:
+    de: §10 (3) EStG, Anlage 2 SGB VI
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2005-01-01:
+    value: 20000
+    note: Art. 1 G. v. 05.07.2004 BGBl. I S.1427
+  2015-01-01:
+    value: 22170
+    note: >-
+      Ab 2015 knappschaftlicher Höchstbetrag, d.h. knappschaftlicher Beitragssatz *
+      knappschaftliche Beitragsbemessungsgrenze
+  2016-01-01:
+    value: 22766
+    note: 0.248 * 91800
+  2017-01-01:
+    value: 23362
+    note: 0.248 * 94200
+  2018-01-01:
+    value: 23712
+    note: 0.247 * 96000
+  2019-01-01:
+    value: 24305
+    note: 0.247 * 98400
+  2020-01-01:
+    value: 25046
+    reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
+    note: 0.247 * 101400
+  2021-01-01:
+    value: 25787
+    reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
+    note: 0.247 * 104400
+  2022-01-01:
+    value: 25640
+    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+    note: 0.247 * 103800
+minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge:
+  name:
+    de: >-
+      Anteil, um den Krankenversicherungsbeiträge bei abhängig Beschäftigten
+      gemindert werden .
+    en: null
+  description:
+    de: §10 (3) a) S.4 EStG
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2009-07-23:
+    value: 0.04
+    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959

@@ -1,0 +1,34 @@
+---
+sonderausgabenpauschbetrag:
+  name:
+    de: Sonderausgaben-Pauschbetrag
+    en: Lump-sum deduction for other expenses
+  description:
+    de: § 10c EStG
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1984-01-01:
+    value: 138
+  1988-01-01:
+    value: 55
+    reference: Art. 1 G. v. 25.07.1988, BGBl. I S. 1093
+    note: 108 DM. Rückdatiert auf das gesamte Jahr.
+  2002-01-01:
+    value: 36
+    note: Art. 1 G. v. 19.12.2000, BGBl. I S. 1790
+parameter_absetzbare_kinderbetreuungskosten:
+  name:
+    de: Parameter zur Berechnung der absetzbaren Kinderbetreuungsaufwendungen
+    en: Parameter for calculating deductible child care expenses
+  description:
+    de: §10 (1) Nr. 5 EStG
+    en: null
+  unit: Share
+  reference_period: null
+  type: dict
+  2012-01-01:
+    anteil: 0.6666666
+    maximum: 4000.0
+    reference: Art. 1 G. v. 01.11.2011 BGBl. I S.2131

@@ -1,0 +1,444 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 67
+      - 34
+      - 37
+      - 48
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
+          - -1
+          - -1
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 200.0
+            - 201.0
+            - 202.0
+            - 203.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1500.0
+            - 5000.0
+            - 300.0
+            - 600.0
+          bruttolohn_vorjahr_m:
+            - 7000.0
+            - 2500.0
+            - 2300.0
+            - 1000.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 4.0
+            - 5.0
+            - 6.0
+            - 7.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 50.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+        - 0
+        - 0
+      claimed:
+        - true
+        - true
+        - true
+        - true
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 7000.0
+        - 2500.0
+        - 2300.0
+        - 1000.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 84654.0
+        - 30678.0
+        - 28302.0
+        - 12726.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1952
+      - 1985
+      - 1982
+      - 1971
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 2
+      - 2
+      - 2
+      - 2
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+        - -1
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 5
+      - 6
+      - 7
+      - 8
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+    sozialversicherung:
+      arbeitslosen:
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 12
+          - 13
+          - 14
+          - 15
+        arbeitssuchend:
+          - false
+          - false
+          - false
+          - false
+        monate_durchgängigen_bezugs_von_arbeitslosengeld:
+          - 0
+          - 0
+          - 0
+          - 0
+        monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+          - 60
+          - 60
+          - 60
+          - 60
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+            - false
+            - false
+      rente:
+        altersrente:
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 8.0
+              - 0.0
+              - 0.0
+              - 0.0
+          höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+          - false
+        entgeltpunkte_ost:
+          - 6.2776
+          - 6.2776
+          - 1.7936
+          - 1.7936
+        entgeltpunkte_west:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        ersatzzeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        erwerbsminderung:
+          teilweise_erwerbsgemindert:
+            - false
+            - false
+            - false
+            - false
+          voll_erwerbsgemindert:
+            - false
+            - false
+            - false
+            - false
+        freiwillige_beitragsmonate:
+          - 5.0
+          - 5.0
+          - 5.0
+          - 5.0
+        grundrente:
+          bewertungszeiten_monate:
+            - 49
+            - 16
+            - 19
+            - 30
+          grundrentenzeiten_monate:
+            - 49
+            - 16
+            - 19
+            - 30
+          mean_entgeltpunkte:
+            - 6.2776
+            - 6.2776
+            - 1.7936
+            - 1.7936
+        jahr_renteneintritt:
+          - 2065
+          - 2066
+          - 2067
+          - 2068
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monat_renteneintritt:
+          - 1
+          - 1
+          - 1
+          - 1
+        monate_geringfügiger_beschäftigung:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_in_mutterschutz:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_in_schulausbildung:
+          - 12.0
+          - 12.0
+          - 12.0
+          - 12.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        pflichtbeitragsmonate:
+          - 528.0
+          - 132.0
+          - 168.0
+          - 300.0
+    unterhalt:
+      anspruch_m:
+        - 177.0
+        - 177.0
+        - 177.0
+        - 0.0
+      tatsächlich_erhaltener_betrag_m:
+        - 177.0
+        - 177.0
+        - 177.0
+        - 0.0
+    vermögen:
+      - 5500.0
+      - 0.0
+      - 0.0
+      - 0.0
+    weiblich:
+      - false
+      - true
+      - false
+      - false
+    wohnen:
+      baujahr_immobilie_hh:
+        - 3
+        - 3
+        - 3
+        - 3
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+        - 80.0
+        - 80.0
+      wohnfläche_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+    wohngeld:
+      mietstufe_hh:
+        - 3
+        - 3
+        - 3
+        - 3
+    wohnort_ost_hh:
+      - true
+      - true
+      - true
+      - true
+outputs: {}

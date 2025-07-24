@@ -1,0 +1,98 @@
+---
+minijobgrenze:
+  name:
+    de: Minijobgrenze
+    en: Thresholds for marginal employment (minijobs)
+  description:
+    de: Minijob § 8 (1) Nr. 1 SGB IV
+    en: Minijob § 8 (1) Nr. 1 SGB IV
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  1984-01-01:
+    value: 199
+  1985-01-01:
+    value: 205
+  1986-01-01:
+    value: 210
+  1987-01-01:
+    value: 220
+  1988-01-01:
+    value: 225
+  1989-01-01:
+    value: 230
+  1990-01-01:
+    note: >-
+      Minijobgrenze differs between West and East Germany. See
+      ``parameter_minijobgrenze_ost_west_unterschied``.
+  2000-01-01:
+    value: 322
+  2002-01-01:
+    value: 325
+  2003-04-01:
+    value: 400
+  2013-01-01:
+    value: 450
+  2022-10-01:
+    note: Minijob thresholds now calculated based on statutory minimum wage
+    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+parameter_minijobgrenze_ost_west_unterschied:
+  name:
+    de: Minijobgrenze
+    en: Thresholds for marginal employment ('mini' jobs)
+  description:
+    de: Minijob § 8 (1) Nr. 1 SGB IV
+    en: Minijob § 8 (1) Nr. 1 SGB IV
+  unit: Euros
+  reference_period: Month
+  type: dict
+  1990-01-01:
+    west: 240
+    ost: 102
+  1991-01-01:
+    west: 245
+    ost: 120
+  1992-01-01:
+    west: 256
+    ost: 153
+  1993-01-01:
+    west: 271
+    ost: 199
+  1994-01-01:
+    west: 286
+    ost: 225
+  1995-01-01:
+    west: 297
+    ost: 240
+  1996-01-01:
+    west: 302
+    ost: 256
+  1997-01-01:
+    west: 312
+    ost: 266
+  1998-01-01:
+    updates_previous: true
+    west: 317
+  1999-01-01:
+    west: 322
+    ost: 271
+  2000-01-01:
+    note: >-
+      Minijob thresholds do not differ between West and East Germany. See
+      `minijobgrenze_m`.
+faktoren_minijobformel:
+  name:
+    de: Zähler und Nenner im Faktor für die Berechnung der Geringfügigkeitsgrenze.
+    en: >-
+      Numerator and denominator in the factor for the calculation of the marginal
+      employment threshold.
+  description:
+    de: §8 (1a) SGB IV
+    en: §8 (1a) SGB IV
+  unit: null
+  reference_period: null
+  type: dict
+  2022-10-01:
+    zähler: 130
+    nenner: 3
+    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969

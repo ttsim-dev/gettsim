@@ -1,0 +1,47 @@
+---
+alleinerziehendenfreibetrag_basis:
+  name:
+    de: Parmeter zur Berechnung ds Entlastungsbetrags für Alleinerziehende
+    en: Income Tax Allowance for Single Parents
+  description:
+    de: § 24b (1) EStG. vor 2004 "Haushaltsfreibetrag", § 32 (7) EStG
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1984-01-01:
+    value: 2154
+  1986-01-01:
+    value: 2319
+  1989-01-01:
+    value: 2871
+  2001-01-01:
+    value: 2916
+  2002-01-01:
+    value: 2340
+  2004-01-01:
+    value: 1308
+  2015-01-01:
+    value: 1908
+    reference: Art. 1 G. v. 16.07.2015 BGBl. I S.1202
+  2020-01-01:
+    value: 4008
+    reference: Art. 3 Nr. 2 G. v. 29.12.2020 BGBl. I S.3096
+  2023-01-01:
+    value: 4260
+    reference: G. v. 20.12.2022 BGBl. I S. 2294.
+alleinerziehendenfreibetrag_zusatz_pro_kind:
+  name:
+    de: Zusätzlicher Entlastungsbetrag für Alleinerziehende
+    en: Additional income tax allowance for Single Parents
+  description:
+    de: >-
+      §24b (2) S. 2 EStG. Alleinerziehenden-Entlastungsbetrag, Zusatzbetrag pro Kind ab
+      dem 2. Kind.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2015-01-01:
+    value: 240
+    reference: Art. 1 G. vs. 16.07.2015 BGBl. I S.1202

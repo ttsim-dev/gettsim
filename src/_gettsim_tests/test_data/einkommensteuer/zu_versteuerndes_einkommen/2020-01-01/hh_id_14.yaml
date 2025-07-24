@@ -1,0 +1,238 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: https://www.bmf-steuerrechner.de/bdj/eingabeformbdj.xhtml?jahr=l_k_bdj_2020
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 44
+      - 13
+      - 15
+    arbeitsstunden_w:
+      - 40.0
+      - 25.0
+      - 0.0
+      - 0.0
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
+          - -1
+          - -1
+        vorsorgeaufwendungen_y_sn:
+          - 10901.0
+          - 10901.0
+          - 10901.0
+          - 10901.0
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 3500.0
+            - 2000.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+        - false
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 16
+        - 15
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 15
+        - 15
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 16
+        - 16
+    geburtsjahr:
+      - 1975
+      - 1976
+      - 2007
+      - 2005
+    hh_id:
+      - 14
+      - 14
+      - 14
+      - 14
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 15
+        - 15
+    p_id:
+      - 15
+      - 16
+      - 17
+      - 18
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2037
+          - 2038
+          - 2074
+          - 2072
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+      - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      alleinerziehend_betrag_y:
+        - 0
+        - 0
+        - 0
+        - 0
+      altersfreibetrag_y:
+        - 0
+        - 0
+        - 0
+        - 0
+      pauschbetrag_behinderung_y:
+        - 0
+        - 0
+        - 0
+        - 0
+    einkünfte:
+      gesamtbetrag_der_einkünfte_y:
+        - 41000
+        - 23000
+        - 0
+        - 0
+    gesamteinkommen_y:
+      - 53027.0
+      - 53027.0
+      - 0.0
+      - 0.0
+    kinderfreibetrag_y_sn:
+      - 15624
+      - 15624
+      - 0
+      - 0
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+      - 37403.0
+      - 37403.0
+      - 0.0
+      - 0.0

@@ -1,0 +1,113 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 43
+      - 0
+      - 43
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 2
+        - -1
+        - 0
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 39.83
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+            - 3600.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+        - 0
+      claimed:
+        - true
+        - false
+        - false
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 1220.0
+        - 0.0
+        - 0.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 2
+        - -1
+        - 0
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - 2
+        - -1
+    geburtsjahr:
+      - 1976
+      - 2018
+      - 1976
+    geburtsmonat:
+      - 6
+      - 6
+      - 8
+    geburtstag:
+      - 6
+      - 12
+      - 8
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - false
+            - true
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  elterngeld:
+    lohnersatzanteil:
+      - 0.661
+      - 0.67
+      - 0.67

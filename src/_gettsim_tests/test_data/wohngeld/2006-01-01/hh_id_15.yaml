@@ -1,0 +1,479 @@
+---
+info:
+  note: >-
+    Expanded test case to include additional household members so that more than
+    seven people are eligible for housing subsidies
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 42
+      - 53
+      - 7
+      - 8
+      - 12
+      - 2
+      - 2
+      - 5
+    anzahl_personen_hh:
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+      - 8
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 67
+        - 66
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1450.0
+            - 1450.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            ertragsanteil:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 67
+        - 66
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 66
+        - 66
+        - 66
+        - 66
+        - 66
+        - 66
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 67
+        - 67
+        - 67
+        - 67
+        - 67
+        - 67
+    geburtsjahr:
+      - 1964
+      - 1953
+      - 1999
+      - 1998
+      - 1994
+      - 2004
+      - 2004
+      - 2001
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 66
+        - 66
+        - 66
+        - 66
+        - 66
+        - 66
+    p_id:
+      - 66
+      - 67
+      - 68
+      - 69
+      - 70
+      - 71
+      - 72
+      - 73
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 200000.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+    wohnen:
+      baujahr_immobilie_hh:
+        - 1995
+        - 1995
+        - 1995
+        - 1995
+        - 1995
+        - 1995
+        - 1995
+        - 1995
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 850.0
+        - 850.0
+        - 850.0
+        - 850.0
+        - 850.0
+        - 850.0
+        - 850.0
+        - 850.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+    wohngeld:
+      mietstufe_hh:
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+        - 3
+outputs:
+  wohngeld:
+    anspruchshöhe_m_bg:
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+    anspruchshöhe_m_wthh:
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0
+      - 93.0

@@ -1,0 +1,184 @@
+---
+info:
+  note: ''
+  precision_atol: 0.1
+  source: Made up from the law
+inputs:
+  assumed: {}
+  provided:
+    geburtsjahr:
+      - 1948
+      - 1948
+      - 1948
+      - 1948
+      - 1948
+      - 1948
+      - 1948
+      - 1948
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    sozialversicherung:
+      rente:
+        altersrente:
+          für_frauen:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - false
+              - false
+              - false
+              - true
+              - true
+              - true
+              - true
+          langjährig:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - true
+              - false
+              - true
+              - false
+              - true
+              - false
+              - true
+          wegen_arbeitslosigkeit:
+            grundsätzlich_anspruchsberechtigt:
+              - false
+              - false
+              - true
+              - true
+              - false
+              - false
+              - true
+              - true
+            vertrauensschutz_1997:
+              - false
+              - false
+              - false
+              - false
+              - false
+              - false
+              - false
+              - false
+    weiblich:
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+outputs:
+  sozialversicherung:
+    rente:
+      altersrente:
+        altersgrenze:
+          - 65.0
+          - 65.0
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+        altersgrenze_vorzeitig:
+          - 65.0
+          - 62.0
+          - 60.0
+          - 60.0
+          - 60.0
+          - 60.0
+          - 60.0
+          - 60.0
+        für_frauen:
+          altersgrenze:
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+        langjährig:
+          altersgrenze:
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+          altersgrenze_vorzeitig:
+            - 62.0
+            - 62.0
+            - 62.0
+            - 62.0
+            - 62.0
+            - 62.0
+            - 62.0
+            - 62.0
+        referenzalter_abschlag:
+          - 65.0
+          - 65.0
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+          - 62.583333
+        regelaltersrente:
+          altersgrenze:
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+            - 65.0
+        wegen_arbeitslosigkeit:
+          altersgrenze:
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+            - 62.583333
+          altersgrenze_vorzeitig:
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0
+            - 60.0

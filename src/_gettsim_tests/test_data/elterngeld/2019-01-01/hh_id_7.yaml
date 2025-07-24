@@ -1,0 +1,129 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 43
+      - 43
+      - 0
+    alter_monate:
+      - 516
+      - 516
+      - 0
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 72
+        - 71
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    elterngeld:
+      bisherige_bezugsmonate:
+        - 0
+        - 0
+        - 0
+      claimed:
+        - true
+        - true
+        - false
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 1800.0
+        - 1800.0
+        - 0.0
+      zu_versteuerndes_einkommen_vorjahr_y_sn:
+        - 16560.0
+        - 16560.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 72
+        - 71
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 71
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 72
+    geburtsjahr:
+      - 1976
+      - 1976
+      - 2018
+    geburtsmonat:
+      - 5
+      - 6
+      - 12
+    geburtstag:
+      - 5
+      - 6
+      - 1
+    hh_id:
+      - 7
+      - 7
+      - 7
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+    p_id:
+      - 71
+      - 72
+      - 73
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - true
+            - true
+            - false
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  elterngeld:
+    anzahl_mehrlinge_fg:
+      - 0
+      - 0
+      - 0
+    betrag_m:
+      - 1170.0
+      - 1170.0
+      - 0.0
+    geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
+      - false
+      - false
+      - false
+    grundsätzlich_anspruchsberechtigt:
+      - true
+      - true
+      - false

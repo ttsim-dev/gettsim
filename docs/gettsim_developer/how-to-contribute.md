@@ -4,13 +4,13 @@ Contributions are always welcome. Everything ranging from small extensions of th
 documentation to implementing new features is appreciated. Of course, the bigger the
 change the more it is necessary to reach out to us in advance for an discussion. You can
 start an discussion by
-[posting an issue](https://github.com/iza-institute-of-labor-economics/gettsim/issues/new/choose)
-which can be a bug report or a feature request or something else.
+[posting an issue](https://github.com/ttsim-dev/gettsim/issues/new/choose) which can be
+a bug report or a feature request or something else.
 
 To get acquainted with the code base, you can also check out the
 [documentation](https://gettsim.readthedocs.io/en/latest/) or our
-[issue tracker](https://github.com/iza-institute-of-labor-economics/gettsim/issues) for
-some immediate and clearly defined tasks.
+[issue tracker](https://github.com/ttsim-dev/gettsim/issues) for some immediate and
+clearly defined tasks.
 
 To contribute to the project, adhere to the following process.
 
@@ -27,15 +27,13 @@ To contribute to the project, adhere to the following process.
   Thus, you can clone the repository directly using
 
   ```shell-session
-  $ git clone https://github.com/iza-institute-of-labor-economics/gettsim
+  $ git clone https://github.com/ttsim-dev/gettsim
   ```
 
   As a newcomer or infrequent contributor, you must first create a fork of GETTSIM which
   is a copy of the repository into your account where you have unlimited access. Go to
-  the
-  [Github page of GETTSIM](https://github.com/iza-institute-of-labor-economics/gettsim)
-  and click on the fork button in the upper right corner. Then, clone your fork onto
-  your disk with
+  the [Github page of GETTSIM](https://github.com/ttsim-dev/gettsim) and click on the
+  fork button in the upper right corner. Then, clone your fork onto your disk with
 
   ```shell-session
   $ git clone https://github.com/<user>/gettsim

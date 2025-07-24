@@ -1,0 +1,67 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+      gesamteinkommen_y:
+        - 200000.0
+        - 200000.0
+        - 0.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 200000.0
+        - 200000.0
+        - 0.0
+    familie:
+      p_id_ehepartner:
+        - 6
+        - 5
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 5
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 6
+    hh_id:
+      - 4
+      - 4
+      - 4
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - true
+    p_id:
+      - 5
+      - 6
+      - 7
+outputs:
+  einkommensteuer:
+    anzahl_kindergeld_ansprüche_1:
+      - 1
+      - 0
+      - 0
+    anzahl_kindergeld_ansprüche_2:
+      - 0
+      - 1
+      - 0
+    relevantes_kindergeld_m:
+      - 125
+      - 125
+      - 0

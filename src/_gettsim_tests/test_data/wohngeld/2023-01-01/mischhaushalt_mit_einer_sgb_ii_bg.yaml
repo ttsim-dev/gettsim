@@ -1,0 +1,361 @@
+---
+info:
+  note: Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
+  precision_atol: 0.01
+  source: https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2023-artikel.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+      - 40
+      - 40
+      - 40
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - -1
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 20.0
+        - 20.0
+        - 20.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_y:
+            - 12000.0
+            - 12000.0
+            - 9600.0
+            - 0.0
+            - 0.0
+          bruttolohn_m:
+            - 1000.0
+            - 1000.0
+            - 800.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            ertragsanteil:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1983
+      - 1983
+      - 1983
+      - 1983
+      - 1983
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+        - false
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 0.0
+            - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+          - false
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+        - false
+        - false
+      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
+        - true
+        - true
+        - true
+        - false
+        - false
+    wohnen:
+      baujahr_immobilie_hh:
+        - 2010
+        - 2010
+        - 2010
+        - 2010
+        - 2010
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+    wohngeld:
+      mietstufe_hh:
+        - 5
+        - 5
+        - 5
+        - 5
+        - 5
+outputs:
+  arbeitslosengeld_2:
+    bruttokaltmiete_m_wthh:
+      - 600.0
+      - 600.0
+      - 600.0
+      - 400.0
+      - 400.0
+  wohngeld:
+    anzahl_personen_wthh:
+      - 3
+      - 3
+      - 3
+      - 2
+      - 2
+    betrag_m_wthh:
+      - 175.0
+      - 175.0
+      - 175.0
+      - 0.0
+      - 0.0
+    mindesteinkommen_erreicht_wthh:
+      - true
+      - true
+      - true
+      - false
+      - false
+  wthh_id:
+    - 1
+    - 1
+    - 1
+    - 0
+    - 0

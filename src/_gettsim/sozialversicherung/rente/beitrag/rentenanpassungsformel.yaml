@@ -1,0 +1,220 @@
+---
+alpha:
+  name:
+    de: Parameter alpha der Rentenanpassungsformel
+    en: Parameter alpha of the pension adjustment formula
+  description:
+    de: >-
+      §68 Abs. 4 S. 6 SGB VI
+      Teil des Nachhaltigkeitsfaktors in der Rentenanpassungsformel, welche das
+      Verhältnis von Rentnern zu Beitragszahlern modifiziert
+    en: >-
+      §68 Abs. 4 S. 6 SGB VI
+      Part of the sustainability factor in the pension adjustment formula which modifies
+      the ratio of pensioners to contributors
+  unit: null
+  reference_period: null
+  type: scalar
+  2002-01-01:
+    value: 0.25
+altersvorsogeanteil:
+  name:
+    de: Altersvorsorgeanteil (AVA)
+    en: Personal pension share
+  description:
+    de: §68 Abs. 5 SGB VI (Teil des Riesterfaktors in der Rentenanpassungsformel)
+    en: §68 Abs. 5 SGB VI (Part of the Riesterfaktor in the pension adjustment formula)
+  unit: null
+  reference_period: null
+  type: scalar
+  2002-01-01:
+    value: 0.5
+  2003-01-01:
+    value: 1.0
+  2004-01-01:
+    value: 1.5
+  2005-01-01:
+    value: 2.0
+  2009-01-01:
+    value: 2.5
+  2010-01-01:
+    value: 3.0
+  2011-01-01:
+    value: 3.5
+  2012-01-01:
+    value: 4.0
+beitragsvolumen:
+  name:
+    de: Beitragsvolumen der gesetzlichen Rentenversicherung
+    en: Contribution volume of the statutory pension insurance
+  description:
+    de: >-
+      Summe der Beiträge zur Rentenversicherung aller rentenversicherungspflichtig
+      Beschäftigten, der geringfügig Beschäftigten und der Bezieher von ALG.
+      statistik-rente.de/drv
+    en: >-
+      Sum of contributions to the pension insurance of all employees subject to pension
+      insurance, marginally employed and recipients of ALG.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1991-01-01:
+    value: 108688000
+  1992-01-01:
+    value: 117359000
+  1993-01-01:
+    value: 120559000
+  1994-01-01:
+    value: 132938000
+  1995-01-01:
+    value: 139921000
+  1996-01-01:
+    value: 146160000
+  1997-01-01:
+    value: 153658000
+  1998-01-01:
+    value: 153763000
+  1999-01-01:
+    value: 160506000
+  2000-01-01:
+    value: 163367000
+  2001-01-01:
+    value: 164694000
+  2002-01-01:
+    value: 165481000
+  2003-01-01:
+    value: 169425000
+  2004-01-01:
+    value: 169399000
+  2005-01-01:
+    value: 168954000
+  2006-01-01:
+    value: 180545000
+  2007-01-01:
+    value: 174726000
+  2008-01-01:
+    value: 180028000
+  2009-01-01:
+    value: 181572000
+  2010-01-01:
+    value: 185288000
+  2011-01-01:
+    value: 189850000
+  2012-01-01:
+    value: 193687000
+  2013-01-01:
+    value: 194334000
+  2014-01-01:
+    value: 201647000
+  2015-01-01:
+    value: 207317000
+  2016-01-01:
+    value: 215422000
+  2017-01-01:
+    value: 225244000
+  2018-01-01:
+    value: 236404000
+  2019-01-01:
+    value: 247949000
+durchschnittslohn:
+  name:
+    de: Durchschnittslohn
+    en: Mean Wage
+  description:
+    de: Durchschnittsbruttolohn aller Arbeitnehmer:innen in einem Jahr
+    en: Mean gross wage of all employees per year
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2005-01-01:
+    value: 28468.23
+  2006-01-01:
+    value: 28673.22
+  2007-01-01:
+    value: 28978.19
+  2008-01-01:
+    value: 29262.71
+  2009-01-01:
+    value: 29774.24
+  2010-01-01:
+    value: 30086.57
+  2011-01-01:
+    value: 30770.62
+  2012-01-01:
+    value: 31452.49
+  2013-01-01:
+    value: 31583.35
+  2014-01-01:
+    value: 32313.66
+  2015-01-01:
+    value: 33047.02
+  2016-01-01:
+    value: 33608.42
+gesamtes_rentenvolumen:
+  name:
+    de: Rentenvolumen
+    en: pension volume
+  description:
+    de: Gesamtvolumen der ausgezahlten Renten
+    en: Total amount of paid pensions
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1991-01-01:
+    value: 117912000
+  1992-01-01:
+    value: 130901000
+  1993-01-01:
+    value: 141180000
+  1994-01-01:
+    value: 152798000
+  1995-01-01:
+    value: 162625000
+  1996-01-01:
+    value: 168955000
+  1997-01-01:
+    value: 174479000
+  1998-01-01:
+    value: 180323800
+  1999-01-01:
+    value: 184139000
+  2000-01-01:
+    value: 190198000
+  2001-01-01:
+    value: 195776000
+  2002-01-01:
+    value: 202355000
+  2003-01-01:
+    value: 207749000
+  2004-01-01:
+    value: 210522000
+  2005-01-01:
+    value: 211861000
+  2006-01-01:
+    value: 212421000
+  2007-01-01:
+    value: 213649000
+  2008-01-01:
+    value: 216182000
+  2009-01-01:
+    value: 220841000
+  2010-01-01:
+    value: 224352000
+  2011-01-01:
+    value: 225411000
+  2012-01-01:
+    value: 229231000
+  2013-01-01:
+    value: 232297000
+  2014-01-01:
+    value: 238991000
+  2015-01-01:
+    value: 249568000
+  2016-01-01:
+    value: 259345000
+  2017-01-01:
+    value: 286860000
+  2018-01-01:
+    value: 277102000
+  2019-01-01:
+    value: 291359000

@@ -1,0 +1,102 @@
+---
+parameter_kinderfreibetrag:
+  name:
+    de: Kinderfreibetrag
+    en: Basic Income Tax Allowance for children
+  description:
+    de: >-
+      sächliches Existenzminimum des Kindes, seit 2000 auch der Freibetrag für
+      Betreuungs-, Erziehungs- oder Ausbildungsbedarf. Wird verdoppelt für gemeinsam
+      veranlagte Paare. §32 (6) EStG.
+    en: null
+  unit: Euros
+  reference_period: Year
+  type: dict
+  1983-01-01:
+    sächliches_existenzminimum: 110
+    reference: Art. 1 G. v. 23.12.1982 BGBl. I S. 1857.
+    note: Der Betrag laut Gesetz ist 216 DM.
+  1986-01-01:
+    sächliches_existenzminimum: 635
+    reference: Art. 1 G. v. 26.06.1985 BGBl. I S. 1153.
+    note: Der Betrag im Gesetz lautet 1242 DM.
+  1990-01-01:
+    sächliches_existenzminimum: 773
+    reference: Artikel 1 G. v. 25.07.1988 BGBl. I S. 1093.
+    note: Der Betrag im Gesetz lautet 1512 DM.
+  1992-01-01:
+    sächliches_existenzminimum: 1049
+    reference: Art. 1 G. v. 25.02.1992 BGBl. I S. 297.
+    note: Wert laut Gesetz 2052 DM.
+  1996-01-01:
+    sächliches_existenzminimum: 1601
+    reference: Art. 1. G. v. 11.10.1995 BGBl. I S. 1250.
+    note: Laut Gesetz 261 DM pro Monat.
+  1997-01-01:
+    sächliches_existenzminimum: 1767
+    note: Laut Gesetz 288 DM pro Monat (ab 2000 3456 DM pro Jahr)
+  2000-01-01:
+    sächliches_existenzminimum: 1767
+    betreuung_erziehung_ausbildung: 774
+    reference: Art. 1 G. v. 28.12.1999 BGBl. I. S. 2552.
+    note: Wert für betreuung_erziehung_ausbildung laut Gesetz 1512 DM.
+  2002-01-01:
+    sächliches_existenzminimum: 1824
+    betreuung_erziehung_ausbildung: 1080
+    reference: Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+  2009-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 1932
+    reference: Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+  2010-01-01:
+    sächliches_existenzminimum: 2184
+    betreuung_erziehung_ausbildung: 1320
+    reference: Art. 1 G. v. 22.12.2009 BGBl. I S. 3950
+  2015-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2256
+    reference: Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+  2016-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2304
+    reference: Art. 2 G. v. 16.07.2015 BGBl. I S. 1202
+  2017-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2358
+    reference: Art. 8 G. v. 20.12.2016 BGBl. I. S. 3000
+  2018-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2394
+    reference: Art. 9 G. v. 20.12.2016 BGBl. I. S. 3000
+  2019-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2490
+    reference: Art. 1 G. v. 29.11.2018 BGBl. I S. 2210
+  2020-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2586
+    reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
+  2021-01-01:
+    betreuung_erziehung_ausbildung: 1464
+    sächliches_existenzminimum: 2730
+    reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
+  2022-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 2810
+    reference: Art. 1 G. v. 08.12.2022 BGBl. I S. 2230.
+  2023-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 3012
+    reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
+  2024-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 3306
+    reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
+  2025-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 3336
+    reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+  2026-01-01:
+    updates_previous: true
+    sächliches_existenzminimum: 3414
+    reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.

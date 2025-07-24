@@ -1,0 +1,24 @@
+---
+minijob_arbeitgeberpauschale:
+  name:
+    de: >-
+      Pauschalbeitrag des Arbeitgebers zur Krankenversicherung bei geringfügiger
+      Beschäftigung
+    en: Fixed employer health insurance contribution for marginal employment
+  description:
+    de: >-
+      Pauschalbeitrag des Arbeitgebers zur Krankenversicherung (§ 249b SGB V) bei
+      geringfügiger Beschäftigung
+    en: Fixed health insurance contributions for marginal employment (§ 249b SGB V)
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1999-04-01:
+    value: 0.1
+    reference: BGBl I 1999 S. 388
+    note: Introduction of '630 Mark' jobs.
+  2003-04-01:
+    value: 0.11
+  2007-01-01:
+    value: 0.13

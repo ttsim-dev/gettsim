@@ -1,0 +1,57 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Own calculations
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1990
+    geburtsmonat:
+      - 10
+    p_id:
+      - 20
+    sozialversicherung:
+      rente:
+        bezieht_rente:
+          - true
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 4.0
+        ersatzzeiten_monate:
+          - 0.0
+        erwerbsminderung:
+          mean_entgeltpunkte_pro_bewertungsmonat_y:
+            - 0.45
+          teilweise_erwerbsgemindert:
+            - true
+          voll_erwerbsgemindert:
+            - false
+          wartezeit_langjährig_versichert_erfüllt:
+            - false
+        freiwillige_beitragsmonate:
+          - 0.0
+        jahr_renteneintritt:
+          - 2012
+        monat_renteneintritt:
+          - 2
+        pflichtbeitragsmonate:
+          - 60.0
+    wohnort_ost_hh:
+      - true
+  provided: {}
+outputs:
+  sozialversicherung:
+    rente:
+      erwerbsminderung:
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 33.52380952
+        grundsätzlich_anspruchsberechtigt:
+          - true
+        rentenartfaktor:
+          - 0.5
+        zugangsfaktor:
+          - 0.892

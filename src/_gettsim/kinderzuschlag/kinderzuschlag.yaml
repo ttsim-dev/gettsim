@@ -1,0 +1,401 @@
+---
+satz:
+  name:
+    de: Maximaler Kinderzuschlagsatz pro Kind
+    en: Maximum amount of Kinderzuschlag per child
+  description:
+    de: § 6a (2) BKGG. Betrag pro Kind
+    en: Amount per child.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2005-01-01:
+    value: 140
+    reference: Art. 46 G. v. 24.12.2003 BGBl. I S. 2954.
+  2017-01-01:
+    value: 170
+    reference: Art. 12 G. v. 20.12.2016 BGBl. I S. 3000.
+  2019-07-01:
+    value: 185
+    reference: Art. 1 G. v. 29.04.2019 BGBl. I S. 530.
+    note: For 2020, Art. 2 Nr. 4 G. v. 29.04.2019 BGBl. I S. 530.
+  2021-01-01:
+    note: By law, 2021, the value is being calculated base on other parameters.
+  2023-01-01:
+    value: 250
+    reference: Art. 6 G. v. 08.12.2022 BGBl. I S. 2230.
+    note: Regelung für das Kalenderjahr 2023, abweichend von § 6a Absatz 2.
+  2024-01-01:
+    note: Back to formula.
+satz_vorjahr_ohne_kindersofortzuschlag:
+  name:
+    de: Kinderzuschlagsatz pro Kind im Vorjahr
+    en: Maximum amount of Kinderzuschlag per child in the previous year
+  description:
+    de: § 6a (2) BKGG legt fest, dass der Kinderzuschlag nicht sinken darf
+    en: § 6a (2) BKGG sets that the Kinderzuschlag cannot decrease.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2021-01-01:
+    value: 185
+  2022-01-01:
+    value: 224
+  2023-01-01:
+    note: Irrelevant because Kinderzuschlag was set arbitrarily.
+  2024-01-01:
+    value: 250
+  2025-01-01:
+    value: 272
+  2026-01-01:
+    value: 272
+mindesteinkommen:
+  name:
+    de: Mindesteinkommen für Anspruchsberechtigung
+    en: Minimum income to be eligible for Kinderzuschlag
+  description:
+    de: § 6a (1) Nr. 2 BKGG.
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: dict
+  2008-10-01:
+    single: 600
+    paar: 900
+    reference: Art. 1 G. v. 24.09.2008 BGBl. I S. 1854.
+entzugsrate_elterneinkommen:
+  name:
+    de: Minderungsrate durch Einkommen der Eltern über BMG
+    en: Transfer withdrawal rate for parent's income
+  description:
+    de: >-
+      § 6a (6) BKGG, bis 01.07.2019 § 6a (4) BKGG. Rate, mit der der
+      Gesamtkinderzuschlag nach Erreichen der Bemessungsgrenze durch Einkommen der
+      Eltern gemindert wird. Bis 07/2019 wurde das Einkommen nur in 10€-Schritten
+      berücksichtigt.
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  2005-01-01:
+    value: 0.7
+    reference: Art. 46 G. v. 24.12.2003 BGBl. I. S. 2954.
+  2008-10-01:
+    value: 0.5
+    reference: Art. 1 G. v. 24.09.2008 BGBl. I S. 1854.
+  2020-01-01:
+    value: 0.45
+    reference: Art. 1 G. v. 29.04.2019 BGBl. I S. 530.
+entzugsrate_kindeseinkommen:
+  name:
+    de: Minderungsrate durch Einkommen des Kindes
+    en: Rate at which benefit is reduced by child income
+  description:
+    de: >-
+      § 6a (3) BKGG. Einkommen des Kindes beinhaltet auch Unterhalt und
+      Unterhaltsvorschuss.
+    en: >-
+      Child alimony and alimony advance payments are also attributed to the child.
+  unit: Share
+  reference_period: null
+  type: scalar
+  2005-01-01:
+    value: 1
+    reference: Art. 46 G. v. 24.12.2003 BGBl. I. S. 2954.
+  2019-07-01:
+    value: 0.45
+    reference: Art. 1 G. v. 29.04.2019 BGBl. I S. 530.
+parameter_existenzminimum:
+  name:
+    de: >-
+      Höhen des Existenzminimums, festgelegt im Existenzminimumsbericht der
+      Bundesregierung.
+    en: Subsistence levels as calculated by the government.
+  description:
+    de: >-
+      Berechnet für jeweils zwei Jahre die Höhe der steuerfrei zu stellenden
+      Existenzminima (nicht identisch mit dem steuerlichen Grundfreibetrag).
+    en: >-
+      Every two years, the government calculates the subsistence levels 'to be allowed
+      from taxation'. These form the basis for a number of kiz parameters.
+  unit: Euros
+  reference_period: Year
+  type: require_converter
+  2005-01-01:
+    regelsatz:
+      single: 4164
+      paar: 7488
+      kind: 2688
+    kosten_der_unterkunft:
+      single: 2592
+      paar: 3984
+      kind: 804
+    heizkosten:
+      single: 600
+      paar: 768
+      kind: 156
+    reference: 5. Existenzminimumsbericht, Bundestag Drucksache 15/2462, Übersicht 3
+  2008-01-01:
+    regelsatz:
+      single: 4140
+      paar: 7464
+      kind: 2676
+    kosten_der_unterkunft:
+      single: 2364
+      paar: 4020
+      kind: 804
+    heizkosten:
+      single: 636
+      paar: 792
+      kind: 168
+    reference: 6. Existenzminimumsbericht, Bundestag Drucksache 16/3265, Übersicht 3
+  2010-01-01:
+    regelsatz:
+      single: 4368
+      paar: 7860
+      kind: 2820
+    kosten_der_unterkunft:
+      single: 2520
+      paar: 4164
+      kind: 840
+    heizkosten:
+      single: 768
+      paar: 972
+      kind: 204
+    reference: 7. Existenzminimumsbericht, Bundestag Drucksache 16/11065, Übersicht 3
+  2012-01-01:
+    regelsatz:
+      single: 4488
+      paar: 8064
+      kind: 2988
+    bildung_und_teilhabe:
+      kind: 228
+    kosten_der_unterkunft:
+      single: 2724
+      paar: 4344
+      kind: 876
+    heizkosten:
+      single: 684
+      paar: 864
+      kind: 180
+    reference: 8. Existenzminimumsbericht, Bundestag Drucksache 17/5550, Übersicht 4
+  2013-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4584
+      paar: 8064
+      kind: 2988
+    kosten_der_unterkunft:
+      single: 2796
+      paar: 4344
+      kind: 876
+    heizkosten:
+      single: 744
+      paar: 864
+      kind: 180
+    reference: >-
+      9. Existenzminimumsbericht, Bundestag Drucksache 17/5550, Übersicht 5. Werte nur
+      für Singles anders
+  2014-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4680
+      paar: 8448
+      kind: 3096
+    kosten_der_unterkunft:
+      single: 2868
+      paar: 4560
+      kind: 912
+    heizkosten:
+      single: 804
+      paar: 1008
+      kind: 204
+    reference: 9. Existenzminimumsbericht, Bundestag Drucksache 17/5550, Übersicht 5.
+  2015-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4788
+      kind: 3168
+    kosten_der_unterkunft:
+      single: 2988
+      kind: 936
+    heizkosten:
+      single: 696
+      kind: 180
+    reference: 10. Existenzminimumsbericht, Bundestag Drucksache 17/5550, Übersicht 4.
+  2016-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4872
+      paar: 8784
+      kind: 3228
+    kosten_der_unterkunft:
+      single: 3060
+      paar: 4788
+      kind: 960
+    heizkosten:
+      single: 720
+      paar: 900
+      kind: 192
+    reference: 10. Existenzminimumsbericht, Bundestag Drucksache 17/5550, Übersicht 4.
+  2017-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4908
+      kind: 3336
+    kosten_der_unterkunft:
+      single: 3312
+      kind: 996
+    heizkosten:
+      single: 600
+      kind: 156
+    reference: 11. Existenzminimumsbericht, Bundestag Drucksache 18/10220, Übersicht 4.
+  2018-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 4968
+      paar: 8952
+      kind: 3372
+    kosten_der_unterkunft:
+      single: 3396
+      paar: 5088
+      kind: 1020
+    heizkosten:
+      single: 636
+      paar: 816
+      kind: 168
+    reference: 11. Existenzminimumsbericht, Bundestag Drucksache 18/10220, Übersicht 4.
+  2019-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 5088
+      paar: 8952
+      kind: 3456
+    kosten_der_unterkunft:
+      single: 3468
+      paar: 5088
+      kind: 1044
+    heizkosten:
+      single: 612
+      paar: 816
+      kind: 168
+    reference: 12. Existenzminimumsbericht, Bundestag Drucksache 19/5400, Übersicht 4.
+  2020-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 5196
+      paar: 9360
+      kind: 3528
+    kosten_der_unterkunft:
+      single: 3552
+      paar: 5328
+      kind: 1068
+    heizkosten:
+      single: 660
+      paar: 852
+      kind: 180
+    reference: 12. Existenzminimumsbericht, Bundestag Drucksache 19/5400, Übersicht 4.
+  2021-01-01:
+    regelsatz:
+      single: 5352
+      paar: 9360
+      kind: 3780
+    bildung_und_teilhabe:
+      kind: 324
+    kosten_der_unterkunft:
+      single: 3612
+      paar: 5328
+      kind: 1092
+    heizkosten:
+      single: 780
+      paar: 852
+      kind: 216
+    reference: 13. Existenzminimumsbericht, Bundestag Drucksache 19/22800, Übersicht 4.
+  2022-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 5400
+      paar: 9720
+      kind: 3816
+    kosten_der_unterkunft:
+      single: 3684
+      paar: 5520
+      kind: 1104
+    heizkosten:
+      single: 804
+      paar: 1080
+      kind: 216
+    reference: 13. Existenzminimumsbericht, Bundestag Drucksache 19/22800, Übersicht 4.
+  2023-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 6024
+      kind: 4248
+    bildung_und_teilhabe:
+      kind: 336
+    kosten_der_unterkunft:
+      single: 3828
+      kind: 1152
+    heizkosten:
+      single: 1056
+      kind: 288
+    reference: 14. Existenzminimumsbericht, Bundestag Drucksache 20/4443, Übersicht 4.
+  2024-01-01:
+    regelsatz:
+      single: 6444
+      paar: 11592
+      kind: 4764  # 4548
+    bildung_und_teilhabe:
+      kind: 340  # 336
+    kosten_der_unterkunft:
+      single: 3924
+      paar: 5892
+      kind: 1188
+    heizkosten:
+      single: 1104
+      paar: 1500
+      kind: 312
+    reference: V. v. 24.10.2023 BGBl. 2023 I Nr. 287
+    note: >-
+      Differs from 14. Existenzminimumsbericht, values are derived based on the
+      Regelbedarfsstufen-Fortschreibungsverordnung 2024 linked above:
+      12 * (6 · 357 + 8 · 390 + 4 · 471) / 18 = 4764.  BuT similar.
+  2025-01-01:
+    updates_previous: true
+    regelsatz:
+      single: 6756
+      kind: 4764
+    bildung_und_teilhabe:
+      kind: 348
+    kosten_der_unterkunft:
+      single: 4092
+      kind: 1236
+    heizkosten:
+      single: 1092
+      kind: 300
+    reference: 15. Existenzminimumsbericht, Bundestag Drucksache 20/13550, Übersicht 4.
+  2026-01-01:
+    updates_previous: true
+    kosten_der_unterkunft:
+      single: 4212
+      paar: 6324
+      kind: 1272
+    heizkosten:
+      single: 1128
+      paar: 1524
+      kind: 312
+    reference: 15. Existenzminimumsbericht, Bundestag Drucksache 20/13550, Übersicht 4.
+wohnbedarf_anteil_berücksichtigte_kinder:
+  name:
+    de: Bei der Berechnung der Wohnbedarfsanteile maximal berücksichtigte Kinder
+    en: >-
+      Maximum number of children which is considered when calculating shares of housing
+      costs
+  description:
+    de: § 6a Abs. 5 S. 3 BKGG
+    en: § 6a Abs. 5 S. 3 BKGG
+  unit: null
+  reference_period: null
+  type: scalar
+  2005-01-01:
+    value: 10

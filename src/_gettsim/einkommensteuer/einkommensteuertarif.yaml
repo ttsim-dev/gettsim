@@ -1,0 +1,249 @@
+---
+raw_parameter_einkommensteuertarif:
+  name:
+    de: Parameter des Einkommensteuertarifs
+    en: Parameters of the income tax schedule
+  description:
+    de: >-
+      §32a EStG
+      Der quadratische Anstieg in den mittleren Intervallen wird nach der Formel
+      des Progressionsfaktors berechnet. Einzelheiten sind im docstring der Funktion
+      add_progressionsfaktor beschrieben.
+    en: >-
+      §32a EStG
+      The quadratic rate is calculated by gettsim with the formula of the
+      Progressionsfaktor. For details see the docstring of add_progressionsfaktor.
+  unit: Euros
+  reference_period: Year
+  type: require_converter
+  2002-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 7235
+      rate_linear: 0
+      rate_quadratic: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 9251
+      rate_linear: 0.199
+    2:
+      upper_threshold: 55007
+      rate_linear: 0.23
+    3:
+      upper_threshold: inf
+      rate_linear: 0.485
+      rate_quadratic: 0
+  2004-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 7664
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 12739
+      rate_linear: 0.16
+    2:
+      upper_threshold: 52151
+      rate_linear: 0.2405
+    3:
+      upper_threshold: inf
+      rate_linear: 0.45
+      rate_quadratic: 0
+  2005-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 7664
+      rate_linear: 0
+      rate_quadratic: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 12739
+      rate_linear: 0.15
+    2:
+      upper_threshold: 52151
+      rate_linear: 0.2397
+    3:
+      upper_threshold: inf
+      rate_linear: 0.42
+      rate_quadratic: 0
+  2007-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 7664
+      rate_linear: 0
+      rate_quadratic: 0
+      intercept_at_lower_threshold: 0
+    1:
+      upper_threshold: 12739
+      rate_linear: 0.15
+    2:
+      upper_threshold: 52151
+      rate_linear: 0.2397
+    3:
+      upper_threshold: 250000
+      rate_linear: 0.42
+      rate_quadratic: 0
+    4:
+      upper_threshold: inf
+      rate_linear: 0.45
+      rate_quadratic: 0
+  2009-01-01:
+    updates_previous: true
+    0:
+      upper_threshold: 7834
+    1:
+      upper_threshold: 13139
+      rate_linear: 0.14
+    2:
+      upper_threshold: 52551
+    3:
+      upper_threshold: 250400
+  2010-01-01:
+    updates_previous: true
+    reference: Artikel 1 G. v. 02.03.2009 BGBl. I S. 416
+    0:
+      upper_threshold: 8004
+    1:
+      upper_threshold: 13469
+    2:
+      upper_threshold: 52881
+    3:
+      upper_threshold: 250730
+  2013-01-01:
+    updates_previous: true
+    0:
+      upper_threshold: 8130
+  2014-01-01:
+    updates_previous: true
+    note: Gesetz zum Abbau der kalten Progression
+    reference: G. v. 20.2.2013, BGBl I S.283
+    0:
+      upper_threshold: 8354
+  2015-07-01:
+    updates_previous: true
+    note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
+    reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
+    0:
+      upper_threshold: 8472
+  2016-01-01:
+    updates_previous: true
+    note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
+    reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
+    0:
+      upper_threshold: 8652
+    1:
+      upper_threshold: 13669
+    2:
+      upper_threshold: 53665
+    3:
+      upper_threshold: 254446
+  2017-01-01:
+    updates_previous: true
+    reference: Artikel 8 G. v. 20.12.2016, BGBl I S. 3000
+    0:
+      upper_threshold: 8820
+    1:
+      upper_threshold: 13769
+    2:
+      upper_threshold: 54057
+    3:
+      upper_threshold: 256303
+  2018-01-01:
+    updates_previous: true
+    reference: Artikel 9 G. v 23.12.2016, BGBL I, S. 3000
+    0:
+      upper_threshold: 9000
+    1:
+      upper_threshold: 13996
+    2:
+      upper_threshold: 54949
+    3:
+      upper_threshold: 260532
+  2019-01-01:
+    updates_previous: true
+    0:
+      upper_threshold: 9168
+    1:
+      upper_threshold: 14254
+    2:
+      upper_threshold: 55960
+    3:
+      upper_threshold: 265326
+  2020-01-01:
+    updates_previous: true
+    reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
+    0:
+      upper_threshold: 9408
+    1:
+      upper_threshold: 14532
+    2:
+      upper_threshold: 57051
+    3:
+      upper_threshold: 270500
+  2021-01-01:
+    updates_previous: true
+    reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
+    0:
+      upper_threshold: 9744
+    1:
+      upper_threshold: 14753
+    2:
+      upper_threshold: 57918
+    3:
+      upper_threshold: 274612
+  2022-01-01:
+    updates_previous: true
+    reference: Art. 1 G. v. 23.05.2022 BGBl. I S. 749
+    note: >-
+      First specified in Art. 2. G. v. 01.12.2020 BGBl. I S. 2616, new defined resp.
+      overridden in above reference.
+    0:
+      upper_threshold: 10347
+    1:
+      upper_threshold: 14926
+    2:
+      upper_threshold: 58596
+    3:
+      upper_threshold: 277826
+  2023-01-01:
+    updates_previous: true
+    reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
+    0:
+      upper_threshold: 10908
+    1:
+      upper_threshold: 15999
+    2:
+      upper_threshold: 62809
+    3:
+      upper_threshold: 277825
+  2024-01-01:
+    updates_previous: true
+    reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
+    0:
+      upper_threshold: 11784
+    1:
+      upper_threshold: 17005
+    2:
+      upper_threshold: 66760
+    3:
+      upper_threshold: 277825
+  2025-01-01:
+    updates_previous: true
+    reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    0:
+      upper_threshold: 12096
+    1:
+      upper_threshold: 17443
+    2:
+      upper_threshold: 68480
+    3:
+      upper_threshold: 277825
+  2026-01-01:
+    updates_previous: true
+    reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    0:
+      upper_threshold: 12348
+    1:
+      upper_threshold: 17799
+    2:
+      upper_threshold: 69878

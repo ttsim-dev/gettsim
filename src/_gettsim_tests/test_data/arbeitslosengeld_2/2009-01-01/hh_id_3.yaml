@@ -1,0 +1,167 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 28
+      - 1
+    arbeitslosengeld_2:
+      bezug_im_vorjahr:
+        - false
+        - false
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 40.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 1200.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 1000.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 250.0
+            - 0.0
+          rente:
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_ehepartner:
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - 10
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1981
+      - 2008
+    hh_id:
+      - 3
+      - 3
+    kindergeld:
+      betrag_m:
+        - 164.0
+        - 0.0
+      in_ausbildung:
+        - false
+        - true
+      p_id_empfänger:
+        - -1
+        - 10
+    p_id:
+      - 10
+      - 11
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 66.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 200.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+      wohnfläche_hh:
+        - 58.0
+        - 58.0
+    wohngeld:
+      anspruchshöhe_m_bg:
+        - 0.0
+        - 0.0
+outputs:
+  arbeitslosengeld_2:
+    anrechnungsfreies_einkommen_m:
+      - 260.0
+      - 0.0
+    betrag_m_bg:
+      - 319.46
+      - 319.46
+    kosten_der_unterkunft_m_bg:
+      - 480.0
+      - 480.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 684.5
+      - 0.0
+    regelsatz_m_bg:
+      - 687.96
+      - 687.96

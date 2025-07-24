@@ -1,0 +1,84 @@
+---
+info:
+  note: https://www.deutsche-rentenversicherung.de/SiteGlobals/Forms/RentenBeginnUndHoehenRechner/Rentenbeginn/rentenbeginnrechner_form.html?resourceId=fd80eb35-41ae-49ec-a76d-fae25f0fb182&input_=26d0ef0f-0f0e-4a04-b1db-4e7dbbba7228&pageLocale=de&emailText=&Geburtsdatum=01.01.1958&Schwerbehindert=Nein&Schwerbehindert.GROUP=1&Bergbau=Nein&Bergbau.GROUP=1&submit=Berechnen
+  precision_atol: 0.1
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 53
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+    geburtsjahr:
+      - 1958
+    geburtsmonat:
+      - 1
+    hh_id:
+      - 23
+    p_id:
+      - 23
+    sozialversicherung:
+      rente:
+        altersrente:
+          für_frauen:
+            pflichtsbeitragsjahre_ab_alter_40:
+              - 0.0
+          wegen_arbeitslosigkeit:
+            arbeitslos_für_1_jahr_nach_alter_58_ein_halb:
+              - false
+            pflichtbeitragsjahre_8_von_10:
+              - false
+            vertrauensschutz_1997:
+              - false
+            vertrauensschutz_2004:
+              - false
+        entgeltpunkte_ost:
+          - 0.0
+        entgeltpunkte_west:
+          - 31.0625
+        ersatzzeiten_monate:
+          - 0.0
+        freiwillige_beitragsmonate:
+          - 0.0
+        kinderberücksichtigungszeiten_monate:
+          - 0.0
+        krankheitszeiten_ab_16_bis_24_monate:
+          - 0.0
+        monate_geringfügiger_beschäftigung:
+          - 0.0
+        monate_in_arbeitslosigkeit:
+          - 0.0
+        monate_in_arbeitsunfähigkeit:
+          - 0.0
+        monate_in_ausbildungssuche:
+          - 0.0
+        monate_in_mutterschutz:
+          - 0.0
+        monate_in_schulausbildung:
+          - 0.0
+        monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit:
+          - 0.0
+        pflegeberücksichtigungszeiten_monate:
+          - 0.0
+        pflichtbeitragsmonate:
+          - 60.0
+    weiblich:
+      - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      entgeltpunkte_ost_updated:
+        - 0.0
+      entgeltpunkte_west_updated:
+        - 31.0625
+      neue_entgeltpunkte:
+        - 0.0
+      altersrente:
+        altersgrenze:
+          - 66.0

@@ -1,0 +1,107 @@
+---
+freibetrag_nebeneinkommen:
+  name:
+    de: Freibetrag bei der Anrechnung von Nebeneinkommen
+    en: Income which is not deducted from unemployment benefit.
+  description:
+    de: § 155 SGB III, vorher § 141 (1) S. 1
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  1999-08-01:
+    value: 161
+    reference: Art. 1 G. v. 21.07.1999 BGBl. I S. 1648
+    note: Originalwert 315 DM.
+  2002-01-01:
+    value: 165
+    reference: Art. 3 G. v. 21.12.2000 BGBl. I S. 1983
+sozialversicherungspauschale:
+  name:
+    de: Sozialversicherungspauschale zur Berechnung des Leistungsentgelts
+    en: Fictitious social insurance contribution rate
+  description:
+    de: >-
+      § 153 (1) Nr. 1 SGB III. Wird angewendet auf das Bemessungsentgelt. ACHTUNG! Beim
+      Elterngeld gibt es eine ähnliche Größe.
+    en: null
+  unit: Share
+  reference_period: null
+  type: scalar
+  1984-01-01:
+    value: 0.1727
+  1985-01-01:
+    value: 0.1745
+  1986-01-01:
+    value: 0.1775
+  1987-01-01:
+    value: 0.1774
+  1988-01-01:
+    value: 0.1794
+  1989-01-01:
+    value: 0.1795
+  1990-01-01:
+    value: 0.1775
+  1991-01-01:
+    value: 0.179
+  1992-01-01:
+    value: 0.184
+  1993-01-01:
+    value: 0.187
+  1994-01-01:
+    value: 0.1955
+  1995-01-01:
+    value: 0.1915
+  1996-01-01:
+    value: 0.1995
+  1997-01-01:
+    value: 0.2095
+  1998-01-01:
+    value: 0.2105
+  2000-01-01:
+    value: 0.20535
+  2001-01-01:
+    value: 0.2044
+  2002-01-01:
+    value: 0.2065
+  2003-01-01:
+    value: 0.2105
+  2004-01-01:
+    value: 0.2095
+  2005-01-01:
+    value: 0.2074
+  2006-01-01:
+    value: 0.2141
+  2007-01-01:
+    value: 0.2075
+  2008-01-01:
+    value: 0.20475
+  2009-01-01:
+    value: 0.20525
+  2010-01-01:
+    value: 0.20225
+  2011-01-01:
+    value: 0.20625
+  2012-01-01:
+    value: 0.21
+    reference: Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+  2019-01-01:
+    value: 0.2
+    reference: Art. 1 G. v. 18.12.2018 BGBl. I S. 2651
+satz:
+  name:
+    de: Ersatzrate des Arbeitslosengelds
+    en: Replacement rate of Arbeitslosengeld
+  description:
+    de: >-
+      §149 Nr. 2 SGB III, vorher § 129 SGB III. Höhe des Arbeitslosengeldes im
+      Verhältnis zum letzten Nettoentgelt. Unterscheidet sich für Personen mit/ohne
+      Kinder im Sinne des EStG.
+    en: null
+  unit: Share
+  reference_period: null
+  type: dict
+  1998-08-01:
+    allgemein: 0.6
+    erhöht: 0.67
+    reference: Art. 1 G. v. 24.03.1997 BGBl. I S. 594

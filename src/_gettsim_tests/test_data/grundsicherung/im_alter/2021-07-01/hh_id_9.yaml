@@ -1,0 +1,157 @@
+---
+info:
+  note: >-
+    Test if households with non-retired adult do not get Grundsicherung im Alter (as
+    currently implemented those households get ALG 2)
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+      - 60
+    arbeitslosengeld_2:
+      eigenbedarf_gedeckt:
+        - false
+        - false
+      p_id_einstandspartner:
+        - 13
+        - 12
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_kapitalvermögen:
+          kapitalerträge_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          bruttolohn_m:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            sonstige_private_vorsorge_m:
+              - 0.0
+              - 0.0
+            betriebliche_altersvorsorge_m:
+              - 0.0
+              - 0.0
+            geförderte_private_vorsorge_m:
+              - 0.0
+              - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 13
+        - 12
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1951
+      - 1961
+    geburtsmonat:
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+    hh_id:
+      - 9
+      - 9
+    kindergeld:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 12
+      - 13
+    schwerbehindert_grad_g:
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 350.0
+            - 0.0
+        bezieht_rente:
+          - true
+          - false
+        grundrente:
+          grundrentenzeiten_monate:
+            - 240
+            - 240
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 300.0
+        - 300.0
+      heizkosten_m_hh:
+        - 66.0
+        - 66.0
+      wohnfläche_hh:
+        - 50.0
+        - 50.0
+outputs:
+  grundsicherung:
+    im_alter:
+      betrag_m_eg:
+        - 0.0
+        - 0.0

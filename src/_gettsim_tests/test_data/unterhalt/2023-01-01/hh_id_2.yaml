@@ -1,0 +1,24 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: https://www.scheidung.org/anrechnung-kindergeld-auf-unterhalt/
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 19
+    hh_id:
+      - 2
+    kindergeld:
+      betrag_m:
+        - 250.0
+    p_id:
+      - 2
+    unterhalt:
+      anspruch_m:
+        - 905.0
+outputs:
+  unterhalt:
+    kind_festgelegter_zahlbetrag_m:
+      - 655.0

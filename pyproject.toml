@@ -6,13 +6,19 @@
 # Basic information
 name = "gettsim"
 dynamic = ["version"]
-# About the project
-authors = [
-    { name = "The GETTSIM team", email = "gaudecker@iza.org" },
-]
 description = "The German Taxes and Transfers SIMulator"
 readme = { file = "README.md", content-type = "text/markdown" }
 license = { file = "LICENSE" }
+# About the project
+authors = [
+    { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
+    { name = "Marvin Immesberger" },
+    { name = "Christian Zimpelmann" }
+]
+maintainers = [
+    { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
+    { name = "Marvin Immesberger" }
+]
 keywords = [
     "Economics",
     "Taxes",
@@ -34,28 +40,15 @@ classifiers = [
 ]
 # Dependencies and requirements
 requires-python = ">=3.11"
-dependencies = [
-    "astor",
-    "dags",
-    "ipywidgets",
-    "networkx",
-    "numpy",
-    "numpy-groupies",
-    "pandas",
-    "openpyxl",
-    "plotly",
-    "pygments",
-    "pygraphviz",
-    "pytest",
-    "pyyaml",
-]
+dependencies = ["ttsim-backend"]
+
 
 [project.urls]
-Repository = "https://github.com/iza-institute-of-labor-economics/gettsim"
+Repository = "https://github.com/ttsim-dev/gettsim"
 Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
 Documentation = "https://gettsim.readthedocs.io"
-Github = "https://github.com/iza-institute-of-labor-economics/gettsim"
-Tracker = "https://github.com/iza-institute-of-labor-economics/gettsim/issues"
+Github = "https://github.com/ttsim-dev/gettsim"
+Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 
 # ======================================================================================
@@ -96,40 +89,34 @@ platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.dependencies]
-python = ">=3.11,<3.13"
-pre-commit = "*"
-pandas = ">=2.1"
+ipywidgets = "*"
+jupyterlab = "*"
 numpy_groupies = "*"
 numpydoc = "*"
 openpyxl = "*"
-astor = "*"
-dags = "*"
-ipywidgets = "*"
-jupyterlab = "*"
-networkx = "*"
-plotly = ">=5.24,<6"
+pandas = ">=2.3"
+pre-commit = "*"
 pygments = "*"
 pygraphviz = "*"
-pyyaml = "*"
-toml = "*"
 pytest = "*"
 pytest-cov = "*"
+pytest-profiling = "*"
 pytest-xdist = "*"
-pixi-pycharm = ">=0.0.8,<0.0.9"
-
+python = ">=3.11,<3.14"
+pyyaml = "*"
+snakeviz = ">=2.2.2"
+tabulate = "*"
+toml = "*"
 
 # Development Dependencies (pypi)
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.pypi-dependencies]
 gettsim = {path = ".", editable = true}
-pdbp = "*"
+jaxtyping = ">=0.3.2"
+kaleido = ">=1.0.0"
+pdbp = ">=1.7.1"
 
-[tool.pixi.target.unix.pypi-dependencies]
-kaleido = "*"
-
-[tool.pixi.target.win-64.pypi-dependencies]
-kaleido = ">=0.1.0.post1,<=0.1.0.post1"
 
 # Features
 # --------------------------------------------------------------------------------------
@@ -140,13 +127,42 @@ python = "3.11.*"
 [tool.pixi.feature.py312.dependencies]
 python = "3.12.*"
 
-[tool.pixi.feature.jax.target.unix.dependencies]
-jax = ">=0.4.20"
-jaxlib = ">=0.4.20"
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
 
-[tool.pixi.feature.jax.target.win-64.pypi-dependencies]
-jax = { version = ">=0.4.20", extras = ["cpu"] }
-jaxlib = ">=0.4.20"
+[tool.pixi.feature.jax]
+platforms = ["linux-64", "osx-arm64", "win-64"]
+
+[tool.pixi.feature.jax.pypi-dependencies]
+jax = ">=0.6"
+# jax-datetime = { git = "https://github.com/google/jax-datetime.git" }
+
+[tool.pixi.feature.cuda]
+platforms = ["linux-64"]
+system-requirements = {cuda = "12"}
+
+[tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
+jax = {version = ">=0.6", extras = ["cuda12"]}
+
+[tool.pixi.feature.metal]
+platforms = ["osx-arm64"]
+
+[tool.pixi.feature.metal.target.osx-arm64.pypi-dependencies]
+jax = ">=0.6"
+jax-metal = ">=0.1.1"
+
+[tool.pixi.feature.mypy.pypi-dependencies]
+mypy = "~=1.16"
+types-PyYAML = "*"
+types-pytz = "*"
+
+[tool.pixi.feature.docs.dependencies]
+myst-parser = "*"
+nbsphinx = "*"
+pydata-sphinx-theme = "*"
+sphinx = "*"
+sphinx-automodapi = "<0.17.0"
+sphinx-copybutton = "*"
 
 # Tasks
 # --------------------------------------------------------------------------------------
@@ -154,14 +170,30 @@ jaxlib = ">=0.4.20"
 [tool.pixi.feature.test.tasks]
 tests = "pytest"
 
+[tool.pixi.feature.jax.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.cuda.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.mypy.tasks]
+mypy = "mypy --ignore-missing-imports"
+
+[tool.pixi.feature.docs.tasks]
+docs = "sphinx-build -T -b html docs docs/_build/html"
+
 # Environments
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.environments]
 py311 = ["test", "py311"]
 py312 = ["test", "py312"]
-py312-jax = ["py312", "jax"]
-
+py313 = ["test", "py313"]
+py313-jax = ["py313", "test", "jax"]
+py313-cuda = ["py313", "test", "cuda"]
+py313-metal = ["py313", "test", "metal"]
+mypy = ["mypy"]
+docs = ["docs", "py313"]
 
 # ======================================================================================
 # Ruff configuration
@@ -175,84 +207,46 @@ unsafe-fixes = false
 [tool.ruff.lint]
 select = ["ALL"]
 extend-ignore = [
-    "ICN001", # numpy should be np, but different convention here.
-    # Docstrings
-    "D103", # missing docstring in public function
-    "D107",
-    "D203",
-    "D212",
-    "D213",
-    "D402",
-    "D413",
-    "D415",
-    "D416",
-    "D417",
-    # Others.
-    "D404", # Do not start module docstring with "This".
-    "RET504", # unnecessary variable assignment before return.
-    "S101", # raise errors for asserts.
-    "B905", # strict parameter for zip that was implemented in py310.
-
-    "ANN101", # type annotating self
-    "ANN102", # type annotating cls
-    "FBT", # flake8-boolean-trap
-    "EM", # flake8-errmsg
-    "ANN401", # flake8-annotate typing.Any
-    "PD", # pandas-vet
-    "E731", # do not assign a lambda expression, use a def
-    "RET", # unnecessary elif or else statements after return, rais, continue, ...
-    "S324", # Probable use of insecure hash function.
-    "COM812", # trailing comma missing, but black takes care of that
-    "PT007", # wrong type in parametrize, gave false positives
-    "DTZ001", # use of `datetime.datetime()` without `tzinfo` argument is not allowed
-    "DTZ002", # use of `datetime.datetime.today()` is not allowed
-    "PT012", # `pytest.raises()` block should contain a single simple statement
-    "PLR5501", # elif not supported by Jax converter
-    "TRY003", # Avoid specifying long messages outside the exception class
+    "COM812", # Avoid conflicts with ruff-format
+    "EM101", # Exception must not use a string literal
+    "EM102", # Exception must not use an f-string literal
+    "F722", # https://docs.kidger.site/jaxtyping/faq/#flake8-or-ruff-are-throwing-an-error
+    "FBT001", # Boolean-typed positional argument in function definition
+    "FBT002", # Boolean default positional argument in function definition
     "FIX002", # Line contains TODO -- Use stuff from TD area.
+    "ICN001", # numpy should be np, but different convention here.
+    "ISC001", # Avoid conflicts with ruff-format
+    "N999", # Allow non-ASCII characters in file names.
     "PLC2401", # Allow non-ASCII characters in variable names.
+    "PLC2403", # Allow non-ASCII function names for imports.
+    "PLR0913", # Allow many arguments in function definitions.
+    "PLR5501", # elif not supported by vectorization converter for Jax
+    "TRY003", # Avoid specifying long messages outside the exception class
 
-    # Things we are not sure we want
-    # ==============================
-    "SIM102", # Use single if statement instead of nested if statements
-    "SIM108", # Use ternary operator instead of if-else block
-    "SIM117", # do not use nested with statements
-    "BLE001", # Do not catch blind exceptions (even after handling some specific ones)
-    "PLR2004", # Magic values used in comparison
-    "PT006", # Allows only lists of tuples in parametrize, even if single argument
-
-    # Things ignored during transition phase
+    # Ignored during transition phase
     # ======================================
     "D", # docstrings
-    "ANN", # missing annotations
-    "C901", # function too complex
-    "PT011", # pytest raises without match statement
-    "INP001", # implicit namespace packages without init.
-    "E721", # Use `is` and `is not` for type comparisons
-
-    # Things ignored to avoid conflicts with ruff-format
-    # ==================================================
-    "ISC001",
 ]
 exclude = []
 
 [tool.ruff.lint.per-file-ignores]
-"src/_gettsim_tests/test_rounding.py" = ["PT019"]
-"src/_gettsim/benefits/elterngeld.py" = ["E501"]
-"src/_gettsim/benefits/kinderzuschl.py" = ["ARG001"]
-"src/_gettsim/benefits/unterhalt.py" = ["E501"]
-"src/_gettsim/benefits/wohngeld.py" = ["ARG001"]
-"src/_gettsim/functions/all_functions_for_docs.py" = ["F401"]
-"src/_gettsim/gettsim_typing.py" = ["PGH", "PLR", "SIM114"]
-"src/_gettsim/piecewise_functions.py" = ["PLR"]
-"src/_gettsim/policy_environment.py" = ["S506", "PLR"]
-"src/_gettsim/rente.py" = ["N806", "ARG001"]
-"src/_gettsim/social_insurance_contributions/ges_krankenv.py" = ["SIM401"]
-"src/_gettsim/tax_transfer.py" = ["ARG001"]
-"src/_gettsim/taxes/zu_versteuerndes_eink.py" = ["E501", "ARG001"]
-"src/_gettsim/tests/test_tax_transfer.py" = ["E501"]
-"src/_gettsim/visualization.py" = ["PLR"]
-"docs/**/*.ipynb" = ["T201"]
+"conftest.py" = ["ANN"]
+"docs/*" = ["INP001", "T201"]
+
+"src/gettsim/__init__.py" = [
+    "PLW0127", # Re-export things for tab-completion explicitly.
+    "PT028", # Cannot have default values in test functions with fixtures -- not an issue here.
+]
+
+# Mostly things vectorization can't handle
+"src/_gettsim/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
+# Lohnsteuerklassen and age groups are fine to hard-code.
+"src/_gettsim/lohnsteuer/*.py" = ["PLR2004"]
+"src/_gettsim/familie/familie.py" = ["PLR2004"]
+# All tests return None and use asserts
+"src/_gettsim_tests/**/*.py" = ["ANN", "S101"]
+# TODO: remove once ported nicely
+"outdated_docs/**/*.ipynb" = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -263,39 +257,26 @@ convention = "numpy"
 # ======================================================================================
 
 [tool.mypy]
-files = ["src"]
+files = ["src", "tests"]
 check_untyped_defs = true
-disallow_any_generics = false
+disallow_any_generics = true
 disallow_incomplete_defs = true
 disallow_untyped_defs = true
 no_implicit_optional = true
 warn_redundant_casts = true
 warn_unused_ignores = true
+explicit_package_bases = true
+disallow_empty_bodies = false
+disable_error_code = ["overload-cannot-match"]
 
 [[tool.mypy.overrides]]
-module = "_gettsim_tests.*"
+module = ["conftest"]
 disallow_untyped_defs = false
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = "gettsim"
-disallow_untyped_defs = false
-
-[[tool.mypy.overrides]]
-module = "_gettsim.*"
-ignore_errors = true
-
-
-[tool.check-manifest]
-ignore = ["src/_gettsim/_version.py"]
-
-
-[tool.doc8]
-max-line-length = 88
-ignore = [
-    "D002",
-    "D004"
-]
+module = ["src._gettsim_tests.*",]
+disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
 
 
 # ======================================================================================
@@ -311,19 +292,18 @@ filterwarnings = [
     "ignore:The TerminalReporter.writer attribute is",
     "ignore:Repeated execution of the test suite",
     "ignore:Using or importing the ABCs from 'collections'",
-    "ignore::_gettsim.interface.FunctionsAndColumnsOverlapWarning"
+    "ignore:Explicitly requested dtype .*64 requested in zeros_like"
 ]
 markers = [
     "wip: Tests that are work-in-progress.",
     "unit: Flag for unit tests which target mainly a single function.",
     "integration: Flag for integration tests which may comprise of multiple unit tests.",
     "end_to_end: Flag for tests that cover the whole program.",
+    "skipif_jax: skip test if backend is jax",
+    "skipif_numpy: skip test if backend is numpy"
 ]
 norecursedirs = ["docs"]
-testpaths = [
-    "src/_gettsim_tests",
-]
-
+testpaths = ["src/_gettsim_tests"]
 
 # ======================================================================================
 # yamlfix configuration

@@ -1,0 +1,47 @@
+---
+parameter_ertragsanteil:
+  name:
+    de: >-
+      Parameter der Ertragsanteil-Funktion für den Anteil an
+      sozialversicherungspflichtigen Renteneinkommen, das versteuert werden muss.
+    en: >-
+      Parameter of the Ertragsanteil-function for the share of pensions subject to
+      income taxation that is subject to income tax.
+  description:
+    de: >-
+      Renten werden mit dem Ertragsanteil besteuert sofern sie nicht aus einer staatlich
+      geförderten (d.h. in der Einzahlungsphase steuerlich begünstigten) Vorsorgeform
+      stammen.
+      § 22 EStG
+      Diese Funktion ist hier ab 2002 angegeben. Vor 2002 das Steuersystem ist nicht
+      implementiert.
+    en: >-
+      Pensions are taxed with the Ertragsanteil unless they come from a state-sponsored
+      (i.e. tax-benefited) pension fund.
+      § 22 EStG
+      This function is given from 2002 onwards. Before 2002, the tax system is not
+      implemented.
+  unit: null
+  reference_period: null
+  type: piecewise_linear
+  2002-01-01:
+    0:
+      lower_threshold: -inf
+      upper_threshold: 2005
+      rate_linear: 0
+      intercept_at_lower_threshold: 0.27
+    1:
+      lower_threshold: 2005
+      upper_threshold: 2021
+      rate_linear: 0.02
+      intercept_at_lower_threshold: 0.5
+    2:
+      lower_threshold: 2021
+      upper_threshold: 2041
+      rate_linear: 0.01
+      intercept_at_lower_threshold: 0.8
+    3:
+      lower_threshold: 2041
+      upper_threshold: inf
+      rate_linear: 0.0
+      intercept_at_lower_threshold: 1

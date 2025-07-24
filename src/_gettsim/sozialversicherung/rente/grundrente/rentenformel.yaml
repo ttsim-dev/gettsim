@@ -1,0 +1,50 @@
+---
+höchstwert_der_entgeltpunkte:
+  name:
+    de: Höchstwert der Entgeltpunkte für Grundrente
+    en: Maximum value of Entgeltpunkte for Grundrente
+  description:
+    de: >-
+      § 76g Abs. 4 S. 3, 4 SGB VI
+      Konstante zur Bestimmung des Höchstwerts der durchschnittlichen Entgeltpunkte und
+      des Effekts eines weiteren Monats an Grundrentenzeiten auf Höchstwert.
+    en: >-
+      § 76g Abs. 4 S. 3, 4 SGB VI
+      constant to determine Höchstwert of additional Entgeltpunkte and effect of an
+      additional month of Grundrentenzeiten on Höchstwert.
+  unit: null
+  reference_period: null
+  type: dict
+  2021-01-01:
+    base: 0.0334
+    increment: 0.001389
+maximaler_zugangsfaktor:
+  name:
+    de: Zugangsfaktor bei Grundrente
+    en: Access factor for basic pension
+  description:
+    de: § 77 Abs. 2 SGB VI, Der Zugangsfaktor für die Grundrente ist auf 1 begrenzt.
+    en: § 77 Abs. 2 SGB VI, The entry factor for the basic pension is capped at 1.
+  unit: null
+  reference_period: null
+  type: scalar
+  2021-01-01:
+    value: 1
+bonusfaktor:
+  name:
+    de: Bonusfaktor aus Grundrente
+    en: Bonus factor from basic pension
+  description:
+    de: >-
+      §§ 76g Abs. 4 S. 3, 4 SGB VI
+      Faktor mit dem die durch die Grundrente zusätzlich erhaltenen Entgeltpunkte
+      multipliziert werden.
+    en: >-
+      §§ 76g Abs. 4 S. 3, 4 SGB VI
+      The additional Entgeltpunkte from the basic pension are multiplied with this
+      factor.
+  unit: null
+  reference_period: null
+  type: scalar
+  2021-01-01:
+    value: 0.875

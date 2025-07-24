@@ -1,0 +1,59 @@
+---
+abzugsrate_hinzuverdienst:
+  name:
+    de: Abzugsrate für Hinzuverdienst vor der Regelaltersgrenze
+    en: Deduction rate for additional earnings during early retirement
+  description:
+    de: >-
+      Abzugsrate für Hinzuverdienst vor der Regelaltersgrenze
+      § 34 SGB VI; Artikel 1 G. v. 08.12.2016 BGBl. I S. 2838
+    en: >-
+      Deduction rate for additional earnings during early retirement
+      § 34 SGB VI; Artikel 1 G. v. 08.12.2016 BGBl. I S. 2838
+  unit: Years
+  reference_period: null
+  type: scalar
+  2017-07-01:
+    value: 0.4
+  2023-01-01:
+    note: Revoked in 2023.
+hinzuverdienstgrenze_m:
+  name:
+    de: Monatliche Hinzuverdienstgrenze vor der Regelaltersgrenze
+    en: Monthly additional earnings threshold during early retirement
+  description:
+    de: >-
+      § 34 SGB VI, Hinzuverdienstgrenze vor der Regelaltersgrenze
+    en: >-
+      § 34 SGB VI, additional earnings threshold during early retirement
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2002-01-01:
+    value: 350.0
+  2008-01-01:
+    value: 400.0
+  2013-01-01:
+    value: 450.0
+  2017-01-01:
+    note: Yearly additional earnings threshold, see 'hinzuverdienstgrenze_y'.
+hinzuverdienstgrenze_y:
+  name:
+    de: Jährliche Hinzuverdienstgrenze vor der Regelaltersgrenze
+    en: Yearly additional earnings threshold during early retirement
+  description:
+    de: >-
+      § 34 SGB VI, Hinzuverdienstgrenze vor der Regelaltersgrenze
+    en: >-
+      § 34 SGB VI, additional earnings threshold during early retirement
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2017-01-01:
+    value: 6300.0
+  2020-01-01:
+    value: 44590.0
+  2021-01-01:
+    value: 46060.0
+  2023-01-01:
+    note: Revoked in 2023.

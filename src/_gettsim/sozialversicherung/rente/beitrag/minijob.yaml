@@ -1,0 +1,27 @@
+---
+minijob_arbeitgeberpauschale:
+  name:
+    de: >-
+      Pauschalbeitrag des Arbeitgebers zur Rentenversicherung bei geringfügiger
+      Beschäftigung
+    en: >-
+      Fixed employer pension insurance contribution for marginal employment
+  description:
+    de: >-
+      Pauschalbetrag zur Rentenversicherung (§ 168 I Nr. 1b SGB VI) bei geringfügiger
+      Beschäftigung
+    en: >-
+      Fixed pension insurance contributions for marginal employment
+      (§ 168 I Nr. 1b SGB VI)
+  unit: Share
+  reference_period: null
+  type: scalar
+  add_jahresanfang: true
+  1999-04-01:
+    value: 0.12
+    reference: BGBl I 1999 S. 388
+    note: Introduction of '630 Mark' jobs.
+  2003-04-01:
+    value: 0.12
+  2007-01-01:
+    value: 0.15
