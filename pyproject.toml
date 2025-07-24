@@ -40,21 +40,7 @@ classifiers = [
 ]
 # Dependencies and requirements
 requires-python = ">=3.11"
-dependencies = [
-    "dags>=0.4.1",
-    "ipywidgets",
-    "networkx>=3.5",
-    "numpy-groupies",
-    "numpy",
-    "openpyxl",
-    "optree>=0.16.0",
-    "pandas",
-    "plotly>=6.2.0",
-    "pygments",
-    "pygraphviz",
-    "pytest",
-    "pyyaml",
-]
+# dependencies = ["ttsim"]
 
 
 [project.urls]
@@ -127,6 +113,7 @@ toml = "*"
 
 [tool.pixi.pypi-dependencies]
 gettsim = {path = ".", editable = true}
+ttsim = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "ttsim-initial"}
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
@@ -255,20 +242,8 @@ exclude = []
 "src/_gettsim/familie/familie.py" = ["PLR2004"]
 # All tests return None and use asserts
 "src/_gettsim_tests/**/*.py" = ["ANN", "S101"]
-# Long lines.
-"src/ttsim/interface_dag_elements/specialized_environment.py" = ["E501"]
-"src/ttsim/interface_dag_elements/fail_if.py" = ["E501"]
-# Mostly things vectorization can't handle
-"tests/ttsim/mettsim/**/*.py" = ["PLR1714", "PLR1716", "E721", "SIM108", "RET"]
-"tests/ttsim/tt_dag_elements/test_vectorization.py" = ["PLR1714", "PLR1716", "E721", "SIM108", "RET"]
-# All tests return None and use asserts
-"tests/ttsim/**/*.py" = ["ANN", "INP001", "PLR2004", "S101"]
-# Long lines.
-"tests/ttsim/interface_dag_elements/test_failures.py" = ["E501"]
 # TODO: remove once ported nicely
-"src/ttsim/stale_code_storage.py" = ["ALL"]
 "outdated_docs/**/*.ipynb" = ["ALL"]
-"src/_gettsim_tests/test_docs.py" = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -292,31 +267,13 @@ disallow_empty_bodies = false
 disable_error_code = ["overload-cannot-match"]
 
 [[tool.mypy.overrides]]
-module = [
-    "conftest",
-    "src.ttsim.stale_code_storage",
-    "src._gettsim_tests.test_docs",
-]
+module = ["conftest"]
 disallow_untyped_defs = false
 ignore_errors = true
-
-
-[[tool.mypy.overrides]]
-module = ["tests.*",]
-disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
 
 [[tool.mypy.overrides]]
 module = ["src._gettsim_tests.*",]
 disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
-
-[[tool.mypy.overrides]]
-module = ["src.ttsim.main_args",]
-disable_error_code = ["no-redef"]  # Instantiate dataclass with same name as elements.
-
-
-[tool.check-manifest]
-ignore = ["src/_gettsim/_version.py"]
-
 
 
 # ======================================================================================
@@ -343,10 +300,7 @@ markers = [
     "skipif_numpy: skip test if backend is numpy"
 ]
 norecursedirs = ["docs"]
-testpaths = [
-    "src/_gettsim_tests",
-    "tests/ttsim",
-]
+testpaths = ["src/_gettsim_tests"]
 
 # ======================================================================================
 # yamlfix configuration

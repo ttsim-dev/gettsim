@@ -2,23 +2,12 @@
 
 from __future__ import annotations
 
-try:
-    # Import the version from _version.py which is dynamically created by
-    # setuptools-scm upon installing the project with pip.
-    # Do not put it under version control!
-    from _gettsim._version import version as __version__
-except ImportError:
-    __version__ = "unknown"
-
-
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
-
 import ttsim
-from _gettsim_tests import TEST_DIR
 from ttsim import (
     InputData,
     Labels,
@@ -29,6 +18,9 @@ from ttsim import (
     TTTargets,
     merge_trees,
 )
+
+from _gettsim._version import __version__, __version_tuple__, version, version_tuple
+from _gettsim_tests import TEST_DIR
 
 if TYPE_CHECKING:
     import datetime
@@ -93,12 +85,11 @@ __all__ = [
     "Results",
     "SpecializedEnvironment",
     "TTTargets",
+    "__version__",
+    "__version_tuple__",
     "main",
     "merge_trees",
-]
-
-
-__all__ = [
-    "__version__",
     "test",
+    "version",
+    "version_tuple",
 ]
