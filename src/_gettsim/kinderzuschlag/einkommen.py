@@ -10,7 +10,7 @@ from _gettsim.param_types import (
     ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     ExistenzminimumNachAufwendungenOhneBildungUndTeilhabe,
 )
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     RoundingSpec,
     agg_by_group_function,
@@ -19,7 +19,7 @@ from ttsim.tt_dag_elements import (
 )
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import RawParam
+    from gettsim.tt import RawParam
 
 
 @agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
@@ -38,7 +38,7 @@ def bruttoeinkommen_eltern_m(
     benefit is met.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__bruttoeinkommen_m
     else:
@@ -61,7 +61,7 @@ def nettoeinkommen_eltern_m_mit_grober_rundung(
     other deductions) for calculation of child benefit.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m
     else:
@@ -82,7 +82,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung(
     other deductions) for calculation of child benefit.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m
     else:

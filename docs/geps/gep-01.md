@@ -186,16 +186,16 @@ for that. Quoting from there:
 The below refers to older versions of the GEP; it has been updated because
 `GEP-6 <gep-6>` made much of the original content obsolete.
 
-- GitHub PR: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/60>
+- GitHub PR: <https://github.com/ttsim-dev/gettsim/pull/60>
 - Discussion on provisional acceptance:
   <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2001/near/189539859>
 - GitHub PR for first update (character limits, time and unit identifiers, DAG
-  adjustments): <https://github.com/iza-institute-of-labor-economics/gettsim/pull/312>
+  adjustments): <https://github.com/ttsim-dev/gettsim/pull/312>
 - GitHub PR for second update (concatenated column names, dealing with conflicting
   objectives, names for columns vs parameters):
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/342>
+  <https://github.com/ttsim-dev/gettsim/pull/342>
 - GitHub PR for third update (changes because of `GEP-6 <gep-6>`):
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
+  <https://github.com/ttsim-dev/gettsim/pull/855>
 
 ## Copyright
 

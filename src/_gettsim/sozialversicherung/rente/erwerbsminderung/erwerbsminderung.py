@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @policy_function(start_date="2001-01-01", end_date="2023-06-30", leaf_name="betrag_m")
@@ -325,7 +325,7 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
 
 
 # TODO(@MImmesberger): Reuse Altersrente Wartezeiten for Erwerbsminderungsrente
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/838
+# https://github.com/ttsim-dev/gettsim/issues/838
 @policy_function(start_date="2001-01-01")
 def wartezeit_langjährig_versichert_erfüllt(
     sozialversicherung__rente__pflichtbeitragsmonate: float,

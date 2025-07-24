@@ -113,7 +113,7 @@ altersgrenze_gestaffelt:
         months: 0
 altersgrenze_langjährig_versichert:
   # TODO(@MImmesberger): Probably delete this.
-  # https://github.com/iza-institute-of-labor-economics/gettsim/issues/838
+  # https://github.com/ttsim-dev/gettsim/issues/838
   name:
     de: Altersgrenze für langjährige Versicherte
     en: Statutory retirement age for long-term insured persons

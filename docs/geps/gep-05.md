@@ -50,7 +50,7 @@ The snippet is taken from `sozialversicherung/rente/grundrente/grundrente.py`, w
 contains the following code:
 
 ```python
-from ttsim import policy_function, RoundingSpec, RoundingDirection
+from gettsim.tt import policy_function, RoundingSpec, RoundingDirection
 
 
 @policy_function(
@@ -101,13 +101,12 @@ parameter files) for the following reason:
 ## Discussion
 
 - Zulip: <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs>
-- PR: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/324>
-- PR Implementation:
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/316>
+- PR: <https://github.com/ttsim-dev/gettsim/pull/324>
+- PR Implementation: <https://github.com/ttsim-dev/gettsim/pull/316>
 - GitHub PR for update (changes because of `GEP-6 <gep-6>`):
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
+  <https://github.com/ttsim-dev/gettsim/pull/855>
 - Github PR changing to a RoundingSpec class rather than parameters specified in the
-  yaml files: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/854>
+  yaml files: <https://github.com/ttsim-dev/gettsim/pull/854>
 
 ## Copyright
 

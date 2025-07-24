@@ -399,9 +399,8 @@ structure of GETTSIM described in [GEP 6](gep-06).
 
 ## Discussion
 
-- **ENH: Interface, 2024 edition · Issue #781 · iza-institute-of-labor-economics/gettsim
-  \- Part 1**.
-  [https://github.com](https://github.com/iza-institute-of-labor-economics/gettsim/issues/781)
+- **ENH: Interface, 2024 edition · Issue #781 · ttsim-dev/gettsim - Part 1**.
+  [https://github.com](https://github.com/ttsim-dev/gettsim/issues/781)
 
 ## Copyright
 

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
         Regelbedarfsstufen,
     )
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 
 @policy_function()
@@ -34,17 +34,17 @@ def betrag_m_eg(
     """
     # TODO(@ChristianZimpelmann): Treatment of Bedarfsgemeinschaften with both retirees
     # and unemployed job seekers probably incorrect
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/703
+    # https://github.com/ttsim-dev/gettsim/issues/703
 
     # TODO(@MImmesberger): Check which variable is the correct Regelbedarf in place of
     # `arbeitslosengeld_2__regelbedarf_m_bg`
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/702
+    # https://github.com/ttsim-dev/gettsim/issues/702
 
     # TODO (@MImmesberger): Remove `grundsicherung__anzahl_kinder_eg ==
     # grundsicherung__anzahl_personen_eg` condition once
     # `volljährige_alle_rentenbezieher_hh`` is replaced by a more accurate
     # variable.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/696
+    # https://github.com/ttsim-dev/gettsim/issues/696
 
     # Wealth check
     # Only pay Grundsicherung im Alter if all adults are retired (see docstring)

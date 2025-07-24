@@ -40,29 +40,15 @@ classifiers = [
 ]
 # Dependencies and requirements
 requires-python = ">=3.11"
-dependencies = [
-    "dags>=0.4.1",
-    "ipywidgets",
-    "networkx>=3.5",
-    "numpy-groupies",
-    "numpy",
-    "openpyxl",
-    "optree>=0.16.0",
-    "pandas",
-    "plotly>=6.2.0",
-    "pygments",
-    "pygraphviz",
-    "pytest",
-    "pyyaml",
-]
+dependencies = ["ttsim-backend"]
 
 
 [project.urls]
-Repository = "https://github.com/iza-institute-of-labor-economics/gettsim"
+Repository = "https://github.com/ttsim-dev/gettsim"
 Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
 Documentation = "https://gettsim.readthedocs.io"
-Github = "https://github.com/iza-institute-of-labor-economics/gettsim"
-Tracker = "https://github.com/iza-institute-of-labor-economics/gettsim/issues"
+Github = "https://github.com/ttsim-dev/gettsim"
+Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 
 # ======================================================================================
@@ -246,8 +232,12 @@ exclude = []
 [tool.ruff.lint.per-file-ignores]
 "conftest.py" = ["ANN"]
 "docs/*" = ["INP001", "T201"]
-# Cannot have default values in test functions with fixtures -- not an issue here.
-"src/gettsim/__init__.py" = ["PT028"]
+
+"src/gettsim/__init__.py" = [
+    "PLW0127", # Re-export things for tab-completion explicitly.
+    "PT028", # Cannot have default values in test functions with fixtures -- not an issue here.
+]
+
 # Mostly things vectorization can't handle
 "src/_gettsim/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
 # Lohnsteuerklassen and age groups are fine to hard-code.
@@ -255,20 +245,8 @@ exclude = []
 "src/_gettsim/familie/familie.py" = ["PLR2004"]
 # All tests return None and use asserts
 "src/_gettsim_tests/**/*.py" = ["ANN", "S101"]
-# Long lines.
-"src/ttsim/interface_dag_elements/specialized_environment.py" = ["E501"]
-"src/ttsim/interface_dag_elements/fail_if.py" = ["E501"]
-# Mostly things vectorization can't handle
-"tests/ttsim/mettsim/**/*.py" = ["PLR1714", "PLR1716", "E721", "SIM108", "RET"]
-"tests/ttsim/tt_dag_elements/test_vectorization.py" = ["PLR1714", "PLR1716", "E721", "SIM108", "RET"]
-# All tests return None and use asserts
-"tests/ttsim/**/*.py" = ["ANN", "INP001", "PLR2004", "S101"]
-# Long lines.
-"tests/ttsim/interface_dag_elements/test_failures.py" = ["E501"]
 # TODO: remove once ported nicely
-"src/ttsim/stale_code_storage.py" = ["ALL"]
 "outdated_docs/**/*.ipynb" = ["ALL"]
-"src/_gettsim_tests/test_docs.py" = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -292,31 +270,13 @@ disallow_empty_bodies = false
 disable_error_code = ["overload-cannot-match"]
 
 [[tool.mypy.overrides]]
-module = [
-    "conftest",
-    "src.ttsim.stale_code_storage",
-    "src._gettsim_tests.test_docs",
-]
+module = ["conftest"]
 disallow_untyped_defs = false
 ignore_errors = true
-
-
-[[tool.mypy.overrides]]
-module = ["tests.*",]
-disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
 
 [[tool.mypy.overrides]]
 module = ["src._gettsim_tests.*",]
 disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
-
-[[tool.mypy.overrides]]
-module = ["src.ttsim.main_args",]
-disable_error_code = ["no-redef"]  # Instantiate dataclass with same name as elements.
-
-
-[tool.check-manifest]
-ignore = ["src/_gettsim/_version.py"]
-
 
 
 # ======================================================================================
@@ -343,10 +303,7 @@ markers = [
     "skipif_numpy: skip test if backend is numpy"
 ]
 norecursedirs = ["docs"]
-testpaths = [
-    "src/_gettsim_tests",
-    "tests/ttsim",
-]
+testpaths = ["src/_gettsim_tests"]
 
 # ======================================================================================
 # yamlfix configuration

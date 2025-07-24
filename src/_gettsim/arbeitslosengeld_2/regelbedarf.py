@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from types import ModuleType
 
     from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
-    from ttsim.tt_dag_elements import RawParam
+    from gettsim.tt import RawParam
 
 
 @policy_function(start_date="2005-01-01")

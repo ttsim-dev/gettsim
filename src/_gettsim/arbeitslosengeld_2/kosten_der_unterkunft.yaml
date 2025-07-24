@@ -10,14 +10,14 @@ mietobergrenze_pro_qm:
       für ALG2 berechtigt zu sein. Diese Grenze ist nicht konkret im Gesetz
       festgehalten, sondern wird als Faustregel von den Arbeitsargenturen verwendet.
       Dies ist nur eine Approximation. Die regionalen Parameter sind unbekannt, siehe
-      Issue https://github.com/iza-institute-of-labor-economics/gettsim/issues/782.
+      Issue https://github.com/ttsim-dev/gettsim/issues/782.
     en: >-
       § 22 SGB II
       The rent per square meter must not exceed a reasonable amount in order to remain
       eligible for ALG2. This limit is not specifically laid down in the law, but is a
       rule of thumb used by the employment agencies.
       This is only an approximation. The regional parameters are unknown, see Issue
-      https://github.com/iza-institute-of-labor-economics/gettsim/issues/782.
+      https://github.com/ttsim-dev/gettsim/issues/782.
   unit: Euros / Square Meter
   reference_period: Month
   type: scalar
@@ -32,12 +32,12 @@ berechtigte_wohnfläche_miete:
       Eine Mietwohnung darf für einen Single 45 Quadratmeter (+15 für jede weitere
       Person) groß sein.
       Dies ist nur eine Approximation. Die regionalen Parameter sind unbekannt, siehe
-      Issue https://github.com/iza-institute-of-labor-economics/gettsim/issues/782.
+      Issue https://github.com/ttsim-dev/gettsim/issues/782.
     en: >-
       A rental apartment may be 45 square meters for a single person (+15 for each
       additional person).
       This is only an approximation. The regional parameters are unknown, see Issue
-      https://github.com/iza-institute-of-labor-economics/gettsim/issues/782.
+      https://github.com/ttsim-dev/gettsim/issues/782.
   unit: Square Meters
   reference_period: null
   type: dict

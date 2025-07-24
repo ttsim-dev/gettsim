@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 
 @policy_function(end_date="2003-03-31", leaf_name="regulär_beschäftigt")

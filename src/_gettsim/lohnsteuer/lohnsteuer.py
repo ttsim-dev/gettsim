@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 import numpy
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     PiecewisePolynomialParamValue,
     param_function,
     piecewise_polynomial,
@@ -16,7 +16,7 @@ from ttsim.tt_dag_elements import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.interface_dag_elements.typing import FloatColumn
+    from gettsim.typing import FloatColumn
 
 
 def basis_für_klassen_5_6(
