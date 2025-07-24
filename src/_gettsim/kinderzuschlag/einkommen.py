@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from _gettsim.param_types import (
+    ElementExistenzminimum,
+    ElementExistenzminimumNurKind,
+    ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
+    ExistenzminimumNachAufwendungenOhneBildungUndTeilhabe,
+)
+from gettsim.tt import (
     AggType,
     RoundingSpec,
     agg_by_group_function,
@@ -12,15 +18,8 @@ from ttsim.tt_dag_elements import (
     policy_function,
 )
 
-from _gettsim.param_types import (
-    ElementExistenzminimum,
-    ElementExistenzminimumNurKind,
-    ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
-    ExistenzminimumNachAufwendungenOhneBildungUndTeilhabe,
-)
-
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import RawParam
+    from gettsim.tt import RawParam
 
 
 @agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)

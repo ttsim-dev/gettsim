@@ -233,8 +233,12 @@ exclude = []
 [tool.ruff.lint.per-file-ignores]
 "conftest.py" = ["ANN"]
 "docs/*" = ["INP001", "T201"]
-# Cannot have default values in test functions with fixtures -- not an issue here.
-"src/gettsim/__init__.py" = ["PT028"]
+
+"src/gettsim/__init__.py" = [
+    "PLW0127", # Re-export things for tab-completion explicitly.
+    "PT028", # Cannot have default values in test functions with fixtures -- not an issue here.
+]
+
 # Mostly things vectorization can't handle
 "src/_gettsim/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
 # Lohnsteuerklassen and age groups are fine to hard-code.

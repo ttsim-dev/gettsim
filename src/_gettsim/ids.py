@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import group_creation_function, policy_input
+from gettsim.tt import group_creation_function, policy_input
 
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.interface_dag_elements.typing import BoolColumn, IntColumn
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @policy_input()

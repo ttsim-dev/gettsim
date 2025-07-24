@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     PiecewisePolynomialParamValue,

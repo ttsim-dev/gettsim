@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     agg_by_p_id_function,
     param_function,

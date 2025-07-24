@@ -13,7 +13,6 @@ except ImportError:
     version = "unknown"
     version_tuple = ("unknown", "unknown", "unknown")
 
-import sys as _sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
@@ -32,8 +31,7 @@ from ttsim import (
     __version_tuple__,
     copy_environment,
     merge_trees,
-    tt,
-    typing,
+    upsert_tree,
 )
 
 from _gettsim_tests import TEST_DIR
@@ -44,6 +42,7 @@ if TYPE_CHECKING:
 
     import plotly.graph_objects as go
     from ttsim import typing
+    from ttsim.plot_dag import NodeSelector
     from ttsim.typing import (
         DashedISOString,
         FlatColumnObjectsParamFunctions,
@@ -66,7 +65,7 @@ __version__ = __version__
 __version_tuple__ = __version_tuple__
 copy_environment = copy_environment
 merge_trees = merge_trees
-tt = tt
+upsert_tree = upsert_tree
 
 
 def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
@@ -160,7 +159,7 @@ __all__ = [
     "plot_interface_dag",
     "plot_tt_dag",
     "test",
-    "tt",
+    "upsert_tree",
     "version",
     "version_tuple",
 ]

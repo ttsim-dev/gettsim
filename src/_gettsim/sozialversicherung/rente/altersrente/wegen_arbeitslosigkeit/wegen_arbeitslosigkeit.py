@@ -9,7 +9,7 @@ are older than the Regelaltersgrenze).
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
 
 
 @policy_function(

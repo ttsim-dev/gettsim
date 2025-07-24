@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     RoundingSpec,
     agg_by_group_function,

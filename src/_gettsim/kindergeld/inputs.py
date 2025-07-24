@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import FKType, policy_input
+from gettsim.tt import FKType, policy_input
 
 
 @policy_input()

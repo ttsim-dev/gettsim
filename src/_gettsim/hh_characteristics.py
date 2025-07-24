@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import AggType, agg_by_group_function, policy_function
+from gettsim.tt import AggType, agg_by_group_function, policy_function
 
 
 @agg_by_group_function(agg_type=AggType.SUM)

@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import numpy
 import pytest
-from ttsim import MainTarget
 from ttsim.testing_utils import (
     PolicyTest,
     check_env_completeness,
@@ -15,12 +14,12 @@ from ttsim.testing_utils import (
     load_policy_test_data,
 )
 
-from gettsim import main
+from gettsim import MainTarget, main
 
 if TYPE_CHECKING:
     import datetime
 
-    from ttsim.interface_dag_elements.typing import (
+    from gettsim.typing import (
         OrigPolicyObjects,
     )
 

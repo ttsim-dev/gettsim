@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     RoundingSpec,
     agg_by_group_function,

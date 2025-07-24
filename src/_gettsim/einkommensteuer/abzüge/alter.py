@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -13,7 +13,7 @@ from ttsim.tt_dag_elements import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @policy_function(end_date="2004-12-31", leaf_name="altersfreibetrag_y")

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
 
 
 @policy_function(start_date="2007-04-20", end_date="2030-12-31")

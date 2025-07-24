@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import AggType, agg_by_group_function, policy_function
+from gettsim.tt import AggType, agg_by_group_function, policy_function
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import BoolColumn, IntColumn
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @policy_function(vectorization_strategy="not_required")

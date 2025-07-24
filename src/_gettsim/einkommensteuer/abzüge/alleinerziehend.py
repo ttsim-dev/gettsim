@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 
 @policy_function(end_date="2014-12-31", leaf_name="alleinerziehend_betrag_y")

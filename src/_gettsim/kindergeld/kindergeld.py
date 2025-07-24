@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
+    ConsecutiveIntLookupTableParamValue,
     agg_by_p_id_function,
     get_consecutive_int_lookup_table_param_value,
     join,
@@ -16,8 +17,7 @@ from ttsim.tt_dag_elements import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.interface_dag_elements.typing import BoolColumn, IntColumn
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)

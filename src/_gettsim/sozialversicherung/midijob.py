@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import param_function, policy_function
+from gettsim.tt import param_function, policy_function
 
 
 @policy_function(start_date="2003-04-01")

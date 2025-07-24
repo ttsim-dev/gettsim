@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from types import ModuleType
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     PiecewisePolynomialParamValue,
     piecewise_polynomial,
     policy_function,

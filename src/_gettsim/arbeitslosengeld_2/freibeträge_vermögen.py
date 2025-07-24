@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.

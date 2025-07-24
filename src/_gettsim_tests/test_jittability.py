@@ -9,15 +9,12 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import pytest
 from dags import get_free_arguments
-from ttsim import MainTarget
-from ttsim.tt_dag_elements.column_objects_param_function import ColumnFunction
 
-from gettsim import main
+from gettsim import MainTarget, main
+from gettsim.tt import ColumnFunction
 
 if TYPE_CHECKING:
-    from ttsim.interface_dag_elements.typing import (
-        SpecEnvWithPartialledParamsAndScalars,
-    )
+    from gettsim.typing import SpecEnvWithPartialledParamsAndScalars
 
 
 def get_orig_gettsim_column_functions() -> list[ColumnFunction]:
