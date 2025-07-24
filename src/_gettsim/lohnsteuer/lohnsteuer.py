@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy
-
 from ttsim.tt_dag_elements import (
     PiecewisePolynomialParamValue,
     param_function,

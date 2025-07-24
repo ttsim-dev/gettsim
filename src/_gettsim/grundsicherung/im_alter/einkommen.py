@@ -9,8 +9,9 @@ from ttsim.tt_dag_elements import piecewise_polynomial, policy_function
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
     from ttsim.tt_dag_elements import PiecewisePolynomialParam
+
+    from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
 
 
 @policy_function()

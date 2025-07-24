@@ -7,8 +7,6 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import numpy
 import pytest
-
-from gettsim import main
 from ttsim import MainTarget
 from ttsim.testing_utils import (
     PolicyTest,
@@ -16,6 +14,8 @@ from ttsim.testing_utils import (
     execute_test,
     load_policy_test_data,
 )
+
+from gettsim import main
 
 if TYPE_CHECKING:
     import datetime

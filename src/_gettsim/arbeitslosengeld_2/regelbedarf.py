@@ -15,8 +15,9 @@ from ttsim.tt_dag_elements import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
     from ttsim.tt_dag_elements import RawParam
+
+    from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
 
 
 @policy_function(start_date="2005-01-01")

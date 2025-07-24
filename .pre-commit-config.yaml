@@ -110,6 +110,6 @@ repos:
         language: python
         files: ^src/_gettsim/.*\.(yaml|yml)$
         args:
-          - --schemafile=https://github.com/ttsim-dev/ttsim/blob/ttsim-initial/src/ttsim/params-schema.json
+          - --schemafile=https://raw.githubusercontent.com/ttsim-dev/ttsim/ttsim-initial/src/ttsim/params-schema.json
 ci:
   autoupdate_schedule: monthly

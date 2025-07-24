@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from _gettsim.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from ttsim.tt_dag_elements import (
     AggType,
     RoundingSpec,
@@ -13,6 +12,8 @@ from ttsim.tt_dag_elements import (
     param_function,
     policy_function,
 )
+
+from _gettsim.param_types import Altersgrenzen, SatzMitAltersgrenzen
 
 if TYPE_CHECKING:
     from types import ModuleType
