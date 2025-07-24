@@ -6,6 +6,12 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`804` The PR that has been collecting all changes over the past 7 months, which
+  have been listed individually.
+
+- {gh}`1052` Remove what has been extracted to TTSIM, add dependency on ttsim-backend
+  ({ghuser}`hmgaudecker`)
+
 - {gh}`1050` Allow input template creation when path to root node traverses an
   automatically created function ({ghuser}`MImmesberger`)
 

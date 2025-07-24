@@ -160,7 +160,7 @@ taxes and transfers became too difficult.
 - Zulip stream for
   [GEP 2](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2001/near/189539859).
 - GitHub PR for update (changes because of `GEP-6 <gep-6>`):
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
+  <https://github.com/ttsim-dev/gettsim/pull/855>
 
 ## Copyright
 

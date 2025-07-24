@@ -656,10 +656,10 @@ the parameter (see the previous section), the following types are possible:
 
 ## Discussion
 
-- <https://github.com/iza-institute-of-labor-economics/gettsim/pull/148>
+- <https://github.com/ttsim-dev/gettsim/pull/148>
 - <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2003>
 - GitHub PR for update (changes because of `GEP-6 <gep-6>`):
-  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
+  <https://github.com/ttsim-dev/gettsim/pull/855>
 
 ## Copyright
 
@@ -667,5 +667,5 @@ This document has been placed in the public domain.
 
 ## Appendix: json-schema for the yaml files
 
-```{literalinclude} ../../src/ttsim/params-schema.json
+```{literalinclude} ./params-schema.json
 ```

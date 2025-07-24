@@ -5,8 +5,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from _gettsim.param_types import Altersgrenzen, SatzMitAltersgrenzen
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
+    ConsecutiveIntLookupTableParamValue,
+    RawParam,
     RoundingSpec,
     agg_by_p_id_function,
     join,
@@ -17,8 +19,7 @@ from ttsim.tt_dag_elements import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.interface_dag_elements.typing import BoolColumn, IntColumn
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue, RawParam
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)
@@ -145,7 +146,7 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
 
     """
     # TODO(@MImmesberger): Remove explicit parameter conversion.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/575
+    # https://github.com/ttsim-dev/gettsim/issues/575
     sächliches_existenzmininmum = einkommensteuer__parameter_kinderfreibetrag[
         "sächliches_existenzminimum"
     ]

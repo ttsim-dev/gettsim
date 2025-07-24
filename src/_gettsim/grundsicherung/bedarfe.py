@@ -4,10 +4,10 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from _gettsim.param_types import Altersgrenzen, SatzMitAltersgrenzen
-from ttsim.tt_dag_elements import param_function
+from gettsim.tt import param_function
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import RawParam
+    from gettsim.tt import RawParam
 
 
 @dataclass(frozen=True)

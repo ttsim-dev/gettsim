@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     RoundingSpec,
     agg_by_group_function,
@@ -86,7 +86,7 @@ def erziehungsgeld_kind_ohne_budgetsatz_m() -> NotImplementedError:
     raise NotImplementedError(
         """
     Erziehungsgeld is not implemented yet prior to 2004, see
-    https://github.com/iza-institute-of-labor-economics/gettsim/issues/673
+    https://github.com/ttsim-dev/gettsim/issues/673
         """,
     )
 

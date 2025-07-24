@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import AggType, agg_by_group_function, policy_function
+from gettsim.tt import AggType, agg_by_group_function, policy_function
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements import BoolColumn, IntColumn
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @policy_function(vectorization_strategy="not_required")
@@ -17,7 +17,7 @@ def ist_kind_in_einstandsgemeinschaft(alter: IntColumn) -> BoolColumn:
     # TODO(@MImmesberger): This assumes that parents are part of the minor's (SGB XII)
     # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
     # XII.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/738
+    # https://github.com/ttsim-dev/gettsim/issues/738
     return alter <= 17  # noqa: PLR2004
 
 
@@ -33,7 +33,7 @@ def ist_erwachsener_in_einstandsgemeinschaft(
     # TODO(@MImmesberger): This assumes that parents are part of the minor's
     # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
     # XII.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/738
+    # https://github.com/ttsim-dev/gettsim/issues/738
     return not ist_kind_in_einstandsgemeinschaft
 
 

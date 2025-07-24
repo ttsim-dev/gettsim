@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from types import ModuleType
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
     param_function,

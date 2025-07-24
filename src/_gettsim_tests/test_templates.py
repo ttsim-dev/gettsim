@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import dags.tree as dt
-
-from gettsim import main
 from ttsim.interface_dag_elements.automatically_added_functions import TIME_UNIT_LABELS
 from ttsim.interface_dag_elements.shared import (
     get_re_pattern_for_all_time_units_and_groupings,
 )
+
+from gettsim import main
 
 
 def test_template_all_outputs_no_inputs(backend):

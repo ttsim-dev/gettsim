@@ -2,13 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from ttsim.tt_dag_elements import RoundingSpec, piecewise_polynomial, policy_function
-from ttsim.tt_dag_elements.column_objects_param_function import param_function
+from gettsim.tt import (
+    PiecewisePolynomialParamValue,
+    RoundingSpec,
+    param_function,
+    piecewise_polynomial,
+    policy_function,
+)
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-    from ttsim.tt_dag_elements.param_objects import PiecewisePolynomialParamValue
 
 
 @policy_function(

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import policy_function
+from gettsim.tt import policy_function
 
 if TYPE_CHECKING:
     from types import ModuleType

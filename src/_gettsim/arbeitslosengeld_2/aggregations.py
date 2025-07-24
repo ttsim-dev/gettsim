@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
     agg_by_group_function,
     join,
@@ -12,7 +12,9 @@ from ttsim.tt_dag_elements import (
 )
 
 if TYPE_CHECKING:
-    from ttsim.tt_dag_elements.typing import BoolColumn, IntColumn, ModuleType
+    from types import ModuleType
+
+    from gettsim.typing import BoolColumn, IntColumn
 
 
 @policy_function(start_date="2005-01-01")

@@ -6,26 +6,23 @@ from typing import TYPE_CHECKING
 
 import optree
 
-from ttsim.tt_dag_elements import (
+from gettsim.tt import (
     AggType,
+    ConsecutiveIntLookupTableParamValue,
     PiecewisePolynomialParamValue,
+    RawParam,
     RoundingSpec,
     agg_by_group_function,
     agg_by_p_id_function,
+    get_piecewise_parameters,
+    get_piecewise_thresholds,
     param_function,
     piecewise_polynomial,
     policy_function,
 )
-from ttsim.tt_dag_elements.piecewise_polynomial import (
-    check_and_get_thresholds,
-    get_piecewise_parameters,
-)
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-    from ttsim.interface_dag_elements.typing import RawParam
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue
 
 
 @agg_by_group_function(agg_type=AggType.COUNT)
@@ -248,7 +245,7 @@ def parameter_einkommensteuertarif(
     )
 
     # Check and extract lower thresholds.
-    lower_thresholds, upper_thresholds = check_and_get_thresholds(
+    lower_thresholds, upper_thresholds = get_piecewise_thresholds(
         leaf_name="parameter_einkommensteuertarif",
         parameter_dict=expanded,
         xnp=xnp,

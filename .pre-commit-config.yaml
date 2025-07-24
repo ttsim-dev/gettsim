@@ -108,8 +108,8 @@ repos:
         name: Validate JSON/YAML files against schema
         entry: check-jsonschema
         language: python
-        files: ^(tests/ttsim/mettsim|src/_gettsim)/.*\.(yaml|yml)$
+        files: ^src/_gettsim/.*\.(yaml|yml)$
         args:
-          - --schemafile=src/ttsim/params-schema.json
+          - --schemafile=docs/geps/params-schema.json
 ci:
   autoupdate_schedule: monthly

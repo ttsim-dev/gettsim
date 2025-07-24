@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import piecewise_polynomial, policy_function
+from gettsim.tt import piecewise_polynomial, policy_function
 
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.tt_dag_elements import PiecewisePolynomialParam
+    from gettsim.tt import PiecewisePolynomialParam
 
 
 @policy_function()

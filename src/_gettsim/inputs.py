@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.tt_dag_elements import policy_input
+from gettsim.tt import policy_input
 
 
 @policy_input()
@@ -11,7 +11,7 @@ def alter() -> int:
 
 
 # TODO(@MImmesberger): Remove once evaluation date is available.
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/211
+# https://github.com/ttsim-dev/gettsim/issues/211
 @policy_input()
 def alter_monate() -> int:
     """Age in months."""

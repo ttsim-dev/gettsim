@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import param_function, policy_function
+from gettsim.tt import param_function, policy_function
 
 if TYPE_CHECKING:
     from _gettsim.param_types import (
         ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     )
-    from ttsim.tt_dag_elements import ConsecutiveIntLookupTableParamValue
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @param_function(start_date="2021-01-01", end_date="2022-12-31", leaf_name="satz")

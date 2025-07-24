@@ -4,12 +4,17 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.tt_dag_elements import AggType, agg_by_p_id_function, join, policy_function
+from gettsim.tt import (
+    AggType,
+    agg_by_p_id_function,
+    join,
+    policy_function,
+)
 
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from ttsim.interface_dag_elements.typing import BoolColumn, FloatColumn, IntColumn
+    from gettsim.typing import BoolColumn, FloatColumn, IntColumn
 
 
 @agg_by_p_id_function(start_date="2005-01-01", agg_type=AggType.SUM)
