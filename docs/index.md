@@ -17,7 +17,7 @@ accomplish specific tasks with GETTSIM.
 caption: Links
 hidden: true
 ---
-gettsim on Github <https://github.com/iza-institute-of-labor-economics/gettsim>
+gettsim on Github <https://github.com/ttsim-dev/gettsim>
 ```
 
 ```{toctree}

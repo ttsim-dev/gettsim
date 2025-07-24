@@ -22,7 +22,7 @@ def betrag_m_bg(
     # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
     # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
     # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/703
+    # https://github.com/ttsim-dev/gettsim/issues/703
     if (
         vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg
         or vorrangprüfungen__kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg

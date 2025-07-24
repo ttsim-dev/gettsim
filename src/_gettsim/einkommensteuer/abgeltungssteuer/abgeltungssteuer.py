@@ -21,7 +21,7 @@ def zu_versteuerndes_kapitaleinkommen_y_sn(
 
     TODO(@MImmesberger): Find out whether Sparerpauschbetrag is
     transferable to partner with same sn_id.
-    https://github.com/iza-institute-of-labor-economics/gettsim/issues/843
+    https://github.com/ttsim-dev/gettsim/issues/843
 
     """
     out = (

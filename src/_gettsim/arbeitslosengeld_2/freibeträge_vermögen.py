@@ -6,7 +6,7 @@ from ttsim.tt_dag_elements import policy_function
 
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+# https://github.com/ttsim-dev/gettsim/issues/1009
 @policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def grundfreibetrag_vermögen(
     ist_kind_in_bedarfsgemeinschaft: bool,
@@ -31,9 +31,9 @@ def grundfreibetrag_vermögen(
 
 
 # TODO(@MImmesberger): Parameter should be defined as a piecewise_constant.
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/911
+# https://github.com/ttsim-dev/gettsim/issues/911
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+# https://github.com/ttsim-dev/gettsim/issues/1009
 @policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def maximaler_grundfreibetrag_vermögen(
     geburtsjahr: int,

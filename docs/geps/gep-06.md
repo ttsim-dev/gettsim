@@ -42,10 +42,10 @@ in at least three directions:
    sufficient context — in the examples above, those would be Arbeitslosengeld 2,
    Erziehungsgeld, and Kinderzuschlag.
 1. Handling functions that change over the years is not robust (examples in
-   [Issue 449](https://github.com/iza-institute-of-labor-economics/gettsim/issues/449)).
+   [Issue 449](https://github.com/ttsim-dev/gettsim/issues/449)).
 1. Parameters files do not handle cases well when functions expect parameters in a
    different form than the law specifies them (example:
-   [Issue 444](https://github.com/iza-institute-of-labor-economics/gettsim/issues/444)).
+   [Issue 444](https://github.com/ttsim-dev/gettsim/issues/444)).
 
 These issues severely limit the development of GETTSIM. We have been spending far too
 much time finding names that adhere to our self-imposed character limits. Functions with
@@ -264,17 +264,17 @@ There have been various discussions and preliminary implementations of some part
 this GEP:
 
 - Pull requests:
-  - [#787](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/787) Model
-    classes for policy functions and policy environments
-  - [#720](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/720)
-    Combined decorator for policy information,
-  - [#638](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/638) Don’t
-    use functions in compute_taxes_and_transfers that are not active
-  - [#804](https://github.com/iza-institute-of-labor-economics/gettsim/pulls/804)
-    Namespaces for policy functions
+  - [#787](https://github.com/ttsim-dev/gettsim/pulls/787) Model classes for policy
+    functions and policy environments
+  - [#720](https://github.com/ttsim-dev/gettsim/pulls/720) Combined decorator for policy
+    information,
+  - [#638](https://github.com/ttsim-dev/gettsim/pulls/638) Don’t use functions in
+    compute_taxes_and_transfers that are not active
+  - [#804](https://github.com/ttsim-dev/gettsim/pulls/804) Namespaces for policy
+    functions
 - Issues:
-  - [#781](https://github.com/iza-institute-of-labor-economics/gettsim/issues/781):
-    Summary of interface discussion from 2024 GETTSIM workshop
+  - [#781](https://github.com/ttsim-dev/gettsim/issues/781): Summary of interface
+    discussion from 2024 GETTSIM workshop
 - [Zulip](https://gettsim.zulipchat.com/#narrow/channel/309998-GEPs/topic/GEP.2006)
 
 ## Copyright

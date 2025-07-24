@@ -193,7 +193,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     """
     # TODO(@MImmesberger): Find out whether unterhalt__tatsächlich_erhaltener_betrag_m and
     # unterhaltsvorschuss__betrag_m are counted as income for Wohngeld income check.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/357
+    # https://github.com/ttsim-dev/gettsim/issues/357
     einkommen = (
         einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m

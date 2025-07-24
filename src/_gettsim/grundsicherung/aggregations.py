@@ -17,7 +17,7 @@ def ist_kind_in_einstandsgemeinschaft(alter: IntColumn) -> BoolColumn:
     # TODO(@MImmesberger): This assumes that parents are part of the minor's (SGB XII)
     # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
     # XII.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/738
+    # https://github.com/ttsim-dev/gettsim/issues/738
     return alter <= 17  # noqa: PLR2004
 
 
@@ -33,7 +33,7 @@ def ist_erwachsener_in_einstandsgemeinschaft(
     # TODO(@MImmesberger): This assumes that parents are part of the minor's
     # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
     # XII.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/738
+    # https://github.com/ttsim-dev/gettsim/issues/738
     return not ist_kind_in_einstandsgemeinschaft
 
 

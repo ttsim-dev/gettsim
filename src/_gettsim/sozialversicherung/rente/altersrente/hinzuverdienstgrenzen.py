@@ -24,7 +24,7 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze(
     If earnings are above an earnings limit, the pension is fully deducted.
     """
     # TODO (@MImmesberger): Use age with monthly precision.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/781
+    # https://github.com/ttsim-dev/gettsim/issues/781
     if (alter >= regelaltersrente__altersgrenze) or (
         einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
         <= hinzuverdienstgrenze_m
@@ -59,7 +59,7 @@ def bruttorente_m_mit_hinzuverdienstdeckel(
     years, the pension is fully deducted (Hinzuverdienstdeckel).
     """
     # TODO (@MImmesberger): Use age with monthly precision.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/781
+    # https://github.com/ttsim-dev/gettsim/issues/781
     if (
         differenz_bruttolohn_hinzuverdienstdeckel_m > 0
         and alter <= regelaltersrente__altersgrenze
@@ -93,7 +93,7 @@ def zahlbetrag_ohne_deckel_m(
     (Hinzuverdienstdeckel).
     """
     # TODO (@MImmesberger): Use age with monthly precision.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/781
+    # https://github.com/ttsim-dev/gettsim/issues/781
     # No deduction because of age or low earnings
     if (alter >= regelaltersrente__altersgrenze) or (
         einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m

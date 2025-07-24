@@ -51,14 +51,14 @@ def betrag_m_wthh(
     """Housing benefit after wealth and priority checks."""
     # TODO (@MImmesberger): This implementation may be only an approximation of the
     # actual rules for individuals that are on the margin of the priority check.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/752
+    # https://github.com/ttsim-dev/gettsim/issues/752
 
     # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
     # Alter (SGB XII) is implemented yet. We assume for now that households with only
     # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
     # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
     # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/703
+    # https://github.com/ttsim-dev/gettsim/issues/703
 
     if not volljährige_alle_rentenbezieher_hh and (
         vorrangprüfungen__wohngeld_vorrang_wthh

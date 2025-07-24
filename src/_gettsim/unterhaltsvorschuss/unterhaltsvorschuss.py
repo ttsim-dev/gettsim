@@ -146,7 +146,7 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
 
     """
     # TODO(@MImmesberger): Remove explicit parameter conversion.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/575
+    # https://github.com/ttsim-dev/gettsim/issues/575
     sächliches_existenzmininmum = einkommensteuer__parameter_kinderfreibetrag[
         "sächliches_existenzminimum"
     ]

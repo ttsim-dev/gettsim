@@ -44,11 +44,11 @@ requires-python = ">=3.11"
 
 
 [project.urls]
-Repository = "https://github.com/iza-institute-of-labor-economics/gettsim"
+Repository = "https://github.com/ttsim-dev/gettsim"
 Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
 Documentation = "https://gettsim.readthedocs.io"
-Github = "https://github.com/iza-institute-of-labor-economics/gettsim"
-Tracker = "https://github.com/iza-institute-of-labor-economics/gettsim/issues"
+Github = "https://github.com/ttsim-dev/gettsim"
+Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 
 # ======================================================================================

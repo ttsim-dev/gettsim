@@ -30,7 +30,7 @@ def ist_leistungsbegründendes_kind(
     """
     # TODO(@MImmesberger): This age threshold is not correct once we account for
     # Elterngeld plus (currently not implemented).
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/151
+    # https://github.com/ttsim-dev/gettsim/issues/151
     return (
         alter_monate
         <= max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
@@ -261,7 +261,7 @@ def lohnersatzanteil(
 
 # TODO(@MImmesberger): Elterngeld is considered as SGB II income since 2011. Also, there
 # is a 300€ Freibetrag under some conditions since 2011.
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/549
+# https://github.com/ttsim-dev/gettsim/issues/549
 @policy_function(start_date="2007-01-01")
 def anrechenbarer_betrag_m(
     betrag_m: float,

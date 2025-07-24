@@ -82,7 +82,7 @@ autodoc_mock_imports = [
 extlinks = {
     "ghuser": ("https://github.com/%s", "@%s"),
     "gh": (
-        "https://github.com/iza-institute-of-labor-economics/gettsim/pull/%s",
+        "https://github.com/ttsim-dev/gettsim/pull/%s",
         "#%s",
     ),
 }
@@ -108,7 +108,7 @@ html_theme = "pydata_sphinx_theme"
 html_logo = "_static/images/gettsim_logo.svg"
 
 html_theme_options = {
-    "github_url": "https://github.com/iza-institute-of-labor-economics/gettsim",
+    "github_url": "https://github.com/ttsim-dev/gettsim",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here, relative

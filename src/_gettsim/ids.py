@@ -123,7 +123,7 @@ def _assign_parents_fg_id(
 ) -> IntColumn:
     """Return the fg_id of the child's parents."""
     # TODO(@MImmesberger): Remove hard-coded number
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/668
+    # https://github.com/ttsim-dev/gettsim/issues/668
 
     return xnp.where(
         (p_id_elternteil_loc >= 0)
@@ -152,10 +152,10 @@ def bg_id(
     offset = xnp.max(fg_id) + 1
     # TODO(@MImmesberger): Remove input variable eigenbedarf_gedeckt
     # once Bedarfsgemeinschaften are fully endogenous
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/763
+    # https://github.com/ttsim-dev/gettsim/issues/763
 
     # TODO(@MImmesberger): Remove hard-coded number
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/668
+    # https://github.com/ttsim-dev/gettsim/issues/668
     return xnp.where(
         (arbeitslosengeld_2__eigenbedarf_gedeckt) * (alter < 25),  # noqa: PLR2004
         offset + p_id,

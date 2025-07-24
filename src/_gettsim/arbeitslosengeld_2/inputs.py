@@ -12,7 +12,7 @@ def bezug_im_vorjahr() -> bool:
 
 # TODO(@MImmesberger): Remove input variable eigenbedarf_gedeckt once
 # Bedarfsgemeinschaften are fully endogenous
-# https://github.com/iza-institute-of-labor-economics/gettsim/issues/763
+# https://github.com/ttsim-dev/gettsim/issues/763
 @policy_input(start_date="2005-01-01")
 def eigenbedarf_gedeckt() -> bool:
     """Needs according to SGB II are covered by own income."""

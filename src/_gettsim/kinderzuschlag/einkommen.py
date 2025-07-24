@@ -39,7 +39,7 @@ def bruttoeinkommen_eltern_m(
     benefit is met.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__bruttoeinkommen_m
     else:
@@ -62,7 +62,7 @@ def nettoeinkommen_eltern_m_mit_grober_rundung(
     other deductions) for calculation of child benefit.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m
     else:
@@ -83,7 +83,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung(
     other deductions) for calculation of child benefit.
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/1009
+    # https://github.com/ttsim-dev/gettsim/issues/1009
     if arbeitslosengeld_2__hat_kind_in_gleicher_bedarfsgemeinschaft:
         out = arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m
     else:

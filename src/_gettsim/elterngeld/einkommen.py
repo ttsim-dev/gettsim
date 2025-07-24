@@ -14,7 +14,7 @@ def anzurechnendes_nettoeinkommen_m(
     """Income that reduces the Elterngeld claim."""
     # TODO(@MImmesberger): In this case, lohnsteuer__betrag_m should be calculated
     # without taking into account adaptions to the standard care insurance rate.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/792
+    # https://github.com/ttsim-dev/gettsim/issues/792
     return (
         einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
         - lohnsteuer__betrag_m
