@@ -232,7 +232,7 @@ For example, we may need the number of adult household members. The following co
 `household_characteristics.py` does this:
 
 ```python
-from ttsim import AggType, agg_by_group_function
+from gettsim.tt import AggType, agg_by_group_function
 
 
 @agg_by_group_function(agg_type=AggType.SUM)
@@ -273,7 +273,7 @@ a node `kindergeld__betrag_m_bg` containing the Bedarfsgemeinschaft-level sum of
 graph will be `kindergeld__betrag_m` and `bg_id`. This is the same as specifying:
 
 ```python
-from ttsim import AggType, agg_by_group_function
+from gettsim.tt import AggType, agg_by_group_function
 
 
 @agg_by_group_function(agg_type=AggType.SUM)
@@ -305,7 +305,7 @@ values in `source` should be ascribed to. The key `agg` gives the aggregation me
 For example, in the `kindergeld` namespace, we could have:
 
 ```python
-from ttsim import AggType, agg_by_p_id_function
+from gettsim.tt import AggType, agg_by_p_id_function
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)

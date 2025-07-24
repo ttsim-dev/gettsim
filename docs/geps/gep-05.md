@@ -50,7 +50,7 @@ The snippet is taken from `sozialversicherung/rente/grundrente/grundrente.py`, w
 contains the following code:
 
 ```python
-from ttsim import policy_function, RoundingSpec, RoundingDirection
+from gettsim.tt import policy_function, RoundingSpec, RoundingDirection
 
 
 @policy_function(
