@@ -50,7 +50,7 @@ def functions_and_data_columns_overlap(
                 that appears in the list above.
 
                 Turn off warnings by setting `include_warn_nodes=False` in `main`.
-                If you want to be selective about warnings, include these
+                If you want to be selective about warnings, include these among the
                 `main_targets`.
                 """,
             )
@@ -66,7 +66,7 @@ def functions_and_data_columns_overlap(
                 each column that appears in the list above.
 
                 Turn off warnings by setting `include_warn_nodes=False` in `main`.
-                If you want to be selective about warnings, include these
+                If you want to be selective about warnings, include these among the
                 `main_targets`.
                 """,
             )

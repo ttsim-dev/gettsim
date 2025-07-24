@@ -53,6 +53,11 @@ p2 = DictParam(
 
 
 @policy_input()
+def kin_id() -> int:
+    pass
+
+
+@policy_input()
 def inp1() -> int:
     pass
 
@@ -63,8 +68,8 @@ def inp2() -> float:
 
 
 @policy_function()
-def x(inp1: int, p1: int, p2: dict[str, int]) -> int:
-    return inp1 + p1 + p2["a"] + p2["b"]
+def x(inp1_kin: int, p1: int, p2: dict[str, int]) -> int:
+    return inp1_kin + p1 + p2["a"] + p2["b"]
 
 
 @policy_function()
@@ -81,6 +86,7 @@ def test_template_all_outputs_no_inputs(backend):
     actual = main(
         main_target="templates__input_data_dtypes",
         policy_environment={
+            "kin_id": kin_id,
             "inp1": inp1,
             "p1": p1,
             "a": {"inp2": inp2, "x": x, "y": y, "p2": p2},
@@ -92,7 +98,11 @@ def test_template_all_outputs_no_inputs(backend):
         evaluation_date_str="2025-01-01",
         backend=backend,
     )
-    assert actual == {"a": {"inp2": "FloatColumn"}, "inp1": "IntColumn"}
+    assert actual == {
+        "a": {"inp2": "FloatColumn"},
+        "inp1": "IntColumn",
+        "kin_id": "IntColumn",
+    }
 
 
 def test_template_all_outputs_with_inputs(backend, xnp):
@@ -108,6 +118,7 @@ def test_template_all_outputs_with_inputs(backend, xnp):
             }
         },
         policy_environment={
+            "kin_id": kin_id,
             "inp1": inp1,
             "p1": p1,
             "a": {"inp2": inp2, "x": x, "y": y, "p2": p2},
@@ -119,7 +130,11 @@ def test_template_all_outputs_with_inputs(backend, xnp):
         evaluation_date_str="2025-01-01",
         backend=backend,
     )
-    assert actual == {"a": {"inp2": "FloatColumn"}, "inp1": "IntColumn"}
+    assert actual == {
+        "a": {"inp2": "FloatColumn"},
+        "inp1": "IntColumn",
+        "kin_id": "IntColumn",
+    }
 
 
 def test_template_output_y_no_inputs(backend):
@@ -127,6 +142,7 @@ def test_template_output_y_no_inputs(backend):
         main_target="templates__input_data_dtypes",
         tt_targets={"tree": {"a": {"y": None}}},
         policy_environment={
+            "kin_id": kin_id,
             "inp1": inp1,
             "p1": p1,
             "a": {"inp2": inp2, "x": x, "y": y, "p2": p2},
@@ -155,6 +171,7 @@ def test_template_output_x_with_inputs(backend, xnp):
         },
         tt_targets={"tree": {"a": {"x": None}}},
         policy_environment={
+            "kin_id": kin_id,
             "inp1": inp1,
             "p1": p1,
             "a": {"inp2": inp2, "x": x, "y": y, "p2": p2},
@@ -166,4 +183,34 @@ def test_template_output_x_with_inputs(backend, xnp):
         evaluation_date_str="2025-01-01",
         backend=backend,
     )
-    assert actual == {"inp1": "IntColumn"}
+    assert actual == {"inp1": "IntColumn", "kin_id": "IntColumn"}
+
+
+def test_template_all_outputs_no_input_for_root_of_derived_function(backend, xnp):
+    actual = main(
+        main_target="templates__input_data_dtypes",
+        input_data={
+            "tree": {
+                "p_id": xnp.array([4, 5, 6]),
+                "a": {
+                    "inp2": xnp.array([1, 2, 3]),
+                },
+            }
+        },
+        policy_environment={
+            "kin_id": kin_id,
+            "inp1": inp1,
+            "p1": p1,
+            "a": {"inp2": inp2, "x": x, "y": y, "p2": p2},
+            "b": {
+                "z": z,
+            },
+        },
+        rounding=True,
+        evaluation_date_str="2025-01-01",
+        backend=backend,
+    )
+    assert actual == {
+        "a": {"inp2": "FloatColumn"},
+        "inp1": "IntColumn",
+    }

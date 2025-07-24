@@ -14,7 +14,7 @@
 - * Created
   * 2019-11-04
 - * Updated
-  * 2022-03-28
+  * 2025-07-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2001)
 ```
@@ -26,34 +26,16 @@ columns, parameters, Python identifiers (functions, variables), etc. should be n
 a nutshell and without explanations, these conventions are:
 
 1. Names follow standard Python conventions (`lowercase_with_underscores`).
-   Abbreviations of words that form a part of these names are always followed by an
-   underscore, unless it is the last word.
-
-1. Names should be long enough to be readable. However, we impose limits in order to
-   make GETTSIM usable in languages, which place limits on characters (Stata, in
-   particular).
-
-   - Column names that are typically user-facing have a hard limit of 20 characters.
-     These columns are documented in `DEFAULT_TARGETS` in `gettsim/config.py`.
-   - Other column names that users might potentially be interested in have a hard limit
-     of 32 characters.
-   - Columns geared at internal use (e.g., helper variables before applying a
-     favorability check) start with an underscore and there are no restrictions.
-     Internal variables should be used sparingly.
-
-1. If names need to be concatenated for making clear what a column name refers to (e.g.,
-   `arbeitslosengeld_2__vermögensfreibetrag_bg` vs.
-   `grundsicherung__im_alter__vermögensfreibetrag_eg`), the group (i.e., the tax or
-   transfer) that a variable refers to appears first.
-
-1. Because of the necessity of concatenated column names, there will be conflicts
-   between readability (1.) and variable length (2.). If such conflicts arise, they need
-   to be solved on a case by case basis. Consistency across different variants of a
-   variable names always has to be kept.
 
 1. The language should generally be English in all coding efforts and documentation.
    German should be used for all institutional features and directly corresponding
    names.
+
+1. The hierarchical naming convention (see {ref}`GEP 6 <gep-6>`) means that
+   abbreviations should be used only very sparingly.
+
+   An abbreviation is always followed by an underscore (unless it is the last word).
+   Underscores must not be used to separate German words that are pulled together.
 
 1. German identifiers use correct spelling even if it is non-ASCII (this mostly concerns
    the letters ä, ö, ü, ß).
@@ -93,32 +75,17 @@ in English. For column names, we always allow a pure ASCII option, see the next 
 
 (gep-1-column-names)=
 
-## Column names (a.k.a. "variables" in Stata)
+## Column / Policy Function names (a.k.a. "variables" in Stata)
 
-We impose a hard limit of 20 characters for all column names that typically user-facing.
-This is for the benefit of Stata users, who face a strict limit of 32 characters for
-their column names. Furthermore, where developers using other languages may store
-different experiments in different variables, Stata users' only chance to distinguish
-them is to append characters to the column names.
-
-For the same reason, there is a hard limit of 32 characters for variables that users may
-reasonably request.
-
-If a column is only present for internal use, it starts with an underscore and there is
-no restriction on the number of characters. Internal columns should be used sparingly.
-
-Across variations that include the same identifier, this identifier should not be
-changed, even if it leads to long variable names (e.g., `kinderfreib`,
-`einkommensteuer__gesamteinkommen_y`). This makes searching for identifiers easier and
-less error-prone.
-
-If names need to be concatenated for making clear what a column name refers to (e.g.,
-`arbeitslosengeld_2__vermögensfreibetrag_bg` vs.
-`grundsicherung__im_alter__vermögensfreibetrag_eg`), the group (i.e., the tax or
-transfer) that a variable refers to appears first.
+The hierarchical naming convention (see {ref}`GEP 6 <gep-6>`) means that the
+highest-level identifier is the type of the programme (e.g., `einkommensteuer` or
+`kindergeld`). Very few variables live in the global namespace (e.g., the person
+identifier `p_id` or `alter`). A special case is the namespace `familie`, which lives in
+the global namespace.
 
 If a column has a reference to a time unit (i.e., any flow variable like earnings or
-transfers), a column is indicated by an underscore plus one of {`y`, `m`, `w`, `d`}.
+transfers), a column is indicated by an underscore plus one of {`y`, `q`, `m`, `w`,
+`d`}.
 
 The default unit a column refers to is an individual. In case of groupings of
 individuals, an underscore plus one of {`sn`, `hh`, `fg`, `bg`, `eg`, `ehe`} will
@@ -152,11 +119,6 @@ Note that households do not include flat shares etc.. Such broader definition ar
 currently not relevant in GETTSIM but may be added in the future (e.g., capping rules
 for costs of dwelling in SGB II depend on this).
 
-Open questions:
-
-- Can we use `arbeitslosengeld_2__bg_id` for both SGB II and SGB XII at the same time or
-  do we need to differentiate once we add serious support for SGB XII?
-
 Time unit identifiers always appear before unit identifiers (e.g.,
 `arbeitslosengeld_2__betrag_m_bg`).
 
@@ -168,12 +130,9 @@ general naming considerations here.
 - There is a hierarchical structure to these parameters in that each of them is
   associated with a group (e.g., `arbeitslosengeld`, `kinderzuschlag`). These groups or
   abbreviations thereof do not re-appear in the name of the parameter.
-- Parameter names should be generally be aligned with relevant column names. However,
-  since the group is not repeated for the parameter, it is often better not to
-  abbreviate them (e.g., `wohngeld_params["vermögensgrundfreibetrag"]` for the parameter
-  and `wohngeld__anspruchshöhe_m_wthh` for a column derived from it).
+- Parameter names should generally be aligned with relevant column names.
 
-## Other Python identifiers (Functions, Variables)
+## Other Python identifiers
 
 Python identifiers should generally be in English, unless they refer to a specific law
 or set of laws, which is where the same reasoning applies as above.
@@ -183,40 +142,15 @@ comprehension or a short loop, `i` might be an acceptable name for the running v
 A function that is used in many different places should have a descriptive name.
 
 The name of variables should reflect the content or meaning of the variable and not the
-type (i.e., float, int, dict, list, df, array ...). As for column names and parameters,
-in some cases it might be useful to append an underscore plus one of {`m`, `w`, `d`} to
-indicate the time unit and one of {`sn`, `hh`, `fg`, `bg`, `eg`, `ehe`} to indicate the
-unit of aggregation.
-
-## Examples
-
-As an example we can consider the naming of the parameter group `arbeitsl_geld`. The
-original name for this group of parameters was the abbreviation `alg`. This will seem
-like a suitable candidate for native speakers who are familiar with the German social
-security system; the abbreviation is commonly used to refer to this type of unemployment
-benefit. However, acronyms are generally not self-explanatory and users unfamiliar with
-them will thus not be able to guess their meaning without looking them up.
-
-More meaningful alternatives could be `alo_geld` or `arb_los_geld`. These names use
-abbreviations of the compounds of the term "Arbeitslosengeld", which the group name is
-supposed to reflect, and connect them in a Pythonic manner through underscores. However,
-`alo_geld` still leaves much room for interpretation and `arb_los_geld` separates the
-term "Arbeitslosen" in an odd way.
-
-The final choice `arbeitsl_geld` avoids all the disadvantages of the other options as it
-is an unambivalent, natural, and minimal abbreviation of the original term it is
-supposed to represent.
+type (i.e., float, int, dict, list, df, array ...).
 
 ## Alternatives
 
+- We worked with abbreviations before, but this hit limits and it led to never-ending
+  discussions (see `GEP-6 <gep-6>` for some history).
 - We considered using more English identifiers, but opted against it because of the lack
   of precision and uniqueness (see the example above: How to distinguish between
   Erziehungsgeld, Elterngeld, and Elterngeld Plus in English?).
-- Use one of the standards for column identifiers. They are not precise enough and
-  sometimes rather cryptic.
-- Do something like EUROMOD and include some hierarchy in column names (e.g. start with
-  `d_` for demographics). Should not be necessary if column names have clear enough
-  names. If anything, we would achieve this via a MultiIndex for the columns.
 
 ## A final note
 
@@ -249,6 +183,9 @@ for that. Quoting from there:
 
 ## Discussion
 
+The below refers to older versions of the GEP; it has been updated because
+`GEP-6 <gep-6>` made much of the original content obsolete.
+
 - GitHub PR: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/60>
 - Discussion on provisional acceptance:
   <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2001/near/189539859>
@@ -257,6 +194,8 @@ for that. Quoting from there:
 - GitHub PR for second update (concatenated column names, dealing with conflicting
   objectives, names for columns vs parameters):
   <https://github.com/iza-institute-of-labor-economics/gettsim/pull/342>
+- GitHub PR for third update (changes because of `GEP-6 <gep-6>`):
+  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
 
 ## Copyright
 

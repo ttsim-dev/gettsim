@@ -6,6 +6,16 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1050` Allow input template creation when path to root node traverses an
+  automatically created function ({ghuser}`MImmesberger`)
+
+- {gh}`1048` Raise an error if invalid input paths are provided to main
+  ({ghuser}`hmgaudecker`)
+
+- {gh}`1046` Fail if backend has changed ({ghuser}`hmgaudecker`)
+
+- {gh}`1046` Fail if backend has changed ({ghuser}`hmgaudecker`)
+
 - {gh}`1043` Raise more errors during vectorization ({ghuser}`hmgaudecker`,
   {ghuser}`timmens`)
 

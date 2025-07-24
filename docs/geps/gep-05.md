@@ -11,6 +11,8 @@
   * Standards Track
 - * Created
   * 2022-02-02
+- * Updated
+  * 2025-07-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2005/near/270427530)
 ```
@@ -54,14 +56,15 @@ from ttsim import policy_function, RoundingSpec, RoundingDirection
 @policy_function(
     rounding_spec=RoundingSpec(
         base=0.0001,
-        direction=RoundingDirection.NEAREST,
+        direction="nearest",
         reference="§76g SGB VI Abs. 4 Nr. 4",
     ),
     start_date="2021-01-01",
 )
 def höchstbetrag_m(
     grundrentenzeiten_monate: int,
-    ges_rente_params: dict,
+    berücksichtigte_wartezeit_monate: dict[str, int],
+    höchstwert_der_entgeltpunkte: dict[str, float],
 ) -> float: ...
 ```
 
@@ -70,8 +73,7 @@ The specification of the rounding parameters is defined via the `RoundingSpec` c
 
 - The `base` determines the base to which the variables is rounded. It has to be a
   floating point number.
-- The `direction` has to be one of `RoundingDirection.UP`, `RoundingDirection.DOWN`,
-  `RoundingDirection.NEAREST`.
+- The `direction` has to be one of `up`, `down`, or `nearest`.
 - The `reference` provides the legal reference for the rounding rule. This is optional.
 - Additionally, via the `to_add_after_rounding` input, users can specify some amount
   that should be added after the rounding is done (this was relevant for the income tax
@@ -87,13 +89,14 @@ This implementation was chosen over alternatives (e.g., specifying rounding rule
 parameter files) for the following reason:
 
 - Rounding rules are not a parameter, but a function property that we want to turn off
-  an one. Hence, it makes sense to define it at the function level.
+  and on. Hence, it makes sense to define it at the function level.
 - Rounding parameters might change over time. In this case, the rounding parameters for
   each period can be specified using the `start_date`, `end_date` keywords in the
   `policy_function` decorator.
 - Optional rounding can be easily specified for user-written functions.
-- At the definition of a function, it is clearly visible whether it is optionally
-  rounded and where the rounding parameters are found.
+- At the definition of a function, it is clearly visible whether and how it is
+  optionally rounded (initially we included the rounding parameters in the yaml files,
+  which led to an unclear structure there and one always had to look in two places).
 
 ## Discussion
 
@@ -101,6 +104,10 @@ parameter files) for the following reason:
 - PR: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/324>
 - PR Implementation:
   <https://github.com/iza-institute-of-labor-economics/gettsim/pull/316>
+- GitHub PR for update (changes because of `GEP-6 <gep-6>`):
+  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
+- Github PR changing to a RoundingSpec class rather than parameters specified in the
+  yaml files: <https://github.com/iza-institute-of-labor-economics/gettsim/pull/854>
 
 ## Copyright
 

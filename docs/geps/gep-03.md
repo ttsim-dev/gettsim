@@ -12,7 +12,7 @@
 - * Created
   * 2022-03-28
 - * Updated
-  * 2024-11-21
+  * 2025-07-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2003)
 ```
@@ -33,21 +33,20 @@ sources of these parameters requires particular care.
 ## Usage and Impact
 
 GETTSIM developers should closely look at the Section {ref}`gep-3-structure-yaml-files`
-before adding new parameters.
+before adding new parameters. Some validation happens via the pre-commit hooks, but that
+cannot catch all inconsistencies.
 
 (gep-3-structure-yaml-files)=
 
 ## Structure of the YAML files
 
 Each YAML file contains a number of parameters at the outermost level of indentation.
-Each of these parameters in turn is a dictionary with at least three keys: `name`,
-`description`, and the `YYYY-MM-DD`-formatted date on which it first took effect. Values
-usually change over time; each time a value is changed, another `YYYY-MM-DD` entry is
-added.
+Each of these parameters is a dictionary with at least 6 keys: `name`, `description`,
+`unit`, `reference_period`, `type` and the `YYYY-MM-DD`-formatted date on which it first
+took effect.
 
-Some keys at the outermost level refer to functions of the taxes and transfers system.
-These work differently and they are
-{ref}`treated separately below <gep-3-keys-referring-to-functions>`.
+Values usually change over time; each time a value is changed, another `YYYY-MM-DD`
+entry is added. Beyond that, no additional keys are allowed.
 
 1. The `name` key has two sub-keys `de` and `en`, which are
 
@@ -56,13 +55,13 @@ These work differently and they are
    - not sentences;
    - correctly capitalised.
 
-   Example (from `arbeitsl_geld_2`):
+   Example (from `kindergeld`):
 
    ```yaml
-   parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
+   altersgrenze:
      name:
-       de: Anrechnungsfreies Einkommen
-       en: Income shares not subject to transfer withdrawal
+       de: Alter, ab dem Kindergeld nicht mehr gezahlt wird.
+       en: Age at which child benefit is no longer paid.
    ```
 
 1. The `description` key has two sub-keys `de` and `en`, which
@@ -78,89 +77,119 @@ These work differently and they are
      Example:
 
      ```yaml
-     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
-
+     altersgrenze:
        description:
          de: >-
-           Einkommensanteile, die anrechnungsfrei bleiben. § 30 SGB II. Seit 01.10.2005 zudem
-           definiert durch Freibetrag in § 11 SGB II, siehe auch § 67 SGB II. Seit 01.04.2011
-           § 11b (2) SGB II (neugefasst durch B. v. 13.05.2011 BGBl. I S. 850. Artikel 2
-           G. v. 24.03.2011 BGBl. I S. 453).
+           § 32 Art. 2-4 EStG.
+           Für minderjährige Kinder besteht ohne Bedingungen ein Anspruch auf Kindergeld.
+           Auch für erwachsene Kinder kann bis zu einer Altersgrenze unter bestimmten
+           Bedingungen ein Anspruch auf Kindergeld bestehen.
          en: >-
-           Income shares which do not lead to tapering of benefits.
+           § 32 Art. 2-4 EStG.
+           Underage children are entitled to child benefit without any conditions. Also adult
+           children up to a specified age are entitled to child benefit under certain
+           conditions.
      ```
 
 1. The `unit` key informs on the unit of the values (Euro or DM if monetary, share of
    some other value, ...).
 
-   - In rare cases (e.g. child benefit age threshold), it might be omitted.
+   - In some cases (e.g., factor for the calculation of the marginal employment
+     threshold), there is no unit.
+
    - It should be capitalised.
-   - Some values used at this point: `Euro`, `DM`, `Share`, `Percent`, `Factor`, `Year`,
-     `Month`, `Hour`, `Square Meter`, `Euro / Square Meter`.
-   - The `unit` key may be overridden at lower levels. For example, the unit will
-     typically be `Euro` for monetary quantities. For the years prior to its
-     introduction, it may be specified as `DM`.
+
+   - Possible values:
+
+     - `Euros`,
+     - `DM`,
+     - `Share`,
+     - `Percent`,
+     - `Years`,
+     - `Months`,
+     - `Hours`,
+     - `Square Meters`,
+     - `Euros / Square Meter`,
+     - *None*.
 
    Example:
 
    ```yaml
-   kindergeld:
+   altersgrenze:
      name:
-       de: Kindergeld, Betrag je nach Reihenfolge der Kinder.
-     unit: Euros
+       de: Alter, ab dem Kindergeld nicht mehr gezahlt wird.
+     unit: Euro
    ```
 
-1. The (optional) `type` key may contain a reference to a particular function that is
-   implemented. Examples are `piecewise_linear` or `piecewise_quadratic`
+1. The `type` key signals to GETTSIM how the parameter is to be interpreted. It must be
+   specified as one of:
 
-1. The (optional) `reference_period` key informs on the reference period of the values,
-   if applicable
+   - `scalar`,
+   - `dict`,
+   - `piecewise_constant`,
+   - `piecewise_linear`,
+   - `piecewise_quadratic`,
+   - `piecewise_cubic`,
+   - `birth_month_based_phase_inout`
+   - `birth_year_based_phase_inout`,
+   - `require_converter`,
 
-   Possible values: - `Year` - `Month` - `Week` - `Day`
+   `scalar` is self-explanatory; `dict` must be a homogeneous dictionary with string or
+   integer keys and scalar values (int, float, bool).
 
-   Example:
+   `piecewise_constant`, `piecewise_linear`, `piecewise_quadratic`, `piecewise_cubic`
+   will be converted automatically to be used with the `piecewise_polynomial` function.
 
-   ```yaml
-   kindergeld_stundengrenze:
-     name:
-       de: Wochenstundengrenze für Kindergeldanspruch
-       [...]
-     reference_period: Week
+   `birth_month_based_phase_inout` and `birth_year_based_phase_inout` are used to phase
+   in or out a parameter based on the birth year of the individual. They are
+   automatically converted to be used as `ConsecutiveIntLookupTableParamValue` objects.
+
+   `require_converter` can be anything. However there must be a converter function in
+   the codebase.
+
+1. The `reference_period` key informs on the reference period of the values, if
+   applicable. Possible values:
+
+   - `Year`,
+   - `Quarter`,
+   - `Month`,
+   - `Week`,
+   - `Day`,
+   - `Hour`,
+   - *None*
+
+1. The optional `add_jahresanfang` can be used to make the parameter that is relevant at
+   the start of the year (relative to the date for which the policy environment is set
+   up) available to GETTSIM functions.
+
+   If specified, two parameters will be available:
+
+   ```
+   ("path", "to", "parameter")
+   ("path", "to", "parameter_jahresanfang")
    ```
 
-(gep-3-access_prior_parameters)=
-
-6. The (optional) `access_prior_parameters` can be used to make the parameter of a
-   previous point in time (relative to the date specified in
-   {func}`set_up_policy_environment <ttsim.policy_environment.set_up_policy_environment>`)
-   available within GETTSIM functions. It requires the `reference_period` (one of
-   `Year`, `Month`, `Week`, `Day`) and the `number_of_lags`.
-
-   Example:
+   Example from `sozialversicherung` / `arbeitslosen` / `beitragssatz.yaml`:
 
    ```yaml
-   rentenwert:
+   beitragssatz:
      name:
-       de: Rentenwerte alte und neue Bundesländer.
-         [...]
-     access_prior_parameters:
-       - reference_period: Year
-       - number_of_lags: 1
+       de: Beitragssatz zur Arbeitslosenversicherung
+     unit: Share
+     reference_period: null
+     type: scalar
+     add_jahresanfang: true
    ```
 
 1. The YYYY-MM-DD key(s)
 
-   - hold all historical values for a specific parameter or set of parameters in the
-     `value` subkey;
-   - is present with `value: null` if a parameter ceases to exist starting on a
-     particular date;
+   - hold all historical values for a specific parameter or set of parameters in
+     dictionaries
    - contain a precise reference to the law in the `reference` subkey;
    - may add additional descriptions in the `note` key;
-   - may give hints towards the type of function they refer to via the `type` subkey;
-   - may include formulas if the law does;
-   - may reference other parameters as described below.
-   - may contain a `unit` subkey, which overrides the `unit` key mentioned in 3. (mostly
-     relevant for DM / Euro)
+   - is present with a note or reference only if a parameter ceases to exist starting on
+     a particular date;
+   - in case of a `scalar` type, the key of the scalar is `value`.
 
    The remainder of this section explains this element in much more detail.
 
@@ -181,11 +210,12 @@ These work differently and they are
 Example:
 
 ```yaml
-parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
+beitragssatz:
   name:
-    de: Anrechnungsfreie Einkommensanteile
-  2005-01-01:
-    reference: Artikel 1. G. v. 24.12.2003 BGBl. I S. 2954.
+    de: Beitragssatz zur Arbeitslosenversicherung
+  2019-01-01:
+    value: 0.0125
+    reference: V. v. 21.12.2018 BGBl. I S. 2663
 ```
 
 ### The `note` key of [YYYY-MM-DD]
@@ -193,37 +223,41 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
 This optional key may contain a free-form note holding any information that may be
 relevant for the interpretation of the parameter, the implementer, user, ...
 
-(gep-3-deviation_from)=
-
-### The `deviation_from` key of [YYYY-MM-DD]
-
-Often laws change only part of a parameter. To avoid error-prone code duplication, we
-allow for such cases via the `deviation_from` key. This is the reason why lists are to
-be avoided in the value key (see the `piecewise_linear` function above).
-
-The key could either reference another value explicitly:
-
 ```yaml
-parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
+beitragssatz:
   name:
-    de: Abweichende anrechnungsfreie Einkommensanteile falls Kinder im Haushalt
-  2005-10-01:
-    deviation_from: arbeitsl_geld_2.parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg
-    3:
-      upper_threshold: 1500
+    de: Beitragssatz zur Arbeitslosenversicherung
+  2019-01-01:
+    value: 0.0125
+    reference: V. v. 21.12.2018 BGBl. I S. 2663
+    note: >-
+      Set to 0.013 in Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651. Temporarily
+      reduced to 0.0125 in BeiSaV 2019.
 ```
 
-A special keyword is `previous`, which just refers to the set of values in the previous
-law change.
+### The `updates_previous` key of [YYYY-MM-DD]
+
+Often laws change only part of a parameter. To avoid error-prone code duplication, we
+allow for such cases via `updates_previous` key.
+
+This must not be used with a scalar parameter type. Furthermore, it cannot be used in
+the first period a parameter is defined.
+
+Example from `sozialversicherung` / `minijob.yaml`:
 
 ```yaml
-parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
+minijobgrenze_ost_west_unterschied
   name:
-    de: Anrechnungsfreie Einkommensanteile
-  2011-04-01:
-    deviation_from: previous
-    2:
-      upper_threshold: 1000
+    de: Minijobgrenze
+  unit: Euros
+  reference_period: Month
+  type: dict
+  1997-01-01:
+    west: 312
+    ost: 266
+  1998-01-01:
+    updates_previous: true
+    west: 317
 ```
 
 ### The values of [YYYY-MM-DD]
@@ -237,121 +271,401 @@ The following walks through several cases.
 - The simplest case is a single parameter, which should be specified as:
 
   ```yaml
-  kindergeld_stundengrenze:
+  minijobgrenze:
     name:
-      de: Wochenstundengrenze für Kindergeldanspruch
-    2012-01-01:
-      value: 20
+      de: Minijobgrenze
+      en: Thresholds for marginal employment (minijobs)
+    description:
+      de: Minijob § 8 (1) Nr. 1 SGB IV
+      en: Minijob § 8 (1) Nr. 1 SGB IV
+    unit: Euros
+    reference_period: Month
+    type: scalar
+    1984-01-01:
+      value: 199
+    1985-01-01:
+      value: 205
+    1986-01-01:
+      value: 210
+    1987-01-01:
+      value: 220
+    1988-01-01:
+      value: 225
+    1989-01-01:
+      value: 230
+    1990-01-01:
+      note: >-
+        Minijobgrenze differs between West and East Germany. See
+        ``parameter_minijobgrenze_ost_west_unterschied``.
+    2000-01-01:
+      value: 322
+    2002-01-01:
+      value: 325
+    2003-04-01:
+      value: 400
+    2013-01-01:
+      value: 450
+    2022-10-01:
+      note: Minijob thresholds now calculated based on statutory minimum wage
+      reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
   ```
 
-- There could be a dictionary, potentially nested:
+  Note that there are different "active periods" for this parameter. The first one lasts
+  from 1984-01-01 to 1989-12-31, after which there were different values in East and
+  West Germany. from 2000-01-01 until 2022-10-01, the parameter is active again. After
+  that, it is superseded by a formula based on the statutory minimum wage.
+
+- There could be a dictionary, which has to be homogenous in the keys (integers or
+  strings) and values (scalar floating point numbers, integers, or Booleans):
 
   ```yaml
-  exmin:
+  minijobgrenze_ost_west_unterschied:
     name:
-      de: Höhen des Existenzminimums, festgelegt im Existenzminimumsbericht der Bundesregierung.
-    2005-01-01:
-      regelsatz:
-        single: 4164
-        paare: 7488
-        kinder: 2688
-      kosten_der_unterkunft:
-        single: 2592
-        paare: 3984
-        kinder: 804
-      heizkosten:
-        single: 600
-        paare: 768
-        kinder: 156
+      de: Minijobgrenze, unterschiedlich in Ost und West
+      en: Thresholds for marginal employment (minijobs), different in East and West
+    description:
+      de: Minijob § 8 (1) Nr. 1 SGB IV
+      en: Minijob § 8 (1) Nr. 1 SGB IV
+    unit: Euros
+    reference_period: Month
+    type: dict
+    1990-01-01:
+      west: 240
+      ost: 102
+    1991-01-01:
+      west: 245
+      ost: 120
+    1992-01-01:
+      west: 256
+      ost: 153
+    1993-01-01:
+      west: 271
+      ost: 199
+    1994-01-01:
+      west: 286
+      ost: 225
+    1995-01-01:
+      west: 297
+      ost: 240
+    1996-01-01:
+      west: 302
+      ost: 256
+    1997-01-01:
+      west: 312
+      ost: 266
+    1998-01-01:
+      updates_previous: true
+      west: 317
+    1999-01-01:
+      west: 322
+      ost: 271
+    2000-01-01:
+      note: >-
+        Minijob thresholds do not differ between West and East Germany. See
+        `minijobgrenze_m`.
   ```
 
 - In some cases, a dictionary with numbered keys makes sense. It is important to use
-  these, not lists!
+  these, not lists! The reason is that we always allow for the `note` and `reference`
+  keys to be present.
 
   ```yaml
-  kindergeld:
+  satz_gestaffelt:
     name:
-      de: Kindergeld, Betrag je nach Reihenfolge der Kinder.
-    1975-01-01:
-      1: 26
-      2: 36
-      3: 61
-      4: 61
+      de: Kindergeld pro Kind, Betrag je nach Reihenfolge der Kinder.
+      en: Child benefit amount, depending on succession of children.
+    description:
+      de: >-
+        § 66 (1) EStG. Identische Werte in §6 (1) BKGG, diese sind aber nur für beschränkt
+        Steuerpflichtige relevant (d.h. Ausländer mit Erwerbstätigkeit in Deutschland).
+        Für Werte vor 2002, siehe 'BMF - Datensammlung zur Steuerpolitik'
+      en: null
+    unit: Euros
+    reference_period: Month
+    type: dict
+    2002-01-01:
+      1: 154
+      2: 154
+      3: 154
+      4: 179
+    2009-01-01:
+      reference: Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+      1: 164
+      2: 164
+      3: 170
+      4: 195
   ```
 
 - Another example would be referring to the parameters of a piecewise linear function:
 
-  > ```yaml
-  > parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
-  >   name:
-  >     de: Anrechnungsfreie Einkommensanteile
-  >     en: Income shares not subject to transfer withdrawal
-  >   type: piecewise_linear
-  >   2005-01-01:
-  >     0:
-  >       lower_threshold: -inf
-  >       upper_threshold: 0
-  >       rate: 0
-  >       intercept_at_lower_threshold: 0
-  > ```
+  ```yaml
+  parameter_solidaritätszuschlag:
+    name:
+      de: Solidaritätszuschlag
+      en: null
+    description:
+      de: >-
+        Ab 1995, der upper threshold im Intervall 1 ist nach der Formel
+        transition_threshold in soli_st.py berechnet.
+      en: null
+    unit: Euros
+    reference_period: Year
+    type: piecewise_linear
+    1991-01-01:
+      reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
+      0:
+        lower_threshold: -inf
+        rate_linear: 0
+        intercept_at_lower_threshold: 0
+        upper_threshold: 0
+      1:
+        lower_threshold: 0
+        rate_linear: 0.0375
+        upper_threshold: inf
+  ```
+
+- Phase-in or phase-out of age thresholds based on the birth year of the individual
+  (e.g. increasing statutory retirement age thresholds) should be specified as type
+  `birth_year_based_phase_inout`. The parameter specification is converted to a lookup
+  table that maps a birth year to the age threshold. The conversion requires the
+  following stucture after the `YYYY-MM-DD` key:
+
+  - `first_birthyear_to_consider`: The birth year at which the lookup table starts (just
+    choose some birthyear that is far enough in the past).
+  - `last_birthyear_to_consider`: The birth year at which the lookup table ends (just
+    choose some birthyear that is far enough in the future).
+  - `YYYY` entries with the following structure:
+    - `years`: The age threshold in years.
+    - `months`: The age threshold in months.
+
+  Example from `sozialversicherung` / `rente` / `altersrente` / `regelaltersrente` /
+  `altersgrenze.yaml`:
+
+  ```yaml
+  altersgrenze_gestaffelt:
+  name:
+    de: Gestaffeltes Eintrittsalter für Regelaltersrente nach Geburtsjahr
+    en: Staggered normal retirement age (NRA) for Regelaltersrente by birth year
+  description:
+    de: >-
+      § 35 Satz 2 SGB VI
+      Regelaltersgrenze ab der Renteneintritt möglich ist. Wenn früher oder später in
+      Rente gegangen wird, wird der Zugangsfaktor und damit der Rentenanspruch höher
+      oder niedriger, sofern keine Sonderregelungen gelten.
+    en: >-
+      § 35 Satz 2 SGB VI
+      Normal retirement age from which pension can be received. If retirement benefits
+      are claimed earlier or later, the Zugangsfaktor and thus the pension entitlement
+      is higher or lower unless special regulations apply.
+  unit: Years
+  reference_period: null
+  type: birth_year_based_phase_inout
+  2007-04-20:
+    reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554
+    note: >-
+      Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964.
+      Vertrauensschutz (Art. 56) applies for birth cohorts before 1955 who were in
+      Altersteilzeit before January 1st, 2007 or received "Anpassungsgeld für
+      entlassene Arbeitnehmer des Bergbaus".
+    first_birthyear_to_consider: 1900
+    last_birthyear_to_consider: 2031
+    1946:
+      years: 65
+      months: 0
+    1947:
+      years: 65
+      months: 1
+    1948:
+      years: 65
+      months: 2
+    1949:
+      years: 65
+      months: 3
+    1950:
+      years: 65
+      months: 4
+    1951:
+      years: 65
+      months: 5
+    1952:
+      years: 65
+      months: 6
+    1953:
+      years: 65
+      months: 7
+    1954:
+      years: 65
+      months: 8
+    1955:
+      years: 65
+      months: 9
+    1956:
+      years: 65
+      months: 10
+    1957:
+      years: 65
+      months: 11
+    1958:
+      years: 66
+      months: 0
+    1959:
+      years: 66
+      months: 2
+    1960:
+      years: 66
+      months: 4
+    1961:
+      years: 66
+      months: 6
+    1962:
+      years: 66
+      months: 8
+    1963:
+      years: 66
+      months: 10
+    1964:
+      years: 67
+      months: 0
+  ```
+
+- Phase-in or phase-out of age thresholds based on the birth month of the individual
+  should be specified as type `birth_month_based_phase_inout`. The parameter
+  specification is the same as for `birth_year_based_phase_inout`, except that the
+  `YYYY` entries are followed by `MM` keys. The `MM` keys a have the following
+  structure:
+
+  - `first_birthmonth_to_consider`: The birth month at which the lookup table starts
+    (just choose some birthmonth that is far enough in the past).
+  - `last_birthmonth_to_consider`: The birth month at which the lookup table ends (just
+    choose some birthmonth that is far enough in the future).
+  - `years`: The age threshold in years.
+  - `months`: The age threshold in months.
+
+  Excerpt from `sozialversicherung` / `rente` / `altersrente` / `langjährig` /
+  `altersgrenze.yaml`:
+
+  ```yaml
+  ...
+    1989-12-18:
+    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
+    first_birthyear_to_consider: 1900
+    last_birthyear_to_consider: 2100
+    1937:
+      12:
+        years: 63
+        months: 0
+    1938:
+      1:
+        years: 63
+        months: 1
+    ...
+  ```
+
+- Finally, there are parameters that have a more complex structure, which is not as
+  common as `piecewise_linear` etc. These need to be specified as `require_converter`.
+
+  Example from `arbeitslosengeld_2` / `bedarfe.yaml`:
+
+  ```yaml
+  parameter_regelsatz_nach_regelbedarfsstufen:
+    name:
+      de: Regelsatz mit direkter Angabe für Regelbedarfsstufen
+      en: Standard rate with direct specification of "Regelbedarfsstufen"
+    description:
+      de: >-
+        § 20 V SGB II.  Neufassung SGB II § 20 (1a) und (2) durch
+        Artikel 6 G. v. 22.12.2016 BGBl. I S. 3159.
+        Regelbedafstufen:
+        1: Alleinstehender Erwachsener
+        2: Erwachsene in Partnerschaft
+        3: Erwachsene unter 25 im Haushalt der Eltern
+        4: Jugendliche
+        5: Ältere Kinder
+        6: Jüngste Kinder
+      en: >-
+        Regelbedarfsstufen:
+        1: Single Adult
+        2: Adults in a partner relationship
+        3: Adults under 25 in the household of their parents
+        4: Adolescents
+        5: Older children
+        6: Youngest children
+    unit: Euros
+    reference_period: Month
+    type: require_converter
+    2011-01-01:
+      1: 364
+      2: 328
+      3: 291
+      4:
+        min_alter: 14
+        max_alter: 17
+        betrag: 287
+      5:
+        min_alter: 6
+        max_alter: 13
+        betrag: 251
+      6:
+        min_alter: 0
+        max_alter: 5
+        betrag: 215
+      reference: Artikel 1 G. v. 24.03.2011 BGBl. I S. 453.
+  ```
 
 - In general, a parameter should appear for the first time that it is mentioned in a
   law, becomes relevant, etc..
 
-  Only in exceptional cases it might be useful to set a parameter to some value
-  (typically zero) even if it does not exist yet.
+  Do not set parameters to some value if they are not relevant yet.
 
 - If a parameter ceases to be relevant, is superseded by something else, etc., there
-  must be a `YYYY-MM-DD` key with a note on this.
+  must be a `YYYY-MM-DD` key with a `note` and/or `reference` key. There must not be
+  other entries except for these two.
 
-  Generally, this `YYYY-MM-DD` key will have an entry `value: null` regardless of the
-  previous structure. Ideally, there would be a `reference` and potentially a `note`
-  key. Example:
+  Example:
 
   ```yaml
-  value: null
-  note: arbeitsl_hilfe is superseded by arbeitsl_geld_2
+  parameter_regelsatz_anteilsbasiert:
+    name:
+      de: Berechnungsgrundlagen für den Regelsatz
+    2011-01-01:
+      note: Calculation method changed, see regelsatz_nach_regelbedarfsstufen.
   ```
 
-  Only in exceptional cases it might be useful to set a parameter to some value
-  (typically zero) even if it is not relevant any more.
+(gep-3-handling-of-parameters-in-the-codebase)=
 
-  In any case, it **must** be the case that it is obvious from the `YYYY-MM-DD` entry
-  that the (set of) parameter(s) is not relevant any more, else the previous ones will
-  linger on.
+## Handling of parameters in the codebase
 
-(gep-3-storage-of-parameters)=
+The contents of the YAML files are processed and are a pytree-like structure, similar to
+the functions. That is, they can be used directly in their namespace (=path to the yaml
+file excluding the file name) and accessed by absolute paths otherwise.
 
-## Storage of parameters
+In this tree, they are specialised to the relevant policy date. Depending on the type of
+the parameter (see the previous section), the following types are possible:
 
-The contents of the YAML files become part of the `policy_params` dictionary. Its keys
-correspond to the names of the YAML files. Each value will be a dictionary that follows
-the structure of the YAML file. These values can be used in policy functions as
-`[key]_params`.
-
-The contents mostly follow the content of the YAML files. The main difference is that
-all parameters are present in their required format; no further parsing shall be
-necessary inside the functions. The important changes include:
-
-- In the YAML files, parameters may be specified as deviations from other values,
-  {ref}`see above <gep-3-deviation_from>`. All these are converted so that the relevant
-  values are part of the dictionary.
-- Similarly, values from other points in time (via `access_prior_parameters`,
-  {ref}`see above <gep-3-access_prior_parameters>`) of `[param]` will be available as:
-  `[param]_t_minus_[number_of_lags]_[reference_period[0].lower()]`.
-- Parameters for piecewise polynomials are parsed.
-- Parameters that are derived from other parameters are calculated (examples include
-  `kinderzuschlag_max` starting in 2021 or calculating the phasing in of
-  `vorsorgeaufwendungen_alter` over the 2005-2025 period).
-
-These functions will be avaiable to users en bloque or one-by-one so they can specify
-parameters as in the YAML file for their own policy parameters.
+- `scalar` parameters are just floats / ints / Booleans; i.e., simply the `value` key of
+  the yaml file.
+- `dict` parameters are homogenous dictionaries with all contents of the `YYYY-MM-DD`
+  entries except for the `note` and `reference` keys.
+- `piecewise_constant` / `piecewise_linear` / `piecewise_quadratic` / `piecewise_cubic`
+  parameters are converted to `PiecewisePolynomialParameter` objects.
+- `birth_month_based_phase_inout` and `birth_year_based_phase_inout` are converted to
+  `ConsecutiveIntLookupTableParamValue` objects.
+- `require_converter` must have a `params_function` that converts the `YYYY-MM-DD`
+  entries to a clear type.
 
 ## Discussion
 
 - <https://github.com/iza-institute-of-labor-economics/gettsim/pull/148>
 - <https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2003>
+- GitHub PR for update (changes because of `GEP-6 <gep-6>`):
+  <https://github.com/iza-institute-of-labor-economics/gettsim/pull/855>
 
 ## Copyright
 
 This document has been placed in the public domain.
+
+## Appendix: json-schema for the yaml files
+
+```{literalinclude} ../../src/ttsim/params-schema.json
+```

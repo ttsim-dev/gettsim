@@ -22,6 +22,8 @@ from ttsim.interface_dag_elements.policy_environment import (
 from ttsim.tt_dag_elements import ScalarParam, policy_function
 
 if TYPE_CHECKING:
+    from types import ModuleType
+
     from ttsim.interface_dag_elements.typing import (
         NestedColumnObjectsParamFunctions,
     )
@@ -59,7 +61,7 @@ def some_int_param():
     )
 
 
-def test_add_jahresanfang(xnp):
+def test_add_jahresanfang(xnp: ModuleType):
     spec = {
         "name": {"de": "Test", "en": "Check"},
         "description": {"de": "Nichts zu sehen", "en": "Nothing to do"},

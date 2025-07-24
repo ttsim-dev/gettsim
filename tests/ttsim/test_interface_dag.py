@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 import inspect
-from typing import Any
 
 import dags
 import dags.tree as dt
+import optree
 import pytest
 
 from ttsim import InputData, OrigPolicyObjects, TTTargets
 from ttsim.interface_dag import (
+    _fail_if_input_structure_is_invalid,
     _fail_if_requested_nodes_cannot_be_found,
     _fail_if_root_nodes_of_interface_dag_are_missing,
     _harmonize_inputs,
@@ -20,12 +21,9 @@ from ttsim.interface_dag import (
 from ttsim.interface_dag_elements import MainTarget
 from ttsim.interface_dag_elements.fail_if import format_list_linewise
 from ttsim.interface_dag_elements.interface_node_objects import (
-    InputDependentInterfaceFunction,
-    InterfaceInput,
     fail_function,
     input_dependent_interface_function,
     interface_function,
-    interface_input,
 )
 from ttsim.plot_dag import dummy_callable
 from ttsim.tt_dag_elements.column_objects_param_function import policy_function
@@ -96,6 +94,11 @@ def a() -> int:
     return 1
 
 
+@policy_function()
+def e(c: int, d: float) -> float:
+    return c + d
+
+
 def test_load_flat_interface_functions_and_inputs() -> None:
     load_flat_interface_functions_and_inputs()
 
@@ -148,19 +151,6 @@ def test_main_target_class_is_complete() -> None:
     assert nodes == main_target_elements
 
 
-def _replace_idif_with_interface_inputs(
-    n: InputDependentInterfaceFunction,
-) -> InterfaceInput:
-    @interface_input(
-        in_top_level_namespace=n.in_top_level_namespace,
-        leaf_name=n.leaf_name,
-    )
-    def interface_input_for_idif() -> Any:
-        pass
-
-    return interface_input_for_idif
-
-
 @pytest.mark.parametrize(
     ("main_targets", "nodes", "error_match"),
     [
@@ -201,11 +191,6 @@ def test_fail_if_requested_nodes_cannot_be_found(
             main_targets=main_targets,
             nodes=nodes,
         )
-
-
-@policy_function()
-def e(c: int, d: float) -> float:
-    return c + d
 
 
 def test_harmonize_inputs_main_args_input():
@@ -266,6 +251,65 @@ def test_harmonize_inputs_tree_input():
         "backend": "numpy",
         "rounding": True,
     }
+
+
+@pytest.mark.parametrize(
+    ("main_target", "expected"),
+    [
+        ("a__b", "a__b"),
+        (("a", "b"), "a__b"),
+        ({"a": {"b": None}}, "a__b"),
+    ],
+)
+def test_harmonize_main_target(main_target, expected):
+    harmonized = _harmonize_main_target(main_target=main_target)
+
+    assert harmonized == expected
+
+
+@pytest.mark.parametrize(
+    "dict_inputs",
+    [
+        {"input_data": {"df_and_mapper": None}},
+        {"input_data": {"not_around": None}},
+        {"not_around": None},
+    ],
+)
+def test_fail_if_input_structure_is_invalid(dict_inputs):
+    with pytest.raises(ValueError, match="Invalid inputs for main()"):
+        _fail_if_input_structure_is_invalid(
+            user_treedef=optree.tree_flatten(dict_inputs)[1],
+            expected_treedef=optree.tree_flatten(MainTarget.to_dict())[1],
+        )
+
+
+@pytest.mark.parametrize(
+    "main_target",
+    [
+        ["a", "b"],
+        {"a": {"b": None}, "c": None},
+        {"a": {"b": None, "c": None}},
+    ],
+)
+def test_harmonize_main_target_fails_for_multiple_elements(main_target):
+    with pytest.raises(
+        ValueError, match="must be a single qualified name, a tuple, or a dict"
+    ):
+        _harmonize_main_target(main_target=main_target)
+
+
+@pytest.mark.parametrize(
+    ("main_targets", "expected"),
+    [
+        (["a__b"], ["a__b"]),
+        ([("a", "b")], ["a__b"]),
+        ({"a": {"b": None}}, ["a__b"]),
+    ],
+)
+def test_harmonize_main_targets(main_targets, expected):
+    harmonized = _harmonize_main_targets(main_targets=main_targets)
+
+    assert harmonized == expected
 
 
 @pytest.mark.parametrize(
@@ -335,49 +379,6 @@ def test_resolve_dynamic_interface_objects_to_static_nodes_with_conflicting_cond
             },
             input_qnames=["input_1", "n1__input_2"],
         )
-
-
-@pytest.mark.parametrize(
-    ("main_target", "expected"),
-    [
-        ("a__b", "a__b"),
-        (("a", "b"), "a__b"),
-        ({"a": {"b": None}}, "a__b"),
-    ],
-)
-def test_harmonize_main_target(main_target, expected):
-    harmonized = _harmonize_main_target(main_target=main_target)
-
-    assert harmonized == expected
-
-
-@pytest.mark.parametrize(
-    "main_target",
-    [
-        ["a", "b"],
-        {"a": {"b": None}, "c": None},
-        {"a": {"b": None, "c": None}},
-    ],
-)
-def test_harmonize_main_target_fails_for_multiple_elements(main_target):
-    with pytest.raises(
-        ValueError, match="must be a single qualified name, a tuple, or a dict"
-    ):
-        _harmonize_main_target(main_target=main_target)
-
-
-@pytest.mark.parametrize(
-    ("main_targets", "expected"),
-    [
-        (["a__b"], ["a__b"]),
-        ([("a", "b")], ["a__b"]),
-        ({"a": {"b": None}}, ["a__b"]),
-    ],
-)
-def test_harmonize_main_targets(main_targets, expected):
-    harmonized = _harmonize_main_targets(main_targets=main_targets)
-
-    assert harmonized == expected
 
 
 def test_fail_if_root_nodes_of_interface_dag_are_missing_without_missing_dynamic_nodes():  # noqa: E501

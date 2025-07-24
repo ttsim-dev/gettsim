@@ -56,6 +56,16 @@ def cached_policy_environment(
 class PolicyTest:
     """A class for a single policy test."""
 
+    __slots__ = (
+        "expected_output_tree",
+        "info",
+        "input_tree",
+        "path",
+        "policy_date",
+        "test_dir",
+        "xnp",
+    )
+
     def __init__(
         self,
         info: NestedData,

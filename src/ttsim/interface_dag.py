@@ -151,18 +151,90 @@ def main(
 
 
 def _harmonize_inputs(inputs: dict[str, Any]) -> dict[str, Any]:
+    expected_structure = MainTarget.to_dict()
+    # Remove existing top-level elements that are None, these will be calculated.
     dict_inputs = {
-        k: v.to_dict() if isinstance(v, MainArg) else v for k, v in inputs.items()
+        k: v.to_dict() if isinstance(v, MainArg) else v
+        for k, v in inputs.items()
+        if v is not None and k in expected_structure
     }
     qname_inputs = {}
-    opo = dict_inputs.get("orig_policy_objects")
-    if opo and "root" in opo:
-        qname_inputs["orig_policy_objects__root"] = opo.pop("root")
-    for acc in optree.tree_accessors(MainTarget.to_dict(), none_is_leaf=True):
+    # Special treatment for orig_policy_objects.root because we do not list it in
+    # `MainTarget` so as not to confuse users of GETTSIM, where it is set.
+    if (
+        dict_inputs.get("orig_policy_objects")
+        and "root" in dict_inputs["orig_policy_objects"]
+    ):
+        qname_inputs["orig_policy_objects__root"] = dict_inputs[
+            "orig_policy_objects"
+        ].pop("root")
+
+    _fail_if_input_structure_is_invalid(
+        user_treedef=optree.tree_flatten(dict_inputs, none_is_leaf=True)[1],  # type: ignore[arg-type]
+        expected_treedef=optree.tree_flatten(expected_structure, none_is_leaf=True)[1],
+    )
+    for acc in optree.tree_accessors(expected_structure, none_is_leaf=True):
         qname = dt.qname_from_tree_path(acc.path)
         with suppress(KeyError, TypeError):
             qname_inputs[qname] = acc(dict_inputs)
     return {k: v for k, v in qname_inputs.items() if v is not None}
+
+
+def _fail_if_input_structure_is_invalid(
+    user_treedef: optree.PyTreeDef,
+    expected_treedef: optree.PyTreeDef,
+) -> None:
+    """
+    Recursively check that all keys/paths in user_treedef are valid.
+
+    Raise ValueError if
+    - any invalid keys/paths are found.
+    - if the user input is not a dict where a dict is expected.
+    """
+
+    def check(
+        user_spec: optree.PyTreeDef,
+        expected_spec: optree.PyTreeDef,
+        path: tuple[str, ...],
+    ) -> list[tuple[str, ...]]:
+        invalid = []
+        # If a dict is expected but user_spec is not a dict, mark as invalid
+        if (
+            expected_spec.kind == optree.PyTreeKind.DICT
+            and user_spec.kind != optree.PyTreeKind.DICT
+        ):
+            invalid.append(path)
+            return invalid
+        if user_spec.kind == expected_spec.kind == optree.PyTreeKind.DICT:
+            # This level of the expected pytree as a dict.
+            expected_map = dict(
+                zip(expected_spec.entries(), expected_spec.children(), strict=False)
+            )
+            # Loop over the actually provided pytree.
+            for k, child in zip(
+                user_spec.entries(), user_spec.children(), strict=False
+            ):
+                if k not in expected_map:
+                    invalid.append((*path, k))
+                else:
+                    invalid.extend(
+                        check(
+                            user_spec=child,
+                            expected_spec=expected_map[k],
+                            path=(*path, k),
+                        )
+                    )
+        return invalid
+
+    invalid_paths = check(
+        user_spec=user_treedef, expected_spec=expected_treedef, path=()
+    )
+    if invalid_paths:
+        raise ValueError(
+            "Invalid inputs for main(): the following keys/paths are not valid:\n"
+            + "\n".join(str(p) for p in invalid_paths)
+            + "\nPlease use only the documented structure for main()."
+        )
 
 
 def _harmonize_main_target(

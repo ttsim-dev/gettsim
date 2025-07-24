@@ -229,19 +229,18 @@ The proposed changes will affect all areas of GETTSIM
    is a standard way mapping dictionary contents in the yaml-files to corresponding data
    classes. Dates are selected by the `policy_environment` date. If there are changes in
    the structure of the parameters over time, a similar mechanism like the `start_date`
-   and `end_date` for the policy functions can be used. The data classes will all
-   inherit from a base class `PolicyParameter`.
+   and `end_date` for the policy functions will be used based on the `YYYY-MM-DD` keys
+   in the yaml-files.
 
    Functions will not have `[x]_params` arguments containing potentially large and
-   unstructured dicts any more. Instead, functions will only use the `PolicyParameters`
-   they require. These could be scalars or structured objects, e.g., the inputs for
-   `piecewise_polynomial`.
+   unstructured dicts any more. Instead, functions will only use the policy parameters
+   they require. These could be scalars, homogenous dictionaries, the inputs for
+   `piecewise_polynomial` parameters, or custom objects.
 
    The namespace makes clear we are talking about, say, the function `beitrag` in the
    namespace `arbeitslosenversicherung` will have an input `beitragssatz`. If we need
    parameters which are external to the current namespace, we will need the same verbose
-   syntax as in 1.
-   (`sozialversicherungsbeiträge__rentenversicherung__beitragsbemessungsgrenze_m`).
+   syntax as in 1. (`sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_m`).
 
 ## Backward compatibility
 
