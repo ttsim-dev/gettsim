@@ -667,5 +667,5 @@ This document has been placed in the public domain.
 
 ## Appendix: json-schema for the yaml files
 
-```{literalinclude} ../../src/ttsim/params-schema.json
+```{literalinclude} ./params-schema.json
 ```
