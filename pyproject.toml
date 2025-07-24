@@ -40,7 +40,7 @@ classifiers = [
 ]
 # Dependencies and requirements
 requires-python = ">=3.11"
-# dependencies = ["ttsim"]
+dependencies = ["ttsim-backend"]
 
 
 [project.urls]
@@ -113,7 +113,6 @@ toml = "*"
 
 [tool.pixi.pypi-dependencies]
 gettsim = {path = ".", editable = true}
-ttsim = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
