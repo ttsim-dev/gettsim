@@ -167,26 +167,8 @@ def miete_m_wthh(
     anzahl_personen_hh: int,
 ) -> float:
     """Rent considered in housing benefit calculation on wohngeldrechtlicher
-    Teilhaushalt level.
-
-    This target is used to calculate the actual Wohngeld of all Bedarfsgemeinschaften
-    that passed the priority check against Arbeitslosengeld II / Bürgergeld.
-    """
+    Teilhaushalt level."""
     return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
-
-
-@policy_function()
-def miete_m_bg(
-    miete_m_hh: float,
-    arbeitslosengeld_2__anzahl_personen_bg: int,
-    anzahl_personen_hh: int,
-) -> float:
-    """Rent considered in housing benefit calculation on BG level.
-
-    This target is used for the priority check calculation against Arbeitslosengeld II /
-    Bürgergeld on the Bedarfsgemeinschaft level.
-    """
-    return miete_m_hh * (arbeitslosengeld_2__anzahl_personen_bg / anzahl_personen_hh)
 
 
 @policy_function()

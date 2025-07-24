@@ -1,19 +1,7 @@
 """Housing benefits (Wohngeld).
 
 Wohngeld has priority over ALG2 if the recipients can cover their needs according to
-SGB II when receiving Wohngeld. The priority check follows the following logic:
-
-1. Calculate Wohngeld on the Bedarfsgemeinschaft level.
-2. Check whether the Bedarfsgemeinschaft can cover its own needs (Regelbedarf) with
-   Wohngeld. If not, the Bedarfsgemeinschaft is eligible for ALG2.
-3. Compute Wohngeld again for all individuals in the household that can cover their
-   own needs with Wohngeld. This is the final Wohngeld amount that is paid out to
-   the wohngeldrechtlicher Teilhaushalt.
-
-Note: Because Wohngeld is nonlinear in the number of people in the
-wohngeldrechtlicher Teilhaushalt, there may be some individuals that pass the
-priority check, but cannot cover their needs with the Wohngeld calculated in point
-3. In this sense, this implementation is an approximation of the actual Wohngeld.
+SGB II when receiving Wohngeld.
 """
 
 from __future__ import annotations
@@ -51,14 +39,14 @@ def betrag_m_wthh(
     """Housing benefit after wealth and priority checks."""
     # TODO (@MImmesberger): This implementation may be only an approximation of the
     # actual rules for individuals that are on the margin of the priority check.
-    # https://github.com/ttsim-dev/gettsim/issues/752
+    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/752
 
     # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
     # Alter (SGB XII) is implemented yet. We assume for now that households with only
     # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
     # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
     # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/ttsim-dev/gettsim/issues/703
+    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/703
 
     if not volljährige_alle_rentenbezieher_hh and (
         vorrangprüfungen__wohngeld_vorrang_wthh
@@ -88,25 +76,22 @@ def anspruchshöhe_m_wthh_bis_2000(
     basisformel_params: BasisformelParamValues,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit after wealth and income check.
-
-    This target is used to calculate the actual Wohngeld of all Bedarfsgemeinschaften in
-    the household that passed the priority check against Arbeitslosengeld 2. Returns
-    zero if not eligible.
-
-    """
+    """Housing benefit after wealth and income check."""
     if grundsätzlich_anspruchsberechtigt_wthh:
-        out = basisformel_ohne_zusatzbetrag_nach_haushaltsgröße(
-            anzahl_personen=anzahl_personen_wthh,
-            einkommen_m=einkommen_m_wthh,
-            miete_m=miete_m_wthh,
-            params=basisformel_params,
-            xnp=xnp,
+        a = basisformel_params.a.look_up(anzahl_personen_wthh)
+        b = basisformel_params.b.look_up(anzahl_personen_wthh)
+        c = basisformel_params.c.look_up(anzahl_personen_wthh)
+        anspruch_laut_abc_formel = xnp.maximum(
+            0.0,
+            basisformel_params.skalierungsfaktor
+            * (
+                miete_m_wthh
+                - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+            ),
         )
+        return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
     else:
-        out = 0.0
-
-    return out
+        return 0.0
 
 
 @policy_function(
@@ -126,97 +111,27 @@ def anspruchshöhe_m_wthh_ab_2001(
     basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit after wealth and income check.
-
-    This target is used to calculate the actual Wohngeld of all Bedarfsgemeinschaften in
-    the household that passed the priority check against Arbeitslosengeld 2. Returns
-    zero if not eligible.
-
-    """
+    """Housing benefit after wealth and income check."""
     if grundsätzlich_anspruchsberechtigt_wthh:
-        out = basisformel_mit_zusatzbetrag_nach_haushaltsgröße(
-            anzahl_personen=anzahl_personen_wthh,
-            einkommen_m=einkommen_m_wthh,
-            miete_m=miete_m_wthh,
-            params=basisformel_params,
-            xnp=xnp,
+        a = basisformel_params.a.look_up(anzahl_personen_wthh)
+        b = basisformel_params.b.look_up(anzahl_personen_wthh)
+        c = basisformel_params.c.look_up(anzahl_personen_wthh)
+        zusatzbetrag_nach_haushaltsgröße = (
+            basisformel_params.zusatzbetrag_nach_haushaltsgröße.look_up(
+                anzahl_personen_wthh
+            )
         )
-    else:
-        out = 0.0
-
-    return out
-
-
-@policy_function(
-    leaf_name="anspruchshöhe_m_bg",
-    end_date="2000-12-31",
-    rounding_spec=RoundingSpec(
-        base=1,
-        direction="nearest",
-        reference="§ 19 WoGG Abs.2 Anlage 3",
-    ),
-)
-def anspruchshöhe_m_bg_bis_2000(
-    arbeitslosengeld_2__anzahl_personen_bg: int,
-    einkommen_m_bg: float,
-    miete_m_bg: float,
-    grundsätzlich_anspruchsberechtigt_bg: bool,
-    basisformel_params: BasisformelParamValues,
-    xnp: ModuleType,
-) -> float:
-    """Housing benefit after wealth and income check.
-
-    This target is used for the priority check calculation against Arbeitslosengeld 2.
-
-    """
-    if grundsätzlich_anspruchsberechtigt_bg:
-        out = basisformel_ohne_zusatzbetrag_nach_haushaltsgröße(
-            anzahl_personen=arbeitslosengeld_2__anzahl_personen_bg,
-            einkommen_m=einkommen_m_bg,
-            miete_m=miete_m_bg,
-            params=basisformel_params,
-            xnp=xnp,
+        anspruch_laut_abc_formel = zusatzbetrag_nach_haushaltsgröße + xnp.maximum(
+            0.0,
+            basisformel_params.skalierungsfaktor
+            * (
+                miete_m_wthh
+                - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+            ),
         )
+        return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
     else:
-        out = 0.0
-
-    return out
-
-
-@policy_function(
-    leaf_name="anspruchshöhe_m_bg",
-    start_date="2001-01-01",
-    rounding_spec=RoundingSpec(
-        base=1,
-        direction="nearest",
-        reference="§ 19 WoGG Abs.2 Anlage 3",
-    ),
-)
-def anspruchshöhe_m_bg_ab_2001(
-    arbeitslosengeld_2__anzahl_personen_bg: int,
-    einkommen_m_bg: float,
-    miete_m_bg: float,
-    grundsätzlich_anspruchsberechtigt_bg: bool,
-    basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
-    xnp: ModuleType,
-) -> float:
-    """Housing benefit after wealth and income check.
-
-    This target is used for the priority check calculation against Arbeitslosengeld 2.
-
-    """
-    if grundsätzlich_anspruchsberechtigt_bg:
-        out = basisformel_mit_zusatzbetrag_nach_haushaltsgröße(
-            anzahl_personen=arbeitslosengeld_2__anzahl_personen_bg,
-            einkommen_m=einkommen_m_bg,
-            miete_m=miete_m_bg,
-            params=basisformel_params,
-            xnp=xnp,
-        )
-    else:
-        out = 0.0
-
-    return out
+        return 0.0
 
 
 @dataclass(frozen=True)
@@ -308,54 +223,3 @@ def basisformel_params_ab_2001(
             xnp=xnp,
         ),
     )
-
-
-def basisformel_ohne_zusatzbetrag_nach_haushaltsgröße(
-    anzahl_personen: int,
-    einkommen_m: float,
-    miete_m: float,
-    params: BasisformelParamValues,
-    xnp: ModuleType,
-) -> float:
-    """Basic formula for housing benefit calculation.
-
-    Note: This function is not a direct target in the DAG, but a helper function to
-    store the code for Wohngeld calculation.
-
-    """
-    a = params.a.look_up(anzahl_personen)
-    b = params.b.look_up(anzahl_personen)
-    c = params.c.look_up(anzahl_personen)
-    max_aus_formel_m = xnp.maximum(
-        0.0,
-        params.skalierungsfaktor
-        * (miete_m - ((a + (b * miete_m) + (c * einkommen_m)) * einkommen_m)),
-    )
-    return xnp.minimum(miete_m, max_aus_formel_m)
-
-
-def basisformel_mit_zusatzbetrag_nach_haushaltsgröße(
-    anzahl_personen: int,
-    einkommen_m: float,
-    miete_m: float,
-    params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
-    xnp: ModuleType,
-) -> float:
-    """Basic formula for housing benefit calculation.
-
-    Note: This function is not a direct target in the DAG, but a helper function to
-    store the code for Wohngeld calculation.
-
-    """
-    a = params.a.look_up(anzahl_personen)
-    b = params.b.look_up(anzahl_personen)
-    c = params.c.look_up(anzahl_personen)
-    zusatzbetrag_nach_haushaltsgröße = params.zusatzbetrag_nach_haushaltsgröße.look_up(
-        anzahl_personen
-    )
-    max_aus_formel_m = zusatzbetrag_nach_haushaltsgröße + xnp.maximum(
-        0.0,
-        params.skalierungsfaktor
-        * (miete_m - ((a + (b * miete_m) + (c * einkommen_m)) * einkommen_m)),
-    )
-    return xnp.minimum(miete_m, max_aus_formel_m)

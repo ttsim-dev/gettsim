@@ -1,68 +1,30 @@
-"""Priority checks of transfers against each other."""
+"""Priority and favorability checks of transfers against each other."""
 
 from __future__ import annotations
 
-from gettsim.tt import AggType, agg_by_group_function, policy_function
-
-
-@agg_by_group_function(agg_type=AggType.ANY)
-def wohngeld_vorrang_wthh(
-    wohngeld_vorrang_vor_arbeitslosengeld_2_bg: bool,
-    wthh_id: int,
-) -> bool:
-    pass
-
-
-@agg_by_group_function(agg_type=AggType.ANY)
-def wohngeld_kinderzuschlag_vorrang_wthh(
-    wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg: bool,
-    wthh_id: int,
-) -> bool:
-    pass
+from gettsim.tt import policy_function
 
 
 @policy_function()
-def wohngeld_vorrang_vor_arbeitslosengeld_2_bg(
+def wohngeld_kinderzuschlag_vorrangig_oder_günstiger(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
     arbeitslosengeld_2__anzurechnendes_einkommen_m_bg: float,
-    wohngeld__anspruchshöhe_m_bg: float,
+    kinderzuschlag__anspruchshöhe_m_bg: float,
+    wohngeld__anspruchshöhe_m_wthh: float,
 ) -> bool:
-    """Check if housing benefit has priority.
+    """
+    Wohngeld and Kinderzuschlag has priority or is more favorable than Arbeitslosengeld
+    II.
 
-    Housing benefit has priority if the sum of housing benefit and income covers the
-    needs according to SGB II of the Bedarfsgemeinschaft.
+    Note that this check is a simplified version of the actual priority and favorability
+    check by assuming that WTHH = BG. In case this is not sufficient for your use case,
+    see the more sophisticated implementation in [link eventually].
+
+    Reference: § 19 WoGG Abs. 2 Satz 1 Nr. 1
     """
     return (
-        arbeitslosengeld_2__anzurechnendes_einkommen_m_bg + wohngeld__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg
-    )
-
-
-@policy_function()
-def kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg(
-    arbeitslosengeld_2__regelbedarf_m_bg: float,
-    arbeitslosengeld_2__anzurechnendes_einkommen_m_bg: float,
-    kinderzuschlag__anspruchshöhe_m_bg: float,
-) -> bool:
-    """Check if child benefit has priority."""
-    return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
-        + kinderzuschlag__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg
-    )
-
-
-@policy_function()
-def wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg(
-    arbeitslosengeld_2__regelbedarf_m_bg: float,
-    arbeitslosengeld_2__anzurechnendes_einkommen_m_bg: float,
-    kinderzuschlag__anspruchshöhe_m_bg: float,
-    wohngeld__anspruchshöhe_m_bg: float,
-) -> bool:
-    """Check if housing and child benefit have priority."""
-    return (
-        arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
-        + wohngeld__anspruchshöhe_m_bg
+        + wohngeld__anspruchshöhe_m_wthh
         + kinderzuschlag__anspruchshöhe_m_bg
         >= arbeitslosengeld_2__regelbedarf_m_bg
     )
