@@ -33,6 +33,7 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
+from ttsim.plot_dag import NodeSelector
 
 from _gettsim_tests import TEST_DIR
 
@@ -42,7 +43,6 @@ if TYPE_CHECKING:
 
     import plotly.graph_objects as go
     from ttsim import typing
-    from ttsim.plot_dag import NodeSelector
     from ttsim.typing import (
         DashedISOString,
         FlatColumnObjectsParamFunctions,
@@ -66,6 +66,7 @@ __version_tuple__ = __version_tuple__
 copy_environment = copy_environment
 merge_trees = merge_trees
 upsert_tree = upsert_tree
+NodeSelector = NodeSelector
 
 
 def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
@@ -126,7 +127,6 @@ def plot_tt_dag(
     node_selector: NodeSelector | None = None,
     title: str = "",
     include_params: bool = True,
-    include_other_objects: bool = False,
     show_node_description: bool = False,
     output_path: Path | None = None,
 ) -> go.Figure:
@@ -136,7 +136,6 @@ def plot_tt_dag(
         node_selector=node_selector,
         title=title,
         include_params=include_params,
-        include_other_objects=include_other_objects,
         show_node_description=show_node_description,
         output_path=output_path,
     )
