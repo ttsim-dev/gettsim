@@ -94,8 +94,6 @@ inputs:
       - 50.0
     wohnen__wohnfläche_hh:
       - 60.0
-    wohngeld__anspruchshöhe_m_bg:
-      - 0.0
     wohnort_ost_hh:
       - false
 outputs:

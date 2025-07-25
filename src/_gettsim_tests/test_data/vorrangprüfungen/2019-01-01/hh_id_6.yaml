@@ -69,9 +69,6 @@ inputs:
       - 0.0
       - 0.0
     wohngeld:
-      anspruchshöhe_m_bg:
-        - 356.0
-        - 356.0
       anspruchshöhe_m_wthh:
         - 356.0
         - 356.0

@@ -128,7 +128,5 @@ inputs:
         - 5
 outputs:
   wohngeld:
-    anspruchshöhe_m_bg:
-      - 59.0
     anspruchshöhe_m_wthh:
       - 59.0

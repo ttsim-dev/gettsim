@@ -90,9 +90,6 @@ inputs:
         - 80.0
 outputs:
   kinderzuschlag:
-    anspruchshöhe_m_bg:
-      - 140.0
-      - 140.0
     basisbetrag_m_bg:
       - 140.0
       - 140.0

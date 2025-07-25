@@ -178,9 +178,6 @@ inputs:
         - 3
 outputs:
   wohngeld:
-    anspruchshöhe_m_bg:
-      - 0.0
-      - 0.0
     anspruchshöhe_m_wthh:
       - 0.0
       - 0.0

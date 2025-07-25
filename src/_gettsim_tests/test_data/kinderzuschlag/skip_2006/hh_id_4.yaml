@@ -159,12 +159,6 @@ inputs:
         - 120.0
 outputs:
   kinderzuschlag:
-    anspruchshöhe_m_bg:
-      - 216.65
-      - 216.65
-      - 216.65
-      - 216.65
-      - 216.65
     basisbetrag_m_bg:
       - 216.65
       - 216.65
