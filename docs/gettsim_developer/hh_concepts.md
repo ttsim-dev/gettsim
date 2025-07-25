@@ -59,65 +59,65 @@ The units are:
 
 ## Kindergeld
 
-#### Description
+### Description
 
 - Only one parent receives child allowances (specified via `kindergeld__p_id_empfänger`)
 - Relevant for alimony payment of the other parent, if separate
 
-#### Pointers
+### Pointers
 
 - `kindergeld__p_id_empfänger` (exogenous)
 
 ## Kinderzuschlag
 
-#### Description
+### Description
 
 - Paid out on Bedarfsgemeinschaft level
 - Parents outside of Bedarfsgemeinschaft (e.g. not in the same household) are not
   considered (besides of Unterhalts(vorschuss)zahlungen)
 
-#### Aggregation unit
+### Aggregation unit
 
 - `arbeitslosengeld_2__bg_id` (endogenous)
 
-#### Pointers
+### Pointers
 
 - `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
   `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
 
-#### Description
+### Description
 
 - Parents and their children
 - Number of months parents can claim Elterngeld is capped (both individually and sum
   over parents).
 
-#### Pointers
+### Pointers
 
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Unterhalt / Unterhaltsvorschuss
 
-#### Description
+### Description
 
 - Parents and their children
 - Parents necessarily in different households (different `hh_id`)
 
-#### Pointers
+### Pointers
 
 - `kindergeld__p_id_empfänger` (exogenous)
 
 ## Pflegeversicherung
 
-#### Description
+### Description
 
 - Contribution depends on the number of children and their ages (since July 2023)
 - Parents and their children
   - Can be in different households
   - No reference to age categories of children
 
-#### Pointers
+### Pointers
 
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
@@ -125,7 +125,7 @@ The units are:
 
 ### Grundrente
 
-#### Description
+### Description
 
 - Couples that are married or in a civil union
 
@@ -144,7 +144,7 @@ The units are:
 - Couples that were married or in a civil union
 - Not implemented yet
 
-#### Aggregation unit
+### Aggregation unit
 
 - `familie__ehe_id` (endogenous)
 
