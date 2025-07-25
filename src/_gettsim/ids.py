@@ -144,8 +144,16 @@ def bg_id(
 ) -> IntColumn:
     """Bedarfsgemeinschaft. Relevant unit for Bürgergeld / Arbeitslosengeld 2.
 
-    Familiengemeinschaft except for children who have enough income to fend for
-    themselves.
+    Note: GETTSIM can compute the Bedarfsgemeinschaft endogenously for the most common
+    household structures. That is, results will be correct if there is exactly one
+    Familiengemeinschaft in one household and the Familiengemeinschaft coincides with
+    the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
+
+    If you plan to use more complex household and family structures (e.g. multiple
+    families in one households, multigenerational households, or families with children
+    who have enough income to fend for themselves), you can compute these IDs by
+    following the instructions in this repo: [link eventually]. You can then pass the
+    IDs obtained there to your main GETTSIM call as input data.
     """
     return fg_id
 
@@ -179,10 +187,18 @@ def wthh_id(
     xnp: ModuleType,  # noqa: ARG001
     # we need xnp for the ID reordering operation here
 ) -> IntColumn:
-    """Wohngeldrechtlicher Teilhaushalt.
+    """Wohngeldrechtlicher Teilhaushalt. The relevant unit for Wohngeld.
 
-    The relevant unit for Wohngeld. Members of a household for whom the Wohngeld
-    priority check compared to Bürgergeld yields the same result ∈ {True, False}.
+    Note: GETTSIM can compute the wohngeldrechtlicher Teilhaushalt endogenously for the
+    most common household structures. That is, results will be correct if there is
+    exactly one Familiengemeinschaft in one household and the Familiengemeinschaft
+    coincides with the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
+
+    If you plan to use more complex household and family structures (e.g. multiple
+    families in one households, multigenerational households, or families with children
+    who have enough income to fend for themselves), you can compute these IDs by
+    following the instructions in this repo: [link eventually]. You can then pass the
+    IDs obtained there to your main GETTSIM call as input data.
     """
     return fg_id
 
