@@ -85,15 +85,9 @@ outputs:
       - 140
       - 140
   vorrangprüfungen:
-    kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-      - false
-      - false
-    wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+    wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
       - true
       - true
-    wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-      - false
-      - false
   wohngeld:
     betrag_m_wthh:
       - 500
