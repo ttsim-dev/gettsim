@@ -14,9 +14,6 @@ inputs:
       bezug_im_vorjahr:
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
       p_id_einstandspartner:
         - -1
         - -1

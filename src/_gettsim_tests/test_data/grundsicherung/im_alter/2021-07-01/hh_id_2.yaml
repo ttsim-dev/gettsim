@@ -9,8 +9,6 @@ inputs:
     alter:
       - 70
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
       p_id_einstandspartner:
         - -1
     einkommensteuer:

@@ -19,12 +19,6 @@ inputs:
         - false
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 6
         - 5

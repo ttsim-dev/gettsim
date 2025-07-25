@@ -27,10 +27,6 @@ inputs:
         - 1000.0
         - 0.0
         - 1000.0
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
       nettoeinkommen_nach_abzug_freibetrag_m:
         - 1000.0
         - 0.0
@@ -105,11 +101,6 @@ inputs:
       - 0.0
       - 0.0
       - 0.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
     wohnen:
       bewohnt_eigentum_hh:
         - false

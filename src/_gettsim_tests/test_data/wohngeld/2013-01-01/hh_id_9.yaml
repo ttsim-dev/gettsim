@@ -13,9 +13,6 @@ inputs:
       - 2
       - 2
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
       p_id_einstandspartner:
         - 54
         - 53
@@ -146,13 +143,6 @@ inputs:
     vermögen:
       - 90000.0
       - 0.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
     wohnen:
       baujahr_immobilie_hh:
         - 2005

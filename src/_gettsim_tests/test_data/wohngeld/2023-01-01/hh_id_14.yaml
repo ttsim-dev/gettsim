@@ -28,13 +28,6 @@ inputs:
         - false
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 61
         - 60
@@ -316,21 +309,6 @@ inputs:
       - 0.0
       - 0.0
       - 0.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
     wohnen:
       baujahr_immobilie_hh:
         - 1993

@@ -15,10 +15,6 @@ inputs:
         - false
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
       mehrbedarf_alleinerziehend_m_bg:
         - 0.0
         - 0.0

@@ -12,8 +12,6 @@ inputs:
       - 45
     arbeitslosengeld_2__bezug_im_vorjahr:
       - false
-    arbeitslosengeld_2__eigenbedarf_gedeckt:
-      - false
     arbeitslosengeld_2__p_id_einstandspartner:
       - -1
     arbeitsstunden_w:

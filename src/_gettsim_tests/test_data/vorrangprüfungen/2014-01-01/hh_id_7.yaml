@@ -10,9 +10,6 @@ inputs:
       - 75
       - 50
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
         - 0.0
