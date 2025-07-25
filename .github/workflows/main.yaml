@@ -29,9 +29,13 @@ jobs:
           - py313-jax
         exclude:
           - os: macos-latest
-            environment: py311, py312
+            environment: py311
+          - os: macos-latest
+            environment: py312
           - os: windows-latest
-            environment: py311, py312
+            environment: py311
+          - os: windows-latest
+            environment: py312
     steps:
       - uses: actions/checkout@v4
       - uses: prefix-dev/setup-pixi@v0.8.13
