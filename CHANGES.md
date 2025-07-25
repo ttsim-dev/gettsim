@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1054` DOC: Simple example and comprehensive how-to notebook
+  ({ghuser}`MImmesberger`)
+
 - {gh}`804` The PR that has been collecting all changes over the past 7 months, which
   have been listed individually.
 
