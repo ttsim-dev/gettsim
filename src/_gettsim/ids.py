@@ -139,8 +139,8 @@ def _assign_parents_fg_id(
 @group_creation_function()
 def bg_id(
     fg_id: IntColumn,
+    # xnp is needed to instantiate the GroupCreationFunction (because of `reorder_ids`)
     xnp: ModuleType,  # noqa: ARG001
-    # we need xnp for the ID reordering operation here
 ) -> IntColumn:
     """Bedarfsgemeinschaft. Relevant unit for Bürgergeld / Arbeitslosengeld 2.
 
@@ -150,10 +150,11 @@ def bg_id(
     the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
 
     If you plan to use more complex household and family structures (e.g. multiple
-    families in one households, multigenerational households, or families with children
-    who have enough income to fend for themselves), you can compute these IDs by
-    following the instructions in this repo: [link eventually]. You can then pass the
-    IDs obtained there to your main GETTSIM call as input data.
+    families within a household, households consisting of more than one generation --
+    with the exception of parents and their children up to the age of 25 --, or families
+    with children who have enough income to fend for themselves, you can compute these
+    IDs by following the instructions in this repo: [link eventually]. You can then pass
+    the IDs obtained from there as input data to your main GETTSIM call.
     """
     return fg_id
 
@@ -195,10 +196,11 @@ def wthh_id(
     coincides with the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
 
     If you plan to use more complex household and family structures (e.g. multiple
-    families in one households, multigenerational households, or families with children
-    who have enough income to fend for themselves), you can compute these IDs by
-    following the instructions in this repo: [link eventually]. You can then pass the
-    IDs obtained there to your main GETTSIM call as input data.
+    families within a household, households consisting of more than one generation --
+    with the exception of parents and their children up to the age of 25 --, or families
+    with children who have enough income to fend for themselves, you can compute these
+    IDs by following the instructions in this repo: [link eventually]. You can then pass
+    the IDs obtained from there as input data to your main GETTSIM call.
     """
     return fg_id
 
