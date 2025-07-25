@@ -246,7 +246,7 @@ exclude = []
 # All tests return None and use asserts
 "src/_gettsim_tests/**/*.py" = ["ANN", "S101"]
 # Imports not at top of cell for didactic reasons
-"docs/how_to_guides/modify_taxes_and_transfers.ipynb" = ["E402"]
+"docs/how_to_guides/modifications_of_policy_environments.ipynb" = ["E402"]
 # TODO: remove once ported nicely
 "outdated_docs/**/*.ipynb" = ["ALL"]
 
