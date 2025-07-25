@@ -95,7 +95,8 @@ def kindergeld_zur_bedarfsdeckung_m(
 def differenz_kindergeld_kindbedarf_m(
     regelbedarf_m_bg: float,
     nettoeinkommen_nach_abzug_freibetrag_m: float,
-    wohngeld__anspruchshöhe_m_bg: float,
+    wohngeld__anspruchshöhe_m_wthh: float,
+    wohngeld__anzahl_personen_wthh: int,
     kindergeld_zur_bedarfsdeckung_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
@@ -112,7 +113,7 @@ def differenz_kindergeld_kindbedarf_m(
     """
     fehlbetrag = max(
         regelbedarf_m_bg
-        - wohngeld__anspruchshöhe_m_bg
+        - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh
         - nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m
         - unterhaltsvorschuss__betrag_m,

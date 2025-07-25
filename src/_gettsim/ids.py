@@ -137,7 +137,11 @@ def _assign_parents_fg_id(
 
 
 @group_creation_function()
-def bg_id(fg_id: IntColumn) -> IntColumn:
+def bg_id(
+    fg_id: IntColumn,
+    xnp: ModuleType,  # noqa: ARG001
+    # we need xnp for the ID reordering operation here
+) -> IntColumn:
     """Bedarfsgemeinschaft. Relevant unit for Bürgergeld / Arbeitslosengeld 2.
 
     Familiengemeinschaft except for children who have enough income to fend for
@@ -170,7 +174,11 @@ def eg_id(
 
 
 @group_creation_function()
-def wthh_id(fg_id: IntColumn) -> IntColumn:
+def wthh_id(
+    fg_id: IntColumn,
+    xnp: ModuleType,  # noqa: ARG001
+    # we need xnp for the ID reordering operation here
+) -> IntColumn:
     """Wohngeldrechtlicher Teilhaushalt.
 
     The relevant unit for Wohngeld. Members of a household for whom the Wohngeld

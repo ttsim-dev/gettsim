@@ -8,9 +8,7 @@ from gettsim.tt import policy_function
 @policy_function(start_date="2005-01-01")
 def betrag_m_bg(
     anspruchshöhe_m_bg: float,
-    vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg: bool,
-    vorrangprüfungen__kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg: bool,
-    vorrangprüfungen__wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg: bool,
+    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     volljährige_alle_rentenbezieher_hh: bool,
 ) -> float:
     """Calculate final monthly subsistence payment on household level.
@@ -24,9 +22,7 @@ def betrag_m_bg(
     # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
     # https://github.com/ttsim-dev/gettsim/issues/703
     if (
-        vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg
-        or vorrangprüfungen__kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg
-        or vorrangprüfungen__wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg
+        vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
         or volljährige_alle_rentenbezieher_hh
     ):
         out = 0.0
