@@ -33,7 +33,6 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
-from ttsim.plot_dag import NodeSelector
 
 from _gettsim_tests import TEST_DIR
 
@@ -41,7 +40,6 @@ if TYPE_CHECKING:
     import datetime
     from collections.abc import Iterable
 
-    import plotly.graph_objects as go
     from ttsim import typing
     from ttsim.typing import (
         DashedISOString,
@@ -66,7 +64,6 @@ __version_tuple__ = __version_tuple__
 copy_environment = copy_environment
 merge_trees = merge_trees
 upsert_tree = upsert_tree
-NodeSelector = NodeSelector
 
 
 def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
@@ -109,38 +106,6 @@ def main(
     return _ttsim.main(**locals())
 
 
-def plot_interface_dag(
-    include_fail_and_warn_nodes: bool = True,
-    show_node_description: bool = False,
-    output_path: Path | None = None,
-) -> go.Figure:
-    return _ttsim.plot_interface_dag(
-        include_fail_and_warn_nodes=include_fail_and_warn_nodes,
-        show_node_description=show_node_description,
-        output_path=output_path,
-        remove_orig_policy_objects__root=True,
-    )
-
-
-def plot_tt_dag(
-    policy_date_str: str,
-    node_selector: NodeSelector | None = None,
-    title: str = "",
-    include_params: bool = True,
-    show_node_description: bool = False,
-    output_path: Path | None = None,
-) -> go.Figure:
-    return _ttsim.plot_tt_dag(
-        policy_date_str=policy_date_str,
-        root=Path(__file__).parent.parent / "_gettsim",
-        node_selector=node_selector,
-        title=title,
-        include_params=include_params,
-        show_node_description=show_node_description,
-        output_path=output_path,
-    )
-
-
 __all__ = [
     "InputData",
     "Labels",
@@ -155,8 +120,6 @@ __all__ = [
     "copy_environment",
     "main",
     "merge_trees",
-    "plot_interface_dag",
-    "plot_tt_dag",
     "test",
     "upsert_tree",
     "version",

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from gettsim import plot_tt_dag
+from gettsim.plot_dag import plot_tt_dag
 
 
 def test_gettsim_policy_environment_dag_with_params():
