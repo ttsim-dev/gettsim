@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-import ttsim as _ttsim
-from ttsim.plot_dag import NodeSelector
+from ttsim import plot
+from ttsim.plot.dag import NodeSelector
 
 if TYPE_CHECKING:
     import plotly.graph_objects as go
@@ -12,12 +12,12 @@ if TYPE_CHECKING:
 NodeSelector = NodeSelector
 
 
-def plot_interface_dag(
+def interface(
     include_fail_and_warn_nodes: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
 ) -> go.Figure:
-    return _ttsim.plot_interface_dag(
+    return plot.dag.interface(
         include_fail_and_warn_nodes=include_fail_and_warn_nodes,
         show_node_description=show_node_description,
         output_path=output_path,
@@ -25,7 +25,7 @@ def plot_interface_dag(
     )
 
 
-def plot_tt_dag(
+def tt(
     policy_date_str: str,
     node_selector: NodeSelector | None = None,
     title: str = "",
@@ -33,7 +33,7 @@ def plot_tt_dag(
     show_node_description: bool = False,
     output_path: Path | None = None,
 ) -> go.Figure:
-    return _ttsim.plot_tt_dag(
+    return plot.dag.tt(
         policy_date_str=policy_date_str,
         root=Path(__file__).parent.parent / "_gettsim",
         node_selector=node_selector,
@@ -46,6 +46,6 @@ def plot_tt_dag(
 
 __all__ = [
     "NodeSelector",
-    "plot_interface_dag",
-    "plot_tt_dag",
+    "interface",
+    "tt",
 ]

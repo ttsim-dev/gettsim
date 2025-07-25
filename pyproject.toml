@@ -112,7 +112,7 @@ toml = "*"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.pypi-dependencies]
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "namespace-of-plotting-funcs" }
 gettsim = {path = ".", editable = true}
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
@@ -238,7 +238,7 @@ exclude = []
     "PLW0127", # Re-export things for tab-completion explicitly.
     "PT028", # Cannot have default values in test functions with fixtures -- not an issue here.
 ]
-"src/gettsim/plot_dag/__init__.py" = ["PLW0127"] # Re-export things for tab-completion explicitly.
+"src/gettsim/plot/dag/__init__.py" = ["PLW0127"] # Re-export things for tab-completion explicitly.
 
 # Mostly things vectorization can't handle
 "src/_gettsim/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
