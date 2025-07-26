@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1060` Convert some ALG 2 parameters to ConsecutiveIntTableParamValue
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1057` Use fail/warn mechanism for TT DAG elements ({ghuser}`hmgaudecker`)
 
 - {gh}`1056` Updates to plotting functions ({ghuser}`MImmesberger`)
