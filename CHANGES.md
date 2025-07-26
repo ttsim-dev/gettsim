@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1059` Be consistent with 'Erwerbseinkommen' meaning income from self-employment
+  and regular employment ({ghuser}`MImmesberger`)
+
 - {gh}`1058` Add dedicated namespace for Einnahmen ({ghuser}`MImmesberger`)
 
 - {gh}`1057` Use fail/warn mechanism for TT DAG elements ({ghuser}`hmgaudecker`)

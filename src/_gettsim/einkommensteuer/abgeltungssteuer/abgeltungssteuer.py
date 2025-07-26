@@ -6,13 +6,13 @@ from gettsim.tt import policy_function
 
 
 @policy_function(start_date="2009-01-01")
-def betrag_y_sn(zu_versteuerndes_kapitaleinkommen_y_sn: float, satz: float) -> float:
+def betrag_y_sn(zu_versteuernde_kapitalerträge_y_sn: float, satz: float) -> float:
     """Abgeltungssteuer on Steuernummer level."""
-    return satz * zu_versteuerndes_kapitaleinkommen_y_sn
+    return satz * zu_versteuernde_kapitalerträge_y_sn
 
 
 @policy_function(start_date="2009-01-01")
-def zu_versteuerndes_kapitaleinkommen_y_sn(
+def zu_versteuernde_kapitalerträge_y_sn(
     einkommensteuer__anzahl_personen_sn: int,
     einnahmen__aus_kapitalvermögen__kapitalerträge_y_sn: float,
     einkommensteuer__einkünfte__aus_kapitalvermögen__sparerpauschbetrag: float,
