@@ -6,5 +6,5 @@ from gettsim.tt import policy_input
 
 
 @policy_input()
-def betrag_m() -> float:
-    """Monthly income from forestry and agriculture."""
+def betrag_y() -> float:
+    """Yearly income from forestry and agriculture."""
