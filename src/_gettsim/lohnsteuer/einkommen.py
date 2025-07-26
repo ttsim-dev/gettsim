@@ -227,6 +227,7 @@ def vorsorgepauschale_y_ab_2023(
     start_date="2005-01-01",
     end_date="2009-12-31",
     leaf_name="vorsorgepauschale_y",
+    fail_msg_if_included="Vorsorgepauschale not implemented before 2010.",
 )
 def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
-    raise NotImplementedError("Vorsorgepauschale not implemented before 2010.")
+    pass

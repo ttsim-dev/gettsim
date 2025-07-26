@@ -97,13 +97,10 @@ def elternteil_alleinerziehend(
         direction="down",
         reference="§ 9 Abs. 3 UhVorschG",
     ),
+    fail_msg_if_included="Unterhaltsvorschuss is not implemented prior to 2009.",
 )
-def not_implemented_m() -> float:
-    raise NotImplementedError(
-        """
-        Unterhaltsvorschuss is not implemented prior to 2009.
-    """,
-    )
+def betrag_m_bis_2008() -> float:
+    pass
 
 
 @param_function(start_date="2023-01-01", leaf_name="kindergeld_erstes_kind_m")

@@ -81,14 +81,11 @@ def betrag_m(
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
     rounding_spec=RoundingSpec(base=0.01, direction="nearest"),
+    fail_msg_if_included="""Erziehungsgeld is not implemented yet prior to 2004, see
+https://github.com/ttsim-dev/gettsim/issues/673""",
 )
-def erziehungsgeld_kind_ohne_budgetsatz_m() -> NotImplementedError:
-    raise NotImplementedError(
-        """
-    Erziehungsgeld is not implemented yet prior to 2004, see
-    https://github.com/ttsim-dev/gettsim/issues/673
-        """,
-    )
+def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
+    pass
 
 
 @policy_function(

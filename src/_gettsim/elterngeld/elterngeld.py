@@ -109,9 +109,10 @@ def basisbetrag_m(
     end_date="2010-12-31",
     leaf_name="betrag_m",
     rounding_spec=RoundingSpec(base=0.01, direction="down"),
+    fail_msg_if_included="Elterngeld is not implemented prior to 2011.",
 )
 def elterngeld_not_implemented() -> float:
-    raise NotImplementedError("Elterngeld is not implemented prior to 2011.")
+    pass
 
 
 @policy_function(start_date="2007-01-01")

@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+from _gettsim import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
 from gettsim.tt import policy_function
 
 
-@policy_function()
+@policy_function(warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC)
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
     arbeitslosengeld_2__anzurechnendes_einkommen_m_bg: float,

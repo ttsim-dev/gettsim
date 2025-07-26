@@ -117,9 +117,10 @@ def kinderfreibetrag_günstiger_sn(
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
     ),
+    fail_msg_if_included="Tax system before 2002 is not implemented yet.",
 )
 def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
-    raise NotImplementedError("Tax system before 2002 is not implemented yet.")
+    pass
 
 
 @policy_function(
