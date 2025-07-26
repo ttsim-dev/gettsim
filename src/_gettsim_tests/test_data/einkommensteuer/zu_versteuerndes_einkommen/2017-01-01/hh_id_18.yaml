@@ -61,7 +61,7 @@ inputs:
         bruttolohn_m:
           - 3000.0
           - 2500.0
-      rente:
+      renten:
         betriebliche_altersvorsorge_m:
           - 0.0
           - 0.0

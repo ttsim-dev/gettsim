@@ -111,9 +111,9 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
 
 @policy_function(start_date="2011-01-01")
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
-    einnahmen__rente__sonstige_private_vorsorge_m: float,
-    einnahmen__rente__geförderte_private_vorsorge_m: float,
-    einnahmen__rente__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
     anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParam,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     xnp: ModuleType,
@@ -125,9 +125,9 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     """
     freibetrag = piecewise_polynomial(
         x=(
-            einnahmen__rente__sonstige_private_vorsorge_m
-            + einnahmen__rente__geförderte_private_vorsorge_m
-            + einnahmen__rente__betriebliche_altersvorsorge_m
+            einnahmen__renten__sonstige_private_vorsorge_m
+            + einnahmen__renten__geförderte_private_vorsorge_m
+            + einnahmen__renten__betriebliche_altersvorsorge_m
         ),
         parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
         xnp=xnp,
@@ -135,9 +135,9 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
 
     return (
-        einnahmen__rente__sonstige_private_vorsorge_m
-        + einnahmen__rente__geförderte_private_vorsorge_m
-        + einnahmen__rente__betriebliche_altersvorsorge_m
+        einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
         - min(
             freibetrag,
             upper,
@@ -147,19 +147,19 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 
 @policy_function(end_date="2020-12-31", leaf_name="gesetzliche_rente_m")
 def gesetzliche_rente_m_bis_2020(
-    einnahmen__rente__gesetzliche_m: float,
+    einnahmen__renten__gesetzliche_m: float,
 ) -> float:
     """Calculate individual public pension benefits which are considered in the
     calculation of Grundsicherung im Alter until 2020.
 
     Until 2020: No deduction is possible.
     """
-    return einnahmen__rente__gesetzliche_m
+    return einnahmen__renten__gesetzliche_m
 
 
 @policy_function(start_date="2021-01-01", leaf_name="gesetzliche_rente_m")
 def gesetzliche_rente_m_ab_2021(
-    einnahmen__rente__gesetzliche_m: float,
+    einnahmen__renten__gesetzliche_m: float,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParam,
@@ -172,7 +172,7 @@ def gesetzliche_rente_m_ab_2021(
     of private pension above 100 (but no more than 1/2 of regelbedarf)
     """
     angerechnete_rente = piecewise_polynomial(
-        x=einnahmen__rente__gesetzliche_m,
+        x=einnahmen__renten__gesetzliche_m,
         parameters=anrechnungsfreier_anteil_gesetzliche_rente,
         xnp=xnp,
     )
@@ -183,4 +183,4 @@ def gesetzliche_rente_m_ab_2021(
     else:
         angerechnete_rente = 0.0
 
-    return einnahmen__rente__gesetzliche_m - angerechnete_rente
+    return einnahmen__renten__gesetzliche_m - angerechnete_rente

@@ -69,7 +69,7 @@ inputs:
       - 0.0
     sozialversicherung__rente__bezieht_rente:
       - false
-    einnahmen__rente__betriebliche_altersvorsorge_m:
+    einnahmen__renten__betriebliche_altersvorsorge_m:
       - 0.0
       - 0.0
     einkommensteuer__einkünfte__sonstige__geförderte_private_vorsorge_m:

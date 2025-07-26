@@ -41,7 +41,7 @@ inputs:
       aus_nichtselbstständiger_arbeit:
         bruttolohn_m:
           - 1400.0
-      rente:
+      renten:
         betriebliche_altersvorsorge_m:
           - 0.0
         geförderte_private_vorsorge_m:

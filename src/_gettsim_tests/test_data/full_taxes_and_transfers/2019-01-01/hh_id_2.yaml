@@ -103,7 +103,7 @@ inputs:
           - 5000.0
           - 300.0
           - 600.0
-      rente:
+      renten:
         betriebliche_altersvorsorge_m:
           - 0.0
           - 0.0

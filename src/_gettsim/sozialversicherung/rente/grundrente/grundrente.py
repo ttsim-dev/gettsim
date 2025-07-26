@@ -259,18 +259,18 @@ def grundsätzlich_anspruchsberechtigt(
 
 @policy_function(start_date="2021-01-01")
 def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
-    einnahmen__rente__gesetzliche_m: float,
-    einnahmen__rente__geförderte_private_vorsorge_m: float,
-    einnahmen__rente__sonstige_private_vorsorge_m: float,
-    einnahmen__rente__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
 ) -> float:
     """Income from private and public pensions in the previous calendar year.
 
     This target can be used as an input in another GETTSIM call to compute Grundrente.
     """
     return (
-        einnahmen__rente__gesetzliche_m
-        + einnahmen__rente__geförderte_private_vorsorge_m
-        + einnahmen__rente__sonstige_private_vorsorge_m
-        + einnahmen__rente__betriebliche_altersvorsorge_m
+        einnahmen__renten__gesetzliche_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
     )
