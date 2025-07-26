@@ -277,7 +277,7 @@ def altersvorsorge_y_sn_volle_anrechnung(
 
 @policy_function(end_date="2019-12-31")
 def vorwegabzug_lohnsteuer_y_sn(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y_sn: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y_sn: float,
     einkommensteuer__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
@@ -288,7 +288,7 @@ def vorwegabzug_lohnsteuer_y_sn(
         - parameter_altersvorsorgeaufwendungen_regime_bis_2004[
             "kürzungsanteil_abhängig_beschäftigte"
         ]
-        * einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y_sn
+        * einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y_sn
     )
 
     return max(out, 0.0)

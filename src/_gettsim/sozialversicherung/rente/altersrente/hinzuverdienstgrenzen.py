@@ -49,7 +49,7 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze(
 def bruttorente_m_mit_hinzuverdienstdeckel(
     alter: int,
     regelaltersrente__altersgrenze: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
     differenz_bruttolohn_hinzuverdienstdeckel_m: float,
     zahlbetrag_ohne_deckel_m: float,
 ) -> float:
@@ -63,8 +63,7 @@ def bruttorente_m_mit_hinzuverdienstdeckel(
     if (
         differenz_bruttolohn_hinzuverdienstdeckel_m > 0
         and alter <= regelaltersrente__altersgrenze
-        and einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y
-        > 0
+        and einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y > 0
     ):
         out = max(
             zahlbetrag_ohne_deckel_m - differenz_bruttolohn_hinzuverdienstdeckel_m,

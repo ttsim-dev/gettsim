@@ -94,7 +94,7 @@ def kapitaleinkommen_brutto_m_ohne_freibetrag(
 
 @policy_function(start_date="2016-01-01", leaf_name="kapitaleinkommen_brutto_m")
 def kapitaleinkommen_brutto_m_mit_freibetrag(
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_y: float,
+    einnahmen__aus_kapitalvermögen__kapitalerträge_y: float,
     freibetrag_kapitaleinkünfte: float,
 ) -> float:
     """Capital income minus the capital income exemption.
@@ -102,8 +102,7 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
     Legal reference: § 43 SGB XII Abs. 2
     """
     capital_income_y = (
-        einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_y
-        - freibetrag_kapitaleinkünfte
+        einnahmen__aus_kapitalvermögen__kapitalerträge_y - freibetrag_kapitaleinkünfte
     )
 
     return max(0.0, capital_income_y / 12)

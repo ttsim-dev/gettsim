@@ -73,7 +73,7 @@ def leistungsbegründendes_kind_nach_lohn_not_implemented() -> NotImplementedErr
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
     in_ausbildung: bool,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
     altersgrenze: dict[str, int],
     maximales_einkommen_des_kindes: float,
 ) -> bool:
@@ -88,7 +88,7 @@ def leistungsbegründendes_kind_nach_lohn(
         (alter < altersgrenze["mit_bedingungen"])
         and in_ausbildung
         and (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y
             <= maximales_einkommen_des_kindes
         )
     )
