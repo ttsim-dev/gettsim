@@ -2,7 +2,8 @@
 info:
   note: One child in the upper age group (12-17).
   precision_atol: 0.01
-  source: https://www.bmfsfj.de/bmfsfj/themen/familie/familienleistungen/unterhaltsvorschuss/unterhaltsvorschuss-73558
+  source: |-
+    https://www.bmfsfj.de/bmfsfj/themen/familie/familienleistungen/unterhaltsvorschuss/unterhaltsvorschuss-73558
 inputs:
   assumed: {}
   provided:

@@ -1,11 +1,12 @@
 ---
 info:
   note: ''
-  precision_atol: 0.00001
-  source: >-
-    Bekanntmachung des Gesamtsozialversicherungsbeitragssatzes und des Faktors F für das
-    Jahr 2024
+  precision_atol: 1.0e-05
+  source: |-
+    Bekanntmachung des Gesamtsozialversicherungsbeitragssatzes und des Faktors F für
+    das Jahr 2024
 inputs:
+  assumed: {}
   provided:
     hh_id:
       - 0

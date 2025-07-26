@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Several households that differ in their eligibility for Wohngeld because of
     Mindesteinkommen.
   precision_atol: 0.01
@@ -46,22 +46,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1200.0
-            - 1200.0
-            - 750.0
-            - 750.0
-            - 600.0
-            - 600.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -94,27 +78,6 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -122,6 +85,43 @@ inputs:
         - true
         - true
         - true
+    einnahmen:
+      bruttolohn_m:
+        - 1200.0
+        - 1200.0
+        - 750.0
+        - 750.0
+        - 600.0
+        - 600.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
@@ -250,14 +250,6 @@ inputs:
             - 0.0
             - 0.0
       rente:
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         altersrente:
           betrag_m:
             - 0.0
@@ -281,6 +273,14 @@ inputs:
           - false
           - false
           - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

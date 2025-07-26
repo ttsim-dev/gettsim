@@ -2,7 +2,8 @@
 info:
   note: Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
   precision_atol: 0.01
-  source: https://www.bmwsb.bund.de/SiteGlobals/Forms/wohngeldrechner/wohngeldrechner-2023-formular.html?resourceId=18737268&input_=18737272&pageLocale=de&householdMembers=5&housingbenefitRecipients=5&income=1750&rent=1300&rentLevelZIPCode=72393&rentLevelTown.GROUP=1&rentLevel=1&rentLevel.GROUP=1&update=Berechnen&result=746%2C00
+  source: |-
+    https://www.bmwsb.bund.de/SiteGlobals/Forms/wohngeldrechner/wohngeldrechner-2023-formular.html?resourceId=18737268&input_=18737272&pageLocale=de&householdMembers=5&housingbenefitRecipients=5&income=1750&rent=1300&rentLevelZIPCode=72393&rentLevelTown.GROUP=1&rentLevel=1&rentLevel.GROUP=1&update=Berechnen&result=746%2C00
 inputs:
   assumed: {}
   provided:
@@ -45,23 +46,10 @@ inputs:
         - 714.0
         - 714.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         aus_nichtselbstständiger_arbeit:
           einnahmen_nach_abzug_werbungskosten_y:
             - 15600.0
             - 14400.0
-            - 0.0
-            - 0.0
-            - 0.0
-          bruttolohn_m:
-            - 1300.0
-            - 1200.0
             - 0.0
             - 0.0
             - 0.0
@@ -93,30 +81,44 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - true
         - true
         - false
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 1300.0
+        - 1200.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
@@ -235,17 +237,17 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         beitrag:
           betrag_versicherter_m:
             - 123.8
             - 114.3
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
             - 0.0
             - 0.0
             - 0.0

@@ -19,20 +19,19 @@ inputs:
       - 2.0
       - 0.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3000.0
-            - 0.0
-            - 200.0
-            - 0.0
-            - 0.0
       gesamteinkommen_y:
         - 3000.0
         - 3000.0
         - 3000.0
         - 3000.0
         - 3000.0
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 0.0
+        - 200.0
+        - 0.0
+        - 0.0
     hh_id:
       - 13
       - 13

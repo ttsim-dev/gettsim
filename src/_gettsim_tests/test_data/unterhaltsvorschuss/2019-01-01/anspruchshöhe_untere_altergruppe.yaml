@@ -2,7 +2,8 @@
 info:
   note: One child in the lower age group (0-5).
   precision_atol: 0.01
-  source: https://www.daten.bmfsfj.de/resource/blob/133150/3d1b9355628bdb262dc4856f11a98e48/unterhaltsvorschuss-einleger-aenderungen-data.pdf
+  source: |-
+    https://www.daten.bmfsfj.de/resource/blob/133150/3d1b9355628bdb262dc4856f11a98e48/unterhaltsvorschuss-einleger-aenderungen-data.pdf
 inputs:
   assumed: {}
   provided:

@@ -62,18 +62,7 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 200.0
-            - 201.0
-            - 202.0
-            - 203.0
         aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
-            - 5000.0
-            - 300.0
-            - 600.0
           bruttolohn_vorjahr_m:
             - 7000.0
             - 2500.0
@@ -102,27 +91,38 @@ inputs:
             - 50.0
             - 50.0
             - 50.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - false
         - false
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 1500.0
+        - 5000.0
+        - 300.0
+        - 600.0
+      kapitalerträge_m:
+        - 200.0
+        - 201.0
+        - 202.0
+        - 203.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0
@@ -214,16 +214,16 @@ inputs:
       - false
     sozialversicherung:
       arbeitslosen:
-        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
-          - 12
-          - 13
-          - 14
-          - 15
         arbeitssuchend:
           - false
           - false
           - false
           - false
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 12
+          - 13
+          - 14
+          - 15
         monate_durchgängigen_bezugs_von_arbeitslosengeld:
           - 0
           - 0

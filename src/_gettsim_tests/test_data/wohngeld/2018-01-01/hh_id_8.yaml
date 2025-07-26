@@ -51,22 +51,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3650.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -99,27 +83,6 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -127,6 +90,43 @@ inputs:
         - false
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 3650.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       betrag_m:
         - 500.0
@@ -256,17 +256,17 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         beitrag:
           betrag_versicherter_m:
             - 300.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
             - 0.0
             - 0.0
             - 0.0

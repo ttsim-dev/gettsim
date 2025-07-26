@@ -18,7 +18,7 @@ from gettsim.tt import (
 
 @policy_function(rounding_spec=RoundingSpec(base=1, direction="down"))
 def einkommen_y(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__bruttolohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
@@ -44,7 +44,7 @@ def einkommen_y(
         alleinerziehendenfreibetrag = 0.0
 
     return max(
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y
+        einnahmen__bruttolohn_y
         - werbungskosten
         - sonderausgaben
         - alleinerziehendenfreibetrag

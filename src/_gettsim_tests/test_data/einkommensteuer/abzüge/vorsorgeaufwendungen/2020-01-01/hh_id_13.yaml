@@ -2,7 +2,8 @@
 info:
   note: ''
   precision_atol: 1
-  source: https://www.ruv.de/ratgeber/altersvorsorge/staatliche-foerderung/basisrente-sonderausgabenabzug
+  source: |-
+    https://www.ruv.de/ratgeber/altersvorsorge/staatliche-foerderung/basisrente-sonderausgabenabzug
 inputs:
   assumed: {}
   provided:
@@ -10,12 +11,11 @@ inputs:
       abzüge:
         beitrag_private_rentenversicherung_m:
           - 150.0
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 2583.33
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 2583.33
     familie:
       p_id_ehepartner:
         - -1

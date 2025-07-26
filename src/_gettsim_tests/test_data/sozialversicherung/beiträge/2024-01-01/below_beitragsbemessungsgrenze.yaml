@@ -10,22 +10,21 @@ inputs:
       - 45
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3000.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
-        sonstige:
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
         ist_hauptberuflich_selbstständig:
           - false
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
     hh_id:
       - 0
     p_id:

@@ -6,15 +6,6 @@ from gettsim.tt import policy_input
 
 
 @policy_input()
-def alle_weiteren_m() -> float:
-    """Additional income: includes private and public transfers that are not yet
-    implemented in GETTSIM (e.g., BAföG, Kriegsopferfürsorge).
-
-    Excludes income from public and private pensions.
-    """
-
-
-@policy_input()
 def sonstige_private_vorsorge_m() -> float:
     """Monthly payout from private pensions without tax-favored contributions.
 

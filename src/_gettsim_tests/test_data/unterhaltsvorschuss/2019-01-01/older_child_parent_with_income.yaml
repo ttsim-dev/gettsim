@@ -17,16 +17,6 @@ inputs:
         - -1
     einkommensteuer:
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 610.0
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -42,19 +32,28 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 610.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
     familie:
       alleinerziehend:
         - true
@@ -92,12 +91,12 @@ inputs:
           - 0.0
           - 0.0
       rente:
-        erwerbsminderung:
+        altersrente:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
-        altersrente:
+        erwerbsminderung:
           betrag_m:
             - 0.0
             - 0.0

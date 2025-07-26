@@ -11,12 +11,11 @@ inputs:
     arbeitsstunden_w:
       - 10.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 700.0
       gesamteinkommen_y:
         - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 700.0
     hh_id:
       - 4
     kindergeld:

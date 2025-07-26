@@ -8,11 +8,9 @@ inputs:
   provided:
     alter:
       - 64
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3830.0
+    einnahmen:
+      bruttolohn_m:
+        - 3830.0
     geburtsjahr:
       - 1957
     hh_id:

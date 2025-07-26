@@ -40,7 +40,7 @@ classifiers = [
 ]
 # Dependencies and requirements
 requires-python = ">=3.11"
-# dependencies = ["ttsim-backend"]
+# dependencies = ["ttsim-backend>=1.0a2"]
 
 
 [project.urls]

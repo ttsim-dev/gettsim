@@ -16,12 +16,11 @@ inputs:
     arbeitsstunden_w:
       - 0.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0

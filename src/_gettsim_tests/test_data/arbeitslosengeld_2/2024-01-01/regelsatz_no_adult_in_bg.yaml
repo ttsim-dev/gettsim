@@ -1,8 +1,8 @@
 ---
 info:
-  note: >-
-    Test Regelsatz when no adult is part of Bedarfsgemeinschaft. Child receives
-    the adult Regelsatz.
+  note: |-
+    Test Regelsatz when no adult is part of Bedarfsgemeinschaft. Child receives the
+    adult Regelsatz.
   precision_atol: 0.01
   source: Made up.
 inputs:

@@ -297,30 +297,28 @@ def mindesteinkommen_erreicht(
 
 @policy_function(start_date="2017-07-01")
 def einkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m: float,
+    einnahmen__kapitalerträge_m: float,
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m: float,
-    sozialversicherung__rente__altersrente__betrag_m: float,
-    sozialversicherung__rente__erwerbsminderung__betrag_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
 ) -> float:
     """Calculate relevant income for advance on alimony payment."""
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
-        + einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m
-        + sozialversicherung__rente__altersrente__betrag_m
-        + sozialversicherung__rente__erwerbsminderung__betrag_m
-        + einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m
+        + einnahmen__kapitalerträge_m
+        + einnahmen__renten__gesetzliche_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + sozialversicherung__arbeitslosen__betrag_m
     )
 

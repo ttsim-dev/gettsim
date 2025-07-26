@@ -15,11 +15,9 @@ inputs:
       - 25
     arbeitsstunden_w:
       - 40.0
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 2921.442857142857
+    einnahmen:
+      bruttolohn_m:
+        - 2921.442857142857
     hh_id:
       - 1695
     kindergeld:

@@ -1,20 +1,19 @@
 ---
 info:
-  note: >-
+  note: |-
     From eastern Germany: earns less Entgeltpunkte for same wage because
     Beitragsbemessungsgrenze is lower. Verified or corrected using source.
   precision_atol: 0.1
-  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Kurz-vor-der-Rente/Wann-kann-ich-in-Rente-gehen/Wann-kann-ich-in-Rente-gehen_detailseite.html"
+  source: |-
+    https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Kurz-vor-der-Rente/Wann-kann-ich-in-Rente-gehen/Wann-kann-ich-in-Rente-gehen_detailseite.html"
 inputs:
   assumed: {}
   provided:
     alter:
       - 59
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 8000.0
+    einnahmen:
+      bruttolohn_m:
+        - 8000.0
     geburtsjahr:
       - 1956
     geburtsmonat:
@@ -75,12 +74,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
-      entgeltpunkte_west_updated:
-        - 0.0
-      entgeltpunkte_ost_updated:
-        - 36.99837737
-      neue_entgeltpunkte:
-        - 1.79167737
       altersrente:
         altersgrenze:
           - 65.83333333
+      entgeltpunkte_ost_updated:
+        - 36.99837737
+      entgeltpunkte_west_updated:
+        - 0.0
+      neue_entgeltpunkte:
+        - 1.79167737

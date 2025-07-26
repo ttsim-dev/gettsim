@@ -80,16 +80,15 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
 
 @policy_function(start_date="2005-01-01")
 def bruttoeinkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
+    einnahmen__kapitalerträge_m: float,
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m: float,
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m: float,
-    sozialversicherung__rente__altersrente__betrag_m: float,
-    sozialversicherung__rente__erwerbsminderung__betrag_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
     elterngeld__betrag_m: float,
 ) -> float:
@@ -98,16 +97,15 @@ def bruttoeinkommen_m(
     Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
     """
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
-        + einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m
+        + einnahmen__kapitalerträge_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einnahmen__renten__gesetzliche_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m
-        + sozialversicherung__rente__altersrente__betrag_m
-        + sozialversicherung__rente__erwerbsminderung__betrag_m
         + sozialversicherung__arbeitslosen__betrag_m
         + elterngeld__betrag_m
     )
@@ -115,7 +113,7 @@ def bruttoeinkommen_m(
 
 @policy_function(start_date="2005-01-01", end_date="2005-09-30")
 def nettoquote(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
     einkommensteuer__anzahl_personen_sn: int,
@@ -129,7 +127,7 @@ def nettoquote(
     # Bereinigtes monatliches Einkommen aus Erwerbstätigkeit nach § 11 Abs. 2 Nr. 1-5.
     alg2_2005_bne = max(
         (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__bruttolohn_m
             - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
             - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
             - sozialversicherung__beiträge_versicherter_m
@@ -139,10 +137,7 @@ def nettoquote(
         0,
     )
 
-    return (
-        alg2_2005_bne
-        / einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-    )
+    return alg2_2005_bne / einnahmen__bruttolohn_m
 
 
 @policy_function(
@@ -151,14 +146,14 @@ def nettoquote(
     leaf_name="anrechnungsfreies_einkommen_m",
 )
 def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     nettoquote: float,
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
     """Share of income which remains to the individual."""
     return piecewise_polynomial(
-        x=einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+        x=einnahmen__bruttolohn_m,
         parameters=parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
         rates_multiplier=nettoquote,
         xnp=xnp,
@@ -167,7 +162,7 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
 
 @policy_function(start_date="2005-10-01")
 def anrechnungsfreies_einkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     anzahl_kinder_bis_17_bg: int,
     einkommensteuer__anzahl_kinderfreibeträge: int,
@@ -186,7 +181,7 @@ def anrechnungsfreies_einkommen_m(
     # child have slightly different thresholds. We currently do not consider the second
     # condition.
     eink_erwerbstätigkeit = (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
     )
 

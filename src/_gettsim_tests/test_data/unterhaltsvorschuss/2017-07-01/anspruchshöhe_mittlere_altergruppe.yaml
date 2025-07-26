@@ -2,7 +2,8 @@
 info:
   note: One child in the middle age group (6-11).
   precision_atol: 0.01
-  source: https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/das-aendert-sich-2018-120510
+  source: |-
+    https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/das-aendert-sich-2018-120510
 inputs:
   assumed: {}
   provided:
