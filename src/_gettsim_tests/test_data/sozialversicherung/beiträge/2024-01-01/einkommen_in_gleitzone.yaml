@@ -12,34 +12,34 @@ inputs:
       - 45
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 950.0
-            - 950.0
-            - 950.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
-        sonstige:
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
         ist_hauptberuflich_selbstständig:
           - false
           - false
           - false
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 950.0
+          - 950.0
+          - 950.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 0
       - 1
@@ -86,34 +86,22 @@ inputs:
       - false
 outputs:
   sozialversicherung:
-    beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m:
-      - 563.61
-      - 563.61
-      - 563.61
-    midijob_bemessungsentgelt_m:
-      - 828.13
-      - 828.13
-      - 828.13
     arbeitslosen:
       beitrag:
-        betrag_versicherter_m:
-          - 7.33
-          - 7.33
-          - 7.33
         betrag_arbeitgeber_m:
           - 14.21
           - 14.21
           - 14.21
+        betrag_versicherter_m:
+          - 7.33
+          - 7.33
+          - 7.33
+    beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m:
+      - 563.61
+      - 563.61
+      - 563.61
     kranken:
       beitrag:
-        betrag_versicherter_m:
-          - 44.8
-          - 44.8
-          - 44.8
-        betrag_versicherter_in_gleitzone_m:
-          - 44.8
-          - 44.8
-          - 44.8
         betrag_arbeitgeber_m:
           - 86.86
           - 86.86
@@ -122,23 +110,35 @@ outputs:
           - 131.66
           - 131.66
           - 131.66
+        betrag_versicherter_in_gleitzone_m:
+          - 44.8
+          - 44.8
+          - 44.8
+        betrag_versicherter_m:
+          - 44.8
+          - 44.8
+          - 44.8
+    midijob_bemessungsentgelt_m:
+      - 828.13
+      - 828.13
+      - 828.13
     pflege:
       beitrag:
+        betrag_arbeitgeber_m:
+          - 18.58
+          - 18.58
+          - 18.58
         betrag_versicherter_m:
           - 14.55
           - 9.58
           - 8.17
-        betrag_arbeitgeber_m:
-          - 18.58
-          - 18.58
-          - 18.58
     rente:
       beitrag:
+        betrag_arbeitgeber_m:
+          - 101.62
+          - 101.62
+          - 101.62
         betrag_versicherter_m:
           - 52.42
           - 52.42
           - 52.42
-        betrag_arbeitgeber_m:
-          - 101.62
-          - 101.62
-          - 101.62

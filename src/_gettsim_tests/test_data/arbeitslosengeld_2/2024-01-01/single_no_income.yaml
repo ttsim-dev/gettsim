@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Test with new Regelbedarf.
     `arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m` is wrong.
   precision_atol: 0.01
@@ -21,12 +21,6 @@ inputs:
       betrag_y_sn:
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -35,18 +29,25 @@ inputs:
             - 0.0
         ist_hauptberuflich_selbstständig:
           - false
-        sonstige:
-          alle_weiteren_m:
-            - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_m:
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 0.0
     elterngeld:
       betrag_m:
         - 0.0
@@ -93,11 +94,11 @@ inputs:
         altersrente:
           betrag_m:
             - 0.0
+        bezieht_rente:
+          - false
         erwerbsminderung:
           betrag_m:
             - 0.0
-        bezieht_rente:
-          - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -115,11 +116,11 @@ inputs:
         - 50.0
       wohnfläche_hh:
         - 60.0
-    wohnort_ost_hh:
-      - false
     wohngeld:
       anspruchshöhe_m_wthh:
         - 0.0
+    wohnort_ost_hh:
+      - false
 outputs:
   arbeitslosengeld_2:
     anrechnungsfreies_einkommen_m:

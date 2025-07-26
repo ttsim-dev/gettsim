@@ -2,7 +2,8 @@
 info:
   note: One child in the middle age group (6-11).
   precision_atol: 0.01
-  source: https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/aenderungen-2020-kinderzuschlag-unterhaltsvorschuss-freibeträge-142746
+  source: |-
+    https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/aenderungen-2020-kinderzuschlag-unterhaltsvorschuss-freibeträge-142746
 inputs:
   assumed: {}
   provided:

@@ -1,9 +1,8 @@
 ---
 info:
-  note: >-
-    Number of children below 25 years of age. Necessary to calculate the
-    long-term care insurance contribution. Does not depend on Kindergeld
-    eligibility.
+  note: |-
+    Number of children below 25 years of age. Necessary to calculate the long-term
+    care insurance contribution. Does not depend on Kindergeld eligibility.
   precision_atol: 1
   source: ''
 inputs:

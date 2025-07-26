@@ -24,14 +24,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1200.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -41,25 +33,36 @@ inputs:
             - 0.0
             - 0.0
         sonstige:
-          alle_weiteren_m:
-            - 100.0
-            - 0.0
           rente:
             ertragsanteil:
-              - 0.0
-              - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
               - 0.0
               - 0.0
       gemeinsam_veranlagt:
         - true
         - true
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_y:
+          - 0.0
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 1200.0
+          - 0.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 100.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
@@ -124,13 +127,13 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
         beitrag:
           betrag_versicherter_m:
             - 100.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
             - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:

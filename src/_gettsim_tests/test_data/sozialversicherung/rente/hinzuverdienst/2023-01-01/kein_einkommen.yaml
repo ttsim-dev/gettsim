@@ -8,11 +8,10 @@ inputs:
   provided:
     alter:
       - 64
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
     hh_id:
       - 0
     p_id:

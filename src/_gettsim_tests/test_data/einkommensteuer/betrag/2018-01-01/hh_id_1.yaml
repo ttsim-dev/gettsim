@@ -7,16 +7,16 @@ inputs:
   assumed: {}
   provided:
     einkommensteuer:
-      einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 500.0
       gemeinsam_veranlagt:
         - false
       gesamteinkommen_y:
         - 5000.0
       zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
         - 5000.0
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_y:
+          - 500.0
     familie:
       p_id_ehepartner:
         - -1

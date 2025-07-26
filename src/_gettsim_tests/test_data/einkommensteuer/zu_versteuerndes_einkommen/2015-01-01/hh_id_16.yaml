@@ -2,7 +2,8 @@
 info:
   note: ''
   precision_atol: 0.01
-  source: http://www.dr-wolters.de/content/inhalte/steuerberater_service/onlinerechner/einkommensteuer_berechnung/einkommensteuer_rechner/index.html
+  source: |-
+    http://www.dr-wolters.de/content/inhalte/steuerberater_service/onlinerechner/einkommensteuer_berechnung/einkommensteuer_rechner/index.html
 inputs:
   assumed: {}
   provided:
@@ -29,12 +30,6 @@ inputs:
         aus_gewerbebetrieb:
           betrag_m:
             - 0.0
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3000.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -43,18 +38,25 @@ inputs:
             - 0.0
         ist_hauptberuflich_selbstständig:
           - false
-        sonstige:
-          alle_weiteren_m:
-            - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_m:
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 3000.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 0.0
     familie:
       alleinerziehend:
         - false

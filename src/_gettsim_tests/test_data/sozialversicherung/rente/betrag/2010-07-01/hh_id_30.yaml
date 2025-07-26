@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Based on Beispiel "Erna Rüstig" (Altersrente für Frauen) but added a mixed
     (east/west) earnings history.
   precision_atol: 0.1
@@ -10,11 +10,10 @@ inputs:
   provided:
     alter:
       - 71
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 1500.0
     geburtsjahr:
       - 1938
     geburtsmonat:
@@ -71,12 +70,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
+      altersrente:
+        altersgrenze:
+          - 60.0
       entgeltpunkte_ost_updated:
         - 10.0
       entgeltpunkte_west_updated:
         - 12.99796044
       neue_entgeltpunkte:
         - 0.577960442
-      altersrente:
-        altersgrenze:
-          - 60.0

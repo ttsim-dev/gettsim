@@ -1,20 +1,20 @@
 ---
 info:
-  note: >-
+  note: |-
     From eastern Germany: earns more Entgeltpunkte for same wage. Verified or
     corrected based on source.
   precision_atol: 0.1
-  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
+  source: |-
+    https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
   assumed: {}
   provided:
     alter:
       - 42
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 900.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 900.0
     geburtsjahr:
       - 1968
     geburtsmonat:
@@ -75,12 +75,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
-      entgeltpunkte_west_updated:
-        - 0.0
-      entgeltpunkte_ost_updated:
-        - 21.77622985
-      neue_entgeltpunkte:
-        - 0.406629848
       altersrente:
         altersgrenze:
           - 67.0
+      entgeltpunkte_ost_updated:
+        - 21.77622985
+      entgeltpunkte_west_updated:
+        - 0.0
+      neue_entgeltpunkte:
+        - 0.406629848

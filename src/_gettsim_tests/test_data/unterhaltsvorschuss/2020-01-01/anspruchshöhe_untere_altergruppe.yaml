@@ -2,7 +2,8 @@
 info:
   note: One child in the lower age group (0-5).
   precision_atol: 0.01
-  source: https://familienportal.de/familienportal/meta/aktuelles/aktuelle-meldungen/mehr-geld-fuer-familien-mit-kleinen-einkommen-ab-2021-161920https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/aenderungen-2020-kinderzuschlag-unterhaltsvorschuss-freibeträge-142746
+  source: |-
+    https://familienportal.de/familienportal/meta/aktuelles/aktuelle-meldungen/mehr-geld-fuer-familien-mit-kleinen-einkommen-ab-2021-161920https://www.bmfsfj.de/bmfsfj/aktuelles/alle-meldungen/aenderungen-2020-kinderzuschlag-unterhaltsvorschuss-freibeträge-142746
 inputs:
   assumed: {}
   provided:

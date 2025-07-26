@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Test Regelsatz when Familiengemeinschaft (2 adults, 1 kid) is the same as
     Bedarfsgemeinschaft.
   precision_atol: 0.01

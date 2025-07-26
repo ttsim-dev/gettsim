@@ -4,26 +4,14 @@ info:
   source: Regression test.
 inputs:
   assumed:
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 3000.0
-    lohnsteuer:
-      steuerklasse:
-        - 1
-    sozialversicherung:
-      pflege:
-        beitrag:
-          hat_kinder:
-            - false
-    kindergeld:
-      ist_leistungsbegründendes_kind:
-        - false
     alter:
       - 30
     arbeitsstunden_w:
       - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 3000.0
     familie:
       p_id_elternteil_1:
         - -1
@@ -33,8 +21,20 @@ inputs:
       - 1989
     hh_id:
       - 1
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 1
     p_id:
       - 1
+    sozialversicherung:
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+  provided: {}
 outputs:
   sozialversicherung:
     arbeitslosen:

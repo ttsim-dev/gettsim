@@ -1,8 +1,8 @@
 ---
 info:
-  note: >-
-    Test with child and positive wealth below wealth allowance (website did not
-    add general amount for child)
+  note: |-
+    Test with child and positive wealth below wealth allowance (website did not add
+    general amount for child)
   precision_atol: 0.01
   source: https://www.smart-rechner.de/grundsicherung/rechner.php
 inputs:
@@ -20,14 +20,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -36,23 +28,32 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        sonstige:
-          alle_weiteren_m:
-            - 0.0
-            - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - false
         - false
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_m:
+          - 0.0
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
+          - 0.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0

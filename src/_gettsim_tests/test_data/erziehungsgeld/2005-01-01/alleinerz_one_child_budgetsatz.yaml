@@ -18,12 +18,11 @@ inputs:
     arbeitsstunden_w:
       - 20.0
       - 0.0
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
-            - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 1500.0
+          - 0.0
     erziehungsgeld:
       bruttolohn_vorjahr_nach_abzug_werbungskosten_m:
         - 1423.33

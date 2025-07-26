@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Test Regelsatz when no adult is part of Bedarfsgemeinschaft. In this case, the
     child should receive the adult Regelsatz.
   precision_atol: 0.01

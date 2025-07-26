@@ -2,7 +2,8 @@
 info:
   note: ''
   precision_atol: 1
-  source: https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/grundrente_zuschlag_zur_rente.html
+  source: |-
+    https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/grundrente_zuschlag_zur_rente.html
     (Ramona K.) + Dieter P.MonikaL
 inputs:
   assumed: {}
@@ -11,11 +12,10 @@ inputs:
       - false
     alter:
       - 70
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
     familie:
       p_id_ehepartner:
         - -1
@@ -39,18 +39,18 @@ inputs:
         entgeltpunkte_west:
           - 19.2
         grundrente:
-          gesamteinnahmen_aus_renten_vorjahr_m:
-            - 0.0
+          bewertungszeiten_monate:
+            - 300
           bruttolohn_vorjahr_m:
             - 2400.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
           einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
             - 0.0
           einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
             - 0.0
-          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+          gesamteinnahmen_aus_renten_vorjahr_m:
             - 0.0
-          bewertungszeiten_monate:
-            - 300
           grundrentenzeiten_monate:
             - 480
           mean_entgeltpunkte:

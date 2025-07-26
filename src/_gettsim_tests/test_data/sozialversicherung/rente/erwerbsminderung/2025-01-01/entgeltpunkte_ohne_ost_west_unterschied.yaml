@@ -5,18 +5,14 @@ info:
   source: Regression test.
 inputs:
   assumed:
-    p_id:
-      - 28
-    geburtsmonat:
-      - 1
     geburtsjahr:
       - 1957
+    geburtsmonat:
+      - 1
+    p_id:
+      - 28
     sozialversicherung:
       rente:
-        jahr_renteneintritt:
-          - 2025
-        monat_renteneintritt:
-          - 1
         entgeltpunkte:
           - 16.0
         erwerbsminderung:
@@ -26,6 +22,10 @@ inputs:
             - 1.0
           zugangsfaktor:
             - 0.997
+        jahr_renteneintritt:
+          - 2025
+        monat_renteneintritt:
+          - 1
     wohnort_ost_hh:
       - false
   provided: {}

@@ -2,7 +2,8 @@
 info:
   note: ''
   precision_atol: 0.01
-  source: https://www.mags.nrw/grundsicherung-im-alter-und-bei-erwerbsminderung-viertes-kapitel-ssss-41-46a-sgb-xii
+  source: |-
+    https://www.mags.nrw/grundsicherung-im-alter-und-bei-erwerbsminderung-viertes-kapitel-ssss-41-46a-sgb-xii
 inputs:
   assumed: {}
   provided:
@@ -15,30 +16,31 @@ inputs:
       betrag_y_sn:
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
-        sonstige:
-          alle_weiteren_m:
-            - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_m:
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0

@@ -7,12 +7,6 @@ inputs:
   assumed: {}
   provided:
     einkommensteuer:
-      einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-            - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -25,6 +19,12 @@ inputs:
         - 200000.0
         - 200000.0
         - 0.0
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_y:
+          - 0.0
+          - 0.0
+          - 0.0
     familie:
       p_id_ehepartner:
         - 6

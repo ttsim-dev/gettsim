@@ -1,8 +1,8 @@
 ---
 info:
-  note: >-
-    CZ: In case the other parent does not pay child support, the parent with
-    p_id==0 can request full kinderfreibetrag
+  note: |-
+    CZ: In case the other parent does not pay child support, the parent with p_id==0
+    can request full kinderfreibetrag
   precision_atol: 0.01
   source: ''
 inputs:

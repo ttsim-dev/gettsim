@@ -1,10 +1,10 @@
 ---
 info:
-  note: >-
+  note: |-
     Added capital income of 10 euros for household (expected difference in
     grundsicherung__im_alter__betrag_m_eg ((10*12)-26)/12)=7.83333333)
   precision_atol: 0.01
-  source: >-
+  source: |-
     Adjusted test case based on
     https://www.bpb.de/politik/innenpolitik/rentenpolitik/289395/leistungshoehe-und-fallbeispiele
 inputs:
@@ -22,14 +22,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 10.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -38,23 +30,32 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        sonstige:
-          alle_weiteren_m:
-            - 0.0
-            - 0.0
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - true
         - true
+    einnahmen:
+      aus_kapitalvermögen:
+        kapitalerträge_m:
+          - 10.0
+          - 0.0
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 0.0
+          - 0.0
+      rente:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+      sonstige:
+        alle_weiteren_m:
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0

@@ -29,16 +29,17 @@ inputs:
       - 0.0
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 2000.0
-            - 2000.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 2000.0
+          - 2000.0
+          - 0.0
     familie:
       alleinerziehend:
         - false

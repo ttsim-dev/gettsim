@@ -1,10 +1,11 @@
 ---
 info:
-  note: >-
+  note: |-
     Same as hh_id_14.yaml but higher made up vermögen_bg to test wealth exemptions
     (above vermögensfreibetrag_in_karenzzeit_bg).
   precision_atol: 0.01
-  source: https://www.kinderzuschlagrechner24.de/kinderzuschlag/?hp=0&ap0=0&ap1a=0&ap1=1&ap2=0&ap4=0&ap5=0&ww=0&is=0&wgjn=0&kg=0&fuerJ=2023&lS=1&Seite=2#RechnerStart
+  source: |-
+    https://www.kinderzuschlagrechner24.de/kinderzuschlag/?hp=0&ap0=0&ap1a=0&ap1=1&ap2=0&ap4=0&ap5=0&ww=0&is=0&wgjn=0&kg=0&fuerJ=2023&lS=1&Seite=2#RechnerStart
 inputs:
   assumed: {}
   provided:
@@ -26,14 +27,15 @@ inputs:
       - 0.0
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
             - 0.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 1500.0
+          - 0.0
     familie:
       alleinerziehend:
         - true

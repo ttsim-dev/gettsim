@@ -10,12 +10,12 @@ inputs:
       abzüge:
         beitrag_private_rentenversicherung_m:
           - 250.0
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 4305.56
       gemeinsam_veranlagt:
         - false
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 4305.56
     familie:
       p_id_ehepartner:
         - -1

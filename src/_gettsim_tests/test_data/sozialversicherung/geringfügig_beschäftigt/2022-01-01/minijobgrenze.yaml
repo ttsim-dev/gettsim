@@ -4,6 +4,7 @@ info:
   precision_atol: 0.01
   source: ''
 inputs:
+  assumed: {}
   provided:
     hh_id:
       - 0

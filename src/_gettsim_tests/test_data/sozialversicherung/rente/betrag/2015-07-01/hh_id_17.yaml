@@ -2,17 +2,17 @@
 info:
   note: ''
   precision_atol: 0.1
-  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
+  source: |-
+    https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
   assumed: {}
   provided:
     alter:
       - 63
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
+    einnahmen:
+      aus_nichtselbstständiger_arbeit:
+        bruttolohn_m:
+          - 1500.0
     geburtsjahr:
       - 1952
     geburtsmonat:
@@ -73,12 +73,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
+      altersrente:
+        altersgrenze:
+          - 65.5
       entgeltpunkte_ost_updated:
         - 0.0
       entgeltpunkte_west_updated:
         - 39.88850659
       neue_entgeltpunkte:
         - 0.509006589
-      altersrente:
-        altersgrenze:
-          - 65.5
