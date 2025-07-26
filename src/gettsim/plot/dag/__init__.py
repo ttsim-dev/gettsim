@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from ttsim import plot
+from ttsim import plot as ttsim_plot
+
+# Import directly to prevent MyPy complaints about variables not being proper types.
 from ttsim.plot.dag import NodeSelector
 
 if TYPE_CHECKING:
@@ -17,7 +19,7 @@ def interface(
     show_node_description: bool = False,
     output_path: Path | None = None,
 ) -> go.Figure:
-    return plot.dag.interface(
+    return ttsim_plot.dag.interface(
         include_fail_and_warn_nodes=include_fail_and_warn_nodes,
         show_node_description=show_node_description,
         output_path=output_path,
@@ -33,7 +35,7 @@ def tt(
     show_node_description: bool = False,
     output_path: Path | None = None,
 ) -> go.Figure:
-    return plot.dag.tt(
+    return ttsim_plot.dag.tt(
         policy_date_str=policy_date_str,
         root=Path(__file__).parent.parent / "_gettsim",
         node_selector=node_selector,
