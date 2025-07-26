@@ -6,6 +6,8 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1056` Updates to plotting functions ({ghuser}`MImmesberger`)
+
 - {gh}`1054` DOC: Simple example and comprehensive how-to notebook
   ({ghuser}`MImmesberger`)
 

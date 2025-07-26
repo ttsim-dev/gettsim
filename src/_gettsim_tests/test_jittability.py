@@ -70,4 +70,5 @@ def test_jittable(tree_path, fun, backend, xnp):
             tt_targets={"qname": [qname]},
             backend=backend,
             include_fail_nodes=False,
+            include_warn_nodes=False,
         )
