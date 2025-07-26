@@ -40,9 +40,7 @@ if TYPE_CHECKING:
     import datetime
     from collections.abc import Iterable
 
-    import plotly.graph_objects as go
     from ttsim import typing
-    from ttsim.plot_dag import NodeSelector
     from ttsim.typing import (
         DashedISOString,
         FlatColumnObjectsParamFunctions,
@@ -108,40 +106,6 @@ def main(
     return _ttsim.main(**locals())
 
 
-def plot_interface_dag(
-    include_fail_and_warn_nodes: bool = True,
-    show_node_description: bool = False,
-    output_path: Path | None = None,
-) -> go.Figure:
-    return _ttsim.plot_interface_dag(
-        include_fail_and_warn_nodes=include_fail_and_warn_nodes,
-        show_node_description=show_node_description,
-        output_path=output_path,
-        remove_orig_policy_objects__root=True,
-    )
-
-
-def plot_tt_dag(
-    policy_date_str: str,
-    node_selector: NodeSelector | None = None,
-    title: str = "",
-    include_params: bool = True,
-    include_other_objects: bool = False,
-    show_node_description: bool = False,
-    output_path: Path | None = None,
-) -> go.Figure:
-    return _ttsim.plot_tt_dag(
-        policy_date_str=policy_date_str,
-        root=Path(__file__).parent.parent / "_gettsim",
-        node_selector=node_selector,
-        title=title,
-        include_params=include_params,
-        include_other_objects=include_other_objects,
-        show_node_description=show_node_description,
-        output_path=output_path,
-    )
-
-
 __all__ = [
     "InputData",
     "Labels",
@@ -156,8 +120,6 @@ __all__ = [
     "copy_environment",
     "main",
     "merge_trees",
-    "plot_interface_dag",
-    "plot_tt_dag",
     "test",
     "upsert_tree",
     "version",
