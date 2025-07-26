@@ -4,20 +4,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from _gettsim.param_converters import (
-    convert_sparse_dict_to_consecutive_int_lookup_table,
-)
 from gettsim.tt import (
-    param_function,
     policy_function,
 )
 
 if TYPE_CHECKING:
-    from types import ModuleType
-
-    from gettsim.tt import (
-        ConsecutiveIntLookupTableParamValue,
-    )
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @policy_function(
@@ -149,40 +141,4 @@ def mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y(
             - lohnsteuer__betrag_soli_y
         ),
         0.0,
-    )
-
-
-@param_function(start_date="1997-03-24")
-def anspruchsdauer_nach_alter(
-    raw_anspruchsdauer_nach_alter: dict[str | int, int],
-    xnp: ModuleType,
-) -> ConsecutiveIntLookupTableParamValue:
-    """Amount of potential months of unemployment benefit claims by age."""
-    base = raw_anspruchsdauer_nach_alter.copy()
-    min_age = base.pop("min_age")
-    max_age = base.pop("max_age")
-    return convert_sparse_dict_to_consecutive_int_lookup_table(
-        raw=base,
-        min_int_in_table=min_age,
-        max_int_in_table=max_age,
-        xnp=xnp,
-    )
-
-
-@param_function(start_date="1997-03-24")
-def anspruchsdauer_nach_versicherungspflichtigen_monaten(
-    raw_anspruchsdauer_nach_versicherungspflichtigen_monaten: dict[str | int, int],
-    xnp: ModuleType,
-) -> ConsecutiveIntLookupTableParamValue:
-    """Amount of potential months of unemployment benefit claims by months of
-    compulsory insurance.
-    """
-    base = raw_anspruchsdauer_nach_versicherungspflichtigen_monaten.copy()
-    min_months = base.pop("min_months")
-    max_months = base.pop("max_months")
-    return convert_sparse_dict_to_consecutive_int_lookup_table(
-        raw=base,
-        min_int_in_table=min_months,
-        max_int_in_table=max_months,
-        xnp=xnp,
     )

@@ -4,15 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from _gettsim.param_converters import (
-    convert_sparse_dict_to_consecutive_int_lookup_table,
-)
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import policy_function
 
 if TYPE_CHECKING:
-    from types import ModuleType
-
-    from gettsim.tt import ConsecutiveIntLookupTableParamValue, RawParam
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
@@ -116,37 +111,3 @@ def vermögensfreibetrag_bg_ab_2023(
         out = vermögensfreibetrag_in_karenzzeit_bg
 
     return out
-
-
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
-def vermögensgrundfreibetrag_je_lebensjahr(
-    raw_vermögensgrundfreibetrag_je_lebensjahr: RawParam,
-    xnp: ModuleType,
-) -> ConsecutiveIntLookupTableParamValue:
-    """Amount of wealth exemptions by year of birth."""
-    base = raw_vermögensgrundfreibetrag_je_lebensjahr.copy()
-    min_birth_cohort = base.pop("min_birth_cohort")
-    max_birth_cohort = base.pop("max_birth_cohort")
-    return convert_sparse_dict_to_consecutive_int_lookup_table(
-        raw=base,
-        min_int_in_table=min_birth_cohort,
-        max_int_in_table=max_birth_cohort,
-        xnp=xnp,
-    )
-
-
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
-def obergrenze_vermögensgrundfreibetrag(
-    raw_obergrenze_vermögensgrundfreibetrag: RawParam,
-    xnp: ModuleType,
-) -> ConsecutiveIntLookupTableParamValue:
-    """Maximum wealth exemptions by year of birth."""
-    base = raw_obergrenze_vermögensgrundfreibetrag.copy()
-    min_birth_cohort = base.pop("min_birth_cohort")
-    max_birth_cohort = base.pop("max_birth_cohort")
-    return convert_sparse_dict_to_consecutive_int_lookup_table(
-        raw=base,
-        min_int_in_table=min_birth_cohort,
-        max_int_in_table=max_birth_cohort,
-        xnp=xnp,
-    )
