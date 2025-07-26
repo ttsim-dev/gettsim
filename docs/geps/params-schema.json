@@ -49,7 +49,7 @@
             "piecewise_quadratic",
             "piecewise_cubic",
             "consecutive_int_lookup_table",
-            "sparse_dict_with_int_keys",
+            "sparse_ints_to_consecutive_int_lookup_table",
             "month_based_phase_inout_of_age_thresholds",
             "year_based_phase_inout_of_age_thresholds",
             "require_converter"

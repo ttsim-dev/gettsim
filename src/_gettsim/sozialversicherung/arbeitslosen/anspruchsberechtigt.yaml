@@ -37,7 +37,7 @@ anspruchsdauer_nach_alter:
       person was subject to compulsory insurance
   unit: Months
   reference_period: null
-  type: sparse_dict_with_int_keys
+  type: sparse_ints_to_consecutive_int_lookup_table
   1997-03-24:
     0: 12
     50: 15
@@ -60,7 +60,7 @@ anspruchsdauer_nach_versicherungspflichtigen_monaten:
       person was subject to compulsory insurance
   unit: Months
   reference_period: null
-  type: sparse_dict_with_int_keys
+  type: sparse_ints_to_consecutive_int_lookup_table
   1997-03-24:
     0: 0
     12: 6
