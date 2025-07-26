@@ -9,9 +9,8 @@ inputs:
     alter:
       - 64
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1600.0
+      bruttolohn_m:
+        - 1600.0
     hh_id:
       - 0
     p_id:

@@ -22,24 +22,22 @@ inputs:
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
       gemeinsam_veranlagt:
         - false
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_m:
-          - 0.0
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 0.0
+      bruttolohn_m:
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
         geförderte_private_vorsorge_m:
           - 0.0
         sonstige_private_vorsorge_m:
-          - 0.0
-      sonstige:
-        alle_weiteren_m:
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
@@ -85,11 +83,11 @@ inputs:
         altersrente:
           betrag_m:
             - 583.0
+        bezieht_rente:
+          - true
         erwerbsminderung:
           betrag_m:
             - 0.0
-        bezieht_rente:
-          - true
         grundrente:
           grundrentenzeiten_monate:
             - 36

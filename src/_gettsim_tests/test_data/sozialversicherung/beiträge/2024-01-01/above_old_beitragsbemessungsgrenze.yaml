@@ -16,9 +16,8 @@ inputs:
         ist_hauptberuflich_selbstständig:
           - false
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 4990.0
+      bruttolohn_m:
+        - 4990.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0

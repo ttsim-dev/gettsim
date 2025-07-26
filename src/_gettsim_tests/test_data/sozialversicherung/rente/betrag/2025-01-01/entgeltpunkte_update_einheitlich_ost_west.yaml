@@ -10,10 +10,9 @@ inputs:
       - 40
       - 40
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 3000.0
-          - 3000.0
+      bruttolohn_m:
+        - 3000.0
+        - 3000.0
     hh_id:
       - 0
       - 1

@@ -19,8 +19,8 @@ if TYPE_CHECKING:
 @policy_function(end_date="2004-12-31", leaf_name="altersfreibetrag_y")
 def altersfreibetrag_y_bis_2004(
     alter: int,
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
-    einnahmen__aus_kapitalvermögen__kapitalerträge_y: float,
+    einnahmen__bruttolohn_y: float,
+    einnahmen__kapitalerträge_y: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y: float,
     altersentlastungsbetrag_altersgrenze: int,
@@ -30,18 +30,14 @@ def altersfreibetrag_y_bis_2004(
     """Calculate tax deduction allowance for elderly until 2004."""
     altersgrenze = altersentlastungsbetrag_altersgrenze
     weiteres_einkommen = max(
-        einnahmen__aus_kapitalvermögen__kapitalerträge_y
+        einnahmen__kapitalerträge_y
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y,
         0.0,
     )
     if alter > altersgrenze:
         out = min(
-            altersentlastungsquote
-            * (
-                einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y
-                + weiteres_einkommen
-            ),
+            altersentlastungsquote * (einnahmen__bruttolohn_y + weiteres_einkommen),
             maximaler_altersentlastungsbetrag,
         )
     else:
@@ -55,8 +51,8 @@ def altersfreibetrag_y_ab_2005(
     alter: int,
     geburtsjahr: int,
     sozialversicherung__geringfügig_beschäftigt: bool,
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
-    einnahmen__aus_kapitalvermögen__kapitalerträge_y: float,
+    einnahmen__bruttolohn_y: float,
+    einnahmen__kapitalerträge_y: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y: float,
     altersentlastungsbetrag_altersgrenze: int,
@@ -69,12 +65,10 @@ def altersfreibetrag_y_ab_2005(
     )
 
     einkommen_lohn = (
-        0
-        if sozialversicherung__geringfügig_beschäftigt
-        else einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y
+        0 if sozialversicherung__geringfügig_beschäftigt else einnahmen__bruttolohn_y
     )
     weiteres_einkommen = max(
-        einnahmen__aus_kapitalvermögen__kapitalerträge_y
+        einnahmen__kapitalerträge_y
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y,
         0.0,

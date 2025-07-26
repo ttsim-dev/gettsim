@@ -29,11 +29,10 @@ inputs:
         - false
         - false
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 0.0
-          - 0.0
-          - 3600.0
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 3600.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0

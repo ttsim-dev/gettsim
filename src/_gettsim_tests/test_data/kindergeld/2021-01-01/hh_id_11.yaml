@@ -20,11 +20,10 @@ inputs:
         - 200000.0
         - 200000.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 20000.0
-          - 20000.0
-          - 0.0
+      bruttolohn_m:
+        - 20000.0
+        - 20000.0
+        - 0.0
     hh_id:
       - 11
       - 11

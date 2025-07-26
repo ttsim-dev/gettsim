@@ -7,7 +7,7 @@ from gettsim.tt import RoundingSpec, policy_function
 
 @policy_function(start_date="2007-01-01")
 def anzurechnendes_nettoeinkommen_m(
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
 ) -> float:
@@ -15,11 +15,7 @@ def anzurechnendes_nettoeinkommen_m(
     # TODO(@MImmesberger): In this case, lohnsteuer__betrag_m should be calculated
     # without taking into account adaptions to the standard care insurance rate.
     # https://github.com/ttsim-dev/gettsim/issues/792
-    return (
-        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        - lohnsteuer__betrag_m
-        - lohnsteuer__betrag_soli_m
-    )
+    return einnahmen__bruttolohn_m - lohnsteuer__betrag_m - lohnsteuer__betrag_soli_m
 
 
 @policy_function(
@@ -103,7 +99,7 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     rounding_spec=RoundingSpec(base=0.01, direction="down"),
 )
 def mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m(
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
     sozialversicherungspauschale: float,
@@ -116,12 +112,9 @@ def mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m(
     monthly income date (IAB, DRV data), the best approximation will likely be the gross
     wage in the calendar year before the birth of the child.
     """
-    prox_ssc = (
-        sozialversicherungspauschale
-        * einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
-    )
+    prox_ssc = sozialversicherungspauschale * einnahmen__bruttolohn_m
     return (
-        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__bruttolohn_m
         - prox_ssc
         - lohnsteuer__betrag_m
         - lohnsteuer__betrag_soli_m

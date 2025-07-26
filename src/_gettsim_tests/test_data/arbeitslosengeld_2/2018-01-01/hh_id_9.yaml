@@ -53,6 +53,13 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
       gemeinsam_veranlagt:
         - false
         - false
@@ -60,20 +67,18 @@ inputs:
         - false
         - false
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 800.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
+      bruttolohn_m:
+        - 800.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -88,13 +93,6 @@ inputs:
           - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-      sonstige:
-        alle_weiteren_m:
           - 0.0
           - 0.0
           - 0.0

@@ -10,9 +10,8 @@ inputs:
     alter:
       - 59
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 8000.0
+      bruttolohn_m:
+        - 8000.0
     geburtsjahr:
       - 1951
     geburtsmonat:

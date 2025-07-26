@@ -14,9 +14,8 @@ inputs:
       zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
         - 36000.0
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_y:
-          - 0.0
+      kapitalerträge_y:
+        - 0.0
     familie:
       p_id_ehepartner:
         - -1

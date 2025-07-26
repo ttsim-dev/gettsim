@@ -27,12 +27,11 @@ inputs:
       - 0.0
       - 0.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1400.0
-          - 1700.0
-          - 0.0
-          - 0.0
+      bruttolohn_m:
+        - 1400.0
+        - 1700.0
+        - 0.0
+        - 0.0
     erziehungsgeld:
       bruttolohn_vorjahr_nach_abzug_werbungskosten_m:
         - 1323.33

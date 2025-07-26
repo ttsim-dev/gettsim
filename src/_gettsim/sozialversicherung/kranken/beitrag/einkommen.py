@@ -32,7 +32,7 @@ def einkommen_m_ab_04_1999(
 
 @policy_function()
 def einkommen_bis_beitragsbemessungsgrenze_m(
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
     """Income from dependent employment, capped at the contribution ceiling.
@@ -41,7 +41,7 @@ def einkommen_bis_beitragsbemessungsgrenze_m(
     the computation of payroll taxes.
     """
     return min(
-        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+        einnahmen__bruttolohn_m,
         beitragsbemessungsgrenze_m,
     )
 

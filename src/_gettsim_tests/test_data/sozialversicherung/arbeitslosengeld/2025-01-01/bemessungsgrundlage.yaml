@@ -9,9 +9,8 @@ inputs:
     arbeitsstunden_w:
       - 0.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 3000.0
+      bruttolohn_m:
+        - 3000.0
     familie:
       p_id_elternteil_1:
         - -1

@@ -13,9 +13,8 @@ inputs:
       gemeinsam_veranlagt:
         - false
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 3000.0
+      bruttolohn_m:
+        - 3000.0
     familie:
       p_id_ehepartner:
         - -1

@@ -16,10 +16,9 @@ inputs:
         - true
         - true
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 8333.333333
-          - 1250.0
+      bruttolohn_m:
+        - 8333.333333
+        - 1250.0
     familie:
       p_id_ehepartner:
         - 19

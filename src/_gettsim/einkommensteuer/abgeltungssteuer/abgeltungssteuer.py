@@ -14,7 +14,7 @@ def betrag_y_sn(zu_versteuernde_kapitalerträge_y_sn: float, satz: float) -> flo
 @policy_function(start_date="2009-01-01")
 def zu_versteuernde_kapitalerträge_y_sn(
     einkommensteuer__anzahl_personen_sn: int,
-    einnahmen__aus_kapitalvermögen__kapitalerträge_y_sn: float,
+    einnahmen__kapitalerträge_y_sn: float,
     einkommensteuer__einkünfte__aus_kapitalvermögen__sparerpauschbetrag: float,
 ) -> float:
     """Taxable capital income for Abgeltungssteuer.
@@ -25,7 +25,7 @@ def zu_versteuernde_kapitalerträge_y_sn(
 
     """
     out = (
-        einnahmen__aus_kapitalvermögen__kapitalerträge_y_sn
+        einnahmen__kapitalerträge_y_sn
         - einkommensteuer__anzahl_personen_sn
         * einkommensteuer__einkünfte__aus_kapitalvermögen__sparerpauschbetrag
     )

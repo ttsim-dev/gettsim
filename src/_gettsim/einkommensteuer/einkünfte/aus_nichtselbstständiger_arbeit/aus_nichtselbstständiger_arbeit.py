@@ -33,13 +33,11 @@ def betrag_y_ab_04_1999(
 
 @policy_function()
 def einnahmen_nach_abzug_werbungskosten_y(
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__bruttolohn_y: float,
     werbungskosten_y: float,
 ) -> float:
     """Take gross wage and deduct Werbungskosten."""
-    return max(
-        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y - werbungskosten_y, 0.0
-    )
+    return max(einnahmen__bruttolohn_y - werbungskosten_y, 0.0)
 
 
 @policy_function()

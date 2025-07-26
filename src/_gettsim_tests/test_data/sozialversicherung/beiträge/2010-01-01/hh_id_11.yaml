@@ -19,10 +19,9 @@ inputs:
           - false
           - false
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1500.0
-          - 1500.0
+      bruttolohn_m:
+        - 1500.0
+        - 1500.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0

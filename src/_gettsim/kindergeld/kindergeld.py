@@ -74,7 +74,7 @@ def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
     in_ausbildung: bool,
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__bruttolohn_y: float,
     altersgrenze: dict[str, int],
     maximales_einkommen_des_kindes: float,
 ) -> bool:
@@ -88,10 +88,7 @@ def leistungsbegründendes_kind_nach_lohn(
     return (alter < altersgrenze["ohne_bedingungen"]) or (
         (alter < altersgrenze["mit_bedingungen"])
         and in_ausbildung
-        and (
-            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_y
-            <= maximales_einkommen_des_kindes
-        )
+        and (einnahmen__bruttolohn_y <= maximales_einkommen_des_kindes)
     )
 
 

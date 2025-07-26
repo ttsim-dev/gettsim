@@ -10,9 +10,8 @@ inputs:
     alter:
       - 52
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 700.0
+      bruttolohn_m:
+        - 700.0
     geburtsjahr:
       - 1960
     geburtsmonat:

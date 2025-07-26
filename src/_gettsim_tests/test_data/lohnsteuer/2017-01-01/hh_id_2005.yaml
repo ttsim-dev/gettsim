@@ -16,9 +16,8 @@ inputs:
     arbeitsstunden_w:
       - 40.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 127.94
+      bruttolohn_m:
+        - 127.94
     hh_id:
       - 2005
     kindergeld:

@@ -11,9 +11,8 @@ inputs:
     alter:
       - 71
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1500.0
+      bruttolohn_m:
+        - 1500.0
     geburtsjahr:
       - 1938
     geburtsmonat:

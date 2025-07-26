@@ -43,15 +43,16 @@ inputs:
             - 12.0
         ist_hauptberuflich_selbstständig:
           - false
+        sonstige:
+          alle_weiteren_m:
+            - 50.0
       gemeinsam_veranlagt:
         - false
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_m:
-          - 208.0
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 700.0
+      bruttolohn_m:
+        - 700.0
+      kapitalerträge_m:
+        - 208.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -59,9 +60,6 @@ inputs:
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
-      sonstige:
-        alle_weiteren_m:
-          - 50.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0

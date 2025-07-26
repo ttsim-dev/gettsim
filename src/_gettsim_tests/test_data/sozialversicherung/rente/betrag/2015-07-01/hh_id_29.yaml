@@ -10,9 +10,8 @@ inputs:
     alter:
       - 62
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1500.0
+      bruttolohn_m:
+        - 1500.0
     geburtsjahr:
       - 1948
     geburtsmonat:

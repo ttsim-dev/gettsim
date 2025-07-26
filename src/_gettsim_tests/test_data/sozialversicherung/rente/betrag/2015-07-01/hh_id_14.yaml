@@ -10,9 +10,8 @@ inputs:
     alter:
       - 33
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 900.0
+      bruttolohn_m:
+        - 900.0
     geburtsjahr:
       - 1982
     geburtsmonat:

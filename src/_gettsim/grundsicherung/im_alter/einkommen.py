@@ -18,7 +18,7 @@ def einkommen_m(
     erwerbseinkommen_m: float,
     einkommen_aus_zusätzlicher_altersvorsorge_m: float,
     gesetzliche_rente_m: float,
-    einnahmen__sonstige__alle_weiteren_m: float,
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     kapitaleinkommen_brutto_m: float,
     einkommensteuer__betrag_m_sn: float,
@@ -35,7 +35,7 @@ def einkommen_m(
         erwerbseinkommen_m
         + gesetzliche_rente_m
         + einkommen_aus_zusätzlicher_altersvorsorge_m
-        + einnahmen__sonstige__alle_weiteren_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
         + elterngeld__anrechenbarer_betrag_m
@@ -53,7 +53,7 @@ def einkommen_m(
 
 @policy_function(start_date="2011-01-01")
 def erwerbseinkommen_m(
-    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     anrechnungsfreier_anteil_erwerbseinkünfte: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
@@ -72,7 +72,7 @@ def erwerbseinkommen_m(
       not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
     """
     earnings = (
-        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
     )
 
@@ -86,24 +86,22 @@ def erwerbseinkommen_m(
 
 @policy_function(end_date="2015-12-31", leaf_name="kapitaleinkommen_brutto_m")
 def kapitaleinkommen_brutto_m_ohne_freibetrag(
-    einnahmen__aus_kapitalvermögen__kapitalerträge_m: float,
+    einnahmen__kapitalerträge_m: float,
 ) -> float:
     """Capital income."""
-    return max(0.0, einnahmen__aus_kapitalvermögen__kapitalerträge_m)
+    return max(0.0, einnahmen__kapitalerträge_m)
 
 
 @policy_function(start_date="2016-01-01", leaf_name="kapitaleinkommen_brutto_m")
 def kapitaleinkommen_brutto_m_mit_freibetrag(
-    einnahmen__aus_kapitalvermögen__kapitalerträge_y: float,
+    einnahmen__kapitalerträge_y: float,
     freibetrag_kapitaleinkünfte: float,
 ) -> float:
     """Capital income minus the capital income exemption.
 
     Legal reference: § 43 SGB XII Abs. 2
     """
-    capital_income_y = (
-        einnahmen__aus_kapitalvermögen__kapitalerträge_y - freibetrag_kapitaleinkünfte
-    )
+    capital_income_y = einnahmen__kapitalerträge_y - freibetrag_kapitaleinkünfte
 
     return max(0.0, capital_income_y / 12)
 

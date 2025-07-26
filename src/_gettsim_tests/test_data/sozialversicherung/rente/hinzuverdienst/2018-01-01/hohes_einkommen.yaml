@@ -9,9 +9,8 @@ inputs:
     alter:
       - 64
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 6000.0
+      bruttolohn_m:
+        - 6000.0
     geburtsjahr:
       - 1957
     hh_id:

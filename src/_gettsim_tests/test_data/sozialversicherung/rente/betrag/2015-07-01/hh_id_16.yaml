@@ -10,9 +10,8 @@ inputs:
     alter:
       - 45
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1200.0
+      bruttolohn_m:
+        - 1200.0
     geburtsjahr:
       - 1970
     geburtsmonat:

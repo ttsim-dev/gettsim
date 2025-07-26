@@ -10,9 +10,8 @@ inputs:
     alter:
       - 53
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 0.0
+      bruttolohn_m:
+        - 0.0
     geburtsjahr:
       - 1959
     geburtsmonat:

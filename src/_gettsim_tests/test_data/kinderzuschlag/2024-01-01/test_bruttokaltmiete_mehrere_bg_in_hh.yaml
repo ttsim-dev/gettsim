@@ -40,11 +40,10 @@ inputs:
       - 0.0
       - 40.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1000.0
-          - 0.0
-          - 1000.0
+      bruttolohn_m:
+        - 1000.0
+        - 0.0
+        - 1000.0
     familie:
       alleinerziehend:
         - true

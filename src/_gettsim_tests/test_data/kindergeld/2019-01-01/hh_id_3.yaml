@@ -14,9 +14,8 @@ inputs:
       gesamteinkommen_y:
         - 0.0
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 700.0
+      bruttolohn_m:
+        - 700.0
     hh_id:
       - 3
     kindergeld:

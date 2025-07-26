@@ -20,11 +20,10 @@ inputs:
         - 200000.0
         - 0.0
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_y:
-          - 0.0
-          - 0.0
-          - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
     familie:
       p_id_ehepartner:
         - 6

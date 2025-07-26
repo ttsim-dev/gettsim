@@ -21,9 +21,8 @@ inputs:
       gemeinsam_veranlagt:
         - false
     einnahmen:
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1800.0
+      bruttolohn_m:
+        - 1800.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0

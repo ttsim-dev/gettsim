@@ -85,24 +85,28 @@ inputs:
           - false
           - false
           - false
+        sonstige:
+          alle_weiteren_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 50.0
       gemeinsam_veranlagt:
         - false
         - false
         - false
         - false
     einnahmen:
-      aus_kapitalvermögen:
-        kapitalerträge_m:
-          - 200.0
-          - 201.0
-          - 202.0
-          - 203.0
-      aus_nichtselbstständiger_arbeit:
-        bruttolohn_m:
-          - 1500.0
-          - 5000.0
-          - 300.0
-          - 600.0
+      bruttolohn_m:
+        - 1500.0
+        - 5000.0
+        - 300.0
+        - 600.0
+      kapitalerträge_m:
+        - 200.0
+        - 201.0
+        - 202.0
+        - 203.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -119,12 +123,6 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-      sonstige:
-        alle_weiteren_m:
-          - 50.0
-          - 50.0
-          - 50.0
-          - 50.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0
