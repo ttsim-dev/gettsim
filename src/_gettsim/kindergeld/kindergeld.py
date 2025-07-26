@@ -60,9 +60,10 @@ def betrag_gestaffelt_m(
 @policy_function(
     end_date="1995-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
+    fail_msg_if_included="Kindergeld eligibility is not implemented prior to 1996.",
 )
-def leistungsbegründendes_kind_nach_lohn_not_implemented() -> NotImplementedError:
-    raise NotImplementedError("Kindergeld eligibility is not implemented.")
+def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
+    pass
 
 
 @policy_function(
