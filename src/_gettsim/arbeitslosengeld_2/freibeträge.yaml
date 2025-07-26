@@ -1,5 +1,5 @@
 ---
-obergrenze_vermögensgrundfreibetrag:
+raw_obergrenze_vermögensgrundfreibetrag:
   name:
     de: Maximaler Vermögensgrundfreibetrag
     en: Maximum of basic allowance
@@ -10,20 +10,23 @@ obergrenze_vermögensgrundfreibetrag:
     en: Differs by birth year.
   unit: Euros
   reference_period: null
-  type: dict
+  type: require_converter
   2005-01-01:
     1947: 33800
     1948: 13000
     1958: 13000
     1964: 13000
+    max_birth_cohort: 2050
     reference: Artikel 1 G. v. 23.12.2002 BGBl. I S. 4607.
   2006-08-01:
+    updates_previous: true
     1947: 33800
     1948: 9750
     1958: 9750
     1964: 9750
     reference: Artikel 1 G. v. 20.07.2006 BGBl. I S. 1706.
   2008-01-01:
+    updates_previous: true
     1947: 33800
     1948: 9750
     1958: 9900
@@ -32,7 +35,7 @@ obergrenze_vermögensgrundfreibetrag:
   2023-01-01:
     reference: G. v. 20.12.2022 BGBl. I S. 2328.
     note: Abolished in the Bürgergeld-Gesetz
-vermögensgrundfreibetrag_je_lebensjahr:
+raw_vermögensgrundfreibetrag_je_lebensjahr:
   name:
     de: Vermögensgrundfreibetrag je Lebensjahr
     en: Basic allowance per year of life
@@ -41,12 +44,14 @@ vermögensgrundfreibetrag_je_lebensjahr:
     en: Differs by year of birth.
   unit: Euros
   reference_period: null
-  type: dict
+  type: require_converter
   2005-01-01:
     1947: 520
     1948: 200
+    max_birth_cohort: 2050
     reference: Artikel 1 G. v. 30.12.2002 BGBl. I S. 4619.
   2006-08-01:
+    updates_previous: true
     1947: 520
     1948: 150
     reference: Artikel 1 G. v. 20.07.2006 BGBl. I S. 1706.

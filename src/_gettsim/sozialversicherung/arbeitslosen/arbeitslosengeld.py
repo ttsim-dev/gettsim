@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from _gettsim.param_converters import (
+    convert_sparse_dict_to_consecutive_int_lookup_table,
+)
 from gettsim.tt import (
-    get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
 )
@@ -156,18 +158,13 @@ def anspruchsdauer_nach_alter(
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Amount of potential months of unemployment benefit claims by age."""
-    tmp = raw_anspruchsdauer_nach_alter.copy()
-    max_age: int = tmp.pop("max_age")
-    ages_in_spec: list[int] = sorted(tmp.keys())  # type: ignore[arg-type]
-
-    full_spec: dict[int, int] = {}
-    for a in range(min(ages_in_spec), max_age):
-        if a not in ages_in_spec:
-            full_spec[a] = full_spec[a - 1]
-        else:
-            full_spec[a] = tmp[a]
-
-    return get_consecutive_int_lookup_table_param_value(raw=full_spec, xnp=xnp)
+    base = raw_anspruchsdauer_nach_alter.copy()
+    max_age = base.pop("max_age")
+    return convert_sparse_dict_to_consecutive_int_lookup_table(
+        raw=base,
+        max_key_in_table=max_age,
+        xnp=xnp,
+    )
 
 
 @param_function(start_date="1997-03-24")
@@ -175,16 +172,13 @@ def anspruchsdauer_nach_versicherungspflichtigen_monaten(
     raw_anspruchsdauer_nach_versicherungspflichtigen_monaten: dict[str | int, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
-    """Amount of potential months of unemployment benefit claims by age."""
-    tmp = raw_anspruchsdauer_nach_versicherungspflichtigen_monaten.copy()
-    max_months: int = tmp.pop("max_months")
-    ages_in_spec: list[int] = sorted(tmp.keys())  # type: ignore[arg-type]
-
-    full_spec: dict[int, int] = {}
-    for a in range(max_months):
-        if a not in ages_in_spec:
-            full_spec[a] = full_spec[a - 1]
-        else:
-            full_spec[a] = tmp[a]
-
-    return get_consecutive_int_lookup_table_param_value(raw=full_spec, xnp=xnp)
+    """Amount of potential months of unemployment benefit claims by months of
+    compulsory insurance.
+    """
+    base = raw_anspruchsdauer_nach_versicherungspflichtigen_monaten.copy()
+    max_months = base.pop("max_months")
+    return convert_sparse_dict_to_consecutive_int_lookup_table(
+        raw=base,
+        max_key_in_table=max_months,
+        xnp=xnp,
+    )
