@@ -22,7 +22,7 @@ stundengrenze:
   2012-04-01:
     value: 15
     reference: Art. 2 G. v. 20.12.2011 BGBl I S. 2854
-raw_anspruchsdauer_nach_alter:
+anspruchsdauer_nach_alter:
   name:
     de: Anspruchsdauer für ALG 1 nach Alter.
     en: Period of ALG 1 eligibility based on age.
@@ -37,14 +37,15 @@ raw_anspruchsdauer_nach_alter:
       person was subject to compulsory insurance
   unit: Months
   reference_period: null
-  type: require_converter
+  type: sparse_ints_to_consecutive_int_lookup_table
   1997-03-24:
     0: 12
     50: 15
     55: 18
     58: 24
-    max_age: 120
-raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
+    min_int_in_table: 0
+    max_int_in_table: 120
+anspruchsdauer_nach_versicherungspflichtigen_monaten:
   name:
     de: Anspruchsdauer für ALG 1 nach versicherungspflichtigen Monaten.
     en: Period of ALG 1 eligibility based on months of compulsory insurance.
@@ -59,7 +60,7 @@ raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
       person was subject to compulsory insurance
   unit: Months
   reference_period: null
-  type: require_converter
+  type: sparse_ints_to_consecutive_int_lookup_table
   1997-03-24:
     0: 0
     12: 6
@@ -69,7 +70,8 @@ raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
     30: 15
     36: 18
     48: 24
-    max_months: 700
+    min_int_in_table: 0
+    max_int_in_table: 700
 mindestversicherungsmonate:
   name:
     de: Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten vor ALG 1 Bezug

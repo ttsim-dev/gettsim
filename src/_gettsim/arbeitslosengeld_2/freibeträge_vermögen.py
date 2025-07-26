@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from gettsim.tt import policy_function
+
+if TYPE_CHECKING:
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
@@ -13,52 +18,35 @@ def grundfreibetrag_vermögen(
     alter: int,
     geburtsjahr: int,
     maximaler_grundfreibetrag_vermögen: float,
-    vermögensgrundfreibetrag_je_lebensjahr: dict[int, float],
+    vermögensgrundfreibetrag_je_lebensjahr: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Calculate wealth exemptions based on individuals age.
 
     Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
     """
-    threshold_years = list(vermögensgrundfreibetrag_je_lebensjahr.keys())
-    if geburtsjahr <= threshold_years[0]:
-        out = next(iter(vermögensgrundfreibetrag_je_lebensjahr.values())) * alter
-    elif (geburtsjahr >= threshold_years[1]) and (not ist_kind_in_bedarfsgemeinschaft):
-        out = list(vermögensgrundfreibetrag_je_lebensjahr.values())[1] * alter
+    if not ist_kind_in_bedarfsgemeinschaft:
+        out = vermögensgrundfreibetrag_je_lebensjahr.look_up(geburtsjahr) * alter
     else:
         out = 0.0
-
     return min(out, maximaler_grundfreibetrag_vermögen)
 
 
-# TODO(@MImmesberger): Parameter should be defined as a piecewise_constant.
-# https://github.com/ttsim-dev/gettsim/issues/911
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
 # https://github.com/ttsim-dev/gettsim/issues/1009
 @policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def maximaler_grundfreibetrag_vermögen(
     geburtsjahr: int,
     ist_kind_in_bedarfsgemeinschaft: bool,
-    obergrenze_vermögensgrundfreibetrag: dict[int, float],
+    obergrenze_vermögensgrundfreibetrag: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Calculate maximal wealth exemptions by year of birth.
 
     Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
     """
-    threshold_years = list(obergrenze_vermögensgrundfreibetrag.keys())
-    obergrenzen = list(obergrenze_vermögensgrundfreibetrag.values())
     if ist_kind_in_bedarfsgemeinschaft:
-        out = 0.0
+        return 0.0
     else:
-        if geburtsjahr < threshold_years[1]:
-            out = obergrenzen[0]
-        elif geburtsjahr < threshold_years[2]:
-            out = obergrenzen[1]
-        elif geburtsjahr < threshold_years[3]:
-            out = obergrenzen[2]
-        else:
-            out = obergrenzen[3]
-
-    return out
+        return obergrenze_vermögensgrundfreibetrag.look_up(geburtsjahr)
 
 
 @policy_function(start_date="2023-01-01")
