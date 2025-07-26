@@ -13,9 +13,6 @@ inputs:
       bezug_im_vorjahr:
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
       mehrbedarf_alleinerziehend_m_bg:
         - 0.36
         - 0.36

@@ -10,9 +10,6 @@ inputs:
       - 75
       - 50
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
         - 0.0
@@ -65,9 +62,6 @@ inputs:
       - 78000.0
       - 0.0
     wohngeld:
-      anspruchshöhe_m_bg:
-        - 0.0
-        - 0.0
       anspruchshöhe_m_wthh:
         - 0.0
         - 0.0

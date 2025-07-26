@@ -10,8 +10,6 @@ inputs:
     alter:
       - 17
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
       p_id_einstandspartner:
         - -1
     familie:

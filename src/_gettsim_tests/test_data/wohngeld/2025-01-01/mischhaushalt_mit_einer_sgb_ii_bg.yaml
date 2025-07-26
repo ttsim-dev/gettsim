@@ -1,6 +1,9 @@
 ---
 info:
-  note: Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
+  note: >-
+    Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
+    This is the most complicated HH situation GETTSIM can deal with when computing
+    BG/WTHH IDs endogenously, i.e. two FGs, one gets Wohngeld, the other one ALG II.
   precision_atol: 0.01
   source: https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2023-artikel.html
 inputs:
@@ -11,16 +14,8 @@ inputs:
       - 40
       - 40
       - 40
-      - 40
     arbeitslosengeld_2:
       bezug_im_vorjahr:
-        - false
-        - false
-        - false
-        - false
-        - false
-      eigenbedarf_gedeckt:
-        - false
         - false
         - false
         - false
@@ -30,16 +25,13 @@ inputs:
         - 0
         - 3
         - 2
-        - -1
     behinderungsgrad:
-      - 0
       - 0
       - 0
       - 0
       - 0
     einkommensteuer:
       betrag_y_sn:
-        - 20.0
         - 20.0
         - 20.0
         - 0.0
@@ -51,23 +43,19 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
         aus_nichtselbstständiger_arbeit:
           einnahmen_nach_abzug_werbungskosten_y:
             - 12000.0
             - 12000.0
-            - 9600.0
             - 0.0
             - 0.0
           bruttolohn_m:
             - 1000.0
             - 1000.0
-            - 800.0
             - 0.0
             - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
-            - 0.0
             - 0.0
             - 0.0
             - 0.0
@@ -78,10 +66,8 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
         sonstige:
           alle_weiteren_m:
-            - 0.0
             - 0.0
             - 0.0
             - 0.0
@@ -92,9 +78,7 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-              - 0.0
             sonstige_private_vorsorge_m:
-              - 0.0
               - 0.0
               - 0.0
               - 0.0
@@ -104,28 +88,23 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-              - 0.0
             geförderte_private_vorsorge_m:
               - 0.0
               - 0.0
               - 0.0
               - 0.0
-              - 0.0
       gemeinsam_veranlagt:
-        - false
-        - false
-        - false
-        - false
-        - false
+        - true
+        - true
+        - true
+        - true
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
       betrag_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -136,15 +115,12 @@ inputs:
         - false
         - false
         - false
-        - false
       p_id_ehepartner:
         - 1
         - 0
         - 3
         - 2
-        - -1
       p_id_elternteil_1:
-        - -1
         - -1
         - -1
         - -1
@@ -154,9 +130,7 @@ inputs:
         - -1
         - -1
         - -1
-        - -1
     geburtsjahr:
-      - 1983
       - 1983
       - 1983
       - 1983
@@ -166,15 +140,12 @@ inputs:
       - 1
       - 1
       - 1
-      - 1
     geburtstag:
       - 1
       - 1
       - 1
       - 1
-      - 1
     hh_id:
-      - 0
       - 0
       - 0
       - 0
@@ -185,9 +156,7 @@ inputs:
         - false
         - false
         - false
-        - false
       p_id_empfänger:
-        - -1
         - -1
         - -1
         - -1
@@ -197,10 +166,8 @@ inputs:
       - 1
       - 2
       - 3
-      - 4
     solidaritätszuschlag:
       betrag_y_sn:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -212,9 +179,7 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
       beiträge_versicherter_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -222,7 +187,6 @@ inputs:
       kranken:
         beitrag:
           betrag_versicherter_m:
-            - 50.0
             - 50.0
             - 50.0
             - 0.0
@@ -234,10 +198,8 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
         erwerbsminderung:
           betrag_m:
-            - 0.0
             - 0.0
             - 0.0
             - 0.0
@@ -246,11 +208,9 @@ inputs:
           betrag_versicherter_m:
             - 50.0
             - 50.0
-            - 50.0
             - 0.0
             - 0.0
         bezieht_rente:
-          - false
           - false
           - false
           - false
@@ -261,10 +221,8 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
     unterhaltsvorschuss:
       betrag_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -274,23 +232,8 @@ inputs:
       - 0.0
       - 0.0
       - 0.0
-      - 0.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-        - false
-        - false
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-        - false
-        - false
     wohnen:
       baujahr_immobilie_hh:
-        - 2010
         - 2010
         - 2010
         - 2010
@@ -300,9 +243,7 @@ inputs:
         - false
         - false
         - false
-        - false
       bruttokaltmiete_m_hh:
-        - 1000.0
         - 1000.0
         - 1000.0
         - 1000.0
@@ -312,9 +253,7 @@ inputs:
         - 50.0
         - 50.0
         - 50.0
-        - 50.0
       wohnfläche_hh:
-        - 100.0
         - 100.0
         - 100.0
         - 100.0
@@ -325,37 +264,31 @@ inputs:
         - 5
         - 5
         - 5
-        - 5
 outputs:
   arbeitslosengeld_2:
     bruttokaltmiete_m_wthh:
-      - 600.0
-      - 600.0
-      - 600.0
-      - 400.0
-      - 400.0
+      - 500.0
+      - 500.0
+      - 500.0
+      - 500.0
   wohngeld:
     anzahl_personen_wthh:
-      - 3
-      - 3
-      - 3
+      - 2
+      - 2
       - 2
       - 2
     betrag_m_wthh:
-      - 175.0
-      - 175.0
-      - 175.0
+      - 222.0
+      - 222.0
       - 0.0
       - 0.0
     mindesteinkommen_erreicht_wthh:
       - true
       - true
-      - true
       - false
       - false
   wthh_id:
-    - 1
-    - 1
-    - 1
     - 0
     - 0
+    - 1
+    - 1

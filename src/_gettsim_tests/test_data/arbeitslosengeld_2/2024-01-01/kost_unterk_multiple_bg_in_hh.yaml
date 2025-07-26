@@ -16,16 +16,6 @@ inputs:
       - 30
       - 30
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 1
         - 0

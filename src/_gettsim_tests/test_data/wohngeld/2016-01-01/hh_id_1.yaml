@@ -15,10 +15,6 @@ inputs:
       - 3
       - 3
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 16
         - 15
@@ -189,15 +185,6 @@ inputs:
       - 120000.0
       - 0.0
       - 0.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
     wohnen:
       baujahr_immobilie_hh:
         - 1995
@@ -226,10 +213,6 @@ inputs:
         - 3
 outputs:
   wohngeld:
-    anspruchshöhe_m_bg:
-      - 75.0
-      - 75.0
-      - 75.0
     anspruchshöhe_m_wthh:
       - 75.0
       - 75.0

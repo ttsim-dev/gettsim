@@ -10,9 +10,6 @@ inputs:
       - 28
       - 1
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
         - 0.0
@@ -69,9 +66,6 @@ inputs:
       - 0.0
       - 0.0
     wohngeld:
-      anspruchshöhe_m_bg:
-        - 500.0
-        - 500.0
       anspruchshöhe_m_wthh:
         - 500.0
         - 500.0
@@ -85,15 +79,9 @@ outputs:
       - 140
       - 140
   vorrangprüfungen:
-    kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-      - false
-      - false
-    wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
+    wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
       - true
       - true
-    wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-      - false
-      - false
   wohngeld:
     betrag_m_wthh:
       - 500

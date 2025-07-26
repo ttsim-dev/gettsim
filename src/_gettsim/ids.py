@@ -139,28 +139,24 @@ def _assign_parents_fg_id(
 @group_creation_function()
 def bg_id(
     fg_id: IntColumn,
-    p_id: IntColumn,
-    arbeitslosengeld_2__eigenbedarf_gedeckt: BoolColumn,
-    alter: IntColumn,
-    xnp: ModuleType,
+    # xnp is needed to instantiate the GroupCreationFunction (because of `reorder_ids`)
+    xnp: ModuleType,  # noqa: ARG001
 ) -> IntColumn:
     """Bedarfsgemeinschaft. Relevant unit for Bürgergeld / Arbeitslosengeld 2.
 
-    Familiengemeinschaft except for children who have enough income to fend for
-    themselves.
-    """
-    offset = xnp.max(fg_id) + 1
-    # TODO(@MImmesberger): Remove input variable eigenbedarf_gedeckt
-    # once Bedarfsgemeinschaften are fully endogenous
-    # https://github.com/ttsim-dev/gettsim/issues/763
+    Note: GETTSIM can compute the Bedarfsgemeinschaft endogenously for the most common
+    household structures. That is, results will be correct if there is exactly one
+    Familiengemeinschaft in one household and the Familiengemeinschaft coincides with
+    the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
 
-    # TODO(@MImmesberger): Remove hard-coded number
-    # https://github.com/ttsim-dev/gettsim/issues/668
-    return xnp.where(
-        (arbeitslosengeld_2__eigenbedarf_gedeckt) * (alter < 25),  # noqa: PLR2004
-        offset + p_id,
-        fg_id,
-    )
+    If you plan to use more complex household and family structures (e.g. multiple
+    families within a household, households consisting of more than one generation --
+    with the exception of parents and their children up to the age of 25 --, or families
+    with children who have enough income to fend for themselves, you can compute these
+    IDs by following the instructions in this repo: [link eventually]. You can then pass
+    the IDs obtained from there as input data to your main GETTSIM call.
+    """
+    return fg_id
 
 
 @group_creation_function()
@@ -188,24 +184,25 @@ def eg_id(
 
 @group_creation_function()
 def wthh_id(
-    hh_id: IntColumn,
-    vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg: BoolColumn,
-    vorrangprüfungen__wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg: BoolColumn,
-    xnp: ModuleType,
+    fg_id: IntColumn,
+    xnp: ModuleType,  # noqa: ARG001
+    # we need xnp for the ID reordering operation here
 ) -> IntColumn:
-    """Wohngeldrechtlicher Teilhaushalt.
+    """Wohngeldrechtlicher Teilhaushalt. The relevant unit for Wohngeld.
 
-    The relevant unit for Wohngeld. Members of a household for whom the Wohngeld
-    priority check compared to Bürgergeld yields the same result ∈ {True, False}.
+    Note: GETTSIM can compute the wohngeldrechtlicher Teilhaushalt endogenously for the
+    most common household structures. That is, results will be correct if there is
+    exactly one Familiengemeinschaft in one household and the Familiengemeinschaft
+    coincides with the Bedarfsgemeinschaft and the wohngeldrechtlicher Teilhaushalt.
+
+    If you plan to use more complex household and family structures (e.g. multiple
+    families within a household, households consisting of more than one generation --
+    with the exception of parents and their children up to the age of 25 --, or families
+    with children who have enough income to fend for themselves, you can compute these
+    IDs by following the instructions in this repo: [link eventually]. You can then pass
+    the IDs obtained from there as input data to your main GETTSIM call.
     """
-    offset = xnp.max(hh_id) + 1
-
-    return xnp.where(
-        vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg
-        | vorrangprüfungen__wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg,
-        hh_id + offset,
-        hh_id,
-    )
+    return fg_id
 
 
 @group_creation_function()

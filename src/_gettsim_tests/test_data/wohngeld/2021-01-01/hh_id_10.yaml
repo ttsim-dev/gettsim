@@ -11,8 +11,6 @@ inputs:
     anzahl_personen_hh:
       - 1
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
       p_id_einstandspartner:
         - -1
     behinderungsgrad:
@@ -109,11 +107,6 @@ inputs:
         - 0.0
     vermögen:
       - 31000.0
-    vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
     wohnen:
       baujahr_immobilie_hh:
         - 1980
@@ -130,7 +123,5 @@ inputs:
         - 5
 outputs:
   wohngeld:
-    anspruchshöhe_m_bg:
-      - 249.0
     anspruchshöhe_m_wthh:
       - 249.0

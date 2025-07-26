@@ -9,8 +9,6 @@ inputs:
     alter:
       - 80
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
       kindergeldübertrag_m:
@@ -48,8 +46,6 @@ inputs:
     vermögen:
       - 0.0
     wohngeld:
-      anspruchshöhe_m_bg:
-        - 0.0
       anspruchshöhe_m_wthh:
         - 0.0
 outputs:

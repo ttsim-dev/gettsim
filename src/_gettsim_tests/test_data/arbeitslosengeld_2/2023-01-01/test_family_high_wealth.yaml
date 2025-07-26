@@ -17,10 +17,6 @@ inputs:
         - false
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 41
         - 40
@@ -186,7 +182,7 @@ inputs:
         - 70.0
         - 70.0
     wohngeld:
-      anspruchshöhe_m_bg:
+      anspruchshöhe_m_wthh:
         - 0.0
         - 0.0
         - 0.0

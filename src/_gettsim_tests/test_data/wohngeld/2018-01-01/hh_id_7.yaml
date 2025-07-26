@@ -35,20 +35,6 @@ inputs:
       - 13
       - 13
     arbeitslosengeld_2:
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
       p_id_einstandspartner:
         - 35
         - 34
@@ -381,6 +367,20 @@ inputs:
       - 7
       - 7
       - 7
+    wthh_id:
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
+      - 7
     kindergeld:
       ist_leistungsbegründendes_kind:
         - false
@@ -576,21 +576,7 @@ inputs:
       - 0.0
       - 0.0
     vorrangprüfungen:
-      wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg:
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
-      wohngeld_vorrang_vor_arbeitslosengeld_2_bg:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         - true
         - true
         - true

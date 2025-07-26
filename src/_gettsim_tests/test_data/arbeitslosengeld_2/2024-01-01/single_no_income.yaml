@@ -13,8 +13,6 @@ inputs:
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
-      eigenbedarf_gedeckt:
-        - false
       p_id_einstandspartner:
         - -1
     arbeitsstunden_w:
@@ -117,11 +115,11 @@ inputs:
         - 50.0
       wohnfläche_hh:
         - 60.0
-    wohngeld:
-      anspruchshöhe_m_bg:
-        - 0.0
     wohnort_ost_hh:
       - false
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
 outputs:
   arbeitslosengeld_2:
     anrechnungsfreies_einkommen_m:

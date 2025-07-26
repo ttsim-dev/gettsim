@@ -19,12 +19,6 @@ inputs:
         - false
         - false
         - false
-      eigenbedarf_gedeckt:
-        - false
-        - false
-        - false
-        - false
-        - false
       mehrbedarf_alleinerziehend_m_bg:
         - 0.0
         - 0.0
@@ -159,12 +153,6 @@ inputs:
         - 120.0
 outputs:
   kinderzuschlag:
-    anspruchshöhe_m_bg:
-      - 216.65
-      - 216.65
-      - 216.65
-      - 216.65
-      - 216.65
     basisbetrag_m_bg:
       - 216.65
       - 216.65
