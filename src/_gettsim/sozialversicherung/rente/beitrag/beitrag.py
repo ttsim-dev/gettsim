@@ -85,7 +85,7 @@ def betrag_arbeitgeber_m_ohne_arbeitgeberpauschale(
 def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_versicherter_regulärer_beitragssatz: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
 ) -> float:
     """Employer's public pension insurance contribution.
@@ -95,7 +95,7 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
             * minijob_arbeitgeberpauschale
         )
     else:
@@ -110,7 +110,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     betrag_in_gleitzone_arbeitgeber_m: float,
     betrag_versicherter_regulärer_beitragssatz: float,
     sozialversicherung__in_gleitzone: bool,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
 ) -> float:
     """Employer's public pension insurance contribution.
@@ -119,7 +119,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
             * minijob_arbeitgeberpauschale
         )
     elif sozialversicherung__in_gleitzone:
@@ -132,12 +132,12 @@ def betrag_arbeitgeber_m_mit_midijob(
 
 @policy_function()
 def einkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
     """Wage subject to pension and unemployment insurance contributions."""
     return min(
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m,
         beitragsbemessungsgrenze_m,
     )
 
@@ -176,15 +176,11 @@ def betrag_in_gleitzone_gesamt_m(
     leaf_name="betrag_in_gleitzone_arbeitgeber_m",
 )
 def betrag_in_gleitzone_arbeitgeber_m_mit_festem_beitragssatz(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     beitragssatz: float,
 ) -> float:
     """Employer's unemployment insurance contribution until September 2022."""
-    return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        * beitragssatz
-        / 2
-    )
+    return einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m * beitragssatz / 2
 
 
 @policy_function(start_date="2022-10-01", leaf_name="betrag_in_gleitzone_arbeitgeber_m")

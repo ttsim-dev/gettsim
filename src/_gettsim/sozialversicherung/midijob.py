@@ -7,7 +7,7 @@ from gettsim.tt import param_function, policy_function
 
 @policy_function(start_date="2003-04-01")
 def in_gleitzone(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     geringfügig_beschäftigt: bool,
     midijobgrenze: float,
 ) -> bool:
@@ -20,14 +20,13 @@ def in_gleitzone(
 
     """
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        <= midijobgrenze
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m <= midijobgrenze
     ) and (not geringfügig_beschäftigt)
 
 
 @policy_function()
 def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     minijobgrenze: float,
     midijobgrenze: float,
 ) -> float:
@@ -38,8 +37,7 @@ def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     """
     quotient = midijobgrenze / (midijobgrenze - minijobgrenze)
     einkommen_diff = (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        - minijobgrenze
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m - minijobgrenze
     )
 
     return quotient * einkommen_diff
@@ -179,7 +177,7 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
     leaf_name="midijob_bemessungsentgelt_m",
 )
 def midijob_bemessungsentgelt_m_bis_09_2022(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     midijob_faktor_f: float,
     minijobgrenze: float,
     midijobgrenze: float,
@@ -196,8 +194,7 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
     # Now use the factor to calculate the overall bemessungsentgelt
     minijob_anteil = midijob_faktor_f * minijobgrenze
     lohn_über_mini = (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        - minijobgrenze
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m - minijobgrenze
     )
     gewichtete_midijob_rate = (midijobgrenze / (midijobgrenze - minijobgrenze)) - (
         minijobgrenze / (midijobgrenze - minijobgrenze) * midijob_faktor_f
@@ -208,7 +205,7 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
 
 @policy_function(start_date="2022-10-01", leaf_name="midijob_bemessungsentgelt_m")
 def midijob_bemessungsentgelt_m_ab_10_2022(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     midijob_faktor_f: float,
     minijobgrenze: float,
     midijobgrenze: float,
@@ -227,8 +224,7 @@ def midijob_bemessungsentgelt_m_ab_10_2022(
     quotient1 = (midijobgrenze) / (midijobgrenze - minijobgrenze)
     quotient2 = (minijobgrenze) / (midijobgrenze - minijobgrenze)
     einkommen_diff = (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        - minijobgrenze
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m - minijobgrenze
     )
 
     faktor1 = midijob_faktor_f * minijobgrenze

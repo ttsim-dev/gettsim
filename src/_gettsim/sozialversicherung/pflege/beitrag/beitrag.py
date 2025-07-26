@@ -257,12 +257,12 @@ def betrag_versicherter_midijob_m_mit_verringertem_beitrag_für_eltern_mit_mehre
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
 )
 def betrag_arbeitgeber_in_gleitzone_m_als_anteil_des_bruttolohns(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     beitragssatz_arbeitgeber: float,
 ) -> float:
     """Employer's long-term care insurance contribution for Midijobs."""
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         * beitragssatz_arbeitgeber
     )
 

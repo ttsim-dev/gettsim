@@ -93,7 +93,7 @@ def betrag_arbeitgeber_m_bis_03_1999(
 )
 def betrag_arbeitgeber_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     einkommen_m: float,
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
     minijob_arbeitgeberpauschale: float,
@@ -108,7 +108,7 @@ def betrag_arbeitgeber_m_ohne_midijob(
         out = 0.0
     elif sozialversicherung__geringfügig_beschäftigt:
         out = (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
             * minijob_arbeitgeberpauschale
         )
     else:
@@ -121,7 +121,7 @@ def betrag_arbeitgeber_m_ohne_midijob(
 def betrag_arbeitgeber_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__in_gleitzone: bool,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     betrag_arbeitgeber_in_gleitzone_m: float,
     einkommen_m: float,
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
@@ -136,7 +136,7 @@ def betrag_arbeitgeber_m_mit_midijob(
         out = 0.0
     elif sozialversicherung__geringfügig_beschäftigt:
         out = (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
             * minijob_arbeitgeberpauschale
         )
     elif sozialversicherung__in_gleitzone:
@@ -251,7 +251,7 @@ def betrag_gesamt_in_gleitzone_m(
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
 )
 def betrag_arbeitgeber_in_gleitzone_m_mit_festem_beitragssatz(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     sozialversicherung__in_gleitzone: bool,
     beitragssatz_arbeitgeber: float,
 ) -> float:
@@ -262,7 +262,7 @@ def betrag_arbeitgeber_in_gleitzone_m_mit_festem_beitragssatz(
     if sozialversicherung__in_gleitzone:
         out = (
             beitragssatz_arbeitgeber
-            * einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            * einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         )
     else:
         out = 0.0

@@ -18,9 +18,9 @@ inputs:
       - 20.0
     einkommensteuer__betrag_y_sn:
       - 0.0
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m:
+    einnahmen__aus_kapitalvermögen__kapitalerträge_m:
       - 0.0
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m:
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m:
       - 600.0
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m:
       - 0.0
@@ -28,7 +28,7 @@ inputs:
       - 0.0
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
       - false
-    einkommensteuer__einkünfte__sonstige__alle_weiteren_m:
+    einnahmen__sonstige__alle_weiteren_m:
       - 0.0
     einkommensteuer__gemeinsam_veranlagt:
       - false
@@ -69,7 +69,7 @@ inputs:
       - 0.0
     sozialversicherung__rente__bezieht_rente:
       - false
-    einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m:
+    einnahmen__rente__betriebliche_altersvorsorge_m:
       - 0.0
       - 0.0
     einkommensteuer__einkünfte__sonstige__geförderte_private_vorsorge_m:

@@ -7,8 +7,8 @@ from gettsim.tt import policy_function
 
 @policy_function()
 def betrag_m(
-    alle_weiteren_m: float,
+    einnahmen__sonstige__alle_weiteren_m: float,
     rente__betrag_m: float,
 ) -> float:
     """Total sonstige Einkünfte."""
-    return alle_weiteren_m + rente__betrag_m
+    return einnahmen__sonstige__alle_weiteren_m + rente__betrag_m

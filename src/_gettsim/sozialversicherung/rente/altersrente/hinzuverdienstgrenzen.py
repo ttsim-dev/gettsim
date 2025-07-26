@@ -15,7 +15,7 @@ from gettsim.tt import RoundingSpec, policy_function
 def bruttorente_m_mit_harter_hinzuverdienstgrenze(
     alter: int,
     regelaltersrente__altersgrenze: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     bruttorente_basisbetrag_m: float,
     hinzuverdienstgrenze_m: float,
 ) -> float:
@@ -26,7 +26,7 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze(
     # TODO (@MImmesberger): Use age with monthly precision.
     # https://github.com/ttsim-dev/gettsim/issues/781
     if (alter >= regelaltersrente__altersgrenze) or (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         <= hinzuverdienstgrenze_m
     ):
         out = bruttorente_basisbetrag_m
@@ -81,7 +81,7 @@ def bruttorente_m_mit_hinzuverdienstdeckel(
     end_date="2022-12-31",
 )
 def zahlbetrag_ohne_deckel_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     alter: int,
     regelaltersrente__altersgrenze: float,
     bruttorente_basisbetrag_m: float,
@@ -96,7 +96,7 @@ def zahlbetrag_ohne_deckel_m(
     # https://github.com/ttsim-dev/gettsim/issues/781
     # No deduction because of age or low earnings
     if (alter >= regelaltersrente__altersgrenze) or (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         <= hinzuverdienstgrenze_m
     ):
         out = bruttorente_basisbetrag_m
@@ -115,12 +115,12 @@ def zahlbetrag_ohne_deckel_m(
     end_date="2022-12-31",
 )
 def differenz_bruttolohn_hinzuverdienstgrenze_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     hinzuverdienstgrenze_m: float,
 ) -> float:
     """Earnings that are subject to pension deductions."""
     return max(
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         - hinzuverdienstgrenze_m,
         0.0,
     )
@@ -131,14 +131,14 @@ def differenz_bruttolohn_hinzuverdienstgrenze_m(
     end_date="2022-12-31",
 )
 def differenz_bruttolohn_hinzuverdienstdeckel_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     zahlbetrag_ohne_deckel_m: float,
     höchster_bruttolohn_letzte_15_jahre_vor_rente_m: float,
 ) -> float:
     """Income above the earnings cap (Hinzuverdienstdeckel)."""
     return max(
         zahlbetrag_ohne_deckel_m
-        + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        + einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         - höchster_bruttolohn_letzte_15_jahre_vor_rente_m,
         0.0,
     )

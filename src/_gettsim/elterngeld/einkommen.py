@@ -7,7 +7,7 @@ from gettsim.tt import RoundingSpec, policy_function
 
 @policy_function(start_date="2007-01-01")
 def anzurechnendes_nettoeinkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
 ) -> float:
@@ -16,7 +16,7 @@ def anzurechnendes_nettoeinkommen_m(
     # without taking into account adaptions to the standard care insurance rate.
     # https://github.com/ttsim-dev/gettsim/issues/792
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         - lohnsteuer__betrag_m
         - lohnsteuer__betrag_soli_m
     )
@@ -103,7 +103,7 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     rounding_spec=RoundingSpec(base=0.01, direction="down"),
 )
 def mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
     sozialversicherungspauschale: float,
@@ -118,10 +118,10 @@ def mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m(
     """
     prox_ssc = (
         sozialversicherungspauschale
-        * einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        * einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
     )
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         - prox_ssc
         - lohnsteuer__betrag_m
         - lohnsteuer__betrag_soli_m

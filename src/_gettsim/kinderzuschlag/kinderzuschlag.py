@@ -226,7 +226,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
 @policy_function(start_date="2005-01-01")
 def basisbetrag_kind_m(
     kindergeld__ist_leistungsbegründendes_kind: bool,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
     arbeitslosengeld_2__anrechnungsfreies_einkommen_m: float,
@@ -238,7 +238,7 @@ def basisbetrag_kind_m(
         satz
         - entzugsrate_kindeseinkommen
         * (
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - arbeitslosengeld_2__anrechnungsfreies_einkommen_m

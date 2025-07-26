@@ -88,10 +88,10 @@ def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
 def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m: float,
+    einnahmen__aus_kapitalvermögen__kapitalerträge_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
-    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einnahmen__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__sonstige__rente__betrag_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
@@ -105,7 +105,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommen = (
         einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m
-        + einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m
+        + einnahmen__aus_kapitalvermögen__kapitalerträge_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
     )
 
@@ -116,9 +116,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
         + unterhaltsvorschuss__betrag_m
     )
 
-    eink_ind = (
-        einkommen + transfers + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-    )
+    eink_ind = einkommen + transfers + einnahmen__sonstige__alle_weiteren_m
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
@@ -126,10 +124,10 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
 def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m: float,
+    einnahmen__aus_kapitalvermögen__kapitalerträge_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
-    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einnahmen__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__sonstige__rente__betrag_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
@@ -148,7 +146,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommen = (
         einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m
-        + einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m
+        + einnahmen__aus_kapitalvermögen__kapitalerträge_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
     )
 
@@ -160,15 +158,13 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
         + elterngeld__anrechenbarer_betrag_m
     )
 
-    eink_ind = (
-        einkommen + transfers + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-    )
+    eink_ind = einkommen + transfers + einnahmen__sonstige__alle_weiteren_m
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
 @policy_function(end_date="2015-12-31", leaf_name="freibetrag_m")
 def freibetrag_m_bis_2015(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
@@ -190,7 +186,7 @@ def freibetrag_m_bis_2015(
     # Subtraction for single parents and working children
     if ist_kind_mit_erwerbseinkommen:
         freibetrag_kinder = min(
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m,
             freibetrag_kinder_m["arbeitendes_kind"],
         )
 
@@ -205,7 +201,7 @@ def freibetrag_m_bis_2015(
 
 @policy_function(start_date="2016-01-01", leaf_name="freibetrag_m")
 def freibetrag_m_ab_2016(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
@@ -219,7 +215,7 @@ def freibetrag_m_ab_2016(
 
     if ist_kind_mit_erwerbseinkommen:
         freibetrag_kinder = min(
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+            einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m,
             freibetrag_kinder_m["arbeitendes_kind"],
         )
     elif familie__alleinerziehend:
@@ -232,10 +228,10 @@ def freibetrag_m_ab_2016(
 
 @policy_function()
 def ist_kind_mit_erwerbseinkommen(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     kindergeld__ist_leistungsbegründendes_kind: bool,
 ) -> bool:
     """Check if children are working."""
     return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m > 0
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m > 0
     ) and kindergeld__ist_leistungsbegründendes_kind

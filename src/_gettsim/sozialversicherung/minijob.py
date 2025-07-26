@@ -7,17 +7,14 @@ from gettsim.tt import RoundingSpec, policy_function
 
 @policy_function()
 def geringfügig_beschäftigt(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     minijobgrenze: float,
 ) -> bool:
     """Individual earns less than marginal employment threshold.
 
     Legal reference: § 8 Abs. 1 Satz 1 and 2 SGB IV
     """
-    return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        <= minijobgrenze
-    )
+    return einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m <= minijobgrenze
 
 
 @policy_function(

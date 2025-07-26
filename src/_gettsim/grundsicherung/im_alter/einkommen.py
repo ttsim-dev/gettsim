@@ -18,7 +18,7 @@ def einkommen_m(
     erwerbseinkommen_m: float,
     einkommen_aus_zusätzlicher_altersvorsorge_m: float,
     gesetzliche_rente_m: float,
-    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einnahmen__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     kapitaleinkommen_brutto_m: float,
     einkommensteuer__betrag_m_sn: float,
@@ -35,7 +35,7 @@ def einkommen_m(
         erwerbseinkommen_m
         + gesetzliche_rente_m
         + einkommen_aus_zusätzlicher_altersvorsorge_m
-        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        + einnahmen__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
         + elterngeld__anrechenbarer_betrag_m
@@ -53,7 +53,7 @@ def einkommen_m(
 
 @policy_function(start_date="2011-01-01")
 def erwerbseinkommen_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     anrechnungsfreier_anteil_erwerbseinkünfte: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
@@ -72,7 +72,7 @@ def erwerbseinkommen_m(
       not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
     """
     earnings = (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
+        einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
     )
 
@@ -86,10 +86,10 @@ def erwerbseinkommen_m(
 
 @policy_function(end_date="2015-12-31", leaf_name="kapitaleinkommen_brutto_m")
 def kapitaleinkommen_brutto_m_ohne_freibetrag(
-    einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m: float,
+    einnahmen__aus_kapitalvermögen__kapitalerträge_m: float,
 ) -> float:
     """Capital income."""
-    return max(0.0, einkommensteuer__einkünfte__aus_kapitalvermögen__kapitalerträge_m)
+    return max(0.0, einnahmen__aus_kapitalvermögen__kapitalerträge_m)
 
 
 @policy_function(start_date="2016-01-01", leaf_name="kapitaleinkommen_brutto_m")
@@ -111,9 +111,9 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
 
 @policy_function(start_date="2011-01-01")
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
-    einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m: float,
+    einnahmen__rente__sonstige_private_vorsorge_m: float,
+    einnahmen__rente__geförderte_private_vorsorge_m: float,
+    einnahmen__rente__betriebliche_altersvorsorge_m: float,
     anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParam,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     xnp: ModuleType,
@@ -125,9 +125,9 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     """
     freibetrag = piecewise_polynomial(
         x=(
-            einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m
-            + einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m
-            + einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m
+            einnahmen__rente__sonstige_private_vorsorge_m
+            + einnahmen__rente__geförderte_private_vorsorge_m
+            + einnahmen__rente__betriebliche_altersvorsorge_m
         ),
         parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
         xnp=xnp,
@@ -135,9 +135,9 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
 
     return (
-        einkommensteuer__einkünfte__sonstige__rente__sonstige_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__geförderte_private_vorsorge_m
-        + einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m
+        einnahmen__rente__sonstige_private_vorsorge_m
+        + einnahmen__rente__geförderte_private_vorsorge_m
+        + einnahmen__rente__betriebliche_altersvorsorge_m
         - min(
             freibetrag,
             upper,
@@ -147,19 +147,19 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 
 @policy_function(end_date="2020-12-31", leaf_name="gesetzliche_rente_m")
 def gesetzliche_rente_m_bis_2020(
-    sozialversicherung__rente__altersrente__betrag_m: float,
+    einnahmen__rente__gesetzliche_m: float,
 ) -> float:
     """Calculate individual public pension benefits which are considered in the
     calculation of Grundsicherung im Alter until 2020.
 
     Until 2020: No deduction is possible.
     """
-    return sozialversicherung__rente__altersrente__betrag_m
+    return einnahmen__rente__gesetzliche_m
 
 
 @policy_function(start_date="2021-01-01", leaf_name="gesetzliche_rente_m")
 def gesetzliche_rente_m_ab_2021(
-    sozialversicherung__rente__altersrente__betrag_m: float,
+    einnahmen__rente__gesetzliche_m: float,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParam,
@@ -172,7 +172,7 @@ def gesetzliche_rente_m_ab_2021(
     of private pension above 100 (but no more than 1/2 of regelbedarf)
     """
     angerechnete_rente = piecewise_polynomial(
-        x=sozialversicherung__rente__altersrente__betrag_m,
+        x=einnahmen__rente__gesetzliche_m,
         parameters=anrechnungsfreier_anteil_gesetzliche_rente,
         xnp=xnp,
     )
@@ -183,4 +183,4 @@ def gesetzliche_rente_m_ab_2021(
     else:
         angerechnete_rente = 0.0
 
-    return sozialversicherung__rente__altersrente__betrag_m - angerechnete_rente
+    return einnahmen__rente__gesetzliche_m - angerechnete_rente

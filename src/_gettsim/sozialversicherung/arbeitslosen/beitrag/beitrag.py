@@ -120,17 +120,13 @@ def betrag_gesamt_in_gleitzone_m(
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
 )
 def betrag_arbeitgeber_in_gleitzone_m_anteil_bruttolohn(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
     beitragssatz: float,
 ) -> float:
     """Employers' unemployment insurance contribution for Midijobs until September
     2022.
     """
-    return (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m
-        * beitragssatz
-        / 2
-    )
+    return einnahmen__aus_nichtselbstständiger_arbeit__bruttolohn_m * beitragssatz / 2
 
 
 @policy_function(start_date="2022-10-01", leaf_name="betrag_arbeitgeber_in_gleitzone_m")

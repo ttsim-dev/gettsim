@@ -17,11 +17,10 @@ from gettsim.tt import (
 @policy_function()
 def betrag_m(
     ertragsanteil: float,
-    sozialversicherung__rente__altersrente__betrag_m: float,
-    sozialversicherung__rente__erwerbsminderung__betrag_m: float,
-    geförderte_private_vorsorge_m: float,
-    sonstige_private_vorsorge_m: float,
-    betriebliche_altersvorsorge_m: float,
+    einnahmen__rente__gesetzliche_m: float,
+    einnahmen__rente__geförderte_private_vorsorge_m: float,
+    einnahmen__rente__sonstige_private_vorsorge_m: float,
+    einnahmen__rente__betriebliche_altersvorsorge_m: float,
 ) -> float:
     """Pension income counting towards taxable income.
 
@@ -30,12 +29,11 @@ def betrag_m(
     return (
         ertragsanteil
         * (
-            sozialversicherung__rente__altersrente__betrag_m
-            + sozialversicherung__rente__erwerbsminderung__betrag_m
-            + sonstige_private_vorsorge_m
+            einnahmen__rente__gesetzliche_m
+            + einnahmen__rente__sonstige_private_vorsorge_m
         )
-        + betriebliche_altersvorsorge_m
-        + geförderte_private_vorsorge_m
+        + einnahmen__rente__betriebliche_altersvorsorge_m
+        + einnahmen__rente__geförderte_private_vorsorge_m
     )
 
 
