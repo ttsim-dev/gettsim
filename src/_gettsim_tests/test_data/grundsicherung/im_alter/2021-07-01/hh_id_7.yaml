@@ -84,6 +84,9 @@ inputs:
         altersrente:
           betrag_m:
             - 430.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
         bezieht_rente:
           - true
         grundrente:
