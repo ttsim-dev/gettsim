@@ -26,14 +26,12 @@ inputs:
       - 40.0
       - 0.0
       - 0.0
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 400.0
-            - 1300.0
-            - 0.0
-            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 400.0
+        - 1300.0
+        - 0.0
+        - 0.0
     erziehungsgeld:
       bruttolohn_vorjahr_nach_abzug_werbungskosten_m:
         - 323.33

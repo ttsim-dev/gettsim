@@ -121,7 +121,7 @@ def grundsätzlich_anspruchsberechtigt(
 @policy_function()
 def mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y(
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y: float,
+    einnahmen__bruttolohn_y: float,
     sozialversicherungspauschale: float,
     lohnsteuer__betrag_y: float,
     lohnsteuer__betrag_soli_y: float,
@@ -135,7 +135,7 @@ def mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y(
     be the gross wage in the calendar year before unemployment.
     """
     berücksichtigungsfähige_einnahmen = min(
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_y,
+        einnahmen__bruttolohn_y,
         sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y,
     )
     pauschalierte_sozialversicherungsbeiträge = (

@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Änderung MidiJob 2022 (kinderlos, mit KV-Zusatzbeitrag 1.3%,
     https://www.tk.de/resource/blob/2031420/94a8837d0957984a165ec6a2d415d7af/beratungsblatt-beschaeftigung-im-uebergangs--midijobbereich-data.pdf)
   precision_atol: 1
@@ -12,22 +12,21 @@ inputs:
       - 50
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1000.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
-        sonstige:
-          rente:
-            sonstige_private_vorsorge_m:
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
         ist_hauptberuflich_selbstständig:
           - false
+    einnahmen:
+      bruttolohn_m:
+        - 1000.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
     hh_id:
       - 22
     p_id:

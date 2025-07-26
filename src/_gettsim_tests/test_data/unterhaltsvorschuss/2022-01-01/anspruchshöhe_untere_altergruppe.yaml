@@ -2,7 +2,8 @@
 info:
   note: One child in the lower age group (0-5).
   precision_atol: 0.01
-  source: https://www.oeffentlichen-dienst.de/wirtschafts-news/129-familienrecht/1230-unterhaltsvorschuss.html#google_vignette
+  source: |-
+    https://www.oeffentlichen-dienst.de/wirtschafts-news/129-familienrecht/1230-unterhaltsvorschuss.html#google_vignette
 inputs:
   assumed: {}
   provided:

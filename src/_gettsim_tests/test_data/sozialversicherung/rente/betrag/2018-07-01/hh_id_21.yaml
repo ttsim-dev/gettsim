@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     From eastern Germany: earns less Entgeltpunkte for same wage because
     Beitragsbemessungsgrenze is lower.
   precision_atol: 0.1
@@ -10,11 +10,9 @@ inputs:
   provided:
     alter:
       - 59
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 8000.0
+    einnahmen:
+      bruttolohn_m:
+        - 8000.0
     geburtsjahr:
       - 1952
     geburtsmonat:
@@ -75,12 +73,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
+      altersrente:
+        altersgrenze:
+          - 65.5
       entgeltpunkte_ost_updated:
         - 36.99837737
       entgeltpunkte_west_updated:
         - 0.0
       neue_entgeltpunkte:
         - 1.79167737
-      altersrente:
-        altersgrenze:
-          - 65.5

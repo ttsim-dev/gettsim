@@ -9,6 +9,11 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 - {gh}`1060` Convert some ALG 2 parameters to ConsecutiveIntTableParamValue
   ({ghuser}`MImmesberger`)
 
+- {gh}`1059` Be consistent with 'Erwerbseinkommen' meaning income from self-employment
+  and regular employment ({ghuser}`MImmesberger`)
+
+- {gh}`1058` Add dedicated namespace for Einnahmen ({ghuser}`MImmesberger`)
+
 - {gh}`1057` Use fail/warn mechanism for TT DAG elements ({ghuser}`hmgaudecker`)
 
 - {gh}`1056` Updates to plotting functions ({ghuser}`MImmesberger`)

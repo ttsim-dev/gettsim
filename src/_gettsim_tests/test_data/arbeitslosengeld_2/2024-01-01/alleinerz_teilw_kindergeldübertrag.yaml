@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Household with 2 children, where child income of second child exceeds needs.
     Second child drops out of Bedarfsgemeinschaft and all of Kindergeld is
     transfered to the parent via Kindergeldübertrag.
@@ -36,16 +36,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 450.0
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -61,23 +51,32 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          rente:
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - false
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 450.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       betrag_m:
         - 0.0
@@ -142,15 +141,15 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
         erwerbsminderung:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
-        bezieht_rente:
-          - false
-          - false
-          - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

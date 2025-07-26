@@ -20,14 +20,13 @@ inputs:
       - 0.0
       - 33.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
-            - 3600.0
       gemeinsam_veranlagt:
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 3600.0
     elterngeld:
       bisherige_bezugsmonate:
         - 0

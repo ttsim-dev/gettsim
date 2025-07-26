@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     Wealth above wealth allowance leading to a deduction in Kinderzuschlag in the
     first month
   precision_atol: 0.01
@@ -31,16 +31,16 @@ inputs:
       - 0.0
     einkommensteuer:
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 2000.0
-            - 2000.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 2000.0
+        - 2000.0
+        - 0.0
     familie:
       alleinerziehend:
         - false

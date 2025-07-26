@@ -19,17 +19,16 @@ inputs:
       - 0.0
       - 0.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 20000.0
-            - 20000.0
-            - 0.0
-            - 0.0
-            - 0.0
       gesamteinkommen_y:
         - 200000.0
         - 200000.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 20000.0
+        - 20000.0
         - 0.0
         - 0.0
         - 0.0

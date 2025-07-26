@@ -1,6 +1,6 @@
 ---
 info:
-  note: >-
+  note: |-
     CZ: In case the other parent does not pay child support, the parent id==0, can
     request full kinderfreibetrag
   precision_atol: 0.01

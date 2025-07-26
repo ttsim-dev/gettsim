@@ -2,7 +2,8 @@
 info:
   note: ''
   precision_atol: 1
-  source: https://www.haufe.de/finance/haufe-finance-office-premium/vorsorgeaufwendungen-225-behandlung-von-ehegattenlebenspartnern-im-falle-der-zusammenveranlagung_idesk_PI20354_HI2531457.html
+  source: |-
+    https://www.haufe.de/finance/haufe-finance-office-premium/vorsorgeaufwendungen-225-behandlung-von-ehegattenlebenspartnern-im-falle-der-zusammenveranlagung_idesk_PI20354_HI2531457.html
 inputs:
   assumed: {}
   provided:
@@ -11,14 +12,13 @@ inputs:
         beitrag_private_rentenversicherung_m:
           - 333.333333
           - 1666.666667
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 5000.0
-            - 10000.0
       gemeinsam_veranlagt:
         - true
         - true
+    einnahmen:
+      bruttolohn_m:
+        - 5000.0
+        - 10000.0
     familie:
       p_id_ehepartner:
         - 21

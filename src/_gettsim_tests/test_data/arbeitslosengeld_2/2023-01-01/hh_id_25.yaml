@@ -1,8 +1,8 @@
 ---
 info:
-  note: >-
-    Test with old income thresholds with income from self employment, adjusted
-    for Kindersofortzuschlag. Constructed test based on hh 19.
+  note: |-
+    Test with old income thresholds with income from self employment, adjusted for
+    Kindersofortzuschlag. Constructed test based on hh 19.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -31,16 +31,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_m:
-            - 0.0
-            - 0.0
-            - 0.0
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1000.0
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 200.0
@@ -56,23 +46,32 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          rente:
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - false
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 1000.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       betrag_m:
         - 0.0
@@ -140,11 +139,6 @@ inputs:
         - 0.0
         - 140.0
       rente:
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
         altersrente:
           betrag_m:
             - 0.0
@@ -154,6 +148,11 @@ inputs:
           - false
           - false
           - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

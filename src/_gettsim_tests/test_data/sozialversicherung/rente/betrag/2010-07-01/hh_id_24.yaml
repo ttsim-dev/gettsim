@@ -8,11 +8,9 @@ inputs:
   provided:
     alter:
       - 71
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1500.0
+    einnahmen:
+      bruttolohn_m:
+        - 1500.0
     geburtsjahr:
       - 1938
     geburtsmonat:
@@ -73,12 +71,12 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
+      altersrente:
+        altersgrenze:
+          - 60.0
       entgeltpunkte_ost_updated:
         - 0.0
       entgeltpunkte_west_updated:
         - 22.99796044
       neue_entgeltpunkte:
         - 0.577960442
-      altersrente:
-        altersgrenze:
-          - 60.0

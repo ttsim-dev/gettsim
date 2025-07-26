@@ -17,14 +17,13 @@ inputs:
       - 40.0
       - 10.0
     einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 1000.0
-            - 200.0
       gemeinsam_veranlagt:
         - false
         - false
+    einnahmen:
+      bruttolohn_m:
+        - 1000.0
+        - 200.0
     familie:
       p_id_ehepartner:
         - -1

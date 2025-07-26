@@ -12,12 +12,10 @@ inputs:
     alter:
       - 70
       - 70
-    einkommensteuer:
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          bruttolohn_m:
-            - 0.0
-            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
     familie:
       p_id_ehepartner:
         - 1
@@ -56,13 +54,16 @@ inputs:
           bruttolohn_vorjahr_m:
             - 0.0
             - 0.0
+          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+            - 0.0
+            - 0.0
           einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
             - 0.0
             - 0.0
           einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
             - 0.0
             - 0.0
-          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
+          gesamteinnahmen_aus_renten_vorjahr_m:
             - 0.0
             - 0.0
           grundrentenzeiten_monate:
@@ -71,9 +72,6 @@ inputs:
           mean_entgeltpunkte:
             - 15.0
             - 15.0
-          gesamteinnahmen_aus_renten_vorjahr_m:
-            - 0.0
-            - 0.0
     wohnort_ost_hh:
       - false
       - false

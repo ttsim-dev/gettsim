@@ -1,11 +1,12 @@
 ---
 info:
-  note: >-
-    Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
-    This is the most complicated HH situation GETTSIM can deal with when computing
-    BG/WTHH IDs endogenously, i.e. two FGs, one gets Wohngeld, the other one ALG II.
+  note: |-
+    Created with Wohngeldrechner that doesn't check for Mindesteinkommen. This is
+    the most complicated HH situation GETTSIM can deal with when computing BG/WTHH
+    IDs endogenously, i.e. two FGs, one gets Wohngeld, the other one ALG II.
   precision_atol: 0.01
-  source: https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2023-artikel.html
+  source: |-
+    https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2023-artikel.html
 inputs:
   assumed: {}
   provided:
@@ -37,21 +38,10 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_kapitalvermögen:
-          kapitalerträge_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         aus_nichtselbstständiger_arbeit:
           einnahmen_nach_abzug_werbungskosten_y:
             - 12000.0
             - 12000.0
-            - 0.0
-            - 0.0
-          bruttolohn_m:
-            - 1000.0
-            - 1000.0
             - 0.0
             - 0.0
         aus_selbstständiger_arbeit:
@@ -78,26 +68,38 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-            sonstige_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            betriebliche_altersvorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
-            geförderte_private_vorsorge_m:
-              - 0.0
-              - 0.0
-              - 0.0
-              - 0.0
       gemeinsam_veranlagt:
         - true
         - true
         - true
         - true
+    einnahmen:
+      bruttolohn_m:
+        - 1000.0
+        - 1000.0
+        - 0.0
+        - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
@@ -198,12 +200,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         beitrag:
           betrag_versicherter_m:
             - 50.0
@@ -215,6 +211,12 @@ inputs:
           - false
           - false
           - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

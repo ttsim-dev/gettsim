@@ -32,7 +32,7 @@ def einkommen_m_ab_04_1999(
 
 @policy_function()
 def einkommen_bis_beitragsbemessungsgrenze_m(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m: float,
+    einnahmen__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
     """Income from dependent employment, capped at the contribution ceiling.
@@ -41,7 +41,7 @@ def einkommen_bis_beitragsbemessungsgrenze_m(
     the computation of payroll taxes.
     """
     return min(
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__bruttolohn_m,
+        einnahmen__bruttolohn_m,
         beitragsbemessungsgrenze_m,
     )
 
@@ -116,15 +116,13 @@ def bezugsgröße_selbstständige_m(
 
 @policy_function()
 def bemessungsgrundlage_rente_m(
-    sozialversicherung__rente__altersrente__betrag_m: float,
-    sozialversicherung__rente__erwerbsminderung__betrag_m: float,
-    einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
     """Pension income which is subject to health insurance contribution."""
     return min(
-        sozialversicherung__rente__altersrente__betrag_m
-        + sozialversicherung__rente__erwerbsminderung__betrag_m
-        + einkommensteuer__einkünfte__sonstige__rente__betriebliche_altersvorsorge_m,
+        einnahmen__renten__gesetzliche_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m,
         beitragsbemessungsgrenze_m,
     )
