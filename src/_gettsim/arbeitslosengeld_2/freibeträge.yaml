@@ -16,6 +16,7 @@ raw_obergrenze_vermögensgrundfreibetrag:
     1948: 13000
     1958: 13000
     1964: 13000
+    min_birth_cohort: 1900
     max_birth_cohort: 2050
     reference: Artikel 1 G. v. 23.12.2002 BGBl. I S. 4607.
   2006-08-01:
@@ -48,6 +49,7 @@ raw_vermögensgrundfreibetrag_je_lebensjahr:
   2005-01-01:
     1947: 520
     1948: 200
+    min_birth_cohort: 1900
     max_birth_cohort: 2050
     reference: Artikel 1 G. v. 30.12.2002 BGBl. I S. 4619.
   2006-08-01:

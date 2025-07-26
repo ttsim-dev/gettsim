@@ -159,10 +159,12 @@ def anspruchsdauer_nach_alter(
 ) -> ConsecutiveIntLookupTableParamValue:
     """Amount of potential months of unemployment benefit claims by age."""
     base = raw_anspruchsdauer_nach_alter.copy()
+    min_age = base.pop("min_age")
     max_age = base.pop("max_age")
     return convert_sparse_dict_to_consecutive_int_lookup_table(
         raw=base,
-        max_key_in_table=max_age,
+        min_int_in_table=min_age,
+        max_int_in_table=max_age,
         xnp=xnp,
     )
 
@@ -176,9 +178,11 @@ def anspruchsdauer_nach_versicherungspflichtigen_monaten(
     compulsory insurance.
     """
     base = raw_anspruchsdauer_nach_versicherungspflichtigen_monaten.copy()
+    min_months = base.pop("min_months")
     max_months = base.pop("max_months")
     return convert_sparse_dict_to_consecutive_int_lookup_table(
         raw=base,
-        max_key_in_table=max_months,
+        min_int_in_table=min_months,
+        max_int_in_table=max_months,
         xnp=xnp,
     )

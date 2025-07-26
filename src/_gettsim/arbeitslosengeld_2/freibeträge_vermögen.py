@@ -125,10 +125,12 @@ def vermögensgrundfreibetrag_je_lebensjahr(
 ) -> ConsecutiveIntLookupTableParamValue:
     """Amount of wealth exemptions by year of birth."""
     base = raw_vermögensgrundfreibetrag_je_lebensjahr.copy()
+    min_birth_cohort = base.pop("min_birth_cohort")
     max_birth_cohort = base.pop("max_birth_cohort")
     return convert_sparse_dict_to_consecutive_int_lookup_table(
         raw=base,
-        max_key_in_table=max_birth_cohort,
+        min_int_in_table=min_birth_cohort,
+        max_int_in_table=max_birth_cohort,
         xnp=xnp,
     )
 
@@ -140,9 +142,11 @@ def obergrenze_vermögensgrundfreibetrag(
 ) -> ConsecutiveIntLookupTableParamValue:
     """Maximum wealth exemptions by year of birth."""
     base = raw_obergrenze_vermögensgrundfreibetrag.copy()
+    min_birth_cohort = base.pop("min_birth_cohort")
     max_birth_cohort = base.pop("max_birth_cohort")
     return convert_sparse_dict_to_consecutive_int_lookup_table(
         raw=base,
-        max_key_in_table=max_birth_cohort,
+        min_int_in_table=min_birth_cohort,
+        max_int_in_table=max_birth_cohort,
         xnp=xnp,
     )

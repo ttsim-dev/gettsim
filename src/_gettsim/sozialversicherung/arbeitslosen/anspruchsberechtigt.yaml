@@ -43,6 +43,7 @@ raw_anspruchsdauer_nach_alter:
     50: 15
     55: 18
     58: 24
+    min_age: 0
     max_age: 120
 raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
   name:
@@ -69,6 +70,7 @@ raw_anspruchsdauer_nach_versicherungspflichtigen_monaten:
     30: 15
     36: 18
     48: 24
+    min_months: 0
     max_months: 700
 mindestversicherungsmonate:
   name:
