@@ -112,7 +112,7 @@ toml = "*"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.pypi-dependencies]
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "namespace-of-plotting-funcs" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 gettsim = {path = ".", editable = true}
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
