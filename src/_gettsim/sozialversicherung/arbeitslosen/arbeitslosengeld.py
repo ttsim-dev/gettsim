@@ -18,10 +18,13 @@ if TYPE_CHECKING:
     )
 
 
-@policy_function(end_date="1998-07-31", leaf_name="betrag_m")
-def betrag_m_not_implemented() -> float:
+@policy_function(
+    end_date="1998-07-31",
+    leaf_name="betrag_m",
+    fail_msg_if_included="Arbeitslosengeld before August 1998 is not implemented.",
+)
+def betrag_m_bis_1998_07() -> float:
     """Calculate individual unemployment benefit."""
-    raise NotImplementedError("Arbeitslosengeld before August 1998 is not implemented.")
 
 
 @policy_function(start_date="1998-08-01")

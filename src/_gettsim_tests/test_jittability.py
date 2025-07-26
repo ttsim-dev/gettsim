@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import contextlib
 import datetime
+import functools
 import inspect
-from functools import lru_cache
 from typing import TYPE_CHECKING, Literal
 
 import dags.tree as dt
@@ -24,7 +23,7 @@ def get_orig_gettsim_column_functions() -> list[ColumnFunction]:
     return [(tp, cf) for tp, cf in orig.items() if isinstance(cf, ColumnFunction)]
 
 
-@lru_cache(maxsize=100)
+@functools.lru_cache(maxsize=100)
 def cached_specialized_environment(
     policy_date: datetime.date,
     backend: Literal["numpy", "jax"],
@@ -61,7 +60,8 @@ def test_jittable(tree_path, fun, backend, xnp):
         else:
             raise ValueError(f"Unknown column type: {arg.annotation}")
 
-    with contextlib.suppress(NotImplementedError):
+    func = env[qname].func if isinstance(env[qname], functools.partial) else env[qname]
+    if not func.fail_msg_if_included:
         main(
             main_target=("raw_results", "columns"),
             policy_date=policy_date,

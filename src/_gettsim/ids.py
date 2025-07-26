@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from _gettsim import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
 from gettsim.tt import group_creation_function, policy_input
 
 if TYPE_CHECKING:
@@ -136,7 +137,7 @@ def _assign_parents_fg_id(
     )
 
 
-@group_creation_function()
+@group_creation_function(warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC)
 def bg_id(
     fg_id: IntColumn,
     # xnp is needed to instantiate the GroupCreationFunction (because of `reorder_ids`)
@@ -182,7 +183,7 @@ def eg_id(
     )
 
 
-@group_creation_function()
+@group_creation_function(warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC)
 def wthh_id(
     fg_id: IntColumn,
     xnp: ModuleType,  # noqa: ARG001
