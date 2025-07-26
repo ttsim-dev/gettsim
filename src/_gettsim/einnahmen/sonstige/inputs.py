@@ -7,7 +7,7 @@ from gettsim.tt import policy_input
 
 @policy_input()
 def alle_weiteren_m() -> float:
-    """Additional sonstige Einnahmen according to EStG (excl. pensions).
+    """Any sonstige Einnahmen according to EStG not considered explicitly.
 
     Includes private and public transfers that are not yet implemented in GETTSIM
     (e.g., BAföG, Kriegsopferfürsorge).
