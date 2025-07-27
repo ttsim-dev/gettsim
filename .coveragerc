@@ -1,3 +1,10 @@
+[run]
+source =
+    src/_gettsim
+omit =
+    */__init__.py
+branch = True
+
 [report]
 exclude_lines =
     pragma: no cover
