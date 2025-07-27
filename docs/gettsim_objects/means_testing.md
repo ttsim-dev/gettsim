@@ -6,11 +6,8 @@ The table below gives an overview of all tangible and intangible assets which ar
 considered when performing means for several transfers. A cross indicates that the asset
 class is not considered and, hence, deducted from the overall assets.
 
-This documentation shall help to understand the composition of the
-
-{ref}`basic input variable <input_variables>`
-
-'vermögen'. Despite small differences over the transfers, we decided, for now, to
+This documentation shall help to understand the composition of the input column
+`vermögen`. Despite small differences over the transfers, we decided, for now, to
 require only one wealth variable as input and use it for all transfers.
 
 Note that GETTSIM requests wealth on the individual level as input. This variable is
