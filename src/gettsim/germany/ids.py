@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from _gettsim import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
+from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
 from gettsim.tt import group_creation_function, policy_input
 
 if TYPE_CHECKING:

@@ -108,7 +108,7 @@ repos:
         name: Validate JSON/YAML files against schema
         entry: check-jsonschema
         language: python
-        files: ^src/_gettsim/.*\.(yaml|yml)$
+        files: ^src/gettsim/germany/.*\.(yaml|yml)$
         args:
           - --schemafile=docs/geps/params-schema.json
 ci:

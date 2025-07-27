@@ -6,7 +6,7 @@ try:
     # Import the version from _version.py which is dynamically created by
     # setuptools-scm upon installing the project with pip.
     # Do not put it under version control!
-    from _gettsim._version import __version__, __version_tuple__, version, version_tuple
+    from gettsim._version import __version__, __version_tuple__, version, version_tuple
 except ImportError:
     __version__ = "unknown"
     __version_tuple__ = ("unknown", "unknown", "unknown")
@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
+
 import ttsim as _ttsim
 from ttsim import (
     InputData,
@@ -33,8 +34,6 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
-
-from _gettsim_tests import TEST_DIR
 
 if TYPE_CHECKING:
     import datetime
@@ -67,7 +66,7 @@ upsert_tree = upsert_tree
 
 
 def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
-    pytest.main([str(TEST_DIR), "--backend", backend])
+    pytest.main([str(Path(__file__).parent / "tests_germany"), "--backend", backend])
 
 
 @dataclass(frozen=True)
@@ -100,7 +99,7 @@ def main(
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
         orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(
-            root=Path(__file__).parent.parent / "_gettsim"
+            root=Path(__file__).parent.parent / "germany"
         )
 
     return _ttsim.main(**locals())

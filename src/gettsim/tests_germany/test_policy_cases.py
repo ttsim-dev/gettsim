@@ -7,27 +7,23 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import numpy
 import pytest
+
+from gettsim import MainTarget, main
 from ttsim.testing_utils import (
     PolicyTest,
     check_env_completeness,
     execute_test,
-    load_policy_test_data,
+    load_policy_cases,
 )
-
-from gettsim import MainTarget, main
 
 if TYPE_CHECKING:
     import datetime
 
-    from gettsim.typing import (
-        OrigPolicyObjects,
-    )
+    from gettsim.typing import OrigPolicyObjects
 
-GETTSIM_ROOT = Path(__file__).parent.parent / "_gettsim"
-TEST_DIR = Path(__file__).parent
 
-POLICY_TEST_IDS_AND_CASES = load_policy_test_data(
-    test_dir=TEST_DIR,
+POLICY_TEST_IDS_AND_CASES = load_policy_cases(
+    policy_cases_dir=Path(__file__).parent / "policy_cases",
     policy_name="",
     xnp=numpy,
 )
@@ -65,8 +61,10 @@ def orig_gettsim_objects() -> OrigPolicyObjects:
     POLICY_TEST_IDS_AND_CASES.values(),
     ids=POLICY_TEST_IDS_AND_CASES.keys(),
 )
-def test_policy(test: PolicyTest, backend: Literal["numpy", "jax"]):
-    execute_test(test=test, root=GETTSIM_ROOT, backend=backend)
+def test_policy_cases(test: PolicyTest, backend: Literal["numpy", "jax"]):
+    execute_test(
+        test=test, root=Path(__file__).parent.parent / "germany", backend=backend
+    )
 
 
 @pytest.mark.parametrize(

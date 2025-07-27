@@ -60,7 +60,7 @@ requires = ["hatchling", "hatch_vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/_gettsim/_version.py"
+version-file = "src/gettsim/_version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = ["tests"]
@@ -112,7 +112,7 @@ toml = "*"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.pypi-dependencies]
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "architecture" }
 gettsim = {path = ".", editable = true}
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
@@ -233,6 +233,8 @@ exclude = []
 [tool.ruff.lint.per-file-ignores]
 "conftest.py" = ["ANN"]
 "docs/*" = ["INP001", "T201"]
+# Imports not at top of cell for didactic reasons
+"docs/how_to_guides/modifications_of_policy_environments.ipynb" = ["E402"]
 
 "src/gettsim/__init__.py" = [
     "PLW0127", # Re-export things for tab-completion explicitly.
@@ -241,14 +243,12 @@ exclude = []
 "src/gettsim/plot/dag/__init__.py" = ["PLW0127"] # Re-export things for tab-completion explicitly.
 
 # Mostly things vectorization can't handle
-"src/_gettsim/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
+"src/gettsim/germany/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
 # Lohnsteuerklassen and age groups are fine to hard-code.
-"src/_gettsim/lohnsteuer/*.py" = ["PLR2004"]
-"src/_gettsim/familie/familie.py" = ["PLR2004"]
+"src/gettsim/germany/lohnsteuer/*.py" = ["PLR2004"]
+"src/gettsim/germany/familie/familie.py" = ["PLR2004"]
 # All tests return None and use asserts
-"src/_gettsim_tests/**/*.py" = ["ANN", "S101"]
-# Imports not at top of cell for didactic reasons
-"docs/how_to_guides/modifications_of_policy_environments.ipynb" = ["E402"]
+"src/gettsim/tests_germany/**/*.py" = ["ANN", "S101"]
 # TODO: remove once ported nicely
 "outdated_docs/**/*.ipynb" = ["ALL"]
 
@@ -279,7 +279,7 @@ disallow_untyped_defs = false
 ignore_errors = true
 
 [[tool.mypy.overrides]]
-module = ["src._gettsim_tests.*",]
+module = ["src.gettsim.tests_germany.*",]
 disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
 
 
@@ -307,7 +307,7 @@ markers = [
     "skipif_numpy: skip test if backend is numpy"
 ]
 norecursedirs = ["docs"]
-testpaths = ["src/_gettsim_tests"]
+testpaths = ["src/gettsim/tests_germany"]
 
 # ======================================================================================
 # yamlfix configuration

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from _gettsim.arbeitslosengeld_2.regelbedarf import (
+    from gettsim.germany.arbeitslosengeld_2.regelbedarf import (
         Regelbedarfsstufen,
     )
 
