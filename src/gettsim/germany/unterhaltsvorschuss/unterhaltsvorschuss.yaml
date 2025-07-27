@@ -180,8 +180,7 @@ faktor_jüngste_altersgruppe:
     value: 0.87
   2015-01-01:
     note: >-
-      Anspruchshöhe is calculated via an Anwendungsvorschrift in 2015. From 2016 it is
-      calculated based on the Mindestunterhalt.
+      Anspruchshöhe is calculated via an Anwendungsvorschrift in 2015.
 unterhaltsvorschuss_nach_anwendungsvorschrift:
   name:
     de: Unterhaltsvorschuss für Kinder entsprechend Anwendungsvorschriften
@@ -236,3 +235,5 @@ unterhaltsvorschuss_nach_anwendungsvorschrift:
       Kindergeldes für das erste Kind vor Anpassung des Kinderfreibetrags (hier: 184
       Euro). Ab 2016 orientiert sich der Unterhaltsvorschuss wieder an den regulären
       Mindestunterhaltsbeträgen.
+  2016-01-01:
+    note: Calculation based on the Mindestunterhalt.

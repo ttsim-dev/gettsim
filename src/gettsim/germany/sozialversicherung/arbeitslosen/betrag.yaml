@@ -22,8 +22,7 @@ sozialversicherungspauschale:
     en: Fictitious social insurance contribution rate
   description:
     de: >-
-      § 153 (1) Nr. 1 SGB III. Wird angewendet auf das Bemessungsentgelt. ACHTUNG! Beim
-      Elterngeld gibt es eine ähnliche Größe.
+      § 153 (1) Nr. 1 SGB III. Wird angewendet auf das Bemessungsentgelt.
     en: null
   unit: Share
   reference_period: null

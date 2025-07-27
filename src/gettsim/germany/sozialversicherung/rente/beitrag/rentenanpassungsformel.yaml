@@ -17,7 +17,7 @@ alpha:
   type: scalar
   2002-01-01:
     value: 0.25
-altersvorsogeanteil:
+altersvorsorgeanteil:
   name:
     de: Altersvorsorgeanteil (AVA)
     en: Personal pension share

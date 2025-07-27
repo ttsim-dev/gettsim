@@ -1054,6 +1054,8 @@ altersgrenze_vorzeitig_gestaffelt:
       12:
         years: 63
         months: 0
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_vorzeitig_mit_vertrauensschutz:
   name:
     de: >-
@@ -1081,3 +1083,5 @@ altersgrenze_vorzeitig_mit_vertrauensschutz:
   2004-07-26:
     reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
     value: 60.0
+  2018-01-01:
+    note: Last cohort to be eligible for Altersrente wegen Arbeitslosigkeit has retired.
