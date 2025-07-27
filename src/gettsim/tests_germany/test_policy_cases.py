@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 
 POLICY_TEST_IDS_AND_CASES = load_policy_cases(
-    policy_cases_dir=Path(__file__).parent / "policy_cases",
+    policy_cases_root=Path(__file__).parent / "policy_cases",
     policy_name="",
     xnp=numpy,
 )
