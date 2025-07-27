@@ -704,8 +704,6 @@ altersgrenze_gestaffelt_vertrauensschutz:
     note: >-
       All potential beneficiaries of Vertrauensschutz have reached the
       Regelaltersgrenze.
-  2018-01-01:
-    note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_vorzeitig:
   name:
     de: >-
