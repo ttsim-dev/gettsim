@@ -18,9 +18,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
-
 import ttsim as _ttsim
-from _gettsim_tests import TEST_DIR
 from ttsim import (
     InputData,
     Labels,
@@ -35,6 +33,8 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
+
+from _gettsim_tests import TEST_DIR
 
 if TYPE_CHECKING:
     import datetime
