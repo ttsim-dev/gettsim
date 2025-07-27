@@ -54,7 +54,8 @@ jobs:
         shell: bash -el {0}
       - name: Run tests on Linux (with NumPy backend and coverage)
         if: runner.os == 'Linux' && matrix.environment == 'py313'
-        run: pixi run -e ${{ matrix.environment }} tests --cov=./ --cov-report=xml
+        run: pixi run -e ${{ matrix.environment }} tests --cov=./src/_gettsim --cov-branch
+          --cov-report=xml
         shell: bash -el {0}
       - name: Run tests on MacOS / Windows (with NumPy backend and without coverage)
         if: runner.os != 'Linux'
