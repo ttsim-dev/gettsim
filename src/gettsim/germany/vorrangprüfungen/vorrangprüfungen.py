@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from _gettsim import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
+from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
 from gettsim.tt import policy_function
 
 

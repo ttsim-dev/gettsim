@@ -37,7 +37,7 @@ def tt(
 ) -> go.Figure:
     return ttsim_plot.dag.tt(
         policy_date_str=policy_date_str,
-        root=Path(__file__).parent.parent / "_gettsim",
+        root=Path(__file__).parent.parent.parent / "germany",
         node_selector=node_selector,
         title=title,
         include_params=include_params,

@@ -177,10 +177,10 @@ The proposed changes will affect all areas of GETTSIM
    `midijob_bemessungsentgelt_m`. The relevant code in `policy_environment` is:
 
    ```python
-   from _gettsim.social_insurance_contributions.eink_grenzen import (
+   from gettsim.germany.social_insurance_contributions.eink_grenzen import (
        midijob_bemessungsentgelt_m_ab_10_2022,
    )
-   from _gettsim.social_insurance_contributions.eink_grenzen import (
+   from gettsim.germany.social_insurance_contributions.eink_grenzen import (
        midijob_bemessungsentgelt_m_bis_09_2022,
    )
 

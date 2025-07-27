@@ -21,7 +21,7 @@ from gettsim.tt import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from _gettsim.param_types import ConsecutiveIntLookupTableParamValue
+    from gettsim.germany.param_types import ConsecutiveIntLookupTableParamValue
 
 
 @agg_by_group_function(agg_type=AggType.COUNT)

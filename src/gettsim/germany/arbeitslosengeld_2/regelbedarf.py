@@ -15,7 +15,7 @@ from gettsim.tt import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from _gettsim.grundsicherung.bedarfe import Regelbedarfsstufen
+    from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
     from gettsim.tt import RawParam
 
 

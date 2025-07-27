@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1061` Remove private directories installed in site-packages
+  ({ghuser}`hmgaudecker`)
+
 - {gh}`1060` Convert some ALG 2 parameters to ConsecutiveIntTableParamValue
   ({ghuser}`MImmesberger`)
 
