@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
+
 from ttsim.interface_dag_elements.backend import dnp as ttsim_dnp
 from ttsim.interface_dag_elements.backend import xnp as ttsim_xnp
 
