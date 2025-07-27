@@ -3,6 +3,7 @@ source =
     src/_gettsim
 omit =
     */__init__.py
+    src/_gettsim/_version.py
 branch = True
 
 [report]
