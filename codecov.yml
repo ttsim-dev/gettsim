@@ -6,6 +6,10 @@ coverage:
   precision: 2
   round: down
   range: 50...100
-ignore:
-  - setup.py
-  - src/_gettsim_tests/
+  status:
+    patch:
+      default:
+        target: 75%
+    project:
+      default:
+        target: 85%

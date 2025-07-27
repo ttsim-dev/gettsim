@@ -264,7 +264,7 @@ Government expenditures: 4 Mrd €
 
 ## Wohngeld
 
-#### Description
+### Description
 
 - Household (§5 WoGG)
   - Applicant
@@ -295,18 +295,18 @@ Government expenditures: 4 Mrd €
   - Households that consist of at least one Bedarfsgemeinschaft and one
     wohngeldrechtlicher Teilhaushalt are called "Mischhaushalte".
 
-#### Aggregation unit
+### Aggregation unit
 
 - `wohngeld__wthh_id` (endogenous)
 
-#### Pointers
+### Pointers
 
 - `hh_id`, `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
   `familie__p_id_elternteil_2` (exogenous)
 
-### Kinderwohngeld
+## Kinderwohngeld
 
-#### Description
+### Description
 
 - Children that are part of the Bedarfsgemeinschaft of their parents can receive
   Wohngeld to drop out of the Bedarfsgemeinschaft ("Kinderwohngeld")

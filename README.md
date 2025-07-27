@@ -1,6 +1,5 @@
-[![Documentation Status](https://readthedocs.org/projects/gettsim/badge/?version=latest)](https://gettsim.readthedocs.io/en/latest)
+[![Documentation Status](https://readthedocs.org/projects/gettsim/badge/?version=latest)](https://gettsim.readthedocs.io/latest)
 ![PyPI - Version](https://img.shields.io/pypi/v/gettsim)
-[![image](https://img.shields.io/conda/vn/conda-forge/gettsim.svg)](https://anaconda.org/conda-forge/gettsim)
 [![image](https://img.shields.io/conda/pn/conda-forge/gettsim.svg)](https://anaconda.org/conda-forge/gettsim)
 [![main](https://github.com/ttsim-dev/gettsim/actions/workflows/main.yaml/badge.svg)](https://github.com/ttsim-dev/gettsim/actions/workflows/main.yaml)
 [![image](https://codecov.io/gh/ttsim-dev/gettsim/branch/main/graph/badge.svg)](https://codecov.io/gh/ttsim-dev/gettsim)

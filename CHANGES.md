@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unpublished
 
+- {gh}`1060` Convert some ALG 2 parameters to ConsecutiveIntTableParamValue
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1059` Be consistent with 'Erwerbseinkommen' meaning income from self-employment
   and regular employment ({ghuser}`MImmesberger`)
 

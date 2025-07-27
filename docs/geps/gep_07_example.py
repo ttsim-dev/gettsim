@@ -21,9 +21,9 @@ inputs_map = {
         "p_id_elternteil_1": "mother_id",
         "p_id_elternteil_2": -1,
     },
+    "einnahmen": {"bruttolohn_m": "wage"},
     "einkommensteuer": {
         "einkünfte": {
-            "aus_nichtselbstständiger_arbeit": {"bruttolohn_m": "wage"},
             "ist_hauptberuflich_selbstständig": False,
             "aus_selbstständiger_arbeit": {"betrag_m": 0.0},
         }
