@@ -18,7 +18,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
-
 import ttsim as _ttsim
 from ttsim import (
     InputData,

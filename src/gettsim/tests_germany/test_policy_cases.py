@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import numpy
 import pytest
-
-from gettsim import MainTarget, main
 from ttsim.testing_utils import (
     PolicyTest,
     check_env_completeness,
     execute_test,
     load_policy_cases,
 )
+
+from gettsim import MainTarget, main
 
 if TYPE_CHECKING:
     import datetime
