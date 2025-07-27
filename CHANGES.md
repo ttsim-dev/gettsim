@@ -4,7 +4,7 @@ This is a record of all past `gettsim` releases and what went into them in rever
 chronological order. We follow [semantic versioning](https://semver.org/) and all
 releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
-## Unpublished
+## v1.0a — 2025-07-27
 
 - {gh}`1062` Fix some end dates ({ghuser}`hmgaudecker`)
 
@@ -91,6 +91,7 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 - {gh}`1016` Turn fail_ifs and warn_ifs on + let `main` return a pytree, update pixi
   environments. ({ghuser}`MImmesberger`, {ghuser}`timmens`, {ghuser}`hmgaudecker`)
+  Unpublished
 
 - {gh}`1018` Enable annotations for interface / tax-transfer functions
   ({ghuser}`hmgaudecker`, {ghuser}`MImmesberger`)
