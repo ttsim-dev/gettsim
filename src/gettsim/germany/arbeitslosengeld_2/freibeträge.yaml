@@ -131,6 +131,8 @@ abzugsfähige_pauschalen:
     versicherung: 30
     werbung: 15.33
     reference: V. v. 20.10.2004 BGBl. I S. 2622
+  2016-08-01:
+    note: V. v. 26.07.2016 BGBl. I S. 1858
 raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   name:
     de: >-

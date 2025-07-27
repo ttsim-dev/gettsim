@@ -70,6 +70,8 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
   2019-01-01:
     updates_previous: true
     vorwegabzug: 300
+  2020-01-01:
+    note: Wird im code nicht mehr verwendet, ggf. Referenz raussuchen.
 parameter_einführungsfaktor_altersvorsorgeaufwendungen:
   name:
     de: Einführungsfaktor für Altersvorsorgeaufwendungen
@@ -104,21 +106,7 @@ parameter_einführungsfaktor_altersvorsorgeaufwendungen:
       upper_threshold: inf
       rate_linear: 0
   2023-01-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2294.
-    0:
-      lower_threshold: -inf
-      rate_linear: 0
-      intercept_at_lower_threshold: 0.6
-    1:
-      lower_threshold: 2005
-      rate_linear: 0.02
-    2:
-      lower_threshold: 2022
-      upper_threshold: 2023
-      rate_linear: 0.06
-    3:
-      upper_threshold: inf
-      rate_linear: 0
+    note: Abgeschafft durch G. v. 20.12.2022 BGBl. I S. 2294.
 maximalbetrag_sonstige_vorsorgeaufwendungen:
   name:
     de: >-

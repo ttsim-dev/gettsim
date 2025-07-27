@@ -17,6 +17,8 @@ altersgrenze:
   type: scalar
   2001-01-01:
     value: 63
+  2012-01-01:
+    note: Superseded by `altersgrenze_gestaffelt`.
 altersgrenze_gestaffelt:
   name:
     de: Altersgrenze für Erwerbsminderungsrente
