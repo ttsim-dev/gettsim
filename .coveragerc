@@ -1,9 +1,10 @@
 [run]
 source =
-    src/_gettsim
+    src/gettsim/__init__.py
+    src/gettsim/germany
+    src/gettsim/plot/dag/__init__.py
 omit =
     */__init__.py
-    src/_gettsim/_version.py
 branch = True
 
 [report]
