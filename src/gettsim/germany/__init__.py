@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
+
+ROOT_PATH = Path(__file__).parent
+
+
 WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC = """
 You requested (at least one of)
 

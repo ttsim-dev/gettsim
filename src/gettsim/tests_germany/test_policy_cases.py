@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import timedelta
-from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
 import dags.tree as dt
@@ -14,7 +13,7 @@ from ttsim.testing_utils import (
     load_policy_cases,
 )
 
-from gettsim import MainTarget, main
+from gettsim import MainTarget, germany, main
 
 if TYPE_CHECKING:
     import datetime
@@ -23,7 +22,7 @@ if TYPE_CHECKING:
 
 
 POLICY_TEST_IDS_AND_CASES = load_policy_cases(
-    policy_cases_root=Path(__file__).parent / "policy_cases",
+    policy_cases_root=germany.ROOT_PATH.parent / "tests_germany" / "policy_cases",
     policy_name="",
     xnp=numpy,
 )
@@ -62,9 +61,7 @@ def orig_gettsim_objects() -> OrigPolicyObjects:
     ids=POLICY_TEST_IDS_AND_CASES.keys(),
 )
 def test_policy_cases(test: PolicyTest, backend: Literal["numpy", "jax"]):
-    execute_test(
-        test=test, root=Path(__file__).parent.parent / "germany", backend=backend
-    )
+    execute_test(test=test, root=germany.ROOT_PATH, backend=backend)
 
 
 @pytest.mark.parametrize(
