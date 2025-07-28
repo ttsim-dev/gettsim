@@ -56,7 +56,7 @@ Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 # ======================================================================================
 
 [build-system]
-requires = ["hatchling", "hatch_vcs"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.hooks.vcs]
