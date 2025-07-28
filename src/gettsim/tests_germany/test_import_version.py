@@ -11,3 +11,8 @@ def test_import():
 
 def test_python_version():
     assert sys.version_info >= (3, 11)
+
+
+def test_germany_root():
+    if not gettsim.germany.ROOT_PATH.is_dir():
+        raise NotADirectoryError
