@@ -74,6 +74,9 @@ class OrigPolicyObjects(_ttsim.main_args.MainArg):
     param_specs: FlatOrigParamSpecs | None = None
 
 
+GERMANY_ROOT = Path(__file__).parent / "germany"
+
+
 def main(
     *,
     main_target: str | tuple[str, ...] | NestedTargetDict | None = None,
@@ -97,9 +100,7 @@ def main(
     labels: Labels | None = None,
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
-        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(
-            root=Path(__file__).parent.parent / "germany"
-        )
+        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(root=GERMANY_ROOT)
 
     return _ttsim.main(**locals())
 
