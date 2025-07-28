@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from ttsim import plot as ttsim_plot
@@ -8,7 +7,11 @@ from ttsim import plot as ttsim_plot
 # Import directly to prevent MyPy complaints about variables not being proper types.
 from ttsim.plot.dag import NodeSelector
 
+from gettsim import germany
+
 if TYPE_CHECKING:
+    from pathlib import Path
+
     import plotly.graph_objects as go
 
 NodeSelector = NodeSelector
@@ -37,7 +40,7 @@ def tt(
 ) -> go.Figure:
     return ttsim_plot.dag.tt(
         policy_date_str=policy_date_str,
-        root=Path(__file__).parent.parent.parent / "germany",
+        root=germany.ROOT_PATH,
         node_selector=node_selector,
         title=title,
         include_params=include_params,

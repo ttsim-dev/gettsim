@@ -14,7 +14,6 @@ except ImportError:
     version_tuple = ("unknown", "unknown", "unknown")
 
 from dataclasses import dataclass
-from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
 
 import pytest
@@ -33,6 +32,8 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
+
+from gettsim import germany
 
 if TYPE_CHECKING:
     import datetime
@@ -65,7 +66,7 @@ upsert_tree = upsert_tree
 
 
 def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
-    pytest.main([str(Path(__file__).parent / "tests_germany"), "--backend", backend])
+    pytest.main([str(germany.ROOT_PATH.parent / "tests_germany"), "--backend", backend])
 
 
 @dataclass(frozen=True)
@@ -97,9 +98,7 @@ def main(
     labels: Labels | None = None,
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
-        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(
-            root=Path(__file__).parent.parent / "germany"
-        )
+        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(root=germany.ROOT_PATH)
 
     return _ttsim.main(**locals())
 
