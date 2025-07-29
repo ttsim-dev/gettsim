@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from ttsim import plot as ttsim_plot
 
 # Import directly to prevent MyPy complaints about variables not being proper types.
-from ttsim.plot.dag import NodeSelector
+from ttsim.plot.dag import NodeSelector as TTNodeSelector
 
 from gettsim import germany
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
     import plotly.graph_objects as go
 
-NodeSelector = NodeSelector
+NodeSelector = TTNodeSelector
 
 
 def interface(
@@ -37,6 +37,7 @@ def tt(
     include_params: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
+    input_node_paths: list[tuple[str, ...]] | None = None,
 ) -> go.Figure:
     return ttsim_plot.dag.tt(
         policy_date_str=policy_date_str,
@@ -46,6 +47,7 @@ def tt(
         include_params=include_params,
         show_node_description=show_node_description,
         output_path=output_path,
+        input_node_paths=input_node_paths,
     )
 
 
