@@ -58,14 +58,14 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     bruttoeinkommen_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
 ) -> float:
     """Net income for calculation of basic subsistence."""
     return (
         bruttoeinkommen_m
-        - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
+        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
         - sozialversicherung__beiträge_versicherter_m
     )
 
@@ -105,7 +105,7 @@ def nettoquote(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
     abzugsfähige_pauschalen: dict[str, float],
 ) -> float:
@@ -117,8 +117,8 @@ def nettoquote(
     alg2_2005_bne = max(
         (
             einnahmen__bruttolohn_m
-            - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-            - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
+            - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+            - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
             - sozialversicherung__beiträge_versicherter_m
             - abzugsfähige_pauschalen["werbung"]
             - abzugsfähige_pauschalen["versicherung"]
@@ -153,7 +153,7 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
-    anzahl_kinder_bis_17_bg: int,
+    familie__anzahl_kinder_bis_17_bg: int,
     einkommensteuer__anzahl_kinderfreibeträge: int,
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
     parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: PiecewisePolynomialParamValue,
@@ -173,7 +173,10 @@ def anrechnungsfreies_einkommen_m(
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
     )
 
-    if anzahl_kinder_bis_17_bg > 0 or einkommensteuer__anzahl_kinderfreibeträge > 0:
+    if (
+        familie__anzahl_kinder_bis_17_bg > 0
+        or einkommensteuer__anzahl_kinderfreibeträge > 0
+    ):
         out = piecewise_polynomial(
             x=eink_erwerbstätigkeit,
             parameters=parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,

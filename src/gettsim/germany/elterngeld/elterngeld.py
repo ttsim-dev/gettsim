@@ -58,10 +58,23 @@ def anzahl_anträge_fg(claimed: bool, fg_id: int) -> int:
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
-def bezugsmonate_partner(
+@agg_by_p_id_function(
+    leaf_name="bezugsmonate_partner", end_date="2022-12-31", agg_type=AggType.SUM
+)
+def bezugsmonate_partner_bis_2022(
     bisherige_bezugsmonate: int,
     arbeitslosengeld_2__p_id_einstandspartner: int,
+    p_id: int,
+) -> int:
+    pass
+
+
+@agg_by_p_id_function(
+    leaf_name="bezugsmonate_partner", start_date="2023-01-01", agg_type=AggType.SUM
+)
+def bezugsmonate_partner_ab_2023(
+    bisherige_bezugsmonate: int,
+    bürgergeld__p_id_einstandspartner: int,
     p_id: int,
 ) -> int:
     pass

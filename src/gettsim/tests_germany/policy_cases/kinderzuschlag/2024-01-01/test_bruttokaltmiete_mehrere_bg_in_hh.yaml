@@ -10,7 +10,7 @@ inputs:
       - 40
       - 10
       - 40
-    arbeitslosengeld_2:
+    bürgergeld:
       anrechnungsfreies_einkommen_m:
         - 0.0
         - 0.0
@@ -117,7 +117,7 @@ inputs:
         - 70.0
         - 70.0
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     bruttokaltmiete_m_bg:
       - 466.67
       - 466.67

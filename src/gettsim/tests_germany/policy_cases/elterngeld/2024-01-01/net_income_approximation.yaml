@@ -9,7 +9,7 @@ inputs:
     alter:
       - 43
       - 43
-    arbeitslosengeld_2:
+    bürgergeld:
       p_id_einstandspartner:
         - -1
         - -1

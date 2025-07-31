@@ -12,7 +12,6 @@ from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RawParam,
     RoundingSpec,
-    agg_by_group_function,
     agg_by_p_id_function,
     get_piecewise_parameters,
     get_piecewise_thresholds,
@@ -23,16 +22,6 @@ from gettsim.tt import (
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-
-@agg_by_group_function(agg_type=AggType.COUNT)
-def anzahl_personen_sn(sn_id: int) -> int:
-    pass
-
-
-@agg_by_group_function(agg_type=AggType.ANY)
-def alleinerziehend_sn(familie__alleinerziehend: bool, sn_id: int) -> bool:
-    pass
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)
@@ -134,7 +123,7 @@ def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
 )
 def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
-    anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
@@ -144,9 +133,10 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
 
     """
     zu_verst_eink_per_indiv = (
-        zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn / anzahl_personen_sn
+        zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        / familie__anzahl_personen_sn
     )
-    return anzahl_personen_sn * piecewise_polynomial(
+    return familie__anzahl_personen_sn * piecewise_polynomial(
         x=zu_verst_eink_per_indiv,
         parameters=parameter_einkommensteuertarif,
         xnp=xnp,
@@ -162,7 +152,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
 )
 def betrag_ohne_kinderfreibetrag_y_sn(
     gesamteinkommen_y: float,
-    anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
@@ -170,8 +160,8 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     "tarifliche ESt II".
 
     """
-    zu_verst_eink_per_indiv = gesamteinkommen_y / anzahl_personen_sn
-    return anzahl_personen_sn * piecewise_polynomial(
+    zu_verst_eink_per_indiv = gesamteinkommen_y / familie__anzahl_personen_sn
+    return familie__anzahl_personen_sn * piecewise_polynomial(
         x=zu_verst_eink_per_indiv,
         parameters=parameter_einkommensteuertarif,
         xnp=xnp,

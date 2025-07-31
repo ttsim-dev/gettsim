@@ -89,7 +89,7 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     vorwegabzug_lohnsteuer_y_sn: float,
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
     """Vorsorgeaufwendungen calculated using the regime until 2004."""
@@ -104,7 +104,7 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
         0.0,
     )
 
-    item_1 = (1 / einkommensteuer__anzahl_personen_sn) * multiplikator1
+    item_1 = (1 / familie__anzahl_personen_sn) * multiplikator1
 
     höchstbetrag = parameter_altersvorsorgeaufwendungen_regime_bis_2004[
         "grundhöchstbetrag"
@@ -115,9 +115,9 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     else:
         multiplikator2 = item_1
 
-    item_2 = (1 / einkommensteuer__anzahl_personen_sn) * multiplikator2
+    item_2 = (1 / familie__anzahl_personen_sn) * multiplikator2
 
-    höchstgrenze_item3 = einkommensteuer__anzahl_personen_sn * höchstbetrag
+    höchstgrenze_item3 = familie__anzahl_personen_sn * höchstbetrag
 
     if (item_1 - item_2) > höchstgrenze_item3:
         item_3 = 0.5 * höchstgrenze_item3
@@ -136,7 +136,7 @@ def vorsorgeaufwendungen_globale_kappung_y_sn(
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
     sozialversicherung__arbeitslosen__beitrag__betrag_versicherter_y_sn: float,
     sozialversicherung__pflege__beitrag__betrag_versicherter_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     maximalbetrag_sonstige_vorsorgeaufwendungen: float,
 ) -> float:
     """Vorsorgeaufwendungen before favorability checks from 2005 to 2009.
@@ -150,8 +150,7 @@ def vorsorgeaufwendungen_globale_kappung_y_sn(
         + sozialversicherung__pflege__beitrag__betrag_versicherter_y_sn
     )
     max_value = (
-        einkommensteuer__anzahl_personen_sn
-        * maximalbetrag_sonstige_vorsorgeaufwendungen
+        familie__anzahl_personen_sn * maximalbetrag_sonstige_vorsorgeaufwendungen
     )
 
     sum_vorsorge = min(sum_vorsorge, max_value)
@@ -166,7 +165,7 @@ def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     sozialversicherung__pflege__beitrag__betrag_versicherter_y_sn: float,
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
     sozialversicherung__arbeitslosen__beitrag__betrag_versicherter_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     maximalbetrag_sonstige_vorsorgeaufwendungen: float,
     minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge: float,
 ) -> float:
@@ -182,8 +181,7 @@ def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     )
 
     sonst_vors_max = (
-        maximalbetrag_sonstige_vorsorgeaufwendungen
-        * einkommensteuer__anzahl_personen_sn
+        maximalbetrag_sonstige_vorsorgeaufwendungen * familie__anzahl_personen_sn
     )
     sonst_vors_before_basiskrankenv = min(
         (
@@ -231,7 +229,7 @@ def rate_abzugsfähige_altersvorsorgeaufwendungen(
 def altersvorsorge_y_sn_phase_in(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
     beitrag_private_rentenversicherung_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     rate_abzugsfähige_altersvorsorgeaufwendungen: float,
     maximalbetrag_altersvorsorgeaufwendungen: float,
 ) -> float:
@@ -248,9 +246,7 @@ def altersvorsorge_y_sn_phase_in(
         )
         - sozialversicherung__rente__beitrag__betrag_versicherter_y_sn
     )
-    max_value = (
-        einkommensteuer__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
-    )
+    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
     out = min(out, max_value)
 
     return out
@@ -260,7 +256,7 @@ def altersvorsorge_y_sn_phase_in(
 def altersvorsorge_y_sn_volle_anrechnung(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
     beitrag_private_rentenversicherung_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     maximalbetrag_altersvorsorgeaufwendungen: float,
 ) -> float:
     """Contributions to retirement savings deductible from taxable income."""
@@ -268,9 +264,7 @@ def altersvorsorge_y_sn_volle_anrechnung(
         sozialversicherung__rente__beitrag__betrag_versicherter_y_sn
         + beitrag_private_rentenversicherung_y_sn
     )
-    max_value = (
-        einkommensteuer__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
-    )
+    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
 
     return min(out, max_value)
 
@@ -278,12 +272,12 @@ def altersvorsorge_y_sn_volle_anrechnung(
 @policy_function(end_date="2019-12-31")
 def vorwegabzug_lohnsteuer_y_sn(
     einnahmen__bruttolohn_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
     """Vorwegabzug for Vorsorgeaufwendungen via Lohnsteuer."""
-    out = (1 / einkommensteuer__anzahl_personen_sn) * (
-        einkommensteuer__anzahl_personen_sn
+    out = (1 / familie__anzahl_personen_sn) * (
+        familie__anzahl_personen_sn
         * parameter_altersvorsorgeaufwendungen_regime_bis_2004["vorwegabzug"]
         - parameter_altersvorsorgeaufwendungen_regime_bis_2004[
             "kürzungsanteil_abhängig_beschäftigte"

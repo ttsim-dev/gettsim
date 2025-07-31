@@ -58,14 +58,14 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     bruttoeinkommen_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
 ) -> float:
     """Net income for calculation of basic subsistence."""
     return (
         bruttoeinkommen_m
-        - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
+        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
         - sozialversicherung__beiträge_versicherter_m
     )
 
@@ -104,7 +104,7 @@ def bruttoeinkommen_m(
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
-    anzahl_kinder_bis_17_bg: int,
+    familie__anzahl_kinder_bis_17_bg: int,
     einkommensteuer__anzahl_kinderfreibeträge: int,
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
     parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: PiecewisePolynomialParamValue,
@@ -124,7 +124,10 @@ def anrechnungsfreies_einkommen_m(
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
     )
 
-    if anzahl_kinder_bis_17_bg > 0 or einkommensteuer__anzahl_kinderfreibeträge > 0:
+    if (
+        familie__anzahl_kinder_bis_17_bg > 0
+        or einkommensteuer__anzahl_kinderfreibeträge > 0
+    ):
         out = piecewise_polynomial(
             x=eink_erwerbstätigkeit,
             parameters=parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,

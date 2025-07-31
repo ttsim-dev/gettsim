@@ -50,7 +50,6 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       Neufassung des SGB II. B. v. 13.5.2011 BGBl. I S. 850. Artikel 5.
       ToDo: Check these laws -- did they really happen months after the date of the
       policy change?
-    updates_previous: true
     0:
       lower_threshold: -inf
       upper_threshold: 0

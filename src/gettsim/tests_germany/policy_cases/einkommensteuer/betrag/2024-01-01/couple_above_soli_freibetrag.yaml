@@ -31,14 +31,15 @@ inputs:
       - 3
       - 4
 outputs:
+  familie:
+    anzahl_personen_sn:
+      - 2
+      - 2
   einkommensteuer:
     abgeltungssteuer:
       betrag_y_sn:
         - 0.0
         - 0.0
-    anzahl_personen_sn:
-      - 2
-      - 2
     betrag_mit_kinderfreibetrag_y_sn:
       - 62726.0
       - 62726.0

@@ -11,7 +11,7 @@ inputs:
       - 52
       - 23
       - 20
-    arbeitslosengeld_2:
+    bürgergeld:
       p_id_einstandspartner:
         - 1
         - 0

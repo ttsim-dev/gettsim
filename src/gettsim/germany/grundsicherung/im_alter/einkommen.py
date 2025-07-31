@@ -23,7 +23,7 @@ def einkommen_m(
     kapitaleinkommen_brutto_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
 ) -> float:
@@ -43,8 +43,8 @@ def einkommen_m(
 
     out = (
         total_income
-        - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
+        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
         - sozialversicherung__beiträge_versicherter_m
     )
 
