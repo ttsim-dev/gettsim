@@ -1,14 +1,16 @@
 ---
 info:
-  note: Test with new income thresholds w/ income from self-employment.
+  note: |-
+    Test with new Regelbedarf.
+    `bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m` is wrong.
   precision_atol: 0.01
   source: https://www.buerger-geld.org/rechner/ergebnis/index.php
 inputs:
   assumed: {}
   provided:
     alter:
-      - 42
-    arbeitslosengeld_2:
+      - 45
+    bürgergeld:
       bezug_im_vorjahr:
         - false
       p_id_einstandspartner:
@@ -21,10 +23,12 @@ inputs:
       einkünfte:
         aus_selbstständiger_arbeit:
           betrag_m:
-            - 1200.0
+            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
         sonstige:
           alle_weiteren_m:
             - 0.0
@@ -57,7 +61,7 @@ inputs:
     geburtsjahr:
       - 1978
     hh_id:
-      - 25
+      - 0
     kindergeld:
       betrag_m_bg:
         - 0.0
@@ -66,7 +70,7 @@ inputs:
       p_id_empfänger:
         - -1
     p_id:
-      - 60
+      - 0
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -74,8 +78,16 @@ inputs:
       arbeitslosen:
         betrag_m:
           - 0.0
-      beiträge_versicherter_m:
-        - 204.0
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
       rente:
         altersrente:
           betrag_m:
@@ -92,7 +104,7 @@ inputs:
       betrag_m:
         - 0.0
     vermögen:
-      - 40000.0
+      - 0.0
     wohnen:
       bewohnt_eigentum_hh:
         - false
@@ -105,15 +117,17 @@ inputs:
     wohngeld:
       anspruchshöhe_m_wthh:
         - 0.0
+    wohnort_ost_hh:
+      - false
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     anrechnungsfreies_einkommen_m:
-      - 348.0
+      - 0.0
     betrag_m_bg:
-      - 304.0
+      - 1013.0
     kosten_der_unterkunft_m_bg:
       - 450.0
     nettoeinkommen_nach_abzug_freibetrag_m:
-      - 648.0
+      - 0.0
     regelsatz_m_bg:
-      - 502.0
+      - 563.0

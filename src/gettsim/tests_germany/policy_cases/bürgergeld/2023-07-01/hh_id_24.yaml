@@ -1,14 +1,14 @@
 ---
 info:
-  note: Test with old income thresholds
+  note: Test with new income thresholds w/ income from self-employment.
   precision_atol: 0.01
   source: https://www.buerger-geld.org/rechner/ergebnis/index.php
 inputs:
   assumed: {}
   provided:
     alter:
-      - 45
-    arbeitslosengeld_2:
+      - 42
+    bürgergeld:
       bezug_im_vorjahr:
         - false
       p_id_einstandspartner:
@@ -21,7 +21,7 @@ inputs:
       einkünfte:
         aus_selbstständiger_arbeit:
           betrag_m:
-            - 0.0
+            - 1200.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
@@ -32,7 +32,7 @@ inputs:
         - false
     einnahmen:
       bruttolohn_m:
-        - 1200.0
+        - 0.0
       kapitalerträge_m:
         - 0.0
       renten:
@@ -57,7 +57,7 @@ inputs:
     geburtsjahr:
       - 1978
     hh_id:
-      - 16
+      - 25
     kindergeld:
       betrag_m_bg:
         - 0.0
@@ -66,7 +66,7 @@ inputs:
       p_id_empfänger:
         - -1
     p_id:
-      - 39
+      - 60
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -106,14 +106,14 @@ inputs:
       anspruchshöhe_m_wthh:
         - 0.0
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     anrechnungsfreies_einkommen_m:
-      - 300.0
+      - 348.0
     betrag_m_bg:
-      - 256.0
+      - 304.0
     kosten_der_unterkunft_m_bg:
       - 450.0
     nettoeinkommen_nach_abzug_freibetrag_m:
-      - 696.0
+      - 648.0
     regelsatz_m_bg:
       - 502.0

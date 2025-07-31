@@ -2,7 +2,7 @@
 info:
   note: >-
     Test with new Regelbedarf.
-    `arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m` is wrong.
+    `bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m` is wrong.
   precision_atol: 0.01
   source: https://www.buerger-geld.org/rechner/ergebnis/index.php
 inputs:
@@ -10,9 +10,9 @@ inputs:
   provided:
     alter:
       - 45
-    arbeitslosengeld_2__bezug_im_vorjahr:
+    bürgergeld__bezug_im_vorjahr:
       - false
-    arbeitslosengeld_2__p_id_einstandspartner:
+    bürgergeld__p_id_einstandspartner:
       - -1
     arbeitsstunden_w:
       - 20.0
@@ -95,13 +95,13 @@ inputs:
     wohnort_ost_hh:
       - false
 outputs:
-  arbeitslosengeld_2__anrechnungsfreies_einkommen_m:
+  bürgergeld__anrechnungsfreies_einkommen_m:
     - 208.0
-  arbeitslosengeld_2__betrag_m_bg:
+  bürgergeld__betrag_m_bg:
     - 621.0
-  arbeitslosengeld_2__kosten_der_unterkunft_m_bg:
+  bürgergeld__kosten_der_unterkunft_m_bg:
     - 450.0
-  arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m:
+  bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m:
     - 392.0
-  arbeitslosengeld_2__regelsatz_m_bg:
+  bürgergeld__regelsatz_m_bg:
     - 563.0

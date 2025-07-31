@@ -9,7 +9,7 @@ inputs:
   assumed:
     alter:
       - 17
-    arbeitslosengeld_2:
+    bürgergeld:
       p_id_einstandspartner:
         - -1
     familie:
@@ -28,7 +28,7 @@ inputs:
       - 0
   provided: {}
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     erwachsenensatz_m:
       - 563.0
     kindersatz_m:

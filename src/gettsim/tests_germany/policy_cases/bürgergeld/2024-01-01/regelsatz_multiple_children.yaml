@@ -13,7 +13,7 @@ inputs:
       - 10
       - 14
       - 19
-    arbeitslosengeld_2:
+    bürgergeld:
       p_id_einstandspartner:
         - -1
         - -1
@@ -66,7 +66,7 @@ inputs:
       - 4
   provided: {}
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     erwachsenensatz_m:
       - 765.68
       - 0.0

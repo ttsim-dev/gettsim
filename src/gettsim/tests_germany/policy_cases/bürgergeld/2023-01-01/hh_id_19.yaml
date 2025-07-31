@@ -1,30 +1,30 @@
 ---
 info:
   note: |-
-    Test with old income thresholds and new Kindergeld, adjusted for
-    Kindersofortzuschlag of 20€.
+    Test with old income thresholds, adjusted for Kindersofortzuschlag. Constructed
+    test case after Karenzzeit with cost for living from testcase in 2011.
   precision_atol: 0.01
-  source: https://www.hartziv.org/rechner/
+  source: ''
 inputs:
   assumed: {}
   provided:
     alter:
-      - 40
-      - 38
+      - 30
       - 3
-    arbeitslosengeld_2:
+      - 35
+    bürgergeld:
       bezug_im_vorjahr:
-        - false
-        - false
-        - false
+        - true
+        - true
+        - true
       p_id_einstandspartner:
-        - 44
-        - 43
+        - 48
         - -1
+        - 46
     arbeitsstunden_w:
+      - 20.0
       - 0.0
-      - 12.0
-      - 0.0
+      - 20.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -52,9 +52,9 @@ inputs:
         - false
     einnahmen:
       bruttolohn_m:
+        - 1200.0
         - 0.0
         - 700.0
-        - 0.0
       kapitalerträge_m:
         - 0.0
         - 0.0
@@ -83,42 +83,46 @@ inputs:
         - false
         - false
       p_id_ehepartner:
-        - 44
-        - 43
+        - 48
         - -1
+        - 46
       p_id_elternteil_1:
         - -1
+        - 46
         - -1
-        - 43
       p_id_elternteil_2:
         - -1
+        - 48
         - -1
-        - 44
     geburtsjahr:
-      - 1983
-      - 1985
+      - 1993
       - 2020
+      - 1988
     hh_id:
-      - 18
-      - 18
-      - 18
+      - 19
+      - 19
+      - 19
     kindergeld:
-      betrag_m_bg:
-        - 250.0
-        - 250.0
-        - 250.0
+      anzahl_ansprüche:
+        - 0
+        - 0
+        - 0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
       in_ausbildung:
         - false
         - false
         - false
       p_id_empfänger:
         - -1
+        - 46
         - -1
-        - 43
     p_id:
-      - 43
-      - 44
-      - 45
+      - 46
+      - 47
+      - 48
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -131,9 +135,9 @@ inputs:
           - 0.0
           - 0.0
       beiträge_versicherter_m:
+        - 204.0
         - 0.0
         - 140.0
-        - 0.0
       rente:
         altersrente:
           betrag_m:
@@ -160,7 +164,7 @@ inputs:
         - 0.0
         - 0.0
     vermögen:
-      - 50000.0
+      - 0.0
       - 0.0
       - 0.0
     wohnen:
@@ -169,40 +173,40 @@ inputs:
         - false
         - false
       bruttokaltmiete_m_hh:
-        - 650.0
-        - 650.0
-        - 650.0
+        - 720.0
+        - 720.0
+        - 720.0
       heizkosten_m_hh:
-        - 100.0
-        - 100.0
-        - 100.0
+        - 110.0
+        - 110.0
+        - 110.0
       wohnfläche_hh:
-        - 70.0
-        - 70.0
-        - 70.0
+        - 105.0
+        - 105.0
+        - 105.0
     wohngeld:
       anspruchshöhe_m_wthh:
         - 0.0
         - 0.0
         - 0.0
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     anrechnungsfreies_einkommen_m:
+      - 300.0
       - 0.0
       - 220.0
-      - 0.0
     betrag_m_bg:
-      - 1400.0
-      - 1400.0
-      - 1400.0
+      - 796.86
+      - 796.86
+      - 796.86
     kosten_der_unterkunft_m_bg:
-      - 750.0
-      - 750.0
-      - 750.0
+      - 592.86
+      - 592.86
+      - 592.86
     nettoeinkommen_nach_abzug_freibetrag_m:
+      - 696.0
       - 0.0
       - 340.0
-      - 0.0
     regelsatz_m_bg:
       - 1240.0
       - 1240.0
