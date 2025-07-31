@@ -1,7 +1,5 @@
 """Test the new input_node_paths feature for GETTSIM DAG plotting."""
 
-import pytest
-
 from gettsim.plot.dag import tt
 
 
@@ -13,10 +11,10 @@ class TestInputNodePathsGETTSIM:
         fig = tt(
             policy_date_str="2025-01-01",
             title="Basic GETTSIM Test",
-            include_params=False
+            include_params=False,
         )
         assert fig is not None
-        assert hasattr(fig, 'data')
+        assert hasattr(fig, "data")
 
     def test_gettsim_input_node_paths_parameter(self):
         """Test the new input_node_paths parameter in GETTSIM."""
@@ -26,11 +24,11 @@ class TestInputNodePathsGETTSIM:
             include_params=False,
             input_node_paths=[
                 ("arbeitsl_geld_2", "regelsatz"),
-                ("eink_st", "zu_verst_eink")
-            ]
+                ("eink_st", "zu_verst_eink"),
+            ],
         )
         assert fig is not None
-        assert hasattr(fig, 'data')
+        assert hasattr(fig, "data")
 
     def test_gettsim_multiple_input_node_paths(self):
         """Test GETTSIM with multiple input node paths."""
@@ -41,11 +39,11 @@ class TestInputNodePathsGETTSIM:
             input_node_paths=[
                 ("arbeitsl_geld_2", "regelsatz"),
                 ("eink_st", "zu_verst_eink"),
-                ("soli_st", "soli_st_rate")
-            ]
+                ("soli_st", "soli_st_rate"),
+            ],
         )
         assert fig is not None
-        assert hasattr(fig, 'data')
+        assert hasattr(fig, "data")
 
     def test_gettsim_empty_input_node_paths(self):
         """Test GETTSIM with empty input_node_paths list."""
@@ -53,7 +51,7 @@ class TestInputNodePathsGETTSIM:
             policy_date_str="2025-01-01",
             title="GETTSIM Test with empty input_node_paths",
             include_params=False,
-            input_node_paths=[]
+            input_node_paths=[],
         )
         assert fig is not None
-        assert hasattr(fig, 'data')
+        assert hasattr(fig, "data")
