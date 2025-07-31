@@ -1,4 +1,4 @@
-"""Regelbedarf for Arbeitslosengeld II."""
+"""Regelbedarf for Bürgergeld."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from gettsim.tt import RawParam
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def regelbedarf_m(
     regelsatz_m: float,
     kosten_der_unterkunft_m: float,
@@ -31,7 +31,7 @@ def regelbedarf_m(
     return regelsatz_m + kosten_der_unterkunft_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def mehrbedarf_alleinerziehend_m(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
@@ -71,90 +71,7 @@ def mehrbedarf_alleinerziehend_m(
 
 
 @policy_function(
-    start_date="2005-01-01",
-    end_date="2010-12-31",
-    leaf_name="kindersatz_m",
-)
-def kindersatz_m_anteilsbasiert(
-    alter: int,
-    kindergeld__gleiche_fg_wie_empfänger: bool,
-    regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
-) -> float:
-    """Basic monthly subsistence / SGB II needs of children until 2010."""
-    basissatz = regelsatz_anteilsbasiert.basissatz
-
-    if (
-        alter
-        >= regelsatz_anteilsbasiert.kind.jugendliche_und_junge_erwachsene.min_alter
-        and alter
-        <= regelsatz_anteilsbasiert.kind.jugendliche_und_junge_erwachsene.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = (
-            basissatz
-            * regelsatz_anteilsbasiert.kind.jugendliche_und_junge_erwachsene.anteil
-        )
-    elif (
-        alter >= regelsatz_anteilsbasiert.kind.schulkind.min_alter
-        and alter <= regelsatz_anteilsbasiert.kind.schulkind.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = basissatz * regelsatz_anteilsbasiert.kind.schulkind.anteil
-    elif (
-        alter >= regelsatz_anteilsbasiert.kind.kleinkind.min_alter
-        and alter <= regelsatz_anteilsbasiert.kind.kleinkind.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = basissatz * regelsatz_anteilsbasiert.kind.kleinkind.anteil
-    else:
-        out = 0.0
-
-    return out
-
-
-@policy_function(
-    start_date="2011-01-01",
-    end_date="2022-06-30",
-    leaf_name="kindersatz_m",
-)
-def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
-    alter: int,
-    kindergeld__gleiche_fg_wie_empfänger: bool,
-    grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
-) -> float:
-    """Basic monthly subsistence / SGB II needs of children since 2011.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
-    if (
-        alter >= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.min_alter
-        and alter <= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = grundsicherung__regelbedarfsstufen.rbs_6.satz
-    elif (
-        alter >= grundsicherung__regelbedarfsstufen.rbs_5.altersgrenzen.min_alter
-        and alter <= grundsicherung__regelbedarfsstufen.rbs_5.altersgrenzen.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = grundsicherung__regelbedarfsstufen.rbs_5.satz
-    elif (
-        alter >= grundsicherung__regelbedarfsstufen.rbs_4.altersgrenzen.min_alter
-        and alter <= grundsicherung__regelbedarfsstufen.rbs_4.altersgrenzen.max_alter
-        and kindergeld__gleiche_fg_wie_empfänger
-    ):
-        out = grundsicherung__regelbedarfsstufen.rbs_4.satz
-    elif kindergeld__gleiche_fg_wie_empfänger:  # adult children with parents in FG
-        out = grundsicherung__regelbedarfsstufen.rbs_3
-    else:
-        out = 0.0
-
-    return out
-
-
-@policy_function(
-    start_date="2022-07-01",
-    end_date="2022-12-31",
+    start_date="2023-01-01",
     leaf_name="kindersatz_m",
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
@@ -191,34 +108,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
 
 
 @policy_function(
-    start_date="2005-01-01",
-    end_date="2010-12-31",
-    leaf_name="erwachsenensatz_m",
-)
-def erwachsenensatz_m_bis_2010(
-    mehrbedarf_alleinerziehend_m: float,
-    kindersatz_m: float,
-    p_id_einstandspartner: int,
-    regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
-) -> float:
-    """Basic monthly subsistence / SGB II needs for adults without dwelling."""
-    # BG has 2 adults
-    if p_id_einstandspartner >= 0:
-        out = regelsatz_anteilsbasiert.basissatz * (
-            regelsatz_anteilsbasiert.erwachsen.je_erwachsener_bei_zwei_erwachsenen
-        )
-    # This observation is not a child, so BG has 1 adult
-    elif kindersatz_m == 0.0:
-        out = regelsatz_anteilsbasiert.basissatz
-    else:
-        out = 0.0
-
-    return out * (1 + mehrbedarf_alleinerziehend_m)
-
-
-@policy_function(
-    start_date="2011-01-01",
-    end_date="2022-12-31",
+    start_date="2023-01-01",
     leaf_name="erwachsenensatz_m",
 )
 def erwachsenensatz_m_ab_2011(
@@ -227,7 +117,7 @@ def erwachsenensatz_m_ab_2011(
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011."""
+    """Basic monthly subsistence / SGB II needs for adults without dwelling."""
     # BG has 2 adults
     if p_id_einstandspartner >= 0:
         out = grundsicherung__regelbedarfsstufen.rbs_2
@@ -240,7 +130,7 @@ def erwachsenensatz_m_ab_2011(
     return out * (1 + mehrbedarf_alleinerziehend_m)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
@@ -250,19 +140,31 @@ def regelsatz_m(
 
 
 @policy_function(
-    start_date="2005-01-01",
-    end_date="2022-12-31",
+    start_date="2023-01-01",
     leaf_name="kosten_der_unterkunft_m",
 )
-def kosten_der_unterkunft_m_bis_2022(
+def kosten_der_unterkunft_m_ab_2023(
+    bruttokaltmiete_m: float,
+    heizkosten_m: float,
+    bezug_im_vorjahr: bool,
     berechtigte_wohnfläche: float,
     anerkannte_warmmiete_je_qm_m: float,
 ) -> float:
-    """Costs of living eligible to claim."""
-    return berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
+    """Costs of living eligible to claim.
+
+    During the first year, the waiting period (Karenzzeit), only the appropriateness of
+    the heating costs is tested, while the living costs are fully considered in
+    Bürgergeld.
+    """
+    if bezug_im_vorjahr:
+        out = berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
+    else:
+        out = bruttokaltmiete_m + heizkosten_m
+
+    return out
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
@@ -274,7 +176,7 @@ def anerkannte_warmmiete_je_qm_m(
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -294,7 +196,7 @@ def berechtigte_wohnfläche(
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -308,7 +210,7 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -322,7 +224,7 @@ def heizkosten_m(
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
@@ -358,49 +260,7 @@ class RegelsatzAnteilsbasiert:
     kind: RegelsatzAnteilKindNachAlter
 
 
-@param_function(start_date="2005-01-01", end_date="2010-12-31")
-def regelsatz_anteilsbasiert(
-    parameter_regelsatz_anteilsbasiert: RawParam,
-) -> RegelsatzAnteilsbasiert:
-    """Regelsatz as a fraction of the Basissatz."""
-    anteilssätze_kinder = parameter_regelsatz_anteilsbasiert[
-        "anteil_vom_basissatz_für_kinder"
-    ]
-    kind_kleinkind = RegelsatzAnteilKind(
-        anteil=anteilssätze_kinder["kleinkind"]["anteil"],
-        min_alter=anteilssätze_kinder["kleinkind"]["min_alter"],
-        max_alter=anteilssätze_kinder["kleinkind"]["max_alter"],
-    )
-    kind_schulkind = RegelsatzAnteilKind(
-        anteil=anteilssätze_kinder["schulkind"]["anteil"],
-        min_alter=anteilssätze_kinder["schulkind"]["min_alter"],
-        max_alter=anteilssätze_kinder["schulkind"]["max_alter"],
-    )
-    kind_jugendliche_und_junge_erwachsene = RegelsatzAnteilKind(
-        anteil=anteilssätze_kinder["jugendliche_und_junge_erwachsene"]["anteil"],
-        min_alter=anteilssätze_kinder["jugendliche_und_junge_erwachsene"]["min_alter"],
-        max_alter=anteilssätze_kinder["jugendliche_und_junge_erwachsene"]["max_alter"],
-    )
-    erwachsen = RegelsatzAnteilErwachsen(
-        je_erwachsener_bei_zwei_erwachsenen=parameter_regelsatz_anteilsbasiert[
-            "anteil_vom_basissatz_bei_zwei_erwachsenen"
-        ],
-        je_erwachsener_ab_drei_erwachsene=parameter_regelsatz_anteilsbasiert[
-            "anteil_vom_basissatz_bei_weiteren_erwachsenen"
-        ],
-    )
-    return RegelsatzAnteilsbasiert(
-        basissatz=parameter_regelsatz_anteilsbasiert["basissatz"],
-        erwachsen=erwachsen,
-        kind=RegelsatzAnteilKindNachAlter(
-            kleinkind=kind_kleinkind,
-            schulkind=kind_schulkind,
-            jugendliche_und_junge_erwachsene=kind_jugendliche_und_junge_erwachsene,
-        ),
-    )
-
-
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(start_date="2023-01-01")
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParam,
     wohngeld__max_anzahl_personen: dict[str, int],

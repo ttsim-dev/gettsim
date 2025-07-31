@@ -1,22 +1,23 @@
-"""Arbeitslosengeld II (unemployment benefit II)."""
+"""Bürgergeld."""
 
 from __future__ import annotations
 
 from gettsim.tt import policy_function
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def betrag_m_bg(
     anspruchshöhe_m_bg: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     volljährige_alle_rentenbezieher_hh: bool,
 ) -> float:
     """Final monthly subsistence payment on household level."""
-    # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
-    # Alter (SGB XII) is implemented yet. We assume for now that households with only
-    # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
-    # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
-    # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
+    # TODO (@MImmesberger): No interaction between Wohngeld/Bürgergeld and
+    # Grundsicherung im Alter (SGB XII) is implemented yet. We assume for now that
+    # households with only retirees are eligible for Grundsicherung im Alter but not for
+    # Bürgergeld/Wohngeld. All other households are not eligible for SGB XII, but SGB II
+    # / Wohngeld. Once this is resolved, remove the `volljährige_alle_rentenbezieher_hh`
+    # condition.
     # https://github.com/ttsim-dev/gettsim/issues/703
     if (
         vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
@@ -29,7 +30,7 @@ def betrag_m_bg(
     return out
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def anspruchshöhe_m_bg(
     regelbedarf_m_bg: float,
     anzurechnendes_einkommen_m_bg: float,

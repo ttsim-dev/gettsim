@@ -21,14 +21,12 @@ mietobergrenze_pro_qm:
   unit: Euros / Square Meter
   reference_period: Month
   type: scalar
-  1984-01-01:
-    value: 10
   2023-01-01:
-    note: Bürgergeld replaces Arbeitslosengeld II.
+    value: 10
 berechtigte_wohnfläche_miete:
   name:
-    de: Berechtigte Mietwohnfläche für ALG2-Empfänger*innen
-    en: Living rental space eligible for ALG2-recipients
+    de: Berechtigte Mietwohnfläche für Bürgergeld-Empfänger*innen
+    en: Living rental space eligible for Bürgergeld-recipients
   description:
     de: >-
       Eine Mietwohnung darf für einen Single 45 Quadratmeter (+15 für jede weitere
@@ -43,15 +41,13 @@ berechtigte_wohnfläche_miete:
   unit: Square Meters
   reference_period: null
   type: dict
-  2005-01-01:
+  2023-01-01:
     single: 45
     je_weitere_person: 15
-  2023-01-01:
-    note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_berechtigte_wohnfläche_eigentum:
   name:
-    de: Berechtigte Eigentumsfläche für ALG2-Empfänger*innen
-    en: Property space eligible for ALG2-recipients
+    de: Berechtigte Eigentumsfläche für Bürgergeld-Empfänger*innen
+    en: Property space eligible for Bürgergeld-recipients
   description:
     de: >-
       Ab 2023 gilt diese Obergrenze nur für Eigenheime. Eigentumswohnungen dürfen nur
@@ -62,12 +58,12 @@ parameter_berechtigte_wohnfläche_eigentum:
   unit: Square Meters
   reference_period: null
   type: require_converter
-  1984-01-01:
-    1: 80
-    2: 80
-    3: 100
-    4: 120
+  2023-01-01:
+    reference: Art. 1 Nr.12 Abschnitt 5, G. v. 20.12.2022 BGBl. I S. 2328
+    note: Gilt für Eigenheime. Eigentumswohnungen dürfen nur bis zu 130qm groß sein.
+    1: 140
+    2: 140
+    3: 140
+    4: 140
     je_weitere_person: 20
     max_anzahl_direkt: 4
-  2023-01-01:
-    note: Bürgergeld replaces Arbeitslosengeld II.

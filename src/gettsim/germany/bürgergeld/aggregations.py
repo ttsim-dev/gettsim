@@ -1,4 +1,4 @@
-"""Aggregations for Arbeitslosengeld II."""
+"""Aggregations for Bürgergeld."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def ist_kind_in_bedarfsgemeinschaft(
     familie__p_id_elternteil_1: IntColumn,
     familie__p_id_elternteil_2: IntColumn,
@@ -45,7 +45,7 @@ def ist_kind_in_bedarfsgemeinschaft(
     return in_gleicher_fg_wie_elternteil_1 | in_gleicher_fg_wie_elternteil_2
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def ist_erwachsener_in_bedarfsgemeinschaft(
     ist_kind_in_bedarfsgemeinschaft: bool,
 ) -> bool:
@@ -53,16 +53,12 @@ def ist_erwachsener_in_bedarfsgemeinschaft(
     return not ist_kind_in_bedarfsgemeinschaft
 
 
-@agg_by_group_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.COUNT
-)
+@agg_by_group_function(start_date="2023-01-01", agg_type=AggType.COUNT)
 def anzahl_personen_bg(bg_id: int) -> int:
     pass
 
 
-@agg_by_group_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.SUM
-)
+@agg_by_group_function(start_date="2023-01-01", agg_type=AggType.SUM)
 def anzahl_erwachsene_bg(
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
     bg_id: int,
@@ -70,14 +66,12 @@ def anzahl_erwachsene_bg(
     pass
 
 
-@agg_by_group_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.SUM
-)
+@agg_by_group_function(start_date="2023-01-01", agg_type=AggType.SUM)
 def anzahl_kinder_bg(ist_kind_in_bedarfsgemeinschaft: bool, bg_id: int) -> int:
     pass
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def ist_kind_bis_17_in_bedarfsgemeinschaft(
     alter: int, ist_kind_in_bedarfsgemeinschaft: bool
 ) -> bool:
@@ -85,23 +79,19 @@ def ist_kind_bis_17_in_bedarfsgemeinschaft(
     return ist_kind_in_bedarfsgemeinschaft and (alter <= 17)  # noqa: PLR2004
 
 
-@agg_by_group_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.SUM
-)
+@agg_by_group_function(start_date="2023-01-01", agg_type=AggType.SUM)
 def anzahl_kinder_bis_17_bg(
     ist_kind_bis_17_in_bedarfsgemeinschaft: bool, bg_id: int
 ) -> int:
     pass
 
 
-@agg_by_group_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.ANY
-)
+@agg_by_group_function(start_date="2023-01-01", agg_type=AggType.ANY)
 def alleinerziehend_bg(familie__alleinerziehend: bool, bg_id: int) -> bool:
     pass
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def hat_kind_in_gleicher_bedarfsgemeinschaft(
     anzahl_kinder_bg: int,
     ist_erwachsener_in_bedarfsgemeinschaft: bool,

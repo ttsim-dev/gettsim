@@ -1,4 +1,4 @@
-"""Kindergeldübertrag for Arbeitslosengeld II."""
+"""Kindergeldübertrag for Bürgergeld."""
 
 from __future__ import annotations
 
@@ -17,9 +17,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, FloatColumn, IntColumn
 
 
-@agg_by_p_id_function(
-    start_date="2005-01-01", end_date="2022-12-31", agg_type=AggType.SUM
-)
+@agg_by_p_id_function(start_date="2023-01-01", agg_type=AggType.SUM)
 def kindergeldübertrag_m(
     differenz_kindergeld_kindbedarf_m: float,
     kindergeld__p_id_empfänger: int,
@@ -29,32 +27,23 @@ def kindergeldübertrag_m(
 
 
 @policy_function(
-    start_date="2005-01-01",
-    end_date="2022-12-31",
+    start_date="2023-01-01",
     leaf_name="kindergeld_pro_kind_m",
 )
-def _mean_kindergeld_per_child_gestaffelt_m(
-    kindergeld__betrag_m: float,
+def _mean_kindergeld_per_child_ohne_staffelung_m(
     kindergeld__anzahl_ansprüche: int,
+    kindergeld__satz: float,
 ) -> float:
     """Kindergeld per child.
 
-    Returns the average Kindergeld per child. If there are no children, the function
-    returns 0. Helper function for `kindergeld_zur_bedarfsdeckung_m`.
+    Returns the (average) Kindergeld per child. Helper function for
+    `kindergeld_zur_bedarfsdeckung_m`.
 
     """
-    if kindergeld__anzahl_ansprüche > 0:
-        out = kindergeld__betrag_m / kindergeld__anzahl_ansprüche
-    else:
-        out = 0.0
-    return out
+    return kindergeld__satz if kindergeld__anzahl_ansprüche > 0 else 0.0
 
 
-@policy_function(
-    start_date="2005-01-01",
-    end_date="2022-12-31",
-    vectorization_strategy="not_required",
-)
+@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
 def kindergeld_zur_bedarfsdeckung_m(
     kindergeld_pro_kind_m: FloatColumn,
     kindergeld__p_id_empfänger: IntColumn,
@@ -80,7 +69,7 @@ def kindergeld_zur_bedarfsdeckung_m(
     )
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def differenz_kindergeld_kindbedarf_m(
     regelbedarf_m_bg: float,
     nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -120,11 +109,7 @@ def differenz_kindergeld_kindbedarf_m(
     return out
 
 
-@policy_function(
-    start_date="2005-01-01",
-    end_date="2022-12-31",
-    vectorization_strategy="not_required",
-)
+@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
 def in_anderer_bg_als_kindergeldempfänger(
     p_id: IntColumn,
     kindergeld__p_id_empfänger: IntColumn,

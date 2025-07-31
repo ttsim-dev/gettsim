@@ -1,4 +1,4 @@
-"""Relevant income for Arbeitslosengeld II."""
+"""Relevant income for Bürgergeld."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from types import ModuleType
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def anzurechnendes_einkommen_m(
     nettoeinkommen_nach_abzug_freibetrag_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -44,7 +44,7 @@ def anzurechnendes_einkommen_m(
     )
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def nettoeinkommen_nach_abzug_freibetrag_m(
     nettoeinkommen_vor_abzug_freibetrag_m: float,
     anrechnungsfreies_einkommen_m: float,
@@ -53,7 +53,7 @@ def nettoeinkommen_nach_abzug_freibetrag_m(
     return nettoeinkommen_vor_abzug_freibetrag_m - anrechnungsfreies_einkommen_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def nettoeinkommen_vor_abzug_freibetrag_m(
     bruttoeinkommen_m: float,
     einkommensteuer__betrag_m_sn: float,
@@ -70,7 +70,7 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     )
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def bruttoeinkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -100,56 +100,7 @@ def bruttoeinkommen_m(
     )
 
 
-@policy_function(start_date="2005-01-01", end_date="2005-09-30")
-def nettoquote(
-    einnahmen__bruttolohn_m: float,
-    einkommensteuer__betrag_m_sn: float,
-    solidaritätszuschlag__betrag_m_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
-    sozialversicherung__beiträge_versicherter_m: float,
-    abzugsfähige_pauschalen: dict[str, float],
-) -> float:
-    """Share of net to gross wage.
-
-    Quotienten von bereinigtem Nettoeinkommen und Bruttoeinkommen. § 3 Abs. 2 Alg II-V.
-    """
-    # Bereinigtes monatliches Einkommen aus Erwerbstätigkeit nach § 11 Abs. 2 Nr. 1-5.
-    alg2_2005_bne = max(
-        (
-            einnahmen__bruttolohn_m
-            - (einkommensteuer__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-            - (solidaritätszuschlag__betrag_m_sn / einkommensteuer__anzahl_personen_sn)
-            - sozialversicherung__beiträge_versicherter_m
-            - abzugsfähige_pauschalen["werbung"]
-            - abzugsfähige_pauschalen["versicherung"]
-        ),
-        0,
-    )
-
-    return alg2_2005_bne / einnahmen__bruttolohn_m
-
-
-@policy_function(
-    start_date="2005-01-01",
-    end_date="2005-09-30",
-    leaf_name="anrechnungsfreies_einkommen_m",
-)
-def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
-    einnahmen__bruttolohn_m: float,
-    nettoquote: float,
-    parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
-    xnp: ModuleType,
-) -> float:
-    """Share of income which remains to the individual."""
-    return piecewise_polynomial(
-        x=einnahmen__bruttolohn_m,
-        parameters=parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
-        rates_multiplier=nettoquote,
-        xnp=xnp,
-    )
-
-
-@policy_function(start_date="2005-10-01", end_date="2022-12-31")
+@policy_function(start_date="2023-01-01")
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -159,9 +110,9 @@ def anrechnungsfreies_einkommen_m(
     parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Share of income, which remains to the individual since 10/2005.
+    """Share of income, which remains to the individual.
 
-    Sozialgesetzbuch (SGB) Zweites Buch (II) - Arbeitslosengeld II, Grundsicherung für
+    Sozialgesetzbuch (SGB) Zweites Buch (II) - Bürgergeld, Grundsicherung für
     Arbeitsuchende. SGB II §11b Abs 3
     https://www.gesetze-im-internet.de/sgb_2/__11b.html
     """
@@ -188,7 +139,7 @@ def anrechnungsfreies_einkommen_m(
     return out
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(start_date="2023-01-01")
 def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
     raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParam,
     xnp: ModuleType,
@@ -204,7 +155,7 @@ def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
     )
 
 
-@param_function(start_date="2005-10-01", end_date="2022-12-31")
+@param_function(start_date="2023-01-01")
 def parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg(
     raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: RawParam,
     raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParam,
