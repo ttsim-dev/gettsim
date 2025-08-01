@@ -1,0 +1,119 @@
+---
+info:
+  note: Test with old income thresholds
+  precision_atol: 0.01
+  source: https://www.buerger-geld.org/rechner/ergebnis/index.php
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+      p_id_einstandspartner:
+        - -1
+    arbeitsstunden_w:
+      - 20.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 1200.0
+      kapitalerträge_m:
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1978
+    hh_id:
+      - 16
+    kindergeld:
+      betrag_m_bg:
+        - 0.0
+      in_ausbildung:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 39
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 204.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        bezieht_rente:
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen:
+      - 40000.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+      heizkosten_m_hh:
+        - 50.0
+      wohnfläche_hh:
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+outputs:
+  bürgergeld:
+    anrechnungsfreies_einkommen_m:
+      - 300.0
+    betrag_m_bg:
+      - 256.0
+    kosten_der_unterkunft_m_bg:
+      - 450.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 696.0
+    regelsatz_m_bg:
+      - 502.0

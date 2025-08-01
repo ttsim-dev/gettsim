@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from gettsim.tt import RawParam
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def regelbedarf_m(
     regelsatz_m: float,
     kosten_der_unterkunft_m: float,
@@ -27,13 +27,11 @@ def regelbedarf_m(
     """Basic monthly subsistence level on individual level.
 
     This includes cost of dwelling.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.:
     """
     return regelsatz_m + kosten_der_unterkunft_m
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def mehrbedarf_alleinerziehend_m(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
@@ -48,8 +46,6 @@ def mehrbedarf_alleinerziehend_m(
     years old.
 
     Reference: §21 SGB II
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
     """
     basis_mehrbedarf = (
         parameter_mehrbedarf_alleinerziehend["basis_je_kind_bis_17"]
@@ -158,6 +154,7 @@ def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
 
 @policy_function(
     start_date="2022-07-01",
+    end_date="2022-12-31",
     leaf_name="kindersatz_m",
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
@@ -166,10 +163,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     kindersofortzuschlag: float,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs of children since 2011.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
+    """Basic monthly subsistence / SGB II needs of children since 2011."""
     if (
         alter >= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.min_alter
         and alter <= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.max_alter
@@ -224,6 +218,7 @@ def erwachsenensatz_m_bis_2010(
 
 @policy_function(
     start_date="2011-01-01",
+    end_date="2022-12-31",
     leaf_name="erwachsenensatz_m",
 )
 def erwachsenensatz_m_ab_2011(
@@ -232,10 +227,7 @@ def erwachsenensatz_m_ab_2011(
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
+    """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011."""
     # BG has 2 adults
     if p_id_einstandspartner >= 0:
         out = grundsicherung__regelbedarfsstufen.rbs_2
@@ -248,12 +240,12 @@ def erwachsenensatz_m_ab_2011(
     return out * (1 + mehrbedarf_alleinerziehend_m)
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
 ) -> float:
-    """Calculate basic monthly subsistence without dwelling until 2010."""
+    """Basic monthly subsistence without dwelling."""
     return erwachsenensatz_m + kindersatz_m
 
 
@@ -266,54 +258,23 @@ def kosten_der_unterkunft_m_bis_2022(
     berechtigte_wohnfläche: float,
     anerkannte_warmmiete_je_qm_m: float,
 ) -> float:
-    """Calculate costs of living eligible to claim until 2022.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
+    """Costs of living eligible to claim."""
     return berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
 
 
-@policy_function(
-    start_date="2023-01-01",
-    leaf_name="kosten_der_unterkunft_m",
-)
-def kosten_der_unterkunft_m_ab_2023(
-    bruttokaltmiete_m: float,
-    heizkosten_m: float,
-    bezug_im_vorjahr: bool,
-    berechtigte_wohnfläche: float,
-    anerkannte_warmmiete_je_qm_m: float,
-) -> float:
-    """Calculate costs of living eligible to claim since 2023. During the first year,
-    the waiting period (Karenzzeit), only the appropriateness of the heating costs is
-    tested, while the living costs are fully considered in Bürgergeld.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
-    if bezug_im_vorjahr:
-        out = berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
-    else:
-        out = bruttokaltmiete_m + heizkosten_m
-
-    return out
-
-
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
     wohnfläche: float,
     mietobergrenze_pro_qm: float,
 ) -> float:
-    """Calculate rent per square meter.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
+    """Rent per square meter."""
     out = (bruttokaltmiete_m + heizkosten_m) / wohnfläche
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -321,10 +282,7 @@ def berechtigte_wohnfläche(
     berechtigte_wohnfläche_miete: dict[str, float],
     berechtigte_wohnfläche_eigentum: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Calculate size of dwelling eligible to claim.
-
-    Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
-    """
+    """Size of dwelling eligible to claim."""
     if wohnen__bewohnt_eigentum_hh:
         maximum = berechtigte_wohnfläche_eigentum.look_up(anzahl_personen_hh)
     else:
@@ -336,7 +294,7 @@ def berechtigte_wohnfläche(
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -350,7 +308,7 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -364,7 +322,7 @@ def heizkosten_m(
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
@@ -442,7 +400,7 @@ def regelsatz_anteilsbasiert(
     )
 
 
-@param_function(start_date="2005-01-01")
+@param_function(start_date="2005-01-01", end_date="2022-12-31")
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParam,
     wohngeld__max_anzahl_personen: dict[str, int],

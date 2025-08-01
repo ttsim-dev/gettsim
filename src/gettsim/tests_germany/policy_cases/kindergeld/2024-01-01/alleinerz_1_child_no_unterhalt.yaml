@@ -26,7 +26,7 @@ inputs:
       - 0
       - 1
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     kindergeld_zur_bedarfsdeckung_m:
       - 0.0
       - 250.0

@@ -1,0 +1,213 @@
+---
+info:
+  note: |-
+    Test with old income thresholds, adjusted for Kindersofortzuschlag. Constructed
+    test case after Karenzzeit with cost for living from testcase in 2011.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 30
+      - 3
+      - 35
+    bürgergeld:
+      bezug_im_vorjahr:
+        - true
+        - true
+        - true
+      p_id_einstandspartner:
+        - 48
+        - -1
+        - 46
+    arbeitsstunden_w:
+      - 20.0
+      - 0.0
+      - 20.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 1200.0
+        - 0.0
+        - 700.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 48
+        - -1
+        - 46
+      p_id_elternteil_1:
+        - -1
+        - 46
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - 48
+        - -1
+    geburtsjahr:
+      - 1993
+      - 2020
+      - 1988
+    hh_id:
+      - 19
+      - 19
+      - 19
+    kindergeld:
+      anzahl_ansprüche:
+        - 0
+        - 0
+        - 0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - 46
+        - -1
+    p_id:
+      - 46
+      - 47
+      - 48
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 204.0
+        - 0.0
+        - 140.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 720.0
+        - 720.0
+        - 720.0
+      heizkosten_m_hh:
+        - 110.0
+        - 110.0
+        - 110.0
+      wohnfläche_hh:
+        - 105.0
+        - 105.0
+        - 105.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    anrechnungsfreies_einkommen_m:
+      - 300.0
+      - 0.0
+      - 220.0
+    betrag_m_bg:
+      - 796.86
+      - 796.86
+      - 796.86
+    kosten_der_unterkunft_m_bg:
+      - 592.86
+      - 592.86
+      - 592.86
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 696.0
+      - 0.0
+      - 340.0
+    regelsatz_m_bg:
+      - 1240.0
+      - 1240.0
+      - 1240.0

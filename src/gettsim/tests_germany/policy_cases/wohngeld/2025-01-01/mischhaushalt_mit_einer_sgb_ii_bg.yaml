@@ -15,7 +15,7 @@ inputs:
       - 40
       - 40
       - 40
-    arbeitslosengeld_2:
+    bürgergeld:
       bezug_im_vorjahr:
         - false
         - false
@@ -267,7 +267,7 @@ inputs:
         - 5
         - 5
 outputs:
-  arbeitslosengeld_2:
+  bürgergeld:
     bruttokaltmiete_m_wthh:
       - 500.0
       - 500.0

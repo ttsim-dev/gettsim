@@ -1,0 +1,154 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Made up.
+inputs:
+  assumed:
+    alter:
+      - 30
+      - 30
+      - 30
+      - 30
+      - 10
+      - 10
+      - 10
+      - 30
+      - 30
+    bürgergeld:
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - -1
+        - -1
+        - -1
+        - 8
+        - 7
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+        - 0
+        - 0
+        - 0
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+        - 1
+        - 1
+        - 1
+        - -1
+        - -1
+    hh_id:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+    wohnen:
+      bruttokaltmiete_m_hh:
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+        - 1000.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+        - 100.0
+  provided: {}
+outputs:
+  bürgergeld:
+    bruttokaltmiete_m_bg:
+      - 555.56
+      - 555.56
+      - 222.22
+      - 222.22
+      - 555.56
+      - 555.56
+      - 555.56
+      - 222.22
+      - 222.22
+    heizkosten_m_bg:
+      - 55.56
+      - 55.56
+      - 22.22
+      - 22.22
+      - 55.56
+      - 55.56
+      - 55.56
+      - 22.22
+      - 22.22
+  bg_id:
+    - 0
+    - 0
+    - 1
+    - 1
+    - 0
+    - 0
+    - 0
+    - 2
+    - 2

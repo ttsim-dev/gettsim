@@ -23,6 +23,8 @@ mietobergrenze_pro_qm:
   type: scalar
   1984-01-01:
     value: 10
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.
 berechtigte_wohnfläche_miete:
   name:
     de: Berechtigte Mietwohnfläche für ALG2-Empfänger*innen
@@ -44,6 +46,8 @@ berechtigte_wohnfläche_miete:
   2005-01-01:
     single: 45
     je_weitere_person: 15
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_berechtigte_wohnfläche_eigentum:
   name:
     de: Berechtigte Eigentumsfläche für ALG2-Empfänger*innen
@@ -66,11 +70,4 @@ parameter_berechtigte_wohnfläche_eigentum:
     je_weitere_person: 20
     max_anzahl_direkt: 4
   2023-01-01:
-    reference: Art. 1 Nr.12 Abschnitt 5, G. v. 20.12.2022 BGBl. I S. 2328
-    note: Gilt für Eigenheime. Eigentumswohnungen dürfen nur bis zu 130qm groß sein.
-    1: 140
-    2: 140
-    3: 140
-    4: 140
-    je_weitere_person: 20
-    max_anzahl_direkt: 4
+    note: Bürgergeld replaces Arbeitslosengeld II.

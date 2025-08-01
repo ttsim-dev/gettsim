@@ -1,0 +1,56 @@
+---
+kindersofortzuschlag:
+  name:
+    de: Kindersofortzuschlag für Bürgergeld
+    en: Instant surcharge for children for unemployment benefit
+  description:
+    de: >-
+      § 72 SGB II
+      Kinder, Jugendliche  und junge Erwachsene, die Anspruch auf
+      Bürgergeld oder Sozialgeld haben (Regelbedarfsstufen 3, 4, 5, 6),
+      erhalten einen Sofortzuschlag von 20€.
+    en: >-
+      § 72 SGB II
+      Children, adolescents and young adults who are entitled to unemployment benefits
+      or social benefits (Regelbedarfsstufen 3, 4, 5, 6) receive an instant surcharge
+      of 20 Euro.
+  unit: Euros
+  reference_period: Month
+  type: scalar
+  2023-01-01:
+    value: 20
+  2025-01-01:
+    value: 25
+    note: >-
+      Gesetz zur Fortentwicklung des Steuerrechts und zur  Anpassung des Einkommen-
+      steuertarifs (Steuerfortentwicklungsgesetz - SteFeG)
+    reference: Art. 7 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+parameter_mehrbedarf_alleinerziehend:
+  name:
+    de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
+    en: Parameter for calculating the additional need of single parents
+  description:
+    de: >-
+      § 21 (3) Nr. 1 SGB II. Mehrbedarfe für Alleinerziehende sind als Anteile vom
+      maßgebenden Regelbedarf angegeben. ``kind_bis_6_oder_2_3_kinder_bis_15`` gibt den
+      Anteil bei einem Kind bis 6 Jahren oder zwei oder drei Kindern bis 15 Jahre an.
+      ``basis_je_kind_bis_17`` gibt den maßgeblichen Anteil vom Regelbedarf je Kind an,
+      wenn der daraus resultierende Anspruch größer ist als der Anspruch durch
+      ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gibt den Maximalanteil vom
+      Regelbedarf an, der für Alleinerziehende als Mehrbedarf berücksichtigt wird.
+    en: >-
+      § 21 (3) Nr. 1 SGB II. Additional needs for single parents are given as shares of
+      the relevant Regelbedarf. ``kind_bis_6_oder_2_3_kinder_bis_15`` gives the share
+      when there is one child up to 6 years or two or three children up to 15 years.
+      ``basis_je_kind_bis_17`` gives the relevant share of the Regelbedarf per child
+      when the resulting claim is greater than the claim through
+      ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gives the maximum share of the
+      Regelbedarf that is considered as an additional need for single parents.
+  unit: Share
+  reference_period: Month
+  type: dict
+  2023-01-01:
+    basis_je_kind_bis_17: 0.12
+    kind_bis_6_oder_2_3_kinder_bis_15: 0.36
+    max: 0.6
+    reference: G. v. 24.12.2003 BGBl. I S. 2954.

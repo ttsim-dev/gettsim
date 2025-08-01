@@ -1,0 +1,100 @@
+---
+info:
+  note: |-
+    Test Regelsatz when Familiengemeinschaft (2 adults, 1 kid) is the same as
+    Bedarfsgemeinschaft.
+  precision_atol: 0.01
+  source: Made up.
+inputs:
+  assumed:
+    alter:
+      - 40
+      - 10
+      - 45
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 2
+        - -1
+        - 0
+    bg_id:
+      - 0
+      - 0
+      - 0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - 2
+        - -1
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 900.0
+        - 900.0
+        - 900.0
+      heizkosten_m_hh:
+        - 150.0
+        - 150.0
+        - 150.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+        - 60.0
+  provided: {}
+outputs:
+  bürgergeld:
+    anerkannte_warmmiete_je_qm_m:
+      - 10.0
+      - 10.0
+      - 10.0
+    berechtigte_wohnfläche:
+      - 20.0
+      - 20.0
+      - 20.0
+    erwachsenensatz_m:
+      - 506.0
+      - 0.0
+      - 506.0
+    kindersatz_m:
+      - 0.0
+      - 410.0
+      - 0.0
+    kosten_der_unterkunft_m:
+      - 350.0
+      - 350.0
+      - 350.0
+    regelbedarf_m:
+      - 856.0
+      - 760.0
+      - 856.0
+    regelsatz_m:
+      - 506.0
+      - 410.0
+      - 506.0

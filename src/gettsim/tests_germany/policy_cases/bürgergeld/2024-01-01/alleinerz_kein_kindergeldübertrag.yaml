@@ -1,0 +1,218 @@
+---
+info:
+  note: |-
+    Household with 2 children, where child income does not exceed needs. Hence,
+    child stays in Bedarfsgemeinschaft and Kindergeldübertrag is zero.
+  precision_atol: 0.01
+  source: |-
+    https://www.das-steht-dir-zu.de/arbeit/buergergeld/der-buergergeld-rechner/index.html
+inputs:
+  assumed:
+    bg_id:
+      - 0
+      - 0
+      - 0
+  provided:
+    alter:
+      - 40
+      - 10
+      - 8
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 450.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - true
+        - false
+        - false
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1983
+      - 2014
+      - 2016
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - 0
+        - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 600.0
+        - 600.0
+        - 600.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    betrag_m_bg:
+      - 1455.68
+      - 1455.68
+      - 1455.68
+    differenz_kindergeld_kindbedarf_m:
+      - 0.0
+      - 0.0
+      - 0.0
+    kindergeld_pro_kind_m:
+      - 250.0
+      - 0.0
+      - 0.0
+    kindergeldübertrag_m:
+      - 0.0
+      - 0.0
+      - 0.0
+    kindersatz_m_bg:
+      - 820.0
+      - 820.0
+      - 820.0
+    kosten_der_unterkunft_m_bg:
+      - 650.0
+      - 650.0
+      - 650.0
+    regelsatz_m_bg:
+      - 1585.68
+      - 1585.68
+      - 1585.68

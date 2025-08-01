@@ -1,0 +1,107 @@
+---
+info:
+  note: >-
+    Test with new Regelbedarf.
+    `bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m` is wrong.
+  precision_atol: 0.01
+  source: https://www.buerger-geld.org/rechner/ergebnis/index.php
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+    bürgergeld__bezug_im_vorjahr:
+      - false
+    bürgergeld__p_id_einstandspartner:
+      - -1
+    arbeitsstunden_w:
+      - 20.0
+    einkommensteuer__betrag_y_sn:
+      - 0.0
+    einnahmen__kapitalerträge_m:
+      - 0.0
+    einnahmen__bruttolohn_m:
+      - 600.0
+    einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m:
+      - 0.0
+    einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m:
+      - 0.0
+    einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
+      - false
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m:
+      - 0.0
+    einkommensteuer__gemeinsam_veranlagt:
+      - false
+    elterngeld__betrag_m:
+      - 0.0
+    familie__alleinerziehend:
+      - false
+    familie__p_id_ehepartner:
+      - -1
+    familie__p_id_elternteil_1:
+      - -1
+    familie__p_id_elternteil_2:
+      - -1
+    geburtsjahr:
+      - 1978
+    hh_id:
+      - 0
+    kindergeld__betrag_m_bg:
+      - 0.0
+    kindergeld__in_ausbildung:
+      - false
+    kindergeld__p_id_empfänger:
+      - -1
+    p_id:
+      - 0
+    solidaritätszuschlag__betrag_y_sn:
+      - 0.0
+    sozialversicherung__arbeitslosen__betrag_m:
+      - 0.0
+    sozialversicherung__kranken__beitrag__privat_versichert:
+      - false
+    sozialversicherung__pflege__beitrag__anzahl_kinder_bis_24:
+      - 0
+    sozialversicherung__pflege__beitrag__hat_kinder:
+      - false
+    sozialversicherung__rente__altersrente__betrag_m:
+      - 0.0
+      - 0.0
+    sozialversicherung__rente__bezieht_rente:
+      - false
+    einnahmen__renten__betriebliche_altersvorsorge_m:
+      - 0.0
+      - 0.0
+    einkommensteuer__einkünfte__sonstige__geförderte_private_vorsorge_m:
+      - 0.0
+      - 0.0
+    einkommensteuer__einkünfte__sonstige__sonstige_private_vorsorge_m:
+      - 0.0
+      - 0.0
+    unterhalt__tatsächlich_erhaltener_betrag_m:
+      - 0.0
+    unterhaltsvorschuss__betrag_m:
+      - 0.0
+    vermögen:
+      - 0.0
+    wohnen__bewohnt_eigentum_hh:
+      - false
+    wohnen__bruttokaltmiete_m_hh:
+      - 400.0
+    wohnen__heizkosten_m_hh:
+      - 50.0
+    wohnen__wohnfläche_hh:
+      - 60.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  bürgergeld__anrechnungsfreies_einkommen_m:
+    - 208.0
+  bürgergeld__betrag_m_bg:
+    - 621.0
+  bürgergeld__kosten_der_unterkunft_m_bg:
+    - 450.0
+  bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m:
+    - 392.0
+  bürgergeld__regelsatz_m_bg:
+    - 563.0

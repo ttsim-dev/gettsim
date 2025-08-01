@@ -1,0 +1,79 @@
+---
+info:
+  note: |-
+    Test Regelsatz when Familiengemeinschaft (1 adult, 1 kid) is split into two
+    Bedarfsgemeinschaften.
+  precision_atol: 0.01
+  source: Made up.
+inputs:
+  assumed:
+    alter:
+      - 40
+      - 10
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+      p_id_einstandspartner:
+        - -1
+        - -1
+    bg_id:
+      - 0
+      - 1
+    familie:
+      alleinerziehend:
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+    hh_id:
+      - 0
+      - 0
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 600.0
+        - 600.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 40.0
+        - 40.0
+  provided: {}
+outputs:
+  bürgergeld:
+    anerkannte_warmmiete_je_qm_m:
+      - 10.0
+      - 10.0
+    berechtigte_wohnfläche:
+      - 20.0
+      - 20.0
+    erwachsenensatz_m:
+      - 630.56
+      - 0.0
+    kindersatz_m:
+      - 0.0
+      - 410.0
+    kosten_der_unterkunft_m:
+      - 350.0
+      - 350.0
+    regelbedarf_m:
+      - 980.56
+      - 760.0
+    regelsatz_m:
+      - 630.56
+      - 410.0

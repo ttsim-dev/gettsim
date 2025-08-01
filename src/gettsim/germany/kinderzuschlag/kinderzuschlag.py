@@ -39,11 +39,11 @@ def satz_mit_gestaffeltem_kindergeld(
     )
 
 
-@param_function(start_date="2024-01-01", leaf_name="satz")
+@param_function(leaf_name="satz", start_date="2024-01-01")
 def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     kindergeld__satz: float,
-    arbeitslosengeld_2__kindersofortzuschlag: float,
+    bürgergeld__kindersofortzuschlag: float,
     satz_vorjahr_ohne_kindersofortzuschlag: float,
 ) -> float:
     """Kinderzuschlag pro Kind.
@@ -60,7 +60,7 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
         current_formula,
         satz_vorjahr_ohne_kindersofortzuschlag,
     )
-    return satz_ohne_kindersofortzuschlag + arbeitslosengeld_2__kindersofortzuschlag
+    return satz_ohne_kindersofortzuschlag + bürgergeld__kindersofortzuschlag
 
 
 @policy_function(start_date="2005-01-01")
@@ -83,10 +83,10 @@ def betrag_m_bg(
 @policy_function(start_date="2005-01-01")
 def anspruchshöhe_m(
     anspruchshöhe_m_bg: float,
-    arbeitslosengeld_2__anzahl_personen_bg: int,
+    familie__anzahl_personen_bg: int,
 ) -> float:
     """Kinderzuschlag claim per member of the Bedarfsgemeinschaft."""
-    return anspruchshöhe_m_bg / arbeitslosengeld_2__anzahl_personen_bg
+    return anspruchshöhe_m_bg / familie__anzahl_personen_bg
 
 
 @policy_function(start_date="2005-01-01")
@@ -120,10 +120,10 @@ def vermögensfreibetrag_bg_bis_2022(
 
 @policy_function(start_date="2023-01-01", leaf_name="vermögensfreibetrag_bg")
 def vermögensfreibetrag_bg_ab_2023(
-    arbeitslosengeld_2__vermögensfreibetrag_in_karenzzeit_bg: float,
+    bürgergeld__vermögensfreibetrag_in_karenzzeit_bg: float,
 ) -> float:
     """Wealth exemptions for Kinderzuschlag since 2023."""
-    return arbeitslosengeld_2__vermögensfreibetrag_in_karenzzeit_bg
+    return bürgergeld__vermögensfreibetrag_in_karenzzeit_bg
 
 
 @policy_function(
@@ -136,7 +136,7 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     maximales_nettoeinkommen_m_bg: float,
     basisbetrag_kind_m_bg: float,
     anzurechnendes_einkommen_eltern_m_bg: float,
-    arbeitslosengeld_2__anzahl_erwachsene_bg: int,
+    familie__anzahl_erwachsene_bg: int,
 ) -> float:
     """Calculate Kinderzuschlag since 2005 until 06/2019. Whether Kinderzuschlag or
     Arbeitslosengeld 2 applies will be checked later.
@@ -145,12 +145,12 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (arbeitslosengeld_2__anzahl_erwachsene_bg >= 1).
+    (familie__anzahl_erwachsene_bg >= 1).
 
     """
     if (
         nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg
-    ) and arbeitslosengeld_2__anzahl_erwachsene_bg >= 1:
+    ) and familie__anzahl_erwachsene_bg >= 1:
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -170,7 +170,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     maximales_nettoeinkommen_m_bg: float,
     basisbetrag_kind_m_bg: float,
     anzurechnendes_einkommen_eltern_m_bg: float,
-    arbeitslosengeld_2__anzahl_erwachsene_bg: int,
+    familie__anzahl_erwachsene_bg: int,
 ) -> float:
     """Calculate Kinderzuschlag since 2005 until 06/2019. Whether Kinderzuschlag or
     Arbeitslosengeld 2 applies will be checked later.
@@ -180,13 +180,13 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (arbeitslosengeld_2__anzahl_erwachsene_bg >= 1).
+    (familie__anzahl_erwachsene_bg >= 1).
 
     """
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
-        and arbeitslosengeld_2__anzahl_erwachsene_bg >= 1
+        and familie__anzahl_erwachsene_bg >= 1
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -201,7 +201,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     mindestbruttoeinkommen_m_bg: float,
     basisbetrag_kind_m_bg: float,
     anzurechnendes_einkommen_eltern_m_bg: float,
-    arbeitslosengeld_2__anzahl_erwachsene_bg: int,
+    familie__anzahl_erwachsene_bg: int,
 ) -> float:
     """Calculate Kinderzuschlag since 07/2019. Whether Kinderzuschlag or
     Arbeitslosengeld 2 applies will be checked later.
@@ -210,12 +210,12 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     minimum income threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (arbeitslosengeld_2__anzahl_erwachsene_bg >= 1).
+    (familie__anzahl_erwachsene_bg >= 1).
 
     """
     if (
         bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg
-    ) and arbeitslosengeld_2__anzahl_erwachsene_bg >= 1:
+    ) and familie__anzahl_erwachsene_bg >= 1:
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -223,8 +223,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     return out
 
 
-@policy_function(start_date="2005-01-01")
-def basisbetrag_kind_m(
+@policy_function(
+    leaf_name="basisbetrag_kind_m", start_date="2005-01-01", end_date="2022-12-31"
+)
+def basisbetrag_kind_m_bis_2022(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     einnahmen__bruttolohn_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -242,6 +244,31 @@ def basisbetrag_kind_m(
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - arbeitslosengeld_2__anrechnungsfreies_einkommen_m
+        )
+    )
+
+    return max(out, 0.0)
+
+
+@policy_function(leaf_name="basisbetrag_kind_m", start_date="2023-01-01")
+def basisbetrag_kind_m_ab_2023(
+    kindergeld__ist_leistungsbegründendes_kind: bool,
+    einnahmen__bruttolohn_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+    bürgergeld__anrechnungsfreies_einkommen_m: float,
+    satz: float,
+    entzugsrate_kindeseinkommen: float,
+) -> float:
+    """Kinderzuschlag after income for each possibly eligible child is considered."""
+    out = kindergeld__ist_leistungsbegründendes_kind * (
+        satz
+        - entzugsrate_kindeseinkommen
+        * (
+            einnahmen__bruttolohn_m
+            + unterhalt__tatsächlich_erhaltener_betrag_m
+            + unterhaltsvorschuss__betrag_m
+            - bürgergeld__anrechnungsfreies_einkommen_m
         )
     )
 

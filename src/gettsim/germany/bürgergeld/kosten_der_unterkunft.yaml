@@ -1,0 +1,69 @@
+---
+mietobergrenze_pro_qm:
+  name:
+    de: Obergenze Miete pro Quadratmeter
+    en: Upper limit rent per square meter
+  description:
+    de: >-
+      § 22 SGB II
+      Die Miete pro Quadratmeter darf einen angemessenen Betrag nicht übersteigen, um
+      für ALG2 berechtigt zu sein. Diese Grenze ist nicht konkret im Gesetz
+      festgehalten, sondern wird als Faustregel von den Arbeitsargenturen verwendet.
+      Dies ist nur eine Approximation. Die regionalen Parameter sind unbekannt, siehe
+      Issue https://github.com/ttsim-dev/gettsim/issues/782.
+    en: >-
+      § 22 SGB II
+      The rent per square meter must not exceed a reasonable amount in order to remain
+      eligible for ALG2. This limit is not specifically laid down in the law, but is a
+      rule of thumb used by the employment agencies.
+      This is only an approximation. The regional parameters are unknown, see Issue
+      https://github.com/ttsim-dev/gettsim/issues/782.
+  unit: Euros / Square Meter
+  reference_period: Month
+  type: scalar
+  2023-01-01:
+    value: 10
+berechtigte_wohnfläche_miete:
+  name:
+    de: Berechtigte Mietwohnfläche für Bürgergeld-Empfänger*innen
+    en: Living rental space eligible for Bürgergeld-recipients
+  description:
+    de: >-
+      Eine Mietwohnung darf für einen Single 45 Quadratmeter (+15 für jede weitere
+      Person) groß sein.
+      Dies ist nur eine Approximation. Die regionalen Parameter sind unbekannt, siehe
+      Issue https://github.com/ttsim-dev/gettsim/issues/782.
+    en: >-
+      A rental apartment may be 45 square meters for a single person (+15 for each
+      additional person).
+      This is only an approximation. The regional parameters are unknown, see Issue
+      https://github.com/ttsim-dev/gettsim/issues/782.
+  unit: Square Meters
+  reference_period: null
+  type: dict
+  2023-01-01:
+    single: 45
+    je_weitere_person: 15
+parameter_berechtigte_wohnfläche_eigentum:
+  name:
+    de: Berechtigte Eigentumsfläche für Bürgergeld-Empfänger*innen
+    en: Property space eligible for Bürgergeld-recipients
+  description:
+    de: >-
+      Ab 2023 gilt diese Obergrenze nur für Eigenheime. Eigentumswohnungen dürfen nur
+      bis zu 130qm groß sein.
+    en: >-
+      After 2023, this upper limit only applies to owner-occupied homes. Condominiums
+      may only be up to 130 square meters in size.
+  unit: Square Meters
+  reference_period: null
+  type: require_converter
+  2023-01-01:
+    reference: Art. 1 Nr.12 Abschnitt 5, G. v. 20.12.2022 BGBl. I S. 2328
+    note: Gilt für Eigenheime. Eigentumswohnungen dürfen nur bis zu 130qm groß sein.
+    1: 140
+    2: 140
+    3: 140
+    4: 140
+    je_weitere_person: 20
+    max_anzahl_direkt: 4

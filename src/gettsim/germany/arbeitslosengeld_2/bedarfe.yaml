@@ -101,12 +101,8 @@ kindersofortzuschlag:
   type: scalar
   2022-07-01:
     value: 20
-  2025-01-01:
-    value: 25
-    note: >-
-      Gesetz zur Fortentwicklung des Steuerrechts und zur  Anpassung des Einkommen-
-      steuertarifs (Steuerfortentwicklungsgesetz - SteFeG)
-    reference: Art. 7 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_mehrbedarf_alleinerziehend:
   name:
     de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
@@ -136,3 +132,5 @@ parameter_mehrbedarf_alleinerziehend:
     kind_bis_6_oder_2_3_kinder_bis_15: 0.36
     max: 0.6
     reference: G. v. 24.12.2003 BGBl. I S. 2954.
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.

@@ -44,8 +44,8 @@ def ehe_id(
     return result
 
 
-@group_creation_function()
-def fg_id(
+@group_creation_function(leaf_name="fg_id", end_date="2022-12-31")
+def fg_id_arbeitslosengeld_2(
     arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     hh_id: IntColumn,
@@ -59,6 +59,53 @@ def fg_id(
     Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
     2, before excluding children who have enough income fend for themselves.
     """
+    return sgb_ii_fg_id_formula(
+        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+    )
+
+
+@group_creation_function(leaf_name="fg_id", start_date="2023-01-01")
+def fg_id_bürgergeld(
+    bürgergeld__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    familie__p_id_elternteil_1: IntColumn,
+    familie__p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+) -> IntColumn:
+    """Familiengemeinschaft. Base unit for some transfers.
+
+    Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
+    2, before excluding children who have enough income fend for themselves.
+    """
+    return sgb_ii_fg_id_formula(
+        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+    )
+
+
+def sgb_ii_fg_id_formula(
+    p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    p_id_elternteil_1: IntColumn,
+    p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+) -> IntColumn:
+    """Formula to compute the FG ID for SGB II transfers"""
     n = xnp.max(p_id) + 1
 
     # Sort all arrays according to p_id to make the id equal location in array
@@ -67,31 +114,28 @@ def fg_id(
     sorted_p_id = p_id[sorting]
     sorted_hh_id = hh_id[sorting]
     sorted_alter = alter[sorting]
-    sorted_familie__p_id_elternteil_1 = familie__p_id_elternteil_1[sorting]
-    sorted_familie__p_id_elternteil_2 = familie__p_id_elternteil_2[sorting]
-    sorted_arbeitslosengeld_2__p_id_einstandspartner = (
-        arbeitslosengeld_2__p_id_einstandspartner[sorting]
-    )
+    sorted_p_id_elternteil_1 = p_id_elternteil_1[sorting]
+    sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
+    sorted_p_id_einstandspartner = p_id_einstandspartner[sorting]
 
-    children = xnp.isin(sorted_p_id, sorted_familie__p_id_elternteil_1) | xnp.isin(
+    children = xnp.isin(sorted_p_id, sorted_p_id_elternteil_1) | xnp.isin(
         sorted_p_id,
-        sorted_familie__p_id_elternteil_2,
+        sorted_p_id_elternteil_2,
     )
 
     # Assign the same fg_id to everybody who has an Einstandspartner,
     # otherwise create a new one from p_id
     out = xnp.where(
-        sorted_arbeitslosengeld_2__p_id_einstandspartner < 0,
+        sorted_p_id_einstandspartner < 0,
         sorted_p_id + sorted_p_id * n,
-        xnp.maximum(sorted_p_id, sorted_arbeitslosengeld_2__p_id_einstandspartner)
-        + xnp.minimum(sorted_p_id, sorted_arbeitslosengeld_2__p_id_einstandspartner)
-        * n,
+        xnp.maximum(sorted_p_id, sorted_p_id_einstandspartner)
+        + xnp.minimum(sorted_p_id, sorted_p_id_einstandspartner) * n,
     )
 
     out = _assign_parents_fg_id(
         fg_id=out,
         p_id=sorted_p_id,
-        p_id_elternteil_loc=sorted_familie__p_id_elternteil_1,
+        p_id_elternteil_loc=sorted_p_id_elternteil_1,
         hh_id=sorted_hh_id,
         alter=sorted_alter,
         children=children,
@@ -101,7 +145,7 @@ def fg_id(
     out = _assign_parents_fg_id(
         fg_id=out,
         p_id=sorted_p_id,
-        p_id_elternteil_loc=sorted_familie__p_id_elternteil_2,
+        p_id_elternteil_loc=sorted_p_id_elternteil_2,
         hh_id=sorted_hh_id,
         alter=sorted_alter,
         children=children,
@@ -160,9 +204,42 @@ def bg_id(
     return fg_id
 
 
-@group_creation_function()
-def eg_id(
+@group_creation_function(leaf_name="eg_id", end_date="2022-12-31")
+def eg_id_arbeitslosengeld_2(
     arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    xnp: ModuleType,
+) -> IntColumn:
+    """Einstandsgemeinschaft / Einstandspartner according to SGB II.
+
+    A couple whose members are deemed to be responsible for each other.
+    """
+    return sgb_ii_eg_id_formula(
+        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
+        p_id=p_id,
+        xnp=xnp,
+    )
+
+
+@group_creation_function(leaf_name="eg_id", start_date="2023-01-01")
+def eg_id_bürgergeld(
+    bürgergeld__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    xnp: ModuleType,
+) -> IntColumn:
+    """Einstandsgemeinschaft / Einstandspartner according to SGB II.
+
+    A couple whose members are deemed to be responsible for each other.
+    """
+    return sgb_ii_eg_id_formula(
+        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
+        p_id=p_id,
+        xnp=xnp,
+    )
+
+
+def sgb_ii_eg_id_formula(
+    p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     xnp: ModuleType,
 ) -> IntColumn:
@@ -172,9 +249,9 @@ def eg_id(
     """
     n = xnp.max(p_id) + 1
     p_id_einstandspartner__or_own_p_id = xnp.where(
-        arbeitslosengeld_2__p_id_einstandspartner < 0,
+        p_id_einstandspartner < 0,
         p_id,
-        arbeitslosengeld_2__p_id_einstandspartner,
+        p_id_einstandspartner,
     )
 
     return (

@@ -21,7 +21,7 @@ def kinderbetreuungskosten_elternteil_m(
 
 @policy_function(end_date="2011-12-31", leaf_name="sonderausgaben_y_sn")
 def sonderausgaben_y_sn_nur_pauschale(
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sonderausgabenpauschbetrag: float,
 ) -> float:
     """Sonderausgaben on Steuernummer level until 2011.
@@ -30,13 +30,13 @@ def sonderausgaben_y_sn_nur_pauschale(
 
 
     """
-    return sonderausgabenpauschbetrag * einkommensteuer__anzahl_personen_sn
+    return sonderausgabenpauschbetrag * familie__anzahl_personen_sn
 
 
 @policy_function(start_date="2012-01-01", leaf_name="sonderausgaben_y_sn")
 def sonderausgaben_y_sn_mit_kinderbetreuung(
     absetzbare_kinderbetreuungskosten_y_sn: float,
-    einkommensteuer__anzahl_personen_sn: int,
+    familie__anzahl_personen_sn: int,
     sonderausgabenpauschbetrag: float,
 ) -> float:
     """Sonderausgaben on Steuernummer level since 2012.
@@ -47,7 +47,7 @@ def sonderausgaben_y_sn_mit_kinderbetreuung(
     """
     return max(
         absetzbare_kinderbetreuungskosten_y_sn,
-        sonderausgabenpauschbetrag * einkommensteuer__anzahl_personen_sn,
+        sonderausgabenpauschbetrag * familie__anzahl_personen_sn,
     )
 
 

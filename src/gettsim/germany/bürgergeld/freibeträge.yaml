@@ -1,0 +1,125 @@
+---
+vermögensfreibetrag_je_person_nach_karenzzeit:
+  name:
+    de: Schonvermögen beim Bürgergeld
+    en: Protected wealth for the citizen's income
+  description:
+    de: >-
+      Vermögensfreibetrag pro Mitglied der Bedarfsgemeinschaft, der sich nach Ablauf
+      einer Karenzzeit verändert.
+    en: >-
+      Wealth exemption per member of the Bedarfsgemeinschaft, which changes after the
+      end of the Karenzzeit.
+  unit: Euros
+  reference_period: null
+  type: dict
+  2023-01-01:
+    während_karenzzeit: 40000
+    normaler_satz: 15000
+    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
+  name:
+    de: >-
+      Parameter der Berechnung des anrechnungsfreien Einkommens wenn keine Kinder in
+      Bedarfsgemeinschaft leben
+    en: >-
+      Parameter for calculation of income not subject to transfer withdrawal when no
+      children are in the Bedarfsgemeinschaft
+  description:
+    de: >-
+      Parameter für die Berechnung des anrechnungsfreien Einkommens ohne Kinder in der
+      Bedarfsgemeinschaft. § 30 SGB II. Seit 01.10.2005 zudem definiert durch Freibetrag
+      in § 11 SGB II, s. § 67 SGB II. Seit 01.04.2011 § 11b (2) SGB II (neugefasst durch
+      B. v. 13.05.2011 BGBl. I S. 850. Artikel 2 G. v. 24.03.2011 BGBl. I S. 453). Type
+      require_converter um als Basis für
+      raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg zu dienen.
+    en: >-
+      Parameter for calculation of income not subject to transfer withdrawal when no
+      children are in the Bedarfsgemeinschaft. § 30 SGB II. Since 01.10.2005 also
+      defined by exemption in § 11 SGB II, see § 67 SGB II. Since 01.04.2011 § 11b (2)
+      SGB II (amended by B. v. 13.05.2011 BGBl. I S. 850. Artikel 2 G. v. 24.03.2011
+      BGBl. I S. 453).
+      Requires converter in order to be used as base for
+      raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg.
+  unit: Euros
+  reference_period: Month
+  type: require_converter
+  2023-01-01:
+    reference: Artikel 1 G. v. 20.12.2011 BGBl. I 2854.
+    note: >-
+      Neufassung des SGB II. B. v. 13.5.2011 BGBl. I S. 850. Artikel 5.
+      ToDo: Check these laws -- did they really happen months after the date of the
+      policy change?
+    0:
+      lower_threshold: -inf
+      upper_threshold: 0
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      lower_threshold: 0
+      upper_threshold: 100
+      rate_linear: 1.0
+    2:
+      upper_threshold: 1000
+      rate_linear: 0.2
+    3:
+      upper_threshold: 1200
+      rate_linear: 0.1
+    4:
+      upper_threshold: inf
+      rate_linear: 0
+  2023-07-01:
+    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    note: Bürgergeld-Gesetz
+    0:
+      lower_threshold: -inf
+      upper_threshold: 0
+      rate_linear: 0
+      intercept_at_lower_threshold: 0
+    1:
+      lower_threshold: 0
+      upper_threshold: 100
+      rate_linear: 1.0
+    2:
+      upper_threshold: 520
+      rate_linear: 0.2
+    3:
+      upper_threshold: 1000
+      rate_linear: 0.3
+    4:
+      upper_threshold: 1200
+      rate_linear: 0.1
+    5:
+      upper_threshold: inf
+      rate_linear: 0
+raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
+  name:
+    de: >-
+      Parameter der Berechnung des anrechnungsfreien Einkommens wenn Kinder in der
+      Bedarfsgemeinschaft leben
+    en: >-
+      Parameter for calculation of income not subject to transfer withdrawal when
+      children are in the Bedarfsgemeinschaft
+  description:
+    de: >-
+      Obere Einkommensgrenze bei anzurechnendem Einkommen, Intervall 3,
+      Bedarfsgemeinschaft mit Kindern. Gilt statt der Parameter in
+      parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg für Leistungsbezieher, die
+      mit minderjährigem Kind in BG leben oder die ein minderjähriges Kind haben
+      (zweiteres wird aktuell noch nicht im Code beachtet). § 30 SGB II. Seit 01.04.2011
+      § 11b SGB II (neugefasst durch B. v. 13.05.2011 BGBl. I S. 850. Artikel 2 G. v.
+      24.03.2011 BGBl. I S. 453). Bezieht sich auf die Parameter in
+      parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg.
+    en: null
+  unit: Euros
+  reference_period: Month
+  type: require_converter
+  2023-01-01:
+    reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
+    3:
+      upper_threshold: 1500
+  2023-07-01:
+    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    note: Bürgergeld-Gesetz
+    4:
+      upper_threshold: 1500

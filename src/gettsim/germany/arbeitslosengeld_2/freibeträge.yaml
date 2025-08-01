@@ -209,30 +209,8 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
     updates_previous: true
     2:
       upper_threshold: 1000
-  2023-07-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
-    note: Bürgergeld-Gesetz
-    0:
-      lower_threshold: -inf
-      upper_threshold: 0
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
-    1:
-      lower_threshold: 0
-      upper_threshold: 100
-      rate_linear: 1.0
-    2:
-      upper_threshold: 520
-      rate_linear: 0.2
-    3:
-      upper_threshold: 1000
-      rate_linear: 0.3
-    4:
-      upper_threshold: 1200
-      rate_linear: 0.1
-    5:
-      upper_threshold: inf
-      rate_linear: 0
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.
 raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   name:
     de: >-
@@ -259,8 +237,5 @@ raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
     3:
       upper_threshold: 1500
-  2023-07-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
-    note: Bürgergeld-Gesetz
-    4:
-      upper_threshold: 1500
+  2023-01-01:
+    note: Bürgergeld replaces Arbeitslosengeld II.

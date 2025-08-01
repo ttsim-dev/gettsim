@@ -1,0 +1,209 @@
+---
+info:
+  note: |-
+    Test with new income thresholds and new Kindergeld, adjusted for
+    Kindersofortzuschlag of 20€. https://buergergeld-rechner.org/
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 38
+      - 3
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 51
+        - 50
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 12.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 700.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 51
+        - 50
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 50
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 51
+    geburtsjahr:
+      - 1983
+      - 1985
+      - 2020
+    hh_id:
+      - 21
+      - 21
+      - 21
+    kindergeld:
+      betrag_m_bg:
+        - 250.0
+        - 250.0
+        - 250.0
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 50
+    p_id:
+      - 50
+      - 51
+      - 52
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 140.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 85000.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 650.0
+        - 650.0
+        - 650.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 70.0
+        - 70.0
+        - 70.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    anrechnungsfreies_einkommen_m:
+      - 0.0
+      - 238.0
+      - 0.0
+    betrag_m_bg:
+      - 0.0
+      - 0.0
+      - 0.0
+    kosten_der_unterkunft_m_bg:
+      - 750.0
+      - 750.0
+      - 750.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 0.0
+      - 322.0
+      - 0.0
+    regelsatz_m_bg:
+      - 1240.0
+      - 1240.0
+      - 1240.0
