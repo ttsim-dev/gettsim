@@ -6,6 +6,8 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## unreleased
 
+- {gh}`1067` Separate Bürgergeld from Arbeitslosengeld 2 ({ghuser}`MImmesberger`)
+
 - {gh}`1064` Improve paths handling, small fixes ({ghuser}`hmgaudecker`).
 
 ## v1.0a — 2025-07-27

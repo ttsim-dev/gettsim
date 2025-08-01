@@ -46,9 +46,8 @@ def maximaler_grundfreibetrag_vermögen(
 @policy_function(
     start_date="2005-01-01",
     end_date="2022-12-31",
-    leaf_name="vermögensfreibetrag_bg",
 )
-def vermögensfreibetrag_bg_bis_2022(
+def vermögensfreibetrag_bg(
     grundfreibetrag_vermögen_bg: float,
     familie__anzahl_kinder_bis_17_bg: int,
     familie__anzahl_personen_bg: int,
