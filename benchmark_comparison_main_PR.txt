@@ -1,0 +1,160 @@
+Benchmark Comparison Report
+Generated: 2025-08-11T11:10:08.106762
+Main branch file: benchmark_main.json
+PR branch file: benchmark_PR.json
+
+============================================================================================================================================
+JAX BACKEND COMPARISON: Main Branch vs PR Branch - 3-STAGE BREAKDOWN
+============================================================================================================================================
+Households  Stage             Main (s)    PR (s)      Speedup     Description              Hash Match  
+--------------------------------------------------------------------------------------------------------------------------------------------
+32,767      pre-processing    4.9401      4.8893      1.01x       Data preprocessing                   
+            computation       1.8408      1.8661      1/1.01x     Core computation         ✓           
+            post-processing   0.9271      0.9334      1/1.01x     DataFrame formatting     ✓           
+            total time        7.7081      7.6888      1.00x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+32,768      pre-processing    1.5781      1.5064      1.05x       Data preprocessing                   
+            computation       1.8676      1.9405      1/1.04x     Core computation         ✓           
+            post-processing   0.9284      0.9185      1.01x       DataFrame formatting     ✓           
+            total time        4.3741      4.3654      1.00x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+65,536      pre-processing    1.8067      1.5896      1.14x       Data preprocessing                   
+            computation       1.9201      1.9262      1/1.00x     Core computation         ✓           
+            post-processing   0.9312      0.9980      1/1.07x     DataFrame formatting     ✓           
+            total time        4.6581      4.5137      1.03x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+131,072     pre-processing    2.0185      1.7316      1.17x       Data preprocessing                   
+            computation       2.0285      2.0593      1/1.02x     Core computation         ✓           
+            post-processing   0.9229      0.9415      1/1.02x     DataFrame formatting     ✓           
+            total time        4.9699      4.7325      1.05x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+262,144     pre-processing    5.5810      4.8382      1.15x       Data preprocessing                   
+            computation       2.3998      2.3971      1.00x       Core computation         ✓           
+            post-processing   0.9471      0.9342      1.01x       DataFrame formatting     ✓           
+            total time        8.9279      8.1695      1.09x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+524,288     pre-processing    7.1676      5.8682      1.22x       Data preprocessing                   
+            computation       3.3303      3.2937      1.01x       Core computation         ✓           
+            post-processing   0.9584      0.9227      1.04x       DataFrame formatting     ✓           
+            total time        11.4563     10.0845     1.14x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+1,048,576   pre-processing    10.4887     8.0769      1.30x       Data preprocessing                   
+            computation       5.2127      4.8649      1.07x       Core computation         ✓           
+            post-processing   0.9374      0.9606      1/1.02x     DataFrame formatting     ✓           
+            total time        16.6388     13.9024     1.20x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+2,097,152   pre-processing    18.1616     13.0440     1.39x       Data preprocessing                   
+            computation       11.4566     10.1269     1.13x       Core computation         ✓           
+            post-processing   1.1373      0.9831      1.16x       DataFrame formatting     ✓           
+            total time        30.7555     24.1540     1.27x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+============================================================================================================================================
+NUMPY BACKEND COMPARISON: Main Branch vs PR Branch - 3-STAGE BREAKDOWN
+============================================================================================================================================
+Households  Stage             Main (s)    PR (s)      Speedup     Description              Hash Match  
+--------------------------------------------------------------------------------------------------------------------------------------------
+32,767      pre-processing    1.0296      0.9235      1.11x       Data preprocessing                   
+            computation       1.3301      0.8668      1.53x       Core computation         ✓           
+            post-processing   0.6903      0.6901      1.00x       DataFrame formatting     ✓           
+            total time        3.0500      2.4804      1.23x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+32,768      pre-processing    0.9244      0.8434      1.10x       Data preprocessing                   
+            computation       1.3245      0.8054      1.64x       Core computation         ✓           
+            post-processing   0.7240      0.6916      1.05x       DataFrame formatting     ✓           
+            total time        2.9729      2.3404      1.27x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+65,536      pre-processing    0.9921      0.8199      1.21x       Data preprocessing                   
+            computation       2.1319      1.0569      2.02x       Core computation         ✓           
+            post-processing   0.6857      0.6818      1.01x       DataFrame formatting     ✓           
+            total time        3.8097      2.5586      1.49x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+131,072     pre-processing    1.2400      0.9439      1.31x       Data preprocessing                   
+            computation       3.3496      1.2763      2.62x       Core computation         ✓           
+            post-processing   0.7913      0.8066      1/1.02x     DataFrame formatting     ✓           
+            total time        5.3810      3.0268      1.78x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+262,144     pre-processing    1.7856      1.3107      1.36x       Data preprocessing                   
+            computation       6.1338      2.0282      3.02x       Core computation         ✓           
+            post-processing   0.7058      0.7239      1/1.03x     DataFrame formatting     ✓           
+            total time        8.6252      4.0628      2.12x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+524,288     pre-processing    3.0025      1.6828      1.78x       Data preprocessing                   
+            computation       12.0151     2.9916      4.02x       Core computation         ✓           
+            post-processing   0.7483      0.8144      1/1.09x     DataFrame formatting     ✓           
+            total time        15.7659     5.4887      2.87x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+1,048,576   pre-processing    5.4890      2.9456      1.86x       Data preprocessing                   
+            computation       22.7878     5.8264      3.91x       Core computation         ✓           
+            post-processing   0.8403      0.7692      1.09x       DataFrame formatting     ✓           
+            total time        29.1171     9.5411      3.05x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+2,097,152   pre-processing    10.6005     5.9311      1.79x       Data preprocessing                   
+            computation       45.3614     13.5097     3.36x       Core computation         ✓           
+            post-processing   1.0633      1.0775      1/1.01x     DataFrame formatting     ✓           
+            total time        57.0251     20.5184     2.78x       Complete execution                   
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+====================================================================================================
+SUMMARY STATISTICS - 3-STAGE BREAKDOWN
+====================================================================================================
+
+NUMPY Backend:
+----------------------------------------
+  Stage 1 (preprocessing):
+    Average speedup: 1.44x
+    Maximum speedup: 1.86x
+    Minimum speedup: 1.10x
+    Successful runs: 8/8
+  Stage 2 (computation):
+    Average speedup: 2.77x
+    Maximum speedup: 4.02x
+    Minimum speedup: 1.53x
+    Successful runs: 8/8
+  Stage 3 (formatting):
+    Average speedup: 1.00x
+    Maximum speedup: 1.09x
+    Minimum speedup: 0.92x
+    Successful runs: 8/8
+  Total execution:
+    Average speedup: 2.07x
+    Maximum speedup: 3.05x
+    Minimum speedup: 1.23x
+    Successful runs: 8/8
+  Stage 1 hash verification: 8/8 mismatches
+  Stage 2 hash verification: 0/8 mismatches
+  Stage 3 hash verification: 0/8 mismatches
+  ⚠ Some stage results differ between main and PR
+
+JAX Backend:
+----------------------------------------
+  Stage 1 (preprocessing):
+    Average speedup: 1.18x
+    Maximum speedup: 1.39x
+    Minimum speedup: 1.01x
+    Successful runs: 8/8
+  Stage 2 (computation):
+    Average speedup: 1.02x
+    Maximum speedup: 1.13x
+    Minimum speedup: 0.96x
+    Successful runs: 8/8
+  Stage 3 (formatting):
+    Average speedup: 1.01x
+    Maximum speedup: 1.16x
+    Minimum speedup: 0.93x
+    Successful runs: 8/8
+  Total execution:
+    Average speedup: 1.10x
+    Maximum speedup: 1.27x
+    Minimum speedup: 1.00x
+    Successful runs: 8/8
+  Stage 1 hash verification: 8/8 mismatches
+  Stage 2 hash verification: 0/8 mismatches
+  Stage 3 hash verification: 0/8 mismatches
+  ⚠ Some stage results differ between main and PR
+
+====================================================================================================
+OVERALL PERFORMANCE IMPACT
+====================================================================================================
+NUMPY: PR is 2.1x faster (significant improvement)
+JAX: PR is 1.1x faster (significant improvement)

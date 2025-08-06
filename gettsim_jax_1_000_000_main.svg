@@ -1,0 +1,491 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" width="1200" height="890" onload="init(evt)" viewBox="0 0 1200 890" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:fg="http://github.com/jonhoo/inferno"><!--Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples.--><!--NOTES: --><defs><linearGradient id="background" y1="0" y2="1" x1="0" x2="0"><stop stop-color="#eeeeee" offset="5%"/><stop stop-color="#eeeeb0" offset="95%"/></linearGradient></defs><style type="text/css">
+text { font-family:monospace; font-size:12px }
+#title { text-anchor:middle; font-size:17px; }
+#matched { text-anchor:end; }
+#search { text-anchor:end; opacity:0.1; cursor:pointer; }
+#search:hover, #search.show { opacity:1; }
+#subtitle { text-anchor:middle; font-color:rgb(160,160,160); }
+#unzoom { cursor:pointer; }
+#frames > *:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+.hide { display:none; }
+.parent { opacity:0.5; }
+</style><script type="text/ecmascript"><![CDATA[
+        var nametype = 'Function:';
+        var fontsize = 12;
+        var fontwidth = 0.59;
+        var xpad = 10;
+        var inverted = true;
+        var searchcolor = 'rgb(230,0,230)';
+        var fluiddrawing = true;
+        var truncate_text_right = false;
+    ]]><![CDATA["use strict";
+var details, searchbtn, unzoombtn, matchedtxt, svg, searching, frames, known_font_width;
+function init(evt) {
+    details = document.getElementById("details").firstChild;
+    searchbtn = document.getElementById("search");
+    unzoombtn = document.getElementById("unzoom");
+    matchedtxt = document.getElementById("matched");
+    svg = document.getElementsByTagName("svg")[0];
+    frames = document.getElementById("frames");
+    known_font_width = get_monospace_width(frames);
+    total_samples = parseInt(frames.attributes.total_samples.value);
+    searching = 0;
+
+    // Use GET parameters to restore a flamegraph's state.
+    var restore_state = function() {
+        var params = get_params();
+        if (params.x && params.y)
+            zoom(find_group(document.querySelector('[*|x="' + params.x + '"][y="' + params.y + '"]')));
+        if (params.s)
+            search(params.s);
+    };
+
+    if (fluiddrawing) {
+        // Make width dynamic so the SVG fits its parent's width.
+        svg.removeAttribute("width");
+        // Edge requires us to have a viewBox that gets updated with size changes.
+        var isEdge = /Edge\/\d./i.test(navigator.userAgent);
+        if (!isEdge) {
+            svg.removeAttribute("viewBox");
+        }
+        var update_for_width_change = function() {
+            if (isEdge) {
+                svg.attributes.viewBox.value = "0 0 " + svg.width.baseVal.value + " " + svg.height.baseVal.value;
+            }
+
+            // Keep consistent padding on left and right of frames container.
+            frames.attributes.width.value = svg.width.baseVal.value - xpad * 2;
+
+            // Text truncation needs to be adjusted for the current width.
+            update_text_for_elements(frames.children);
+
+            // Keep search elements at a fixed distance from right edge.
+            var svgWidth = svg.width.baseVal.value;
+            searchbtn.attributes.x.value = svgWidth - xpad;
+            matchedtxt.attributes.x.value = svgWidth - xpad;
+        };
+        window.addEventListener('resize', function() {
+            update_for_width_change();
+        });
+        // This needs to be done asynchronously for Safari to work.
+        setTimeout(function() {
+            unzoom();
+            update_for_width_change();
+            restore_state();
+        }, 0);
+    } else {
+        restore_state();
+    }
+}
+// event listeners
+window.addEventListener("click", function(e) {
+    var target = find_group(e.target);
+    if (target) {
+        if (target.nodeName == "a") {
+            if (e.ctrlKey === false) return;
+            e.preventDefault();
+        }
+        if (target.classList.contains("parent")) unzoom();
+        zoom(target);
+
+        // set parameters for zoom state
+        var el = target.querySelector("rect");
+        if (el && el.attributes && el.attributes.y && el.attributes["fg:x"]) {
+            var params = get_params()
+            params.x = el.attributes["fg:x"].value;
+            params.y = el.attributes.y.value;
+            history.replaceState(null, null, parse_params(params));
+        }
+    }
+    else if (e.target.id == "unzoom") {
+        unzoom();
+
+        // remove zoom state
+        var params = get_params();
+        if (params.x) delete params.x;
+        if (params.y) delete params.y;
+        history.replaceState(null, null, parse_params(params));
+    }
+    else if (e.target.id == "search") search_prompt();
+}, false)
+// mouse-over for info
+// show
+window.addEventListener("mouseover", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = nametype + " " + g_to_text(target);
+}, false)
+// clear
+window.addEventListener("mouseout", function(e) {
+    var target = find_group(e.target);
+    if (target) details.nodeValue = ' ';
+}, false)
+// ctrl-F for search
+window.addEventListener("keydown",function (e) {
+    if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+        e.preventDefault();
+        search_prompt();
+    }
+}, false)
+// functions
+function get_params() {
+    var params = {};
+    var paramsarr = window.location.search.substr(1).split('&');
+    for (var i = 0; i < paramsarr.length; ++i) {
+        var tmp = paramsarr[i].split("=");
+        if (!tmp[0] || !tmp[1]) continue;
+        params[tmp[0]]  = decodeURIComponent(tmp[1]);
+    }
+    return params;
+}
+function parse_params(params) {
+    var uri = "?";
+    for (var key in params) {
+        uri += key + '=' + encodeURIComponent(params[key]) + '&';
+    }
+    if (uri.slice(-1) == "&")
+        uri = uri.substring(0, uri.length - 1);
+    if (uri == '?')
+        uri = window.location.href.split('?')[0];
+    return uri;
+}
+function find_child(node, selector) {
+    var children = node.querySelectorAll(selector);
+    if (children.length) return children[0];
+    return;
+}
+function find_group(node) {
+    var parent = node.parentElement;
+    if (!parent) return;
+    if (parent.id == "frames") return node;
+    return find_group(parent);
+}
+function orig_save(e, attr, val) {
+    if (e.attributes["fg:orig_" + attr] != undefined) return;
+    if (e.attributes[attr] == undefined) return;
+    if (val == undefined) val = e.attributes[attr].value;
+    e.setAttribute("fg:orig_" + attr, val);
+}
+function orig_load(e, attr) {
+    if (e.attributes["fg:orig_"+attr] == undefined) return;
+    e.attributes[attr].value = e.attributes["fg:orig_" + attr].value;
+    e.removeAttribute("fg:orig_" + attr);
+}
+function g_to_text(e) {
+    var text = find_child(e, "title").firstChild.nodeValue;
+    return (text)
+}
+function g_to_func(e) {
+    var func = g_to_text(e);
+    // if there's any manipulation we want to do to the function
+    // name before it's searched, do it here before returning.
+    return (func);
+}
+function get_monospace_width(frames) {
+    // Given the id="frames" element, return the width of text characters if
+    // this is a monospace font, otherwise return 0.
+    text = find_child(frames.children[0], "text");
+    originalContent = text.textContent;
+    text.textContent = "!";
+    bangWidth = text.getComputedTextLength();
+    text.textContent = "W";
+    wWidth = text.getComputedTextLength();
+    text.textContent = originalContent;
+    if (bangWidth === wWidth) {
+        return bangWidth;
+    } else {
+        return 0;
+    }
+}
+function update_text_for_elements(elements) {
+    // In order to render quickly in the browser, you want to do one pass of
+    // reading attributes, and one pass of mutating attributes. See
+    // https://web.dev/avoid-large-complex-layouts-and-layout-thrashing/ for details.
+
+    // Fall back to inefficient calculation, if we're variable-width font.
+    // TODO This should be optimized somehow too.
+    if (known_font_width === 0) {
+        for (var i = 0; i < elements.length; i++) {
+            update_text(elements[i]);
+        }
+        return;
+    }
+
+    var textElemNewAttributes = [];
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i];
+        var r = find_child(e, "rect");
+        var t = find_child(e, "text");
+        var w = parseFloat(r.attributes.width.value) * frames.attributes.width.value / 100 - 3;
+        var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+        var newX = format_percent((parseFloat(r.attributes.x.value) + (100 * 3 / frames.attributes.width.value)));
+
+        // Smaller than this size won't fit anything
+        if (w < 2 * known_font_width) {
+            textElemNewAttributes.push([newX, ""]);
+            continue;
+        }
+
+        // Fit in full text width
+        if (txt.length * known_font_width < w) {
+            textElemNewAttributes.push([newX, txt]);
+            continue;
+        }
+
+        var substringLength = Math.floor(w / known_font_width) - 2;
+        if (truncate_text_right) {
+            // Truncate the right side of the text.
+            textElemNewAttributes.push([newX, txt.substring(0, substringLength) + ".."]);
+            continue;
+        } else {
+            // Truncate the left side of the text.
+            textElemNewAttributes.push([newX, ".." + txt.substring(txt.length - substringLength, txt.length)]);
+            continue;
+        }
+    }
+
+    console.assert(textElemNewAttributes.length === elements.length, "Resize failed, please file a bug at https://github.com/jonhoo/inferno/");
+
+    // Now that we know new textContent, set it all in one go so we don't refresh a bazillion times.
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i];
+        var values = textElemNewAttributes[i];
+        var t = find_child(e, "text");
+        t.attributes.x.value = values[0];
+        t.textContent = values[1];
+    }
+}
+
+function update_text(e) {
+    var r = find_child(e, "rect");
+    var t = find_child(e, "text");
+    var w = parseFloat(r.attributes.width.value) * frames.attributes.width.value / 100 - 3;
+    var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+    t.attributes.x.value = format_percent((parseFloat(r.attributes.x.value) + (100 * 3 / frames.attributes.width.value)));
+
+    // Smaller than this size won't fit anything
+    if (w < 2 * fontsize * fontwidth) {
+        t.textContent = "";
+        return;
+    }
+    t.textContent = txt;
+    // Fit in full text width
+    if (t.getComputedTextLength() < w)
+        return;
+    if (truncate_text_right) {
+        // Truncate the right side of the text.
+        for (var x = txt.length - 2; x > 0; x--) {
+            if (t.getSubStringLength(0, x + 2) <= w) {
+                t.textContent = txt.substring(0, x) + "..";
+                return;
+            }
+        }
+    } else {
+        // Truncate the left side of the text.
+        for (var x = 2; x < txt.length; x++) {
+            if (t.getSubStringLength(x - 2, txt.length) <= w) {
+                t.textContent = ".." + txt.substring(x, txt.length);
+                return;
+            }
+        }
+    }
+    t.textContent = "";
+}
+// zoom
+function zoom_reset(e) {
+    if (e.tagName == "rect") {
+        e.attributes.x.value = format_percent(100 * parseInt(e.attributes["fg:x"].value) / total_samples);
+        e.attributes.width.value = format_percent(100 * parseInt(e.attributes["fg:w"].value) / total_samples);
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_reset(c[i]);
+    }
+}
+function zoom_child(e, x, zoomed_width_samples) {
+    if (e.tagName == "text") {
+        var parent_x = parseFloat(find_child(e.parentNode, "rect[x]").attributes.x.value);
+        e.attributes.x.value = format_percent(parent_x + (100 * 3 / frames.attributes.width.value));
+    } else if (e.tagName == "rect") {
+        e.attributes.x.value = format_percent(100 * (parseInt(e.attributes["fg:x"].value) - x) / zoomed_width_samples);
+        e.attributes.width.value = format_percent(100 * parseInt(e.attributes["fg:w"].value) / zoomed_width_samples);
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_child(c[i], x, zoomed_width_samples);
+    }
+}
+function zoom_parent(e) {
+    if (e.attributes) {
+        if (e.attributes.x != undefined) {
+            e.attributes.x.value = "0.0%";
+        }
+        if (e.attributes.width != undefined) {
+            e.attributes.width.value = "100.0%";
+        }
+    }
+    if (e.childNodes == undefined) return;
+    for(var i = 0, c = e.childNodes; i < c.length; i++) {
+        zoom_parent(c[i]);
+    }
+}
+function zoom(node) {
+    var attr = find_child(node, "rect").attributes;
+    var width = parseInt(attr["fg:w"].value);
+    var xmin = parseInt(attr["fg:x"].value);
+    var xmax = xmin + width;
+    var ymin = parseFloat(attr.y.value);
+    unzoombtn.classList.remove("hide");
+    var el = frames.children;
+    var to_update_text = [];
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        var a = find_child(e, "rect").attributes;
+        var ex = parseInt(a["fg:x"].value);
+        var ew = parseInt(a["fg:w"].value);
+        // Is it an ancestor
+        if (!inverted) {
+            var upstack = parseFloat(a.y.value) > ymin;
+        } else {
+            var upstack = parseFloat(a.y.value) < ymin;
+        }
+        if (upstack) {
+            // Direct ancestor
+            if (ex <= xmin && (ex+ew) >= xmax) {
+                e.classList.add("parent");
+                zoom_parent(e);
+                to_update_text.push(e);
+            }
+            // not in current path
+            else
+                e.classList.add("hide");
+        }
+        // Children maybe
+        else {
+            // no common path
+            if (ex < xmin || ex >= xmax) {
+                e.classList.add("hide");
+            }
+            else {
+                zoom_child(e, xmin, width);
+                to_update_text.push(e);
+            }
+        }
+    }
+    update_text_for_elements(to_update_text);
+}
+function unzoom() {
+    unzoombtn.classList.add("hide");
+    var el = frames.children;
+    for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove("parent");
+        el[i].classList.remove("hide");
+        zoom_reset(el[i]);
+    }
+    update_text_for_elements(el);
+}
+// search
+function reset_search() {
+    var el = document.querySelectorAll("#frames rect");
+    for (var i = 0; i < el.length; i++) {
+        orig_load(el[i], "fill")
+    }
+    var params = get_params();
+    delete params.s;
+    history.replaceState(null, null, parse_params(params));
+}
+function search_prompt() {
+    if (!searching) {
+        var term = prompt("Enter a search term (regexp " +
+            "allowed, eg: ^ext4_)", "");
+        if (term != null) {
+            search(term)
+        }
+    } else {
+        reset_search();
+        searching = 0;
+        searchbtn.classList.remove("show");
+        searchbtn.firstChild.nodeValue = "Search"
+        matchedtxt.classList.add("hide");
+        matchedtxt.firstChild.nodeValue = ""
+    }
+}
+function search(term) {
+    var re = new RegExp(term);
+    var el = frames.children;
+    var matches = new Object();
+    var maxwidth = 0;
+    for (var i = 0; i < el.length; i++) {
+        var e = el[i];
+        // Skip over frames which are either not visible, or below the zoomed-to frame
+        if (e.classList.contains("hide") || e.classList.contains("parent")) {
+            continue;
+        }
+        var func = g_to_func(e);
+        var rect = find_child(e, "rect");
+        if (func == null || rect == null)
+            continue;
+        // Save max width. Only works as we have a root frame
+        var w = parseInt(rect.attributes["fg:w"].value);
+        if (w > maxwidth)
+            maxwidth = w;
+        if (func.match(re)) {
+            // highlight
+            var x = parseInt(rect.attributes["fg:x"].value);
+            orig_save(rect, "fill");
+            rect.attributes.fill.value = searchcolor;
+            // remember matches
+            if (matches[x] == undefined) {
+                matches[x] = w;
+            } else {
+                if (w > matches[x]) {
+                    // overwrite with parent
+                    matches[x] = w;
+                }
+            }
+            searching = 1;
+        }
+    }
+    if (!searching)
+        return;
+    var params = get_params();
+    params.s = term;
+    history.replaceState(null, null, parse_params(params));
+
+    searchbtn.classList.add("show");
+    searchbtn.firstChild.nodeValue = "Reset Search";
+    // calculate percent matched, excluding vertical overlap
+    var count = 0;
+    var lastx = -1;
+    var lastw = 0;
+    var keys = Array();
+    for (k in matches) {
+        if (matches.hasOwnProperty(k))
+            keys.push(k);
+    }
+    // sort the matched frames by their x location
+    // ascending, then width descending
+    keys.sort(function(a, b){
+        return a - b;
+    });
+    // Step through frames saving only the biggest bottom-up frames
+    // thanks to the sort order. This relies on the tree property
+    // where children are always smaller than their parents.
+    for (var k in keys) {
+        var x = parseInt(keys[k]);
+        var w = matches[keys[k]];
+        if (x >= lastx + lastw) {
+            count += w;
+            lastx = x;
+            lastw = w;
+        }
+    }
+    // display matched percent
+    matchedtxt.classList.remove("hide");
+    var pct = 100 * count / maxwidth;
+    if (pct != 100) pct = pct.toFixed(1);
+    matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+}
+function format_percent(n) {
+    return n.toFixed(4) + "%";
+}
+]]></script><rect x="0" y="0" width="100%" height="890" fill="url(#background)"/><text id="title" fill="rgb(0,0,0)" x="50.0000%" y="24.00">py-spy record -o gettsim_jax_1_000_000_main.svg -- python gettsim_profile.py -N 1000000 -b jax</text><text id="details" fill="rgb(0,0,0)" x="10" y="40.00"> </text><text id="unzoom" class="hide" fill="rgb(0,0,0)" x="10" y="24.00">Reset Zoom</text><text id="search" fill="rgb(0,0,0)" x="1190" y="24.00">Search</text><text id="matched" fill="rgb(0,0,0)" x="1190" y="879.00"> </text><svg id="frames" x="10" width="1180" total_samples="9388"><g><title>make_data (make_data.py:41) (16 samples, 0.17%)</title><rect x="0.1385%" y="116" width="0.1704%" height="15" fill="rgb(227,0,7)" fg:x="13" fg:w="16"/><text x="0.3885%" y="126.50"></text></g><g><title>tile (numpy\lib\_shape_base_impl.py:1299) (16 samples, 0.17%)</title><rect x="0.1385%" y="132" width="0.1704%" height="15" fill="rgb(217,0,24)" fg:x="13" fg:w="16"/><text x="0.3885%" y="142.50"></text></g><g><title>make_data (make_data.py:92) (13 samples, 0.14%)</title><rect x="0.9587%" y="116" width="0.1385%" height="15" fill="rgb(221,193,54)" fg:x="90" fg:w="13"/><text x="1.2087%" y="126.50"></text></g><g><title>astype (pandas\core\generic.py:6662) (12 samples, 0.13%)</title><rect x="0.9693%" y="132" width="0.1278%" height="15" fill="rgb(248,212,6)" fg:x="91" fg:w="12"/><text x="1.2193%" y="142.50"></text></g><g><title>astype (pandas\core\internals\managers.py:430) (12 samples, 0.13%)</title><rect x="0.9693%" y="148" width="0.1278%" height="15" fill="rgb(208,68,35)" fg:x="91" fg:w="12"/><text x="1.2193%" y="158.50"></text></g><g><title>apply (pandas\core\internals\managers.py:363) (12 samples, 0.13%)</title><rect x="0.9693%" y="164" width="0.1278%" height="15" fill="rgb(232,128,0)" fg:x="91" fg:w="12"/><text x="1.2193%" y="174.50"></text></g><g><title>astype (pandas\core\internals\blocks.py:784) (12 samples, 0.13%)</title><rect x="0.9693%" y="180" width="0.1278%" height="15" fill="rgb(207,160,47)" fg:x="91" fg:w="12"/><text x="1.2193%" y="190.50"></text></g><g><title>astype_array_safe (pandas\core\dtypes\astype.py:237) (12 samples, 0.13%)</title><rect x="0.9693%" y="196" width="0.1278%" height="15" fill="rgb(228,23,34)" fg:x="91" fg:w="12"/><text x="1.2193%" y="206.50"></text></g><g><title>astype_array (pandas\core\dtypes\astype.py:182) (12 samples, 0.13%)</title><rect x="0.9693%" y="212" width="0.1278%" height="15" fill="rgb(218,30,26)" fg:x="91" fg:w="12"/><text x="1.2193%" y="222.50"></text></g><g><title>_astype_nansafe (pandas\core\dtypes\astype.py:133) (12 samples, 0.13%)</title><rect x="0.9693%" y="228" width="0.1278%" height="15" fill="rgb(220,122,19)" fg:x="91" fg:w="12"/><text x="1.2193%" y="238.50"></text></g><g><title>run_profile (gettsim_profile.py:107) (124 samples, 1.32%)</title><rect x="0.1278%" y="100" width="1.3208%" height="15" fill="rgb(250,228,42)" fg:x="12" fg:w="124"/><text x="0.3778%" y="110.50"></text></g><g><title>make_data (make_data.py:99) (33 samples, 0.35%)</title><rect x="1.0971%" y="116" width="0.3515%" height="15" fill="rgb(240,193,28)" fg:x="103" fg:w="33"/><text x="1.3471%" y="126.50"></text></g><g><title>astype (pandas\core\generic.py:6662) (27 samples, 0.29%)</title><rect x="1.1611%" y="132" width="0.2876%" height="15" fill="rgb(216,20,37)" fg:x="109" fg:w="27"/><text x="1.4111%" y="142.50"></text></g><g><title>astype (pandas\core\internals\managers.py:430) (27 samples, 0.29%)</title><rect x="1.1611%" y="148" width="0.2876%" height="15" fill="rgb(206,188,39)" fg:x="109" fg:w="27"/><text x="1.4111%" y="158.50"></text></g><g><title>apply (pandas\core\internals\managers.py:363) (27 samples, 0.29%)</title><rect x="1.1611%" y="164" width="0.2876%" height="15" fill="rgb(217,207,13)" fg:x="109" fg:w="27"/><text x="1.4111%" y="174.50"></text></g><g><title>astype (pandas\core\internals\blocks.py:784) (27 samples, 0.29%)</title><rect x="1.1611%" y="180" width="0.2876%" height="15" fill="rgb(231,73,38)" fg:x="109" fg:w="27"/><text x="1.4111%" y="190.50"></text></g><g><title>astype_array_safe (pandas\core\dtypes\astype.py:237) (27 samples, 0.29%)</title><rect x="1.1611%" y="196" width="0.2876%" height="15" fill="rgb(225,20,46)" fg:x="109" fg:w="27"/><text x="1.4111%" y="206.50"></text></g><g><title>astype_array (pandas\core\dtypes\astype.py:174) (27 samples, 0.29%)</title><rect x="1.1611%" y="212" width="0.2876%" height="15" fill="rgb(210,31,41)" fg:x="109" fg:w="27"/><text x="1.4111%" y="222.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:214) (383 samples, 4.08%)</title><rect x="1.8108%" y="276" width="4.0797%" height="15" fill="rgb(221,200,47)" fg:x="170" fg:w="383"/><text x="2.0608%" y="286.50">arra..</text></g><g><title>tree_flatten (jax\_src\tree_util.py:78) (383 samples, 4.08%)</title><rect x="1.8108%" y="292" width="4.0797%" height="15" fill="rgb(226,26,5)" fg:x="170" fg:w="383"/><text x="2.0608%" y="302.50">tree..</text></g><g><title>&lt;lambda&gt; (jax\_src\numpy\array_constructors.py:214) (61 samples, 0.65%)</title><rect x="5.2407%" y="308" width="0.6498%" height="15" fill="rgb(249,33,26)" fg:x="492" fg:w="61"/><text x="5.4907%" y="318.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:215) (161 samples, 1.71%)</title><rect x="5.8905%" y="276" width="1.7150%" height="15" fill="rgb(235,183,28)" fg:x="553" fg:w="161"/><text x="6.1405%" y="286.50"></text></g><g><title>&lt;genexpr&gt; (jax\_src\numpy\array_constructors.py:215) (108 samples, 1.15%)</title><rect x="6.4550%" y="292" width="1.1504%" height="15" fill="rgb(221,5,38)" fg:x="606" fg:w="108"/><text x="6.7050%" y="302.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:218) (17 samples, 0.18%)</title><rect x="7.6055%" y="276" width="0.1811%" height="15" fill="rgb(247,18,42)" fg:x="714" fg:w="17"/><text x="7.8555%" y="286.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:219) (108 samples, 1.15%)</title><rect x="7.7865%" y="276" width="1.1504%" height="15" fill="rgb(241,131,45)" fg:x="731" fg:w="108"/><text x="8.0365%" y="286.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:220) (51 samples, 0.54%)</title><rect x="8.9369%" y="276" width="0.5432%" height="15" fill="rgb(249,31,29)" fg:x="839" fg:w="51"/><text x="9.1869%" y="286.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:221) (47 samples, 0.50%)</title><rect x="9.4802%" y="276" width="0.5006%" height="15" fill="rgb(225,111,53)" fg:x="890" fg:w="47"/><text x="9.7302%" y="286.50"></text></g><g><title>_dtype_and_weaktype (jax\_src\dtypes.py:598) (79 samples, 0.84%)</title><rect x="16.2761%" y="324" width="0.8415%" height="15" fill="rgb(238,160,17)" fg:x="1528" fg:w="79"/><text x="16.5261%" y="334.50"></text></g><g><title>&lt;genexpr&gt; (jax\_src\dtypes.py:600) (892 samples, 9.50%)</title><rect x="28.9945%" y="340" width="9.5015%" height="15" fill="rgb(214,148,48)" fg:x="2722" fg:w="892"/><text x="29.2445%" y="350.50">&lt;genexpr&gt; (jax..</text></g><g><title>dtype (jax\_src\dtypes.py:806) (23 samples, 0.24%)</title><rect x="38.4960%" y="340" width="0.2450%" height="15" fill="rgb(232,36,49)" fg:x="3614" fg:w="23"/><text x="38.7460%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:808) (17 samples, 0.18%)</title><rect x="38.7409%" y="340" width="0.1811%" height="15" fill="rgb(209,103,24)" fg:x="3637" fg:w="17"/><text x="38.9909%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:810) (145 samples, 1.54%)</title><rect x="39.0072%" y="340" width="1.5445%" height="15" fill="rgb(229,88,8)" fg:x="3662" fg:w="145"/><text x="39.2572%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:811) (19 samples, 0.20%)</title><rect x="40.5518%" y="340" width="0.2024%" height="15" fill="rgb(213,181,19)" fg:x="3807" fg:w="19"/><text x="40.8018%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:812) (14 samples, 0.15%)</title><rect x="40.7542%" y="340" width="0.1491%" height="15" fill="rgb(254,191,54)" fg:x="3826" fg:w="14"/><text x="41.0042%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:813) (130 samples, 1.38%)</title><rect x="40.9033%" y="340" width="1.3847%" height="15" fill="rgb(241,83,37)" fg:x="3840" fg:w="130"/><text x="41.1533%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:814) (99 samples, 1.05%)</title><rect x="42.2880%" y="340" width="1.0545%" height="15" fill="rgb(233,36,39)" fg:x="3970" fg:w="99"/><text x="42.5380%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:824) (88 samples, 0.94%)</title><rect x="43.3745%" y="340" width="0.9374%" height="15" fill="rgb(226,3,54)" fg:x="4072" fg:w="88"/><text x="43.6245%" y="350.50"></text></g><g><title>dtype (jax\_src\dtypes.py:828) (25 samples, 0.27%)</title><rect x="44.3545%" y="340" width="0.2663%" height="15" fill="rgb(245,192,40)" fg:x="4164" fg:w="25"/><text x="44.6045%" y="350.50"></text></g><g><title>is_weakly_typed (jax\_src\dtypes.py:787) (35 samples, 0.37%)</title><rect x="44.6208%" y="340" width="0.3728%" height="15" fill="rgb(238,167,29)" fg:x="4189" fg:w="35"/><text x="44.8708%" y="350.50"></text></g><g><title>_lattice_result_type (jax\_src\dtypes.py:831) (3,412 samples, 36.34%)</title><rect x="10.1513%" y="292" width="36.3443%" height="15" fill="rgb(232,182,51)" fg:x="953" fg:w="3412"/><text x="10.4013%" y="302.50">_lattice_result_type (jax\_src\dtypes.py:831)</text></g><g><title>&lt;genexpr&gt; (jax\_src\dtypes.py:831) (3,006 samples, 32.02%)</title><rect x="14.4759%" y="308" width="32.0196%" height="15" fill="rgb(231,60,39)" fg:x="1359" fg:w="3006"/><text x="14.7259%" y="318.50">&lt;genexpr&gt; (jax\_src\dtypes.py:831)</text></g><g><title>_dtype_and_weaktype (jax\_src\dtypes.py:600) (2,758 samples, 29.38%)</title><rect x="17.1176%" y="324" width="29.3779%" height="15" fill="rgb(208,69,12)" fg:x="1607" fg:w="2758"/><text x="17.3676%" y="334.50">_dtype_and_weaktype (jax\_src\dtypes.py:600)</text></g><g><title>is_weakly_typed (jax\_src\dtypes.py:788) (141 samples, 1.50%)</title><rect x="44.9936%" y="340" width="1.5019%" height="15" fill="rgb(235,93,37)" fg:x="4224" fg:w="141"/><text x="45.2436%" y="350.50"></text></g><g><title>_lattice_result_type (jax\_src\dtypes.py:835) (32 samples, 0.34%)</title><rect x="46.4955%" y="292" width="0.3409%" height="15" fill="rgb(213,116,39)" fg:x="4365" fg:w="32"/><text x="46.7455%" y="302.50"></text></g><g><title>_lattice_result_type (jax\_src\dtypes.py:839) (10 samples, 0.11%)</title><rect x="46.8364%" y="292" width="0.1065%" height="15" fill="rgb(222,207,29)" fg:x="4397" fg:w="10"/><text x="47.0864%" y="302.50"></text></g><g><title>_jax_type (jax\_src\dtypes.py:588) (17 samples, 0.18%)</title><rect x="48.4874%" y="308" width="0.1811%" height="15" fill="rgb(206,96,30)" fg:x="4552" fg:w="17"/><text x="48.7374%" y="318.50"></text></g><g><title>_jax_type (jax\_src\dtypes.py:590) (23 samples, 0.24%)</title><rect x="48.6685%" y="308" width="0.2450%" height="15" fill="rgb(218,138,4)" fg:x="4569" fg:w="23"/><text x="48.9185%" y="318.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:227) (3,664 samples, 39.03%)</title><rect x="9.9808%" y="276" width="39.0285%" height="15" fill="rgb(250,191,14)" fg:x="937" fg:w="3664"/><text x="10.2308%" y="286.50">array (jax\_src\numpy\array_constructors.py:227)</text></g><g><title>_lattice_result_type (jax\_src\dtypes.py:845) (194 samples, 2.07%)</title><rect x="46.9429%" y="292" width="2.0665%" height="15" fill="rgb(239,60,40)" fg:x="4407" fg:w="194"/><text x="47.1929%" y="302.50">_..</text></g><g><title>array (jax\_src\numpy\array_constructors.py:237) (41 samples, 0.44%)</title><rect x="49.0094%" y="276" width="0.4367%" height="15" fill="rgb(206,27,48)" fg:x="4601" fg:w="41"/><text x="49.2594%" y="286.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:239) (189 samples, 2.01%)</title><rect x="49.4461%" y="276" width="2.0132%" height="15" fill="rgb(225,35,8)" fg:x="4642" fg:w="189"/><text x="49.6961%" y="286.50">a..</text></g><g><title>&lt;genexpr&gt; (jax\_src\numpy\array_constructors.py:239) (145 samples, 1.54%)</title><rect x="49.9148%" y="292" width="1.5445%" height="15" fill="rgb(250,213,24)" fg:x="4686" fg:w="145"/><text x="50.1648%" y="302.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:244) (83 samples, 0.88%)</title><rect x="51.4593%" y="276" width="0.8841%" height="15" fill="rgb(247,123,22)" fg:x="4831" fg:w="83"/><text x="51.7093%" y="286.50"></text></g><g><title>df_with_mapped_columns_to_flat_data (ttsim\interface_dag_elements\data_converters.py:137) (4,774 samples, 50.85%)</title><rect x="1.5232%" y="244" width="50.8522%" height="15" fill="rgb(231,138,38)" fg:x="143" fg:w="4774"/><text x="1.7732%" y="254.50">df_with_mapped_columns_to_flat_data (ttsim\interface_dag_elements\data_converters.py..</text></g><g><title>asarray (jax\_src\numpy\array_constructors.py:383) (4,765 samples, 50.76%)</title><rect x="1.6191%" y="260" width="50.7563%" height="15" fill="rgb(231,145,46)" fg:x="152" fg:w="4765"/><text x="1.8691%" y="270.50">asarray (jax\_src\numpy\array_constructors.py:383)</text></g><g><title>array (jax\_src\numpy\array_constructors.py:244) (43 samples, 0.46%)</title><rect x="52.3754%" y="276" width="0.4580%" height="15" fill="rgb(251,118,11)" fg:x="4917" fg:w="43"/><text x="52.6254%" y="286.50"></text></g><g><title>__array__ (pandas\core\series.py:1033) (43 samples, 0.46%)</title><rect x="52.3754%" y="292" width="0.4580%" height="15" fill="rgb(217,147,25)" fg:x="4917" fg:w="43"/><text x="52.6254%" y="302.50"></text></g><g><title>flat_from_df_and_mapper (ttsim\interface_dag_elements\input_data.py:72) (4,827 samples, 51.42%)</title><rect x="1.5232%" y="228" width="51.4167%" height="15" fill="rgb(247,81,37)" fg:x="143" fg:w="4827"/><text x="1.7732%" y="238.50">flat_from_df_and_mapper (ttsim\interface_dag_elements\input_data.py:72)</text></g><g><title>df_with_mapped_columns_to_flat_data (ttsim\interface_dag_elements\data_converters.py:139) (53 samples, 0.56%)</title><rect x="52.3754%" y="244" width="0.5646%" height="15" fill="rgb(209,12,38)" fg:x="4917" fg:w="53"/><text x="52.6254%" y="254.50"></text></g><g><title>asarray (jax\_src\numpy\array_constructors.py:383) (53 samples, 0.56%)</title><rect x="52.3754%" y="260" width="0.5646%" height="15" fill="rgb(227,1,9)" fg:x="4917" fg:w="53"/><text x="52.6254%" y="270.50"></text></g><g><title>array (jax\_src\numpy\array_constructors.py:268) (10 samples, 0.11%)</title><rect x="52.8334%" y="276" width="0.1065%" height="15" fill="rgb(248,47,43)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="286.50"></text></g><g><title>_convert_element_type (jax\_src\lax\lax.py:1724) (10 samples, 0.11%)</title><rect x="52.8334%" y="292" width="0.1065%" height="15" fill="rgb(221,10,30)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="302.50"></text></g><g><title>bind (jax\_src\core.py:576) (10 samples, 0.11%)</title><rect x="52.8334%" y="308" width="0.1065%" height="15" fill="rgb(210,229,1)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="318.50"></text></g><g><title>_true_bind (jax\_src\core.py:592) (10 samples, 0.11%)</title><rect x="52.8334%" y="324" width="0.1065%" height="15" fill="rgb(222,148,37)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="334.50"></text></g><g><title>_convert_element_type_bind_with_trace (jax\_src\lax\lax.py:4892) (10 samples, 0.11%)</title><rect x="52.8334%" y="340" width="0.1065%" height="15" fill="rgb(234,67,33)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="350.50"></text></g><g><title>bind_with_trace (jax\_src\core.py:602) (10 samples, 0.11%)</title><rect x="52.8334%" y="356" width="0.1065%" height="15" fill="rgb(247,98,35)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="366.50"></text></g><g><title>process_primitive (jax\_src\core.py:1126) (10 samples, 0.11%)</title><rect x="52.8334%" y="372" width="0.1065%" height="15" fill="rgb(247,138,52)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="382.50"></text></g><g><title>apply_primitive (jax\_src\dispatch.py:91) (10 samples, 0.11%)</title><rect x="52.8334%" y="388" width="0.1065%" height="15" fill="rgb(213,79,30)" fg:x="4960" fg:w="10"/><text x="53.0834%" y="398.50"></text></g><g><title>_const (jax\_src\lax\lax.py:8771) (22 samples, 0.23%)</title><rect x="62.4095%" y="292" width="0.2343%" height="15" fill="rgb(246,177,23)" fg:x="5859" fg:w="22"/><text x="62.6595%" y="302.50"></text></g><g><title>is_python_scalar (jax\_src\dtypes.py:797) (10 samples, 0.11%)</title><rect x="62.6438%" y="308" width="0.1065%" height="15" fill="rgb(230,62,27)" fg:x="5881" fg:w="10"/><text x="62.8938%" y="318.50"></text></g><g><title>_const (jax\_src\lax\lax.py:8772) (12 samples, 0.13%)</title><rect x="62.6438%" y="292" width="0.1278%" height="15" fill="rgb(216,154,8)" fg:x="5881" fg:w="12"/><text x="62.8938%" y="302.50"></text></g><g><title>scalar_type_of (jax\_src\dtypes.py:334) (13 samples, 0.14%)</title><rect x="62.8036%" y="308" width="0.1385%" height="15" fill="rgb(244,35,45)" fg:x="5896" fg:w="13"/><text x="63.0536%" y="318.50"></text></g><g><title>scalar_type_of (jax\_src\dtypes.py:338) (12 samples, 0.13%)</title><rect x="62.9634%" y="308" width="0.1278%" height="15" fill="rgb(251,115,12)" fg:x="5911" fg:w="12"/><text x="63.2134%" y="318.50"></text></g><g><title>_const (jax\_src\lax\lax.py:8773) (35 samples, 0.37%)</title><rect x="62.7716%" y="292" width="0.3728%" height="15" fill="rgb(240,54,50)" fg:x="5893" fg:w="35"/><text x="63.0216%" y="302.50"></text></g><g><title>_const (jax\_src\lax\lax.py:8774) (11 samples, 0.12%)</title><rect x="63.1444%" y="292" width="0.1172%" height="15" fill="rgb(233,84,52)" fg:x="5928" fg:w="11"/><text x="63.3944%" y="302.50"></text></g><g><title>dynamic_slice_in_dim (jax\_src\lax\slicing.py:1134) (86 samples, 0.92%)</title><rect x="62.3775%" y="276" width="0.9161%" height="15" fill="rgb(207,117,47)" fg:x="5856" fg:w="86"/><text x="62.6275%" y="286.50"></text></g><g><title>_dynamic_slice_indices (jax\_src\lax\slicing.py:3258) (12 samples, 0.13%)</title><rect x="63.5066%" y="308" width="0.1278%" height="15" fill="rgb(249,43,39)" fg:x="5962" fg:w="12"/><text x="63.7566%" y="318.50"></text></g><g><title>_convert_element_type (jax\_src\lax\lax.py:1697) (15 samples, 0.16%)</title><rect x="63.7622%" y="340" width="0.1598%" height="15" fill="rgb(209,38,44)" fg:x="5986" fg:w="15"/><text x="64.0122%" y="350.50"></text></g><g><title>_convert_element_type (jax\_src\lax\lax.py:1714) (15 samples, 0.16%)</title><rect x="63.9753%" y="340" width="0.1598%" height="15" fill="rgb(236,212,23)" fg:x="6006" fg:w="15"/><text x="64.2253%" y="350.50"></text></g><g><title>canonicalize_value (jax\_src\core.py:1966) (38 samples, 0.40%)</title><rect x="64.3161%" y="372" width="0.4048%" height="15" fill="rgb(242,79,21)" fg:x="6038" fg:w="38"/><text x="64.5661%" y="382.50"></text></g><g><title>get_aval (jax\_src\core.py:1687) (36 samples, 0.38%)</title><rect x="64.3375%" y="388" width="0.3835%" height="15" fill="rgb(211,96,35)" fg:x="6040" fg:w="36"/><text x="64.5875%" y="398.50"></text></g><g><title>_make_shaped_array_for_numpy_array (jax\_src\abstract_arrays.py:58) (33 samples, 0.35%)</title><rect x="64.3694%" y="404" width="0.3515%" height="15" fill="rgb(253,215,40)" fg:x="6043" fg:w="33"/><text x="64.6194%" y="414.50"></text></g><g><title>bind (jax\_src\core.py:575) (46 samples, 0.49%)</title><rect x="64.2522%" y="356" width="0.4900%" height="15" fill="rgb(211,81,21)" fg:x="6032" fg:w="46"/><text x="64.5022%" y="366.50"></text></g><g><title>apply_primitive (jax\_src\dispatch.py:86) (20 samples, 0.21%)</title><rect x="65.1257%" y="436" width="0.2130%" height="15" fill="rgb(208,190,38)" fg:x="6114" fg:w="20"/><text x="65.3757%" y="446.50"></text></g><g><title>wrapper (jax\_src\util.py:298) (14 samples, 0.15%)</title><rect x="65.1896%" y="452" width="0.1491%" height="15" fill="rgb(235,213,38)" fg:x="6120" fg:w="14"/><text x="65.4396%" y="462.50"></text></g><g><title>_true_bind (jax\_src\core.py:592) (146 samples, 1.56%)</title><rect x="64.9233%" y="372" width="1.5552%" height="15" fill="rgb(237,122,38)" fg:x="6095" fg:w="146"/><text x="65.1733%" y="382.50"></text></g><g><title>_convert_element_type_bind_with_trace (jax\_src\lax\lax.py:4892) (145 samples, 1.54%)</title><rect x="64.9340%" y="388" width="1.5445%" height="15" fill="rgb(244,218,35)" fg:x="6096" fg:w="145"/><text x="65.1840%" y="398.50"></text></g><g><title>bind_with_trace (jax\_src\core.py:602) (138 samples, 1.47%)</title><rect x="65.0085%" y="404" width="1.4700%" height="15" fill="rgb(240,68,47)" fg:x="6103" fg:w="138"/><text x="65.2585%" y="414.50"></text></g><g><title>process_primitive (jax\_src\core.py:1126) (133 samples, 1.42%)</title><rect x="65.0618%" y="420" width="1.4167%" height="15" fill="rgb(210,16,53)" fg:x="6108" fg:w="133"/><text x="65.3118%" y="430.50"></text></g><g><title>apply_primitive (jax\_src\dispatch.py:91) (106 samples, 1.13%)</title><rect x="65.3494%" y="436" width="1.1291%" height="15" fill="rgb(235,124,12)" fg:x="6135" fg:w="106"/><text x="65.5994%" y="446.50"></text></g><g><title>convert_element_type (jax\_src\lax\lax.py:1653) (267 samples, 2.84%)</title><rect x="63.6877%" y="324" width="2.8441%" height="15" fill="rgb(224,169,11)" fg:x="5979" fg:w="267"/><text x="63.9377%" y="334.50">co..</text></g><g><title>_convert_element_type (jax\_src\lax\lax.py:1724) (221 samples, 2.35%)</title><rect x="64.1777%" y="340" width="2.3541%" height="15" fill="rgb(250,166,2)" fg:x="6025" fg:w="221"/><text x="64.4277%" y="350.50">_..</text></g><g><title>bind (jax\_src\core.py:576) (168 samples, 1.79%)</title><rect x="64.7422%" y="356" width="1.7895%" height="15" fill="rgb(242,216,29)" fg:x="6078" fg:w="168"/><text x="64.9922%" y="366.50">b..</text></g><g><title>dynamic_slice (jax\_src\lax\slicing.py:173) (294 samples, 3.13%)</title><rect x="63.4320%" y="292" width="3.1317%" height="15" fill="rgb(230,116,27)" fg:x="5955" fg:w="294"/><text x="63.6820%" y="302.50">dyn..</text></g><g><title>_dynamic_slice_indices (jax\_src\lax\slicing.py:3264) (272 samples, 2.90%)</title><rect x="63.6664%" y="308" width="2.8973%" height="15" fill="rgb(228,99,48)" fg:x="5977" fg:w="272"/><text x="63.9164%" y="318.50">_d..</text></g><g><title>dynamic_slice (jax\_src\lax\slicing.py:178) (10 samples, 0.11%)</title><rect x="66.5850%" y="292" width="0.1065%" height="15" fill="rgb(253,11,6)" fg:x="6251" fg:w="10"/><text x="66.8350%" y="302.50"></text></g><g><title>bind (jax\_src\core.py:575) (11 samples, 0.12%)</title><rect x="66.7767%" y="308" width="0.1172%" height="15" fill="rgb(247,143,39)" fg:x="6269" fg:w="11"/><text x="67.0267%" y="318.50"></text></g><g><title>apply_primitive (jax\_src\dispatch.py:86) (16 samples, 0.17%)</title><rect x="67.1815%" y="372" width="0.1704%" height="15" fill="rgb(236,97,10)" fg:x="6307" fg:w="16"/><text x="67.4315%" y="382.50"></text></g><g><title>wrapper (jax\_src\util.py:298) (16 samples, 0.17%)</title><rect x="67.1815%" y="388" width="0.1704%" height="15" fill="rgb(233,208,19)" fg:x="6307" fg:w="16"/><text x="67.4315%" y="398.50"></text></g><g><title>_true_bind (jax\_src\core.py:592) (93 samples, 0.99%)</title><rect x="66.9791%" y="324" width="0.9906%" height="15" fill="rgb(216,164,2)" fg:x="6288" fg:w="93"/><text x="67.2291%" y="334.50"></text></g><g><title>bind_with_trace (jax\_src\core.py:602) (90 samples, 0.96%)</title><rect x="67.0111%" y="340" width="0.9587%" height="15" fill="rgb(220,129,5)" fg:x="6291" fg:w="90"/><text x="67.2611%" y="350.50"></text></g><g><title>process_primitive (jax\_src\core.py:1126) (81 samples, 0.86%)</title><rect x="67.1069%" y="356" width="0.8628%" height="15" fill="rgb(242,17,10)" fg:x="6300" fg:w="81"/><text x="67.3569%" y="366.50"></text></g><g><title>apply_primitive (jax\_src\dispatch.py:91) (58 samples, 0.62%)</title><rect x="67.3519%" y="372" width="0.6178%" height="15" fill="rgb(242,107,0)" fg:x="6323" fg:w="58"/><text x="67.6019%" y="382.50"></text></g><g><title>_chunk_iter (jax\_src\numpy\array_methods.py:655) (533 samples, 5.68%)</title><rect x="62.3136%" y="260" width="5.6775%" height="15" fill="rgb(251,28,31)" fg:x="5850" fg:w="533"/><text x="62.5636%" y="270.50">_chunk_..</text></g><g><title>dynamic_slice_in_dim (jax\_src\lax\slicing.py:1141) (431 samples, 4.59%)</title><rect x="63.4001%" y="276" width="4.5910%" height="15" fill="rgb(233,223,10)" fg:x="5952" fg:w="431"/><text x="63.6501%" y="286.50">dynam..</text></g><g><title>dynamic_slice (jax\_src\lax\slicing.py:181) (114 samples, 1.21%)</title><rect x="66.7767%" y="292" width="1.2143%" height="15" fill="rgb(215,21,27)" fg:x="6269" fg:w="114"/><text x="67.0267%" y="302.50"></text></g><g><title>bind (jax\_src\core.py:576) (103 samples, 1.10%)</title><rect x="66.8939%" y="308" width="1.0971%" height="15" fill="rgb(232,23,21)" fg:x="6280" fg:w="103"/><text x="67.1439%" y="318.50"></text></g><g><title>&lt;genexpr&gt; (jax\_src\array.py:391) (1,318 samples, 14.04%)</title><rect x="54.0158%" y="244" width="14.0392%" height="15" fill="rgb(244,5,23)" fg:x="5071" fg:w="1318"/><text x="54.2658%" y="254.50">&lt;genexpr&gt; (jax\_src\a..</text></g><g><title>__int__ (jax\_src\array.py:313) (18 samples, 0.19%)</title><rect x="68.0550%" y="244" width="0.1917%" height="15" fill="rgb(226,81,46)" fg:x="6389" fg:w="18"/><text x="68.3050%" y="254.50"></text></g><g><title>check_scalar_conversion (jax\_src\core.py:806) (84 samples, 0.89%)</title><rect x="68.4171%" y="260" width="0.8948%" height="15" fill="rgb(247,70,30)" fg:x="6423" fg:w="84"/><text x="68.6671%" y="270.50"></text></g><g><title>ndim (jax\_src\array.py:271) (55 samples, 0.59%)</title><rect x="68.7260%" y="276" width="0.5859%" height="15" fill="rgb(212,68,19)" fg:x="6452" fg:w="55"/><text x="68.9760%" y="286.50"></text></g><g><title>shape (jax\_src\array.py:263) (36 samples, 0.38%)</title><rect x="68.9284%" y="292" width="0.3835%" height="15" fill="rgb(240,187,13)" fg:x="6471" fg:w="36"/><text x="69.1784%" y="302.50"></text></g><g><title>__int__ (jax\_src\array.py:314) (102 samples, 1.09%)</title><rect x="68.2467%" y="244" width="1.0865%" height="15" fill="rgb(223,113,26)" fg:x="6407" fg:w="102"/><text x="68.4967%" y="254.50"></text></g><g><title>wrapper (jax\_src\profiler.py:351) (17 samples, 0.18%)</title><rect x="71.4210%" y="260" width="0.1811%" height="15" fill="rgb(206,192,2)" fg:x="6705" fg:w="17"/><text x="71.6710%" y="270.50"></text></g><g><title>wrapper (jax\_src\profiler.py:353) (270 samples, 2.88%)</title><rect x="71.6020%" y="260" width="2.8760%" height="15" fill="rgb(241,108,4)" fg:x="6722" fg:w="270"/><text x="71.8520%" y="270.50">wr..</text></g><g><title>_check_if_deleted (jax\_src\array.py:605) (64 samples, 0.68%)</title><rect x="75.2130%" y="292" width="0.6817%" height="15" fill="rgb(247,173,49)" fg:x="7061" fg:w="64"/><text x="75.4630%" y="302.50"></text></g><g><title>_value (jax\_src\array.py:637) (93 samples, 0.99%)</title><rect x="74.9254%" y="276" width="0.9906%" height="15" fill="rgb(224,114,35)" fg:x="7034" fg:w="93"/><text x="75.1754%" y="286.50"></text></g><g><title>_value (jax\_src\array.py:639) (37 samples, 0.39%)</title><rect x="75.9161%" y="276" width="0.3941%" height="15" fill="rgb(245,159,27)" fg:x="7127" fg:w="37"/><text x="76.1661%" y="286.50"></text></g><g><title>_value (jax\_src\array.py:641) (65 samples, 0.69%)</title><rect x="76.3102%" y="276" width="0.6924%" height="15" fill="rgb(245,172,44)" fg:x="7164" fg:w="65"/><text x="76.5602%" y="286.50"></text></g><g><title>is_fully_replicated (jax\_src\array.py:401) (50 samples, 0.53%)</title><rect x="76.4700%" y="292" width="0.5326%" height="15" fill="rgb(236,23,11)" fg:x="7179" fg:w="50"/><text x="76.7200%" y="302.50"></text></g><g><title>sharding (jax\_src\array.py:279) (22 samples, 0.23%)</title><rect x="76.7682%" y="308" width="0.2343%" height="15" fill="rgb(205,117,38)" fg:x="7207" fg:w="22"/><text x="77.0182%" y="318.50"></text></g><g><title>_value (jax\_src\array.py:642) (174 samples, 1.85%)</title><rect x="77.0026%" y="276" width="1.8534%" height="15" fill="rgb(237,72,25)" fg:x="7229" fg:w="174"/><text x="77.2526%" y="286.50">_..</text></g><g><title>sharding (jax\_src\array.py:279) (13 samples, 0.14%)</title><rect x="78.7175%" y="292" width="0.1385%" height="15" fill="rgb(244,70,9)" fg:x="7390" fg:w="13"/><text x="78.9675%" y="302.50"></text></g><g><title>_value (jax\_src\array.py:643) (1,502 samples, 16.00%)</title><rect x="78.8560%" y="276" width="15.9991%" height="15" fill="rgb(217,125,39)" fg:x="7403" fg:w="1502"/><text x="79.1060%" y="286.50">_value (jax\_src\array.py..</text></g><g><title>_value (jax\_src\array.py:644) (175 samples, 1.86%)</title><rect x="94.8551%" y="276" width="1.8641%" height="15" fill="rgb(235,36,10)" fg:x="8905" fg:w="175"/><text x="95.1051%" y="286.50">_..</text></g><g><title>input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:309) (4,118 samples, 43.86%)</title><rect x="52.9399%" y="228" width="43.8645%" height="15" fill="rgb(251,123,47)" fg:x="4970" fg:w="4118"/><text x="53.1899%" y="238.50">input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:309)</text></g><g><title>__int__ (jax\_src\array.py:315) (2,579 samples, 27.47%)</title><rect x="69.3332%" y="244" width="27.4712%" height="15" fill="rgb(221,13,13)" fg:x="6509" fg:w="2579"/><text x="69.5832%" y="254.50">__int__ (jax\_src\array.py:315)</text></g><g><title>wrapper (jax\_src\profiler.py:354) (2,096 samples, 22.33%)</title><rect x="74.4781%" y="260" width="22.3264%" height="15" fill="rgb(238,131,9)" fg:x="6992" fg:w="2096"/><text x="74.7281%" y="270.50">wrapper (jax\_src\profiler.py:354)</text></g><g><title>input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:310) (24 samples, 0.26%)</title><rect x="96.8044%" y="228" width="0.2556%" height="15" fill="rgb(211,50,8)" fg:x="9088" fg:w="24"/><text x="97.0544%" y="238.50"></text></g><g><title>input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:311) (11 samples, 0.12%)</title><rect x="97.0601%" y="228" width="0.1172%" height="15" fill="rgb(245,182,24)" fg:x="9112" fg:w="11"/><text x="97.3101%" y="238.50"></text></g><g><title>input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:313) (25 samples, 0.27%)</title><rect x="97.1772%" y="228" width="0.2663%" height="15" fill="rgb(242,14,37)" fg:x="9123" fg:w="25"/><text x="97.4272%" y="238.50"></text></g><g><title>input_data_is_invalid (ttsim\interface_dag_elements\fail_if.py:315) (22 samples, 0.23%)</title><rect x="97.4435%" y="228" width="0.2343%" height="15" fill="rgb(246,228,12)" fg:x="9148" fg:w="22"/><text x="97.6935%" y="238.50"></text></g><g><title>processed_data (ttsim\interface_dag_elements\processed_data.py:34) (23 samples, 0.24%)</title><rect x="97.6779%" y="228" width="0.2450%" height="15" fill="rgb(213,55,15)" fg:x="9170" fg:w="23"/><text x="97.9279%" y="238.50"></text></g><g><title>main (ttsim\main.py:155) (9,067 samples, 96.58%)</title><rect x="1.4593%" y="132" width="96.5807%" height="15" fill="rgb(209,9,3)" fg:x="137" fg:w="9067"/><text x="1.7093%" y="142.50">main (ttsim\main.py:155)</text></g><g><title>wrapper_dict_output (dags\output.py:77) (9,067 samples, 96.58%)</title><rect x="1.4593%" y="148" width="96.5807%" height="15" fill="rgb(230,59,30)" fg:x="137" fg:w="9067"/><text x="1.7093%" y="158.50">wrapper_dict_output (dags\output.py:77)</text></g><g><title>wrapper_with_signature (dags\signature.py:139) (9,067 samples, 96.58%)</title><rect x="1.4593%" y="164" width="96.5807%" height="15" fill="rgb(209,121,21)" fg:x="137" fg:w="9067"/><text x="1.7093%" y="174.50">wrapper_with_signature (dags\signature.py:139)</text></g><g><title>concatenated (dags\dag.py:611) (9,066 samples, 96.57%)</title><rect x="1.4700%" y="180" width="96.5701%" height="15" fill="rgb(220,109,13)" fg:x="138" fg:w="9066"/><text x="1.7200%" y="190.50">concatenated (dags\dag.py:611)</text></g><g><title>__call__ (ttsim\interface_dag_elements\interface_node_objects.py:132) (9,066 samples, 96.57%)</title><rect x="1.4700%" y="196" width="96.5701%" height="15" fill="rgb(232,18,1)" fg:x="138" fg:w="9066"/><text x="1.7200%" y="206.50">__call__ (ttsim\interface_dag_elements\interface_node_objects.py:132)</text></g><g><title>wrapper_rename_arguments (dags\signature.py:250) (9,066 samples, 96.57%)</title><rect x="1.4700%" y="212" width="96.5701%" height="15" fill="rgb(215,41,42)" fg:x="138" fg:w="9066"/><text x="1.7200%" y="222.50">wrapper_rename_arguments (dags\signature.py:250)</text></g><g><title>&lt;module&gt; (gettsim_profile.py:160) (9,207 samples, 98.07%)</title><rect x="0.0000%" y="68" width="98.0720%" height="15" fill="rgb(224,123,36)" fg:x="0" fg:w="9207"/><text x="0.2500%" y="78.50">&lt;module&gt; (gettsim_profile.py:160)</text></g><g><title>main_cli (gettsim_profile.py:151) (9,202 samples, 98.02%)</title><rect x="0.0533%" y="84" width="98.0187%" height="15" fill="rgb(240,125,3)" fg:x="5" fg:w="9202"/><text x="0.3033%" y="94.50">main_cli (gettsim_profile.py:151)</text></g><g><title>run_profile (gettsim_profile.py:113) (9,071 samples, 96.62%)</title><rect x="1.4487%" y="100" width="96.6233%" height="15" fill="rgb(205,98,50)" fg:x="136" fg:w="9071"/><text x="1.6987%" y="110.50">run_profile (gettsim_profile.py:113)</text></g><g><title>main (gettsim\__init__.py:103) (9,071 samples, 96.62%)</title><rect x="1.4487%" y="116" width="96.6233%" height="15" fill="rgb(205,185,37)" fg:x="136" fg:w="9071"/><text x="1.6987%" y="126.50">main (gettsim\__init__.py:103)</text></g><g><title>&lt;module&gt; (pandas\__init__.py:14) (14 samples, 0.15%)</title><rect x="98.1466%" y="164" width="0.1491%" height="15" fill="rgb(238,207,15)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="174.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (14 samples, 0.15%)</title><rect x="98.1466%" y="180" width="0.1491%" height="15" fill="rgb(213,199,42)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="190.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (14 samples, 0.15%)</title><rect x="98.1466%" y="196" width="0.1491%" height="15" fill="rgb(235,201,11)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="206.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (14 samples, 0.15%)</title><rect x="98.1466%" y="212" width="0.1491%" height="15" fill="rgb(207,46,11)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="222.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (14 samples, 0.15%)</title><rect x="98.1466%" y="228" width="0.1491%" height="15" fill="rgb(241,35,35)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="238.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (14 samples, 0.15%)</title><rect x="98.1466%" y="244" width="0.1491%" height="15" fill="rgb(243,32,47)" fg:x="9214" fg:w="14"/><text x="98.3966%" y="254.50"></text></g><g><title>&lt;module&gt; (pandas\core\groupby\generic.py:68) (10 samples, 0.11%)</title><rect x="98.5407%" y="452" width="0.1065%" height="15" fill="rgb(247,202,23)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="462.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (10 samples, 0.11%)</title><rect x="98.5407%" y="468" width="0.1065%" height="15" fill="rgb(219,102,11)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="478.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (10 samples, 0.11%)</title><rect x="98.5407%" y="484" width="0.1065%" height="15" fill="rgb(243,110,44)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="494.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (10 samples, 0.11%)</title><rect x="98.5407%" y="500" width="0.1065%" height="15" fill="rgb(222,74,54)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="510.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (10 samples, 0.11%)</title><rect x="98.5407%" y="516" width="0.1065%" height="15" fill="rgb(216,99,12)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="526.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (10 samples, 0.11%)</title><rect x="98.5407%" y="532" width="0.1065%" height="15" fill="rgb(226,22,26)" fg:x="9251" fg:w="10"/><text x="98.7907%" y="542.50"></text></g><g><title>&lt;module&gt; (pandas\core\api.py:47) (14 samples, 0.15%)</title><rect x="98.5087%" y="260" width="0.1491%" height="15" fill="rgb(217,163,10)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="270.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (14 samples, 0.15%)</title><rect x="98.5087%" y="276" width="0.1491%" height="15" fill="rgb(213,25,53)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="286.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (14 samples, 0.15%)</title><rect x="98.5087%" y="292" width="0.1491%" height="15" fill="rgb(252,105,26)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="302.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (14 samples, 0.15%)</title><rect x="98.5087%" y="308" width="0.1491%" height="15" fill="rgb(220,39,43)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="318.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (14 samples, 0.15%)</title><rect x="98.5087%" y="324" width="0.1491%" height="15" fill="rgb(229,68,48)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="334.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (14 samples, 0.15%)</title><rect x="98.5087%" y="340" width="0.1491%" height="15" fill="rgb(252,8,32)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="350.50"></text></g><g><title>&lt;module&gt; (pandas\core\groupby\__init__.py:1) (14 samples, 0.15%)</title><rect x="98.5087%" y="356" width="0.1491%" height="15" fill="rgb(223,20,43)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="366.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (14 samples, 0.15%)</title><rect x="98.5087%" y="372" width="0.1491%" height="15" fill="rgb(229,81,49)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="382.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (14 samples, 0.15%)</title><rect x="98.5087%" y="388" width="0.1491%" height="15" fill="rgb(236,28,36)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="398.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (14 samples, 0.15%)</title><rect x="98.5087%" y="404" width="0.1491%" height="15" fill="rgb(249,185,26)" fg:x="9248" fg:w="14"/><text x="98.7587%" y="414.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (11 samples, 0.12%)</title><rect x="98.5407%" y="420" width="0.1172%" height="15" fill="rgb(249,174,33)" fg:x="9251" fg:w="11"/><text x="98.7907%" y="430.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (11 samples, 0.12%)</title><rect x="98.5407%" y="436" width="0.1172%" height="15" fill="rgb(233,201,37)" fg:x="9251" fg:w="11"/><text x="98.7907%" y="446.50"></text></g><g><title>&lt;module&gt; (gettsim_profile.py:2) (57 samples, 0.61%)</title><rect x="98.0720%" y="68" width="0.6072%" height="15" fill="rgb(221,78,26)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="78.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (57 samples, 0.61%)</title><rect x="98.0720%" y="84" width="0.6072%" height="15" fill="rgb(250,127,30)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="94.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (57 samples, 0.61%)</title><rect x="98.0720%" y="100" width="0.6072%" height="15" fill="rgb(230,49,44)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="110.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (57 samples, 0.61%)</title><rect x="98.0720%" y="116" width="0.6072%" height="15" fill="rgb(229,67,23)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="126.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (57 samples, 0.61%)</title><rect x="98.0720%" y="132" width="0.6072%" height="15" fill="rgb(249,83,47)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="142.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (57 samples, 0.61%)</title><rect x="98.0720%" y="148" width="0.6072%" height="15" fill="rgb(215,43,3)" fg:x="9207" fg:w="57"/><text x="98.3220%" y="158.50"></text></g><g><title>&lt;module&gt; (pandas\__init__.py:49) (30 samples, 0.32%)</title><rect x="98.3596%" y="164" width="0.3196%" height="15" fill="rgb(238,154,13)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="174.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (30 samples, 0.32%)</title><rect x="98.3596%" y="180" width="0.3196%" height="15" fill="rgb(219,56,2)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="190.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (30 samples, 0.32%)</title><rect x="98.3596%" y="196" width="0.3196%" height="15" fill="rgb(233,0,4)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="206.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (30 samples, 0.32%)</title><rect x="98.3596%" y="212" width="0.3196%" height="15" fill="rgb(235,30,7)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="222.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (30 samples, 0.32%)</title><rect x="98.3596%" y="228" width="0.3196%" height="15" fill="rgb(250,79,13)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="238.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (30 samples, 0.32%)</title><rect x="98.3596%" y="244" width="0.3196%" height="15" fill="rgb(211,146,34)" fg:x="9234" fg:w="30"/><text x="98.6096%" y="254.50"></text></g><g><title>&lt;module&gt; (gettsim\__init__.py:19) (17 samples, 0.18%)</title><rect x="98.6898%" y="164" width="0.1811%" height="15" fill="rgb(228,22,38)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="174.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (17 samples, 0.18%)</title><rect x="98.6898%" y="180" width="0.1811%" height="15" fill="rgb(235,168,5)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="190.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (17 samples, 0.18%)</title><rect x="98.6898%" y="196" width="0.1811%" height="15" fill="rgb(221,155,16)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="206.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (17 samples, 0.18%)</title><rect x="98.6898%" y="212" width="0.1811%" height="15" fill="rgb(215,215,53)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="222.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (17 samples, 0.18%)</title><rect x="98.6898%" y="228" width="0.1811%" height="15" fill="rgb(223,4,10)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="238.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (17 samples, 0.18%)</title><rect x="98.6898%" y="244" width="0.1811%" height="15" fill="rgb(234,103,6)" fg:x="9265" fg:w="17"/><text x="98.9398%" y="254.50"></text></g><g><title>&lt;module&gt; (dags\dag.py:10) (21 samples, 0.22%)</title><rect x="98.9348%" y="596" width="0.2237%" height="15" fill="rgb(227,97,0)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="606.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (21 samples, 0.22%)</title><rect x="98.9348%" y="612" width="0.2237%" height="15" fill="rgb(234,150,53)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="622.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (21 samples, 0.22%)</title><rect x="98.9348%" y="628" width="0.2237%" height="15" fill="rgb(228,201,54)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="638.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (21 samples, 0.22%)</title><rect x="98.9348%" y="644" width="0.2237%" height="15" fill="rgb(222,22,37)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="654.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (21 samples, 0.22%)</title><rect x="98.9348%" y="660" width="0.2237%" height="15" fill="rgb(237,53,32)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="670.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (21 samples, 0.22%)</title><rect x="98.9348%" y="676" width="0.2237%" height="15" fill="rgb(233,25,53)" fg:x="9288" fg:w="21"/><text x="99.1848%" y="686.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1310) (22 samples, 0.23%)</title><rect x="98.9348%" y="388" width="0.2343%" height="15" fill="rgb(210,40,34)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="398.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (22 samples, 0.23%)</title><rect x="98.9348%" y="404" width="0.2343%" height="15" fill="rgb(241,220,44)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="414.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (22 samples, 0.23%)</title><rect x="98.9348%" y="420" width="0.2343%" height="15" fill="rgb(235,28,35)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="430.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (22 samples, 0.23%)</title><rect x="98.9348%" y="436" width="0.2343%" height="15" fill="rgb(210,56,17)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="446.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (22 samples, 0.23%)</title><rect x="98.9348%" y="452" width="0.2343%" height="15" fill="rgb(224,130,29)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="462.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (22 samples, 0.23%)</title><rect x="98.9348%" y="468" width="0.2343%" height="15" fill="rgb(235,212,8)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="478.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (22 samples, 0.23%)</title><rect x="98.9348%" y="484" width="0.2343%" height="15" fill="rgb(223,33,50)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="494.50"></text></g><g><title>&lt;module&gt; (dags\__init__.py:4) (22 samples, 0.23%)</title><rect x="98.9348%" y="500" width="0.2343%" height="15" fill="rgb(219,149,13)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="510.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (22 samples, 0.23%)</title><rect x="98.9348%" y="516" width="0.2343%" height="15" fill="rgb(250,156,29)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="526.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (22 samples, 0.23%)</title><rect x="98.9348%" y="532" width="0.2343%" height="15" fill="rgb(216,193,19)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="542.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (22 samples, 0.23%)</title><rect x="98.9348%" y="548" width="0.2343%" height="15" fill="rgb(216,135,14)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="558.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (22 samples, 0.23%)</title><rect x="98.9348%" y="564" width="0.2343%" height="15" fill="rgb(241,47,5)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="574.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (22 samples, 0.23%)</title><rect x="98.9348%" y="580" width="0.2343%" height="15" fill="rgb(233,42,35)" fg:x="9288" fg:w="22"/><text x="99.1848%" y="590.50"></text></g><g><title>&lt;module&gt; (ttsim\__init__.py:15) (27 samples, 0.29%)</title><rect x="98.9348%" y="260" width="0.2876%" height="15" fill="rgb(231,13,6)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="270.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (27 samples, 0.29%)</title><rect x="98.9348%" y="276" width="0.2876%" height="15" fill="rgb(207,181,40)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="286.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (27 samples, 0.29%)</title><rect x="98.9348%" y="292" width="0.2876%" height="15" fill="rgb(254,173,49)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="302.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (27 samples, 0.29%)</title><rect x="98.9348%" y="308" width="0.2876%" height="15" fill="rgb(221,1,38)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="318.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (27 samples, 0.29%)</title><rect x="98.9348%" y="324" width="0.2876%" height="15" fill="rgb(206,124,46)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="334.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (27 samples, 0.29%)</title><rect x="98.9348%" y="340" width="0.2876%" height="15" fill="rgb(249,21,11)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="350.50"></text></g><g><title>&lt;module&gt; (ttsim\interface_dag_elements\shared.py:7) (27 samples, 0.29%)</title><rect x="98.9348%" y="356" width="0.2876%" height="15" fill="rgb(222,201,40)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="366.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (27 samples, 0.29%)</title><rect x="98.9348%" y="372" width="0.2876%" height="15" fill="rgb(235,61,29)" fg:x="9288" fg:w="27"/><text x="99.1848%" y="382.50"></text></g><g><title>&lt;module&gt; (jax\__init__.py:25) (13 samples, 0.14%)</title><rect x="99.3715%" y="548" width="0.1385%" height="15" fill="rgb(219,207,3)" fg:x="9329" fg:w="13"/><text x="99.6215%" y="558.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (13 samples, 0.14%)</title><rect x="99.3715%" y="564" width="0.1385%" height="15" fill="rgb(222,56,46)" fg:x="9329" fg:w="13"/><text x="99.6215%" y="574.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (13 samples, 0.14%)</title><rect x="99.3715%" y="580" width="0.1385%" height="15" fill="rgb(239,76,54)" fg:x="9329" fg:w="13"/><text x="99.6215%" y="590.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (13 samples, 0.14%)</title><rect x="99.3715%" y="596" width="0.1385%" height="15" fill="rgb(231,124,27)" fg:x="9329" fg:w="13"/><text x="99.6215%" y="606.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (12 samples, 0.13%)</title><rect x="99.3822%" y="612" width="0.1278%" height="15" fill="rgb(249,195,6)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="622.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (12 samples, 0.13%)</title><rect x="99.3822%" y="628" width="0.1278%" height="15" fill="rgb(237,174,47)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="638.50"></text></g><g><title>&lt;module&gt; (jax\_src\cloud_tpu_init.py:20) (12 samples, 0.13%)</title><rect x="99.3822%" y="644" width="0.1278%" height="15" fill="rgb(206,201,31)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="654.50"></text></g><g><title>_handle_fromlist (&lt;frozen importlib._bootstrap&gt;:1415) (12 samples, 0.13%)</title><rect x="99.3822%" y="660" width="0.1278%" height="15" fill="rgb(231,57,52)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="670.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (12 samples, 0.13%)</title><rect x="99.3822%" y="676" width="0.1278%" height="15" fill="rgb(248,177,22)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="686.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (12 samples, 0.13%)</title><rect x="99.3822%" y="692" width="0.1278%" height="15" fill="rgb(215,211,37)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="702.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (12 samples, 0.13%)</title><rect x="99.3822%" y="708" width="0.1278%" height="15" fill="rgb(241,128,51)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="718.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (12 samples, 0.13%)</title><rect x="99.3822%" y="724" width="0.1278%" height="15" fill="rgb(227,165,31)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="734.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (12 samples, 0.13%)</title><rect x="99.3822%" y="740" width="0.1278%" height="15" fill="rgb(228,167,24)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="750.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (12 samples, 0.13%)</title><rect x="99.3822%" y="756" width="0.1278%" height="15" fill="rgb(228,143,12)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="766.50"></text></g><g><title>&lt;module&gt; (jax\_src\config.py:27) (12 samples, 0.13%)</title><rect x="99.3822%" y="772" width="0.1278%" height="15" fill="rgb(249,149,8)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="782.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (12 samples, 0.13%)</title><rect x="99.3822%" y="788" width="0.1278%" height="15" fill="rgb(243,35,44)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="798.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (12 samples, 0.13%)</title><rect x="99.3822%" y="804" width="0.1278%" height="15" fill="rgb(246,89,9)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="814.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (12 samples, 0.13%)</title><rect x="99.3822%" y="820" width="0.1278%" height="15" fill="rgb(233,213,13)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="830.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (12 samples, 0.13%)</title><rect x="99.3822%" y="836" width="0.1278%" height="15" fill="rgb(233,141,41)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="846.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (12 samples, 0.13%)</title><rect x="99.3822%" y="852" width="0.1278%" height="15" fill="rgb(239,167,4)" fg:x="9330" fg:w="12"/><text x="99.6322%" y="862.50"></text></g><g><title>&lt;module&gt; (jax\__init__.py:82) (14 samples, 0.15%)</title><rect x="99.5846%" y="548" width="0.1491%" height="15" fill="rgb(209,217,16)" fg:x="9349" fg:w="14"/><text x="99.8346%" y="558.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (14 samples, 0.15%)</title><rect x="99.5846%" y="564" width="0.1491%" height="15" fill="rgb(219,88,35)" fg:x="9349" fg:w="14"/><text x="99.8346%" y="574.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (14 samples, 0.15%)</title><rect x="99.5846%" y="580" width="0.1491%" height="15" fill="rgb(220,193,23)" fg:x="9349" fg:w="14"/><text x="99.8346%" y="590.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (14 samples, 0.15%)</title><rect x="99.5846%" y="596" width="0.1491%" height="15" fill="rgb(230,90,52)" fg:x="9349" fg:w="14"/><text x="99.8346%" y="606.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (13 samples, 0.14%)</title><rect x="99.5952%" y="612" width="0.1385%" height="15" fill="rgb(252,106,19)" fg:x="9350" fg:w="13"/><text x="99.8452%" y="622.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (13 samples, 0.14%)</title><rect x="99.5952%" y="628" width="0.1385%" height="15" fill="rgb(206,74,20)" fg:x="9350" fg:w="13"/><text x="99.8452%" y="638.50"></text></g><g><title>&lt;module&gt; (ttsim\interface_dag_elements\fail_if.py:19) (52 samples, 0.55%)</title><rect x="99.2224%" y="452" width="0.5539%" height="15" fill="rgb(230,138,44)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="462.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (52 samples, 0.55%)</title><rect x="99.2224%" y="468" width="0.5539%" height="15" fill="rgb(235,182,43)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="478.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (52 samples, 0.55%)</title><rect x="99.2224%" y="484" width="0.5539%" height="15" fill="rgb(242,16,51)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="494.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (52 samples, 0.55%)</title><rect x="99.2224%" y="500" width="0.5539%" height="15" fill="rgb(248,9,4)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="510.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (52 samples, 0.55%)</title><rect x="99.2224%" y="516" width="0.5539%" height="15" fill="rgb(210,31,22)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="526.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (52 samples, 0.55%)</title><rect x="99.2224%" y="532" width="0.5539%" height="15" fill="rgb(239,54,39)" fg:x="9315" fg:w="52"/><text x="99.4724%" y="542.50"></text></g><g><title>&lt;module&gt; (ttsim\main.py:14) (55 samples, 0.59%)</title><rect x="99.2224%" y="356" width="0.5859%" height="15" fill="rgb(230,99,41)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="366.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (55 samples, 0.59%)</title><rect x="99.2224%" y="372" width="0.5859%" height="15" fill="rgb(253,106,12)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="382.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (55 samples, 0.59%)</title><rect x="99.2224%" y="388" width="0.5859%" height="15" fill="rgb(213,46,41)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="398.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (55 samples, 0.59%)</title><rect x="99.2224%" y="404" width="0.5859%" height="15" fill="rgb(215,133,35)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="414.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (55 samples, 0.59%)</title><rect x="99.2224%" y="420" width="0.5859%" height="15" fill="rgb(213,28,5)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="430.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (55 samples, 0.59%)</title><rect x="99.2224%" y="436" width="0.5859%" height="15" fill="rgb(215,77,49)" fg:x="9315" fg:w="55"/><text x="99.4724%" y="446.50"></text></g><g><title>&lt;module&gt; (gettsim\__init__.py:20) (98 samples, 1.04%)</title><rect x="98.8709%" y="164" width="1.0439%" height="15" fill="rgb(248,100,22)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="174.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (98 samples, 1.04%)</title><rect x="98.8709%" y="180" width="1.0439%" height="15" fill="rgb(208,67,9)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="190.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (98 samples, 1.04%)</title><rect x="98.8709%" y="196" width="1.0439%" height="15" fill="rgb(219,133,21)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="206.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (98 samples, 1.04%)</title><rect x="98.8709%" y="212" width="1.0439%" height="15" fill="rgb(246,46,29)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="222.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (98 samples, 1.04%)</title><rect x="98.8709%" y="228" width="1.0439%" height="15" fill="rgb(246,185,52)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="238.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (98 samples, 1.04%)</title><rect x="98.8709%" y="244" width="1.0439%" height="15" fill="rgb(252,136,11)" fg:x="9282" fg:w="98"/><text x="99.1209%" y="254.50"></text></g><g><title>&lt;module&gt; (ttsim\__init__.py:16) (65 samples, 0.69%)</title><rect x="99.2224%" y="260" width="0.6924%" height="15" fill="rgb(219,138,53)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="270.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (65 samples, 0.69%)</title><rect x="99.2224%" y="276" width="0.6924%" height="15" fill="rgb(211,51,23)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="286.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (65 samples, 0.69%)</title><rect x="99.2224%" y="292" width="0.6924%" height="15" fill="rgb(247,221,28)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="302.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (65 samples, 0.69%)</title><rect x="99.2224%" y="308" width="0.6924%" height="15" fill="rgb(251,222,45)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="318.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (65 samples, 0.69%)</title><rect x="99.2224%" y="324" width="0.6924%" height="15" fill="rgb(217,162,53)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="334.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (65 samples, 0.69%)</title><rect x="99.2224%" y="340" width="0.6924%" height="15" fill="rgb(229,93,14)" fg:x="9315" fg:w="65"/><text x="99.4724%" y="350.50"></text></g><g><title>&lt;module&gt; (gettsim_profile.py:5) (116 samples, 1.24%)</title><rect x="98.6898%" y="68" width="1.2356%" height="15" fill="rgb(209,67,49)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="78.50"></text></g><g><title>_find_and_load (&lt;frozen importlib._bootstrap&gt;:1360) (116 samples, 1.24%)</title><rect x="98.6898%" y="84" width="1.2356%" height="15" fill="rgb(213,87,29)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="94.50"></text></g><g><title>_find_and_load_unlocked (&lt;frozen importlib._bootstrap&gt;:1331) (116 samples, 1.24%)</title><rect x="98.6898%" y="100" width="1.2356%" height="15" fill="rgb(205,151,52)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="110.50"></text></g><g><title>_load_unlocked (&lt;frozen importlib._bootstrap&gt;:935) (116 samples, 1.24%)</title><rect x="98.6898%" y="116" width="1.2356%" height="15" fill="rgb(253,215,39)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="126.50"></text></g><g><title>exec_module (&lt;frozen importlib._bootstrap_external&gt;:1026) (116 samples, 1.24%)</title><rect x="98.6898%" y="132" width="1.2356%" height="15" fill="rgb(221,220,41)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="142.50"></text></g><g><title>_call_with_frames_removed (&lt;frozen importlib._bootstrap&gt;:488) (116 samples, 1.24%)</title><rect x="98.6898%" y="148" width="1.2356%" height="15" fill="rgb(218,133,21)" fg:x="9265" fg:w="116"/><text x="98.9398%" y="158.50"></text></g><g><title>all (9,388 samples, 100%)</title><rect x="0.0000%" y="52" width="100.0000%" height="15" fill="rgb(221,193,43)" fg:x="0" fg:w="9388"/><text x="0.2500%" y="62.50"></text></g></svg></svg>

@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-10T17:14:56.420411",
+    "household_sizes": [
+      32767,
+      32768
+    ],
+    "backends": [
+      "numpy",
+      "jax"
+    ]
+  },
+  "32767_numpy_stage1_time": 1.140390157699585,
+  "32767_numpy_stage2_time": 1.0163533687591553,
+  "32767_numpy_stage3_time": 0.8773975372314453,
+  "32767_numpy_time": 3.0341410636901855,
+  "32767_numpy_stage1_hash": "d2093ac520f8eed9b348dcd47f993868",
+  "32767_numpy_stage2_hash": "a5f295588449afd90bd4ef8aa6e37c3c",
+  "32767_numpy_stage3_hash": "ad99854175dcd57e23aca70cb8362fdd",
+  "32767_numpy_initial_memory": 176.03515625,
+  "32767_numpy_final_memory": 227.84375,
+  "32767_numpy_memory_delta": 51.80859375,
+  "32767_numpy_peak_memory": 227.84375,
+  "32767_numpy_result_shape": [
+    131068,
+    8
+  ],
+  "32768_numpy_stage1_time": 1.0404934883117676,
+  "32768_numpy_stage2_time": 1.1011812686920166,
+  "32768_numpy_stage3_time": 0.6838490962982178,
+  "32768_numpy_time": 2.825523853302002,
+  "32768_numpy_stage1_hash": "6c53c0e0dba31d0de2655df7f3a829e3",
+  "32768_numpy_stage2_hash": "202535d11c80a4087ea90a1d27821efe",
+  "32768_numpy_stage3_hash": "ab008dad97d422f02b64be3eaf5c9afc",
+  "32768_numpy_initial_memory": 203.4765625,
+  "32768_numpy_final_memory": 234.50390625,
+  "32768_numpy_memory_delta": 31.02734375,
+  "32768_numpy_peak_memory": 234.50390625,
+  "32768_numpy_result_shape": [
+    131072,
+    8
+  ],
+  "32767_jax_stage1_time": 4.324351072311401,
+  "32767_jax_stage2_time": 1.9027941226959229,
+  "32767_jax_stage3_time": 0.9195210933685303,
+  "32767_jax_time": 7.1466662883758545,
+  "32767_jax_stage1_hash": "de00c2b96a93b0b8e309e29881cfdff7",
+  "32767_jax_stage2_hash": "5d920bdf4c5e2968368ff7920da90645",
+  "32767_jax_stage3_hash": "93cae84144fbd2730e4c837c855cda5b",
+  "32767_jax_initial_memory": 210.17578125,
+  "32767_jax_final_memory": 536.1015625,
+  "32767_jax_memory_delta": 325.92578125,
+  "32767_jax_peak_memory": 536.1015625,
+  "32767_jax_result_shape": [
+    131068,
+    8
+  ],
+  "32768_jax_stage1_time": 1.6447138786315918,
+  "32768_jax_stage2_time": 1.9005742073059082,
+  "32768_jax_stage3_time": 0.9233376979827881,
+  "32768_jax_time": 4.468625783920288,
+  "32768_jax_stage1_hash": "1aa6e429fa343a900f95e562ae92df05",
+  "32768_jax_stage2_hash": "b3a04f10688f5ecd218a7e481d0ab656",
+  "32768_jax_stage3_hash": "0f8724eb4b959d2ededeeaf56cedacbb",
+  "32768_jax_initial_memory": 502.640625,
+  "32768_jax_final_memory": 561.6953125,
+  "32768_jax_memory_delta": 59.0546875,
+  "32768_jax_peak_memory": 561.6953125,
+  "32768_jax_result_shape": [
+    131072,
+    8
+  ]
+}
