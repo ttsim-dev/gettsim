@@ -24,7 +24,7 @@ def test_pass_plotly_kwargs_to_plot_tt_dag():
         policy_date_str="2025-01-01",
         include_params=True,
         show_node_description=True,
-        title="GETTSIM Policy Environment DAG with parameters",
+        title="GETTSIM policy environment DAG with parameters",
         width=200,
         height=800,
         showlegend=True,
