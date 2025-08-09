@@ -73,14 +73,16 @@ def tt(
     primary_nodes
         The qnames or paths of the primary nodes. Primary nodes are used to determine
         which other nodes to include in the plot based on the selection_type. They may
-        be root nodes (for descendants), end nodes (for ancestors), or middle nodes
-        (for neighbors). If not provided, the entire DAG is plotted.
+        be root nodes (for descendants), end nodes (for ancestors), or middle nodes (for
+        neighbors). If not provided, the entire DAG is plotted.
     selection_type
         The type of the DAG to plot. Can be one of:
             - "neighbors": Plot the neighbors of the primary nodes.
             - "descendants": Plot the descendants of the primary nodes.
             - "ancestors": Plot the ancestors of the primary nodes.
-            - "nodes": Plot the primary nodes only.
+            - "all_paths": Plot all paths that connect primary nodes. Primary nodes are
+              omitted if they are not connected to any other primary nodes. Must provide
+              at least two primary nodes.
         If not provided, the entire DAG is plotted.
     selection_depth
         The depth of the selection. Only used if selection_type is "neighbors",
