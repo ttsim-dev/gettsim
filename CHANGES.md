@@ -4,13 +4,15 @@ This is a record of all past `gettsim` releases and what went into them in rever
 chronological order. We follow [semantic versioning](https://semver.org/) and all
 releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
-## unreleased
+## v1.0a2 — 2025-08-09
+
+- {gh}`1071` Move to new plotting interface. ({ghuser}`MImmesberger`)
 
 - {gh}`1067` Separate Bürgergeld from Arbeitslosengeld 2 ({ghuser}`MImmesberger`)
 
 - {gh}`1064` Improve paths handling, small fixes ({ghuser}`hmgaudecker`).
 
-## v1.0a — 2025-07-27
+## v1.0a1 — 2025-07-27
 
 - {gh}`1062` Fix some end dates ({ghuser}`hmgaudecker`)
 

@@ -29,7 +29,10 @@ def cached_specialized_environment(
     backend: Literal["numpy", "jax"],
 ) -> SpecEnvWithPartialledParamsAndScalars:
     return main(
-        main_target=("specialized_environment", "with_partialled_params_and_scalars"),
+        main_target=(
+            "specialized_environment_for_plotting_and_templates",
+            "with_partialled_params_and_scalars",
+        ),
         policy_date=policy_date,
         backend=backend,
         include_fail_nodes=False,

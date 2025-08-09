@@ -95,25 +95,6 @@ vermögensgrundfreibetrag_je_kind:
   2023-01-01:
     reference: G. v. 20.12.2022 BGBl. I S. 2328.
     note: Abolished in the Bürgergeld-Gesetz
-vermögensfreibetrag_je_person_nach_karenzzeit:
-  name:
-    de: Schonvermögen beim Bürgergeld
-    en: Protected wealth for the citizen's income
-  description:
-    de: >-
-      Vermögensfreibetrag pro Mitglied der Bedarfsgemeinschaft, der sich nach Ablauf
-      einer Karenzzeit verändert.
-    en: >-
-      Wealth exemption per member of the Bedarfsgemeinschaft, which changes after the
-      end of the Karenzzeit.
-  unit: Euros
-  reference_period: null
-  type: dict
-  2023-01-01:
-    während_karenzzeit: 40000
-    normaler_satz: 15000
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
-    note: Bürgergeld-Gesetz
 abzugsfähige_pauschalen:
   name:
     de: Abzugsfähige Pauschalen für Werbungskosten und Versicherung

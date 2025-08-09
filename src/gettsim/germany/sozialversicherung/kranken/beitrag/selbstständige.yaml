@@ -9,7 +9,6 @@ bezugsgröße_selbstständige_m:
   unit: Euros
   reference_period: Month
   type: scalar
-  add_jahresanfang: true
   1984-01-01:
     value: 1396
   1985-01-01:

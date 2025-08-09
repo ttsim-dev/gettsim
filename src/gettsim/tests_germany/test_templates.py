@@ -6,19 +6,22 @@ from ttsim.interface_dag_elements.shared import (
     get_re_pattern_for_all_time_units_and_groupings,
 )
 
-from gettsim import main
+from gettsim import MainTarget, main
 
 
 def test_template_all_outputs_no_inputs(backend):
     res = main(
-        main_targets=["labels__grouping_levels", "templates__input_data_dtypes"],
+        main_targets=[
+            MainTarget.labels.grouping_levels,
+            MainTarget.templates.input_data_dtypes.tree,
+        ],
         rounding=True,
         policy_date_str="2025-01-01",
         backend=backend,
     )
 
     paths_with_unspecified_dtypes = []
-    flat_res = dt.flatten_to_tree_paths(res["templates"]["input_data_dtypes"])
+    flat_res = dt.flatten_to_tree_paths(res["templates"]["input_data_dtypes"]["tree"])
     for p, dtype in flat_res.items():
         if "|" in dtype:
             paths_with_unspecified_dtypes.append(p)
@@ -38,7 +41,7 @@ def test_template_all_outputs_no_inputs(backend):
         grouping_levels=res["labels"]["grouping_levels"],
     )
     bn_to_variations = {}
-    for qname in dt.qnames(res["templates"]["input_data_dtypes"]):
+    for qname in dt.qnames(res["templates"]["input_data_dtypes"]["tree"]):
         match = pattern_all.fullmatch(qname)
         # We must not find multiple time units for the same base name and group.
         base_name = match.group("base_name")
