@@ -4,6 +4,10 @@ This is a record of all past `gettsim` releases and what went into them in rever
 chronological order. We follow [semantic versioning](https://semver.org/) and all
 releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1072` How-to guide for `plot.dag.tt` ({ghuser}`hmgaudecker`)
+
 ## v1.0a2 — 2025-08-09
 
 - {gh}`1071` Move to new plotting interface. ({ghuser}`MImmesberger`)
@@ -139,7 +143,7 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
   {ghuser}`hmgaudecker`)
 
 - {gh}`986` Make GETTSIM functions jittable ({ghuser}`hmgaudecker`,
-  {ghuser}`MImmesberger`, `mj023`)
+  {ghuser}`MImmesberger`, {ghuser}`mj023`)
 
 - {gh}`987` Run fail_if functions first ({ghuser}`hmgaudecker`, {ghuser}`MImmesberger`)
 
@@ -149,7 +153,7 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 - {gh}`984` Add 'output' keyword to main, fix tests ({ghuser}`hmgaudecker`)
 
 - {gh}`953` Hierarchical interface ({ghuser}`hmgaudecker`, {ghuser}`MImmesberger`,
-  {ghuser}`mj023`, `timmens`)
+  {ghuser}`mj023`, {ghuser}`timmens`)
 
 - {gh}`957` Use relative paths for taxes and transfers ({ghuser}`MImmesberger`)
 
@@ -159,7 +163,7 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
   ({ghuser}`MImmesberger`)
 
 - {gh}`948` Preliminary DAG-based interface ({ghuser}`hmgaudecker`,
-  {ghuser}`MImmesberger`, `mj023`)
+  {ghuser}`MImmesberger`, {ghuser}`mj023`)
 
 - {gh}`943` Remove all occurrences of `vectorization_strategy='loop'` ({ghuser}`mj023`)
 
@@ -195,12 +199,13 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 - {gh}`876` Add DataFrame to NestedData conversion ({ghuser}`MImmesberger`).
 
-- {gh}`873` Implement aggregation decorators ({ghuser}`hmgaudecker`, `MImmesberger`).
+- {gh}`873` Implement aggregation decorators ({ghuser}`hmgaudecker`,
+  {ghuser}`MImmesberger`).
 
-- {gh}`859` Add RoundingSpec dataclass ({ghuser}`hmgaudecker`, `MImmesberger`).
+- {gh}`859` Add RoundingSpec dataclass ({ghuser}`hmgaudecker`, {ghuser}`MImmesberger`).
 
 - {gh}`854` Add PolicyInput class and update hierarchy of TTSIM objects
-  ({ghuser}`timmens`, `hmgaudecker`, `MImmesberger`).
+  ({ghuser}`timmens`, {ghuser}`hmgaudecker`, {ghuser}`MImmesberger`).
 
 - {gh}`871` Require dashed iso date everywhere ({ghuser}`hmgaudecker`).
 
@@ -220,19 +225,20 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 - {gh}`858` Apply tree logic to GETTSIM tests ({ghuser}`felixschmitz`).
 
-- {gh}`856` Add METTSIM to test TTSIM part ({ghuser}`hmgaudecker`, `timmens`,
+- {gh}`856` Add METTSIM to test TTSIM part ({ghuser}`hmgaudecker`, {ghuser}`timmens`,
   {ghuser}`MImmesberger`).
 
-- {gh}`850` Split GETTSIM from TTSIM functions ({ghuser}`hmgaudecker`, `MImmesberger`).
+- {gh}`850` Split GETTSIM from TTSIM functions ({ghuser}`hmgaudecker`,
+  {ghuser}`MImmesberger`).
 
 - {gh}`805` Rename taxes and transers using new tree structure ({ghuser}`hmgaudecker`,
   {ghuser}`MImmesberger`).
 
 - {gh}`818` Change behavior of namespaces so they are on the module level
-  ({ghuser}`hmgaudecker`, `MImmesberger`).
+  ({ghuser}`hmgaudecker`, {ghuser}`MImmesberger`).
 
 - {gh}`780` Refactor infrastructure to work with `dags.tree` ({ghuser}`lars-reimann`,
-  {ghuser}`hmgaudecker`, `MImmesberger`).
+  {ghuser}`hmgaudecker`, {ghuser}`MImmesberger`).
 
 - {gh}`807` Implement changes from 2. Jahressteuergesetz 2024 ({ghuser}`Eric-Sommer`)
 
@@ -240,7 +246,7 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
   ({ghuser}`Eric-Sommer`).
 
 - {gh}`803` Apply correct rounding rules for Ehegattensplitting and update EStG
-  parameters ({ghuser}`MImmesberger`, `mjbloemer`).
+  parameters ({ghuser}`MImmesberger`, {ghuser}`mjbloemer`).
 
 - {gh}`797` Update infrastructure to use pixi and modern pre-commit hooks
   ({ghuser}`timmens`).
