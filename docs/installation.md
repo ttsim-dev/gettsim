@@ -9,7 +9,7 @@ your preferred package manager.
 To install GETTSIM using pixi, first make sure that pixi is installed on your machine.
 You can find the installation instructions [here](https://pixi.sh/latest/installation/).
 
-With pixi available on your path, installing GETTSIM is as simple as typing
+Installing GETTSIM is as simple as typing
 
 ```shell-session
 $ pixi add gettsim
@@ -33,7 +33,7 @@ or
 $ mamba install -c conda-forge gettsim
 ```
 
-## UV or Pip
+## uv or pip
 
 Install the [uv](https://docs.astral.sh/uv/) or [pip](https://pip.pypa.io/en/stable/)
 package manager.
