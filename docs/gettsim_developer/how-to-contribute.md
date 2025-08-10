@@ -56,8 +56,8 @@ To contribute to the project, adhere to the following process.
 ## Development workflow
 
 - We always develop new features in new branches. Thus, create a new branch by picking
-  an appropriate name, e.g., `elterngeld` or `update_ges_rente_beitrag`. Make sure to
-  branch off from main and not any other branch.
+  an appropriate name, e.g., `elterngeld` or `update-gesetzliche-rente-beitrag`. Make
+  sure to branch off from main and not any other branch.
 
   ```shell-session
   $ git checkout -b <branch-name>
@@ -80,7 +80,7 @@ To contribute to the project, adhere to the following process.
   message.
 
   ```shell-session
-  $ pixi run git commit -am "Add new parameters for ges_rente_beitrag in 2024."
+  $ pixi run git commit -am "Add new parameters for Rentenbeiträge in 2024."
   ```
 
   A commit starts the pre-commits which are additional checks, mostly formatting and
@@ -115,7 +115,7 @@ To contribute to the project, adhere to the following process.
 - We make use of NumPy-type docstrings:
   <https://numpydoc.readthedocs.io/en/latest/format.html>
 - Otherwise, we adhere to this
-  [styleguide](https://estimagic.readthedocs.io/en/latest/contributing/styleguide.html)
+  [styleguide](https://optimagic.readthedocs.io/en/latest/development/styleguide.html)
   (which was written for estimagic).
 
 ## FAQ

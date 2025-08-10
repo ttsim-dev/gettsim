@@ -5,11 +5,10 @@ This document is dedicated to maintainers of GETTSIM.
 ## Versioning
 
 GETTSIM adheres in large parts to [semantic versioning](https://semver.org). Thus, for a
-given version number `major.minor.patch`
+given version number `major.minor`
 
 - `major` is incremented when you make incompatible API changes.
 - `minor` is incremented when you add functionality which is backwards compatible.
-- `patch` is incremented when you make backwards compatible bug fixes.
 
 ## Branching Model
 
