@@ -4,6 +4,10 @@ This is a record of all past `gettsim` releases and what went into them in rever
 chronological order. We follow [semantic versioning](https://semver.org/) and all
 releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1072` How-to guide for `plot.dag.tt` ({ghuser}`hmgaudecker`)
+
 ## v1.0a2 — 2025-08-09
 
 - {gh}`1071` Move to new plotting interface. ({ghuser}`MImmesberger`)
