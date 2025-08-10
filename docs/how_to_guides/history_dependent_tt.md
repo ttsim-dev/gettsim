@@ -1,8 +1,8 @@
 # How to calculate taxes and transfers that depend on prior-year values
 
-Many tax and transfer programs base their calculations not only on current information
-but also on data from previous years. For example, parental leave benefits often rely on
-an estimate of the claimant’s net income during the 12 months preceding the child’s
+Many taxes and transfers require historical inputs computed in the prior year to serve
+as inputs for this year’s calculations. For example, parental leave benefits often rely
+on an estimate of the claimant’s net income during the 12 months preceding the child’s
 birth.
 
 As GETTSIM is a static taxes and transfers calculator for a specific policy date, it is
@@ -14,20 +14,19 @@ by calling GETTSIM multiple times.
 
 In general, follow this recipe to calculate these taxes and transfers:
 
-1. **Identify historical inputs**: Determine which historical inputs you need to
+1. **Identify historical inputs** Determine which historical inputs you need to
    calculate the taxes and transfers for the year you're interested in. These are always
-   input variables marked with `@policy_input()`. Look for keywords like `vorjahr`
-   (previous year) in the variable names.
+   input variables marked with `@policy_input`.
 
-1. **Calculate historical inputs using panel data**: Every historical input function
-   corresponds to a policy function you can select as a target in a GETTSIM call. For
-   example, `("elterngeld", "zu_versteuerndes_einkommen_vorjahr_y_sn")` can be
-   calculated via `("einkommensteuer", "zu_versteuerndes_einkommen_y_sn")` using data
-   from the year prior to the birth of the child. These relationships are typically
-   documented in the `policy_input` docstring.
+1. **Calculate historical inputs using panel data** Each historical input corresponds to
+   a policy function you can target in a GETTSIM run. For instance, the input
+   ("elterngeld", "zu_versteuerndes_einkommen_vorjahr_y_sn") can be derived by calling
+   ("einkommensteuer", "zu_versteuerndes_einkommen_y_sn") for the year prior to the
+   child’s birth. These connections are explained in the `@policy_input` docstrings.
 
-1. **Use historical inputs for final calculation**: Use the calculated historical inputs
-   as inputs for the policy functions you're interested in to get the final result.
+1. **Use historical inputs for final calculation** After computing the historical
+   inputs, use them as inputs to the policy functions of interest to obtain the final
+   tax or transfer amounts.
 
 ## Examples
 
