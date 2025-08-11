@@ -279,47 +279,14 @@ def warmup_jax_computation(backend, tmp, first_household_only=True):
         except Exception as e:
             print(f"  Warning: JAX computation warmup failed: {e}")
 
-def warmup_jax_if_needed(backend, actual_data=None, warmup_size=1):
-    """Perform JAX warmup compilation with a minimal dataset if using JAX backend.
-    
-    Args:
-        backend: The backend to use ('jax' or 'numpy')
-        actual_data: If provided, use first few rows from actual dataset for warmup
-        warmup_size: Number of households for warmup (default: 1 for minimal overhead)
-    """
-    if backend == "jax":
-        print(f"  Performing JAX warmup with {warmup_size:,} household(s)...")
-        try:
-            # Use actual data subset if provided, otherwise generate minimal data
-            if actual_data is not None and len(actual_data) >= warmup_size * 4:  # 4 people per household
-                warmup_data = actual_data.head(warmup_size * 4).copy()
-                print(f"  Using first {warmup_size} household(s) from actual dataset")
-            else:
-                warmup_data = make_data(warmup_size)
-                print(f"  Generated minimal dataset with {warmup_size} household(s)")
-            
-            # Run a minimal computation to trigger JAX compilation
-            tmp_warmup = main(
-                policy_date_str="2025-01-01",
-                input_data=InputData.df_and_mapper(
-                    df=warmup_data,
-                    mapper=MAPPER,
-                ),
-                main_targets=[MainTarget.specialized_environment.tt_dag],
-                tt_targets=TTTargets(tree=TT_TARGETS),
-                include_fail_nodes=False,
-                include_warn_nodes=False,
-                backend=backend,
-            )
-            print("  JAX warmup completed")
-            
-            # Force garbage collection after warmup
-            force_garbage_collection()
-            
-        except Exception as e:
-            print(f"  Warning: JAX warmup failed: {e}")
 
-def run_benchmark(N_households, backend, save_memory_profile=False, reset_session=True, warmup=True):
+def run_benchmark(
+        N_households, backend,
+        save_memory_profile=False,
+        reset_session=False,
+        warmup=False,
+        sync_jax=False,
+    ):
     """Run a single benchmark with 3-stage timing as in gettsim_profile_stages.py."""
     print(f"Running benchmark: {N_households:,} households, {backend} backend")
     
@@ -365,7 +332,8 @@ def run_benchmark(N_households, backend, save_memory_profile=False, reset_sessio
         )    
 
         # Force JAX synchronization before recording end time
-        sync_jax_if_needed(backend)
+        if sync_jax:
+            sync_jax_if_needed(backend)
 
         stage1_end = time.time()
         stage1_time = stage1_end - stage1_start
@@ -377,7 +345,7 @@ def run_benchmark(N_households, backend, save_memory_profile=False, reset_sessio
         print("  Stage 2: Computation only...")
         
         # JAX warmup: Run computation with first household to trigger compilation
-        if backend == "jax":
+        if backend == "jax" and warmup:
             warmup_jax_computation(backend, tmp, first_household_only=True)
         
         stage2_start = time.time()
@@ -399,7 +367,8 @@ def run_benchmark(N_households, backend, save_memory_profile=False, reset_sessio
         )
 
         # Force JAX synchronization before recording end time
-        sync_jax_if_needed(backend)
+        if sync_jax:
+            sync_jax_if_needed(backend)
 
         stage2_end = time.time()
         stage2_time = stage2_end - stage2_start
@@ -430,7 +399,8 @@ def run_benchmark(N_households, backend, save_memory_profile=False, reset_sessio
         )
 
         # Force JAX synchronization before recording end time
-        sync_jax_if_needed(backend)
+        if sync_jax:
+            sync_jax_if_needed(backend)
 
         stage3_end = time.time()
         stage3_time = stage3_end - stage3_start
@@ -500,8 +470,8 @@ def run_benchmark(N_households, backend, save_memory_profile=False, reset_sessio
 
 if __name__ == "__main__":
     # Dataset sizes (number of households)
-    household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
-    # household_sizes = [2**15] # for testing purposes
+    # household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
+    household_sizes = [1, 2**21] # for testing purposes
     backends = ["numpy", "jax"]
     
     results = {}
@@ -529,8 +499,10 @@ if __name__ == "__main__":
             result = run_benchmark(
                 N_households, 
                 backend, 
-                reset_session=reset_between_sizes,
-                warmup=True  # Minimal 1-household warmup every time for consistent timing
+                reset_session=False, # reset_between_sizes (no impact on results)
+                warmup=False,   # Minimal 1-household warmup before running with full data (no impact on results)
+                sync_jax=True,  # Set to True if you want to force JAX synchronization
+                                # Seems necessary for realistic (reported time = wall clock time) JAX timings
             )
             if result and result.get('execution_time'):
                 # Store all stage timing data
@@ -562,7 +534,7 @@ if __name__ == "__main__":
         
         # Comprehensive cleanup after completing all sizes for this backend
         print(f"Completing {backend} backend tests...")
-        reset_session_state(backend)
+        # reset_session_state(backend)
         print(f"{backend} backend tests completed with full cleanup")
     
     # Save results to JSON file
