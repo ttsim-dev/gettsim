@@ -1,6 +1,20 @@
 """Performance comparison script for numpy vs jax backends."""
 import pandas as pd
-from gettsim import InputData, MainTarget, TTTargets, main, Labels, SpecializedEnvironment, RawResults
+from gettsim import InputData, MainTarget, TTTargets, Labels, SpecializedEnvironment, RawResults
+from gettsim import germany
+import ttsim
+from ttsim.main_args import OrigPolicyObjects
+
+# Hack: Override GETTSIM main to get all the TTSIM parameters of main.
+# Necessary because as of now tt_function is not a parameter of gettsim.main.
+def main(**kwargs):
+    """Wrapper around ttsim.main that automatically sets the German root path and supports tt_function."""
+    # Set German tax system as default if no orig_policy_objects provided
+    if kwargs.get('orig_policy_objects') is None:
+        kwargs['orig_policy_objects'] = OrigPolicyObjects(root=germany.ROOT_PATH)
+    
+    return ttsim.main(**kwargs)
+
 import time
 import hashlib
 import json
@@ -264,6 +278,7 @@ def run_benchmark(
                 MainTarget.processed_data,
                 MainTarget.labels.root_nodes,
                 MainTarget.input_data.flat,  # Need this for stage 3
+                MainTarget.tt_function,
             ],
             tt_targets=TTTargets(
                 tree=TT_TARGETS,
@@ -296,9 +311,7 @@ def run_benchmark(
             ),
             processed_data=tmp["processed_data"],
             labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
-            specialized_environment=SpecializedEnvironment(
-                tt_dag=tmp["specialized_environment"]["tt_dag"]
-            ),
+            tt_function=tmp["tt_function"],  # Reuse pre-compiled JAX function
             include_fail_nodes=False,
             include_warn_nodes=False,
             backend=backend,
@@ -310,6 +323,33 @@ def run_benchmark(
 
         stage2_end = time.time()
         stage2_time = stage2_end - stage2_start
+
+        if backend == "jax":
+            stage2_start2 = time.time()
+
+            raw_results__columns = main(
+                policy_date_str="2025-01-01",
+                main_target=MainTarget.raw_results.columns,
+                tt_targets=TTTargets(
+                    tree=TT_TARGETS,
+                ),
+                processed_data=tmp["processed_data"],
+                labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
+                tt_function=tmp["tt_function"],  # Reuse pre-compiled JAX function
+                include_fail_nodes=False,
+                include_warn_nodes=False,
+                backend=backend,
+            )
+
+            # Force JAX synchronization before recording end time
+            if sync_jax:
+                sync_jax_if_needed(backend)
+
+            stage2_end2 = time.time()
+            stage2_time2 = stage2_end2 - stage2_start2
+            print(f"  ✓ Stage 2 (computation2): {stage2_time2:.4f}s")
+
+
 
         # Generate hash for Stage 2 output (raw_results__columns)
         stage2_hash = hashlib.md5(str(raw_results__columns).encode('utf-8')).hexdigest()
@@ -408,8 +448,8 @@ def run_benchmark(
 
 if __name__ == "__main__":
     # Dataset sizes (number of households)
-    household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
-    # household_sizes = [2**15-1, 2**15] # for testing purposes
+    # household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
+    household_sizes = [2**21] # for testing purposes
     backends = ["numpy", "jax"]
     
     results = {}
