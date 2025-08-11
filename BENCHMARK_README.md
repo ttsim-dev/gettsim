@@ -36,11 +36,11 @@ python benchmark.py
 ### Step 3: Compare results
 
 ```bash
-# Compare the two result files
-python benchmark_compare.py benchmark_results_20250806_143022.json benchmark_results_20250806_145133.json
+# Compare the two result files (e.g. first file=main branch results, second file=PR branch results)
+python benchmark_compare_stages.py benchmark_results_20250806_143022.json benchmark_results_20250806_145133.json
 
 # Optional: Save comparison to file
-python benchmark_compare.py benchmark_results_20250806_143022.json benchmark_results_20250806_145133.json --save-comparison
+python benchmark_compare_stages.py benchmark_results_20250806_143022.json benchmark_results_20250806_145133.json --save-comparison
 ```
 
 ## Interpreting Results

@@ -222,69 +222,11 @@ class MemoryTracker:
         """Get peak memory usage in MB."""
         return self.peak_memory
 
-def warmup_jax_computation(backend, tmp, first_household_only=True):
-    """Perform JAX warmup by running the exact computation pipeline with minimal data.
-    
-    Args:
-        backend: The backend to use ('jax' or 'numpy')
-        tmp: The processed data from Stage 1
-        first_household_only: If True, extract just the first household for warmup
-    """
-    if backend == "jax":
-        print("  Performing JAX computation warmup...")
-        try:
-            # Extract data for just the first household if requested
-            if first_household_only:
-                # Get the first household's data from processed_data
-                processed_data_warmup = {}
-                for key, value in tmp["processed_data"].items():
-                    if hasattr(value, '__len__') and len(value) > 0:
-                        # Take first 4 entries (assuming 4 people per household)
-                        if hasattr(value, 'iloc'):
-                            processed_data_warmup[key] = value.iloc[:4]
-                        elif isinstance(value, (list, tuple)):
-                            processed_data_warmup[key] = value[:4]
-                        elif hasattr(value, '__getitem__'):
-                            processed_data_warmup[key] = value[:4]
-                        else:
-                            processed_data_warmup[key] = value
-                    else:
-                        processed_data_warmup[key] = value
-                print("  Using first household for JAX warmup")
-            else:
-                processed_data_warmup = tmp["processed_data"]
-                print("  Using all households for JAX warmup")
-            
-            # Run the exact Stage 2 computation to trigger JAX compilation
-            warmup_results = main(
-                policy_date_str="2025-01-01",
-                main_target=MainTarget.raw_results.columns,
-                tt_targets=TTTargets(
-                    tree=TT_TARGETS,
-                ),
-                processed_data=processed_data_warmup,
-                labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
-                specialized_environment=SpecializedEnvironment(
-                    tt_dag=tmp["specialized_environment"]["tt_dag"]
-                ),
-                include_fail_nodes=False,
-                include_warn_nodes=False,
-                backend=backend,
-            )
-            print("  JAX computation warmup completed")
-            
-            # Force garbage collection after warmup
-            force_garbage_collection()
-            
-        except Exception as e:
-            print(f"  Warning: JAX computation warmup failed: {e}")
-
 
 def run_benchmark(
         N_households, backend,
         save_memory_profile=False,
         reset_session=False,
-        warmup=False,
         sync_jax=False,
     ):
     """Run a single benchmark with 3-stage timing as in gettsim_profile_stages.py."""
@@ -343,10 +285,6 @@ def run_benchmark(
 
         # STAGE 2: Computation only (no data preprocessing)
         print("  Stage 2: Computation only...")
-        
-        # JAX warmup: Run computation with first household to trigger compilation
-        if backend == "jax" and warmup:
-            warmup_jax_computation(backend, tmp, first_household_only=True)
         
         stage2_start = time.time()
 
@@ -470,8 +408,8 @@ def run_benchmark(
 
 if __name__ == "__main__":
     # Dataset sizes (number of households)
-    # household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
-    household_sizes = [1, 2**21] # for testing purposes
+    household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
+    # household_sizes = [2**15-1, 2**15] # for testing purposes
     backends = ["numpy", "jax"]
     
     results = {}
@@ -500,7 +438,6 @@ if __name__ == "__main__":
                 N_households, 
                 backend, 
                 reset_session=False, # reset_between_sizes (no impact on results)
-                warmup=False,   # Minimal 1-household warmup before running with full data (no impact on results)
                 sync_jax=True,  # Set to True if you want to force JAX synchronization
                                 # Seems necessary for realistic (reported time = wall clock time) JAX timings
             )
