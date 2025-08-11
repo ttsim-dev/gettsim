@@ -10,7 +10,6 @@ GETTSIM.
 maxdepth: 1
 ---
 modifications_of_policy_environments
-visualizing_the_system
-history_dependent_tt
+inputs_from_prior_periods
 calculating_elterngeld
 ```

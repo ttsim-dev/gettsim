@@ -1,7 +1,7 @@
-# Explanations of certain features of the German tax-transfer system
+# Explanations
 
-This section documents some features of the German tax-transfer system that are
-important to understand when using certain features of GETTSIM.
+This section documents some features of the German tax-transfer system and how GETTSIM
+approximates them.
 
 ```{toctree}
 ---

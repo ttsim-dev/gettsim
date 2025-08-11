@@ -6,7 +6,8 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unreleased
 
-- {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`)
+- {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
+  {ghuser}`hmgaudecker`)
 
 - {gh}`1072` How-to guide for `plot.dag.tt` ({ghuser}`hmgaudecker`)
 

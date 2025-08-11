@@ -9,4 +9,5 @@ Tutorials help you to get started with GETTSIM.
 maxdepth: 1
 ---
 simple_example
+visualizing_the_system
 ```

@@ -135,7 +135,7 @@ in the data supplied to GETTSIM or they are computed by functions. Edges are poi
 from input columns to variables, which require them to be computed.
 
 ```{note}
-GETTSIM allows to visualize the graph, see this [guide](../how_to_guides/visualizing_the_system.ipynb).
+GETTSIM allows to visualize the graph, see this [tutorial](../tutorials/visualizing_the_system.ipynb).
 ```
 
 The resulting structure is a special kind of graph, called a directed acyclic graph

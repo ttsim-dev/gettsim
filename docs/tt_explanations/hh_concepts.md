@@ -24,6 +24,11 @@ The units are:
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
 | Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
+Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
+out of the box. If you need to handle more complex cases, you will need to pass all of
+these in your input data. For calculating them from the structure of the input data, see
+the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-rules).
+
 ## Taxes
 
 ### Joint taxation

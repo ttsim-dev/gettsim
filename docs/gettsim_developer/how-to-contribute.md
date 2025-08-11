@@ -33,15 +33,16 @@ To contribute to the project, adhere to the following process.
   As a newcomer or infrequent contributor, you must first create a fork of GETTSIM which
   is a copy of the repository into your account where you have unlimited access. Go to
   the [Github page of GETTSIM](https://github.com/ttsim-dev/gettsim) and click on the
-  fork button in the upper right corner. Then, clone your fork onto your disk with
+  fork button in the upper right corner. Then, clone your fork onto your disk and run
+  the test suite:
 
   ```shell-session
   $ git clone https://github.com/<user>/gettsim
+  $ cd gettsim
+  $ pixi run tests
   ```
 
-  Then, activate the environment and install the current GETTSIM version in the
-  repository in development mode. Also, install pre-commits which are checks before a
-  commit is accepted.
+  Also, install pre-commit hooks, which are checks before a commit is accepted.
 
   ```shell-session
   $ pixi run pre-commit install
@@ -56,8 +57,8 @@ To contribute to the project, adhere to the following process.
 ## Development workflow
 
 - We always develop new features in new branches. Thus, create a new branch by picking
-  an appropriate name, e.g., `elterngeld` or `update-gesetzliche-rente-beitrag`. Make
-  sure to branch off from main and not any other branch.
+  an appropriate name, e.g., `bafög` or `update-gesetzliche-rente-beitrag`. Make sure to
+  branch off from main and not any other branch.
 
   ```shell-session
   $ git checkout -b <branch-name>
@@ -70,11 +71,8 @@ To contribute to the project, adhere to the following process.
   $ pixi run tests
   ```
 
-  which will prompt you to choose a python version to run the tests with. You may choose
-  the most recent one; both will be checked in our CI testing.
-
   Sometimes you want to push changes even if the tests fail because you need feedback.
-  Then, skip this step.
+  Hence, do not worry about errors in that case.
 
 - In the next step, try to commit the changes to the branch with an appropriate commit
   message.
@@ -112,11 +110,9 @@ To contribute to the project, adhere to the following process.
 
 ## Code style
 
-- We make use of NumPy-type docstrings:
-  <https://numpydoc.readthedocs.io/en/latest/format.html>
-- Otherwise, we adhere to this
-  [styleguide](https://optimagic.readthedocs.io/en/latest/development/styleguide.html)
-  (which was written for estimagic).
+We adhere to this
+[styleguide](https://optimagic.readthedocs.io/en/latest/development/styleguide.html)
+(which was written for optimagic).
 
 ## FAQ
 
