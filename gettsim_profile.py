@@ -153,7 +153,7 @@ MAPPER = {
         "anrechenbarer_betrag_m": 0.0,
     },
     "bürgergeld": {
-        "betrag_m_bg": 0.0,
+        # "betrag_m_bg": 0.0,
         "p_id_einstandspartner": "bürgergeld__p_id_einstandspartner",
         "bezug_im_vorjahr": False,
     },
@@ -178,22 +178,6 @@ def sync_jax_if_needed(backend):
             pass
         except Exception as e:
             print(f"  Warning: JAX sync failed: {e}")
-
-
-def safe_hash_results(results):
-    """Create a hash that doesn't trigger JAX array materialization.
-    
-    This function safely creates hashes of results by examining structure
-    and types rather than materializing large arrays, preventing memory
-    explosions with JAX backends.
-    """
-    if isinstance(results, dict):
-        return {k: safe_hash_results(v) for k, v in results.items()}
-    elif hasattr(results, 'shape') and hasattr(results, 'dtype'):
-        # For arrays, hash shape and dtype instead of data
-        return f"{type(results).__name__}(shape={results.shape}, dtype={results.dtype})"
-    else:
-        return str(type(results).__name__)
 
 
 def run_profile(N, backend):
@@ -236,8 +220,8 @@ def run_profile(N, backend):
     stage1_time = stage1_end - stage1_start
     
     # Generate hash for Stage 1 output (tmp) - avoid memory issues with large arrays
-    stage1_hash = hashlib.md5(str(safe_hash_results(tmp)).encode('utf-8')).hexdigest()
-    
+    stage1_hash = hashlib.md5(str(tmp).encode('utf-8')).hexdigest()
+
     print(f"Stage 1 completed in: {stage1_time:.4f} seconds")
     print(f"Processed data keys: {len(tmp['processed_data'])}")
     print(f"DAG nodes: {len(tmp['specialized_environment']['tt_dag'])}")
@@ -270,7 +254,7 @@ def run_profile(N, backend):
     stage2_time = stage2_end - stage2_start
     
     # Generate hash for Stage 2 output - avoid memory issues with large JAX arrays
-    stage2_hash = hashlib.md5(str(safe_hash_results(raw_results__columns)).encode('utf-8')).hexdigest()
+    stage2_hash = hashlib.md5(str(raw_results__columns).encode('utf-8')).hexdigest()
     
     print(f"Stage 2 completed in: {stage2_time:.4f} seconds")
     print(f"Raw results keys: {len(raw_results__columns)}")
@@ -308,7 +292,7 @@ def run_profile(N, backend):
     total_time = stage1_time + stage2_time + stage3_time
     
     # Generate hash for Stage 3 output - avoid memory issues
-    stage3_hash = hashlib.md5(str(safe_hash_results(final_results)).encode('utf-8')).hexdigest()
+    stage3_hash = hashlib.md5(str(final_results).encode('utf-8')).hexdigest()
     
     print(f"Stage 3 completed in: {stage3_time:.4f} seconds")
     print(f"Final DataFrame shape: {final_results.shape if hasattr(final_results, 'shape') else 'N/A'}")

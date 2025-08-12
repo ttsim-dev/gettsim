@@ -34,7 +34,6 @@ try:
 except ImportError:
     JAX_AVAILABLE = False
 
-# Use the same mapper as in the main script
 MAPPER = {
     "alter": "age",
     "arbeitsstunden_w": "working_hours",
@@ -42,7 +41,7 @@ MAPPER = {
     "geburtsjahr": "birth_year",
     "hh_id": "hh_id",
     "p_id": "p_id",
-    "wohnort_ost": "east_germany",
+    "wohnort_ost_hh": "east_germany",
     "einnahmen": {
         "bruttolohn_m": 0.0,
         "kapitalerträge_y": 0.0,
@@ -88,6 +87,7 @@ MAPPER = {
             "altersrente": {
                 "betrag_m": 0.0,
             },
+            "bezieht_rente": False,
         },
         "kranken": {
             "beitrag": {"privat_versichert": "contribution_private_health_insurance"}
@@ -101,21 +101,35 @@ MAPPER = {
         "p_id_elternteil_1": "parent_id_1",
         "p_id_elternteil_2": "parent_id_2",
     },
-    "wohngeld": {
-        "betrag_m_wthh": 0.0,
-    },
-    "kinderzuschlag": {
-        "betrag_m_bg": 0.0,
-    },
-    "elterngeld": {
-        "betrag_m": 0.0,
-    },
-    "arbeitslosengeld_2": {
-        "betrag_m_bg": 0.0,
+    "wohnen": {
+        "bewohnt_eigentum_hh": False,
+        "bruttokaltmiete_m_hh": 900.0,
+        "heizkosten_m_hh": 150.0,
+        "wohnfläche_hh": 80.0,
     },
     "kindergeld": {
         "in_ausbildung": "in_training",
         "p_id_empfänger": "id_recipient_child_allowance",
+    },
+    "vermögen": 0.0,
+    "unterhalt": {
+        "tatsächlich_erhaltener_betrag_m": 0.0,
+    },
+    "elterngeld": {
+        "betrag_m": 0.0,
+        "anrechenbarer_betrag_m": 0.0,
+    },
+    "bürgergeld": {
+        # "betrag_m_bg": 0.0,
+        "p_id_einstandspartner": "bürgergeld__p_id_einstandspartner",
+        "bezug_im_vorjahr": False,
+    },
+    "wohngeld": {
+        # "betrag_m_wthh": 0.0,
+        "mietstufe_hh": 3,
+    },
+    "kinderzuschlag": {
+        # "betrag_m_bg": 0.0,
     },
 }
 
@@ -139,10 +153,10 @@ TT_TARGETS = {
             }
         },
     },
+    "kindergeld": {"betrag_m": "betrag_m"},
+    "bürgergeld": {"betrag_m_bg": "betrag_m_bg"},
     "wohngeld": {"betrag_m_wthh": "betrag_m_wthh"},
     "kinderzuschlag": {"betrag_m_bg": "betrag_m_bg"},
-    "elterngeld": {"betrag_m": "betrag_m"},
-    "arbeitslosengeld_2": {"betrag_m_bg": "betrag_m_bg"},
 }
 
 def sync_jax_if_needed(backend):
@@ -423,9 +437,10 @@ def run_benchmark(
 
 if __name__ == "__main__":
     # Dataset sizes (number of households)
-    household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
+    household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20]
     # household_sizes = [2**21] # for testing purposes
     backends = ["numpy", "jax"]
+    # backends = ["numpy"]
     
     results = {}
     
