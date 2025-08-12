@@ -546,44 +546,70 @@ if __name__ == "__main__":
         jax_s2_hash = results.get(f"{N_households}_jax_stage2_hash")
         jax_s3_hash = results.get(f"{N_households}_jax_stage3_hash")
         
-        # Truncate hashes for display
-        numpy_s1_hash_display = numpy_s1_hash[:8] if numpy_s1_hash else "N/A"
-        numpy_s2_hash_display = numpy_s2_hash[:8] if numpy_s2_hash else "N/A"
-        numpy_s3_hash_display = numpy_s3_hash[:8] if numpy_s3_hash else "N/A"
+        # Truncate hashes for display, handling both successful and failed cases
+        def format_hash_display(hash_value, time_value):
+            """Format hash display based on whether the stage succeeded."""
+            if time_value is None:
+                return "FAILED"
+            elif hash_value:
+                return hash_value[:8]
+            else:
+                return "N/A"
         
-        jax_s1_hash_display = jax_s1_hash[:8] if jax_s1_hash else "N/A"
-        jax_s2_hash_display = jax_s2_hash[:8] if jax_s2_hash else "N/A"
-        jax_s3_hash_display = jax_s3_hash[:8] if jax_s3_hash else "N/A"
+        numpy_s1_hash_display = format_hash_display(numpy_s1_hash, numpy_s1)
+        numpy_s2_hash_display = format_hash_display(numpy_s2_hash, numpy_s2)
+        numpy_s3_hash_display = format_hash_display(numpy_s3_hash, numpy_s3)
         
-        # Check if we have valid data
-        if all(x is not None for x in [numpy_s1, numpy_s2, numpy_s3, jax_s1, jax_s2, jax_s3]):
+        jax_s1_hash_display = format_hash_display(jax_s1_hash, jax_s1)
+        jax_s2_hash_display = format_hash_display(jax_s2_hash, jax_s2)
+        jax_s3_hash_display = format_hash_display(jax_s3_hash, jax_s3)
+        
+        # Helper function to format time display
+        def format_time_display(time_value):
+            """Format time display for successful or failed runs."""
+            return f"{time_value:.4f}" if time_value is not None else "FAILED"
+        
+        # Helper function to calculate speedup
+        def calculate_speedup(numpy_time, jax_time):
+            """Calculate speedup string, handling failed cases."""
+            if numpy_time is None and jax_time is None:
+                return "FAILED"
+            elif numpy_time is None:
+                return "N/A"
+            elif jax_time is None:
+                return "N/A"
+            elif jax_time > 0:
+                speedup = numpy_time / jax_time
+                return f"{speedup:.2f}x" if speedup >= 1 else f"1/{jax_time/numpy_time:.2f}x"
+            else:
+                return "N/A"
+        
+        # Determine if we should show stage breakdown or overall FAILED
+        show_stages = (numpy_total is not None) or (jax_total is not None)
+        
+        if show_stages:
+            # Show individual stage results
+            
             # Pre-processing row (Stage 1 hashes often unstable due to dict return)
-            s1_speedup = numpy_s1 / jax_s1 if jax_s1 and jax_s1 > 0 else 0
-            s1_speedup_str = f"{s1_speedup:.2f}x" if s1_speedup >= 1 else f"1/{jax_s1/numpy_s1:.2f}x" if numpy_s1 and numpy_s1 > 0 else "N/A"
-            print(f"{N_households:<12,}{'pre-processing':<18}{'-':<12}{'-':<12}{numpy_s1:<12.4f}{jax_s1:<12.4f}{s1_speedup_str:<12}")
+            s1_speedup_str = calculate_speedup(numpy_s1, jax_s1)
+            print(f"{N_households:<12,}{'pre-processing':<18}{'-':<12}{'-':<12}{format_time_display(numpy_s1):<12}{format_time_display(jax_s1):<12}{s1_speedup_str:<12}")
             
             # Computation row (Stage 2 hashes should be stable)
-            s2_speedup = numpy_s2 / jax_s2 if jax_s2 and jax_s2 > 0 else 0
-            s2_speedup_str = f"{s2_speedup:.2f}x" if s2_speedup >= 1 else f"1/{jax_s2/numpy_s2:.2f}x" if numpy_s2 and numpy_s2 > 0 else "N/A"
-            print(f"{'':>12}{'computation':<18}{numpy_s2_hash_display:<12}{jax_s2_hash_display:<12}{numpy_s2:<12.4f}{jax_s2:<12.4f}{s2_speedup_str:<12}")
+            s2_speedup_str = calculate_speedup(numpy_s2, jax_s2)
+            print(f"{'':>12}{'computation':<18}{numpy_s2_hash_display:<12}{jax_s2_hash_display:<12}{format_time_display(numpy_s2):<12}{format_time_display(jax_s2):<12}{s2_speedup_str:<12}")
             
             # Post-processing row (Stage 3 hashes should be stable)
-            s3_speedup = numpy_s3 / jax_s3 if jax_s3 and jax_s3 > 0 else 0
-            s3_speedup_str = f"{s3_speedup:.2f}x" if s3_speedup >= 1 else f"1/{jax_s3/numpy_s3:.2f}x" if numpy_s3 and numpy_s3 > 0 else "N/A"
-            print(f"{'':>12}{'post-processing':<18}{numpy_s3_hash_display:<12}{jax_s3_hash_display:<12}{numpy_s3:<12.4f}{jax_s3:<12.4f}{s3_speedup_str:<12}")
+            s3_speedup_str = calculate_speedup(numpy_s3, jax_s3)
+            print(f"{'':>12}{'post-processing':<18}{numpy_s3_hash_display:<12}{jax_s3_hash_display:<12}{format_time_display(numpy_s3):<12}{format_time_display(jax_s3):<12}{s3_speedup_str:<12}")
             
             # Total time row
-            if numpy_total and jax_total:
-                total_speedup = numpy_total / jax_total if jax_total > 0 else 0
-                total_speedup_str = f"{total_speedup:.2f}x" if total_speedup >= 1 else f"1/{jax_total/numpy_total:.2f}x" if numpy_total > 0 else "N/A"
-                print(f"{'':>12}{'total time':<18}{'':>12}{'':>12}{numpy_total:<12.4f}{jax_total:<12.4f}{total_speedup_str:<12}")
+            total_speedup_str = calculate_speedup(numpy_total, jax_total)
+            print(f"{'':>12}{'total time':<18}{'':>12}{'':>12}{format_time_display(numpy_total):<12}{format_time_display(jax_total):<12}{total_speedup_str:<12}")
             
             print("-" * 104)
         else:
-            # Handle failed cases - show "N/A" for hashes in failed cases
-            numpy_time_str = f"{numpy_total:.4f}" if numpy_total is not None else "FAILED"
-            jax_time_str = f"{jax_total:.4f}" if jax_total is not None else "FAILED"
-            print(f"{N_households:<12,}{'FAILED':<18}{'N/A':<12}{'N/A':<12}{numpy_time_str:<12}{jax_time_str:<12}{'N/A':<12}")
+            # Both backends completely failed
+            print(f"{N_households:<12,}{'FAILED':<18}{'FAILED':<12}{'FAILED':<12}{'FAILED':<12}{'FAILED':<12}{'FAILED':<12}")
             print("-" * 104)
     
     # Print memory comparison
@@ -601,10 +627,12 @@ if __name__ == "__main__":
         numpy_delta = results.get(f"{N_households}_numpy_memory_delta")
         jax_delta = results.get(f"{N_households}_jax_memory_delta")
         
-        if all(x is not None for x in [numpy_init, numpy_final, jax_init, jax_final]):
-            print(f"{N_households:<12,}{numpy_init:<12.1f}{numpy_final:<12.1f}{jax_init:<12.1f}{jax_final:<12.1f}{numpy_delta:<12.1f}{jax_delta:<12.1f}")
-        else:
-            print(f"{N_households:<12,}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}")
+        # Helper function to format memory values
+        def format_memory(value):
+            return f"{value:.1f}" if value is not None else "FAILED"
+        
+        # Show memory data even if only one backend succeeded
+        print(f"{N_households:<12,}{format_memory(numpy_init):<12}{format_memory(numpy_final):<12}{format_memory(jax_init):<12}{format_memory(jax_final):<12}{format_memory(numpy_delta):<12}{format_memory(jax_delta):<12}")
     
     print("-" * 120)
     print("\nLegend:")
