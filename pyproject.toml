@@ -107,6 +107,7 @@ pyyaml = "*"
 snakeviz = ">=2.2.2"
 tabulate = "*"
 toml = "*"
+threadpoolctl = ">=3.6.0,<4"
 
 # Development Dependencies (pypi)
 # --------------------------------------------------------------------------------------
