@@ -1,9 +1,6 @@
 """
-Script to generate synthetic datasets for GETTSIM benchmarking.
+Script to generate synthetic datasets for GETTSIM benchmarking/profiling.
 
-This script creates datasets for different household sizes to test 
-the performance of the optimized processed_data function.
-Uses vectorized operations for fast data generation.
 """
 # %%
 

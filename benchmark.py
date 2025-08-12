@@ -1,6 +1,22 @@
 """Performance comparison script for numpy vs jax backends."""
 import pandas as pd
-from gettsim import InputData, MainTarget, TTTargets, main
+from gettsim import InputData, MainTarget, TTTargets, Labels, SpecializedEnvironment, RawResults
+
+# Hack: Override GETTSIM main to make alls TTSIM parameters of main available in GETTSIM.
+# Necessary because of GETTSIM issue #1075. 
+# When resolved, this can be removed and the original gettsim.main can be used directly.
+from gettsim import germany
+import ttsim
+from ttsim.main_args import OrigPolicyObjects
+
+def main(**kwargs):
+    """Wrapper around ttsim.main that automatically sets the German root path and supports tt_function."""
+    # Set German tax system as default if no orig_policy_objects provided
+    if kwargs.get('orig_policy_objects') is None:
+        kwargs['orig_policy_objects'] = OrigPolicyObjects(root=germany.ROOT_PATH)
+    
+    return ttsim.main(**kwargs)
+
 import time
 import hashlib
 import json
@@ -10,6 +26,13 @@ import gc
 import threading
 from datetime import datetime
 from make_data import make_data
+
+# JAX-specific imports for cache management
+try:
+    import jax
+    JAX_AVAILABLE = True
+except ImportError:
+    JAX_AVAILABLE = False
 
 # Use the same mapper as in the main script
 MAPPER = {
@@ -122,6 +145,50 @@ TT_TARGETS = {
     "arbeitslosengeld_2": {"betrag_m_bg": "betrag_m_bg"},
 }
 
+def sync_jax_if_needed(backend):
+    """Force JAX synchronization to ensure all operations are complete."""
+    if backend == "jax":
+        try:
+            import jax
+            # Force synchronization of all JAX operations
+            jax.block_until_ready(jax.numpy.array([1.0]))
+            print("    JAX operations synchronized")
+        except ImportError:
+            pass  # JAX not available, skip synchronization
+
+def clear_jax_cache():
+    """Clear JAX compilation cache to ensure clean state."""
+    if JAX_AVAILABLE:
+        try:
+            # Import jax locally to avoid issues
+            import jax as jax_local
+            # Clear all JAX caches
+            jax_local.clear_caches()
+            print("  JAX compilation cache cleared")
+        except Exception as e:
+            print(f"  Warning: Could not clear JAX cache: {e}")
+
+def force_garbage_collection():
+    """Force aggressive garbage collection between runs."""
+    gc.collect()
+    gc.collect()  # Run twice for good measure
+    gc.collect()
+    print("  Garbage collection completed")
+
+def reset_session_state(backend):
+    """Reset session state between different backend runs."""
+    print(f"  Resetting session state for {backend} backend...")
+    
+    # Force garbage collection
+    force_garbage_collection()
+    
+    # Clear JAX-specific state if switching to/from JAX
+    if backend == "jax" or JAX_AVAILABLE:
+        clear_jax_cache()
+    
+    # Add a small delay to let system settle
+    time.sleep(0.5)
+
 def get_memory_usage_mb():
     """Get current memory usage in MB."""
     process = psutil.Process(os.getpid())
@@ -171,104 +238,193 @@ class MemoryTracker:
         """Get peak memory usage in MB."""
         return self.peak_memory
 
-def run_benchmark(N_households, backend):
-    print(f"Generating dataset with {N_households:,} households...")
-    # Force garbage collection before starting
-    gc.collect()
+
+def run_benchmark(
+        N_households, backend,
+        save_memory_profile=False,
+        reset_session=False,
+        sync_jax=False,
+    ):
+    """Run a single benchmark with 3-stage timing as in gettsim_profile_stages.py."""
+    print(f"Running benchmark: {N_households:,} households, {backend} backend")
     
-    # Measure baseline memory
-    baseline_memory = get_memory_usage_mb()
+    # Reset session state to ensure clean environment
+    if reset_session:
+        reset_session_state(backend)
     
-    # Create dataset but don't include this time in benchmark
+    # Generate data
+    print("  Generating data...")
     data = make_data(N_households)
-    print(f"Dataset shape: {data.shape}")
     
-    # Memory after data creation
-    after_data_memory = get_memory_usage_mb()
-    data_size_mb = after_data_memory - baseline_memory
+    # Memory tracking setup
+    tracker = MemoryTracker() if save_memory_profile else None
     
-    # Calculate theoretical data size for comparison
-    theoretical_size_mb = (data.memory_usage(deep=True).sum()) / (1024 * 1024)
-    
-    print(f"Running with {backend} backend...")
-    print(f"  Baseline memory: {baseline_memory:.1f} MB")
-    print(f"  After data creation: {after_data_memory:.1f} MB (+{data_size_mb:.1f} MB)")
-    print(f"  Theoretical DataFrame size: {theoretical_size_mb:.1f} MB")
-    print(f"  Data creation efficiency: {theoretical_size_mb/data_size_mb:.2f}x" if data_size_mb > 0 else "  Data creation efficiency: N/A")
-    
-    # Force another GC and measure again before execution
-    gc.collect()
-    pre_execution_memory = get_memory_usage_mb()
-    
-    start_time = time.time()
-    start_memory = pre_execution_memory
-    
-    # Initialize memory tracker with continuous monitoring
-    memory_tracker = MemoryTracker()
-    memory_tracker.start_monitoring()
+    # Initial memory reading
+    initial_memory = get_memory_usage_mb()
+    if tracker:
+        tracker.start_monitoring()
     
     try:
-        result = main(
+        # STAGE 1: Data preprocessing and DAG creation
+        print("  Stage 1: Data preprocessing and DAG creation...")
+        stage1_start = time.time()
+
+        tmp = main(
             policy_date_str="2025-01-01",
             input_data=InputData.df_and_mapper(
                 df=data,
                 mapper=MAPPER,
             ),
-            main_targets=[MainTarget.results.df_with_mapper],
+            main_targets=[
+                MainTarget.specialized_environment.tt_dag,
+                MainTarget.processed_data,
+                MainTarget.labels.root_nodes,
+                MainTarget.input_data.flat,  # Need this for stage 3
+                MainTarget.tt_function,
+            ],
             tt_targets=TTTargets(
                 tree=TT_TARGETS,
             ),
-            backend=backend,
+            include_fail_nodes=False,
             include_warn_nodes=False,
+            backend=backend,
+        )    
+
+        # Force JAX synchronization before recording end time
+        if sync_jax:
+            sync_jax_if_needed(backend)
+
+        stage1_end = time.time()
+        stage1_time = stage1_end - stage1_start
+
+        # Generate hash for Stage 1 output (tmp)
+        stage1_hash = hashlib.md5(str(tmp).encode('utf-8')).hexdigest()
+
+        # STAGE 2: Computation only (no data preprocessing)
+        print("  Stage 2: Computation only...")
+        
+        stage2_start = time.time()
+
+        raw_results__columns = main(
+            policy_date_str="2025-01-01",
+            main_target=MainTarget.raw_results.columns,
+            tt_targets=TTTargets(
+                tree=TT_TARGETS,
+            ),
+            processed_data=tmp["processed_data"],
+            labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
+            tt_function=tmp["tt_function"],  # Reuse pre-compiled JAX function
+            include_fail_nodes=False,
+            include_warn_nodes=False,
+            backend=backend,
         )
+
+        # Force JAX synchronization before recording end time
+        if sync_jax:
+            sync_jax_if_needed(backend)
+
+        stage2_end = time.time()
+        stage2_time = stage2_end - stage2_start
+
+        # Generate hash for Stage 2 output (raw_results__columns)
+        stage2_hash = hashlib.md5(str(raw_results__columns).encode('utf-8')).hexdigest()
+
+        # STAGE 3: Convert raw results to DataFrame (no computation, just formatting)
+        print("  Stage 3: Convert raw results to DataFrame...")
+        stage3_start = time.time()
+
+        result = main(
+            policy_date_str="2025-01-01",
+            main_target=MainTarget.results.df_with_mapper,
+            tt_targets=TTTargets(
+                tree=TT_TARGETS,
+            ),
+            raw_results=RawResults.columns(raw_results__columns),
+            input_data=InputData.flat(tmp["input_data"]["flat"]),  # Provide the flat input data from stage 1
+            processed_data=tmp["processed_data"],
+            labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
+            specialized_environment=SpecializedEnvironment(
+                tt_dag=tmp["specialized_environment"]["tt_dag"]
+            ),
+            include_fail_nodes=False,
+            include_warn_nodes=False,
+            backend=backend,
+        )
+
+        # Force JAX synchronization before recording end time
+        if sync_jax:
+            sync_jax_if_needed(backend)
+
+        stage3_end = time.time()
+        stage3_time = stage3_end - stage3_start
+        total_time = stage1_time + stage2_time + stage3_time
         
-        end_time = time.time()
-        end_memory = memory_tracker.update()  # Update and get current memory
-        execution_time = end_time - start_time
+        # Generate hash for Stage 3 output (result)
+        stage3_hash = hashlib.md5(str(result).encode('utf-8')).hexdigest()
         
-        # Stop monitoring and get peak memory
-        memory_tracker.stop_monitoring()
-        peak_memory = memory_tracker.get_peak()
-        memory_increase = peak_memory - start_memory
-        memory_increase_ratio = memory_increase / data_size_mb if data_size_mb > 0 else 0
-        memory_increase_ratio_theoretical = memory_increase / theoretical_size_mb if theoretical_size_mb > 0 else 0
+        # Final memory reading
+        final_memory = get_memory_usage_mb()
+        if tracker:
+            tracker.stop_monitoring()
         
-        # Calculate hash to verify result correctness
-        result_hash = hashlib.md5(str(result).encode()).hexdigest()[:8]
+        # Determine result shape and type
+        if hasattr(result, 'shape'):
+            result_shape = result.shape
+        else:
+            result_shape = getattr(result, 'shape', None)
         
-        print(f"  Pre-execution memory (after GC): {pre_execution_memory:.1f} MB")
-        print(f"  Start execution memory: {start_memory:.1f} MB")
-        print(f"  End execution memory: {end_memory:.1f} MB")
-        print(f"  Peak memory during execution: {peak_memory:.1f} MB")
-        print(f"  Memory increase during execution: {memory_increase:.1f} MB")
-        print(f"  Ratio vs measured data size: {memory_increase_ratio:.1f}x")
-        print(f"  Ratio vs theoretical data size: {memory_increase_ratio_theoretical:.1f}x")
-        print(f"✓ Success: {execution_time:.4f} seconds with {backend} (hash: {result_hash})")
+        print(f"  ✓ Stage 1 (pre-processing): {stage1_time:.4f}s ({stage1_time/total_time*100:.1f}%)")
+        print(f"  ✓ Stage 2 (computation): {stage2_time:.4f}s ({stage2_time/total_time*100:.1f}%)")
+        print(f"  ✓ Stage 3 (post-processing): {stage3_time:.4f}s ({stage3_time/total_time*100:.1f}%)")
+        print(f"  ✓ Total time: {total_time:.4f} seconds")
+        if result_shape:
+            print(f"  Result shape: {result_shape}")
+        else:
+            print(f"  Result type: {type(result)}")
+        print(f"  Memory usage: {initial_memory:.1f} MB → {final_memory:.1f} MB (Δ{final_memory-initial_memory:+.1f} MB)")
+        print(f"  Stage 1 hash: {stage1_hash[:16]}...")
+        print(f"  Stage 2 hash: {stage2_hash[:16]}...")
+        print(f"  Stage 3 hash: {stage3_hash[:16]}...")
         
         return {
-            'execution_time': execution_time,
-            'result_hash': result_hash,
-            'baseline_memory': baseline_memory,
-            'data_size_mb': data_size_mb,
-            'theoretical_size_mb': theoretical_size_mb,
-            'pre_execution_memory': pre_execution_memory,
-            'start_memory': start_memory,
-            'end_memory': end_memory,
-            'peak_memory': peak_memory,
-            'memory_increase': memory_increase,
-            'memory_increase_ratio': memory_increase_ratio,
-            'memory_increase_ratio_theoretical': memory_increase_ratio_theoretical
+            'stage1_time': stage1_time,
+            'stage2_time': stage2_time,
+            'stage3_time': stage3_time,
+            'execution_time': total_time,  # Keep for backwards compatibility
+            'stage1_hash': stage1_hash,
+            'stage2_hash': stage2_hash,
+            'stage3_hash': stage3_hash,
+            'initial_memory': initial_memory,
+            'final_memory': final_memory,
+            'memory_delta': final_memory - initial_memory,
+            'result_shape': result_shape,
+            'memory_tracker': tracker,
+            'peak_memory': tracker.get_peak() if tracker else final_memory
         }
         
     except Exception as e:
-        # Make sure monitoring stops even if there's an error
-        memory_tracker.stop_monitoring()
-        print(f"✗ Error with {backend}: {e}")
-        return None
+        print(f"  ✗ Failed: {str(e)}")
+        if tracker:
+            tracker.stop_monitoring()
+        return {
+            'stage1_time': None,
+            'stage2_time': None,
+            'stage3_time': None,
+            'execution_time': None,
+            'result_hash': None,
+            'initial_memory': initial_memory,
+            'final_memory': get_memory_usage_mb(),
+            'memory_delta': None,
+            'result_shape': None,
+            'memory_tracker': tracker,
+            'peak_memory': tracker.get_peak() if tracker else get_memory_usage_mb(),
+            'error': str(e)
+        }
 
 if __name__ == "__main__":
     # Dataset sizes (number of households)
     household_sizes = [2**15-1, 2**15, 2**16, 2**17, 2**18, 2**19, 2**20, 2**21]
+    # household_sizes = [2**21] # for testing purposes
     backends = ["numpy", "jax"]
     
     results = {}
@@ -285,35 +441,53 @@ if __name__ == "__main__":
         print(f"Testing {backend} backend")
         print(f"{'='*60}")
         
+        # Clear all caches and reset session before starting new backend
+        print(f"Preparing environment for {backend} backend...")
+        reset_session_state(backend)
+        
         for N_households in household_sizes:
-            result = run_benchmark(N_households, backend)
-            if result:
-                results[f"{N_households}_{backend}_time"] = result['execution_time']
-                results[f"{N_households}_{backend}_hash"] = result['result_hash']
-                results[f"{N_households}_{backend}_baseline_memory"] = result['baseline_memory']
-                results[f"{N_households}_{backend}_data_size"] = result['data_size_mb']
-                results[f"{N_households}_{backend}_theoretical_size"] = result['theoretical_size_mb']
-                results[f"{N_households}_{backend}_pre_execution_memory"] = result['pre_execution_memory']
-                results[f"{N_households}_{backend}_start_memory"] = result['start_memory']
-                results[f"{N_households}_{backend}_end_memory"] = result['end_memory']
+            # Add extra session reset for larger datasets to ensure clean state
+            reset_between_sizes = N_households >= 2**18  # Reset for 256k+ households
+            
+            result = run_benchmark(
+                N_households, 
+                backend, 
+                reset_session=False, # reset_between_sizes (no impact on results)
+                sync_jax=True,  # Set to True if you want to force JAX synchronization
+                                # Seems necessary for realistic (reported time = wall clock time) JAX timings
+            )
+            if result and result.get('execution_time'):
+                # Store all stage timing data
+                results[f"{N_households}_{backend}_stage1_time"] = result['stage1_time']
+                results[f"{N_households}_{backend}_stage2_time"] = result['stage2_time'] 
+                results[f"{N_households}_{backend}_stage3_time"] = result['stage3_time']
+                results[f"{N_households}_{backend}_time"] = result['execution_time']  # Total time
+                results[f"{N_households}_{backend}_stage1_hash"] = result['stage1_hash']
+                results[f"{N_households}_{backend}_stage2_hash"] = result['stage2_hash']
+                results[f"{N_households}_{backend}_stage3_hash"] = result['stage3_hash']
+                results[f"{N_households}_{backend}_initial_memory"] = result['initial_memory']
+                results[f"{N_households}_{backend}_final_memory"] = result['final_memory']
+                results[f"{N_households}_{backend}_memory_delta"] = result['memory_delta']
                 results[f"{N_households}_{backend}_peak_memory"] = result['peak_memory']
-                results[f"{N_households}_{backend}_memory_increase"] = result['memory_increase']
-                results[f"{N_households}_{backend}_memory_increase_ratio"] = result['memory_increase_ratio']
-                results[f"{N_households}_{backend}_memory_increase_ratio_theoretical"] = result['memory_increase_ratio_theoretical']
+                results[f"{N_households}_{backend}_result_shape"] = result['result_shape']
             else:
+                # Store None values for failed runs
+                results[f"{N_households}_{backend}_stage1_time"] = None
+                results[f"{N_households}_{backend}_stage2_time"] = None 
+                results[f"{N_households}_{backend}_stage3_time"] = None
                 results[f"{N_households}_{backend}_time"] = None
                 results[f"{N_households}_{backend}_hash"] = None
-                results[f"{N_households}_{backend}_baseline_memory"] = None
-                results[f"{N_households}_{backend}_data_size"] = None
-                results[f"{N_households}_{backend}_theoretical_size"] = None
-                results[f"{N_households}_{backend}_pre_execution_memory"] = None
-                results[f"{N_households}_{backend}_start_memory"] = None
-                results[f"{N_households}_{backend}_end_memory"] = None
+                results[f"{N_households}_{backend}_initial_memory"] = None
+                results[f"{N_households}_{backend}_final_memory"] = None
+                results[f"{N_households}_{backend}_memory_delta"] = None
                 results[f"{N_households}_{backend}_peak_memory"] = None
-                results[f"{N_households}_{backend}_memory_increase"] = None
-                results[f"{N_households}_{backend}_memory_increase_ratio"] = None
-                results[f"{N_households}_{backend}_memory_increase_ratio_theoretical"] = None
+                results[f"{N_households}_{backend}_result_shape"] = None
             print()
+        
+        # Comprehensive cleanup after completing all sizes for this backend
+        print(f"Completing {backend} backend tests...")
+        # reset_session_state(backend)
+        print(f"{backend} backend tests completed with full cleanup")
     
     # Save results to JSON file
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -322,86 +496,112 @@ if __name__ == "__main__":
         json.dump(results, f, indent=2)
     print(f"\nResults saved to: {filename}")
     
-    print(f"\n{'='*80}")
-    print("SUMMARY TABLE")
-    print(f"{'='*80}")
+    print(f"\n{'='*120}")
+    print("3-STAGE TIMING BREAKDOWN")
+    print(f"{'='*120}")
     
-    # Print header
-    print(f"{'Households':<12}", end="")
-    for backend in backends:
-        print(f"{backend + '_time':<12}{backend + '_hash':<12}", end="")
-    print()
-    
-    print("-" * (12 + len(backends) * 24))
-    
-    # Print data rows
-    for N_households in household_sizes:
-        print(f"{N_households:<12,}", end="")
-        for backend in backends:
-            time_key = f"{N_households}_{backend}_time"
-            hash_key = f"{N_households}_{backend}_hash"
-            
-            time_val = results.get(time_key)
-            hash_val = results.get(hash_key)
-            
-            if time_val is not None:
-                print(f"{time_val:<12.4f}{hash_val:<12}", end="")
-            else:
-                print(f"{'FAILED':<12}{'N/A':<12}", end="")
-        print()
-    
-    # Print performance comparison
-    print(f"\n{'='*80}")
-    print("PERFORMANCE COMPARISON")
-    print(f"{'='*80}")
-    print(f"{'Households':<12}{'NumPy (s)':<12}{'JAX (s)':<12}{'NumPy Hash':<12}{'JAX Hash':<12}{'Speedup':<12}")
-    print("-" * 80)
+    # Print comparison table in the requested format
+    print(f"\n{'='*101}")
+    print("PERFORMANCE COMPARISON NUMPY <-> JAX")
+    print(f"{'='*104}")
+    print(f"{'Households':<12}{'Stage':<18}{'NUMPY hash':<12}{'JAX hash':<12}{'NUMPY (s)':<12}{'JAX (s)':<12}{'Speedup':<12}")
+    print("-" * 104)
     
     for N_households in household_sizes:
-        numpy_time = results.get(f"{N_households}_numpy_time")
-        jax_time = results.get(f"{N_households}_jax_time")
+        # Get timing data for all stages
+        numpy_s1 = results.get(f"{N_households}_numpy_stage1_time")
+        numpy_s2 = results.get(f"{N_households}_numpy_stage2_time")
+        numpy_s3 = results.get(f"{N_households}_numpy_stage3_time")
+        numpy_total = results.get(f"{N_households}_numpy_time")
+        
+        jax_s1 = results.get(f"{N_households}_jax_stage1_time")
+        jax_s2 = results.get(f"{N_households}_jax_stage2_time")
+        jax_s3 = results.get(f"{N_households}_jax_stage3_time")
+        jax_total = results.get(f"{N_households}_jax_time")
+        
         numpy_hash = results.get(f"{N_households}_numpy_hash")
         jax_hash = results.get(f"{N_households}_jax_hash")
         
-        if numpy_time is not None and jax_time is not None:
-            speedup = numpy_time / jax_time
-            speedup_str = f"{speedup:.2f}x" if speedup >= 1 else f"1/{jax_time/numpy_time:.2f}x"
-            print(f"{N_households:<12,}{numpy_time:<12.4f}{jax_time:<12.4f}{numpy_hash or 'N/A':<12}{jax_hash or 'N/A':<12}{speedup_str:<12}")
+        # Get stage-specific hashes
+        numpy_s1_hash = results.get(f"{N_households}_numpy_stage1_hash")
+        numpy_s2_hash = results.get(f"{N_households}_numpy_stage2_hash")
+        numpy_s3_hash = results.get(f"{N_households}_numpy_stage3_hash")
+        
+        jax_s1_hash = results.get(f"{N_households}_jax_stage1_hash")
+        jax_s2_hash = results.get(f"{N_households}_jax_stage2_hash")
+        jax_s3_hash = results.get(f"{N_households}_jax_stage3_hash")
+        
+        # Truncate hashes for display
+        numpy_s1_hash_display = numpy_s1_hash[:8] if numpy_s1_hash else "N/A"
+        numpy_s2_hash_display = numpy_s2_hash[:8] if numpy_s2_hash else "N/A"
+        numpy_s3_hash_display = numpy_s3_hash[:8] if numpy_s3_hash else "N/A"
+        
+        jax_s1_hash_display = jax_s1_hash[:8] if jax_s1_hash else "N/A"
+        jax_s2_hash_display = jax_s2_hash[:8] if jax_s2_hash else "N/A"
+        jax_s3_hash_display = jax_s3_hash[:8] if jax_s3_hash else "N/A"
+        
+        # Check if we have valid data
+        if all(x is not None for x in [numpy_s1, numpy_s2, numpy_s3, jax_s1, jax_s2, jax_s3]):
+            # Pre-processing row (Stage 1 hashes often unstable due to dict return)
+            s1_speedup = numpy_s1 / jax_s1 if jax_s1 and jax_s1 > 0 else 0
+            s1_speedup_str = f"{s1_speedup:.2f}x" if s1_speedup >= 1 else f"1/{jax_s1/numpy_s1:.2f}x" if numpy_s1 and numpy_s1 > 0 else "N/A"
+            print(f"{N_households:<12,}{'pre-processing':<18}{'-':<12}{'-':<12}{numpy_s1:<12.4f}{jax_s1:<12.4f}{s1_speedup_str:<12}")
+            
+            # Computation row (Stage 2 hashes should be stable)
+            s2_speedup = numpy_s2 / jax_s2 if jax_s2 and jax_s2 > 0 else 0
+            s2_speedup_str = f"{s2_speedup:.2f}x" if s2_speedup >= 1 else f"1/{jax_s2/numpy_s2:.2f}x" if numpy_s2 and numpy_s2 > 0 else "N/A"
+            print(f"{'':>12}{'computation':<18}{numpy_s2_hash_display:<12}{jax_s2_hash_display:<12}{numpy_s2:<12.4f}{jax_s2:<12.4f}{s2_speedup_str:<12}")
+            
+            # Post-processing row (Stage 3 hashes should be stable)
+            s3_speedup = numpy_s3 / jax_s3 if jax_s3 and jax_s3 > 0 else 0
+            s3_speedup_str = f"{s3_speedup:.2f}x" if s3_speedup >= 1 else f"1/{jax_s3/numpy_s3:.2f}x" if numpy_s3 and numpy_s3 > 0 else "N/A"
+            print(f"{'':>12}{'post-processing':<18}{numpy_s3_hash_display:<12}{jax_s3_hash_display:<12}{numpy_s3:<12.4f}{jax_s3:<12.4f}{s3_speedup_str:<12}")
+            
+            # Total time row
+            if numpy_total and jax_total:
+                total_speedup = numpy_total / jax_total if jax_total > 0 else 0
+                total_speedup_str = f"{total_speedup:.2f}x" if total_speedup >= 1 else f"1/{jax_total/numpy_total:.2f}x" if numpy_total > 0 else "N/A"
+                print(f"{'':>12}{'total time':<18}{'':>12}{'':>12}{numpy_total:<12.4f}{jax_total:<12.4f}{total_speedup_str:<12}")
+            
+            print("-" * 104)
         else:
-            print(f"{N_households:<12,}{'FAILED':<12}{'FAILED':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}")
+            # Handle failed cases - show "N/A" for hashes in failed cases
+            numpy_time_str = f"{numpy_total:.4f}" if numpy_total is not None else "FAILED"
+            jax_time_str = f"{jax_total:.4f}" if jax_total is not None else "FAILED"
+            print(f"{N_households:<12,}{'FAILED':<18}{'N/A':<12}{'N/A':<12}{numpy_time_str:<12}{jax_time_str:<12}{'N/A':<12}")
+            print("-" * 104)
     
     # Print memory comparison
-    print(f"\n{'='*135}")
+    print(f"\n{'='*120}")
     print("MEMORY USAGE COMPARISON")
-    print(f"{'='*135}")
-    print(f"{'Households':<12}{'Baseline':<12}{'Data Size':<12}{'NumPy Peak':<12}{'JAX Peak':<12}{'NumPy Inc':<12}{'JAX Inc':<12}{'NumPy Ratio':<12}{'JAX Ratio':<12}{'Peak Ratio':<12}")
-    print(f"{'(MB)':<12}{'(MB)':<12}{'(MB)':<12}{'(MB)':<12}{'(MB)':<12}{'(MB)':<12}{'(MB)':<12}{'(Inc/Data)':<12}{'(Inc/Data)':<12}{'(JAX/NumPy)':<12}")
-    print("-" * 135)
+    print(f"{'='*120}")
+    print(f"{'Households':<12}{'NumPy Init':<12}{'NumPy Final':<12}{'JAX Init':<12}{'JAX Final':<12}{'NumPy Δ':<12}{'JAX Δ':<12}")
+    print("-" * 120)
     
     for N_households in household_sizes:
-        baseline = results.get(f"{N_households}_numpy_baseline_memory") or results.get(f"{N_households}_jax_baseline_memory")
-        data_size = results.get(f"{N_households}_numpy_data_size") or results.get(f"{N_households}_jax_data_size")
-        numpy_peak = results.get(f"{N_households}_numpy_peak_memory")
-        jax_peak = results.get(f"{N_households}_jax_peak_memory")
-        numpy_inc = results.get(f"{N_households}_numpy_memory_increase")
-        jax_inc = results.get(f"{N_households}_jax_memory_increase")
-        numpy_ratio = results.get(f"{N_households}_numpy_memory_increase_ratio")
-        jax_ratio = results.get(f"{N_households}_jax_memory_increase_ratio")
+        numpy_init = results.get(f"{N_households}_numpy_initial_memory")
+        numpy_final = results.get(f"{N_households}_numpy_final_memory")
+        jax_init = results.get(f"{N_households}_jax_initial_memory")
+        jax_final = results.get(f"{N_households}_jax_final_memory")
+        numpy_delta = results.get(f"{N_households}_numpy_memory_delta")
+        jax_delta = results.get(f"{N_households}_jax_memory_delta")
         
-        if numpy_peak is not None and jax_peak is not None:
-            peak_ratio = jax_peak / numpy_peak if numpy_peak > 0 else float('inf')
-            peak_ratio_str = f"{peak_ratio:.2f}x"
-            numpy_ratio_str = f"{numpy_ratio:.1f}x" if numpy_ratio is not None else "N/A"
-            jax_ratio_str = f"{jax_ratio:.1f}x" if jax_ratio is not None else "N/A"
-            baseline_str = f"{baseline:.1f}" if baseline is not None else "N/A"
-            print(f"{N_households:<12,}{baseline_str:<12}{data_size:<12.1f}{numpy_peak:<12.1f}{jax_peak:<12.1f}{numpy_inc:<12.1f}{jax_inc:<12.1f}{numpy_ratio_str:<12}{jax_ratio_str:<12}{peak_ratio_str:<12}")
+        if all(x is not None for x in [numpy_init, numpy_final, jax_init, jax_final]):
+            print(f"{N_households:<12,}{numpy_init:<12.1f}{numpy_final:<12.1f}{jax_init:<12.1f}{jax_final:<12.1f}{numpy_delta:<12.1f}{jax_delta:<12.1f}")
         else:
-            baseline_str = f"{baseline:.1f}" if baseline is not None else "N/A"
-            print(f"{N_households:<12,}{baseline_str:<12}{'N/A':<12}{'FAILED':<12}{'FAILED':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}")
+            print(f"{N_households:<12,}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}{'N/A':<12}")
     
-    print("\nNote: Speedup > 1.0 means JAX is faster than NumPy")
-    print("Note: Peak Ratio > 1.0 means JAX uses more peak memory than NumPy")
-    print("Note: 'Inc' = Memory increase during execution (peak - start)")
-    print("Note: 'Ratio' = Memory increase relative to input data size")
-    print("Note: Higher ratios indicate more memory overhead relative to input data")
-    print("Note: Identical hashes across backends confirm numerical consistency")
+    print("-" * 120)
+    print("\nLegend:")
+    print("  Stage 1: Data preprocessing & DAG creation")
+    print("  Stage 2: Core computation (tax/transfer calculations)")
+    print("  Stage 3: DataFrame formatting (JAX → pandas conversion)")
+    print("  Init/Final: Memory usage before/after execution")
+    print("  Δ: Memory increase during execution")
+    print("  ✓/✗: Hash verification (results match/differ)")
+    
+    print(f"\n{'='*120}")
+    print("BENCHMARK COMPLETED")
+    print(f"{'='*120}")
+    print(f"Results saved to: {filename}")
+    print(f"Generated at: {datetime.now().isoformat()}")

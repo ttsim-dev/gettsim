@@ -1,9 +1,42 @@
+"""
+GETTSIM Profiling Script
+
+This script profiles GETTSIM/TTSIM with synthetic data.
+It supports both JAX and NumPy backends.
+
+Usage:
+    python gettsim_profile.py -N 32768 -b numpy (without profile)
+    py-spy record -o profile.svg -- python gettsim_profile.py -N 32768 -b numpy (with profile)
+
+"""
+
+
 # %%
 import pandas as pd
 import time
 import argparse
-from gettsim import main, InputData, MainTarget, TTTargets
+import hashlib
+from gettsim import InputData, MainTarget, TTTargets, Labels, SpecializedEnvironment, RawResults
+
+# Hack: Override GETTSIM main to make alls TTSIM parameters of main available in GETTSIM.
+# Necessary because of GETTSIM issue #1075. 
+# When resolved, this can be removed and gettsim.main can be used directly.
+from gettsim import germany
+import ttsim
+from ttsim.main_args import OrigPolicyObjects
+
+def main(**kwargs):
+    """Wrapper around ttsim.main that automatically sets the German root path and supports tt_function."""
+    # Set German tax system as default if no orig_policy_objects provided
+    if kwargs.get('orig_policy_objects') is None:
+        kwargs['orig_policy_objects'] = OrigPolicyObjects(root=germany.ROOT_PATH)
+    
+    return ttsim.main(**kwargs)
+
 from make_data import make_data
+
+
+
 
 # %%
 TT_TARGETS = {
@@ -118,6 +151,19 @@ MAPPER = {
     },
 }
 
+def sync_jax_if_needed(backend):
+    """Force JAX synchronization to ensure all operations are complete."""
+    if backend == "jax":
+        try:
+            import jax
+            # Force synchronization of all JAX operations
+            jax.block_until_ready(jax.numpy.array([1.0]))
+            print("  JAX operations synchronized")
+        except ImportError:
+            pass
+        except Exception as e:
+            print(f"  Warning: JAX sync failed: {e}")
+
 def run_profile(N, backend):
     """Run GETTSIM profiling with specified parameters."""
     print(f"Generating dataset with {N:,} households...")
@@ -125,7 +171,10 @@ def run_profile(N, backend):
     print(f"Dataset created successfully. Shape: {data.shape}")
     
     print(f"Running GETTSIM with backend: {backend}")
-    start_time = time.time()
+    
+    # First stage - preprocessing and DAG creation
+    print("\n=== STAGE 1: Data preprocessing and DAG creation ===")
+    stage1_start = time.time()
 
     tmp = main(
         policy_date_str="2025-01-01",
@@ -133,25 +182,120 @@ def run_profile(N, backend):
             df=data,
             mapper=MAPPER,
         ),
-        main_targets=[MainTarget.results.df_with_mapper],
+        main_targets=[
+            MainTarget.specialized_environment.tt_dag,
+            MainTarget.processed_data,
+            MainTarget.labels.root_nodes,
+            MainTarget.input_data.flat,  # Need this for stage 3
+            MainTarget.tt_function, # Use compiled tt_function in stage 2 with JAX backend
+        ],
         tt_targets=TTTargets(
             tree=TT_TARGETS,
         ),
-        backend=backend,
         include_fail_nodes=False,
         include_warn_nodes=False,
+        backend=backend,
+    )    
+
+    # Force JAX synchronization before recording end time
+    sync_jax_if_needed(backend)
+    
+    stage1_end = time.time()
+    stage1_time = stage1_end - stage1_start
+    
+    # Generate hash for Stage 1 output (tmp)
+    stage1_hash = hashlib.md5(str(tmp).encode('utf-8')).hexdigest()
+    
+    print(f"Stage 1 completed in: {stage1_time:.4f} seconds")
+    print(f"Processed data keys: {len(tmp['processed_data'])}")
+    print(f"DAG nodes: {len(tmp['specialized_environment']['tt_dag'])}")
+    print(f"Stage 1 hash: {stage1_hash[:16]}...")
+
+    # Second stage - computation only (no data preprocessing)
+    print("\n=== STAGE 2: Computation only (no preprocessing) ===")
+    print(f"Wall clock time: {time.strftime('%H:%M:%S')} - Starting Stage 2")
+    stage2_start = time.time()
+
+    raw_results__columns = main(
+        policy_date_str="2025-01-01",
+        main_target=MainTarget.raw_results.columns,
+        tt_targets=TTTargets(
+            tree=TT_TARGETS,
+        ),
+        processed_data=tmp["processed_data"],
+        labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
+        tt_function=tmp["tt_function"],  # Reuse pre-compiled JAX function
+        include_fail_nodes=False,
+        include_warn_nodes=False,
+        backend=backend,
     )
 
-    end_time = time.time()
-    execution_time = end_time - start_time
+    # Force JAX synchronization before recording end time
+    sync_jax_if_needed(backend)
+
+    stage2_end = time.time()
+    print(f"Wall clock time: {time.strftime('%H:%M:%S')} - Completed Stage 2")
+    stage2_time = stage2_end - stage2_start
     
-    print(f"Execution time: {execution_time:.4f} seconds")
+    # Generate hash for Stage 2 output (raw_results__columns)
+    stage2_hash = hashlib.md5(str(raw_results__columns).encode('utf-8')).hexdigest()
+    
+    print(f"Stage 2 completed in: {stage2_time:.4f} seconds")
+    print(f"Raw results keys: {len(raw_results__columns)}")
+    print(f"Stage 2 hash: {stage2_hash[:16]}...")
+
+    # Third stage - convert raw results to DataFrame (no computation, just formatting)
+    print("\n=== STAGE 3: Convert raw results to DataFrame ===")
+    print(f"Wall clock time: {time.strftime('%H:%M:%S')} - Starting Stage 3")
+    stage3_start = time.time()
+
+    final_results = main(
+        policy_date_str="2025-01-01",
+        main_target=MainTarget.results.df_with_mapper,
+        tt_targets=TTTargets(
+            tree=TT_TARGETS,
+        ),
+        raw_results=RawResults.columns(raw_results__columns),
+        input_data=InputData.flat(tmp["input_data"]["flat"]),  # Provide the flat input data from stage 1
+        processed_data=tmp["processed_data"],
+        labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
+        specialized_environment=SpecializedEnvironment(
+            tt_dag=tmp["specialized_environment"]["tt_dag"]
+        ),
+        include_fail_nodes=False,
+        include_warn_nodes=False,
+        backend=backend,
+    )
+
+    # Force JAX synchronization before recording end time
+    sync_jax_if_needed(backend)
+
+    stage3_end = time.time()
+    print(f"Wall clock time: {time.strftime('%H:%M:%S')} - Completed Stage 3")
+    stage3_time = stage3_end - stage3_start
+    total_time = stage1_time + stage2_time + stage3_time
+    
+    # Generate hash for Stage 3 output (final_results)
+    stage3_hash = hashlib.md5(str(final_results).encode('utf-8')).hexdigest()
+    
+    print(f"Stage 3 completed in: {stage3_time:.4f} seconds")
+    print(f"Final DataFrame shape: {final_results.shape if hasattr(final_results, 'shape') else 'N/A'}")
+    print(f"Final DataFrame type: {type(final_results)}")
+    print(f"Stage 3 hash: {stage3_hash[:16]}...")
+    print(f"Total execution time: {total_time:.4f} seconds")
+    print(f"Stage 1 (preprocessing): {stage1_time:.4f}s ({stage1_time/total_time*100:.1f}%)")
+    print(f"Stage 2 (computation): {stage2_time:.4f}s ({stage2_time/total_time*100:.1f}%)")
+    print(f"Stage 3 (formatting): {stage3_time:.4f}s ({stage3_time/total_time*100:.1f}%)")
     print(f"Backend: {backend}")
     print(f"Households: {N:,}")
     print(f"People: {len(data):,}")
-    print(f"Performance: {N / execution_time:.0f} households/second")
+    print(f"Performance: {N / total_time:.0f} households/second")
+    print("\n=== STAGE HASHES ===")
+    print(f"Stage 1 hash: {stage1_hash[:16]}...")
+    print(f"Stage 2 hash: {stage2_hash[:16]}...")
+    print(f"Stage 3 hash: {stage3_hash[:16]}...")
     
-    return tmp, execution_time
+    return final_results, total_time
 
 
 def main_cli():
