@@ -4,7 +4,7 @@ from gettsim import InputData, MainTarget, TTTargets, Labels, SpecializedEnviron
 
 # Hack: Override GETTSIM main to make alls TTSIM parameters of main available in GETTSIM.
 # Necessary because of GETTSIM issue #1075. 
-# When resolved, this can be removed and the original gettsim.main can be used directly.
+# When resolved, this can be removed and gettsim.main can be used directly.
 from gettsim import germany
 import ttsim
 from ttsim.main_args import OrigPolicyObjects

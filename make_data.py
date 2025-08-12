@@ -25,13 +25,13 @@ def make_data(N):
     # Create base template for one household (4 people)
     base_template = np.array([
         # Parent 1
-        [30, 35, 0, 1995, 0, 0, False, False, 0, 0, 5000, 0, 500, 0, 0, 0, 0, -1, True, 0, 0, True, False, False, 1, -1, -1, False, -1],
+        [30, 35, 0, 1995, 0, 0, False, False, 0, 0, 5000, 0, 500, 0, 0, 0, 0, -1, True, 0, 0, True, False, False, 1, -1, -1, False, -1, 1],
         # Parent 2  
-        [30, 35, 0, 1995, 0, 1, False, False, 0, 0, 4000, 0, 0, 0, 0, 0, 0, -1, True, 0, 0, True, False, False, 0, -1, -1, False, -1],
+        [30, 35, 0, 1995, 0, 1, False, False, 0, 0, 4000, 0, 0, 0, 0, 0, 0, -1, True, 0, 0, True, False, False, 0, -1, -1, False, -1, 0],
         # Child 1
-        [10, 0, 0, 2015, 0, 2, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, 0, 0, False, False, True, -1, 0, 1, False, 0],
+        [10, 0, 0, 2015, 0, 2, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, 0, 0, False, False, True, -1, 0, 1, False, 0, -1],
         # Child 2 (twin)
-        [10, 0, 0, 2015, 0, 3, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, 0, 0, False, False, True, -1, 0, 1, False, 0]
+        [10, 0, 0, 2015, 0, 3, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, 0, 0, False, False, True, -1, 0, 1, False, 0, -1]
     ])
     
     # Replicate template for all households
@@ -51,6 +51,10 @@ def make_data(N):
     data_array[spouse_mask_1, 24] = p_ids[spouse_mask_1] + 1  # Parent 1 -> Parent 2
     data_array[spouse_mask_2, 24] = p_ids[spouse_mask_2] - 1  # Parent 2 -> Parent 1
     
+    # Update bürgergeld__p_id_einstandspartner (identical to spouse_id)
+    data_array[spouse_mask_1, 29] = p_ids[spouse_mask_1] + 1  # Parent 1 -> Parent 2
+    data_array[spouse_mask_2, 29] = p_ids[spouse_mask_2] - 1  # Parent 2 -> Parent 1
+    
     # Update parent_ids for children
     child_mask_1 = np.arange(total_people) % 4 == 2  # Child 1 positions
     child_mask_2 = np.arange(total_people) % 4 == 3  # Child 2 positions
@@ -63,8 +67,8 @@ def make_data(N):
     data_array[child_mask_2, 26] = parent2_ids  # parent_id_2 for child 2
     
     # Update person_that_pays_childcare_expenses and id_recipient_child_allowance for children
-    data_array[child_mask_1, 11] = parent1_ids  # person_that_pays_childcare_expenses for child 1
-    data_array[child_mask_2, 11] = parent1_ids  # person_that_pays_childcare_expenses for child 2
+    data_array[child_mask_1, 17] = parent1_ids  # person_that_pays_childcare_expenses for child 1
+    data_array[child_mask_2, 17] = parent1_ids  # person_that_pays_childcare_expenses for child 2
     data_array[child_mask_1, 28] = parent1_ids  # id_recipient_child_allowance for child 1
     data_array[child_mask_2, 28] = parent1_ids  # id_recipient_child_allowance for child 2
     
@@ -77,7 +81,7 @@ def make_data(N):
         "childcare_expenses", "person_that_pays_childcare_expenses", "joint_taxation",
         "amount_private_pension_income", "contribution_private_health_insurance", "has_children",
         "single_parent", "is_child", "spouse_id", "parent_id_1", "parent_id_2", "in_training",
-        "id_recipient_child_allowance"
+        "id_recipient_child_allowance", "bürgergeld__p_id_einstandspartner"
     ]
     
     # Create DataFrame
@@ -91,7 +95,7 @@ def make_data(N):
     # Convert integer columns to int
     int_columns = ["age", "working_hours", "disability_grade", "birth_year", "hh_id", "p_id", 
                    "spouse_id", "parent_id_1", "parent_id_2", "person_that_pays_childcare_expenses", 
-                   "id_recipient_child_allowance"]
+                   "id_recipient_child_allowance", "bürgergeld__p_id_einstandspartner"]
     for col in int_columns:
         data[col] = data[col].astype(int)
     

@@ -59,10 +59,10 @@ TT_TARGETS = {
             }
         },
     },
+    "kindergeld": {"betrag_m": "betrag_m"},
+    "bürgergeld": {"betrag_m_bg": "betrag_m_bg"},
     "wohngeld": {"betrag_m_wthh": "betrag_m_wthh"},
     "kinderzuschlag": {"betrag_m_bg": "betrag_m_bg"},
-    "elterngeld": {"betrag_m": "betrag_m"},
-    "arbeitslosengeld_2": {"betrag_m_bg": "betrag_m_bg"},
 }
 
 
@@ -74,7 +74,7 @@ MAPPER = {
     "geburtsjahr": "birth_year",
     "hh_id": "hh_id",
     "p_id": "p_id",
-    "wohnort_ost": "east_germany",
+    "wohnort_ost_hh": "east_germany",
     "einnahmen": {
         "bruttolohn_m": 0.0,
         "kapitalerträge_y": 0.0,
@@ -120,6 +120,7 @@ MAPPER = {
             "altersrente": {
                 "betrag_m": 0.0,
             },
+            "bezieht_rente": False,
         },
         "kranken": {
             "beitrag": {"privat_versichert": "contribution_private_health_insurance"}
@@ -133,21 +134,35 @@ MAPPER = {
         "p_id_elternteil_1": "parent_id_1",
         "p_id_elternteil_2": "parent_id_2",
     },
-    "wohngeld": {
-        "betrag_m_wthh": 0.0,
-    },
-    "kinderzuschlag": {
-        "betrag_m_bg": 0.0,
-    },
-    "elterngeld": {
-        "betrag_m": 0.0,
-    },
-    "arbeitslosengeld_2": {
-        "betrag_m_bg": 0.0,
+    "wohnen": {
+        "bewohnt_eigentum_hh": False,
+        "bruttokaltmiete_m_hh": 900.0,
+        "heizkosten_m_hh": 150.0,
+        "wohnfläche_hh": 80.0,
     },
     "kindergeld": {
         "in_ausbildung": "in_training",
         "p_id_empfänger": "id_recipient_child_allowance",
+    },
+    "vermögen": 0.0,
+    "unterhalt": {
+        "tatsächlich_erhaltener_betrag_m": 0.0,
+    },
+    "elterngeld": {
+        "betrag_m": 0.0,
+        "anrechenbarer_betrag_m": 0.0,
+    },
+    "bürgergeld": {
+        "betrag_m_bg": 0.0,
+        "p_id_einstandspartner": "bürgergeld__p_id_einstandspartner",
+        "bezug_im_vorjahr": False,
+    },
+    "wohngeld": {
+        # "betrag_m_wthh": 0.0,
+        "mietstufe_hh": 3,
+    },
+    "kinderzuschlag": {
+        # "betrag_m_bg": 0.0,
     },
 }
 
@@ -163,6 +178,23 @@ def sync_jax_if_needed(backend):
             pass
         except Exception as e:
             print(f"  Warning: JAX sync failed: {e}")
+
+
+def safe_hash_results(results):
+    """Create a hash that doesn't trigger JAX array materialization.
+    
+    This function safely creates hashes of results by examining structure
+    and types rather than materializing large arrays, preventing memory
+    explosions with JAX backends.
+    """
+    if isinstance(results, dict):
+        return {k: safe_hash_results(v) for k, v in results.items()}
+    elif hasattr(results, 'shape') and hasattr(results, 'dtype'):
+        # For arrays, hash shape and dtype instead of data
+        return f"{type(results).__name__}(shape={results.shape}, dtype={results.dtype})"
+    else:
+        return str(type(results).__name__)
+
 
 def run_profile(N, backend):
     """Run GETTSIM profiling with specified parameters."""
@@ -192,7 +224,7 @@ def run_profile(N, backend):
         tt_targets=TTTargets(
             tree=TT_TARGETS,
         ),
-        include_fail_nodes=False,
+        include_fail_nodes=True,
         include_warn_nodes=False,
         backend=backend,
     )    
@@ -203,8 +235,8 @@ def run_profile(N, backend):
     stage1_end = time.time()
     stage1_time = stage1_end - stage1_start
     
-    # Generate hash for Stage 1 output (tmp)
-    stage1_hash = hashlib.md5(str(tmp).encode('utf-8')).hexdigest()
+    # Generate hash for Stage 1 output (tmp) - avoid memory issues with large arrays
+    stage1_hash = hashlib.md5(str(safe_hash_results(tmp)).encode('utf-8')).hexdigest()
     
     print(f"Stage 1 completed in: {stage1_time:.4f} seconds")
     print(f"Processed data keys: {len(tmp['processed_data'])}")
@@ -225,7 +257,7 @@ def run_profile(N, backend):
         processed_data=tmp["processed_data"],
         labels=Labels(root_nodes=tmp["labels"]["root_nodes"]),
         tt_function=tmp["tt_function"],  # Reuse pre-compiled JAX function
-        include_fail_nodes=False,
+        include_fail_nodes=True,
         include_warn_nodes=False,
         backend=backend,
     )
@@ -237,8 +269,8 @@ def run_profile(N, backend):
     print(f"Wall clock time: {time.strftime('%H:%M:%S')} - Completed Stage 2")
     stage2_time = stage2_end - stage2_start
     
-    # Generate hash for Stage 2 output (raw_results__columns)
-    stage2_hash = hashlib.md5(str(raw_results__columns).encode('utf-8')).hexdigest()
+    # Generate hash for Stage 2 output - avoid memory issues with large JAX arrays
+    stage2_hash = hashlib.md5(str(safe_hash_results(raw_results__columns)).encode('utf-8')).hexdigest()
     
     print(f"Stage 2 completed in: {stage2_time:.4f} seconds")
     print(f"Raw results keys: {len(raw_results__columns)}")
@@ -262,7 +294,7 @@ def run_profile(N, backend):
         specialized_environment=SpecializedEnvironment(
             tt_dag=tmp["specialized_environment"]["tt_dag"]
         ),
-        include_fail_nodes=False,
+        include_fail_nodes=True,
         include_warn_nodes=False,
         backend=backend,
     )
@@ -275,8 +307,8 @@ def run_profile(N, backend):
     stage3_time = stage3_end - stage3_start
     total_time = stage1_time + stage2_time + stage3_time
     
-    # Generate hash for Stage 3 output (final_results)
-    stage3_hash = hashlib.md5(str(final_results).encode('utf-8')).hexdigest()
+    # Generate hash for Stage 3 output - avoid memory issues
+    stage3_hash = hashlib.md5(str(safe_hash_results(final_results)).encode('utf-8')).hexdigest()
     
     print(f"Stage 3 completed in: {stage3_time:.4f} seconds")
     print(f"Final DataFrame shape: {final_results.shape if hasattr(final_results, 'shape') else 'N/A'}")
