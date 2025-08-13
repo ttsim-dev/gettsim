@@ -20,7 +20,7 @@ def mean_nettoeinkommen_in_12_monaten_vor_geburt_m() -> float:
     """Mean net wage in the 12 months before birth of youngest child.
 
     To compute this value using GETTSIM set `('elterngeld',
-    'mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m')` as the TT target and
+    'mean_nettoeinkommen_für_bemessungsgrundlage_nach_geburt_m')` as the TT target and
     use input data from the last 12 months before the birth of the youngest child.
     """
 

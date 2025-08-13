@@ -98,7 +98,7 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     start_date="2012-09-18",
     rounding_spec=RoundingSpec(base=0.01, direction="down"),
 )
-def mean_nettoeinkommen_für_bemessungsgrundllage_nach_geburt_m(
+def mean_nettoeinkommen_für_bemessungsgrundlage_nach_geburt_m(
     einnahmen__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
