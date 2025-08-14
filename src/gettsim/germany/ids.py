@@ -132,8 +132,7 @@ def sgb_ii_fg_id_formula(
         isin = xnp.isin
 
     children = isin(sorted_p_id, sorted_p_id_elternteil_1) | isin(
-        sorted_p_id,
-        sorted_p_id_elternteil_2,
+        sorted_p_id, sorted_p_id_elternteil_2
     )
 
     # Assign the same fg_id to everybody who has an Einstandspartner,

@@ -119,15 +119,11 @@ def in_anderer_bg_als_kindergeldempfänger(
     """True if the person is in a different Bedarfsgemeinschaft than the
     Kindergeldempfänger of that person.
     """
-    # Create a mask for the kindergeld__p_id_empfänger
-    # Map each kindergeld__p_id_empfänger to its corresponding bg_id
-    empf_bg_id = join(
+    bg_id_empfänger = join(
         foreign_key=kindergeld__p_id_empfänger,
         primary_key=p_id,
         target=bg_id,
         value_if_foreign_key_is_missing=-1,
         xnp=xnp,
     )
-
-    # Compare bg_id array with the mapped bg_ids of kindergeld__p_id_empfänger
-    return empf_bg_id != bg_id
+    return bg_id_empfänger != bg_id
