@@ -9,6 +9,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 - {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
   {ghuser}`hmgaudecker`)
 
+- {gh}`1076` Optimize `bürgergeld__in_anderer_bg_als_kindergeldempfänger`
+  ({ghuser}`JuergenWiemers`)
+
 - {gh}`1072` How-to guide for `plot.dag.tt` ({ghuser}`hmgaudecker`)
 
 ## v1.0a2 — 2025-08-09
