@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+import functools
+from typing import TYPE_CHECKING, Literal
 
 from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
 from gettsim.tt import group_creation_function, policy_input
@@ -53,11 +54,12 @@ def fg_id_arbeitslosengeld_2(
     familie__p_id_elternteil_1: IntColumn,
     familie__p_id_elternteil_2: IntColumn,
     xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
 ) -> IntColumn:
     """Familiengemeinschaft. Base unit for some transfers.
 
     Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
-    2, before excluding children who have enough income fend for themselves.
+    2, before excluding children who have enough income to fend for themselves.
     """
     return sgb_ii_fg_id_formula(
         p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
@@ -67,6 +69,7 @@ def fg_id_arbeitslosengeld_2(
         p_id_elternteil_1=familie__p_id_elternteil_1,
         p_id_elternteil_2=familie__p_id_elternteil_2,
         xnp=xnp,
+        backend=backend,
     )
 
 
@@ -79,11 +82,12 @@ def fg_id_bürgergeld(
     familie__p_id_elternteil_1: IntColumn,
     familie__p_id_elternteil_2: IntColumn,
     xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
 ) -> IntColumn:
     """Familiengemeinschaft. Base unit for some transfers.
 
     Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
-    2, before excluding children who have enough income fend for themselves.
+    2, before excluding children who have enough income to fend for themselves.
     """
     return sgb_ii_fg_id_formula(
         p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
@@ -93,6 +97,7 @@ def fg_id_bürgergeld(
         p_id_elternteil_1=familie__p_id_elternteil_1,
         p_id_elternteil_2=familie__p_id_elternteil_2,
         xnp=xnp,
+        backend=backend,
     )
 
 
@@ -104,6 +109,7 @@ def sgb_ii_fg_id_formula(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
     xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
 ) -> IntColumn:
     """Formula to compute the FG ID for SGB II transfers"""
     n = xnp.max(p_id) + 1
@@ -118,9 +124,15 @@ def sgb_ii_fg_id_formula(
     sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
     sorted_p_id_einstandspartner = p_id_einstandspartner[sorting]
 
-    children = xnp.isin(sorted_p_id, sorted_p_id_elternteil_1) | xnp.isin(
-        sorted_p_id,
-        sorted_p_id_elternteil_2,
+    # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
+    # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
+    if backend == "jax":
+        isin = functools.partial(xnp.isin, method="sort")
+    else:
+        isin = xnp.isin
+
+    children = isin(sorted_p_id, sorted_p_id_elternteil_1) | isin(
+        sorted_p_id, sorted_p_id_elternteil_2
     )
 
     # Assign the same fg_id to everybody who has an Einstandspartner,
