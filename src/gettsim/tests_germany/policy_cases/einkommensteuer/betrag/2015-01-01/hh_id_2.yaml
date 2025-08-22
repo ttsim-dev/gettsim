@@ -52,6 +52,12 @@ outputs:
       - 0
       - 0
       - 0
+    einkünfte:
+      aus_kapitalvermögen:
+        betrag_y_sn:
+          - 198.0
+          - 198.0
+          - 0.0
   solidaritätszuschlag:
     betrag_y_sn:
       - 2.72
