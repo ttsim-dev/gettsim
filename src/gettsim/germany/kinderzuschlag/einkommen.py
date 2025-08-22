@@ -136,57 +136,15 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
 
 @policy_function(
     start_date="2005-01-01",
-    end_date="2022-06-30",
-    leaf_name="maximales_nettoeinkommen_m_bg",
+    end_date="2019-06-30",
 )
-def maximales_nettoeinkommen_m_bg_vor_06_2022(
+def maximales_nettoeinkommen_m_bg(
     erwachsenenbedarf_m_bg: float,
     anzahl_kinder_bg: int,
     satz: float,
 ) -> float:
     """Calculate maximum income to be eligible for additional child benefit
     (Kinderzuschlag).
-
-    There is a maximum income threshold, depending on the need, plus the potential kiz
-    receipt (§6a (1) Nr. 3 BKGG).
-    """
-    return erwachsenenbedarf_m_bg + satz * anzahl_kinder_bg
-
-
-@policy_function(
-    start_date="2022-07-01",
-    end_date="2022-12-31",
-    leaf_name="maximales_nettoeinkommen_m_bg",
-)
-def maximales_nettoeinkommen_m_bg_ab_06_2022_bis_12_2022(
-    erwachsenenbedarf_m_bg: float,
-    anzahl_kinder_bg: int,
-    arbeitslosengeld_2__kindersofortzuschlag: float,
-    satz: float,
-) -> float:
-    """Calculate maximum income to be eligible for additional child benefit
-    (Kinderzuschlag).
-
-    There is a maximum income threshold, depending on the need, plus the potential kiz
-    receipt (§6a (1) Nr. 3 BKGG).
-    """
-    return (
-        erwachsenenbedarf_m_bg
-        + satz * anzahl_kinder_bg
-        + arbeitslosengeld_2__kindersofortzuschlag * anzahl_kinder_bg
-    )
-
-
-@policy_function(start_date="2023-01-01", leaf_name="maximales_nettoeinkommen_m_bg")
-def maximales_nettoeinkommen_m_bg_ab_01_2023(
-    erwachsenenbedarf_m_bg: float,
-    anzahl_kinder_bg: int,
-    satz: float,
-) -> float:
-    """Calculate maximum income to be eligible for additional child benefit
-    (Kinderzuschlag).
-
-    Kindersofortzuschlag is included in maximum Kinderzuschlag.
 
     There is a maximum income threshold, depending on the need, plus the potential kiz
     receipt (§6a (1) Nr. 3 BKGG).

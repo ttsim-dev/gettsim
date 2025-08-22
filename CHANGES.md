@@ -9,6 +9,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 - {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
   {ghuser}`hmgaudecker`)
 
+- {gh}`1085` Let functions end on time; correct calculation of "Einkünfte aus
+  Kapitalvermögen" ({ghuser}`hmgaudecker`)
+
 - {gh}`1084` Make sure GETTSIM interface is in sync with TTSIM interface
   ({ghuser}`hmgaudecker`)
 

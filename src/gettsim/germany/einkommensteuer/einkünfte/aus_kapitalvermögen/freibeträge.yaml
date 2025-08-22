@@ -34,7 +34,7 @@ sparerfreibetrag:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
-sparer_werbungskostenpauschbetrag:
+werbungskostenpauschbetrag:
   name:
     de: Werbungskostenpauschbetrag bei Zinseinkünften
     en: null
