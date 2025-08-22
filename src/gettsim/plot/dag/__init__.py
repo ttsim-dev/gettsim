@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim import plot as ttsim_plot
+import ttsim
 
 from gettsim import germany
 
@@ -19,6 +19,9 @@ def interface(
     include_fail_and_warn_nodes: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
+    node_colormap: dict[tuple[str, ...], str]
+    | None = ttsim.plot.dag.INTERFACE_COLORMAP,
+    **kwargs: Any,  # noqa: ANN401
 ) -> go.Figure:
     """Plot the interface DAG.
 
@@ -30,16 +33,33 @@ def interface(
         Whether to show the node description.
     output_path
         If provided, the figure is written to the path.
+    node_colormap
+        Dictionary mapping namespace tuples to colors. If provided, overrides
+        the default automatic color generation, which cycles through colors at the
+        uppermost level of the namespace hierarchy.
+            - Tuples can represent any level of the namespace hierarchy (e.g.,
+              ("input_data",) would be the first level,
+              ("input_data", "df_and_mapper") the second level.
+            - The tuple ("top-level",) is used to catch all members of the top-level
+              namespace.
+            - Individual elements or sub-namespaces can be overridden as the longest
+              match will be used.
+            - Fallback color is black.
+    kwargs
+        Additional keyword arguments. Will be passed to
+        plotly.graph_objects.Figure.layout.
 
     Returns
     -------
     The figure.
     """
-    return ttsim_plot.dag.interface(
+    return ttsim.plot.dag.interface(
         include_fail_and_warn_nodes=include_fail_and_warn_nodes,
         show_node_description=show_node_description,
         output_path=output_path,
         remove_orig_policy_objects__root=True,
+        node_colormap=node_colormap,
+        **kwargs,
     )
 
 
@@ -53,6 +73,7 @@ def tt(
     include_params: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
+    node_colormap: dict[tuple[str, ...], str] | None = None,
     # Elements of main
     policy_date_str: DashedISOString | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
@@ -93,6 +114,18 @@ def tt(
         Show a description of the node when hovering over it.
     output_path
         If provided, the figure is written to the path.
+    node_colormap
+        Dictionary mapping namespace tuples to colors. If provided, overrides
+        the default automatic color generation, which cycles through colors at the
+        uppermost level of the namespace hierarchy.
+            - Tuples can represent any level of the namespace hierarchy (e.g.,
+              ("sozialversicherung",) would be the first level,
+              ("sozialversicherung", "arbeitslosenversicherung") the second level.
+            - The tuple ("top-level",) is used to catch all members of the top-level
+              namespace.
+            - Individual elements or sub-namespaces can be overridden as the longest
+              match will be used.
+            - Fallback color is black.
     policy_date_str
         The date for which to plot the DAG.
     orig_policy_objects
@@ -119,7 +152,7 @@ def tt(
     -------
     The figure.
     """
-    return ttsim_plot.dag.tt(
+    return ttsim.plot.dag.tt(
         root=germany.ROOT_PATH,
         primary_nodes=primary_nodes,
         selection_type=selection_type,
@@ -127,6 +160,7 @@ def tt(
         include_params=include_params,
         show_node_description=show_node_description,
         output_path=output_path,
+        node_colormap=node_colormap,
         policy_date_str=policy_date_str,
         orig_policy_objects=orig_policy_objects,
         input_data=input_data,
