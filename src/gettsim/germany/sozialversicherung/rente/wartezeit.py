@@ -18,7 +18,7 @@ def mindestwartezeit_erfüllt(
     ) / 12 >= wartezeitgrenzen["wartezeit_5"]
 
 
-@policy_function()
+@policy_function(end_date="2017-12-31")
 def wartezeit_15_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
