@@ -37,7 +37,7 @@ from gettsim import germany
 
 if TYPE_CHECKING:
     import datetime
-    from collections.abc import Iterable
+    from collections.abc import Callable, Iterable
 
     from ttsim import typing
     from ttsim.typing import (
@@ -47,6 +47,7 @@ if TYPE_CHECKING:
         NestedTargetDict,
         PolicyEnvironment,
         QNameData,
+        SpecializedEnvironmentForPlottingAndTemplates,
     )
 
     typing = typing
@@ -87,15 +88,19 @@ def main(
     evaluation_date_str: DashedISOString | None = None,
     include_fail_nodes: bool = True,
     include_warn_nodes: bool = True,
-    orig_policy_objects: OrigPolicyObjects | None = None,
-    raw_results: RawResults | None = None,
-    results: Results | None = None,
-    specialized_environment: SpecializedEnvironment | None = None,
-    policy_environment: PolicyEnvironment | None = None,
-    processed_data: QNameData | None = None,
+    tt_function_set_annotations: bool = True,
     policy_date: datetime.date | None = None,
     evaluation_date: datetime.date | None = None,
+    orig_policy_objects: OrigPolicyObjects | None = None,
+    policy_environment: PolicyEnvironment | None = None,
+    processed_data: QNameData | None = None,
     labels: Labels | None = None,
+    specialized_environment: SpecializedEnvironment | None = None,
+    specialized_environment_for_plotting_and_templates: SpecializedEnvironmentForPlottingAndTemplates  # noqa: E501
+    | None = None,
+    tt_function: Callable[[QNameData], QNameData] | None = None,
+    raw_results: RawResults | None = None,
+    results: Results | None = None,
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
         orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(root=germany.ROOT_PATH)
