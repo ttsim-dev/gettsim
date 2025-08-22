@@ -6,6 +6,9 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 ## Unreleased
 
+- {gh}`1084` Make sure GETTSIM interface is in sync with TTSIM interface
+  ({ghuser}`hmgaudecker`)
+
 - {gh}`1076` Optimize `bürgergeld__in_anderer_bg_als_kindergeldempfänger`
   ({ghuser}`JuergenWiemers`)
 
