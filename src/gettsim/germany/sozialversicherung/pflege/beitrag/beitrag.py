@@ -175,6 +175,7 @@ def betrag_arbeitgeber_regulärer_beitragssatz_m(
 
 @policy_function(
     start_date="2003-04-01",
+    end_date="2022-09-30",
 )
 def betrag_gesamt_in_gleitzone_m(
     sozialversicherung__midijob_bemessungsentgelt_m: float,
