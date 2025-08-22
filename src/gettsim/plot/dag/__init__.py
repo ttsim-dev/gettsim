@@ -6,6 +6,42 @@ import ttsim
 
 from gettsim import germany
 
+GETTSIM_COLORMAP = {
+    # Top-level, background variables - blue.
+    ("top-level",): "lightskyblue",
+    ("einnahmen",): "mediumblue",
+    ("familie",): "skyblue",
+    ("wohnen",): "mediumturquoise",
+    ("hh_characteristics",): "skyblue",
+    ("ids",): "deepskyblue",
+    ("unterhalt",): "teal",
+    # Taxes - red. Exception: Einkünfte are mix of Einnahmen/Tax rules - purple.
+    ("einkommensteuer",): "crimson",
+    ("einkommensteuer", "einkünfte"): "purple",
+    ("lohnsteuer",): "red",
+    ("solidaritätszuschlag",): "darkred",
+    # Social insurance - differentiate between programs and between pension
+    # contributions and pension benefits.
+    ("sozialversicherung",): "gold",
+    ("sozialversicherung", "arbeitslosen"): "yellowgreen",
+    ("sozialversicherung", "kranken"): "yellow",
+    ("sozialversicherung", "pflege"): "khaki",
+    ("sozialversicherung", "rente"): "goldenrod",
+    ("sozialversicherung", "rente", "beitrag"): "darkgoldenrod",
+    # Transfers - green
+    ("kindergeld",): "olive",
+    ("kinderbonus",): "darkolivegreen",
+    ("kinderzuschlag",): "olivedrab",
+    ("elterngeld",): "darkgreen",
+    ("erziehungsgeld",): "darkgreen",
+    ("unterhaltsvorschuss",): "seagreen",
+    ("wohngeld",): "turquoise",
+    ("grundsicherung",): "limegreen",
+    ("bürgergeld",): "lime",
+    ("arbeitslosengeld_2",): "lime",
+    ("vorrangprüfungen",): "green",
+}
+
 if TYPE_CHECKING:
     from pathlib import Path
     from typing import Any, Literal
@@ -73,7 +109,7 @@ def tt(
     include_params: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
-    node_colormap: dict[tuple[str, ...], str] | None = None,
+    node_colormap: dict[tuple[str, ...], str] | None = GETTSIM_COLORMAP,
     # Elements of main
     policy_date_str: DashedISOString | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
@@ -175,6 +211,7 @@ def tt(
 
 
 __all__ = [
+    "GETTSIM_COLORMAP",
     "interface",
     "tt",
 ]
