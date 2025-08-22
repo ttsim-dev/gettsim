@@ -107,14 +107,10 @@ outputs:
       - 815.89
     pflege:
       beitrag:
-        betrag_arbeitgeber_in_gleitzone_m:
+        betrag_arbeitgeber_m:
           - 19.56
           - 19.56
           - 19.56
-        betrag_gesamt_in_gleitzone_m:
-          - 34.27
-          - 29.37
-          - 27.33
         betrag_versicherter_m:
           - 14.72
           - 9.82
