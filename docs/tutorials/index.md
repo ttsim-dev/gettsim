@@ -10,4 +10,5 @@ maxdepth: 1
 ---
 simple_example
 visualizing_the_system
+personas
 ```
