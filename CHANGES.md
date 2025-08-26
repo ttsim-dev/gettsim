@@ -1,18 +1,29 @@
 # Changes
 
 This is a record of all past `gettsim` releases and what went into them in reverse
-chronological order. We follow [semantic versioning](https://semver.org/) and all
-releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
+chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
+[semantic versioning](https://semver.org). Thus, for a given version number
+`major.counter`
 
-## Unreleased
+- `major` is incremented when we make incompatible API changes, for example, changing
+  the arguments to `main` in a major way or we completely change the modelling of some
+  taxes or transfers.
+- `counter` is incremented when we add functionality to the taxes and transfers system
+  or change it in some non-fundamental way.
+
+All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
+
+## v1.0 — 2025-08-26
 
 - {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
   {ghuser}`hmgaudecker`)
 
-- {gh}`1085` Let functions end on time; correct calculation of "Einkünfte aus
-  Kapitalvermögen" ({ghuser}`hmgaudecker`)
+- {gh}`1086` Tutorial for gettsim-personas. ({ghuser}`MImmesberger`)
 
 - {gh}`1083` Specify a fixed colormap for nodes in `plot.dag.tt` ({ghuser}`hmgaudecker`)
+
+- {gh}`1085` Let functions end on time; correct calculation of "Einkünfte aus
+  Kapitalvermögen" ({ghuser}`hmgaudecker`)
 
 - {gh}`1084` Make sure GETTSIM interface is in sync with TTSIM interface
   ({ghuser}`hmgaudecker`)
@@ -22,15 +33,11 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 
 - {gh}`1072` How-to guide for `plot.dag.tt` ({ghuser}`hmgaudecker`)
 
-## v1.0a2 — 2025-08-09
-
 - {gh}`1071` Move to new plotting interface. ({ghuser}`MImmesberger`)
 
 - {gh}`1067` Separate Bürgergeld from Arbeitslosengeld 2 ({ghuser}`MImmesberger`)
 
 - {gh}`1064` Improve paths handling, small fixes ({ghuser}`hmgaudecker`).
-
-## v1.0a1 — 2025-07-27
 
 - {gh}`1062` Fix some end dates ({ghuser}`hmgaudecker`)
 
