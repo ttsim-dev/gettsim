@@ -23,7 +23,7 @@ GETTSIM_COLORMAP = {
     # Social insurance - differentiate between programs and between pension
     # contributions and pension benefits.
     ("sozialversicherung",): "gold",
-    ("sozialversicherung", "arbeitslosen"): "yellowgreen",
+    ("sozialversicherung", "arbeitslosen"): "palegoldenrod",
     ("sozialversicherung", "kranken"): "yellow",
     ("sozialversicherung", "pflege"): "khaki",
     ("sozialversicherung", "rente"): "goldenrod",
@@ -31,11 +31,11 @@ GETTSIM_COLORMAP = {
     # Transfers - green
     ("kindergeld",): "olive",
     ("kinderbonus",): "darkolivegreen",
-    ("kinderzuschlag",): "olivedrab",
+    ("kinderzuschlag",): "mediumseagreen",
     ("elterngeld",): "darkgreen",
     ("erziehungsgeld",): "darkgreen",
     ("unterhaltsvorschuss",): "seagreen",
-    ("wohngeld",): "turquoise",
+    ("wohngeld",): "darkseagreen",
     ("grundsicherung",): "limegreen",
     ("bürgergeld",): "lime",
     ("arbeitslosengeld_2",): "lime",
