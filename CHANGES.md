@@ -9,6 +9,8 @@ releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsi
 - {gh}`1085` Let functions end on time; correct calculation of "Einkünfte aus
   Kapitalvermögen" ({ghuser}`hmgaudecker`)
 
+- {gh}`1083` Specify a fixed colormap for nodes in `plot.dag.tt` ({ghuser}`hmgaudecker`)
+
 - {gh}`1084` Make sure GETTSIM interface is in sync with TTSIM interface
   ({ghuser}`hmgaudecker`)
 
