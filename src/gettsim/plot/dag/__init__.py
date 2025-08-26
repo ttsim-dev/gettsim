@@ -70,9 +70,7 @@ def interface(
     output_path
         If provided, the figure is written to the path.
     node_colormap
-        Dictionary mapping namespace tuples to colors. If provided, overrides
-        the default automatic color generation, which cycles through colors at the
-        uppermost level of the namespace hierarchy.
+        Dictionary mapping namespace tuples to colors.
             - Tuples can represent any level of the namespace hierarchy (e.g.,
               ("input_data",) would be the first level,
               ("input_data", "df_and_mapper") the second level.
@@ -81,6 +79,8 @@ def interface(
             - Individual elements or sub-namespaces can be overridden as the longest
               match will be used.
             - Fallback color is black.
+            - Use any color from https://plotly.com/python/css-colors/
+        If None, cycle through colors at the uppermost level of the namespace hierarchy.
     kwargs
         Additional keyword arguments. Will be passed to
         plotly.graph_objects.Figure.layout.
@@ -151,9 +151,7 @@ def tt(
     output_path
         If provided, the figure is written to the path.
     node_colormap
-        Dictionary mapping namespace tuples to colors. If provided, overrides
-        the default automatic color generation, which cycles through colors at the
-        uppermost level of the namespace hierarchy.
+        Dictionary mapping namespace tuples to colors.
             - Tuples can represent any level of the namespace hierarchy (e.g.,
               ("sozialversicherung",) would be the first level,
               ("sozialversicherung", "arbeitslosenversicherung") the second level.
@@ -162,6 +160,8 @@ def tt(
             - Individual elements or sub-namespaces can be overridden as the longest
               match will be used.
             - Fallback color is black.
+            - Use any color from https://plotly.com/python/css-colors/
+        If None, cycle through colors at the uppermost level of the namespace hierarchy.
     policy_date_str
         The date for which to plot the DAG.
     orig_policy_objects
