@@ -24,6 +24,11 @@ The units are:
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
 | Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
+Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
+out of the box. If you need to handle more complex cases, you will need to pass all of
+these in your input data. For calculating them from the structure of the input data, see
+the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-rules).
+
 ## Taxes
 
 ### Joint taxation
@@ -78,12 +83,13 @@ The units are:
 
 ### Aggregation unit
 
-- `arbeitslosengeld_2__bg_id` (endogenous)
+- `arbeitslosengeld_2__bg_id` until 2022; `bürgergeld__bg_id` since 2023 (endogenous)
 
 ### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
-  `familie__p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
 
@@ -170,12 +176,13 @@ The units are:
 
 #### Aggregation unit
 
-- `arbeitslosengeld_2__bg_id` (endogenous)
+- `arbeitslosengeld_2__bg_id` until 2022; `bürgergeld__bg_id` since 2023 (endogenous)
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
-  `familie__p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Hilfe zum Lebensunterhalt)
 
@@ -205,14 +212,15 @@ Regarding the household definition:
 
 #### Aggregation unit
 
-- Not implemented yet. The current `arbeitslosengeld_2__eg_id` is not sufficient as it
-  doesn't include children (it follows the SGB II definition).
-- Potentially, `arbeitslosengeld_2__bg_id` could be used as the aggregation unit.
+- Not implemented yet. The current `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is
+  not sufficient as it doesn't include children (it follows the SGB II definition).
 
 #### Pointers
 
-- `hh_id`, `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
-  `familie__p_id_elternteil_2` (exogenous)
+- `hh_id`
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Grundsicherung im Alter / bei Erwerbsminderung)
 
@@ -230,15 +238,16 @@ Government expenditures: 7 Mrd €
 
 #### Aggregation unit
 
-- Currently: `arbeitslosengeld_2__eg_id` (endogenous)
-- The current implementation of `arbeitslosengeld_2__eg_id` is not sufficient as it
-  doesn't include children (it follows the SGB II definition).
-- Potentially, `arbeitslosengeld_2__bg_id` could be used as the aggregation unit.
+- Currently: `arbeitslosengeld_2__eg_id` until 2022; `bürgergeld__eg_id` since 2023
+  (endogenous)
+- The current implementation of `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is not
+  sufficient as it doesn't include children (it follows the SGB II definition).
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
-  `familie__p_id_elternteil_2` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Eingliederungshilfe für Menschen mit Behinderung)
 
@@ -301,8 +310,10 @@ Government expenditures: 4 Mrd €
 
 ### Pointers
 
-- `hh_id`, `arbeitslosengeld_2__p_id_einstandspartner`, `familie__p_id_elternteil_1`,
-  `familie__p_id_elternteil_2` (exogenous)
+- `hh_id`
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Kinderwohngeld
 

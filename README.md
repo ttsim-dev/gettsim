@@ -25,11 +25,25 @@ to detailed microsimulation studies.
 GETTSIM is implemented in Python, thereby achieving both user-friendliness and
 flexibility. All features are extensively tested.
 
-You can install GETTSIM via conda with
+GETTSIM is available on [PyPi](https://pypi.org/project/gettsim/) and
+[conda-forge](https://anaconda.org/conda-forge/gettsim). You can install GETTSIM using
+your preferred package manager. To install GETTSIM using the
+[pixi](https://pixi.sh/latest/) or
+[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) package
+manager, run
+
+```shell-session
+$ pixi add gettsim
+```
+
+or
 
 ```shell-session
 $ conda install -c conda-forge gettsim
 ```
+
+You can also install GETTSIM using uv, mamba, or pip. For more details, see the
+[installation guide](https://gettsim.readthedocs.io/en/latest/installation.html).
 
 The documentation is available at <https://gettsim.readthedocs.io>. If you want to use
 it or help out in its development, feel free to get in touch! The ideal ways are to open

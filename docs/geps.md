@@ -1,4 +1,4 @@
-# GETTSIM Enhancement Proposals
+# GETTSIM Enhancement Proposals (GEPs)
 
 Setting up GETTSIM and making major changes is done via the process of GETTSIM
 Enhancement Proposals, short GEPs. They serve the purpose of summarising discussions

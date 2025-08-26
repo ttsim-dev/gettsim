@@ -189,7 +189,8 @@ interface while maintaining GETTSIM's computational robustness.
 
 1. **Underlying structure**
 
-   The interface DAG looks as follows:
+   The interface DAG excluding some less important elements looks as follows (darker /
+   brighter colors are more important for understanding the behavior of GETTSIM):
 
    ```{raw} html
    ---

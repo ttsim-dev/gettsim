@@ -2,8 +2,8 @@
 
 ```{include} ../README.md
 ---
-start-line: 19
-end-line: 32
+start-line: 20
+end-line: 27
 ---
 ```
 
@@ -17,7 +17,7 @@ accomplish specific tasks with GETTSIM.
 caption: Links
 hidden: true
 ---
-gettsim on Github <https://github.com/ttsim-dev/gettsim>
+GETTSIM on Github <https://github.com/ttsim-dev/gettsim>
 ```
 
 ```{toctree}
@@ -28,7 +28,7 @@ maxdepth: 1
 installation
 tutorials/index
 how_to_guides/index
-gettsim_objects/index
+tt_explanations/index
 gettsim_developer/index
 geps
 changes
