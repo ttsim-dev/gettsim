@@ -58,7 +58,7 @@ altersgrenze_gestaffelt:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
     note: Increase of full retirement age from 60 to 65 for birth cohort 1941-1952.
     first_year_to_consider: 1900
-    last_year_to_consider: 2029
+    last_year_to_consider: 2030
     1940:
       12:
         years: 60
@@ -259,7 +259,7 @@ altersgrenze_gestaffelt:
     reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
     note: Increase of FRA accelerated with exemption (Vertrauensschutz).
     first_year_to_consider: 1900
-    last_year_to_consider: 2029
+    last_year_to_consider: 2030
     1939:
       12:
         years: 60
@@ -502,7 +502,7 @@ altersgrenze_vorzeitig_gestaffelt:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
     note: Increase of early retirement age from 60 to 62 for birth cohort 1949-1952.
     first_year_to_consider: 1900
-    last_year_to_consider: 2029
+    last_year_to_consider: 2030
     1948:
       12:
         years: 60
