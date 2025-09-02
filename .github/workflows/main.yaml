@@ -37,8 +37,8 @@ jobs:
           - os: windows-latest
             environment: py312
     steps:
-      - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.8.14
+      - uses: actions/checkout@v5
+      - uses: prefix-dev/setup-pixi@v0.9.0
         with:
           pixi-version: v0.50.1
           cache: true
