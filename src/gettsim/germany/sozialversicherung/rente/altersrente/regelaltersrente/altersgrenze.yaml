@@ -53,7 +53,7 @@ altersgrenze_gestaffelt:
       Altersteilzeit before January 1st, 2007 or received "Anpassungsgeld für
       entlassene Arbeitnehmer des Bergbaus".
     first_year_to_consider: 1900
-    last_year_to_consider: 2031
+    last_year_to_consider: 2030
     1946:
       years: 65
       months: 0
