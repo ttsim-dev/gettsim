@@ -143,7 +143,7 @@ def alter_monate_jüngstes_mitglied_fg(alter_monate: int, fg_id: int) -> float:
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", vectorization_strategy="not_required")
 def ist_kind_in_bedarfsgemeinschaft(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
@@ -236,8 +236,8 @@ def alleinerziehend_sn(familie__alleinerziehend: bool, sn_id: int) -> bool:
     pass
 
 
-@policy_function(vectorization_strategy="not_required")
-def ist_kind_in_einstandsgemeinschaft(alter: IntColumn) -> BoolColumn:
+@policy_function()
+def ist_kind_in_einstandsgemeinschaft(alter: int) -> bool:
     """Determines whether the given person is a child in a Einstandsgemeinschaft.
 
     The 'child' definition follows §27 SGB XII.
