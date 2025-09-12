@@ -39,6 +39,9 @@ inputs:
         ist_hauptberuflich_selbstständig:
           - false
         sonstige:
+          rente:
+            betrag_m:
+              - 0.0
           alle_weiteren_m:
             - 0.0
       gemeinsam_veranlagt:
@@ -48,15 +51,6 @@ inputs:
         - 3000.0
       kapitalerträge_m:
         - 0.0
-      renten:
-        betriebliche_altersvorsorge_m:
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-        aus_berufsständischen_versicherungen_m:
-          - 0.0
-        sonstige_private_vorsorge_m:
-          - 0.0
     familie:
       alleinerziehend:
         - false
@@ -88,17 +82,6 @@ inputs:
         beitrag:
           hat_kinder:
             - false
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-        jahr_renteneintritt:
-          - 2040
-        monat_renteneintritt:
-          - 1
     wohnort_ost_hh:
       - false
 outputs:

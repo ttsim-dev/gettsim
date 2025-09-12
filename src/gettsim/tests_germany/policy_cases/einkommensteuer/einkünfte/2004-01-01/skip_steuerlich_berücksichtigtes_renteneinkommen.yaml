@@ -1,0 +1,60 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+    einnahmen:
+      renten:
+        gesetzliche_m:
+          - 1000.0
+        geförderte_private_vorsorge_m:
+          - 1000.0
+        sonstige_private_vorsorge_m:
+          - 1000.0
+        betriebliche_altersvorsorge_m:
+          - 1000.0
+        aus_berufsständischen_versicherungen_m:
+          - 1000.0
+    sozialversicherung:
+      rente:
+        alter_bei_renteneintritt:
+          - null
+outputs:
+  einkommensteuer:
+    abgeltungssteuer:
+      betrag_y_sn:
+        - 424.75
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 9830
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 12950
+  solidaritätszuschlag:
+    betrag_y_sn:
+      - 564.01

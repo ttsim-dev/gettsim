@@ -54,6 +54,10 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
     familie:
       alleinerziehend:
         - true

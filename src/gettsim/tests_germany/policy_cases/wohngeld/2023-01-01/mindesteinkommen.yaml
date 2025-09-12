@@ -71,7 +71,7 @@ inputs:
             - 0.0
             - 0.0
           rente:
-            ertragsanteil:
+            betrag_m:
               - 0.0
               - 0.0
               - 0.0
@@ -116,6 +116,13 @@ inputs:
           - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
           - 0.0
           - 0.0
           - 0.0

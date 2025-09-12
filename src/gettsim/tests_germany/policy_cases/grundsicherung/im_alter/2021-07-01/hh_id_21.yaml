@@ -53,6 +53,9 @@ inputs:
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0

@@ -80,6 +80,7 @@ def bruttoeinkommen_m(
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
     elterngeld__betrag_m: float,
@@ -94,6 +95,7 @@ def bruttoeinkommen_m(
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__gesetzliche_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + sozialversicherung__arbeitslosen__betrag_m
         + elterngeld__betrag_m

@@ -263,6 +263,7 @@ def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
     """Income from private and public pensions in the previous calendar year.
 
@@ -273,4 +274,5 @@ def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
     )

@@ -50,6 +50,10 @@ inputs:
           - false
           - false
         sonstige:
+          rente:
+            betrag_m:
+              - 0.0
+              - 0.0
           alle_weiteren_m:
             - 0.0
             - 0.0
@@ -63,19 +67,6 @@ inputs:
       kapitalerträge_m:
         - 0.0
         - 0.0
-      renten:
-        betriebliche_altersvorsorge_m:
-          - 0.0
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-          - 0.0
-        aus_berufsständischen_versicherungen_m:
-          - 0.0
-          - 0.0
-        sonstige_private_vorsorge_m:
-          - 0.0
-          - 0.0
     familie:
       alleinerziehend:
         - false
@@ -119,21 +110,6 @@ inputs:
           hat_kinder:
             - true
             - true
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-            - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-        jahr_renteneintritt:
-          - 2045
-          - 2047
-        monat_renteneintritt:
-          - 1
-          - 1
     wohnort_ost_hh:
       - false
       - false

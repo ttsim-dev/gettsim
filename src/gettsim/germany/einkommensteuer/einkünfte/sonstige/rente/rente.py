@@ -20,7 +20,10 @@ from gettsim.tt import (
 
 @policy_function(end_date="2004-12-31", leaf_name="betrag_m")
 def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
-    ertragsanteil: float,
+    ertragsanteil_gesetzliche_rente: float,
+    ertragsanteil_berufsständische_altersvorsorge: float,
+    ertragsanteil_sonstige_private_vorsorge: float,
+    ertragsanteil_betriebliche_altersvorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
@@ -29,13 +32,13 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
 ) -> float:
     """Pension income counting towards taxable income."""
     return (
-        ertragsanteil
-        * (
-            einnahmen__renten__gesetzliche_m
-            + einnahmen__renten__aus_berufsständischen_versicherungen_m
-            + einnahmen__renten__sonstige_private_vorsorge_m
-        )
-        + einnahmen__renten__betriebliche_altersvorsorge_m
+        ertragsanteil_gesetzliche_rente * einnahmen__renten__gesetzliche_m
+        + ertragsanteil_berufsständische_altersvorsorge
+        * einnahmen__renten__aus_berufsständischen_versicherungen_m
+        + ertragsanteil_sonstige_private_vorsorge
+        * einnahmen__renten__sonstige_private_vorsorge_m
+        + ertragsanteil_betriebliche_altersvorsorge
+        * einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
     )
 
@@ -43,7 +46,7 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
 @policy_function(start_date="2005-01-01", leaf_name="betrag_m")
 def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
     besteuerungsanteil: float,
-    ertragsanteil: float,
+    ertragsanteil_sonstige_private_vorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
@@ -61,21 +64,55 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
             + einnahmen__renten__sonstige_private_vorsorge_m
             + einnahmen__renten__aus_berufsständischen_versicherungen_m
         )
-        + ertragsanteil * einnahmen__renten__sonstige_private_vorsorge_m
+        + ertragsanteil_sonstige_private_vorsorge
+        * einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
     )
 
 
 @policy_function()
-def ertragsanteil(
+def ertragsanteil_sonstige_private_vorsorge(
+    einnahmen__renten__alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
+    parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
+) -> float:
+    """Ertragsanteil."""
+    return parameter_ertragsanteil.look_up(
+        einnahmen__renten__alter_beginn_leistungsbezug_sonstige_private_vorsorge
+    )
+
+
+@policy_function(end_date="2004-12-31")
+def ertragsanteil_berufsständische_altersvorsorge(
+    einnahmen__renten__alter_beginn_leistungsbezug_berufsständische_altersvorsorge: int,
+    parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
+) -> float:
+    """Ertragsanteil."""
+    return parameter_ertragsanteil.look_up(
+        einnahmen__renten__alter_beginn_leistungsbezug_berufsständische_altersvorsorge
+    )
+
+
+@policy_function(end_date="2004-12-31")
+def ertragsanteil_gesetzliche_rente(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
     xnp: ModuleType,
 ) -> float:
     """Ertragsanteil."""
     return parameter_ertragsanteil.look_up(
-        xnp.floor(sozialversicherung__rente__alter_bei_renteneintritt).astype(int),
+        xnp.floor(sozialversicherung__rente__alter_bei_renteneintritt).astype(int)
+    )
+
+
+@policy_function(end_date="2004-12-31")
+def ertragsanteil_betriebliche_altersvorsorge(
+    einnahmen__renten__alter_beginn_leistungsbezug_betriebliche_altersvorsorge: int,
+    parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
+) -> float:
+    """Ertragsanteil."""
+    return parameter_ertragsanteil.look_up(
+        einnahmen__renten__alter_beginn_leistungsbezug_betriebliche_altersvorsorge
     )
 
 

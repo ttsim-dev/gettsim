@@ -50,7 +50,7 @@ inputs:
             - 0.0
             - 0.0
           rente:
-            ertragsanteil:
+            betrag_m:
               - 0.0
               - 0.0
               - 0.0
