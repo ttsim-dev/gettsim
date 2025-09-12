@@ -13,6 +13,11 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1093` Fix taxation of pensions and add some missing parameters of the
+  Wachstumschancengesetz 2024. ({ghuser}`MImmesberger`)
+
 ## v1.0 — 2025-08-26
 
 - {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
