@@ -231,7 +231,7 @@ def altersvorsorge_y_sn_phase_in(
     beitrag_private_rentenversicherung_y_sn: float,
     familie__anzahl_personen_sn: int,
     rate_abzugsfähige_altersvorsorgeaufwendungen: float,
-    maximalbetrag_altersvorsorgeaufwendungen: float,
+    maximalbetrag_altersvorsorgeaufwendungen_y: float,
 ) -> float:
     """Contributions to retirement savings deductible from taxable income.
 
@@ -246,7 +246,7 @@ def altersvorsorge_y_sn_phase_in(
         )
         - sozialversicherung__rente__beitrag__betrag_versicherter_y_sn
     )
-    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
+    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen_y
     out = min(out, max_value)
 
     return out
@@ -257,14 +257,14 @@ def altersvorsorge_y_sn_volle_anrechnung(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
     beitrag_private_rentenversicherung_y_sn: float,
     familie__anzahl_personen_sn: int,
-    maximalbetrag_altersvorsorgeaufwendungen: float,
+    maximalbetrag_altersvorsorgeaufwendungen_y: float,
 ) -> float:
     """Contributions to retirement savings deductible from taxable income."""
     out = (
         sozialversicherung__rente__beitrag__betrag_versicherter_y_sn
         + beitrag_private_rentenversicherung_y_sn
     )
-    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen
+    max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen_y
 
     return min(out, max_value)
 
@@ -286,3 +286,16 @@ def vorwegabzug_lohnsteuer_y_sn(
     )
 
     return max(out, 0.0)
+
+
+@param_function(start_date="2015-01-01")
+def maximalbetrag_altersvorsorgeaufwendungen_y(
+    sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung: float,
+    sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y: float,
+    xnp: ModuleType,
+) -> float:
+    """Maximalbetrag der Altersvorsorgeaufwendungen."""
+    return xnp.ceil(
+        sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
+        * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
+    )

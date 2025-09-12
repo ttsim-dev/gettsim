@@ -125,7 +125,7 @@ maximalbetrag_sonstige_vorsorgeaufwendungen:
   2010-01-01:
     value: 1900
     reference: Art. 1 G. v. 23.07.2009 BGBl. I S.1959.
-maximalbetrag_altersvorsorgeaufwendungen:
+maximalbetrag_altersvorsorgeaufwendungen_y:
   name:
     de: Maximalbetrag der Altersvorsorgeaufwendungen, 2005er Rechtsstand
     en: null
@@ -139,34 +139,9 @@ maximalbetrag_altersvorsorgeaufwendungen:
     value: 20000
     note: Art. 1 G. v. 05.07.2004 BGBl. I S.1427
   2015-01-01:
-    value: 22170
     note: >-
       Ab 2015 knappschaftlicher Höchstbetrag, d.h. knappschaftlicher Beitragssatz *
       knappschaftliche Beitragsbemessungsgrenze
-  2016-01-01:
-    value: 22766
-    note: 0.248 * 91800
-  2017-01-01:
-    value: 23362
-    note: 0.248 * 94200
-  2018-01-01:
-    value: 23712
-    note: 0.247 * 96000
-  2019-01-01:
-    value: 24305
-    note: 0.247 * 98400
-  2020-01-01:
-    value: 25046
-    reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
-    note: 0.247 * 101400
-  2021-01-01:
-    value: 25787
-    reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
-    note: 0.247 * 104400
-  2022-01-01:
-    value: 25640
-    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
-    note: 0.247 * 103800
 minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge:
   name:
     de: >-

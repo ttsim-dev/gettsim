@@ -159,3 +159,55 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     note: >-
       Beitragsbemessungsgrenze ist einheitlich zwischen West und Ost. Siehe
       ``beitragsbemessungsgrenze_m``.
+beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
+  name:
+    de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West)
+    en: Maximum income subject to statutory pension insurance (West)
+  description:
+    de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West).
+    en: Income threshold for statutory pension insurance (West).
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2015-01-01:
+    value: 89400
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
+      1957
+  2016-01-01:
+    value: 91800
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
+      2137
+  2017-01-01:
+    value: 94200
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
+      2665
+  2018-01-01:
+    value: 96000
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
+      3778
+  2019-01-01:
+    value: 98400
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
+      2024
+  2020-01-01:
+    value: 101400
+    reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
+  2021-01-01:
+    value: 104400
+    reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
+  2022-01-01:
+    value: 103800
+    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+  2023-01-01:
+    value: 107400
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
+      2128
+  2024-01-01:
+    value: 111600
+    reference: Jahressteuergesetz 2024 Art. 4 BGBl. 2024 I Nr. 387 vom 05.12.2024
