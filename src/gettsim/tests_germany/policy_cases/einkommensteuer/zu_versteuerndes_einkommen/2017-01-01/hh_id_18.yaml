@@ -70,6 +70,9 @@ inputs:
         geförderte_private_vorsorge_m:
           - 0.0
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
@@ -89,6 +92,9 @@ inputs:
     geburtsjahr:
       - 1980
       - 1982
+    geburtsmonat:
+      - 1
+      - 1
     hh_id:
       - 18
       - 18
@@ -125,6 +131,9 @@ inputs:
         jahr_renteneintritt:
           - 2045
           - 2047
+        monat_renteneintritt:
+          - 1
+          - 1
     wohnort_ost_hh:
       - false
       - false

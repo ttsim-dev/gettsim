@@ -52,6 +52,8 @@ inputs:
           - 0.0
         geförderte_private_vorsorge_m:
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
     familie:
@@ -65,6 +67,8 @@ inputs:
         - -1
     geburtsjahr:
       - 1970
+    geburtsmonat:
+      - 1
     hh_id:
       - 5
     kindergeld:
@@ -92,6 +96,8 @@ inputs:
             - 0.0
         jahr_renteneintritt:
           - 2035
+        monat_renteneintritt:
+          - 1
     wohnort_ost_hh:
       - false
 outputs:

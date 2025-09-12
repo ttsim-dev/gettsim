@@ -105,6 +105,12 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
@@ -216,6 +222,12 @@ inputs:
             - 0.0
             - 0.0
       rente:
+        jahr_renteneintritt:
+          - 2029
+          - 2029
+          - 2029
+          - 2029
+          - 2029
         altersrente:
           betrag_m:
             - 0.0
