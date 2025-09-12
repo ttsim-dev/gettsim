@@ -94,7 +94,7 @@ def altersentlastungsquote_gestaffelt(
     spec = raw_altersentlastungsquote_gestaffelt.copy()
     first_birthyear_to_consider: int = int(spec.pop("first_birthyear_to_consider"))
     last_birthyear_to_consider: int = int(spec.pop("last_birthyear_to_consider"))
-    spec_int_float: dict[int, float] = {int(k): float(v) for k, v in spec.items()}
+    spec_int_float: dict[int, float] = {int(k) - 65: float(v) for k, v in spec.items()}
     return get_consecutive_int_1d_lookup_table_with_filled_up_tails(
         raw=spec_int_float,
         left_tail_key=first_birthyear_to_consider,
@@ -112,7 +112,7 @@ def maximaler_altersentlastungsbetrag_gestaffelt(
     spec = raw_maximaler_altersentlastungsbetrag_gestaffelt.copy()
     first_birthyear_to_consider: int = int(spec.pop("first_birthyear_to_consider"))
     last_birthyear_to_consider: int = int(spec.pop("last_birthyear_to_consider"))
-    spec_int_float: dict[int, float] = {int(k): float(v) for k, v in spec.items()}
+    spec_int_float: dict[int, float] = {int(k) - 65: float(v) for k, v in spec.items()}
     return get_consecutive_int_1d_lookup_table_with_filled_up_tails(
         raw=spec_int_float,
         left_tail_key=first_birthyear_to_consider,
