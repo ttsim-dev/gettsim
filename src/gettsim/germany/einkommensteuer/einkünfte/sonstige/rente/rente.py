@@ -7,15 +7,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from gettsim.tt import (
-        ConsecutiveIntLookupTableParamValue,
-        PiecewisePolynomialParamValue,
-    )
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
-from gettsim.tt import (
-    piecewise_polynomial,
-    policy_function,
-)
+from gettsim.tt import policy_function
 
 
 @policy_function(end_date="2004-12-31", leaf_name="betrag_m")
@@ -119,12 +113,9 @@ def ertragsanteil_betriebliche_altersvorsorge(
 @policy_function(start_date="2005-01-01")
 def besteuerungsanteil(
     sozialversicherung__rente__jahr_renteneintritt: int,
-    parameter_besteuerungsanteil: PiecewisePolynomialParamValue,
-    xnp: ModuleType,
+    parameter_besteuerungsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Share of pensions subject to income taxation."""
-    return piecewise_polynomial(
-        x=sozialversicherung__rente__jahr_renteneintritt,
-        parameters=parameter_besteuerungsanteil,
-        xnp=xnp,
+    return parameter_besteuerungsanteil.look_up(
+        sozialversicherung__rente__jahr_renteneintritt
     )

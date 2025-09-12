@@ -16,9 +16,11 @@ parameter_ertragsanteil:
       is determined by the age at pension entry.
   unit: null
   reference_period: null
-  type: consecutive_int_lookup_table
+  type: sparse_to_consecutive_int_lookup_table
   1997-01-01:
     reference: Neubekanntmachung EStG BGBl. I Nr. 26 S. 821 vom 16.04.1997
+    min_int_in_table: 0
+    max_int_in_table: 120
     0: 0.73
     1: 0.73
     2: 0.73
@@ -117,21 +119,10 @@ parameter_ertragsanteil:
     95: 0.03
     96: 0.03
     97: 0.02
-    98: 0.02
-    99: 0.02
-    100: 0.02
-    101: 0.02
-    102: 0.02
-    103: 0.02
-    104: 0.02
-    105: 0.02
-    106: 0.02
-    107: 0.02
-    108: 0.02
-    109: 0.02
-    110: 0.02
   2005-01-01:
     reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
+    min_int_in_table: 0
+    max_int_in_table: 120
     0: 0.59
     1: 0.59
     2: 0.58
@@ -230,19 +221,6 @@ parameter_ertragsanteil:
     95: 0.02
     96: 0.02
     97: 0.01
-    98: 0.01
-    99: 0.01
-    100: 0.01
-    101: 0.01
-    102: 0.01
-    103: 0.01
-    104: 0.01
-    105: 0.01
-    106: 0.01
-    107: 0.01
-    108: 0.01
-    109: 0.01
-    110: 0.01
 parameter_besteuerungsanteil:
   name:
     de: >-
@@ -262,53 +240,102 @@ parameter_besteuerungsanteil:
       § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
   unit: null
   reference_period: null
-  type: piecewise_linear
+  type: sparse_to_consecutive_int_lookup_table
   2005-01-01:
     reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
-    0:
-      lower_threshold: -inf
-      upper_threshold: 2005
-      rate_linear: 0
-      intercept_at_lower_threshold: 0.5
-    1:
-      lower_threshold: 2005
-      upper_threshold: 2020
-      rate_linear: 0.02
-      intercept_at_lower_threshold: 0.5
-    2:
-      lower_threshold: 2020
-      upper_threshold: 2040
-      rate_linear: 0.01
-      intercept_at_lower_threshold: 0.8
-    3:
-      lower_threshold: 2040
-      upper_threshold: inf
-      rate_linear: 0.0
-      intercept_at_lower_threshold: 1
+    min_int_in_table: 1950
+    max_int_in_table: 2100
+    2005: 0.5
+    2006: 0.52
+    2007: 0.54
+    2008: 0.56
+    2009: 0.58
+    2010: 0.60
+    2011: 0.62
+    2012: 0.64
+    2013: 0.66
+    2014: 0.68
+    2015: 0.70
+    2016: 0.72
+    2017: 0.74
+    2018: 0.76
+    2019: 0.78
+    2020: 0.80
+    2021: 0.81
+    2022: 0.82
+    2023: 0.83
+    2024: 0.84
+    2025: 0.85
+    2026: 0.86
+    2027: 0.87
+    2028: 0.88
+    2029: 0.89
+    2030: 0.90
+    2031: 0.91
+    2032: 0.92
+    2033: 0.93
+    2034: 0.94
+    2035: 0.95
+    2036: 0.96
+    2037: 0.97
+    2038: 0.98
+    2039: 0.99
+    2040: 1
   2022-01-01:
     reference: Art. 1 Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
-    0:
-      lower_threshold: -inf
-      upper_threshold: 2005
-      rate_linear: 0
-      intercept_at_lower_threshold: 0.5
-    1:
-      lower_threshold: 2005
-      upper_threshold: 2020
-      rate_linear: 0.02
-      intercept_at_lower_threshold: 0.5
-    2:
-      lower_threshold: 2020
-      upper_threshold: 2023
-      rate_linear: 0.01
-      intercept_at_lower_threshold: 0.8
-    3:
-      lower_threshold: 2023
-      upper_threshold: 2058
-      rate_linear: 0.005
-      intercept_at_lower_threshold: 0.825
-    4:
-      lower_threshold: 2058
-      upper_threshold: inf
-      rate_linear: 0.0
-      intercept_at_lower_threshold: 1
+    min_int_in_table: 1950
+    max_int_in_table: 2100
+    2005: 0.5
+    2006: 0.52
+    2007: 0.54
+    2008: 0.56
+    2009: 0.58
+    2010: 0.60
+    2011: 0.62
+    2012: 0.64
+    2013: 0.66
+    2014: 0.68
+    2015: 0.70
+    2016: 0.72
+    2017: 0.74
+    2018: 0.76
+    2019: 0.78
+    2020: 0.80
+    2021: 0.81
+    2022: 0.82
+    2023: 0.825
+    2024: 0.83
+    2025: 0.835
+    2026: 0.84
+    2027: 0.845
+    2028: 0.85
+    2029: 0.855
+    2030: 0.86
+    2031: 0.865
+    2032: 0.87
+    2033: 0.875
+    2034: 0.88
+    2035: 0.885
+    2036: 0.89
+    2037: 0.895
+    2038: 0.90
+    2039: 0.905
+    2040: 0.91
+    2041: 0.915
+    2042: 0.92
+    2043: 0.925
+    2044: 0.93
+    2045: 0.935
+    2046: 0.94
+    2047: 0.945
+    2048: 0.95
+    2049: 0.955
+    2050: 0.96
+    2051: 0.965
+    2052: 0.97
+    2053: 0.975
+    2054: 0.98
+    2055: 0.985
+    2056: 0.99
+    2057: 0.995
+    2058: 1
