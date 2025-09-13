@@ -11,8 +11,9 @@ def gesamtbetrag_der_einkünfte_y_mit_kapiteleinkünften(
     aus_gewerbebetrieb__betrag_y: float,
     aus_selbstständiger_arbeit__betrag_y: float,
     aus_nichtselbstständiger_arbeit__betrag_y: float,
-    aus_kapitalvermögen__betrag_y: float,
+    aus_kapitalvermögen__betrag_y_sn: float,
     aus_vermietung_und_verpachtung__betrag_y: float,
+    anzahl_personen_sn: int,
     sonstige__betrag_y: float,
 ) -> float:
     """Gesamtbetrag der Einkünfte (GdE) with capital income."""
@@ -21,7 +22,12 @@ def gesamtbetrag_der_einkünfte_y_mit_kapiteleinkünften(
         + aus_gewerbebetrieb__betrag_y
         + aus_selbstständiger_arbeit__betrag_y
         + aus_nichtselbstständiger_arbeit__betrag_y
-        + aus_kapitalvermögen__betrag_y
+        # TODO(@MImmesberger): Einkünfte should be on individual level only but
+        # Sparerpauschbetrag is on SN level. Either Einkünfte can, in fact, be on
+        # SN level too, or Sparerpauschbetrag needs to be deducted at a different
+        # stage.
+        # https://github.com/ttsim-dev/gettsim/issues/1095
+        + aus_kapitalvermögen__betrag_y_sn / anzahl_personen_sn
         + aus_vermietung_und_verpachtung__betrag_y
         + sonstige__betrag_y
     )
