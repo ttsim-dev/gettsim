@@ -32,3 +32,7 @@ parameter_absetzbare_kinderbetreuungskosten:
     anteil: 0.6666666
     maximum: 4000.0
     reference: Art. 1 G. v. 01.11.2011 BGBl. I S.2131
+  2025-01-01:
+    anteil: 0.8
+    maximum: 4800.0
+    reference: Jahressteuergesetz 2024 Art. 4 BGBl. 2024 I Nr. 387 vom 05.12.2024
