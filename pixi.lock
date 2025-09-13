@@ -1313,7 +1313,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/d3/c2/82389f6e20098a414ddcf88d3b8032809b7a66e70f9bc5264f81beb24b4a/choreographer-1.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/47/85/048b6f1779f0d46f594122b1c73e016500098560b570fd81c5b5578a4d47/dags-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#d420c8e693df73abe5aad177b03c6c6d212d6705
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-inputs-from-gettsim-1093#c66128140a839a8f3391d400a1722b5e48bff888
       - pypi: https://files.pythonhosted.org/packages/c9/b9/281e10e2d967ea5e481683eaec99f55ac5a61085ee60551c36942ef32bef/jaxtyping-0.3.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5a/bf/10b009e3b96a803f25af126951bc167402354d765006a94d11ba46a2f667/kaleido-1.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bc/df/e51691ab004d74fa25b751527d041ad1b4d84ee86cbcb8630ab0d7d5188e/logistro-1.1.0-py3-none-any.whl
@@ -1574,7 +1574,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/d3/c2/82389f6e20098a414ddcf88d3b8032809b7a66e70f9bc5264f81beb24b4a/choreographer-1.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/47/85/048b6f1779f0d46f594122b1c73e016500098560b570fd81c5b5578a4d47/dags-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#d420c8e693df73abe5aad177b03c6c6d212d6705
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-inputs-from-gettsim-1093#c66128140a839a8f3391d400a1722b5e48bff888
       - pypi: https://files.pythonhosted.org/packages/c9/b9/281e10e2d967ea5e481683eaec99f55ac5a61085ee60551c36942ef32bef/jaxtyping-0.3.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5a/bf/10b009e3b96a803f25af126951bc167402354d765006a94d11ba46a2f667/kaleido-1.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bc/df/e51691ab004d74fa25b751527d041ad1b4d84ee86cbcb8630ab0d7d5188e/logistro-1.1.0-py3-none-any.whl
@@ -1835,7 +1835,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/d3/c2/82389f6e20098a414ddcf88d3b8032809b7a66e70f9bc5264f81beb24b4a/choreographer-1.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/47/85/048b6f1779f0d46f594122b1c73e016500098560b570fd81c5b5578a4d47/dags-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#d420c8e693df73abe5aad177b03c6c6d212d6705
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-inputs-from-gettsim-1093#c66128140a839a8f3391d400a1722b5e48bff888
       - pypi: https://files.pythonhosted.org/packages/c9/b9/281e10e2d967ea5e481683eaec99f55ac5a61085ee60551c36942ef32bef/jaxtyping-0.3.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5a/bf/10b009e3b96a803f25af126951bc167402354d765006a94d11ba46a2f667/kaleido-1.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bc/df/e51691ab004d74fa25b751527d041ad1b4d84ee86cbcb8630ab0d7d5188e/logistro-1.1.0-py3-none-any.whl
@@ -2103,7 +2103,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/d3/c2/82389f6e20098a414ddcf88d3b8032809b7a66e70f9bc5264f81beb24b4a/choreographer-1.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/47/85/048b6f1779f0d46f594122b1c73e016500098560b570fd81c5b5578a4d47/dags-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#d420c8e693df73abe5aad177b03c6c6d212d6705
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-inputs-from-gettsim-1093#c66128140a839a8f3391d400a1722b5e48bff888
       - pypi: https://files.pythonhosted.org/packages/c9/b9/281e10e2d967ea5e481683eaec99f55ac5a61085ee60551c36942ef32bef/jaxtyping-0.3.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5a/bf/10b009e3b96a803f25af126951bc167402354d765006a94d11ba46a2f667/kaleido-1.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bc/df/e51691ab004d74fa25b751527d041ad1b4d84ee86cbcb8630ab0d7d5188e/logistro-1.1.0-py3-none-any.whl
@@ -9549,17 +9549,15 @@ packages:
   timestamp: 1750744808182
 - pypi: ./
   name: gettsim
-  version: 1.1.dev14+geb74fb3ed.d20250913
-  sha256: 9dd8c9418cf94c44f71e1618bdf624110e5cd1d26de9b95d02534e79535d4438
+  version: 1.1.dev17+g8bce7c69f.d20250913
+  sha256: 5239fd46098fc70ba1203835e906f3060133b3775c7c44b40e1bc0868ef203ae
   requires_dist:
   - ttsim-backend>=1.1.0
   requires_python: '>=3.11'
   editable: true
-- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#d420c8e693df73abe5aad177b03c6c6d212d6705
+- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-inputs-from-gettsim-1093#c66128140a839a8f3391d400a1722b5e48bff888
   name: gettsim-personas
-  version: 0.1.dev8+gd420c8e69
-  requires_dist:
-  - gettsim>=1.0a2
+  version: 0.1.dev9+gc66128140
   requires_python: '>=3.11'
 - conda: https://conda.anaconda.org/conda-forge/linux-64/glib-tools-2.86.0-hf516916_0.conda
   sha256: b77316bd5c8680bde4e5a7ab7013c8f0f10c1702cc6c3b0fd0fac3923a31fec3
