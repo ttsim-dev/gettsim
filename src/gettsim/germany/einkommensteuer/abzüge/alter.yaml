@@ -52,8 +52,8 @@ raw_maximaler_altersentlastungsbetrag_gestaffelt:
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
-    first_birthyear_to_consider: 1900
-    last_birthyear_to_consider: 2100
+    first_calendar_year_to_consider: 1900
+    last_calendar_year_to_consider: 2100
     2005: 1900
     2006: 1824
     2007: 1748
@@ -92,8 +92,8 @@ raw_maximaler_altersentlastungsbetrag_gestaffelt:
     2040: 0
   2023-01-01:
     reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
-    first_birthyear_to_consider: 1900
-    last_birthyear_to_consider: 2100
+    first_calendar_year_to_consider: 1900
+    last_calendar_year_to_consider: 2100
     2005: 1900
     2006: 1824
     2007: 1748
@@ -186,8 +186,8 @@ raw_altersentlastungsquote_gestaffelt:
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
-    first_birthyear_to_consider: 1900
-    last_birthyear_to_consider: 2100
+    first_calendar_year_to_consider: 1900
+    last_calendar_year_to_consider: 2100
     2005: 0.4
     2006: 0.384
     2007: 0.368
@@ -226,8 +226,8 @@ raw_altersentlastungsquote_gestaffelt:
     2040: 0
   2023-01-01:
     reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
-    first_birthyear_to_consider: 1900
-    last_birthyear_to_consider: 2100
+    first_calendar_year_to_consider: 1900
+    last_calendar_year_to_consider: 2100
     2005: 0.4
     2006: 0.384
     2007: 0.368
