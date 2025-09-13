@@ -21,5 +21,6 @@ assignees: ''
 - [ ] Vorläufiges Durschnittsentgelt Rentenversicherung
 - [ ] Aktueller Rentenwert
 - [ ] Bezugsgröße Rentenversicherung
+- [ ] Beitragssatz + Beitragsbemessungsgrenze knappschaftliche Rentenversicherung (West)
 
 #### Additional parameters for this year

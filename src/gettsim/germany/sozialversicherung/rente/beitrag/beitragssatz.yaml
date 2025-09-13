@@ -51,3 +51,19 @@ beitragssatz:
     value: 0.187
   2018-01-01:
     value: 0.186
+beitragssatz_knappschaftliche_rentenversicherung:
+  name:
+    de: Beitragssatz zur knappschaftlichen Rentenversicherung
+    en: Contribution rate to statutory pension insurance
+  description:
+    de: Beitragssatz zur knappschaftlichen Rentenversicherung.
+    en: Contribution rate to statutory pension insurance.
+  unit: Share
+  reference_period: null
+  type: scalar
+  2015-01-01:
+    value: 0.248
+    reference: Beitragssatzverordnung 2015 vom 22. Dezember 2014 BGBl. I S. 2396
+  2018-01-01:
+    value: 0.247
+    reference: Beitragssatzverordnung 2018 vom 18. Dezember 2017 BGBl. I S. 3976

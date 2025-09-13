@@ -13,6 +13,11 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1094` Make Vorsorgeaufwendungen a param function and update parameters of
+  knappschaftliche RV and Kinderbetreuungskosten in ESt. ({ghuser}`MImmesberger`)
+
 ## v1.0 — 2025-08-26
 
 - {gh}`1074` Make docs ready for 1.0 release. ({ghuser}`MImmesberger`,
