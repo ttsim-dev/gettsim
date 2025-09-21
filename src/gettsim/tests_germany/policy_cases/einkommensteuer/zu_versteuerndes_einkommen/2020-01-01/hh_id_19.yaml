@@ -74,6 +74,12 @@ inputs:
           - false
           - false
         sonstige:
+          rente:
+            betrag_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
           alle_weiteren_m:
             - 0.0
             - 0.0
@@ -95,22 +101,6 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-      renten:
-        betriebliche_altersvorsorge_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-        sonstige_private_vorsorge_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
     familie:
       alleinerziehend:
         - false
@@ -137,6 +127,11 @@ inputs:
       - 1976
       - 2007
       - 2005
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
     hh_id:
       - 19
       - 19
@@ -173,24 +168,6 @@ inputs:
             - true
             - false
             - false
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-        erwerbsminderung:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-        jahr_renteneintritt:
-          - 2037
-          - 2038
-          - 2074
-          - 2072
     wohnort_ost_hh:
       - false
       - false

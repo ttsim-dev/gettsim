@@ -1,0 +1,153 @@
+---
+info:
+  note: ''
+  precision_atol: 1
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            alter_beginn_leistungsbezug_berufsständische_altersvorsorge:
+              - 50
+              - 51
+              - 52
+              - 53
+              - 54
+              - 55
+              - 56
+              - 57
+              - 58
+              - 59
+            alter_beginn_leistungsbezug_betriebliche_altersvorsorge:
+              - 50
+              - 51
+              - 52
+              - 53
+              - 54
+              - 55
+              - 56
+              - 57
+              - 58
+              - 59
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 50
+              - 51
+              - 52
+              - 53
+              - 54
+              - 55
+              - 56
+              - 57
+              - 58
+              - 59
+    einnahmen:
+      renten:
+        gesetzliche_m:
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+        geförderte_private_vorsorge_m:
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+        sonstige_private_vorsorge_m:
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+        betriebliche_altersvorsorge_m:
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+        aus_berufsständischen_versicherungen_m:
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+          - 1000.0
+    sozialversicherung:
+      rente:
+        alter_bei_renteneintritt:
+          - 50
+          - 51
+          - 52
+          - 53
+          - 54
+          - 55
+          - 56
+          - 57
+          - 58
+          - 59
+outputs:
+  einkommensteuer:
+    einkünfte:
+      sonstige:
+        rente:
+          betrag_m:
+            - 2720.0
+            - 2680.0
+            - 2640.0
+            - 2600.0
+            - 2560.0
+            - 2520.0
+            - 2480.0
+            - 2440.0
+            - 2400.0
+            - 2360.0

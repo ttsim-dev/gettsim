@@ -32,6 +32,9 @@ inputs:
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
     hh_id:
       - 11
       - 11

@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1093` Fix taxation of pensions and add some missing parameters of the
+  Wachstumschancengesetz 2024. ({ghuser}`MImmesberger`)
 - {gh}`1094` Make Vorsorgeaufwendungen a param function and update parameters of
   knappschaftliche RV and Kinderbetreuungskosten in ESt. ({ghuser}`MImmesberger`)
 

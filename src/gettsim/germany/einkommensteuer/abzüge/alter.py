@@ -56,12 +56,14 @@ def altersfreibetrag_y_ab_2005(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y: float,
     altersentlastungsbetrag_altersgrenze: int,
-    maximaler_altersentlastungsbetrag_gestaffelt: ConsecutiveIntLookupTableParamValue,
-    altersentlastungsquote_gestaffelt: ConsecutiveIntLookupTableParamValue,
+    maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr: ConsecutiveIntLookupTableParamValue,
+    altersentlastungsquote_gestaffelt_nach_geburtsjahr: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Calculate tax deduction allowance for elderly since 2005."""
     maximaler_altersentlastungsbetrag = (
-        maximaler_altersentlastungsbetrag_gestaffelt.look_up(geburtsjahr)
+        maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr.look_up(
+            geburtsjahr
+        )
     )
 
     einkommen_lohn = (
@@ -73,7 +75,7 @@ def altersfreibetrag_y_ab_2005(
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y,
         0.0,
     )
-    betrag = altersentlastungsquote_gestaffelt.look_up(geburtsjahr) * (
+    betrag = altersentlastungsquote_gestaffelt_nach_geburtsjahr.look_up(geburtsjahr) * (
         einkommen_lohn + weiteres_einkommen
     )
 
@@ -86,37 +88,51 @@ def altersfreibetrag_y_ab_2005(
 
 
 @param_function(start_date="2005-01-01")
-def altersentlastungsquote_gestaffelt(
+def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     raw_altersentlastungsquote_gestaffelt: dict[str | int, int | float],
+    altersentlastungsbetrag_altersgrenze: int,
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Convert the raw parameters for the age-based tax deduction allowance to a dict."""
     spec = raw_altersentlastungsquote_gestaffelt.copy()
-    first_birthyear_to_consider: int = int(spec.pop("first_birthyear_to_consider"))
-    last_birthyear_to_consider: int = int(spec.pop("last_birthyear_to_consider"))
-    spec_int_float: dict[int, float] = {int(k): float(v) for k, v in spec.items()}
+    first_calendar_year_to_consider: int = int(
+        spec.pop("first_calendar_year_to_consider")
+    )
+    last_calendar_year_to_consider: int = int(
+        spec.pop("last_calendar_year_to_consider")
+    )
+    spec_int_float: dict[int, float] = {
+        int(k) - altersentlastungsbetrag_altersgrenze: float(v) for k, v in spec.items()
+    }
     return get_consecutive_int_1d_lookup_table_with_filled_up_tails(
         raw=spec_int_float,
-        left_tail_key=first_birthyear_to_consider,
-        right_tail_key=last_birthyear_to_consider,
+        left_tail_key=first_calendar_year_to_consider,
+        right_tail_key=last_calendar_year_to_consider,
         xnp=xnp,
     )
 
 
 @param_function(start_date="2005-01-01")
-def maximaler_altersentlastungsbetrag_gestaffelt(
+def maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr(
     raw_maximaler_altersentlastungsbetrag_gestaffelt: dict[str | int, int | float],
+    altersentlastungsbetrag_altersgrenze: int,
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Convert the raw parameters for the age-based tax deduction allowance to a dict."""
     spec = raw_maximaler_altersentlastungsbetrag_gestaffelt.copy()
-    first_birthyear_to_consider: int = int(spec.pop("first_birthyear_to_consider"))
-    last_birthyear_to_consider: int = int(spec.pop("last_birthyear_to_consider"))
-    spec_int_float: dict[int, float] = {int(k): float(v) for k, v in spec.items()}
+    first_calendar_year_to_consider: int = int(
+        spec.pop("first_calendar_year_to_consider")
+    )
+    last_calendar_year_to_consider: int = int(
+        spec.pop("last_calendar_year_to_consider")
+    )
+    spec_int_float: dict[int, float] = {
+        int(k) - altersentlastungsbetrag_altersgrenze: float(v) for k, v in spec.items()
+    }
     return get_consecutive_int_1d_lookup_table_with_filled_up_tails(
         raw=spec_int_float,
-        left_tail_key=first_birthyear_to_consider,
-        right_tail_key=last_birthyear_to_consider,
+        left_tail_key=first_calendar_year_to_consider,
+        right_tail_key=last_calendar_year_to_consider,
         xnp=xnp,
     )
 

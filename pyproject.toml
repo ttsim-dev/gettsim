@@ -168,7 +168,7 @@ sphinx-copybutton = "*"
 
 
 [tool.pixi.feature.docs.pypi-dependencies]
-gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "interface-update"}
+gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 
 # Tasks
 # --------------------------------------------------------------------------------------

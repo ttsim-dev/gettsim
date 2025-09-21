@@ -37,7 +37,7 @@ inputs:
             - 100.0
             - 0.0
           rente:
-            ertragsanteil:
+            betrag_m:
               - 0.0
               - 0.0
       gemeinsam_veranlagt:
@@ -51,13 +51,7 @@ inputs:
         - 0.0
         - 0.0
       renten:
-        betriebliche_altersvorsorge_m:
-          - 0.0
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-          - 0.0
-        sonstige_private_vorsorge_m:
+        gesamt_m:
           - 0.0
           - 0.0
     elterngeld:
@@ -120,10 +114,6 @@ inputs:
             - 80.0
             - 0.0
       rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-            - 0.0
         beitrag:
           betrag_versicherter_m:
             - 100.0

@@ -2,46 +2,340 @@
 parameter_ertragsanteil:
   name:
     de: >-
-      Parameter der Ertragsanteil-Funktion für den Anteil an
-      sozialversicherungspflichtigen Renteneinkommen, das versteuert werden muss.
+      Parameter der Ertragsanteil-Funktion für den Anteil an Renteneinkommen, das
+      versteuert werden muss.
     en: >-
       Parameter of the Ertragsanteil-function for the share of pensions subject to
       income taxation that is subject to income tax.
   description:
     de: >-
-      Renten werden mit dem Ertragsanteil besteuert sofern sie nicht aus einer staatlich
-      geförderten (d.h. in der Einzahlungsphase steuerlich begünstigten) Vorsorgeform
-      stammen.
-      § 22 EStG
-      Diese Funktion ist hier ab 2002 angegeben. Vor 2002 das Steuersystem ist nicht
-      implementiert.
+      Bis 2005 wurden alle Renteneinkommen mit ihrem Ertragsanteil versteuert. Der
+      Ertragsanteil bemisst sich nach dem Alter bei Renteneintritt.
     en: >-
-      Pensions are taxed with the Ertragsanteil unless they come from a state-sponsored
-      (i.e. tax-benefited) pension fund.
-      § 22 EStG
-      This function is given from 2002 onwards. Before 2002, the tax system is not
-      implemented.
+      Until 2005, all pension income was taxed with its Ertragsanteil. The Ertragsanteil
+      is determined by the age at pension entry.
   unit: null
   reference_period: null
-  type: piecewise_linear
-  2002-01-01:
-    0:
-      lower_threshold: -inf
-      upper_threshold: 2005
-      rate_linear: 0
-      intercept_at_lower_threshold: 0.27
-    1:
-      lower_threshold: 2005
-      upper_threshold: 2021
-      rate_linear: 0.02
-      intercept_at_lower_threshold: 0.5
-    2:
-      lower_threshold: 2021
-      upper_threshold: 2041
-      rate_linear: 0.01
-      intercept_at_lower_threshold: 0.8
-    3:
-      lower_threshold: 2041
-      upper_threshold: inf
-      rate_linear: 0.0
-      intercept_at_lower_threshold: 1
+  type: sparse_to_consecutive_int_lookup_table
+  1997-01-01:
+    reference: Neubekanntmachung EStG BGBl. I Nr. 26 S. 821 vom 16.04.1997
+    min_int_in_table: 0
+    max_int_in_table: 120
+    0: 0.73
+    1: 0.73
+    2: 0.73
+    3: 0.73
+    4: 0.72
+    5: 0.72
+    6: 0.71
+    7: 0.71
+    8: 0.71
+    9: 0.70
+    10: 0.70
+    11: 0.70
+    12: 0.69
+    13: 0.69
+    14: 0.68
+    15: 0.68
+    16: 0.67
+    17: 0.67
+    18: 0.66
+    19: 0.66
+    20: 0.65
+    21: 0.65
+    22: 0.64
+    23: 0.64
+    24: 0.63
+    25: 0.63
+    26: 0.62
+    27: 0.62
+    28: 0.61
+    29: 0.60
+    30: 0.60
+    31: 0.59
+    32: 0.58
+    33: 0.58
+    34: 0.57
+    35: 0.56
+    36: 0.55
+    37: 0.55
+    38: 0.54
+    39: 0.53
+    40: 0.52
+    41: 0.51
+    42: 0.51
+    43: 0.50
+    44: 0.49
+    45: 0.48
+    46: 0.47
+    47: 0.46
+    48: 0.45
+    49: 0.44
+    50: 0.43
+    51: 0.42
+    52: 0.41
+    53: 0.40
+    54: 0.39
+    55: 0.38
+    56: 0.37
+    57: 0.36
+    58: 0.35
+    59: 0.34
+    60: 0.32
+    61: 0.31
+    62: 0.30
+    63: 0.29
+    64: 0.28
+    65: 0.27
+    66: 0.26
+    67: 0.25
+    68: 0.23
+    69: 0.22
+    70: 0.21
+    71: 0.20
+    72: 0.19
+    73: 0.18
+    74: 0.17
+    75: 0.16
+    76: 0.15
+    77: 0.14
+    78: 0.13
+    79: 0.12
+    80: 0.11
+    81: 0.11
+    82: 0.10
+    83: 0.09
+    84: 0.08
+    85: 0.08
+    86: 0.07
+    87: 0.07
+    88: 0.06
+    89: 0.05
+    90: 0.05
+    91: 0.05
+    92: 0.04
+    93: 0.04
+    94: 0.03
+    95: 0.03
+    96: 0.03
+    97: 0.02
+  2005-01-01:
+    reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
+    min_int_in_table: 0
+    max_int_in_table: 120
+    0: 0.59
+    1: 0.59
+    2: 0.58
+    3: 0.58
+    4: 0.57
+    5: 0.57
+    6: 0.56
+    7: 0.56
+    8: 0.56
+    9: 0.55
+    10: 0.55
+    11: 0.54
+    12: 0.54
+    13: 0.53
+    14: 0.53
+    15: 0.52
+    16: 0.52
+    17: 0.51
+    18: 0.51
+    19: 0.50
+    20: 0.50
+    21: 0.49
+    22: 0.49
+    23: 0.48
+    24: 0.48
+    25: 0.47
+    26: 0.47
+    27: 0.46
+    28: 0.45
+    29: 0.45
+    30: 0.44
+    31: 0.44
+    32: 0.43
+    33: 0.42
+    34: 0.42
+    35: 0.41
+    36: 0.40
+    37: 0.40
+    38: 0.39
+    39: 0.38
+    40: 0.38
+    41: 0.37
+    42: 0.36
+    43: 0.35
+    44: 0.35
+    45: 0.34
+    46: 0.33
+    47: 0.33
+    48: 0.32
+    49: 0.31
+    50: 0.30
+    51: 0.29
+    52: 0.29
+    53: 0.28
+    54: 0.27
+    55: 0.26
+    56: 0.26
+    57: 0.25
+    58: 0.24
+    59: 0.23
+    60: 0.22
+    61: 0.22
+    62: 0.21
+    63: 0.20
+    64: 0.19
+    65: 0.18
+    66: 0.18
+    67: 0.17
+    68: 0.16
+    69: 0.15
+    70: 0.15
+    71: 0.14
+    72: 0.13
+    73: 0.13
+    74: 0.12
+    75: 0.11
+    76: 0.10
+    77: 0.10
+    78: 0.09
+    79: 0.09
+    80: 0.08
+    81: 0.07
+    82: 0.07
+    83: 0.06
+    84: 0.06
+    85: 0.05
+    86: 0.05
+    87: 0.05
+    88: 0.04
+    89: 0.04
+    90: 0.04
+    91: 0.04
+    92: 0.03
+    93: 0.03
+    94: 0.02
+    95: 0.02
+    96: 0.02
+    97: 0.01
+parameter_besteuerungsanteil:
+  name:
+    de: >-
+      Parameter der Besteuerungsanteil-Funktion für den Anteil an Renteneinkommen, das
+      versteuert werden muss.
+    en: >-
+      Parameter of the Besteuerungsanteil-function for the share of pensions subject to
+      income taxation that is subject to income tax.
+  description:
+    de: >-
+      Renten werden mit dem Besteuerungsanteil besteuert sofern sie nicht aus einer
+      staatlich geförderten (d.h. in der Einzahlungsphase steuerlich begünstigten)
+      Vorsorgeform stammen.  § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    en: >-
+      Pensions are taxed with the Besteuerungsanteil unless they come from a
+      state-sponsored (i.e. tax-benefited) pension fund.
+      § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+  unit: null
+  reference_period: null
+  type: sparse_to_consecutive_int_lookup_table
+  2005-01-01:
+    reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
+    min_int_in_table: 1950
+    max_int_in_table: 2100
+    2005: 0.5
+    2006: 0.52
+    2007: 0.54
+    2008: 0.56
+    2009: 0.58
+    2010: 0.60
+    2011: 0.62
+    2012: 0.64
+    2013: 0.66
+    2014: 0.68
+    2015: 0.70
+    2016: 0.72
+    2017: 0.74
+    2018: 0.76
+    2019: 0.78
+    2020: 0.80
+    2021: 0.81
+    2022: 0.82
+    2023: 0.83
+    2024: 0.84
+    2025: 0.85
+    2026: 0.86
+    2027: 0.87
+    2028: 0.88
+    2029: 0.89
+    2030: 0.90
+    2031: 0.91
+    2032: 0.92
+    2033: 0.93
+    2034: 0.94
+    2035: 0.95
+    2036: 0.96
+    2037: 0.97
+    2038: 0.98
+    2039: 0.99
+    2040: 1
+  2022-01-01:
+    reference: Art. 1 Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
+    min_int_in_table: 1950
+    max_int_in_table: 2100
+    2005: 0.5
+    2006: 0.52
+    2007: 0.54
+    2008: 0.56
+    2009: 0.58
+    2010: 0.60
+    2011: 0.62
+    2012: 0.64
+    2013: 0.66
+    2014: 0.68
+    2015: 0.70
+    2016: 0.72
+    2017: 0.74
+    2018: 0.76
+    2019: 0.78
+    2020: 0.80
+    2021: 0.81
+    2022: 0.82
+    2023: 0.825
+    2024: 0.83
+    2025: 0.835
+    2026: 0.84
+    2027: 0.845
+    2028: 0.85
+    2029: 0.855
+    2030: 0.86
+    2031: 0.865
+    2032: 0.87
+    2033: 0.875
+    2034: 0.88
+    2035: 0.885
+    2036: 0.89
+    2037: 0.895
+    2038: 0.90
+    2039: 0.905
+    2040: 0.91
+    2041: 0.915
+    2042: 0.92
+    2043: 0.925
+    2044: 0.93
+    2045: 0.935
+    2046: 0.94
+    2047: 0.945
+    2048: 0.95
+    2049: 0.955
+    2050: 0.96
+    2051: 0.965
+    2052: 0.97
+    2053: 0.975
+    2054: 0.98
+    2055: 0.985
+    2056: 0.99
+    2057: 0.995
+    2058: 1

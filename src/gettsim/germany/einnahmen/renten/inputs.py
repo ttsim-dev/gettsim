@@ -25,4 +25,9 @@ def geförderte_private_vorsorge_m() -> float:
 
 @policy_input()
 def betriebliche_altersvorsorge_m() -> float:
-    """Amount of monthly occupational pension."""
+    """Monthly payout from occupational pension funds (Betriebsrenten)."""
+
+
+@policy_input()
+def aus_berufsständischen_versicherungen_m() -> float:
+    """Monthly payout from professional pension schemes (berufsständische Versicherungen)."""
