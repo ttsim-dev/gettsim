@@ -67,23 +67,23 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
 
 @policy_function()
 def ertragsanteil_sonstige_private_vorsorge(
-    einnahmen__renten__alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
+    alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Ertragsanteil."""
     return parameter_ertragsanteil.look_up(
-        einnahmen__renten__alter_beginn_leistungsbezug_sonstige_private_vorsorge
+        alter_beginn_leistungsbezug_sonstige_private_vorsorge
     )
 
 
 @policy_function(end_date="2004-12-31")
 def ertragsanteil_berufsständische_altersvorsorge(
-    einnahmen__renten__alter_beginn_leistungsbezug_berufsständische_altersvorsorge: int,
+    alter_beginn_leistungsbezug_berufsständische_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Ertragsanteil."""
     return parameter_ertragsanteil.look_up(
-        einnahmen__renten__alter_beginn_leistungsbezug_berufsständische_altersvorsorge
+        alter_beginn_leistungsbezug_berufsständische_altersvorsorge
     )
 
 
@@ -101,12 +101,12 @@ def ertragsanteil_gesetzliche_rente(
 
 @policy_function(end_date="2004-12-31")
 def ertragsanteil_betriebliche_altersvorsorge(
-    einnahmen__renten__alter_beginn_leistungsbezug_betriebliche_altersvorsorge: int,
+    alter_beginn_leistungsbezug_betriebliche_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Ertragsanteil."""
     return parameter_ertragsanteil.look_up(
-        einnahmen__renten__alter_beginn_leistungsbezug_betriebliche_altersvorsorge
+        alter_beginn_leistungsbezug_betriebliche_altersvorsorge
     )
 
 
