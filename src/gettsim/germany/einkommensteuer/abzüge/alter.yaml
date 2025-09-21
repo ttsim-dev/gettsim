@@ -150,8 +150,8 @@ raw_maximaler_altersentlastungsbetrag_gestaffelt:
     2058: 0
 altersentlastungsquote:
   name:
-    de: Anteil des Altersentlastungsbetrags
-    en: Income share deducted for older employees.
+    de: Höchstbetrag des Altersentlastungsbetrags als Anteil der Einkünfte
+    en: Maximum amount of tax credit due to old age as a share of income.
   description:
     de: >-
       §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
@@ -170,8 +170,8 @@ altersentlastungsquote:
     note: Ausschleichung per `raw_altersentlastungsquote_gestaffelt`
 raw_altersentlastungsquote_gestaffelt:
   name:
-    de: Anteil des Altersentlastungsbetrags
-    en: Income share deducted for older employees.
+    de: Höchstbetrag des Altersentlastungsbetrags als Anteil der Einkünfte
+    en: Maximum amount of tax credit due to old age as a share of income.
   description:
     de: >-
       §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
