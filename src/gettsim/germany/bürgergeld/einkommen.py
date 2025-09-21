@@ -76,7 +76,7 @@ def bruttoeinkommen_m(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     einnahmen__kapitalerträge_m: float,
-    einnahmen__renten__summe_m: float,
+    einnahmen__renten__gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     sozialversicherung__arbeitslosen__betrag_m: float,
     elterngeld__betrag_m: float,
@@ -87,7 +87,7 @@ def bruttoeinkommen_m(
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + einnahmen__kapitalerträge_m
-        + einnahmen__renten__summe_m
+        + einnahmen__renten__gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + sozialversicherung__arbeitslosen__betrag_m
         + elterngeld__betrag_m

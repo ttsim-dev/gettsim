@@ -4,7 +4,7 @@ from gettsim.tt import policy_function
 
 
 @policy_function()
-def summe_m(
+def gesamt_m(
     gesetzliche_m: float,
     sonstige_private_vorsorge_m: float,
     geförderte_private_vorsorge_m: float,

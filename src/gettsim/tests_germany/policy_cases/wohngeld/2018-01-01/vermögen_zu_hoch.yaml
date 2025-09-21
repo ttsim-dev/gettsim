@@ -99,7 +99,7 @@ inputs:
         - 0.0
         - 0.0
       renten:
-        summe_m:
+        gesamt_m:
           - 0.0
           - 0.0
           - 0.0
