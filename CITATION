@@ -1,5 +1,5 @@
 @Unpublished{gettsim2022,
-    Title  = {{The German Taxes and Transfers SIMulator}},
+    Title  = {{The GErman Taxes and Transfers SIMulator}},
     Author = {{GETTSIM team}},
     Year   = {2022},
     Url    = {https://github.com/ttsim-dev/gettsim}
