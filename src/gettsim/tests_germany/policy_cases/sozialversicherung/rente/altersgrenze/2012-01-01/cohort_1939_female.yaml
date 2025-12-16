@@ -1,7 +1,7 @@
 ---
 info:
   note: ''
-  precision_atol: 0.1
+  precision_atol: 0.001
   source: Made up from the law
 inputs:
   assumed: {}
