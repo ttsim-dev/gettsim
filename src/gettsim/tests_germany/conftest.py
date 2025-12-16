@@ -11,14 +11,21 @@ if TYPE_CHECKING:
     from typing import Literal
 
 
-# content of conftest.py
 def pytest_addoption(parser):
-    parser.addoption(
-        "--backend",
-        action="store",
-        default="numpy",
-        help="The backend to test against (e.g., --backend=numpy --backend=jax)",
-    )
+    """Register the --backend option if it does not exist already.
+
+    Note this happens when running from dev-gettsim workspace root.
+    """
+    try:
+        parser.addoption(
+            "--backend",
+            action="store",
+            default="numpy",
+            help="The backend to test against (e.g., --backend=numpy --backend=jax)",
+        )
+    except ValueError as e:
+        if "option names {'--backend'} already added" not in str(e):
+            raise
 
 
 @pytest.fixture
