@@ -1,7 +1,7 @@
 ---
 info:
   note: ''
-  precision_atol: 0.1
+  precision_atol: 0.001
   source: Made up from the law
 inputs:
   assumed: {}
@@ -244,7 +244,7 @@ outputs:
         referenzalter_abschlag:
           - 65.0
           - 65.0
-          - 65.083333
+          - 65.166667
           - 65.0
           - 65.0
           - 65.0
