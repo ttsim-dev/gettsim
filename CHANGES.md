@@ -15,10 +15,14 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1105` Reduce tolerance of statutory retirement age tests.
+  ({ghuser}`MImmesberger`)
 - {gh}`1093` Fix taxation of pensions and add some missing parameters of the
   Wachstumschancengesetz 2024. ({ghuser}`MImmesberger`)
 - {gh}`1094` Make Vorsorgeaufwendungen a param function and update parameters of
   knappschaftliche RV and Kinderbetreuungskosten in ESt. ({ghuser}`MImmesberger`)
+- {gh}`1092` Fix a couple of vectorization strategies. ({ghuser}`hmgaudecker`)
+- {gh}`1088` Fix typos in docs and param yamls. ({ghuser}`MImmesberger`)
 
 ## v1.0 — 2025-08-26
 
