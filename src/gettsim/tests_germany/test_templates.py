@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import dags.tree as dt
-from ttsim.interface_dag_elements.automatically_added_functions import TIME_UNIT_LABELS
 from ttsim.interface_dag_elements.shared import (
     get_re_pattern_for_all_time_units_and_groupings,
+)
+from ttsim.unit_converters import (
+    TIME_UNIT_IDS_TO_LABELS,
 )
 
 from gettsim import MainTarget, main
@@ -37,7 +39,7 @@ def test_template_all_outputs_no_inputs(backend):
         raise AssertionError(msg)
 
     pattern_all = get_re_pattern_for_all_time_units_and_groupings(
-        time_units=list(TIME_UNIT_LABELS),
+        time_units=list(TIME_UNIT_IDS_TO_LABELS),
         grouping_levels=res["labels"]["grouping_levels"],
     )
     bn_to_variations = {}
