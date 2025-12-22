@@ -18,7 +18,7 @@ from gettsim import MainTarget, germany, main
 if TYPE_CHECKING:
     import datetime
 
-    from gettsim.typing import OrigPolicyObjects
+    from gettsim import OrigPolicyObjects
 
 
 POLICY_TEST_IDS_AND_CASES = load_policy_cases(
@@ -109,11 +109,13 @@ def test_top_level_elements_not_repeated_in_paths(
         pytest.skip(msg)
 
     dt.fail_if_top_level_elements_repeated_in_paths(
-        all_tree_paths=dt.flatten_to_tree_paths(
-            dt.unflatten_from_qnames(
-                gettsim_objects["specialized_environment"][
-                    "with_partialled_params_and_scalars"
-                ]
+        all_tree_paths=set(
+            dt.flatten_to_tree_paths(
+                dt.unflatten_from_qnames(
+                    gettsim_objects["specialized_environment"][
+                        "with_partialled_params_and_scalars"
+                    ]
+                )
             )
         ),
         top_level_namespace=gettsim_objects["labels"]["top_level_namespace"],

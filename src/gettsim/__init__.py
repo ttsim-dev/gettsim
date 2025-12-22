@@ -39,18 +39,16 @@ if TYPE_CHECKING:
     import datetime
     from collections.abc import Callable, Iterable
 
-    from ttsim import typing
-    from ttsim.typing import (
+    from ttsim import SpecializedEnvironmentForPlottingAndTemplates
+
+    from gettsim.typing import (
         DashedISOString,
         FlatColumnObjectsParamFunctions,
         FlatOrigParamSpecs,
         NestedTargetDict,
         PolicyEnvironment,
         QNameData,
-        SpecializedEnvironmentForPlottingAndTemplates,
     )
-
-    typing = typing
 
 InputData = InputData
 Labels = Labels
@@ -71,7 +69,7 @@ def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
 
 
 @dataclass(frozen=True)
-class OrigPolicyObjects(_ttsim.main_args.MainArg):
+class OrigPolicyObjects(_ttsim.main_args.MainArg):  # ty: ignore[possibly-missing-attribute]
     column_objects_and_param_functions: FlatColumnObjectsParamFunctions | None = None
     param_specs: FlatOrigParamSpecs | None = None
 
@@ -103,7 +101,7 @@ def main(
     results: Results | None = None,
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
-        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects(root=germany.ROOT_PATH)
+        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects.root(germany.ROOT_PATH)  # ty: ignore[possibly-missing-attribute]
 
     return _ttsim.main(**locals())
 

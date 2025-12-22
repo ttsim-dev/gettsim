@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, cast
+
 import dags.tree as dt
 from ttsim.interface_dag_elements.shared import (
     get_re_pattern_for_all_time_units_and_groupings,
@@ -9,6 +11,9 @@ from ttsim.unit_converters import (
 )
 
 from gettsim import MainTarget, main
+
+if TYPE_CHECKING:
+    import re
 
 
 def test_template_all_outputs_no_inputs(backend):
@@ -44,7 +49,7 @@ def test_template_all_outputs_no_inputs(backend):
     )
     bn_to_variations = {}
     for qname in dt.qnames(res["templates"]["input_data_dtypes"]["tree"]):
-        match = pattern_all.fullmatch(qname)
+        match = cast("re.Match[str]", pattern_all.fullmatch(qname))
         # We must not find multiple time units for the same base name and group.
         base_name = match.group("base_name")
         if base_name not in bn_to_variations:

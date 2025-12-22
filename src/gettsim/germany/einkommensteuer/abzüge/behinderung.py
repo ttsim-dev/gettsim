@@ -4,18 +4,20 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gettsim.tt import piecewise_polynomial, policy_function
+from gettsim.tt import (
+    PiecewisePolynomialParamValue,
+    piecewise_polynomial,
+    policy_function,
+)
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-    from gettsim.tt import PiecewisePolynomialParam
 
 
 @policy_function()
 def pauschbetrag_behinderung_y(
     behinderungsgrad: int,
-    parameter_behindertenpauschbetrag: PiecewisePolynomialParam,
+    parameter_behindertenpauschbetrag: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
     """Assign tax deduction allowance for handicaped to different handicap degrees."""

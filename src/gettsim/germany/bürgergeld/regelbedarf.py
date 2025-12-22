@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from types import ModuleType
 
     from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
-    from gettsim.tt import RawParam
+    from gettsim.typing import RawParamValue
 
 
 @policy_function(start_date="2023-01-01")
@@ -262,7 +262,7 @@ class RegelsatzAnteilsbasiert:
 
 @param_function(start_date="2023-01-01")
 def berechtigte_wohnfläche_eigentum(
-    parameter_berechtigte_wohnfläche_eigentum: RawParam,
+    parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
@@ -272,4 +272,4 @@ def berechtigte_wohnfläche_eigentum(
     max_anzahl_direkt = tmp.pop("max_anzahl_direkt")
     for i in range(wohngeld__max_anzahl_personen["indizierung"] - max_anzahl_direkt):
         tmp[i] = tmp[max_anzahl_direkt] + i * je_weitere_person
-    return get_consecutive_int_lookup_table_param_value(raw=tmp, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(raw=tmp, xnp=xnp)  # ty: ignore[invalid-argument-type]

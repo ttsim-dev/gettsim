@@ -57,7 +57,7 @@ outputs_df = main(
         df=inputs_df,
         mapper=inputs_map,
     ),
-    tt_targets=TTTargets(tree=targets_tree),
+    tt_targets=TTTargets.tree(targets_tree),
 )
 
 print(outputs_df.round(2).to_markdown())

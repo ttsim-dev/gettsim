@@ -8,7 +8,6 @@ from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
-    RawParam,
     RoundingSpec,
     agg_by_p_id_function,
     join,
@@ -19,7 +18,7 @@ from gettsim.tt import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from gettsim.typing import BoolColumn, IntColumn
+    from gettsim.typing import BoolColumn, IntColumn, RawParamValue
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)
@@ -319,7 +318,7 @@ def einkommen_m(
 
 @param_function(start_date="2008-01-01", end_date="2017-06-30")
 def berechtigte_altersgruppen(
-    raw_berechtigte_altersgruppen: RawParam,
+    raw_berechtigte_altersgruppen: RawParamValue,
 ) -> dict[str, Altersgrenzen]:
     return {
         "kleinkind": Altersgrenzen(
@@ -335,7 +334,7 @@ def berechtigte_altersgruppen(
 
 @param_function(start_date="2016-01-01")
 def mindestunterhalt_nach_alter(
-    raw_mindestunterhalt: RawParam,
+    raw_mindestunterhalt: RawParamValue,
 ) -> dict[str, SatzMitAltersgrenzen]:
     kleinkind = SatzMitAltersgrenzen(
         satz=raw_mindestunterhalt["kleinkind"]["satz"],
