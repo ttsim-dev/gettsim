@@ -256,6 +256,8 @@ exclude = []
 "src/gettsim/germany/familie/familie.py" = ["PLR2004"]
 # All tests return None and use asserts
 "src/gettsim/tests_germany/**/*.py" = ["ANN", "S101"]
+# Cannot export the typing module via __all__
+"src/gettsim/typing.py" = ["F401"]
 # TODO: remove once ported nicely
 "outdated_docs/**/*.ipynb" = ["ALL"]
 
@@ -285,6 +287,12 @@ unresolved-global = "error"
 unsupported-base = "error"
 unused-ignore-comment = "error"
 useless-overload-body = "error"
+
+[[tool.ty.overrides]]
+include = ["docs/**"]
+
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
 
 
 # ======================================================================================
