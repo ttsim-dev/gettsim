@@ -41,11 +41,11 @@ def dates_in_orig_gettsim_objects() -> list[datetime.date]:
     orig_objects = get_orig_gettsim_objects()
     start_dates = {
         v.start_date
-        for v in orig_objects["column_objects_and_param_functions"].values()
+        for v in orig_objects.column_objects_and_param_functions.values()  # ty: ignore[possibly-missing-attribute]
     }
     end_dates = {
         v.end_date + timedelta(days=1)
-        for v in orig_objects["column_objects_and_param_functions"].values()
+        for v in orig_objects.column_objects_and_param_functions.values()  # ty: ignore[possibly-missing-attribute]
     }
     return sorted(start_dates | end_dates)
 

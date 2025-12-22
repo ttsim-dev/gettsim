@@ -14,7 +14,7 @@ except ImportError:
     version_tuple = ("unknown", "unknown", "unknown")
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, cast
 
 import pytest
 import ttsim as _ttsim
@@ -32,6 +32,8 @@ from ttsim import (
     merge_trees,
     upsert_tree,
 )
+from ttsim.main_args import MainArg
+from ttsim.main_args import OrigPolicyObjects as TTSimOrigPolicyObjects
 
 from gettsim import germany
 
@@ -69,7 +71,7 @@ def test(backend: Literal["numpy", "jax"] = "numpy") -> None:
 
 
 @dataclass(frozen=True)
-class OrigPolicyObjects(_ttsim.main_args.MainArg):  # ty: ignore[possibly-missing-attribute]
+class OrigPolicyObjects(MainArg):
     column_objects_and_param_functions: FlatColumnObjectsParamFunctions | None = None
     param_specs: FlatOrigParamSpecs | None = None
 
@@ -101,7 +103,9 @@ def main(
     results: Results | None = None,
 ) -> dict[str, Any]:
     if orig_policy_objects is None:
-        orig_policy_objects = _ttsim.main_args.OrigPolicyObjects.root(germany.ROOT_PATH)  # ty: ignore[possibly-missing-attribute]
+        orig_policy_objects = cast(
+            "OrigPolicyObjects", TTSimOrigPolicyObjects.root(germany.ROOT_PATH)
+        )
 
     return _ttsim.main(**locals())
 

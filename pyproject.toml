@@ -157,6 +157,7 @@ jax-metal = ">=0.1.1"
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
+gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 
 [tool.pixi.feature.docs.dependencies]
 myst-parser = "*"
