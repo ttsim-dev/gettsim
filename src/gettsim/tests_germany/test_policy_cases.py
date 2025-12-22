@@ -17,8 +17,7 @@ from gettsim import MainTarget, germany, main
 
 if TYPE_CHECKING:
     import datetime
-
-    from gettsim import OrigPolicyObjects
+    from typing import Any
 
 
 POLICY_TEST_IDS_AND_CASES = load_policy_cases(
@@ -28,7 +27,9 @@ POLICY_TEST_IDS_AND_CASES = load_policy_cases(
 )
 
 
-def get_orig_gettsim_objects() -> OrigPolicyObjects:
+def get_orig_gettsim_objects() -> dict[
+    Literal["column_objects_and_param_functions", "param_specs"], Any
+]:
     return main(
         main_targets=[
             MainTarget.orig_policy_objects.column_objects_and_param_functions,
@@ -41,17 +42,19 @@ def dates_in_orig_gettsim_objects() -> list[datetime.date]:
     orig_objects = get_orig_gettsim_objects()
     start_dates = {
         v.start_date
-        for v in orig_objects.column_objects_and_param_functions.values()  # ty: ignore[possibly-missing-attribute]
+        for v in orig_objects["column_objects_and_param_functions"].values()
     }
     end_dates = {
         v.end_date + timedelta(days=1)
-        for v in orig_objects.column_objects_and_param_functions.values()  # ty: ignore[possibly-missing-attribute]
+        for v in orig_objects["column_objects_and_param_functions"].values()
     }
     return sorted(start_dates | end_dates)
 
 
 @pytest.fixture
-def orig_gettsim_objects() -> OrigPolicyObjects:
+def orig_gettsim_objects() -> dict[
+    Literal["column_objects_and_param_functions", "param_specs"], Any
+]:
     return get_orig_gettsim_objects()
 
 
