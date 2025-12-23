@@ -83,22 +83,14 @@ repos:
           - --wrap
           - '88'
         files: (docs/.|CHANGES.md|CODE_OF_CONDUCT.md)
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
-    hooks:
-      - id: mypy
-        args:
-          - --ignore-missing-imports
-          - --config=pyproject.toml
-          - --allow-redefinition-new
-          - --local-partial-types
-        additional_dependencies:
-          - types-PyYAML
-          - types-pytz
-          - numpy >= 2
-          - jaxtyping
-          # - dags >= 0.3
-          - optree >= 0.15
+  # - repo: local
+  #   hooks:
+  #     - id: ty
+  #       name: ty
+  #       entry: ty
+  #       language: system
+  #       types: [python]
+  #       args: [--config-file=pyproject.toml]
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.36.0
     hooks:

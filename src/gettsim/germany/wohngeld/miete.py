@@ -44,10 +44,10 @@ def max_miete_m_lookup_mit_baujahr(
     lookup_dict = {}
     for i, baujahr in enumerate(baujahre):
         this_dict = {n_p: tmp[n_p][baujahr] for n_p in tmp}
-        for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # type: ignore[operator]
+        for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
             this_dict[n_p] = {
                 ms: this_dict[max_n_p_defined][ms]
-                + (n_p - max_n_p_defined) * per_additional_person[baujahr][ms]  # type: ignore[operator]
+                + (n_p - max_n_p_defined) * per_additional_person[baujahr][ms]  # ty: ignore[unsupported-operator]
                 for ms in this_dict[max_n_p_defined]
             }
         lookup_dict[i] = this_dict
@@ -72,13 +72,13 @@ def max_miete_m_lookup_ohne_baujahr(
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):
         raise ValueError("All keys must be integers")
-    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # type: ignore[operator]
+    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = {
             ms: expanded[max_n_p_defined][ms]
-            + (n_p - max_n_p_defined) * per_additional_person[ms]  # type: ignore[operator]
+            + (n_p - max_n_p_defined) * per_additional_person[ms]  # ty: ignore[unsupported-operator]
             for ms in expanded[max_n_p_defined]
         }
-    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
 @param_function(start_date="1984-01-01")
@@ -115,11 +115,11 @@ def heizkostenentlastung_m_lookup(
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):
         raise ValueError("All keys must be integers")
-    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # type: ignore[operator]
+    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
-            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # type: ignore[operator]
+            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # ty: ignore[unsupported-operator]
         )
-    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
 @param_function(start_date="2023-01-01")
@@ -134,11 +134,11 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):
         raise ValueError("All keys must be integers")
-    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # type: ignore[operator]
+    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
-            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # type: ignore[operator]
+            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # ty: ignore[unsupported-operator]
         )
-    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
 @param_function(start_date="2023-01-01")
@@ -153,11 +153,11 @@ def klimakomponente_m_lookup(
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):
         raise ValueError("All keys must be integers")
-    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # type: ignore[operator]
+    for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
-            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # type: ignore[operator]
+            expanded[max_n_p_defined] + (n_p - max_n_p_defined) * per_additional_person  # ty: ignore[unsupported-operator]
         )
-    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
 @policy_function()

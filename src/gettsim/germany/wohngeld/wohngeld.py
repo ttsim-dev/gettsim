@@ -21,7 +21,7 @@ from gettsim.tt import (
 if TYPE_CHECKING:
     from types import ModuleType
 
-    from gettsim.germany.param_types import ConsecutiveIntLookupTableParamValue
+    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @agg_by_group_function(agg_type=AggType.COUNT)
@@ -203,9 +203,9 @@ def basisformel_params_ab_2001(
     for i in range(max_normal + 1, max_anzahl_personen["indizierung"] + 1):
         for koeff in [a, b, c]:
             koeff[i] = koeff[max_normal]
-        zusatzbetrag_nach_haushaltsgröße[i] = (
-            i - max_normal
-        ) * zusatzbetrag_pro_person_in_großen_haushalten
+        zusatzbetrag_nach_haushaltsgröße[i] = float(
+            (i - max_normal) * zusatzbetrag_pro_person_in_großen_haushalten
+        )
 
     return BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(
         skalierungsfaktor=skalierungsfaktor,

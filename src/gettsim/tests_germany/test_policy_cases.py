@@ -17,8 +17,7 @@ from gettsim import MainTarget, germany, main
 
 if TYPE_CHECKING:
     import datetime
-
-    from gettsim.typing import OrigPolicyObjects
+    from typing import Any
 
 
 POLICY_TEST_IDS_AND_CASES = load_policy_cases(
@@ -28,7 +27,9 @@ POLICY_TEST_IDS_AND_CASES = load_policy_cases(
 )
 
 
-def get_orig_gettsim_objects() -> OrigPolicyObjects:
+def get_orig_gettsim_objects() -> dict[
+    Literal["column_objects_and_param_functions", "param_specs"], Any
+]:
     return main(
         main_targets=[
             MainTarget.orig_policy_objects.column_objects_and_param_functions,
@@ -51,7 +52,9 @@ def dates_in_orig_gettsim_objects() -> list[datetime.date]:
 
 
 @pytest.fixture
-def orig_gettsim_objects() -> OrigPolicyObjects:
+def orig_gettsim_objects() -> dict[
+    Literal["column_objects_and_param_functions", "param_specs"], Any
+]:
     return get_orig_gettsim_objects()
 
 
@@ -109,11 +112,13 @@ def test_top_level_elements_not_repeated_in_paths(
         pytest.skip(msg)
 
     dt.fail_if_top_level_elements_repeated_in_paths(
-        all_tree_paths=dt.flatten_to_tree_paths(
-            dt.unflatten_from_qnames(
-                gettsim_objects["specialized_environment"][
-                    "with_partialled_params_and_scalars"
-                ]
+        all_tree_paths=set(
+            dt.flatten_to_tree_paths(
+                dt.unflatten_from_qnames(
+                    gettsim_objects["specialized_environment"][
+                        "with_partialled_params_and_scalars"
+                    ]
+                )
             )
         ),
         top_level_namespace=gettsim_objects["labels"]["top_level_namespace"],

@@ -9,14 +9,14 @@ import dags.tree as dt
 import pytest
 from dags import get_free_arguments
 
-from gettsim import MainTarget, main
+from gettsim import MainTarget, SpecializedEnvironment, TTTargets, main
 from gettsim.tt import ColumnFunction
 
 if TYPE_CHECKING:
     from gettsim.typing import SpecEnvWithPartialledParamsAndScalars
 
 
-def get_orig_gettsim_column_functions() -> list[ColumnFunction]:
+def get_orig_gettsim_column_functions() -> list[tuple[tuple[str, ...], ColumnFunction]]:
     orig = main(
         main_target=MainTarget.orig_policy_objects.column_objects_and_param_functions,
     )
@@ -68,9 +68,11 @@ def test_jittable(tree_path, fun, backend, xnp):
         main(
             main_target=("raw_results", "columns"),
             policy_date=policy_date,
-            specialized_environment={"with_partialled_params_and_scalars": env},
+            specialized_environment=SpecializedEnvironment.with_partialled_params_and_scalars(
+                env
+            ),
             processed_data=processed_data,
-            tt_targets={"qname": [qname]},
+            tt_targets=TTTargets.qname([qname]),
             backend=backend,
             include_fail_nodes=False,
             include_warn_nodes=False,

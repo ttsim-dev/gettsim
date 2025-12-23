@@ -103,7 +103,7 @@ def tt(
     *,
     # Args specific to TTSIM plotting
     primary_nodes: set[str] | set[tuple[str, str]] | None = None,
-    selection_type: Literal["neighbors", "descendants", "ancestors", "nodes"]
+    selection_type: Literal["neighbors", "descendants", "ancestors", "all_paths"]
     | None = None,
     selection_depth: int | None = None,
     include_params: bool = True,

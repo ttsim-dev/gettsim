@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING
 from gettsim import upsert_tree
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
-    RawParam,
     get_piecewise_parameters,
     param_function,
     piecewise_polynomial,
@@ -16,6 +15,8 @@ from gettsim.tt import (
 
 if TYPE_CHECKING:
     from types import ModuleType
+
+    from gettsim.typing import RawParamValue
 
 
 @policy_function(start_date="2023-01-01")
@@ -138,7 +139,7 @@ def anrechnungsfreies_einkommen_m(
 
 @param_function(start_date="2023-01-01")
 def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
-    raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParam,
+    raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParamValue,
     xnp: ModuleType,
 ) -> PiecewisePolynomialParamValue:
     """Parameter for calculation of income not subject to transfer withdrawal when
@@ -147,27 +148,27 @@ def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg",
         func_type="piecewise_linear",
-        parameter_dict=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
+        parameter_dict=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,  # ty: ignore[invalid-argument-type]
         xnp=xnp,
     )
 
 
 @param_function(start_date="2023-01-01")
 def parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg(
-    raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: RawParam,
-    raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParam,
+    raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: RawParamValue,
+    raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParamValue,
     xnp: ModuleType,
 ) -> PiecewisePolynomialParamValue:
     """Parameter for calculation of income not subject to transfer withdrawal when
     children are in the Bedarfsgemeinschaft.
     """
-    updated_parameters: dict[int, dict[str, float]] = upsert_tree(
-        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
-        to_upsert=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,
+    updated_parameters: dict[int, dict[str, float]] = upsert_tree(  # ty: ignore[invalid-assignment]
+        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,  # ty: ignore[invalid-argument-type]
+        to_upsert=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,  # ty: ignore[invalid-argument-type]
     )
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg",
         func_type="piecewise_linear",
-        parameter_dict=updated_parameters,
+        parameter_dict=updated_parameters,  # ty: ignore[invalid-argument-type]
         xnp=xnp,
     )

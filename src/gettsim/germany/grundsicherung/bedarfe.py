@@ -7,7 +7,7 @@ from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from gettsim.tt import param_function
 
 if TYPE_CHECKING:
-    from gettsim.tt import RawParam
+    from gettsim.typing import RawParamValue
 
 
 @dataclass(frozen=True)
@@ -22,7 +22,7 @@ class Regelbedarfsstufen:
 
 @param_function(start_date="2011-01-01")
 def regelbedarfsstufen(
-    parameter_regelbedarfsstufen: RawParam,
+    parameter_regelbedarfsstufen: RawParamValue,
 ) -> Regelbedarfsstufen:
     """Regelbedarfsstufen nach SGB XII § 28 (Anlage)."""
     rbs_4 = SatzMitAltersgrenzen(

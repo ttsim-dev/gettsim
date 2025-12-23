@@ -19,7 +19,7 @@ from gettsim.tt import (
 )
 
 if TYPE_CHECKING:
-    from gettsim.tt import RawParam
+    from gettsim.typing import RawParamValue
 
 
 @agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
@@ -232,7 +232,7 @@ def kosten_der_unterkunft_m_bg_ab_2023(
     leaf_name="existenzminimum",
 )
 def existenzminimum_ohne_bildung_und_teilhabe(
-    parameter_existenzminimum: RawParam,
+    parameter_existenzminimum: RawParamValue,
 ) -> ExistenzminimumNachAufwendungenOhneBildungUndTeilhabe:
     """Regelsatz nach Regelbedarfsstufen."""
     regelsatz = ElementExistenzminimum(
@@ -259,7 +259,7 @@ def existenzminimum_ohne_bildung_und_teilhabe(
 
 @param_function(start_date="2012-01-01", leaf_name="existenzminimum")
 def existenzminimum_mit_bildung_und_teilhabe(
-    parameter_existenzminimum: RawParam,
+    parameter_existenzminimum: RawParamValue,
 ) -> ExistenzminimumNachAufwendungenMitBildungUndTeilhabe:
     """Regelsatz nach Regelbedarfsstufen."""
     regelsatz = ElementExistenzminimum(

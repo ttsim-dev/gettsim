@@ -153,10 +153,11 @@ platforms = ["osx-arm64"]
 jax = ">=0.6"
 jax-metal = ">=0.1.1"
 
-[tool.pixi.feature.mypy.pypi-dependencies]
-mypy = "~=1.16"
+[tool.pixi.feature.ty.pypi-dependencies]
+ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
+gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 
 [tool.pixi.feature.docs.dependencies]
 myst-parser = "*"
@@ -182,8 +183,8 @@ tests-jax = "pytest --backend=jax"
 [tool.pixi.feature.cuda.tasks]
 tests-jax = "pytest --backend=jax"
 
-[tool.pixi.feature.mypy.tasks]
-mypy = "mypy --ignore-missing-imports"
+[tool.pixi.feature.ty.tasks]
+ty = "ty check"
 
 [tool.pixi.feature.docs.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
@@ -198,7 +199,7 @@ py313 = ["test", "py313"]
 py313-jax = ["py313", "test", "jax"]
 py313-cuda = ["py313", "test", "cuda"]
 py313-metal = ["py313", "test", "metal"]
-mypy = ["mypy"]
+ty = ["ty"]
 docs = ["docs", "py313"]
 
 # ======================================================================================
@@ -256,6 +257,8 @@ exclude = []
 "src/gettsim/germany/familie/familie.py" = ["PLR2004"]
 # All tests return None and use asserts
 "src/gettsim/tests_germany/**/*.py" = ["ANN", "S101"]
+# Cannot export the typing module via __all__
+"src/gettsim/typing.py" = ["F401"]
 # TODO: remove once ported nicely
 "outdated_docs/**/*.ipynb" = ["ALL"]
 
@@ -264,30 +267,33 @@ convention = "numpy"
 
 
 # ======================================================================================
-# mypy configuration
+# ty configuration
 # ======================================================================================
 
-[tool.mypy]
-files = ["src", "tests"]
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-explicit_package_bases = true
-disallow_empty_bodies = false
-disable_error_code = ["overload-cannot-match"]
+[tool.ty.rules]
+invalid-return-type = "ignore"
+ambiguous-protocol-member = "error"
+deprecated = "error"
+division-by-zero = "error"
+ignore-comment-unknown-rule = "error"
+invalid-argument-type = "error"
+invalid-ignore-comment = "error"
+possibly-missing-attribute = "error"
+possibly-missing-implicit-call = "error"
+possibly-missing-import = "error"
+possibly-unresolved-reference = "error"
+redundant-cast = "error"
+undefined-reveal = "error"
+unresolved-global = "error"
+unsupported-base = "error"
+unused-ignore-comment = "error"
+useless-overload-body = "error"
 
-[[tool.mypy.overrides]]
-module = ["conftest"]
-disallow_untyped_defs = false
-ignore_errors = true
+[[tool.ty.overrides]]
+include = ["docs/**"]
 
-[[tool.mypy.overrides]]
-module = ["src.gettsim.tests_germany.*",]
-disable_error_code = ["no-untyped-def"]  # All tests return None, don't clutter source code.
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
 
 
 # ======================================================================================

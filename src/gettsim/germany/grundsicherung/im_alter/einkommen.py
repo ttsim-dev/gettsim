@@ -4,13 +4,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gettsim.tt import piecewise_polynomial, policy_function
+from gettsim.tt import (
+    PiecewisePolynomialParamValue,
+    piecewise_polynomial,
+    policy_function,
+)
 
 if TYPE_CHECKING:
     from types import ModuleType
 
     from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
-    from gettsim.tt import PiecewisePolynomialParam
 
 
 @policy_function()
@@ -112,7 +115,7 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
-    anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParam,
+    anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParamValue,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     xnp: ModuleType,
 ) -> float:
@@ -162,7 +165,7 @@ def gesetzliche_rente_m_ab_2021(
     einnahmen__renten__gesetzliche_m: float,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
-    anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParam,
+    anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
     """Calculate individual public pension benefits which are considered in the
