@@ -102,7 +102,6 @@ pytest = "*"
 pytest-cov = "*"
 pytest-profiling = "*"
 pytest-xdist = "*"
-python = ">=3.11,<3.14"
 pyyaml = "*"
 snakeviz = ">=2.2.2"
 tabulate = "*"
@@ -114,7 +113,8 @@ toml = "*"
 [tool.pixi.pypi-dependencies]
 gettsim = {path = ".", editable = true}
 # Leave TTSIM here so we can uncomment it for when we need to use new features.
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "py-314" }
+dags = { git = "https://github.com/opensourceeconomics/dags.git", branch = "py-3.14" }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
@@ -124,13 +124,16 @@ pdbp = ">=1.7.1"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.feature.py311.dependencies]
-python = "3.11.*"
+python = "~=3.11.0"
 
 [tool.pixi.feature.py312.dependencies]
-python = "3.12.*"
+python = "~=3.12.0"
 
 [tool.pixi.feature.py313.dependencies]
-python = "3.13.*"
+python = "~=3.13.0"
+
+[tool.pixi.feature.py314.dependencies]
+python = "~=3.14.0"
 
 [tool.pixi.feature.jax]
 platforms = ["linux-64", "osx-arm64", "win-64"]
@@ -154,7 +157,7 @@ jax = ">=0.6"
 jax-metal = ">=0.1.1"
 
 [tool.pixi.feature.ty.pypi-dependencies]
-ty = "*"
+ty = ">=0.0.9"
 types-PyYAML = "*"
 types-pytz = "*"
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
@@ -196,9 +199,10 @@ docs = "sphinx-build -T -b html docs docs/_build/html"
 py311 = ["test", "py311"]
 py312 = ["test", "py312"]
 py313 = ["test", "py313"]
-py313-jax = ["py313", "test", "jax"]
-py313-cuda = ["py313", "test", "cuda"]
-py313-metal = ["py313", "test", "metal"]
+py314 = ["test", "py314"]
+py314-jax = ["py314", "test", "jax"]
+py314-cuda = ["py314", "test", "cuda"]
+py314-metal = ["py314", "test", "metal"]
 ty = ["ty"]
 docs = ["docs", "py313"]
 
