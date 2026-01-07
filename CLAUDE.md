@@ -50,9 +50,13 @@ def betrag_ohne_staffelung_m(anzahl_ansprüche: int, satz: float) -> float:
 
 Key decorators:
 - `@policy_function` - Main policy calculation functions with date ranges
+- `@policy_input` - Input column definitions (no implementation body)
 - `@param_function` - Functions that transform raw parameters
 - `@agg_by_p_id_function` - Aggregation functions by person ID
 - `@agg_by_group_function` - Aggregation functions by group
+- `@group_creation_function` - Functions that create group IDs (e.g., fg_id, bg_id)
+
+Policy functions can have a `vectorization_strategy="not_required"` parameter for functions that operate on full columns directly (using `xnp` for numpy/jax compatibility).
 
 ### Parameters
 
@@ -68,11 +72,16 @@ Tests use YAML files in `tests_germany/policy_cases/{area}/{date}/`:
 ```yaml
 inputs:
   provided:
-    alter: [45, 40, 18]
-    # ...
+    alter: [35, 35, 12]
+    p_id: [0, 1, 2]
+    hh_id: [0, 0, 0]
+    # Nested paths use double underscore in code, but nested dicts in YAML
+    kindergeld:
+      in_ausbildung: [false, false, true]
+      p_id_empfänger: [-1, -1, 0]
 outputs:
   kindergeld:
-    betrag_m: [750, 0, 0]
+    betrag_m: [250, 0, 0]
 ```
 
 ## Code Restrictions for Vectorization
