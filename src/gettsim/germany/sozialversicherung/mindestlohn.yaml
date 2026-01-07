@@ -40,3 +40,13 @@ mindestlohn:
   2025-01-01:
     value: 12.82
     reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+  2026-01-01:
+    value: 13.9
+    reference: >-
+      Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr.
+      268)
+  2027-01-01:
+    value: 14.6
+    reference: >-
+      Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr.
+      268)
