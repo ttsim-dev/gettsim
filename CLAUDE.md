@@ -8,20 +8,22 @@ GETTSIM (German Taxes and Transfers SIMulator) is a Python microsimulation model
 
 The core computation engine is provided by `ttsim-backend`. GETTSIM contains the policy definitions, parameters, and tests specific to Germany.
 
+Never work around limitations in `ttsim-backend`; any such changes should be made there.
+
 ## Common Commands
 
 ```bash
 # Run all tests (numpy backend)
-pixi run tests
+pixi run tests -n 7
 
 # Run tests with JAX backend
-pixi run tests-jax
+pixi run tests-jax -n 7
 
 # Run a single test file
-pixi run pytest src/gettsim/tests_germany/test_policy_cases.py
+pixi run tests src/gettsim/tests_germany/test_policy_cases.py
 
 # Run tests for a specific policy area (by test ID pattern)
-pixi run pytest -k "kindergeld"
+pixi run tests -k "kindergeld"
 
 # Type checking
 pixi run ty
@@ -64,6 +66,7 @@ Policy parameters are in YAML files alongside the Python code. Each parameter ha
 - Date-keyed values (e.g., `2023-01-01:`)
 - Metadata (name, description in de/en, unit, reference_period, type)
 - Legal references
+- More precise rules are in `docs/geps/params-schema.json`
 
 ### Test Cases
 
