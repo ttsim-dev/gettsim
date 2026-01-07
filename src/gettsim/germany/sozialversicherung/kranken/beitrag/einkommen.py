@@ -7,15 +7,15 @@ from gettsim.tt import policy_function
 
 @policy_function(end_date="1999-03-31", leaf_name="einkommen_m")
 def einkommen_m_bis_03_1999(
-    einkommen_bis_beitragsbemessungsgrenze_m: float,
+    einkommen_bis_jahresarbeitsentgeltgrenze_m: float,
 ) -> float:
     """Wage subject to public health insurance contributions."""
-    return einkommen_bis_beitragsbemessungsgrenze_m
+    return einkommen_bis_jahresarbeitsentgeltgrenze_m
 
 
 @policy_function(start_date="1999-04-01", leaf_name="einkommen_m")
 def einkommen_m_ab_04_1999(
-    einkommen_bis_beitragsbemessungsgrenze_m: float,
+    einkommen_bis_jahresarbeitsentgeltgrenze_m: float,
     sozialversicherung__regulär_beschäftigt: bool,
 ) -> float:
     """Wage subject to public health insurance contributions.
@@ -24,16 +24,16 @@ def einkommen_m_ab_04_1999(
     the '630 Mark' job introduction.
     """
     if sozialversicherung__regulär_beschäftigt:
-        out = einkommen_bis_beitragsbemessungsgrenze_m
+        out = einkommen_bis_jahresarbeitsentgeltgrenze_m
     else:
         out = 0.0
     return out
 
 
 @policy_function()
-def einkommen_bis_beitragsbemessungsgrenze_m(
+def einkommen_bis_jahresarbeitsentgeltgrenze_m(
     einnahmen__bruttolohn_m: float,
-    beitragsbemessungsgrenze_m: float,
+    jahresarbeitsentgeltgrenze_m: float,
 ) -> float:
     """Income from dependent employment, capped at the contribution ceiling.
 
@@ -42,7 +42,7 @@ def einkommen_bis_beitragsbemessungsgrenze_m(
     """
     return min(
         einnahmen__bruttolohn_m,
-        beitragsbemessungsgrenze_m,
+        jahresarbeitsentgeltgrenze_m,
     )
 
 
@@ -52,7 +52,7 @@ def bemessungsgrundlage_selbstständig_m(
     bezugsgröße_selbstständige_m: float,
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
     privat_versichert: bool,
-    beitragsbemessungsgrenze_m: float,
+    jahresarbeitsentgeltgrenze_m: float,
     mindestanteil_bezugsgröße_selbstständige: float,
 ) -> float:
     """Self-employed income which is subject to health insurance contributions.
@@ -68,7 +68,7 @@ def bemessungsgrundlage_selbstständig_m(
         and not privat_versichert
     ):
         out = min(
-            beitragsbemessungsgrenze_m,
+            jahresarbeitsentgeltgrenze_m,
             max(
                 bezugsgröße_selbstständige_m * mindestanteil_bezugsgröße_selbstständige,
                 einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m,
@@ -83,17 +83,17 @@ def bemessungsgrundlage_selbstständig_m(
 @policy_function(
     start_date="1990-01-01",
     end_date="2000-12-31",
-    leaf_name="beitragsbemessungsgrenze_m",
+    leaf_name="jahresarbeitsentgeltgrenze_m",
 )
-def beitragsbemessungsgrenze_m_nach_wohnort(
+def jahresarbeitsentgeltgrenze_m_nach_wohnort(
     wohnort_ost_hh: bool,
-    parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
+    parameter_jahresarbeitsentgeltgrenze_nach_wohnort: dict[str, float],
 ) -> float:
     """Income threshold up to which health insurance payments apply."""
     return (
-        parameter_beitragsbemessungsgrenze_nach_wohnort["ost"]
+        parameter_jahresarbeitsentgeltgrenze_nach_wohnort["ost"]
         if wohnort_ost_hh
-        else parameter_beitragsbemessungsgrenze_nach_wohnort["west"]
+        else parameter_jahresarbeitsentgeltgrenze_nach_wohnort["west"]
     )
 
 
@@ -119,12 +119,12 @@ def bemessungsgrundlage_rente_m(
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
-    beitragsbemessungsgrenze_m: float,
+    jahresarbeitsentgeltgrenze_m: float,
 ) -> float:
     """Pension income which is subject to health insurance contribution."""
     return min(
         einnahmen__renten__gesetzliche_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__aus_berufsständischen_versicherungen_m,
-        beitragsbemessungsgrenze_m,
+        jahresarbeitsentgeltgrenze_m,
     )

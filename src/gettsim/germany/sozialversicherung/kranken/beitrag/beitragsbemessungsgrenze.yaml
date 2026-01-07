@@ -1,11 +1,13 @@
 ---
-beitragsbemessungsgrenze_m:
+jahresarbeitsentgeltgrenze_m:
   name:
-    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
+    de: >-
+      Jahresarbeitsentgeltgrenze (Beitragsbemessungsgrenze) der gesetzlichen
+      Krankenversicherung
     en: Maximum income subject to health insurance contributions
   description:
     de: >-
-      Die Beitragsbemessungsgrenze ist einheitlich in der gesamten BRD. Die
+      Die Jahresarbeitsentgeltgrenze ist einheitlich in der gesamten BRD. Die
       Bemessungsgrenze gilt auch für die Pflegeversicherung.
     en: >-
       The income threshold is uniform throughout the Federal Republic of Germany.
@@ -28,7 +30,7 @@ beitragsbemessungsgrenze_m:
   1990-01-01:
     note: >-
       The Bemessungsgrenze differs between West and East Germany. See
-      ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
+      ``parameter_jahresarbeitsentgeltgrenze_nach_wohnort``.
   2001-01-01:
     value: 3336
   2002-01-01:
@@ -86,13 +88,18 @@ beitragsbemessungsgrenze_m:
   2025-01-01:
     value: 5512.5
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
-parameter_beitragsbemessungsgrenze_nach_wohnort:
+  2026-01-01:
+    value: 5812.5
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
+      Nr. 278
+parameter_jahresarbeitsentgeltgrenze_nach_wohnort:
   name:
-    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
+    de: Jahresarbeitsentgeltgrenze der gesetzlichen Krankenversicherung
     en: Maximum income subject to health insurance contributions
   description:
     de: >-
-      Die Beitragsbemessungsgrenze für Krankenversicherung ist unterschiedlich
+      Die Jahresarbeitsentgeltgrenze für Krankenversicherung ist unterschiedlich
       zwischen West- und Ostdeutschland. Die Bemessungsgrenze gilt auch für die
       Pflegeversicherung.
     en: >-
@@ -137,4 +144,4 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
   2001-01-01:
     note: >-
       The Bemessungsgrenze does not differ between West and East Germany. See
-      ``beitragsbemessungsgrenze_m``.
+      ``jahresarbeitsentgeltgrenze_m``.

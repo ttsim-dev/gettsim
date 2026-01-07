@@ -58,12 +58,19 @@ beitragspflichtiges_durchschnittsentgelt_y:
     value: 44732
     reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
   2024-01-01:
-    value: 45358
-    reference: §3 V. v. 24.11.2023 BGBl. 2023 I Nr. 322
-    note: Vorläufiges Durchschnittsentgelt
+    value: 47085
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
+      Nr. 278
   2025-01-01:
     value: 50493
     reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+    note: Vorläufiges Durchschnittsentgelt
+  2026-01-01:
+    value: 51944
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
+      Nr. 278
     note: Vorläufiges Durchschnittsentgelt
 umrechnung_entgeltpunkte_beitrittsgebiet:
   name:
