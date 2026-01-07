@@ -231,7 +231,7 @@ def vorsorgepauschale_y_unter_berücksichtigung_arbeitslosenversicherungsbeiträ
     vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
 ) -> float:
     """Vorsorgepauschale.
-    
+
     Unemployment insurance contributions are now deductible up to a certain limit.
     """
     vorsorge_rentenversicherungsbeiträge = (
@@ -240,7 +240,7 @@ def vorsorgepauschale_y_unter_berücksichtigung_arbeitslosenversicherungsbeiträ
         / 2
     )
     summe_av_kv_pv = (
-        vorsorge_arbeitslosenversicherungsbeiträge 
+        vorsorge_arbeitslosenversicherungsbeiträge
         + vorsorge_kranken_und_pflegeversicherungsbeiträge
     )
     if summe_av_kv_pv <= vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge:
@@ -267,8 +267,8 @@ def vorsorgepauschale_y_ab_2023(
     vorsorge_krankenversicherungsbeiträge_option_a: float,
     vorsorge_krankenversicherungsbeiträge_option_b: float,
 ) -> float:
-    """Vorsorgepauschale for Lohnsteuer valid since 2010. 
-    
+    """Vorsorgepauschale for Lohnsteuer valid since 2010.
+
     Those are deducted from gross earnings. Idea is similar, but not identical, to
     Vorsorgeaufwendungen used when calculating Einkommensteuer.
     """
