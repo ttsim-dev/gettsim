@@ -58,6 +58,9 @@ vorsorgepauschale_mindestanteil:
   2010-01-01:
     value: 0.12
     reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+  2025-12-31:
+    note: Mindestvorsorgepauschale revoked.
+    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).
 maximal_absetzbare_krankenversicherungskosten:
   name:
     de: Höchstbetrag Mindestvorsorgepauschale
@@ -78,3 +81,26 @@ maximal_absetzbare_krankenversicherungskosten:
     steuerklasse_3: 3000
     steuerklasse_nicht_3: 1900
     reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge:
+  name:
+    de: >-
+      39b (2) S.2 Nr. 5 EStG. Grenze zur Berücksichtigung von Vorsorgeaufwendungen bei
+      Arbeitslosenversicherungsbeiträgen.
+    en: >-
+      39b (2) S.2 Nr. 5 EStG. Boundary for consideration of unemployment insurance
+      contributions in the calculation of withholding tax.
+  description:
+    de: >-
+      Aufwendungen für Arbeitslosenversicherungsbeiträge werden nur berücksichtigt, wenn
+      die Summe der Teilbeträge der Aufwedungen für Kranken-, Pflege-, Renten- und
+      Arbeitslosenversicherungsbeiträge nicht die Grenze überschreitet.
+    en: >-
+      Expenses for unemployment insurance contributions are only considered if the sum
+      of the partial amounts of expenses for health care, care insurance, pension
+      insurance and unemployment insurance contributions does not exceed the limit.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2026-01-01:
+    value: 1900
+    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).

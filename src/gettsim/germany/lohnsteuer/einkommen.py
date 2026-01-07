@@ -53,7 +53,7 @@ def einkommen_y(
     )
 
 
-@policy_function(start_date="2010-01-01")
+@policy_function(start_date="2010-01-01", end_date="2025-12-31")
 def vorsorge_krankenversicherungsbeiträge_option_a(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
     steuerklasse: int,
@@ -139,6 +139,21 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     )
 
 
+@policy_function(start_date="2026-01-01")
+def vorsorge_arbeitslosenversicherungsbeiträge(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
+    vorsorge_kranken_und_pflegeversicherungsbeiträge: float,
+    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
+) -> float:
+    """Vorsorgepauschale für Arbeitslosenversicherungsbeiträge."""
+    return (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__arbeitslosen__beitrag__beitragssatz
+        / 2
+    )
+
+
 @param_function(start_date="2005-01-01", end_date="2022-12-31")
 def einführungsfaktor_rentenversicherungsaufwendungen(
     parameter_einführungsfaktor_rentenversicherungsaufwendungen: PiecewisePolynomialParamValue,
@@ -195,7 +210,54 @@ def vorsorgepauschale_y_ab_2010_bis_2022(
 
 
 @policy_function(
+    start_date="2026-01-01",
+    leaf_name="vorsorgepauschale_y",
+    rounding_spec=RoundingSpec(base=1, direction="up"),
+)
+def vorsorgepauschale_y_unter_berücksichtigung_arbeitslosenversicherungsbeiträge(
+    # S. 27 Programmablaufplan Lohnsteuer
+
+
+@policy_function(
+    start_date="2026-01-01",
+    leaf_name="vorsorgepauschale_y",
+    rounding_spec=RoundingSpec(base=1, direction="up"),
+)
+def vorsorgepauschale_y_unter_berücksichtigung_arbeitslosenversicherungsbeiträge(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__rente__beitrag__beitragssatz: float,
+    vorsorge_kranken_und_pflegeversicherungsbeiträge: float,
+    vorsorge_arbeitslosenversicherungsbeiträge: float,
+    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
+) -> float:
+    """Vorsorgepauschale.
+    
+    Unemployment insurance contributions are now deductible up to a certain limit.
+    """
+    vorsorge_rentenversicherungsbeiträge = (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__rente__beitrag__beitragssatz
+        / 2
+    )
+    summe_av_kv_pv = (
+        vorsorge_arbeitslosenversicherungsbeiträge 
+        + vorsorge_kranken_und_pflegeversicherungsbeiträge
+    )
+    if summe_av_kv_pv <= vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge:
+        return (
+            vorsorge_rentenversicherungsbeiträge
+            + vorsorge_kranken_und_pflegeversicherungsbeiträge
+        )
+    else:
+        return (
+            vorsorge_rentenversicherungsbeiträge
+            + vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge
+        )
+
+
+@policy_function(
     start_date="2023-01-01",
+    end_date="2025-12-31",
     leaf_name="vorsorgepauschale_y",
     rounding_spec=RoundingSpec(base=1, direction="up"),
 )
@@ -205,10 +267,10 @@ def vorsorgepauschale_y_ab_2023(
     vorsorge_krankenversicherungsbeiträge_option_a: float,
     vorsorge_krankenversicherungsbeiträge_option_b: float,
 ) -> float:
-    """Calculate Vorsorgepauschale for Lohnsteuer valid since 2010. Those are deducted
-    from gross earnings. Idea is similar, but not identical, to Vorsorgeaufwendungen
-    used when calculating Einkommensteuer.
-
+    """Vorsorgepauschale for Lohnsteuer valid since 2010. 
+    
+    Those are deducted from gross earnings. Idea is similar, but not identical, to
+    Vorsorgeaufwendungen used when calculating Einkommensteuer.
     """
     rente = (
         sozialversicherung__rente__beitrag__einkommen_y
