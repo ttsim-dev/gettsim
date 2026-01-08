@@ -193,7 +193,7 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
 
 
 @policy_function(
-    start_date="2023-01-01", 
+    end_date="2022-12-31",
     leaf_name="vorsorge_rentenversicherungsbeiträge_y"
 )
 def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
