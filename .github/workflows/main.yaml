@@ -54,8 +54,10 @@ jobs:
         if: runner.os == 'macOS'
         run: pixi run -e ${{ matrix.environment }} dot -c
       - name: Run tests on Linux (with NumPy backend and without coverage)
-        if: matrix.environment == 'py311' || matrix.environment == 'py312' || matrix.environment
-          == 'py314'
+        if: >-
+          matrix.environment == 'py311' ||
+          matrix.environment == 'py312' ||
+          matrix.environment == 'py313'
         run: pixi run -e ${{ matrix.environment }} tests
         shell: bash -el {0}
       - name: Run tests on Linux (with NumPy backend and coverage)
