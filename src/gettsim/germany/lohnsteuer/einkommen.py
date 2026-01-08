@@ -329,17 +329,24 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
 def vorsorgepauschale_y_ab_2026(
     vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y: float,
     vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y: float,
+    steuerklasse: int,
 ) -> float:
     """Vorsorgepauschale for Lohnsteuer valid since 2026.
 
     Favorability check between Vorsorgepauschale with and without unemployment insurance
     contributions.
+
+    Reference: Last part of calculation of 'MVSPKVPV' and 'MVSPHB' in Programmablaufplan
+    Lohnsteuer BMF 2025-11-12
     """
     # TODO(@MImmesberger): Should return
     # vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y for individuals that do
     # not pay mandatory unemployment insurance contributions.
     # https://github.com/ttsim-dev/gettsim/issues/1114
-    return max(
-        vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y,
-        vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y,
-    )
+    if steuerklasse == 6:
+        return vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y
+    else:
+        return max(
+            vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y,
+            vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y,
+        )
