@@ -241,7 +241,7 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
 )
 def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
-    sozialversicherung__kranken__beitrag__beitrag_private_krankenversicherung_m: float,
+    sozialversicherung__kranken__beitrag__beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y: float,
     vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
     vorsorge_rentenversicherungsbeiträge_y: float,
     steuerklasse: int,
@@ -255,7 +255,7 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
         kv_pv_aufwendungen_y = 0.0
     elif sozialversicherung__kranken__beitrag__privat_versichert:
         kv_pv_aufwendungen_y = max(
-            sozialversicherung__kranken__beitrag__beitrag_private_krankenversicherung_m,
+            sozialversicherung__kranken__beitrag__beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y,
             0.0,
         )
     else:
@@ -289,6 +289,39 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
 
 
 @policy_function(
+    start_date="2005-01-01",
+    end_date="2009-12-31",
+    leaf_name="vorsorgepauschale_y",
+    fail_msg_if_included="Vorsorgepauschale not implemented before 2010.",
+)
+def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
+    pass
+
+
+@policy_function(
+    start_date="2010-01-01",
+    end_date="2025-12-31",
+    leaf_name="vorsorgepauschale_y",
+    rounding_spec=RoundingSpec(base=1, direction="up"),
+)
+def vorsorgepauschale_y_ab_2010_bis_2025(
+    vorsorge_rentenversicherungsbeiträge_y: float,
+    vorsorge_krankenversicherungsbeiträge_option_a: float,
+    vorsorge_krankenversicherungsbeiträge_option_b: float,
+) -> float:
+    """Vorsorgepauschale for Lohnsteuer valid since 2010.
+
+    Those are deducted from gross earnings. Idea is similar, but not identical, to
+    Vorsorgeaufwendungen used when calculating Einkommensteuer.
+    """
+    kranken = max(
+        vorsorge_krankenversicherungsbeiträge_option_a,
+        vorsorge_krankenversicherungsbeiträge_option_b,
+    )
+    return vorsorge_rentenversicherungsbeiträge_y + kranken
+
+
+@policy_function(
     start_date="2026-01-01",
     leaf_name="vorsorgepauschale_y",
     rounding_spec=RoundingSpec(base=1, direction="up"),
@@ -310,36 +343,3 @@ def vorsorgepauschale_y_ab_2026(
         vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y,
         vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y,
     )
-
-
-@policy_function(
-    start_date="2010-01-01",
-    end_date="2025-12-31",
-    leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(base=1, direction="up"),
-)
-def vorsorgepauschale_y_ab_2010(
-    vorsorge_rentenversicherungsbeiträge_y: float,
-    vorsorge_krankenversicherungsbeiträge_option_a: float,
-    vorsorge_krankenversicherungsbeiträge_option_b: float,
-) -> float:
-    """Vorsorgepauschale for Lohnsteuer valid since 2010.
-
-    Those are deducted from gross earnings. Idea is similar, but not identical, to
-    Vorsorgeaufwendungen used when calculating Einkommensteuer.
-    """
-    kranken = max(
-        vorsorge_krankenversicherungsbeiträge_option_a,
-        vorsorge_krankenversicherungsbeiträge_option_b,
-    )
-    return vorsorge_rentenversicherungsbeiträge_y + kranken
-
-
-@policy_function(
-    start_date="2005-01-01",
-    end_date="2009-12-31",
-    leaf_name="vorsorgepauschale_y",
-    fail_msg_if_included="Vorsorgepauschale not implemented before 2010.",
-)
-def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
-    pass
