@@ -68,7 +68,8 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
         return (
             sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
             * (
-                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"] / 2
+                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"]
+                / 2
                 + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
                 + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
             )
