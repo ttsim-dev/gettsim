@@ -1,6 +1,7 @@
 ---
 info:
-  note: Above new Beitragsbemessungsgrenze (of 2024).
+  note: >-
+    Above Beitragsbemessungsgrenze of Renten- and Krankenversicherung for 2026.
   precision_atol: 1
   source: https://www.steuertipps.de/service/rechner/brutto-netto-gehaltsrechner/
 inputs:
