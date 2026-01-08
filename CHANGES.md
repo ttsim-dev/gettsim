@@ -15,6 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1113` Vorsorgepauschale Reform 2026. ({ghuser}`MImmesberger`)
 - {gh}`1105` Reduce tolerance of statutory retirement age tests.
   ({ghuser}`MImmesberger`)
 - {gh}`1093` Fix taxation of pensions and add some missing parameters of the
