@@ -26,16 +26,21 @@ jobs:
           - py311
           - py312
           - py313
-          - py313-jax
+          - py314
+          - py314-jax
         exclude:
           - os: macos-latest
             environment: py311
           - os: macos-latest
             environment: py312
+          - os: macos-latest
+            environment: py313
           - os: windows-latest
             environment: py311
           - os: windows-latest
             environment: py312
+          - os: windows-latest
+            environment: py313
     steps:
       - uses: actions/checkout@v6
       - uses: prefix-dev/setup-pixi@v0.9.3
@@ -49,11 +54,14 @@ jobs:
         if: runner.os == 'macOS'
         run: pixi run -e ${{ matrix.environment }} dot -c
       - name: Run tests on Linux (with NumPy backend and without coverage)
-        if: matrix.environment == 'py311' || matrix.environment == 'py312'
+        if: >-
+          matrix.environment == 'py311' ||
+          matrix.environment == 'py312' ||
+          matrix.environment == 'py313'
         run: pixi run -e ${{ matrix.environment }} tests
         shell: bash -el {0}
       - name: Run tests on Linux (with NumPy backend and coverage)
-        if: runner.os == 'Linux' && matrix.environment == 'py313'
+        if: runner.os == 'Linux' && matrix.environment == 'py314'
         run: pixi run -e ${{ matrix.environment }} tests --cov --cov-report=xml
         shell: bash -el {0}
       - name: Run tests on MacOS / Windows (with NumPy backend and without coverage)
@@ -61,11 +69,11 @@ jobs:
         run: pixi run -e ${{ matrix.environment }} tests
         shell: bash -el {0}
       - name: Run tests with JAX backend
-        if: matrix.environment == 'py313-jax'
+        if: matrix.environment == 'py314-jax'
         run: pixi run -e ${{ matrix.environment }} tests-jax
         shell: bash -el {0}
       - name: Upload coverage reports
-        if: runner.os == 'Linux' && matrix.environment == 'py313'
+        if: runner.os == 'Linux' && matrix.environment == 'py314'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
