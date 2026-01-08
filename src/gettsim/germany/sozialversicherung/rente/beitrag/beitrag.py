@@ -44,6 +44,9 @@ def betrag_versicherter_m_mit_midijob(
 
     After Midijob introduction in April 2003.
     """
+    # TODO(@MImmesberger): Treatment of individuals that are not insured via the
+    # public pension fund (or a berufsständische Rentenversicherung) is wrong.
+    # https://github.com/ttsim-dev/gettsim/issues/1114
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     elif sozialversicherung__in_gleitzone:

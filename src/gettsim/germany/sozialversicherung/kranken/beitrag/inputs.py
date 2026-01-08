@@ -8,3 +8,8 @@ from gettsim.tt import policy_input
 @policy_input()
 def privat_versichert() -> bool:
     """Has (only) a private health insurance contract."""
+
+
+@policy_input()
+def beitrag_private_krankenversicherung_m() -> float:
+    """Monthly contribution to private health insurance."""
