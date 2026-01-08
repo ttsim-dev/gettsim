@@ -1,13 +1,11 @@
 ---
-jahresarbeitsentgeltgrenze_m:
+beitragsbemessungsgrenze_m:
   name:
-    de: >-
-      Jahresarbeitsentgeltgrenze (Beitragsbemessungsgrenze) der gesetzlichen
-      Krankenversicherung
+    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
     en: Maximum income subject to health insurance contributions
   description:
     de: >-
-      Die Jahresarbeitsentgeltgrenze ist einheitlich in der gesamten BRD. Die
+      Die Beitragsbemessungsgrenze ist einheitlich in der gesamten BRD. Die
       Bemessungsgrenze gilt auch für die Pflegeversicherung.
     en: >-
       The income threshold is uniform throughout the Federal Republic of Germany.
@@ -30,7 +28,7 @@ jahresarbeitsentgeltgrenze_m:
   1990-01-01:
     note: >-
       The Bemessungsgrenze differs between West and East Germany. See
-      ``parameter_jahresarbeitsentgeltgrenze_nach_wohnort``.
+      ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
   2001-01-01:
     value: 3336
   2002-01-01:
@@ -93,13 +91,13 @@ jahresarbeitsentgeltgrenze_m:
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
       Nr. 278
-parameter_jahresarbeitsentgeltgrenze_nach_wohnort:
+parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
-    de: Jahresarbeitsentgeltgrenze der gesetzlichen Krankenversicherung
+    de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
     en: Maximum income subject to health insurance contributions
   description:
     de: >-
-      Die Jahresarbeitsentgeltgrenze für Krankenversicherung ist unterschiedlich
+      Die Beitragsbemessungsgrenze für Krankenversicherung ist unterschiedlich
       zwischen West- und Ostdeutschland. Die Bemessungsgrenze gilt auch für die
       Pflegeversicherung.
     en: >-
@@ -144,4 +142,4 @@ parameter_jahresarbeitsentgeltgrenze_nach_wohnort:
   2001-01-01:
     note: >-
       The Bemessungsgrenze does not differ between West and East Germany. See
-      ``jahresarbeitsentgeltgrenze_m``.
+      ``beitragsbemessungsgrenze_m``.
