@@ -161,7 +161,7 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
                 + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
             )
         )
-        
+
 
 @policy_function(start_date="2026-01-01")
 def vorsorge_arbeitslosenversicherungsbeiträge(
