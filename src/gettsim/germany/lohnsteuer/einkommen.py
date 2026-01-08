@@ -53,29 +53,6 @@ def einkommen_y(
     )
 
 
-@policy_function(start_date="2026-01-01")
-def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
-    sozialversicherung__kranken__beitrag__privat_versichert: bool,
-    sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
-    sozialversicherung__kranken__beitrag__zusatzbeitragssatz: float,
-    sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer: float,
-    sozialversicherung__kranken__beitrag__parameter_beitragssatz: dict[str, float],
-) -> float:
-    """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge."""
-    if sozialversicherung__kranken__beitrag__privat_versichert:
-        return 0.0
-    else:
-        return (
-            sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
-            * (
-                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"]
-                / 2
-                + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
-                + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
-            )
-        )
-
-
 @policy_function(start_date="2010-01-01", end_date="2025-12-31")
 def vorsorge_krankenversicherungsbeiträge_option_a(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -138,6 +115,7 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
 
 @policy_function(
     start_date="2019-01-01",
+    end_date="2025-12-31",
     leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
@@ -163,6 +141,29 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
 
 
 @policy_function(start_date="2026-01-01")
+def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
+    sozialversicherung__kranken__beitrag__privat_versichert: bool,
+    sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
+    sozialversicherung__kranken__beitrag__zusatzbeitragssatz: float,
+    sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer: float,
+    sozialversicherung__kranken__beitrag__parameter_beitragssatz: dict[str, float],
+) -> float:
+    """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge."""
+    if sozialversicherung__kranken__beitrag__privat_versichert:
+        return 0.0
+    else:
+        return (
+            sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
+            * (
+                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"]
+                / 2
+                + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
+                + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
+            )
+        )
+        
+
+@policy_function(start_date="2026-01-01")
 def vorsorge_arbeitslosenversicherungsbeiträge(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
@@ -171,27 +172,6 @@ def vorsorge_arbeitslosenversicherungsbeiträge(
     return (
         sozialversicherung__rente__beitrag__einkommen_y
         * sozialversicherung__arbeitslosen__beitrag__beitragssatz
-        / 2
-    )
-
-
-@policy_function(
-    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
-)
-def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
-    sozialversicherung__rente__beitrag__einkommen_y: float,
-    sozialversicherung__rente__beitrag__beitragssatz: float,
-) -> float:
-    """Vorsorgepauschale für Rentenversicherungsbeiträge.
-
-    Since 2023 the contributions are fully deductible.
-    """
-    # TODO(@MImmesberger): Should return 0 for individuals that are not insured via the
-    # public pension fund (or a berufsständische Rentenversicherung).
-    # https://github.com/ttsim-dev/gettsim/issues/1114
-    return (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__rente__beitrag__beitragssatz
         / 2
     )
 
@@ -214,6 +194,27 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
         * sozialversicherung__rente__beitrag__beitragssatz
         / 2
         * einführungsfaktor_rentenversicherungsaufwendungen
+    )
+
+
+@policy_function(
+    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+)
+def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__rente__beitrag__beitragssatz: float,
+) -> float:
+    """Vorsorgepauschale für Rentenversicherungsbeiträge.
+
+    Since 2023 the contributions are fully deductible.
+    """
+    # TODO(@MImmesberger): Should return 0 for individuals that are not insured via the
+    # public pension fund (or a berufsständische Rentenversicherung).
+    # https://github.com/ttsim-dev/gettsim/issues/1114
+    return (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__rente__beitrag__beitragssatz
+        / 2
     )
 
 
