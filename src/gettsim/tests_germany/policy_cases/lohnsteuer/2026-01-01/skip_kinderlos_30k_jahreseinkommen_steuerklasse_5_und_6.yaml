@@ -1,0 +1,64 @@
+---
+info:
+  note: ''
+  precision_atol: 1.5
+  source: https://www.bmf-steuerrechner.de/bl/bl2026/eingabeformbl2026.xhtml
+inputs:
+  assumed:
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+  provided:
+    alter:
+      - 56
+      - 56
+    arbeitsstunden_w:
+      - 40.0
+      - 40.0
+    einnahmen:
+      bruttolohn_y:
+        - 30000.0
+        - 30000.0
+    hh_id:
+      - 0
+      - 1
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+    lohnsteuer:
+      steuerklasse:
+        - 5
+        - 6
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+          beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y:
+            - 0.0
+            - 0.0
+          zusatzbeitragssatz:
+            - 0.029
+            - 0.029
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+outputs:
+  lohnsteuer:
+    betrag_y:
+      - 5588.0
+      - 6120.0
+    betrag_soli_y:
+      - 0.0
+      - 0.0
