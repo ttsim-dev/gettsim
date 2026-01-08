@@ -55,20 +55,24 @@ def einkommen_y(
 
 @policy_function(start_date="2026-01-01")
 def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
+    sozialversicherung__kranken__beitrag__privat_versichert: bool,
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
     sozialversicherung__kranken__beitrag__zusatzbeitragssatz: float,
     sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer: float,
     sozialversicherung__kranken__beitrag__parameter_beitragssatz: dict[str, float],
 ) -> float:
     """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge."""
-    return (
-        sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
-        * (
-            sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"] / 2
-            + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
-            + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
+    if sozialversicherung__kranken__beitrag__privat_versichert:
+        return 0.0
+    else:
+        return (
+            sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
+            * (
+                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"] / 2
+                + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
+                + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
+            )
         )
-    )
 
 
 @policy_function(start_date="2010-01-01", end_date="2025-12-31")
