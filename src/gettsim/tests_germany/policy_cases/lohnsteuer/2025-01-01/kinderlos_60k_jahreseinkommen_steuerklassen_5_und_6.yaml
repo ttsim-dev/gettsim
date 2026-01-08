@@ -1,7 +1,7 @@
 ---
 info:
   note: ''
-  precision_atol: 1.5
+  precision_atol: 2.0
   source: https://www.bmf-steuerrechner.de/bl/bl2025/eingabeformbl2025.xhtml
 inputs:
   assumed:

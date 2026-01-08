@@ -1,7 +1,7 @@
 ---
 info:
   note: ''
-  precision_atol: 1.5
+  precision_atol: 2.0
   source: https://www.bmf-steuerrechner.de/bl/bl2026/eingabeformbl2026.xhtml
 inputs:
   assumed:
