@@ -171,15 +171,14 @@ def vorsorge_arbeitslosenversicherungsbeiträge(
 
 
 @policy_function(
-    start_date="2023-01-01", 
-    leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
 )
 def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__rente__beitrag__beitragssatz: float,
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
-    
+
     Since 2023 the contributions are fully deductible.
     """
     # TODO(@MImmesberger): Should return 0 for individuals that are not insured via the
@@ -193,8 +192,7 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
 
 
 @policy_function(
-    start_date="2023-01-01", 
-    leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
 )
 def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
@@ -202,9 +200,9 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
     einführungsfaktor_rentenversicherungsaufwendungen: float,
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
-    
-   Between 2005 and 2022 the share of deductible contributions increases by
-   2 percentage points each year from 60% in 2005 to 100% in 2022.
+
+    Between 2005 and 2022 the share of deductible contributions increases by
+    2 percentage points each year from 60% in 2005 to 100% in 2022.
     """
     return (
         sozialversicherung__rente__beitrag__einkommen_y
@@ -253,15 +251,12 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
     Reference: Calculation of 'MVSPKVPV' in Programmablaufplan Lohnsteuer BMF
     2025-11-12; § 39b Absatz 2 Satz 5 Nummer 3 Buchstaben b bis d EStG
     """
-    if (
-        sozialversicherung__kranken__beitrag__privat_versichert
-        and steuerklasse == 6
-    ):
+    if sozialversicherung__kranken__beitrag__privat_versichert and steuerklasse == 6:
         kv_pv_aufwendungen_y = 0.0
     elif sozialversicherung__kranken__beitrag__privat_versichert:
         kv_pv_aufwendungen_y = max(
             sozialversicherung__kranken__beitrag__beitrag_private_krankenversicherung_m,
-            0.0
+            0.0,
         )
     else:
         kv_pv_aufwendungen_y = vorsorge_gesetzliche_krankenversicherungsbeiträge_y
