@@ -86,6 +86,11 @@ beitragsbemessungsgrenze_m:
   2025-01-01:
     value: 5512.5
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+  2026-01-01:
+    value: 5812.5
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
+      Nr. 278
 parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
