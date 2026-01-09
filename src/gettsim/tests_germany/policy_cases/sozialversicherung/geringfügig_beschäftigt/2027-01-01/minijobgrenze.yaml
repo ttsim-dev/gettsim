@@ -13,4 +13,4 @@ inputs:
 outputs:
   sozialversicherung:
     minijobgrenze:
-      - 520.0
+      - 633.0
