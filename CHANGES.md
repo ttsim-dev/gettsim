@@ -15,6 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1112` Implement Mindestlohnanpassungsverordnung 2025. ({ghuser}`MImmesberger`)
 - {gh}`1113` Vorsorgepauschale Reform 2026. ({ghuser}`MImmesberger`)
 - {gh}`1110` Add Python 3.14 support. ({ghuser}`hmgaudecker`)
 - {gh}`1105` Reduce tolerance of statutory retirement age tests.
