@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1121` Do not accidentally skip `test_top_level_elements_not_repeated_in_paths`,
+  add mechanism for running tests selectively on CI. ({ghuser}`hmgaudecker`)
 - {gh}`1111` Parameter update Sozialversicherungsrechengrößen Verordnung 2026 and mean
   Zusatzbeitrag 2026. ({ghuser}`MImmesberger`)
 - {gh}`1112` Implement Mindestlohnanpassungsverordnung 2025. ({ghuser}`MImmesberger`)
