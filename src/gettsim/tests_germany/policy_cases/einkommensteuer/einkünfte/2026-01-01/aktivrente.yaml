@@ -11,8 +11,8 @@ inputs:
       - 1964
       - 1964
     alter_monate:
-      - 804 # Exactly 67 years old (= Regelaltersgrenze)
-      - 805 # 1 month older than Regelaltersgrenze
+      - 804  # Exactly 67 years old (= Regelaltersgrenze)
+      - 805  # 1 month older than Regelaltersgrenze
       - 805
       - 805
     einnahmen:
@@ -44,9 +44,9 @@ outputs:
     einkünfte:
       aus_nichtselbstständiger_arbeit:
         anspruchshöhe_steuerfreibetrag_aktivrente_m:
-          - 0.0 # Not eligible because not older than Regelaltersgrenze
+          - 0.0  # Not eligible because not older than Regelaltersgrenze
           - 2000.0
-          - 0.0 # Not eligible because no public pension contribution
+          - 0.0  # Not eligible because no public pension contribution
           - 2000.0
         betrag_m:
           - 3897.5

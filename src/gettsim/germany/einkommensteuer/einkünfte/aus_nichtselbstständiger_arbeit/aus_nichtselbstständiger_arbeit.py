@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
 from ttsim.unit_converters import m_to_y
+
+from gettsim.tt import policy_function
 
 
 @policy_function(end_date="1999-03-31", leaf_name="betrag_y")
@@ -43,7 +44,8 @@ def betrag_y_ab_01_2026(
         return 0.0
     else:
         return max(
-            einnahmen_nach_abzug_werbungskosten_y - anspruchshöhe_steuerfreibetrag_aktivrente_y,
+            einnahmen_nach_abzug_werbungskosten_y
+            - anspruchshöhe_steuerfreibetrag_aktivrente_y,
             0.0,
         )
 
@@ -71,16 +73,16 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     steuerfreibetrag_aktivrente_m: float,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
-    
+
     The Aktivrente is a special tax deduction for workers who are
         - older than the Normal Retirement Age
         - the source of income is a 'rentenversicherungspflichtiges
           Beschäftigungsverhältnis'
-    
+
     The Steuerfreibetrag is deducted on a **monthly** basis, i.e. it is not possible to
     to accumulate the Steuerfreibetrag in case one earns less than it in one month and
     then apply a higher Steuerfreibetrag in another month.
-    
+
     GETTSIM's implementation makes two assumptions:
         1. einnahmen__bruttolohn_y are Einnahmen that come from a
             'rentenversicherungspflichtiges Beschäftigungsverhältnis'. See issue
@@ -100,7 +102,8 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     # TODO(@MImmesberger): Replace `alter_monate` with a float input.
     # https://github.com/ttsim-dev/gettsim/issues/211
     if (
-        m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+        m_to_y(alter_monate)
+        > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
         and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     ):
         return steuerfreibetrag_aktivrente_m
