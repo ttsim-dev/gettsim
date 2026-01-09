@@ -140,7 +140,7 @@ def abzug_durch_einkommen_m_fg(
     anzurechnendes_einkommen_m_fg: float,
     einkommensgrenze_m_fg: float,
     alter_monate: int,
-    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: float,
+    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
     abschlagsfaktor: float,
 ) -> float:
     """Reduction of parental leave benefits (means-test).
@@ -284,7 +284,7 @@ def einkommensgrenze_ohne_geschwisterbonus(
     alter_monate: int,
     einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze: float,
     einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze: float,
-    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: float,
+    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld) before adding the
     bonus for additional children.
