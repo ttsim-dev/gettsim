@@ -74,7 +74,8 @@ def neue_entgeltpunkte_y_nach_wohnort(
         versicherungspflichtiger_bruttolohn_y = umgerechneter_bruttolohn
 
     return (
-        versicherungspflichtiger_bruttolohn_y / beitragspflichtiges_durchschnittsentgelt_y
+        versicherungspflichtiger_bruttolohn_y
+        / beitragspflichtiges_durchschnittsentgelt_y
     )
 
 
@@ -91,7 +92,8 @@ def neue_entgeltpunkte_y_einheitlich(
         versicherungspflichtiger_bruttolohn_y = einnahmen__bruttolohn_y
 
     return (
-        versicherungspflichtiger_bruttolohn_y / beitragspflichtiges_durchschnittsentgelt_y
+        versicherungspflichtiger_bruttolohn_y
+        / beitragspflichtiges_durchschnittsentgelt_y
     )
 
 
