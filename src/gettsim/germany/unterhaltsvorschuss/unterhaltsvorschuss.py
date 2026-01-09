@@ -160,7 +160,9 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
         berechtigte_altersgruppen["schulkind"].min_alter <= alter
         and alter <= berechtigte_altersgruppen["schulkind"].max_alter
     ):
-        out = per_y_to_per_m(2 * sächliches_existenzmininmum_y) - kindergeld_erstes_kind_m
+        out = (
+            per_y_to_per_m(2 * sächliches_existenzmininmum_y) - kindergeld_erstes_kind_m
+        )
     else:
         out = 0.0
 
