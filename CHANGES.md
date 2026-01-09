@@ -16,6 +16,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 ## Unreleased
 
 - {gh}`1122` Implement Aktivrente. ({ghuser}`MImmesberger`)
+- {gh}`1111` Parameter update Sozialversicherungsrechengrößen Verordnung 2026 and mean
+  Zusatzbeitrag 2026. ({ghuser}`MImmesberger`)
 - {gh}`1112` Implement Mindestlohnanpassungsverordnung 2025. ({ghuser}`MImmesberger`)
 - {gh}`1113` Vorsorgepauschale Reform 2026. ({ghuser}`MImmesberger`)
 - {gh}`1110` Add Python 3.14 support. ({ghuser}`hmgaudecker`)

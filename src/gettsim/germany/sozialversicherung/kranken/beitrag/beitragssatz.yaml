@@ -137,3 +137,7 @@ parameter_beitragssatz:
     updates_previous: true
     mean_zusatzbeitrag: 0.025
     reference: BAnz AT 07.11.2024 B4
+  2026-01-01:
+    updates_previous: true
+    mean_zusatzbeitrag: 0.029
+    reference: BAnz AT 10.11.2025 B7

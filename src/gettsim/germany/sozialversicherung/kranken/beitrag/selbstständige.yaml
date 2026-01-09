@@ -28,6 +28,11 @@ bezugsgröße_selbstständige_m:
   2025-01-01:
     value: 3745
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
+  2026-01-01:
+    value: 3955
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
+      Nr. 278
 bezugsgröße_selbstständige_nach_wohnort:
   name:
     de: Monatliche Bezugsgröße für Selbstständige mit Unterschied zwischen West und Ost
