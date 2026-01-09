@@ -22,5 +22,6 @@ assignees: ''
 - [ ] Aktueller Rentenwert
 - [ ] Bezugsgröße Rentenversicherung
 - [ ] Beitragssatz + Beitragsbemessungsgrenze knappschaftliche Rentenversicherung (West)
+- [ ] Threshold Lohnsteuer for Steuerklassen 5 and 6
 
 #### Additional parameters for this year

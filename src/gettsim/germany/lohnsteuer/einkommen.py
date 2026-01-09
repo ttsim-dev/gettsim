@@ -53,7 +53,7 @@ def einkommen_y(
     )
 
 
-@policy_function(start_date="2010-01-01")
+@policy_function(start_date="2010-01-01", end_date="2025-12-31")
 def vorsorge_krankenversicherungsbeiträge_option_a(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
     steuerklasse: int,
@@ -115,6 +115,7 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
 
 @policy_function(
     start_date="2019-01-01",
+    end_date="2025-12-31",
     leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
@@ -136,6 +137,84 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
             + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
             + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
         )
+    )
+
+
+@policy_function(start_date="2026-01-01")
+def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
+    sozialversicherung__kranken__beitrag__privat_versichert: bool,
+    sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
+    sozialversicherung__kranken__beitrag__zusatzbeitragssatz: float,
+    sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer: float,
+    sozialversicherung__kranken__beitrag__parameter_beitragssatz: dict[str, float],
+) -> float:
+    """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge."""
+    if sozialversicherung__kranken__beitrag__privat_versichert:
+        return 0.0
+    else:
+        return (
+            sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
+            * (
+                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"]
+                / 2
+                + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
+                + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
+            )
+        )
+
+
+@policy_function(start_date="2026-01-01")
+def vorsorge_arbeitslosenversicherungsbeiträge(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
+) -> float:
+    """Vorsorgepauschale für Arbeitslosenversicherungsbeiträge."""
+    return (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__arbeitslosen__beitrag__beitragssatz
+        / 2
+    )
+
+
+@policy_function(
+    end_date="2022-12-31", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+)
+def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__rente__beitrag__beitragssatz: float,
+    einführungsfaktor_rentenversicherungsaufwendungen: float,
+) -> float:
+    """Vorsorgepauschale für Rentenversicherungsbeiträge.
+
+    Between 2005 and 2022 the share of deductible contributions increases by
+    2 percentage points each year from 60% in 2005 to 100% in 2022.
+    """
+    return (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__rente__beitrag__beitragssatz
+        / 2
+        * einführungsfaktor_rentenversicherungsaufwendungen
+    )
+
+
+@policy_function(
+    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+)
+def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
+    sozialversicherung__rente__beitrag__einkommen_y: float,
+    sozialversicherung__rente__beitrag__beitragssatz: float,
+) -> float:
+    """Vorsorgepauschale für Rentenversicherungsbeiträge.
+
+    Since 2023 the contributions are fully deductible.
+    """
+    # TODO(@MImmesberger): Should return 0 for individuals that are not insured via the
+    # public pension fund (or a berufsständische Rentenversicherung).
+    # https://github.com/ttsim-dev/gettsim/issues/1114
+    return (
+        sozialversicherung__rente__beitrag__einkommen_y
+        * sozialversicherung__rente__beitrag__beitragssatz
+        / 2
     )
 
 
@@ -163,64 +242,56 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
 
 
 @policy_function(
-    start_date="2010-01-01",
-    end_date="2022-12-31",
-    leaf_name="vorsorgepauschale_y",
+    start_date="2026-01-01",
     rounding_spec=RoundingSpec(base=1, direction="up"),
 )
-def vorsorgepauschale_y_ab_2010_bis_2022(
-    sozialversicherung__rente__beitrag__einkommen_y: float,
-    sozialversicherung__rente__beitrag__beitragssatz: float,
-    vorsorge_krankenversicherungsbeiträge_option_a: float,
-    vorsorge_krankenversicherungsbeiträge_option_b: float,
-    einführungsfaktor_rentenversicherungsaufwendungen: float,
+def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
+    sozialversicherung__kranken__beitrag__privat_versichert: bool,
+    sozialversicherung__kranken__beitrag__beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y: float,
+    vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
+    vorsorge_rentenversicherungsbeiträge_y: float,
+    steuerklasse: int,
 ) -> float:
-    """Calculate Vorsorgepauschale for Lohnsteuer valid since 2010. Those are deducted
-    from gross earnings. Idea is similar, but not identical, to Vorsorgeaufwendungen
-    used when calculating Einkommensteuer.
+    """Vorsorgepauschale without unemployment insurance contributions.
 
+    Reference: Calculation of 'MVSPKVPV' in Programmablaufplan Lohnsteuer BMF
+    2025-11-12; § 39b Absatz 2 Satz 5 Nummer 3 Buchstaben b bis d EStG
     """
-    rente = (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__rente__beitrag__beitragssatz
-        / 2
-        * einführungsfaktor_rentenversicherungsaufwendungen
-    )
-    kranken = max(
-        vorsorge_krankenversicherungsbeiträge_option_a,
-        vorsorge_krankenversicherungsbeiträge_option_b,
-    )
-
-    return rente + kranken
+    if sozialversicherung__kranken__beitrag__privat_versichert and steuerklasse == 6:
+        kv_pv_aufwendungen_y = 0.0
+    elif sozialversicherung__kranken__beitrag__privat_versichert:
+        kv_pv_aufwendungen_y = max(
+            sozialversicherung__kranken__beitrag__beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y,
+            0.0,
+        )
+    else:
+        kv_pv_aufwendungen_y = vorsorge_gesetzliche_krankenversicherungsbeiträge_y
+    return kv_pv_aufwendungen_y + vorsorge_rentenversicherungsbeiträge_y
 
 
 @policy_function(
-    start_date="2023-01-01",
-    leaf_name="vorsorgepauschale_y",
+    start_date="2026-01-01",
     rounding_spec=RoundingSpec(base=1, direction="up"),
 )
-def vorsorgepauschale_y_ab_2023(
-    sozialversicherung__rente__beitrag__einkommen_y: float,
-    sozialversicherung__rente__beitrag__beitragssatz: float,
-    vorsorge_krankenversicherungsbeiträge_option_a: float,
-    vorsorge_krankenversicherungsbeiträge_option_b: float,
+def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
+    vorsorge_rentenversicherungsbeiträge_y: float,
+    vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
+    vorsorge_arbeitslosenversicherungsbeiträge: float,
+    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
 ) -> float:
-    """Calculate Vorsorgepauschale for Lohnsteuer valid since 2010. Those are deducted
-    from gross earnings. Idea is similar, but not identical, to Vorsorgeaufwendungen
-    used when calculating Einkommensteuer.
+    """Vorsorgepauschale considering unemployment insurance contributions.
 
+    Unemployment insurance contributions are now deductible up to a certain limit.
+
+    Reference: Calculation of 'MVSPHB' in Programmablaufplan Lohnsteuer BMF 2025-11-12;
+    § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe e EStG.
     """
-    rente = (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__rente__beitrag__beitragssatz
-        / 2
+    summe_av_kv_pv = min(
+        vorsorge_arbeitslosenversicherungsbeiträge
+        + vorsorge_gesetzliche_krankenversicherungsbeiträge_y,
+        vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge,
     )
-    kranken = max(
-        vorsorge_krankenversicherungsbeiträge_option_a,
-        vorsorge_krankenversicherungsbeiträge_option_b,
-    )
-
-    return rente + kranken
+    return vorsorge_rentenversicherungsbeiträge_y + summe_av_kv_pv
 
 
 @policy_function(
@@ -231,3 +302,57 @@ def vorsorgepauschale_y_ab_2023(
 )
 def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
     pass
+
+
+@policy_function(
+    start_date="2010-01-01",
+    end_date="2025-12-31",
+    leaf_name="vorsorgepauschale_y",
+    rounding_spec=RoundingSpec(base=1, direction="up"),
+)
+def vorsorgepauschale_y_ab_2010_bis_2025(
+    vorsorge_rentenversicherungsbeiträge_y: float,
+    vorsorge_krankenversicherungsbeiträge_option_a: float,
+    vorsorge_krankenversicherungsbeiträge_option_b: float,
+) -> float:
+    """Vorsorgepauschale for Lohnsteuer valid since 2010.
+
+    Those are deducted from gross earnings. Idea is similar, but not identical, to
+    Vorsorgeaufwendungen used when calculating Einkommensteuer.
+    """
+    kranken = max(
+        vorsorge_krankenversicherungsbeiträge_option_a,
+        vorsorge_krankenversicherungsbeiträge_option_b,
+    )
+    return vorsorge_rentenversicherungsbeiträge_y + kranken
+
+
+@policy_function(
+    start_date="2026-01-01",
+    leaf_name="vorsorgepauschale_y",
+    rounding_spec=RoundingSpec(base=1, direction="up"),
+)
+def vorsorgepauschale_y_ab_2026(
+    vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y: float,
+    vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y: float,
+    steuerklasse: int,
+) -> float:
+    """Vorsorgepauschale for Lohnsteuer valid since 2026.
+
+    Favorability check between Vorsorgepauschale with and without unemployment insurance
+    contributions.
+
+    Reference: Last part of calculation of 'MVSPKVPV' and 'MVSPHB' in Programmablaufplan
+    Lohnsteuer BMF 2025-11-12
+    """
+    # TODO(@MImmesberger): Should return
+    # vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y for individuals that do
+    # not pay mandatory unemployment insurance contributions.
+    # https://github.com/ttsim-dev/gettsim/issues/1114
+    if steuerklasse == 6:
+        return vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y
+    else:
+        return max(
+            vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y,
+            vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y,
+        )
