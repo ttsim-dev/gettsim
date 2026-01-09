@@ -83,19 +83,8 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     to accumulate the Steuerfreibetrag in case one earns less than it in one month and
     then apply a higher Steuerfreibetrag in another month.
 
-    GETTSIM's implementation makes two assumptions:
-        1. einnahmen__bruttolohn_y are Einnahmen that come from a
-            'rentenversicherungspflichtiges Beschäftigungsverhältnis'. See issue
-            https://github.com/ttsim-dev/gettsim/issues/1114. Individuals must pay
-            social security contributions for these earnings.
-        2. einnahmen__bruttolohn_m are constant over the entire year, i.e. we do not
-            model the reduction of the Steuerfreibetrag for every month in which its
-            take-up criteria are not met. This is because the automatic time-conversion
-            feature of GETTSIM assumes that units are constant over time when they are
-            converted to other time units. If you are interested in the effects of this
-            reduction, consider calculating
-            `einnahmen_nach_abzug_werbungskosten_und_aktivrente_y` yourself and use this
-            as an input when calling GETTSIM.
+    If you want to calculate taxes with income that varies by month, pass the correct
+    Aktivrente deduction as an input when calling GETTSIM.
 
     Reference: § 3 Abs. 21 EStG.
     """

@@ -6,10 +6,10 @@ info:
 inputs:
   provided:
     geburtsjahr:
-      - 1964
-      - 1964
-      - 1964
-      - 1964
+      - 1959
+      - 1959
+      - 1959
+      - 1959
     alter_monate:
       - 804  # Exactly 67 years old (= Regelaltersgrenze)
       - 805  # 1 month older than Regelaltersgrenze

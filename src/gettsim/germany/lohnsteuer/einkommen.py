@@ -62,7 +62,7 @@ def einkommen_y_bis_2025(
     rounding_spec=RoundingSpec(base=1, direction="down"),
     leaf_name="einkommen_y",
 )
-def einkommen_y_ab_2025(
+def einkommen_y_ab_2026(
     einnahmen__bruttolohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
