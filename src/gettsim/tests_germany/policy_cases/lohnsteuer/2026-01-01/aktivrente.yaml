@@ -12,11 +12,11 @@ inputs:
       - 1959
       - 1959
     alter_monate:
-      - 804  # Exactly 67 years old (= Regelaltersgrenze)
-      - 805  # 1 month older than Regelaltersgrenze
-      - 805
-      - 805
-      - 805
+      - 794  # Exactly 67 years old (= Regelaltersgrenze)
+      - 795  # 1 month older than Regelaltersgrenze
+      - 795
+      - 795
+      - 795
     einnahmen:
       bruttolohn_m:
         - 3000.0
