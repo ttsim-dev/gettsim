@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from gettsim.tt import policy_function
+from ttsim.unit_converters import m_to_y
 
 
 @policy_function(end_date="1999-03-31", leaf_name="betrag_y")
@@ -34,7 +35,7 @@ def betrag_y_ab_04_1999_bis_2025(
 @policy_function(start_date="2026-01-01", leaf_name="betrag_y")
 def betrag_y_ab_01_2026(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    alter: float,
+    alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
     einnahmen_nach_abzug_werbungskosten_und_aktivrente_y: float,
@@ -43,8 +44,10 @@ def betrag_y_ab_01_2026(
     """Taxable income from dependent employment."""
     if sozialversicherung__geringfügig_beschäftigt:
         return 0.0
+    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
+    # https://github.com/ttsim-dev/gettsim/issues/211
     elif (
-        alter > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+        m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
         and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     ):
         return einnahmen_nach_abzug_werbungskosten_und_aktivrente_y
