@@ -118,7 +118,7 @@ def basisbetrag_m(
     anzurechnendes_einkommen_y_fg: float,
     einkommensgrenze_y_fg: float,
     alter_monate: int,
-    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: float,
+    altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
     satz: dict[str, float],
 ) -> float:
     """Parental leave benefit (Erziehungsgeld) without means-test on child level."""
