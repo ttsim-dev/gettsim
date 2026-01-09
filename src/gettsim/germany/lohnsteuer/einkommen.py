@@ -16,8 +16,12 @@ from gettsim.tt import (
 )
 
 
-@policy_function(rounding_spec=RoundingSpec(base=1, direction="down"))
-def einkommen_y(
+@policy_function(
+    end_date="2025-12-31", 
+    rounding_spec=RoundingSpec(base=1, direction="down"), 
+    leaf_name="einkommen_y",
+)
+def einkommen_y_bis_2025(
     einnahmen__bruttolohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
@@ -25,7 +29,7 @@ def einkommen_y(
     einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
 ) -> float:
-    """Calculate tax base for Lohnsteuer (withholding tax on earnings)."""
+    """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
     if steuerklasse == 6:
         werbungskosten = 0.0
     else:
@@ -49,6 +53,50 @@ def einkommen_y(
         - sonderausgaben
         - alleinerziehendenfreibetrag
         - vorsorgepauschale_y,
+        0.0,
+    )
+
+
+@policy_function(
+    start_date="2026-01-01", 
+    rounding_spec=RoundingSpec(base=1, direction="down"), 
+    leaf_name="einkommen_y",
+)
+def einkommen_y_ab_2025(
+    einnahmen__bruttolohn_y: float,
+    steuerklasse: int,
+    vorsorgepauschale_y: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
+    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
+    einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
+) -> float:
+    """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
+    if steuerklasse == 6:
+        werbungskosten = 0.0
+        steuerfreibetrag_aktivrente = 0.0
+        sonderausgaben = 0.0
+    else:
+        werbungskosten = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+        sonderausgaben = einkommensteuer__abzüge__sonderausgabenpauschbetrag
+        # Aktivrente is only applicable to one job (usually the 'main' job).
+        steuerfreibetrag_aktivrente = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y
+    
+    if steuerklasse == 2:
+        alleinerziehendenfreibetrag = (
+            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis
+        )
+    else:
+        alleinerziehendenfreibetrag = 0.0
+
+
+    return max(
+        einnahmen__bruttolohn_y
+        - werbungskosten
+        - sonderausgaben
+        - alleinerziehendenfreibetrag
+        - vorsorgepauschale_y
+        - steuerfreibetrag_aktivrente,
         0.0,
     )
 

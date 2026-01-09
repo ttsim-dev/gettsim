@@ -35,24 +35,18 @@ def betrag_y_ab_04_1999_bis_2025(
 @policy_function(start_date="2026-01-01", leaf_name="betrag_y")
 def betrag_y_ab_01_2026(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    alter_monate: int,
-    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
-    sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
-    einnahmen_nach_abzug_werbungskosten_und_aktivrente_y: float,
+    anspruchshöhe_steuerfreibetrag_aktivrente_m: float,
     einnahmen_nach_abzug_werbungskosten_y: float,
 ) -> float:
     """Taxable income from dependent employment."""
     if sozialversicherung__geringfügig_beschäftigt:
         return 0.0
-    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
-    # https://github.com/ttsim-dev/gettsim/issues/211
-    elif (
-        m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
-    ):
-        return einnahmen_nach_abzug_werbungskosten_und_aktivrente_y
     else:
-        return einnahmen_nach_abzug_werbungskosten_y
+        return max(
+            einnahmen_nach_abzug_werbungskosten_y - anspruchshöhe_steuerfreibetrag_aktivrente_m,
+            0.0,
+        )
+
 
 @policy_function()
 def einnahmen_nach_abzug_werbungskosten_y(
@@ -70,11 +64,13 @@ def werbungskosten_y(arbeitnehmerpauschbetrag: float) -> float:
 
 
 @policy_function(start_date="2026-01-01")
-def einnahmen_nach_abzug_werbungskosten_und_aktivrente_m(
-    einnahmen_nach_abzug_werbungskosten_m: float,
+def anspruchshöhe_steuerfreibetrag_aktivrente_m(
+    sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
+    alter_monate: int,
+    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
     steuerfreibetrag_aktivrente_m: float,
 ) -> float:
-    """Steuerfreibetrag 'Aktivrente'.
+    """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
     
     The Aktivrente is a special tax deduction for workers who are
         - older than the Normal Retirement Age
@@ -101,4 +97,12 @@ def einnahmen_nach_abzug_werbungskosten_und_aktivrente_m(
 
     Reference: § 3 Abs. 21 EStG.
     """
-    return einnahmen_nach_abzug_werbungskosten_m - steuerfreibetrag_aktivrente_m
+    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
+    # https://github.com/ttsim-dev/gettsim/issues/211
+    if (
+        m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+        and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
+    ):
+        return steuerfreibetrag_aktivrente_m
+    else:
+        return 0.0
