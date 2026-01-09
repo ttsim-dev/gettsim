@@ -7,7 +7,7 @@ from gettsim.tt import policy_function
 def entgeltpunkte_west_updated(
     wohnort_ost_hh: bool,
     entgeltpunkte_west: float,
-    neue_entgeltpunkte_m: float,
+    neue_entgeltpunkte_y: float,
 ) -> float:
     """Updated Entgeltpunkte from West Germany based on current income.
 
@@ -18,7 +18,7 @@ def entgeltpunkte_west_updated(
     if wohnort_ost_hh:
         out = entgeltpunkte_west
     else:
-        out = entgeltpunkte_west + neue_entgeltpunkte_m
+        out = entgeltpunkte_west + neue_entgeltpunkte_y
     return out
 
 
@@ -26,7 +26,7 @@ def entgeltpunkte_west_updated(
 def entgeltpunkte_ost_updated(
     wohnort_ost_hh: bool,
     entgeltpunkte_ost: float,
-    neue_entgeltpunkte_m: float,
+    neue_entgeltpunkte_y: float,
 ) -> float:
     """Updated Entgeltpunkte from East Germany based on current income.
 
@@ -35,7 +35,7 @@ def entgeltpunkte_ost_updated(
     return the new earnings points.
     """
     if wohnort_ost_hh:
-        out = entgeltpunkte_ost + neue_entgeltpunkte_m
+        out = entgeltpunkte_ost + neue_entgeltpunkte_y
     else:
         out = entgeltpunkte_ost
     return out
@@ -44,10 +44,10 @@ def entgeltpunkte_ost_updated(
 @policy_function(start_date="2023-07-01")
 def entgeltpunkte_updated(
     entgeltpunkte: float,
-    neue_entgeltpunkte_m: float,
+    neue_entgeltpunkte_y: float,
 ) -> float:
     """Updated Entgeltpunkte based on current income."""
-    return entgeltpunkte + neue_entgeltpunkte_m
+    return entgeltpunkte + neue_entgeltpunkte_y
 
 
 @policy_function(end_date="2024-12-31", leaf_name="neue_entgeltpunkte_y")
