@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import per_y_to_per_m
+
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
@@ -178,13 +180,12 @@ def freibetrag_m_bis_2015(
     xnp: ModuleType,
 ) -> float:
     """Calculate housing benefit subtractions for one individual until 2015."""
-    freibetrag_bei_behinderung = (
+    freibetrag_bei_behinderung = per_y_to_per_m(
         piecewise_polynomial(
             x=behinderungsgrad,
             parameters=freibetrag_bei_behinderung_gestaffelt_y,
             xnp=xnp,
         )
-        / 12
     )
 
     # Subtraction for single parents and working children
@@ -213,8 +214,8 @@ def freibetrag_m_ab_2016(
     freibetrag_kinder_m: dict[str, float],
 ) -> float:
     """Calculate housing benefit subtracting for one individual since 2016."""
-    freibetrag_bei_behinderung = (
-        freibetrag_bei_behinderung_pauschal_y / 12 if behinderungsgrad > 0 else 0
+    freibetrag_bei_behinderung = per_y_to_per_m(
+        freibetrag_bei_behinderung_pauschal_y if behinderungsgrad > 0 else 0
     )
 
     if ist_kind_mit_erwerbseinkommen:

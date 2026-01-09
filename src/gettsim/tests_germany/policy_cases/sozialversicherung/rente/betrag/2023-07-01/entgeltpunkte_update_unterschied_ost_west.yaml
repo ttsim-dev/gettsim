@@ -44,6 +44,6 @@ outputs:
       entgeltpunkte_updated:
         - 30.827
         - 30.805
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_m:
         - 0.827
         - 0.805
