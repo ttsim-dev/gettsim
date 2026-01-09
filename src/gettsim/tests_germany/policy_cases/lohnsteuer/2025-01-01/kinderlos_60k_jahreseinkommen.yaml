@@ -1,8 +1,8 @@
 ---
 info:
   note: ''
-  precision_atol: 1.5
-  source: https://www.bmf-steuerrechner.de/bl/bl2026/eingabeformbl2026.xhtml
+  precision_atol: 2.0
+  source: https://www.bmf-steuerrechner.de/bl/bl2025/eingabeformbl2025.xhtml
 inputs:
   assumed:
     familie:
@@ -11,7 +11,11 @@ inputs:
         - -1
         - -1
         - -1
+        - -1
+        - -1
       p_id_elternteil_2:
+        - -1
+        - -1
         - -1
         - -1
         - -1
@@ -22,7 +26,11 @@ inputs:
       - 56
       - 56
       - 56
+      - 56
+      - 56
     arbeitsstunden_w:
+      - 40.0
+      - 40.0
       - 40.0
       - 40.0
       - 40.0
@@ -33,13 +41,19 @@ inputs:
         - 60000.0
         - 60000.0
         - 60000.0
+        - 60000.0
+        - 60000.0
     hh_id:
       - 0
       - 1
       - 2
       - 3
+      - 4
+      - 5
     kindergeld:
       in_ausbildung:
+        - false
+        - false
         - false
         - false
         - false
@@ -50,15 +64,21 @@ inputs:
         - 2
         - 3
         - 4
+        - 5
+        - 6
     p_id:
       - 0
       - 1
       - 2
       - 3
+      - 4
+      - 5
     sozialversicherung:
       kranken:
         beitrag:
           privat_versichert:
+            - false
+            - false
             - false
             - false
             - false
@@ -68,11 +88,15 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+            - 0.0
+            - 0.0
           zusatzbeitragssatz:
-            - 0.029
-            - 0.029
-            - 0.029
-            - 0.029
+            - 0.026
+            - 0.026
+            - 0.026
+            - 0.026
+            - 0.026
+            - 0.026
       pflege:
         beitrag:
           hat_kinder:
@@ -80,14 +104,20 @@ inputs:
             - false
             - false
             - false
+            - false
+            - false
 outputs:
   lohnsteuer:
     betrag_y:
-      - 9389.0
-      - 7974.0
-      - 4822.0
-      - 9389.0
+      - 9551.0
+      - 8121.0
+      - 4994.0
+      - 9551.0
+      - 15485.0
+      - 16017.0
     betrag_soli_y:
+      - 0.0
+      - 0.0
       - 0.0
       - 0.0
       - 0.0

@@ -35,7 +35,7 @@ def betrag_y_ab_04_1999_bis_2025(
 @policy_function(start_date="2026-01-01", leaf_name="betrag_y")
 def betrag_y_ab_01_2026(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    anspruchshöhe_steuerfreibetrag_aktivrente_m: float,
+    anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
     einnahmen_nach_abzug_werbungskosten_y: float,
 ) -> float:
     """Taxable income from dependent employment."""
@@ -43,7 +43,7 @@ def betrag_y_ab_01_2026(
         return 0.0
     else:
         return max(
-            einnahmen_nach_abzug_werbungskosten_y - anspruchshöhe_steuerfreibetrag_aktivrente_m,
+            einnahmen_nach_abzug_werbungskosten_y - anspruchshöhe_steuerfreibetrag_aktivrente_y,
             0.0,
         )
 

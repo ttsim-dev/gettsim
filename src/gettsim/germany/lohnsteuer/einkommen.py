@@ -74,11 +74,17 @@ def einkommen_y_ab_2025(
     """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
     if steuerklasse == 6:
         werbungskosten = 0.0
-        steuerfreibetrag_aktivrente = 0.0
-        sonderausgaben = 0.0
     else:
         werbungskosten = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+
+    if steuerklasse == 6:
+        sonderausgaben = 0.0
+    else:
         sonderausgaben = einkommensteuer__abzüge__sonderausgabenpauschbetrag
+    
+    if steuerklasse == 6:
+        steuerfreibetrag_aktivrente = 0.0
+    else:
         # Aktivrente is only applicable to one job (usually the 'main' job).
         steuerfreibetrag_aktivrente = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y
     

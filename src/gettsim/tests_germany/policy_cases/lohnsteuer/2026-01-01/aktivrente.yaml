@@ -1,0 +1,90 @@
+---
+info:
+  note: ''
+  precision_atol: 1.0
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1964
+      - 1964
+      - 1964
+      - 1964
+      - 1964
+    alter_monate:
+      - 804 # Exactly 67 years old (= Regelaltersgrenze)
+      - 805 # 1 month older than Regelaltersgrenze
+      - 805
+      - 805
+      - 805
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 3000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 6
+      vorsorgepauschale_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          arbeitnehmerpauschbetrag:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      abzüge:
+        alleinerziehendenfreibetrag_basis:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonderausgabenpauschbetrag:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 0.0
+            - 50.0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+outputs:
+  lohnsteuer:
+    einkommen_m:
+      - 3000.0 # Not eligible because not older than Regelaltersgrenze
+      - 1000.0 # Eligible
+      - 2000.0 # Eligible
+      - 4000.0 # Not eligible because no public pension contribution
+      - 4000.0 # Steuerklasse 6; no Aktivrente
