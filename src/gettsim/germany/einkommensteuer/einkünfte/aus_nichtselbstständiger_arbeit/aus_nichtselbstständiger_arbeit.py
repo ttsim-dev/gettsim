@@ -104,4 +104,7 @@ def older_than_regelaltersgrenze(
     """Is older than the Regelaltersgrenze (normal retirement age)."""
     # TODO(@MImmesberger): Replace `alter_monate` with a float input.
     # https://github.com/ttsim-dev/gettsim/issues/211
-    return m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+    return (
+        m_to_y(alter_monate)
+        > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+    )
