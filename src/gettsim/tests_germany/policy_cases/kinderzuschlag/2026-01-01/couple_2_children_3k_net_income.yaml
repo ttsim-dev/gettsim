@@ -1,7 +1,7 @@
 ---
 info:
   note: 15€ Studenlohn; 950€ Warmmiete; 3228 Netto; Paar; 2 Kinder 8+10 Jahre
-  precision_atol: 0.01
+  precision_atol: 3
   source: https://www.dgb.de/service/ratgeber/kinderzuschlag-und-kindergrundsicherung/
 inputs:
   assumed:

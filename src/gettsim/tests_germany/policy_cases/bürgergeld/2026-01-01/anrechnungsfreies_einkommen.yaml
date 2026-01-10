@@ -1,0 +1,38 @@
+---
+info:
+  note: Verified via BMAS calculator.
+  precision_atol: 0.01
+  source: https://www.sgb2.info/DE/Service/Freibetragsrechner/freibetragsrechner.html
+inputs:
+  assumed:
+    p_id:
+      - 0
+      - 1
+      - 2
+    einnahmen:
+      bruttolohn_m:
+        - 5000.0
+        - 5000.0
+        - 1000.0
+    familie:
+      anzahl_kinder_bis_17_bg:
+        - 0
+        - 2
+        - 2
+    einkommensteuer:
+      anzahl_kinderfreibeträge:
+        - 0
+        - 2
+        - 2
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+outputs:
+  bürgergeld:
+    anrechnungsfreies_einkommen_m:
+      - 348.0
+      - 378.0
+      - 328.0
