@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import per_y_to_per_m
+
 from gettsim.tt import param_function, policy_function
 
 if TYPE_CHECKING:
@@ -28,12 +30,11 @@ def satz_mit_gestaffeltem_kindergeld(
     For 2023 the amount is once again explicitly specified as a parameter.
     """
     return max(
-        (
+        per_y_to_per_m(
             existenzminimum.regelsatz.kind
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        / 12
         - kindergeld__satz_nach_anzahl_kinder.look_up(1),
         satz_vorjahr_ohne_kindersofortzuschlag,
     )
@@ -51,10 +52,13 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     Formula according to § 6a (2) BKGG.
     """
     current_formula = (
-        existenzminimum.regelsatz.kind
-        + existenzminimum.kosten_der_unterkunft.kind
-        + existenzminimum.heizkosten.kind
-    ) / 12 - kindergeld__satz
+        per_y_to_per_m(
+            existenzminimum.regelsatz.kind
+            + existenzminimum.kosten_der_unterkunft.kind
+            + existenzminimum.heizkosten.kind
+        )
+        - kindergeld__satz
+    )
 
     satz_ohne_kindersofortzuschlag = max(
         current_formula,
