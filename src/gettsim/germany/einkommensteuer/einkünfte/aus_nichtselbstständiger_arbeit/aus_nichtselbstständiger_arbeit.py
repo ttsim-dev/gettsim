@@ -36,7 +36,7 @@ def betrag_y_ab_04_1999_bis_2025(
 @policy_function(start_date="2026-01-01", leaf_name="betrag_y")
 def betrag_y_ab_01_2026(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    anspruchshöhe_steuerfreibetrag_aktivrente: float,
+    anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
     einnahmen_nach_abzug_werbungskosten_y: float,
 ) -> float:
     """Taxable income from dependent employment."""
@@ -45,7 +45,7 @@ def betrag_y_ab_01_2026(
     else:
         return max(
             einnahmen_nach_abzug_werbungskosten_y
-            - anspruchshöhe_steuerfreibetrag_aktivrente,
+            - anspruchshöhe_steuerfreibetrag_aktivrente_y,
             0.0,
         )
 
@@ -66,11 +66,11 @@ def werbungskosten_y(arbeitnehmerpauschbetrag: float) -> float:
 
 
 @policy_function(start_date="2026-01-01")
-def anspruchshöhe_steuerfreibetrag_aktivrente(
-    sozialversicherung__rente__beitrag__betrag_versicherter_y: float,
+def anspruchshöhe_steuerfreibetrag_aktivrente_m(
+    sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
     alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
-    steuerfreibetrag_aktivrente_y: float,
+    steuerfreibetrag_aktivrente_m: float,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
 
@@ -88,16 +88,13 @@ def anspruchshöhe_steuerfreibetrag_aktivrente(
 
     Reference: § 3 Abs. 21 EStG.
     """
-    # TODO(@MImmesberger): The Aktivrente deduction is a stock that builds up over time.
-    # It should depend on the evaluation period of the current GETTSIM run.
-    # https://github.com/ttsim-dev/ttsim/issues/66
     # TODO(@MImmesberger): Replace `alter_monate` with a float input.
     # https://github.com/ttsim-dev/gettsim/issues/211
     if (
         m_to_y(alter_monate)
         > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        and sozialversicherung__rente__beitrag__betrag_versicherter_y > 0.0
+        and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     ):
-        return steuerfreibetrag_aktivrente_y
+        return steuerfreibetrag_aktivrente_m
     else:
         return 0.0

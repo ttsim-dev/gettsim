@@ -43,11 +43,11 @@ outputs:
   einkommensteuer:
     einkünfte:
       aus_nichtselbstständiger_arbeit:
-        anspruchshöhe_steuerfreibetrag_aktivrente:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
           - 0.0  # Not eligible because not older than Regelaltersgrenze
-          - 24000.0
+          - 2000.0
           - 0.0  # Not eligible because no public pension contribution
-          - 24000.0
+          - 2000.0
         betrag_m:
           - 3897.5
           - 1897.5

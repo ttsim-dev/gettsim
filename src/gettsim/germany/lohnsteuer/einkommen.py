@@ -69,7 +69,7 @@ def einkommen_y_ab_2026(
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
     einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
 ) -> float:
     """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
     if steuerklasse == 6:
@@ -86,7 +86,7 @@ def einkommen_y_ab_2026(
         steuerfreibetrag_aktivrente = 0.0
     else:
         # Aktivrente is only applicable to one job (usually the 'main' job).
-        steuerfreibetrag_aktivrente = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente
+        steuerfreibetrag_aktivrente = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
