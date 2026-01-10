@@ -68,8 +68,7 @@ def werbungskosten_y(arbeitnehmerpauschbetrag: float) -> float:
 @policy_function(start_date="2026-01-01")
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
-    alter_monate: int,
-    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
+    older_than_regelaltersgrenze: bool,
     steuerfreibetrag_aktivrente_m: float,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
@@ -88,13 +87,21 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
 
     Reference: § 3 Abs. 21 EStG.
     """
-    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
-    # https://github.com/ttsim-dev/gettsim/issues/211
-    if (
-        m_to_y(alter_monate)
-        > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        and sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
-    ):
+    pays_contributions_to_pension_insurance = (
+        sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
+    )
+    if older_than_regelaltersgrenze and pays_contributions_to_pension_insurance:
         return steuerfreibetrag_aktivrente_m
     else:
         return 0.0
+
+
+@policy_function(start_date="2026-01-01")
+def older_than_regelaltersgrenze(
+    alter_monate: int,
+    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
+) -> bool:
+    """Is older than the Regelaltersgrenze (normal retirement age)."""
+    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
+    # https://github.com/ttsim-dev/gettsim/issues/211
+    return m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze

@@ -53,3 +53,8 @@ outputs:
           - 1897.5
           - 3897.50
           - 1897.5
+        older_than_regelaltersgrenze:
+          - false
+          - true
+          - true
+          - true
