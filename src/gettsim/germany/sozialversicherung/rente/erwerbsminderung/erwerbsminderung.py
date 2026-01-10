@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import m_to_y, y_to_m
+
 from gettsim.tt import policy_function
 
 if TYPE_CHECKING:
@@ -165,7 +167,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
     claiming_month_since_ad = (
-        sozialversicherung__rente__jahr_renteneintritt * 12
+        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
         + sozialversicherung__rente__monat_renteneintritt
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
@@ -219,7 +221,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
     claiming_month_since_ad = (
-        sozialversicherung__rente__jahr_renteneintritt * 12
+        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
         + sozialversicherung__rente__monat_renteneintritt
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
@@ -303,7 +305,7 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
     Berücksichtigungszeiten and certain Anrechnungszeiten or Ersatzzeiten).
     """
     claiming_month_since_ad = (
-        sozialversicherung__rente__jahr_renteneintritt * 12
+        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
         + sozialversicherung__rente__monat_renteneintritt
     )
 
@@ -347,7 +349,7 @@ def wartezeit_langjährig_versichert_erfüllt(
     age of 63.
     """
     if (
-        sozialversicherung__rente__pflichtbeitragsmonate / 12
+        m_to_y(sozialversicherung__rente__pflichtbeitragsmonate)
         >= sozialversicherung__rente__mindestpflichtbeitragsjahre_für_anrechenbarkeit_freiwilliger_beitragszeiten
     ):
         freiwillige_beitragszeiten = (
@@ -357,13 +359,16 @@ def wartezeit_langjährig_versichert_erfüllt(
         freiwillige_beitragszeiten = 0
 
     return (
-        sozialversicherung__rente__pflichtbeitragsmonate
-        + freiwillige_beitragszeiten
-        + sozialversicherung__rente__anrechnungsmonate_45_jahre_wartezeit
-        + sozialversicherung__rente__ersatzzeiten_monate
-        + sozialversicherung__rente__pflegeberücksichtigungszeiten_monate
-        + sozialversicherung__rente__kinderberücksichtigungszeiten_monate
-    ) / 12 >= wartezeitgrenze_langjährig_versicherte
+        m_to_y(
+            sozialversicherung__rente__pflichtbeitragsmonate
+            + freiwillige_beitragszeiten
+            + sozialversicherung__rente__anrechnungsmonate_45_jahre_wartezeit
+            + sozialversicherung__rente__ersatzzeiten_monate
+            + sozialversicherung__rente__pflegeberücksichtigungszeiten_monate
+            + sozialversicherung__rente__kinderberücksichtigungszeiten_monate
+        )
+        >= wartezeitgrenze_langjährig_versicherte
+    )
 
 
 @policy_function(end_date="2023-06-30")

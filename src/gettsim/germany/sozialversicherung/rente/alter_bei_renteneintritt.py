@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from ttsim.unit_converters import m_to_y
+
 from gettsim.tt import policy_function
 
 
@@ -14,14 +16,14 @@ def alter_bei_renteneintritt(
 ) -> float:
     """Age at retirement in monthly precision.
 
-    Calculates the age of person's retirement in monthly precision.
-    As retirement is only possible at first day of month and as
-    persons eligible for pension at first of month after reaching the
-    age threshold (§ 99 SGB VI) persons who retire in same month will
-    be considered a month too young. Hence, subtract 1/12.
+    Calculates the age of person's retirement in monthly precision. As retirement is
+    only possible at first day of month and as persons eligible for pension at first of
+    month after reaching the age threshold (§ 99 SGB VI) persons who retire in same
+    month will be considered a month too young. Hence, subtract 1 additional month from
+    monat_renteneintritt.
     """
     return (
         jahr_renteneintritt
         - geburtsjahr
-        + (monat_renteneintritt - geburtsmonat - 1) / 12
+        + m_to_y(monat_renteneintritt - geburtsmonat - 1)
     )
