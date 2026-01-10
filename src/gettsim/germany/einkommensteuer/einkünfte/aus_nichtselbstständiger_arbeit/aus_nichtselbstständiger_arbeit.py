@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.unit_converters import m_to_y
+from ttsim.unit_converters import m_to_y, y_to_m
 
 from gettsim.tt import policy_function
 
@@ -68,7 +68,8 @@ def werbungskosten_y(arbeitnehmerpauschbetrag: float) -> float:
 @policy_function(start_date="2026-01-01")
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
-    older_than_regelaltersgrenze: bool,
+    alter_monate: int,
+    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
     steuerfreibetrag_aktivrente_m: float,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
@@ -90,18 +91,10 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     pays_contributions_to_pension_insurance = (
         sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     )
+    older_than_regelaltersgrenze = (
+        alter_monate > y_to_m(sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze)
+    )
     if older_than_regelaltersgrenze and pays_contributions_to_pension_insurance:
         return steuerfreibetrag_aktivrente_m
     else:
         return 0.0
-
-
-@policy_function(start_date="2026-01-01")
-def older_than_regelaltersgrenze(
-    alter_monate: int,
-    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
-) -> bool:
-    """Is older than the Regelaltersgrenze (normal retirement age)."""
-    # TODO(@MImmesberger): Replace `alter_monate` with a float input.
-    # https://github.com/ttsim-dev/gettsim/issues/211
-    return m_to_y(alter_monate) > sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze

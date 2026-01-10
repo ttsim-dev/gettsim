@@ -88,12 +88,4 @@ outputs:
       - 2000.0  # Eligible
       - 4000.0  # Not eligible because no public pension contribution
       - 4000.0  # Steuerklasse 6; no Aktivrente
-  einkommensteuer:
-    einkünfte:
-      aus_nichtselbstständiger_arbeit:
-        older_than_regelaltersgrenze:
-          - false
-          - true
-          - true
-          - true
-          - true
+      
