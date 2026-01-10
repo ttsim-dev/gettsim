@@ -332,8 +332,8 @@ def erwachsenenbedarf_m_bg_bis_2022(
 
 @policy_function(leaf_name="erwachsenenbedarf_m_bg", start_date="2023-01-01")
 def erwachsenenbedarf_m_bg_ab_2023(
-    bürgergeld__regelbedarf_m_bg: float,
+    bürgergeld__erwachsenensatz_m_bg: float,
     kosten_der_unterkunft_m_bg: float,
 ) -> float:
     """Adult need (Erwachsenenbedarf) for Kinderzuschlag calculation."""
-    return bürgergeld__regelbedarf_m_bg + kosten_der_unterkunft_m_bg
+    return bürgergeld__erwachsenensatz_m_bg + kosten_der_unterkunft_m_bg
