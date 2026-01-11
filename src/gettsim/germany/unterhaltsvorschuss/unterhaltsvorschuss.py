@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import per_y_to_per_m
+
 from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from gettsim.tt import (
     AggType,
@@ -141,9 +143,7 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     Anwendungsvorschrift as Kinderfreibetrag and Kindergeld changed on July 2015.
 
     """
-    # TODO(@MImmesberger): Remove explicit parameter conversion.
-    # https://github.com/ttsim-dev/gettsim/issues/575
-    sächliches_existenzmininmum = einkommensteuer__parameter_kinderfreibetrag[
+    sächliches_existenzmininmum_y = einkommensteuer__parameter_kinderfreibetrag[
         "sächliches_existenzminimum"
     ]
 
@@ -152,14 +152,17 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
         and alter <= berechtigte_altersgruppen["kleinkind"].max_alter
     ):
         out = (
-            faktor_jüngste_altersgruppe * (2 * sächliches_existenzmininmum / 12)
+            faktor_jüngste_altersgruppe
+            * per_y_to_per_m(2 * sächliches_existenzmininmum_y)
             - kindergeld_erstes_kind_m
         )
     elif (
         berechtigte_altersgruppen["schulkind"].min_alter <= alter
         and alter <= berechtigte_altersgruppen["schulkind"].max_alter
     ):
-        out = 2 * sächliches_existenzmininmum / 12 - kindergeld_erstes_kind_m
+        out = (
+            per_y_to_per_m(2 * sächliches_existenzmininmum_y) - kindergeld_erstes_kind_m
+        )
     else:
         out = 0.0
 

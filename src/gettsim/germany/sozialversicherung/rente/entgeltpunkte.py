@@ -52,9 +52,9 @@ def entgeltpunkte_updated(
 
 @policy_function(end_date="2024-12-31", leaf_name="neue_entgeltpunkte")
 def neue_entgeltpunkte_nach_wohnort(
-    einnahmen__bruttolohn_m: float,
+    einnahmen__bruttolohn_y: float,
     wohnort_ost_hh: bool,
-    beitrag__beitragsbemessungsgrenze_m: float,
+    beitrag__beitragsbemessungsgrenze_y: float,
     beitragspflichtiges_durchschnittsentgelt_y: float,
     umrechnung_entgeltpunkte_beitrittsgebiet: float,
 ) -> float:
@@ -62,36 +62,38 @@ def neue_entgeltpunkte_nach_wohnort(
     # Scale bruttolohn up if earned in eastern Germany
     if wohnort_ost_hh:
         umgerechneter_bruttolohn = (
-            einnahmen__bruttolohn_m * umrechnung_entgeltpunkte_beitrittsgebiet
+            einnahmen__bruttolohn_y * umrechnung_entgeltpunkte_beitrittsgebiet
         )
     else:
-        umgerechneter_bruttolohn = einnahmen__bruttolohn_m
+        umgerechneter_bruttolohn = einnahmen__bruttolohn_y
 
     # Calculate the (scaled) wage, which is subject to pension contributions.
-    if umgerechneter_bruttolohn > beitrag__beitragsbemessungsgrenze_m:
-        versicherungspflichtiger_bruttolohn = beitrag__beitragsbemessungsgrenze_m
+    if umgerechneter_bruttolohn > beitrag__beitragsbemessungsgrenze_y:
+        versicherungspflichtiger_bruttolohn_y = beitrag__beitragsbemessungsgrenze_y
     else:
-        versicherungspflichtiger_bruttolohn = umgerechneter_bruttolohn
+        versicherungspflichtiger_bruttolohn_y = umgerechneter_bruttolohn
 
-    return versicherungspflichtiger_bruttolohn / (
-        beitragspflichtiges_durchschnittsentgelt_y / 12
+    return (
+        versicherungspflichtiger_bruttolohn_y
+        / beitragspflichtiges_durchschnittsentgelt_y
     )
 
 
 @policy_function(start_date="2025-01-01", leaf_name="neue_entgeltpunkte")
 def neue_entgeltpunkte_einheitlich(
-    einnahmen__bruttolohn_m: float,
-    beitrag__beitragsbemessungsgrenze_m: float,
+    einnahmen__bruttolohn_y: float,
+    beitrag__beitragsbemessungsgrenze_y: float,
     beitragspflichtiges_durchschnittsentgelt_y: float,
 ) -> float:
     """Earning points for the wages earned in this year."""
-    if einnahmen__bruttolohn_m > beitrag__beitragsbemessungsgrenze_m:
-        versicherungspflichtiger_bruttolohn = beitrag__beitragsbemessungsgrenze_m
+    if einnahmen__bruttolohn_y > beitrag__beitragsbemessungsgrenze_y:
+        versicherungspflichtiger_bruttolohn_y = beitrag__beitragsbemessungsgrenze_y
     else:
-        versicherungspflichtiger_bruttolohn = einnahmen__bruttolohn_m
+        versicherungspflichtiger_bruttolohn_y = einnahmen__bruttolohn_y
 
-    return versicherungspflichtiger_bruttolohn / (
-        beitragspflichtiges_durchschnittsentgelt_y / 12
+    return (
+        versicherungspflichtiger_bruttolohn_y
+        / beitragspflichtiges_durchschnittsentgelt_y
     )
 
 

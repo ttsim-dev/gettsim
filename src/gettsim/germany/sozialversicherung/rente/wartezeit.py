@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from ttsim.unit_converters import m_to_y
+
 from gettsim.tt import policy_function
 
 
@@ -14,8 +16,9 @@ def mindestwartezeit_erfüllt(
 ) -> bool:
     """Minimal Wartezeit has been completed."""
     return (
-        pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate
-    ) / 12 >= wartezeitgrenzen["wartezeit_5"]
+        m_to_y(pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate)
+        >= wartezeitgrenzen["wartezeit_5"]
+    )
 
 
 @policy_function(end_date="2017-12-31")
@@ -27,8 +30,9 @@ def wartezeit_15_jahre_erfüllt(
 ) -> bool:
     """Wartezeit of 15 years completed."""
     return (
-        pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate
-    ) / 12 >= wartezeitgrenzen["wartezeit_15"]
+        m_to_y(pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate)
+        >= wartezeitgrenzen["wartezeit_15"]
+    )
 
 
 @policy_function()
@@ -46,13 +50,16 @@ def wartezeit_35_jahre_erfüllt(
     All "rentenrechtliche Zeiten" are considered.
     """
     return (
-        pflichtbeitragsmonate
-        + freiwillige_beitragsmonate
-        + anrechnungsmonate_35_jahre_wartezeit
-        + ersatzzeiten_monate
-        + kinderberücksichtigungszeiten_monate
-        + pflegeberücksichtigungszeiten_monate
-    ) / 12 >= wartezeitgrenzen["wartezeit_35"]
+        m_to_y(
+            pflichtbeitragsmonate
+            + freiwillige_beitragsmonate
+            + anrechnungsmonate_35_jahre_wartezeit
+            + ersatzzeiten_monate
+            + kinderberücksichtigungszeiten_monate
+            + pflegeberücksichtigungszeiten_monate
+        )
+        >= wartezeitgrenzen["wartezeit_35"]
+    )
 
 
 @policy_function(start_date="2012-01-01")
@@ -74,7 +81,7 @@ def wartezeit_45_jahre_erfüllt(
     ones (e.g. ALG I, Kurzarbeit but not ALG II).
     """
     if (
-        pflichtbeitragsmonate / 12
+        m_to_y(pflichtbeitragsmonate)
         >= mindestpflichtbeitragsjahre_für_anrechenbarkeit_freiwilliger_beitragszeiten
     ):
         freiwillige_beitragszeiten = freiwillige_beitragsmonate
@@ -82,13 +89,16 @@ def wartezeit_45_jahre_erfüllt(
         freiwillige_beitragszeiten = 0
 
     return (
-        pflichtbeitragsmonate
-        + freiwillige_beitragszeiten
-        + anrechnungsmonate_45_jahre_wartezeit
-        + ersatzzeiten_monate
-        + pflegeberücksichtigungszeiten_monate
-        + kinderberücksichtigungszeiten_monate
-    ) / 12 >= wartezeitgrenzen["wartezeit_45"]
+        m_to_y(
+            pflichtbeitragsmonate
+            + freiwillige_beitragszeiten
+            + anrechnungsmonate_45_jahre_wartezeit
+            + ersatzzeiten_monate
+            + pflegeberücksichtigungszeiten_monate
+            + kinderberücksichtigungszeiten_monate
+        )
+        >= wartezeitgrenzen["wartezeit_45"]
+    )
 
 
 @policy_function()

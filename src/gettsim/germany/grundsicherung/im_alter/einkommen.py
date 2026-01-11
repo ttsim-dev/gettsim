@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import per_y_to_per_m
+
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     piecewise_polynomial,
@@ -106,7 +108,7 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
     """
     capital_income_y = einnahmen__kapitalerträge_y - freibetrag_kapitaleinkünfte
 
-    return max(0.0, capital_income_y / 12)
+    return max(0.0, per_y_to_per_m(capital_income_y))
 
 
 @policy_function(start_date="2011-01-01")
