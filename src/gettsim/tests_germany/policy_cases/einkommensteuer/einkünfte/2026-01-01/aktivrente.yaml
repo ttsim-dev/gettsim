@@ -1,0 +1,55 @@
+---
+info:
+  note: ''
+  precision_atol: 1.0
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 794  # Exactly 66 years + 2 months old (= Regelaltersgrenze)
+      - 795  # 1 month older than Regelaltersgrenze
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 50.0
+            - 0.0
+            - 50.0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 0.0  # Not eligible because not older than Regelaltersgrenze
+          - 2000.0
+          - 0.0  # Not eligible because no public pension contribution
+          - 2000.0
+        betrag_m:
+          - 3897.5
+          - 1897.5
+          - 3897.50
+          - 1897.5

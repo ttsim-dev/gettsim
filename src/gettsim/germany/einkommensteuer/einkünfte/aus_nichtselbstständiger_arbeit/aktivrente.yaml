@@ -1,0 +1,17 @@
+---
+steuerfreibetrag_aktivrente_y:
+  name:
+    de: >-
+      Steuerfreibetrag für versicherungspflichtig Erwerbstätige nach der
+      Regelaltersgrenze (Aktivrente).
+    en: >-
+      Tax deduction for insured workers after the normal retirement age (Aktivrente).
+  description:
+    de: § 3 Abs. 21 EStG
+    en: § 3 Abs. 21 EStG
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2026-01-01:
+    value: 24000
+    reference: BGBl. 2025 I Nr. 361 vom 23.12.2025 ("Aktivrentengesetz")
