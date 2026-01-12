@@ -111,9 +111,9 @@ def anrechnungsfreies_einkommen_m(
     Arbeitsuchende. SGB II §11b Abs 3
     https://www.gesetze-im-internet.de/sgb_2/__11b.html
     """
-    # Beneficiaries who live with a minor child in a group home or who have a minor
-    # child have slightly different thresholds. We currently do not consider the second
-    # condition.
+    # TODO(@MImmesberger): Should consider income from other sources too. Also,
+    # thresholds for children might be different.
+    # https://github.com/ttsim-dev/gettsim/issues/598
     eink_erwerbstätigkeit = (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m

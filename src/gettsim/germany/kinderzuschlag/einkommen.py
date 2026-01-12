@@ -323,17 +323,17 @@ def wohnbedarf_anteil_eltern_bg(
     leaf_name="erwachsenenbedarf_m_bg", start_date="2005-01-01", end_date="2022-12-31"
 )
 def erwachsenenbedarf_m_bg_bis_2022(
-    arbeitslosengeld_2__regelsatz_m_bg: float,
+    arbeitslosengeld_2__erwachsenensatz_m_bg: float,
     kosten_der_unterkunft_m_bg: float,
 ) -> float:
     """Aggregate relevant income and rental costs."""
-    return arbeitslosengeld_2__regelsatz_m_bg + kosten_der_unterkunft_m_bg
+    return arbeitslosengeld_2__erwachsenensatz_m_bg + kosten_der_unterkunft_m_bg
 
 
 @policy_function(leaf_name="erwachsenenbedarf_m_bg", start_date="2023-01-01")
 def erwachsenenbedarf_m_bg_ab_2023(
-    bürgergeld__regelsatz_m_bg: float,
+    bürgergeld__erwachsenensatz_m_bg: float,
     kosten_der_unterkunft_m_bg: float,
 ) -> float:
-    """Aggregate relevant income and rental costs."""
-    return bürgergeld__regelsatz_m_bg + kosten_der_unterkunft_m_bg
+    """Adult need (Erwachsenenbedarf) for Kinderzuschlag calculation."""
+    return bürgergeld__erwachsenensatz_m_bg + kosten_der_unterkunft_m_bg
