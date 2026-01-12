@@ -13,26 +13,38 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
-## Unreleased
+## v1.1 — 2026-01-12
 
 - {gh}`1124` Fix KiZ phase-out. ({ghuser}`MImmesberger`)
+
 - {gh}`1122` Implement Aktivrente. ({ghuser}`MImmesberger`)
+
 - {gh}`1123` Consistently use time unit converters offered by TTSIM.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1121` Do not accidentally skip `test_top_level_elements_not_repeated_in_paths`,
   add mechanism for running tests selectively on CI. ({ghuser}`hmgaudecker`)
+
 - {gh}`1111` Parameter update Sozialversicherungsrechengrößen Verordnung 2026 and mean
   Zusatzbeitrag 2026. ({ghuser}`MImmesberger`)
+
 - {gh}`1112` Implement Mindestlohnanpassungsverordnung 2025. ({ghuser}`MImmesberger`)
+
 - {gh}`1113` Vorsorgepauschale Reform 2026. ({ghuser}`MImmesberger`)
+
 - {gh}`1110` Add Python 3.14 support. ({ghuser}`hmgaudecker`)
+
 - {gh}`1105` Reduce tolerance of statutory retirement age tests.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1093` Fix taxation of pensions and add some missing parameters of the
   Wachstumschancengesetz 2024. ({ghuser}`MImmesberger`)
+
 - {gh}`1094` Make Vorsorgeaufwendungen a param function and update parameters of
   knappschaftliche RV and Kinderbetreuungskosten in ESt. ({ghuser}`MImmesberger`)
+
 - {gh}`1092` Fix a couple of vectorization strategies. ({ghuser}`hmgaudecker`)
+
 - {gh}`1088` Fix typos in docs and param yamls. ({ghuser}`MImmesberger`)
 
 ## v1.0 — 2025-08-26
