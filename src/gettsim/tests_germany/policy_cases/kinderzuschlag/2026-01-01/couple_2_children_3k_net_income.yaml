@@ -1,6 +1,10 @@
 ---
 info:
-  note: 15€ Studenlohn; 950€ Warmmiete; 3228 Netto; Paar; 2 Kinder 8+10 Jahre
+  note: >-
+    15€ Studenlohn; 950€ Warmmiete; 3228 Netto; Paar; 2 Kinder 8+10 Jahre; both partners
+    work 30hrs per week; Loose tolerance needed for the test to pass. Might be due to
+    rounding errors or a bug in our KiZ implementation. See issue
+    https://github.com/ttsim-dev/gettsim/issues/1125
   precision_atol: 3
   source: https://www.dgb.de/service/ratgeber/kinderzuschlag-und-kindergrundsicherung/
 inputs:

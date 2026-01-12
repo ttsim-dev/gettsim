@@ -1,6 +1,8 @@
 ---
 info:
-  note: ''
+  note: >-
+    Skipped because we cannot reproduce the calculator's results. See issue
+    https://github.com/ttsim-dev/gettsim/issues/1125
   precision_atol: 0.01
   source: https://www.kinderzuschlag.org/rechner/
 inputs:

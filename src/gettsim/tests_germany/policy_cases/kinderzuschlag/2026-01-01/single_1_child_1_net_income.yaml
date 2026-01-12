@@ -1,6 +1,8 @@
 ---
 info:
-  note: ''
+  note: >-
+    13.9€ Studenlohn; 700€ Warmmiete; 1233 Netto; Alleinerziehend; 1 Kind 8 Jahre; works
+    25hrs per week
   precision_atol: 0.5
   source: https://www.dgb.de/service/ratgeber/kinderzuschlag-und-kindergrundsicherung/
 inputs:

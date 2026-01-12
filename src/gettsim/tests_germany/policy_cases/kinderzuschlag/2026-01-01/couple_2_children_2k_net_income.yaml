@@ -1,6 +1,8 @@
 ---
 info:
-  note: ''
+  note: >-
+    13.9€ Studenlohn; 950€ Warmmiete; 2050 Netto; Paar; 2 Kinder 8+10 Jahre; both
+    partners work 20hrs per week
   precision_atol: 0.01
   source: https://www.dgb.de/service/ratgeber/kinderzuschlag-und-kindergrundsicherung/
 inputs:
