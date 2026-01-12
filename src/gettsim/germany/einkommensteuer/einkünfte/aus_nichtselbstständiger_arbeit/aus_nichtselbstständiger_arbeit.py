@@ -91,6 +91,8 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     pays_contributions_to_pension_insurance = (
         sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     )
+    # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
+    # Hence, we add a number << 1 / 12 to the RHS.
     older_than_regelaltersgrenze = m_to_y(alter_monate) > (
         sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze + 0.00001
     )
