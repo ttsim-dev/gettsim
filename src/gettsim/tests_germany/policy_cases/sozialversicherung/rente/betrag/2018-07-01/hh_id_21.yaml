@@ -1,8 +1,7 @@
 ---
 info:
-  note: |-
-    From eastern Germany: earns less Entgeltpunkte for same wage because
-    Beitragsbemessungsgrenze is lower.
+  note: "From eastern Germany: earns less Entgeltpunkte for same wage because\nBeitragsbemessungsgrenze\
+    \ is lower."
   precision_atol: 0.1
   source: https://www.ihre-vorsorge.de/rechner/rentenbeginnrechner.html
 inputs:
@@ -76,9 +75,5 @@ outputs:
       altersrente:
         altersgrenze:
           - 65.5
-      entgeltpunkte_ost_updated:
-        - 36.99837737
-      entgeltpunkte_west_updated:
-        - 0.0
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 1.79167737

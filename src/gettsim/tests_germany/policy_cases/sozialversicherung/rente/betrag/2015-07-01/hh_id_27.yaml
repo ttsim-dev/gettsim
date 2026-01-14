@@ -2,8 +2,7 @@
 info:
   note: ''
   precision_atol: 0.1
-  source: |-
-    https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
+  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
   assumed: {}
   provided:
@@ -77,9 +76,5 @@ outputs:
           - 65.5
         vorzeitig_grundsätzlich_anspruchsberechtigt:
           - false
-      entgeltpunkte_ost_updated:
-        - 0.0
-      entgeltpunkte_west_updated:
-        - 39.88850659
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 0.509006589
