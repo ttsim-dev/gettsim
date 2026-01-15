@@ -1,15 +1,8 @@
 # How to calculate input variables from prior periods' states
 
 Many taxes and transfers require inputs from prior periods to serve as inputs for this
-year’s calculations. For example, parental leave benefits often rely on an estimate of
-the claimant’s net income during the 12 months preceding the child’s birth.
-
-You may see these values directly in your input data, in which case there is nothing to
-do beyond the usual procedure.
-
-Often, however, you may see the state variables (in the example that would be gross
-income, marital status, etc.) and want to calculate the relevant values using GETTSIM in
-a previous year. This how-to guide explains how to do this.
+year's calculations. For example, parental leave benefits often rely on an estimate of
+the claimant's net income during the 12 months preceding the child's birth.
 
 ## General recipe
 
