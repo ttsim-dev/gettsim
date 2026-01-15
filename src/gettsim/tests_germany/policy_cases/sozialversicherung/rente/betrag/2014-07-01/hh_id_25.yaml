@@ -1,6 +1,8 @@
 ---
 info:
-  note: "Beispiel: Abwandlung Erna Rüstig (Altersrente für langjährig Versicherte)\nhttps://rentenbescheid24.de/die-altersrente-fuer-langjaehrig-versicherte/"
+  note: |-
+    Beispiel: Abwandlung Erna Rüstig (Altersrente für langjährig Versicherte)
+    https://rentenbescheid24.de/die-altersrente-fuer-langjaehrig-versicherte/
   precision_atol: 0.1
   source: ''
 inputs:

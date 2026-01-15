@@ -1,7 +1,8 @@
 ---
 info:
-  note: "From eastern Germany: earns more Entgeltpunkte for same wage. Verified or\ncorrected\
-    \ based on source."
+  note: |-
+    From eastern Germany: earns more Entgeltpunkte for same wage. Verified or
+    corrected based on source.
   precision_atol: 0.1
   source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
