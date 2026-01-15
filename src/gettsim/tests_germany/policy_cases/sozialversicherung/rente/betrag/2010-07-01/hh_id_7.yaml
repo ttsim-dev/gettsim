@@ -4,8 +4,7 @@ info:
     From eastern Germany: earns less Entgeltpunkte for same wage because
     Beitragsbemessungsgrenze is lower. Verified or corrected using source.
   precision_atol: 0.1
-  source: |-
-    https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
+  source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
   assumed: {}
   provided:
@@ -77,9 +76,5 @@ outputs:
       altersrente:
         altersgrenze:
           - 65.41666667
-      entgeltpunkte_ost_updated:
-        - 36.99837737
-      entgeltpunkte_west_updated:
-        - 0.0
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 1.79167737

@@ -7,6 +7,7 @@ approximates them.
 ---
 maxdepth: 1
 ---
+flows-and-stocks
 means_testing
 hh_concepts
 ```

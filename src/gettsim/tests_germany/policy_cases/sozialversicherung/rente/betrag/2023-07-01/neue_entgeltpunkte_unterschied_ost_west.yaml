@@ -41,9 +41,6 @@ outputs:
         bruttorente_basisbetrag_m:
           - 1128.0
           - 1128.0
-      entgeltpunkte_updated:
-        - 30.827
-        - 30.805
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 0.827
         - 0.805

@@ -3,54 +3,7 @@ from __future__ import annotations
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2023-06-30")
-def entgeltpunkte_west_updated(
-    wohnort_ost_hh: bool,
-    entgeltpunkte_west: float,
-    neue_entgeltpunkte: float,
-) -> float:
-    """Updated Entgeltpunkte from West Germany based on current income.
-
-    Given earnings, social insurance rules, average earnings in a particular year and
-    potentially other variables (e.g., benefits for raising children, informal care),
-    return the new earnings points.
-    """
-    if wohnort_ost_hh:
-        out = entgeltpunkte_west
-    else:
-        out = entgeltpunkte_west + neue_entgeltpunkte
-    return out
-
-
-@policy_function(end_date="2023-06-30")
-def entgeltpunkte_ost_updated(
-    wohnort_ost_hh: bool,
-    entgeltpunkte_ost: float,
-    neue_entgeltpunkte: float,
-) -> float:
-    """Updated Entgeltpunkte from East Germany based on current income.
-
-    Given earnings, social insurance rules, average earnings in a particular year and
-    potentially other variables (e.g., benefits for raising children, informal care),
-    return the new earnings points.
-    """
-    if wohnort_ost_hh:
-        out = entgeltpunkte_ost + neue_entgeltpunkte
-    else:
-        out = entgeltpunkte_ost
-    return out
-
-
-@policy_function(start_date="2023-07-01")
-def entgeltpunkte_updated(
-    entgeltpunkte: float,
-    neue_entgeltpunkte: float,
-) -> float:
-    """Updated Entgeltpunkte based on current income."""
-    return entgeltpunkte + neue_entgeltpunkte
-
-
-@policy_function(end_date="2024-12-31", leaf_name="neue_entgeltpunkte")
+@policy_function(end_date="2024-12-31", leaf_name="neue_entgeltpunkte_y")
 def neue_entgeltpunkte_nach_wohnort(
     einnahmen__bruttolohn_y: float,
     wohnort_ost_hh: bool,
@@ -79,7 +32,7 @@ def neue_entgeltpunkte_nach_wohnort(
     )
 
 
-@policy_function(start_date="2025-01-01", leaf_name="neue_entgeltpunkte")
+@policy_function(start_date="2025-01-01", leaf_name="neue_entgeltpunkte_y")
 def neue_entgeltpunkte_einheitlich(
     einnahmen__bruttolohn_y: float,
     beitrag__beitragsbemessungsgrenze_y: float,

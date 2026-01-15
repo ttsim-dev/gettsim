@@ -76,9 +76,5 @@ outputs:
       altersrente:
         altersgrenze:
           - 65.08333333
-      entgeltpunkte_ost_updated:
-        - 36.99837737
-      entgeltpunkte_west_updated:
-        - 0.0
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 1.79167737

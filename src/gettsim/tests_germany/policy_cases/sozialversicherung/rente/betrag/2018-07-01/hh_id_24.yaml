@@ -1,7 +1,6 @@
 ---
 info:
-  note: |-
-    https://www.deutsche-rentenversicherung.de/SiteGlobals/Forms/RentenBeginnUndHoehenRechner/Rentenbeginn/rentenbeginnrechner_form.html?resourceId=fd80eb35-41ae-49ec-a76d-fae25f0fb182&input_=26d0ef0f-0f0e-4a04-b1db-4e7dbbba7228&pageLocale=de&emailText=&Geburtsdatum=01.01.1958&Schwerbehindert=Nein&Schwerbehindert.GROUP=1&Bergbau=Nein&Bergbau.GROUP=1&submit=Berechnen
+  note: https://www.deutsche-rentenversicherung.de/SiteGlobals/Forms/RentenBeginnUndHoehenRechner/Rentenbeginn/rentenbeginnrechner_form.html?resourceId=fd80eb35-41ae-49ec-a76d-fae25f0fb182&input_=26d0ef0f-0f0e-4a04-b1db-4e7dbbba7228&pageLocale=de&emailText=&Geburtsdatum=01.01.1958&Schwerbehindert=Nein&Schwerbehindert.GROUP=1&Bergbau=Nein&Bergbau.GROUP=1&submit=Berechnen
   precision_atol: 0.1
   source: ''
 inputs:
@@ -74,7 +73,5 @@ outputs:
         langjährig:
           altersgrenze:
             - 65.0
-      entgeltpunkte_west_updated:
-        - 31.0625
-      neue_entgeltpunkte:
+      neue_entgeltpunkte_y:
         - 0.0

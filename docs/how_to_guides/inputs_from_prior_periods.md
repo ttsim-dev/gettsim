@@ -1,15 +1,18 @@
 # How to calculate input variables from prior periods' states
 
 Many taxes and transfers require inputs from prior periods to serve as inputs for this
-year’s calculations. For example, parental leave benefits often rely on an estimate of
-the claimant’s net income during the 12 months preceding the child’s birth.
+year's calculations.
 
-You may see these values directly in your input data, in which case there is nothing to
-do beyond the usual procedure.
+For example, parental leave benefits often rely on an estimate of the claimant's net
+income during the 12 months preceding the child's birth.
 
-Often, however, you may see the state variables (in the example that would be gross
-income, marital status, etc.) and want to calculate the relevant values using GETTSIM in
-a previous year. This how-to guide explains how to do this.
+Another example is the calculation of public pension benefits, which relies on a measure
+of lifetime earnings that is accumulated and updated each month. Prior-period inputs
+therefore include both values taken from a fixed historical window (as in parental
+leave) and state variables that evolve over time and are carried forward into the
+current period.
+
+Also see {ref}`flows-and-stocks` for more background.
 
 ## General recipe
 
@@ -49,10 +52,13 @@ lifetime earnings:
   - Since July 2023: `("sozialversicherung", "rente", "entgeltpunkte")`
   - Before July 2023: `("sozialversicherung", "rente", "entgeltpunkte_west")` and
     `("sozialversicherung", "rente", "entgeltpunkte_ost")`
-- **Calculation targets**:
-  - Since July 2023: `("sozialversicherung", "rente", "entgeltpunkte_updated")`
-  - Before July 2023: `("sozialversicherung", "rente", "entgeltpunkte_updated_west")`
-    and `("sozialversicherung", "rente", "entgeltpunkte_updated_ost")`
+- **Calculation target**: `("sozialversicherung", "rente", "neue_entgeltpunkte_y")`
+  - This returns the yearly earnings points earned in the current year
+  - For other time units, request `neue_entgeltpunkte_m`, `neue_entgeltpunkte_q`, etc.
+    (these are auto-generated via time conversion)
+- **Stock accumulation**: Users are responsible for accumulating earnings points. Add
+  `neue_entgeltpunkte_y` to the previous year's `entgeltpunkte` to get the updated
+  lifetime total.
 
 **Unemployment benefits (Arbeitslosengeld)**
 
