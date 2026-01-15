@@ -12,6 +12,8 @@ therefore include both values taken from a fixed historical window (as in parent
 leave) and state variables that evolve over time and are carried forward into the
 current period.
 
+Also see {ref}`flows-and-stocks` for more background.
+
 ## General recipe
 
 In general, follow this recipe to calculate these taxes and transfers:

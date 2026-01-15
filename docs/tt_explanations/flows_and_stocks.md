@@ -1,4 +1,4 @@
-(flows_and_stocks)=
+(flows-and-stocks)=
 
 # Why stock transitions need to be calculated outside of GETTSIM
 
