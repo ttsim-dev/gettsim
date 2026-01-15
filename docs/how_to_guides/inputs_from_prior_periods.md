@@ -1,8 +1,16 @@
 # How to calculate input variables from prior periods' states
 
 Many taxes and transfers require inputs from prior periods to serve as inputs for this
-year's calculations. For example, parental leave benefits often rely on an estimate of
-the claimant's net income during the 12 months preceding the child's birth.
+year's calculations.
+
+For example, parental leave benefits often rely on an estimate of the claimant's net
+income during the 12 months preceding the child's birth.
+
+Another example is the calculation of public pension benefits, which relies on a measure
+of lifetime earnings that is accumulated and updated each month. Prior-period inputs
+therefore include both values taken from a fixed historical window (as in parental
+leave) and state variables that evolve over time and are carried forward into the
+current period.
 
 ## General recipe
 

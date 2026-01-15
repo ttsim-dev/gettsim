@@ -1,8 +1,6 @@
 (flows_and_stocks)=
 
-# Flows, stocks, and sensible time periods
-
-## Stock transitions need to be calculated outside of GETTSIM
+# Why stock transitions need to be calculated outside of GETTSIM
 
 It is useful to distinguish between two types of variables:
 
@@ -24,11 +22,10 @@ after-tax income including asset price changes minus consumption; `entgeltpunkte
 automatically accumulate flows into stocks because it would need to know the length of
 the period you are thinking about. Since
 
-1. these rules are typically very simple (as in the two examples above),
-1. adding this period length as a parameter to `main` would entail large costs, and
+1. these rules are typically very simple (as in the two examples above), and
 1. it affects only a small subset of use cases (dynamic models),
 
-we decided against including it. Put differently, GETTSIM will only ever calculate
+we decided against including it. Put differently, current GETTSIM will only calculate
 flows; stocks are input variables.
 
 ## Sensible evaluation periods
@@ -38,15 +35,18 @@ intervals. This may or may not make sense. Some examples:
 
 - **Income tax** (`einkommensteuer`): Only sensible at the annual level, since tax
   liability is determined yearly.
-- **Altersrente**: In the year of reaching normal retirement age, pension benefits only
-  apply for part of the year.
+- **Aktivrente**: The tax exemption is calculated at the monthly level, hence it makes a
+  difference whether someone earns 24,000€ in a single month or 2,000€ for twelve
+  months. In the year of becoming eligible, i.e., reaching the normal retirement age, it
+  must be calculated at the monthly level.
 - **Elterngeld**: Only makes sense at the monthly level; it is almost impossible that it
   is constant within a year since eligibility and amounts change as the child ages.
-- **Mid-year rule changes**: Some policies change mid-year, making annual averages
-  misleading:
+  Similarly to the Aktivrente, benefit withdrawal is calculated at the monthly level.
+- **Mid-year rule changes**: Often policies change mid-year, making annual averages
+  misleading. Examples include:
   - July 2017: Unterhaltsvorschuss reform (extended eligibility)
   - July 2023: Pension system unification (Rentenwert Ost = West)
-  - January 2023: Bürgergeld replaced ALG 2
+  - July 2023: Bürgergeld rules changed, e.g. the exemption for children's earnings.
 
 ## Recipe for being precise when we can't assume constancy
 
@@ -59,7 +59,7 @@ calculating Elterngeld and income taxes---you can:
 
 This is simply a consequence of the fact that GETTSIM does not allow for long format in
 terms of calendar time; it just allows for long format in terms of persons / households
-(see {ref}`hh_concepts`).
+(see {ref}`relevant-unit-concepts`).
 
 Here's an example for calculating annual Elterngeld by summing monthly values:
 
