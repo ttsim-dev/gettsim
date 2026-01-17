@@ -159,6 +159,7 @@ jax-metal = ">=0.1.1"
 ty = ">=0.0.9"
 types-PyYAML = "*"
 types-pytz = "*"
+gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 
 [tool.pixi.feature.docs.dependencies]
@@ -171,6 +172,7 @@ sphinx-copybutton = "*"
 
 
 [tool.pixi.feature.docs.pypi-dependencies]
+gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 
 # Tasks
