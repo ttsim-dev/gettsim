@@ -11212,6 +11212,13 @@ packages:
   requires_dist:
   - ttsim-backend>=1.1.1
   requires_python: '>=3.11'
+- pypi: ./
+  name: gettsim
+  version: 1.2.dev4+gd359d39e1
+  sha256: 7f67a8d238a3729694c84d5a33098fd85c25b44b547004b9b40c08fabdd7b423
+  requires_dist:
+  - ttsim-backend>=1.1.1
+  requires_python: '>=3.11'
 - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git#08a60b20b32ea87c7fb839ec9f53bc54430ba0aa
   name: gettsim-personas
   version: 0.1.dev17+g08a60b20b
