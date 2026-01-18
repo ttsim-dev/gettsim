@@ -55,7 +55,7 @@ def interface(
     include_fail_and_warn_nodes: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
-    node_colormap: dict[tuple[str, ...], str]
+    node_colormap: dict[tuple[str, ...] | str, str]
     | None = ttsim.plot.dag.INTERFACE_COLORMAP,
     **kwargs: Any,  # noqa: ANN401
 ) -> go.Figure:

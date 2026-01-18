@@ -15,8 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1128` Add documentation for glob-style pattern matching in DAG plot colormaps.
-  ({ghuser}`hmgaudecker`)
+- {gh}`1128` Add documentation for glob-style pattern matching in DAG plot colormaps,
+  improve consistency of visualization tutorial. ({ghuser}`hmgaudecker`)
 
 ## v1.1 — 2026-01-12
 
