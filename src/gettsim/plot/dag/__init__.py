@@ -55,7 +55,7 @@ def interface(
     include_fail_and_warn_nodes: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
-    node_colormap: dict[tuple[str, ...], str]
+    node_colormap: dict[tuple[str, ...] | str, str]
     | None = ttsim.plot.dag.INTERFACE_COLORMAP,
     **kwargs: Any,  # noqa: ANN401
 ) -> go.Figure:
@@ -102,14 +102,14 @@ def interface(
 def tt(
     *,
     # Args specific to TTSIM plotting
-    primary_nodes: set[str] | set[tuple[str, str]] | None = None,
+    primary_nodes: set[str] | set[tuple[str, ...]] | None = None,
     selection_type: Literal["neighbors", "descendants", "ancestors", "all_paths"]
     | None = None,
     selection_depth: int | None = None,
     include_params: bool = True,
     show_node_description: bool = False,
     output_path: Path | None = None,
-    node_colormap: dict[tuple[str, ...], str] | None = GETTSIM_COLORMAP,
+    node_colormap: dict[tuple[str, ...] | str, str] | None = GETTSIM_COLORMAP,
     # Elements of main
     policy_date_str: DashedISOString | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
@@ -128,10 +128,13 @@ def tt(
     Parameters
     ----------
     primary_nodes
-        The qnames or paths of the primary nodes. Primary nodes are used to determine
-        which other nodes to include in the plot based on the selection_type. They may
-        be root nodes (for descendants), end nodes (for ancestors), or middle nodes (for
-        neighbors). If not provided, the entire DAG is plotted.
+        The primary nodes, specified as tree paths (e.g.,
+        `{("einkommensteuer", "abgeltungssteuer", "betrag_y_sn")}`) or qualified names
+        (e.g., `{"einkommensteuer__abgeltungssteuer__betrag_y_sn"}`). Primary nodes are
+        used to determine which other nodes to include in the plot based on the
+        selection_type. They may be root nodes (for descendants), end nodes (for
+        ancestors), or middle nodes (for neighbors). If not provided, the entire DAG is
+        plotted.
     selection_type
         The type of the DAG to plot. Can be one of:
             - "neighbors": Plot the neighbors of the primary nodes.
