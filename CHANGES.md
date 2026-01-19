@@ -13,6 +13,11 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1128` Add documentation for glob-style pattern matching in DAG plot colormaps,
+  improve consistency of visualization tutorial. ({ghuser}`hmgaudecker`)
+
 ## v1.1 — 2026-01-12
 
 - {gh}`1124` Fix KiZ phase-out. ({ghuser}`MImmesberger`)
