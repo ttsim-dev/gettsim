@@ -45,6 +45,12 @@ The current piecewise polynomial parameter format has several usability problems
    behavior for the entire real line, even when parameters are only meaningful for a
    subset (e.g., non-negative values for income or age).
 
+1. **Unintuitive internal array shapes**: The underlying implementation uses a `rates`
+   array with shape `(n_coefficients, n_intervals)`. This transposed layout is
+   counter-intuitive compared to standard linear algebra conventions and makes manual
+   inspection or construction of these arrays error-prone (see
+   [ttsim#5](https://github.com/ttsim-dev/ttsim/issues/5)).
+
 **Scope**: This GEP covers the YAML parameter format and the internal representation
 used by `piecewise_polynomial()`. It implies updating `piecewise_polynomial()` to
 support partial domains (returning NaN outside). It **preserves** the existing
@@ -240,6 +246,35 @@ params = portion.IntervalDict(
 )
 ```
 
+### Internal Array Representation
+
+For vectorized execution (e.g., in JAX), the `IntervalDict` is compiled into dense
+arrays. To address the usability issues identified in
+[ttsim#5](https://github.com/ttsim-dev/ttsim/issues/5), the memory layout for
+coefficients will be standardized to:
+
+- **Shape**: `(n_intervals, n_coefficients)`
+- **Order**: Row-major (C-contiguous)
+
+For example, a piecewise linear function with 3 intervals will have a coefficient array
+of shape `(3, 2)`:
+
+```python
+# [[intercept_0, slope_0],
+#  [intercept_1, slope_1],
+#  [intercept_2, slope_2]]
+coefficients = np.array(
+    [
+        [0.0, 0.0],
+        [0.0, 0.119],
+        [0.0, 0.055],
+    ]
+)
+```
+
+This layout intuitively maps each row to a specific interval, improving readability and
+aligning with standard data conventions.
+
 ### Behavior Outside Defined Domain
 
 When `piecewise_polynomial()` is called with a value outside the defined intervals, it
@@ -309,6 +344,8 @@ We chose descriptive names because:
 
 ## Discussion
 
+- [ttsim #5](https://github.com/ttsim-dev/ttsim/issues/5): Proposal to improve the
+  interface for piecewise polynomials (rates shape)
 - [gettsim #901](https://github.com/iza-institute-of-labor-economics/gettsim/issues/901):
   Original issue
 - [pylcm #210](https://github.com/OpenSourceEconomics/pylcm/issues/210): Discussion on
