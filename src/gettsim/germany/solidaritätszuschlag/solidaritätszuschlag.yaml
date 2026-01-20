@@ -103,4 +103,4 @@ parameter_solidaritätszuschlag:
     updates_previous: true
     reference: Art. 4 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     0:
-      upper_treshold: 20350
+      upper_threshold: 20350
