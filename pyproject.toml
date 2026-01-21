@@ -117,7 +117,6 @@ ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
-ty = ">=0.0.9"
 
 
 # Features
@@ -178,18 +177,35 @@ gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
 
+[tool.pixi.feature.ty.tasks]
+ty = "ty check"
+
 # Tasks
 # --------------------------------------------------------------------------------------
 
-[tool.pixi.feature.test.tasks]
-test = "pytest"
-ty = "ty check"
+[tool.pixi.feature.tests.target.osx-64.tasks]
+tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
 
-[tool.pixi.feature.jax.tasks]
-test-jax = "pytest --backend=jax"
+[tool.pixi.feature.tests.target.osx-arm64.tasks]
+tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
 
-[tool.pixi.feature.cuda.tasks]
-test-jax = "pytest --backend=jax"
+[tool.pixi.feature.tests.target.linux-64.tasks]
+tests = "pytest"
+
+[tool.pixi.feature.tests.target.win-64.tasks]
+tests = "pytest"
+
+[tool.pixi.feature.jax.target.osx-arm64.tasks]
+tests-jax = "dot -c && pytest --backend=jax"
+
+[tool.pixi.feature.jax.target.linux-64.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.jax.target.win-64.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.cuda.target.linux-64.tasks]
+tests-jax = "pytest --backend=jax"
 
 [tool.pixi.feature.docs.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
@@ -198,13 +214,14 @@ docs = "sphinx-build -T -b html docs docs/_build/html"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.environments]
-py311 = ["test", "py311"]
-py312 = ["test", "py312"]
-py313 = ["test", "py313"]
-py314 = ["test", "py314"]
-py314-jax = ["py314", "test", "jax"]
-py314-cuda = ["py314", "test", "cuda"]
-py314-metal = ["py314", "test", "metal"]
+py311 = ["tests", "py311"]
+py312 = ["tests", "py312"]
+py313 = ["tests", "py313"]
+py314 = ["tests", "py314"]
+py314-jax = ["py314", "tests", "jax"]
+py314-cuda = ["py314", "tests", "cuda"]
+py314-metal = ["py314", "tests", "metal"]
+ty = ["ty"]
 docs = ["docs", "py313"]
 
 # ======================================================================================

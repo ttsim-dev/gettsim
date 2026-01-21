@@ -50,9 +50,6 @@ jobs:
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           frozen: true
           environments: ${{ matrix.environment }}
-      - name: Configure dot on macOS
-        if: runner.os == 'macOS'
-        run: pixi run -e ${{ matrix.environment }} dot -c
       - name: Run tests on Linux (with NumPy backend and without coverage)
         if: >-
           matrix.environment == 'py311' ||
