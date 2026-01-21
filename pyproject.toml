@@ -117,6 +117,7 @@ ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
+ty = ">=0.0.9"
 
 
 # Features
@@ -181,16 +182,14 @@ ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.feature.test.tasks]
-tests = "pytest"
+test = "pytest"
+ty = "ty check"
 
 [tool.pixi.feature.jax.tasks]
-tests-jax = "pytest --backend=jax"
+test-jax = "pytest --backend=jax"
 
 [tool.pixi.feature.cuda.tasks]
-tests-jax = "pytest --backend=jax"
-
-[tool.pixi.feature.ty.tasks]
-ty = "ty check"
+test-jax = "pytest --backend=jax"
 
 [tool.pixi.feature.docs.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
@@ -206,7 +205,6 @@ py314 = ["test", "py314"]
 py314-jax = ["py314", "test", "jax"]
 py314-cuda = ["py314", "test", "cuda"]
 py314-metal = ["py314", "test", "metal"]
-ty = ["ty"]
 docs = ["docs", "py313"]
 
 # ======================================================================================
@@ -235,6 +233,8 @@ extend-ignore = [
     "PLC2403", # Allow non-ASCII function names for imports.
     "PLR0913", # Allow many arguments in function definitions.
     "PLR5501", # elif not supported by vectorization converter for Jax
+    "TC002", # Move third-party import into a type-checking block
+    "TC003", # Move standard library import into a type-checking block
     "TRY003", # Avoid specifying long messages outside the exception class
 
     # Ignored during transition phase
@@ -270,7 +270,7 @@ exclude = []
 "outdated_docs/**/*.ipynb" = ["ALL"]
 
 [tool.ruff.lint.pydocstyle]
-convention = "numpy"
+convention = "google"
 
 
 # ======================================================================================
@@ -319,10 +319,6 @@ filterwarnings = [
     "ignore:Explicitly requested dtype .*64 requested in zeros_like"
 ]
 markers = [
-    "wip: Tests that are work-in-progress.",
-    "unit: Flag for unit tests which target mainly a single function.",
-    "integration: Flag for integration tests which may comprise of multiple unit tests.",
-    "end_to_end: Flag for tests that cover the whole program.",
     "skipif_jax: skip test if backend is jax",
     "skipif_numpy: skip test if backend is numpy"
 ]

@@ -11207,8 +11207,8 @@ packages:
   timestamp: 1750744808182
 - pypi: ./
   name: gettsim
-  version: 1.2.dev7+gce9a73251.d20260118
-  sha256: 2eb010cb8594fa01175776d5c7d4fd7c9f85516b4931536390cb62c7eef0ee8b
+  version: 1.2.dev8+g2eff43cb9.d20260120
+  sha256: 8a93bb0105880d0c5be60e5fe8363ff7018a3d5cdd1943c0fea86a3ea00dc2a1
   requires_dist:
   - ttsim-backend>=1.1.1
   requires_python: '>=3.11'
