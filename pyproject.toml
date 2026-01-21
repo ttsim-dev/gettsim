@@ -166,7 +166,7 @@ myst-parser = "*"
 nbsphinx = "*"
 pydata-sphinx-theme = "*"
 sphinx = "*"
-sphinx-automodapi = "<0.17.0"
+sphinx-automodapi = ">=0.18.0"
 sphinx-copybutton = "*"
 
 
