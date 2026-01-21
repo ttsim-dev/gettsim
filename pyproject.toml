@@ -117,6 +117,7 @@ ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
+ty = ">=0.0.9"
 
 
 # Features
@@ -155,13 +156,10 @@ platforms = ["osx-arm64"]
 jax = ">=0.8"
 jax-metal = ">=0.1.1"
 
-[tool.pixi.feature.ty.pypi-dependencies]
+[tool.pixi.feature.tests.pypi-dependencies]
 ty = ">=0.0.9"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim = {path = ".", editable = true}
-gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
-ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
 
 [tool.pixi.feature.docs.dependencies]
 myst-parser = "*"
@@ -177,22 +175,23 @@ gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
 ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
 
-[tool.pixi.feature.ty.tasks]
-ty = "ty check"
-
 # Tasks
 # --------------------------------------------------------------------------------------
 
 [tool.pixi.feature.tests.target.osx-64.tasks]
+ty = "ty check"
 tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
 
 [tool.pixi.feature.tests.target.osx-arm64.tasks]
+ty = "ty check"
 tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
 
 [tool.pixi.feature.tests.target.linux-64.tasks]
+ty = "ty check"
 tests = "pytest"
 
 [tool.pixi.feature.tests.target.win-64.tasks]
+ty = "ty check"
 tests = "pytest"
 
 [tool.pixi.feature.jax.target.osx-arm64.tasks]
@@ -221,7 +220,6 @@ py314 = ["tests", "py314"]
 py314-jax = ["py314", "tests", "jax"]
 py314-cuda = ["py314", "tests", "cuda"]
 py314-metal = ["py314", "tests", "metal"]
-ty = ["ty"]
 docs = ["docs", "py313"]
 
 # ======================================================================================
