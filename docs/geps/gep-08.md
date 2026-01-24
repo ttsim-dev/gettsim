@@ -10,7 +10,7 @@
 - * Type
   * Standards Track
 - * Created
-  * 2025-01-20
+  * 2025-01-16
 ```
 
 ## Abstract
@@ -134,8 +134,9 @@ parameter_solidaritätszuschlag:
 This is a breaking change for parameter files. Migration requires:
 
 1. Converting existing YAML files to the new format
-1. If intercepts are omitted in the new format, they will be calculated automatically to
-   ensure continuity, preserving the behavior of the current implementation.
+1. A migration script will be provided to automate this. If intercepts are omitted in
+   the new format, they will be calculated automatically to ensure continuity,
+   preserving the behavior of the current implementation.
 
 The Python API (`piecewise_polynomial()`) will remain unchanged in signature, but its
 behavior will change to return NaN for out-of-domain inputs.
@@ -221,7 +222,7 @@ For `piecewise_cubic`:
 
 ### Internal Representation
 
-At load time, the YAML list is converted to portion's `IntervalDict`:
+The YAML list is converted to portion's `IntervalDict` at load time:
 
 ```python
 import portion
@@ -249,18 +250,19 @@ params = portion.IntervalDict(
 
 For vectorized execution (e.g., in JAX), the `IntervalDict` is compiled into dense
 arrays. To address the usability issues identified in
-[TTSIM #5](https://github.com/ttsim-dev/ttsim/issues/5), the array with coefficients
-will be standardized to shape `(n_intervals, n_coefficients)`.
+[ttsim#5](https://github.com/ttsim-dev/ttsim/issues/5), the memory layout for
+coefficients will be standardized to:
+
+- **Shape**: `(n_intervals, n_coefficients)`
+- **Order**: Row-major (C-contiguous)
 
 For example, a piecewise linear function with 3 intervals will have a coefficient array
 of shape `(3, 2)`:
 
 ```python
-# [
-#     [intercept_0, slope_0],
-#     [intercept_1, slope_1],
-#     [intercept_2, slope_2],
-# ]
+# [[intercept_0, slope_0],
+#  [intercept_1, slope_1],
+#  [intercept_2, slope_2]]
 coefficients = np.array(
     [
         [0.0, 0.0],
@@ -280,11 +282,9 @@ returns `NaN`. This design choice reflects several considerations:
 
 1. **JAX compatibility**: JAX's JIT compilation model does not support raising
    exceptions during traced computation.
-1. **NaN propagation**: NaN values propagate, making it as easy as possible to identify
-   affected outputs.
-1. **Debugging**: If the column that `piecewise_polynomial` operates on is provided as
-   input, we can easily identify data outside expected ranges (see
-   [#402](https://github.com/ttsim-dev/gettsim/issues/402)).
+1. **NaN propagation**: NaN values propagate, making it easy to identify affected
+   outputs.
+1. **Debugging**: Helps identify data outside expected ranges.
 1. **Natural domains**: Allows specifying parameters only for their meaningful range
    (e.g., income ≥ 0).
 
@@ -324,7 +324,11 @@ Full coverage of `(-inf, inf)` is **not** required.
 
 Pros: No breaking change. Cons: Doesn't solve usability issues.
 
-### Alternative 2: Generic Coefficient Names (`p0`, `p1`, `p2`, `p3`)
+### Alternative 2: Threshold-Based Format
+
+Pros: Compact. Cons: Ambiguous boundary conditions.
+
+### Alternative 3: Generic Coefficient Names (`p0`, `p1`, `p2`, `p3`)
 
 Instead of descriptive names (`intercept`, `slope`, `quadratic`, `cubic`), use generic
 notation like `p0`, `p1`, `p2`, `p3` or `coefficients: [...]`.
@@ -346,6 +350,8 @@ We chose descriptive names because:
   Original issue
 - [pylcm #210](https://github.com/OpenSourceEconomics/pylcm/issues/210): Discussion on
   interval specification
+
+## References and Footnotes
 
 ## Copyright
 
