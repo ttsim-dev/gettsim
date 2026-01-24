@@ -168,7 +168,6 @@ sphinx = "*"
 sphinx-automodapi = ">=0.18.0"
 sphinx-copybutton = "*"
 
-
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
@@ -226,7 +225,7 @@ docs = ["docs", "py313"]
 # ======================================================================================
 
 [tool.ruff]
-target-version = "py311" # Replace by [project] requires-python = ">=3.11" above
+target-version = "py314"
 fix = true
 unsafe-fixes = false
 
