@@ -225,7 +225,7 @@ docs = ["docs", "py313"]
 # ======================================================================================
 
 [tool.ruff]
-target-version = "py314"
+target-version = "py313"
 fix = true
 unsafe-fixes = false
 
