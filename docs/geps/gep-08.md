@@ -74,14 +74,14 @@ parameter_behindertenpauschbetrag:
 parameter_behindertenpauschbetrag:
   type: piecewise_constant
   2021-01-01:
-    - interval: "[-inf, 20)"
+    "[-inf, 20)":
       intercept: 0
-    - interval: "[20, 30)"
+    "[20, 30)":
       intercept: 384
-    - interval: "[30, 40)"
+    "[30, 40)":
       intercept: 620
     # ... more intervals ...
-    - interval: "[100, inf]"
+    "[100, inf]":
       intercept: 2840
 ```
 
@@ -91,13 +91,13 @@ parameter_behindertenpauschbetrag:
 parameter_solidaritätszuschlag:
   type: piecewise_linear
   2021-01-01:
-    - interval: "[-inf, 16956)"
+    "[-inf, 16956)":
       intercept: 0
       slope: 0
-    - interval: "[16956, 31528)"
+    "[16956, 31528)":
       intercept: 0      # at lower bound
       slope: 0.119
-    - interval: "[31528, inf]"
+    "[31528, inf]":
       intercept: 1734   # at lower bound (continuation)
       slope: 0.055
 ```
@@ -146,14 +146,14 @@ Special values:
 For `piecewise_constant`:
 
 ```yaml
-- interval: "[a, b)"
+"[a, b)":
   intercept: <number>
 ```
 
 For `piecewise_linear`:
 
 ```yaml
-- interval: "[a, b)"
+"[a, b)":
   intercept: <number>  # value at lower bound
   slope: <number>
 ```
@@ -161,25 +161,19 @@ For `piecewise_linear`:
 For higher-order polynomials (`piecewise_quadratic`, `piecewise_cubic`):
 
 ```yaml
-- interval: "[a, b)"
+"[a, b)":
   coefficients: [c0, c1, c2, ...]  # polynomial: c0 + c1*x + c2*x^2 + ...
 ```
 
 ### Internal Representation
 
-The YAML list is converted to portion's `IntervalDict` at load time:
+The `PiecewisePolynomialParamValue` will store intervals using the portion library's
+`IntervalDict`:
 
 ```python
 import portion
 
-# YAML input:
-# - interval: "[-inf, 20)"
-#   intercept: 0
-# - interval: "[20, 30)"
-#   intercept: 384
-# ...
-
-# Converted to:
+# Example: disability allowance
 params = portion.IntervalDict(
     {
         portion.closedopen(-portion.inf, 20): {"intercept": 0},
@@ -236,24 +230,7 @@ intercepts: [0, 384, 620, 860, ...]
 Pros: Compact Cons: Still doesn't clarify boundary conditions; easy to misalign
 thresholds and intercepts
 
-### Alternative 3: Interval Strings as Dictionary Keys
-
-```yaml
-2021-01-01:
-  "[-inf, 20)":
-    intercept: 0
-  "[20, 30)":
-    intercept: 384
-  "[30, 40)":
-    intercept: 620
-```
-
-Pros: More compact (no `interval:` key); direct correspondence to portion's
-`IntervalDict` API. Cons: Less readable—having the interval information as a key on the
-left makes it harder to visually scan the file compared to having it as a value on the
-right.
-
-### Alternative 4: Use portion Syntax Without the Library
+### Alternative 3: Use portion Syntax Without the Library
 
 Parse interval strings manually without depending on portion.
 
