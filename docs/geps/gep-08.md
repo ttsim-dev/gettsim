@@ -41,10 +41,6 @@ The current piecewise polynomial parameter format has several usability problems
    structure. Compare reading "interval 3 starts at 45" versus "the interval \[45, 55)
    has value X".
 
-1. **Forced coverage of irrelevant domains**: The current format requires specifying
-   behavior for the entire real line, even when parameters are only meaningful for a
-   subset (e.g., non-negative values for income or age).
-
 **Scope**: This GEP covers the YAML parameter format and the internal representation
 used by `piecewise_polynomial()`. It does not change the mathematical evaluation logic.
 
@@ -78,19 +74,16 @@ parameter_behindertenpauschbetrag:
 parameter_behindertenpauschbetrag:
   type: piecewise_constant
   2021-01-01:
-    - interval: "[0, 20)"
+    - interval: "[-inf, 20)"
       intercept: 0
     - interval: "[20, 30)"
       intercept: 384
     - interval: "[30, 40)"
       intercept: 620
     # ... more intervals ...
-    - interval: "[100, inf)"
+    - interval: "[100, inf]"
       intercept: 2840
 ```
-
-Note: The domain starts at 0 rather than `-inf` since disability percentages (Grad der
-Behinderung) are non-negative. Values outside the defined domain return NaN.
 
 ### Piecewise Linear Example
 
@@ -98,13 +91,13 @@ Behinderung) are non-negative. Values outside the defined domain return NaN.
 parameter_solidaritätszuschlag:
   type: piecewise_linear
   2021-01-01:
-    - interval: "[0, 16956)"
+    - interval: "[-inf, 16956)"
       intercept: 0
       slope: 0
     - interval: "[16956, 31528)"
       intercept: 0      # at lower bound
       slope: 0.119
-    - interval: "[31528, inf)"
+    - interval: "[31528, inf]"
       intercept: 1734   # at lower bound (continuation)
       slope: 0.055
 ```
@@ -115,10 +108,8 @@ parameter_solidaritätszuschlag:
    boundary conditions
 1. **No manual numbering**: Intervals are keyed by their range, not arbitrary indices
 1. **Explicit boundaries**: `[` means closed (inclusive), `(` means open (exclusive)
-1. **Natural domains**: Parameters only need to cover their meaningful range; queries
-   outside return NaN
-1. **Validation**: The portion library can validate that intervals are contiguous
-   without gaps or overlaps within the defined domain
+1. **Validation**: The portion library can validate that intervals cover the domain
+   without gaps or overlaps
 
 ## Backward Compatibility
 
@@ -148,8 +139,7 @@ Special values:
 - `-inf` for negative infinity
 - `inf` for positive infinity
 - Infinity bounds are always open in standard mathematical convention, but we write
-  `[-inf, ...)` and `[..., inf)` for clarity (the closing bracket/parenthesis at
-  infinity is purely syntactic)
+  `[-inf, ...)` and `[..., inf]` for clarity
 
 ### Parameter Structure
 
@@ -168,43 +158,12 @@ For `piecewise_linear`:
   slope: <number>
 ```
 
-For `piecewise_quadratic`:
+For higher-order polynomials (`piecewise_quadratic`, `piecewise_cubic`):
 
 ```yaml
 - interval: "[a, b)"
-  intercept: <number>   # value at lower bound
-  slope: <number>       # first derivative at lower bound
-  curvature: <number>   # half of second derivative (coefficient of x²)
+  coefficients: [c0, c1, c2, ...]  # polynomial: c0 + c1*x + c2*x^2 + ...
 ```
-
-For `piecewise_cubic`:
-
-```yaml
-- interval: "[a, b)"
-  intercept: <number>
-  slope: <number>
-  curvature: <number>
-  cubic: <number>       # coefficient of x³
-```
-
-#### Rationale for Coefficient Naming
-
-The descriptive names (`intercept`, `slope`, `curvature`, `cubic`) were chosen over
-generic notation like `p0`, `p1`, `p2`, `p3` or `coefficients: [...]` for several
-reasons:
-
-1. **Reduces order-confusion errors**: A primary motivation for refactoring piecewise
-   polynomials (see
-   [issue #901](https://github.com/iza-institute-of-labor-economics/gettsim/issues/901))
-   was that the previous format led to mistakes in specifying coefficients. Descriptive
-   names make the meaning unambiguous.
-
-1. **Mathematical validity**: "Curvature" is mathematically justified—for a polynomial
-   f(x) = c₀ + c₁x + c₂x², the second derivative f''(x) = 2c₂, so `curvature` directly
-   relates to the mathematical concept.
-
-1. **Self-documenting YAML**: When reading parameter files, `slope: 0.119` immediately
-   conveys meaning, whereas `p1: 0.119` requires looking up the convention.
 
 ### Internal Representation
 
@@ -214,7 +173,7 @@ The YAML list is converted to portion's `IntervalDict` at load time:
 import portion
 
 # YAML input:
-# - interval: "[0, 20)"
+# - interval: "[-inf, 20)"
 #   intercept: 0
 # - interval: "[20, 30)"
 #   intercept: 384
@@ -223,53 +182,26 @@ import portion
 # Converted to:
 params = portion.IntervalDict(
     {
-        portion.closedopen(0, 20): {"intercept": 0},
+        portion.closedopen(-portion.inf, 20): {"intercept": 0},
         portion.closedopen(20, 30): {"intercept": 384},
         portion.closedopen(30, 40): {"intercept": 620},
         # ...
-        portion.closedopen(100, portion.inf): {"intercept": 2840},
+        portion.closed(100, portion.inf): {"intercept": 2840},
     }
 )
 
-# Query within domain
+# Query
 params[25]  # Returns {"intercept": 384}
-
-# Query outside domain
-params[-5]  # Returns None (converted to NaN at evaluation time)
 ```
-
-### Behavior Outside Defined Domain
-
-When `piecewise_polynomial()` is called with a value outside the defined intervals, it
-returns `NaN`. This design choice reflects several considerations:
-
-1. **JAX compatibility**: JAX's JIT compilation model does not support raising
-   exceptions during traced computation. Returning NaN is the standard approach for
-   signaling undefined results in array computations.
-
-1. **NaN propagation**: NaN values propagate through subsequent calculations, making it
-   easy to identify affected outputs without silent failures.
-
-1. **Debugging**: Users can check for NaN in results to identify data outside expected
-   ranges, which often indicates data quality issues.
-
-1. **Natural domains**: Many policy parameters have natural domains (e.g., income ≥ 0, 0
-   ≤ percentage ≤ 100). Forcing specification of behavior outside these domains adds
-   noise to the parameter files without reflecting actual policy.
 
 ### Validation
 
 At parameter load time, the system will validate:
 
-1. **Contiguity**: Intervals must be contiguous (no gaps within the defined domain)
+1. **Coverage**: Intervals must cover `(-inf, inf)` without gaps
 1. **No overlaps**: Intervals must not overlap (portion handles this automatically)
-1. **Ordering**: Intervals must be specified in ascending order in the YAML file; the
-   parser will raise an error if intervals are out of order
 1. **Continuity** (optional, for linear+): At boundaries, the polynomial values should
    match (can be a warning rather than error)
-
-Note that full coverage of `(-inf, inf)` is **not** required. The defined domain is
-simply the union of all specified intervals.
 
 ## Related Work
 
@@ -279,25 +211,12 @@ simply the union of all specified intervals.
   Uses similar interval notation for `PiecewiseLinSpacedGrid`
 - **Mathematical notation**: Standard interval notation from real analysis
 
-### Note on portion Library
-
-Users who programmatically modify `PiecewisePolynomialParamValue` objects will interact
-with the portion library's `IntervalDict` API. While this introduces a learning curve,
-the trade-off is worthwhile:
-
-- **Validation guarantees**: portion automatically prevents overlapping intervals and
-  provides type-safe interval operations
-- **Limited exposure**: Most users only write YAML parameter files and never interact
-  with portion directly—it remains an implementation detail
-- **Well-maintained**: portion is a mature library with comprehensive documentation
-
 ## Implementation
 
 1. **Add portion dependency** to ttsim-backend
 1. **Create interval parser**: Parse strings like `"[20, 30)"` into portion intervals
 1. **Update parameter loading**: Convert YAML to `IntervalDict`-based representation
-1. **Update `piecewise_polynomial()`**: Query `IntervalDict` instead of searching
-   arrays; return NaN for queries outside defined domain
+1. **Update `piecewise_polynomial()`**: Query `IntervalDict` instead of searching arrays
 1. **Write migration script**: Convert existing YAML files to new format
 1. **Update documentation**: GEP 3 (parameters) and user guides
 
@@ -321,7 +240,7 @@ thresholds and intercepts
 
 ```yaml
 2021-01-01:
-  "[0, 20)":
+  "[-inf, 20)":
     intercept: 0
   "[20, 30)":
     intercept: 384
@@ -341,21 +260,8 @@ Parse interval strings manually without depending on portion.
 Pros: No new dependency Cons: Reinventing the wheel; portion is well-tested and
 maintained
 
-### Alternative 5: Require Full Real Line Coverage
-
-Require intervals to cover `(-inf, inf)` without gaps, raising validation errors
-otherwise.
-
-Pros: Guarantees a defined value for any input; no NaN surprises in output. Cons: Forces
-specification of behavior for domains that don't reflect actual policy (e.g., negative
-income); adds verbosity; arbitrary default values for out-of-range inputs could mask
-data errors.
-
 ## Discussion
 
-- [gettsim #901](https://github.com/iza-institute-of-labor-economics/gettsim/issues/901):
-  Original issue documenting errors in piecewise polynomial specifications that
-  motivated this refactor
 - [pylcm #210](https://github.com/OpenSourceEconomics/pylcm/issues/210): Discussion on
   interval specification for grids
 - [pylcm #211](https://github.com/OpenSourceEconomics/pylcm/pull/211): Implementation of
