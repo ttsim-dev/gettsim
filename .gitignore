@@ -1,100 +1,52 @@
-# Build artifacts
+# Claude Code
+.claude/
+
+# Distribution / packaging
+*.egg
 *.egg-info
+*.manifest
+*.so
+*.spec
+*$py.class
 _version.py
-bld
-build
-
-# Data files
-!data-applications
-fake
-full
-
-# Debugging
-debug
-Debug
+.eggs/
+.installed.cfg
+bld/
+build/
+dist/
+MANIFEST
+sdist/
+wheels/
 
 # Documentation
-docs/_build
-docs/tutorials/sandbox_cz.ipynb
-project_documentation
+docs/_build/
 
-# LaTeX
-*-blx.bib
-*.aux
-*.bbl
-*.bcf
-*.bib_*.utf8
-*.blg
-*.dvi
-*.ent
-*.fff
-*.fls
-*.glo
-*.idx
-*.ilg
-*.ind
-*.lof
-*.log
-*.lot
-*.nav
-*.out
-*.pdf
-*.pdfsync
-*.run.xml
-*.snm
-*.toc
-*.ttt
-*.vrb
-*latexmk
-*synctex.gz
-.*pdfsvn
+# IDE
+.cursor/
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
 
 # macOS
+.DS_Store
 Thumbs.db
-
-# Miscellaneous
-~$*
-___*
-
-# Output directories
-analysis_out
-final_out
-formatted_data
-prof/
 
 # pixi
 .pixi/
 
-# Project files
-*.asv
-*.mod
-*.o
-*.prj
-*.sublime-*
-*.svn
-*.tmproj
-scons.py
-textmatetostata.do
-
 # Python
-*.pyc
-__pycache__
+__pycache__/
+*.py[cod]
 
-# Test
-test
-Test
+# Ruff
+.ruff_cache/
 
-# Visible dotfiles (keep these)
-!.envrc
-!.github
-!.gitignore
-!.mywaflib
-!.pre-commit-config.yaml
-
-# waf
-.waf*
-waf-*
-waf3-*
-
-# Wildcard dotfiles (hidden files) - must come after visible dotfile exceptions
-.*
+# Testing
+.cache/
+.coverage
+.coverage.*
+.pytest_cache/
+coverage.xml
+htmlcov/

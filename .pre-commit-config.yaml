@@ -38,24 +38,26 @@ repos:
       - id: check-ast
       - id: check-docstring-first
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.37.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.10
+    rev: v0.14.14
     hooks:
       - id: ruff-check
         types_or:
-          - python
           - jupyter
+          - pyi
+          - python
         args:
           - --fix
       - id: ruff-format
         types_or:
-          - python
           - jupyter
+          - pyi
+          - python
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.2
+    rev: 0.9.0
     hooks:
       - id: nbstripout
         args:
@@ -67,11 +69,12 @@ repos:
       - id: mdformat
         additional_dependencies:
           - mdformat-gfm
+          - mdformat-gfm-alerts
           - mdformat-ruff
         args:
           - --wrap
           - '88'
-        files: (README\.md)
+        files: (CLAUDE\.md|README\.md)
   - repo: https://github.com/executablebooks/mdformat
     rev: 1.0.0
     hooks:
@@ -92,7 +95,7 @@ repos:
   #       types: [python]
   #       args: [--config-file=pyproject.toml]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.36.0
+    rev: 0.36.1
     hooks:
       - id: check-jsonschema
         name: Validate JSON/YAML files against schema

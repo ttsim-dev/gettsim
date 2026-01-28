@@ -56,8 +56,8 @@ Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 # ======================================================================================
 
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs"]
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/gettsim/_version.py"
@@ -95,7 +95,7 @@ numpy_groupies = "*"
 numpydoc = "*"
 openpyxl = "*"
 pandas = ">=2.3"
-pre-commit = "*"
+prek = "*"
 pygments = "*"
 pygraphviz = "*"
 pytest = "*"
@@ -225,8 +225,8 @@ docs = ["docs", "py313"]
 # ======================================================================================
 
 [tool.ruff]
-target-version = "py313"
 fix = true
+target-version = "py311"
 unsafe-fixes = false
 
 [tool.ruff.lint]
@@ -246,6 +246,7 @@ extend-ignore = [
     "PLC2403", # Allow non-ASCII function names for imports.
     "PLR0913", # Allow many arguments in function definitions.
     "PLR5501", # elif not supported by vectorization converter for Jax
+    "TC001", # Move application import into a type-checking block
     "TC002", # Move third-party import into a type-checking block
     "TC003", # Move standard library import into a type-checking block
     "TRY003", # Avoid specifying long messages outside the exception class
