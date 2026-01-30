@@ -18,179 +18,175 @@ raw_parameter_einkommensteuertarif:
   type: require_converter
   2002-01-01:
     0:
-      lower_threshold: -inf
-      upper_threshold: 7235
-      rate_linear: 0
-      rate_quadratic: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 7235)"
+      slope: 0
+      quadratic: 0
+      intercept: 0
     1:
-      upper_threshold: 9251
-      rate_linear: 0.199
+      interval: "[7235, 9251)"
+      slope: 0.199
     2:
-      upper_threshold: 55007
-      rate_linear: 0.23
+      interval: "[9251, 55007)"
+      slope: 0.23
     3:
-      upper_threshold: inf
-      rate_linear: 0.485
-      rate_quadratic: 0
+      interval: "[55007, inf)"
+      slope: 0.485
+      quadratic: 0
   2004-01-01:
     0:
-      lower_threshold: -inf
-      upper_threshold: 7664
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 7664)"
+      slope: 0
+      intercept: 0
     1:
-      upper_threshold: 12739
-      rate_linear: 0.16
+      interval: "[7664, 12739)"
+      slope: 0.16
     2:
-      upper_threshold: 52151
-      rate_linear: 0.2405
+      interval: "[12739, 52151)"
+      slope: 0.2405
     3:
-      upper_threshold: inf
-      rate_linear: 0.45
-      rate_quadratic: 0
+      interval: "[52151, inf)"
+      slope: 0.45
+      quadratic: 0
   2005-01-01:
     0:
-      lower_threshold: -inf
-      upper_threshold: 7664
-      rate_linear: 0
-      rate_quadratic: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 7664)"
+      slope: 0
+      quadratic: 0
+      intercept: 0
     1:
-      upper_threshold: 12739
-      rate_linear: 0.15
+      interval: "[7664, 12739)"
+      slope: 0.15
     2:
-      upper_threshold: 52151
-      rate_linear: 0.2397
+      interval: "[12739, 52151)"
+      slope: 0.2397
     3:
-      upper_threshold: inf
-      rate_linear: 0.42
-      rate_quadratic: 0
+      interval: "[52151, inf)"
+      slope: 0.42
+      quadratic: 0
   2007-01-01:
     0:
-      lower_threshold: -inf
-      upper_threshold: 7664
-      rate_linear: 0
-      rate_quadratic: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 7664)"
+      slope: 0
+      quadratic: 0
+      intercept: 0
     1:
-      upper_threshold: 12739
-      rate_linear: 0.15
+      interval: "[7664, 12739)"
+      slope: 0.15
     2:
-      upper_threshold: 52151
-      rate_linear: 0.2397
+      interval: "[12739, 52151)"
+      slope: 0.2397
     3:
-      upper_threshold: 250000
-      rate_linear: 0.42
-      rate_quadratic: 0
+      interval: "[52151, 250000)"
+      slope: 0.42
+      quadratic: 0
     4:
-      upper_threshold: inf
-      rate_linear: 0.45
-      rate_quadratic: 0
+      interval: "[250000, inf)"
+      slope: 0.45
+      quadratic: 0
   2009-01-01:
     updates_previous: true
     0:
-      upper_threshold: 7834
+      interval: "(-inf, 7834)"
     1:
-      upper_threshold: 13139
-      rate_linear: 0.14
+      interval: "[7834, 13139)"
+      slope: 0.14
     2:
-      upper_threshold: 52551
+      interval: "[13139, 52551)"
     3:
-      upper_threshold: 250400
+      interval: "[52551, 250400)"
   2010-01-01:
     updates_previous: true
     reference: Artikel 1 G. v. 02.03.2009 BGBl. I S. 416
     0:
-      upper_threshold: 8004
+      interval: "(-inf, 8004)"
     1:
-      upper_threshold: 13469
+      interval: "[8004, 13469)"
     2:
-      upper_threshold: 52881
+      interval: "[13469, 52881)"
     3:
-      upper_threshold: 250730
+      interval: "[52881, 250730)"
   2013-01-01:
     updates_previous: true
     0:
-      upper_threshold: 8130
+      interval: "(-inf, 8130)"
   2014-01-01:
     updates_previous: true
     note: Gesetz zum Abbau der kalten Progression
     reference: G. v. 20.2.2013, BGBl I S.283
     0:
-      upper_threshold: 8354
+      interval: "(-inf, 8354)"
   2015-07-01:
     updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
     0:
-      upper_threshold: 8472
+      interval: "(-inf, 8472)"
   2016-01-01:
     updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
     0:
-      upper_threshold: 8652
+      interval: "(-inf, 8652)"
     1:
-      upper_threshold: 13669
+      interval: "[8652, 13669)"
     2:
-      upper_threshold: 53665
+      interval: "[13669, 53665)"
     3:
-      upper_threshold: 254446
+      interval: "[53665, 254446)"
   2017-01-01:
     updates_previous: true
     reference: Artikel 8 G. v. 20.12.2016, BGBl I S. 3000
     0:
-      upper_threshold: 8820
+      interval: "(-inf, 8820)"
     1:
-      upper_threshold: 13769
+      interval: "[8820, 13769)"
     2:
-      upper_threshold: 54057
+      interval: "[13769, 54057)"
     3:
-      upper_threshold: 256303
+      interval: "[54057, 256303)"
   2018-01-01:
     updates_previous: true
     reference: Artikel 9 G. v 23.12.2016, BGBL I, S. 3000
     0:
-      upper_threshold: 9000
+      interval: "(-inf, 9000)"
     1:
-      upper_threshold: 13996
+      interval: "[9000, 13996)"
     2:
-      upper_threshold: 54949
+      interval: "[13996, 54949)"
     3:
-      upper_threshold: 260532
+      interval: "[54949, 260532)"
   2019-01-01:
     updates_previous: true
     0:
-      upper_threshold: 9168
+      interval: "(-inf, 9168)"
     1:
-      upper_threshold: 14254
+      interval: "[9168, 14254)"
     2:
-      upper_threshold: 55960
+      interval: "[14254, 55960)"
     3:
-      upper_threshold: 265326
+      interval: "[55960, 265326)"
   2020-01-01:
     updates_previous: true
     reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
     0:
-      upper_threshold: 9408
+      interval: "(-inf, 9408)"
     1:
-      upper_threshold: 14532
+      interval: "[9408, 14532)"
     2:
-      upper_threshold: 57051
+      interval: "[14532, 57051)"
     3:
-      upper_threshold: 270500
+      interval: "[57051, 270500)"
   2021-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
     0:
-      upper_threshold: 9744
+      interval: "(-inf, 9744)"
     1:
-      upper_threshold: 14753
+      interval: "[9744, 14753)"
     2:
-      upper_threshold: 57918
+      interval: "[14753, 57918)"
     3:
-      upper_threshold: 274612
+      interval: "[57918, 274612)"
   2022-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 23.05.2022 BGBl. I S. 749
@@ -198,52 +194,52 @@ raw_parameter_einkommensteuertarif:
       First specified in Art. 2. G. v. 01.12.2020 BGBl. I S. 2616, new defined resp.
       overridden in above reference.
     0:
-      upper_threshold: 10347
+      interval: "(-inf, 10347)"
     1:
-      upper_threshold: 14926
+      interval: "[10347, 14926)"
     2:
-      upper_threshold: 58596
+      interval: "[14926, 58596)"
     3:
-      upper_threshold: 277826
+      interval: "[58596, 277826)"
   2023-01-01:
     updates_previous: true
     reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
     0:
-      upper_threshold: 10908
+      interval: "(-inf, 10908)"
     1:
-      upper_threshold: 15999
+      interval: "[10908, 15999)"
     2:
-      upper_threshold: 62809
+      interval: "[15999, 62809)"
     3:
-      upper_threshold: 277825
+      interval: "[62809, 277825)"
   2024-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
     0:
-      upper_threshold: 11784
+      interval: "(-inf, 11784)"
     1:
-      upper_threshold: 17005
+      interval: "[11784, 17005)"
     2:
-      upper_threshold: 66760
+      interval: "[17005, 66760)"
     3:
-      upper_threshold: 277825
+      interval: "[66760, 277825)"
   2025-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     0:
-      upper_threshold: 12096
+      interval: "(-inf, 12096)"
     1:
-      upper_threshold: 17443
+      interval: "[12096, 17443)"
     2:
-      upper_threshold: 68480
+      interval: "[17443, 68480)"
     3:
-      upper_threshold: 277825
+      interval: "[68480, 277825)"
   2026-01-01:
     updates_previous: true
     reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     0:
-      upper_threshold: 12348
+      interval: "(-inf, 12348)"
     1:
-      upper_threshold: 17799
+      interval: "[12348, 17799)"
     2:
-      upper_threshold: 69878
+      interval: "[17799, 69878)"

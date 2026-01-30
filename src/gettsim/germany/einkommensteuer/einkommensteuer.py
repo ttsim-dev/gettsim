@@ -231,25 +231,25 @@ def parameter_einkommensteuertarif(
     (rate_fiv - rate_iv) / (2 * (upper_thres - low_thres))
 
     """
-    expanded: dict[int, dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
-        float,
+    expanded: list[dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
+        lambda x: x if isinstance(x, str) else float(x),
         raw_parameter_einkommensteuertarif,  # ty: ignore[invalid-argument-type]
     )
 
     # Check and extract lower thresholds.
     lower_thresholds, upper_thresholds = get_piecewise_thresholds(
         leaf_name="parameter_einkommensteuertarif",
-        parameter_dict=expanded,  # ty: ignore[invalid-argument-type]
+        parameter_list=expanded,  # ty: ignore[invalid-argument-type]
         xnp=xnp,
     )[:2]
-    for key in sorted(raw_parameter_einkommensteuertarif.keys()):
-        if "rate_quadratic" not in raw_parameter_einkommensteuertarif[key]:
-            expanded[key]["rate_quadratic"] = (  # ty: ignore[invalid-argument-type]
-                expanded[key + 1]["rate_linear"] - expanded[key]["rate_linear"]  # ty: ignore[unsupported-operator, invalid-argument-type]
-            ) / (2 * (upper_thresholds[key] - lower_thresholds[key]))
+    for i in range(len(expanded)):
+        if "quadratic" not in raw_parameter_einkommensteuertarif[i]:
+            expanded[i]["quadratic"] = (  # ty: ignore[invalid-argument-type]
+                expanded[i + 1]["slope"] - expanded[i]["slope"]  # ty: ignore[unsupported-operator, invalid-argument-type]
+            ) / (2 * (upper_thresholds[i] - lower_thresholds[i]))
     return get_piecewise_parameters(
         leaf_name="parameter_einkommensteuertarif",
         func_type="piecewise_quadratic",
-        parameter_dict=expanded,  # ty: ignore[invalid-argument-type]
+        parameter_list=expanded,  # ty: ignore[invalid-argument-type]
         xnp=xnp,
     )

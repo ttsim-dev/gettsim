@@ -185,41 +185,28 @@ freibetrag_bei_behinderung_gestaffelt_y:
   reference_period: Year
   type: piecewise_constant
   1984-01-01:
-    0:
-      lower_threshold: -inf
-      intercept_at_lower_threshold: 0
-    1:
-      lower_threshold: 80
-      upper_threshold: inf
-      intercept_at_lower_threshold: 1224
+    - interval: "(-inf, 80)"
+      intercept: 0
+    - interval: "[80, inf)"
+      intercept: 1224
   1986-01-01:
     updates_previous: true
     1:
-      lower_threshold: 80
-      upper_threshold: inf
-      intercept_at_lower_threshold: 612
+      intercept: 612
   1991-01-01:
-    0:
-      lower_threshold: -inf
-      intercept_at_lower_threshold: 0
-    1:
-      lower_threshold: 1
-      intercept_at_lower_threshold: 1224
-    2:
-      lower_threshold: 80
-      upper_threshold: inf
-      intercept_at_lower_threshold: 1536
+    - interval: "(-inf, 1)"
+      intercept: 0
+    - interval: "[1, 80)"
+      intercept: 1224
+    - interval: "[80, inf)"
+      intercept: 1536
   2002-01-01:
-    0:
-      lower_threshold: -inf
-      intercept_at_lower_threshold: 0
-    1:
-      lower_threshold: 1
-      intercept_at_lower_threshold: 1200
-    2:
-      lower_threshold: 80
-      upper_threshold: inf
-      intercept_at_lower_threshold: 1500
+    - interval: "(-inf, 1)"
+      intercept: 0
+    - interval: "[1, 80)"
+      intercept: 1200
+    - interval: "[80, inf)"
+      intercept: 1500
   2016-01-01:
     note: Replaced by new rule, see 'freibetrag_bei_behinderung_pauschal_y'
 freibetrag_bei_behinderung_pauschal_y:

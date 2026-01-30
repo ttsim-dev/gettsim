@@ -51,47 +51,43 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       ToDo: Check these laws -- did they really happen months after the date of the
       policy change?
     0:
-      lower_threshold: -inf
-      upper_threshold: 0
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 0)"
+      slope: 0
+      intercept: 0
     1:
-      lower_threshold: 0
-      upper_threshold: 100
-      rate_linear: 1.0
+      interval: "[0, 100)"
+      slope: 1.0
     2:
-      upper_threshold: 1000
-      rate_linear: 0.2
+      interval: "[100, 1000)"
+      slope: 0.2
     3:
-      upper_threshold: 1200
-      rate_linear: 0.1
+      interval: "[1000, 1200)"
+      slope: 0.1
     4:
-      upper_threshold: inf
-      rate_linear: 0
+      interval: "[1200, inf)"
+      slope: 0
   2023-07-01:
     reference: G. v. 20.12.2022 BGBl. I S. 2328.
     note: Bürgergeld-Gesetz
     0:
-      lower_threshold: -inf
-      upper_threshold: 0
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
+      interval: "(-inf, 0)"
+      slope: 0
+      intercept: 0
     1:
-      lower_threshold: 0
-      upper_threshold: 100
-      rate_linear: 1.0
+      interval: "[0, 100)"
+      slope: 1.0
     2:
-      upper_threshold: 520
-      rate_linear: 0.2
+      interval: "[100, 520)"
+      slope: 0.2
     3:
-      upper_threshold: 1000
-      rate_linear: 0.3
+      interval: "[520, 1000)"
+      slope: 0.3
     4:
-      upper_threshold: 1200
-      rate_linear: 0.1
+      interval: "[1000, 1200)"
+      slope: 0.1
     5:
-      upper_threshold: inf
-      rate_linear: 0
+      interval: "[1200, inf)"
+      slope: 0
 raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   name:
     de: >-
@@ -117,9 +113,9 @@ raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   2023-01-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
     3:
-      upper_threshold: 1500
+      interval: "[1000, 1500)"
   2023-07-01:
     reference: G. v. 20.12.2022 BGBl. I S. 2328.
     note: Bürgergeld-Gesetz
     4:
-      upper_threshold: 1500
+      interval: "[1000, 1500)"

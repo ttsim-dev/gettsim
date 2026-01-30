@@ -113,7 +113,7 @@ toml = "*"
 [tool.pixi.pypi-dependencies]
 gettsim = {path = ".", editable = true}
 # Leave TTSIM here so we can uncomment it for when we need to use new features.
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { path = "../ttsim", editable = true }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
@@ -161,7 +161,7 @@ types-PyYAML = "*"
 types-pytz = "*"
 gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
-ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
+ttsim-backend = { path = "../ttsim", editable = true }
 
 [tool.pixi.feature.docs.dependencies]
 myst-parser = "*"
@@ -175,7 +175,7 @@ sphinx-copybutton = "*"
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = {path = ".", editable = true}
 gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
-ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
+ttsim-backend = { path = "../ttsim", editable = true }
 
 # Tasks
 # --------------------------------------------------------------------------------------

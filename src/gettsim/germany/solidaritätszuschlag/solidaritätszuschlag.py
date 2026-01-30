@@ -86,6 +86,6 @@ def betrag_y_sn_mit_abgelt_st(
             parameter_solidaritätszuschlag=parameter_solidaritätszuschlag,
             xnp=xnp,
         )
-        + parameter_solidaritätszuschlag.rates[0, -1]
+        + parameter_solidaritätszuschlag.rates[-1, 0]
         * einkommensteuer__abgeltungssteuer__betrag_y_sn
     )

@@ -57,8 +57,8 @@ def parameter_max_lohnsteuer_klasse_5_6(
     einkommensgrenzwerte_steuerklassen_5_6: dict[int, float],
     xnp: ModuleType,
 ) -> PiecewisePolynomialParamValue:
-    """Create paramter values for the piecewise polynomial that represents the maximum amount of Lohnsteuer
-    that can be paid on incomes higher than the income thresholds for Steuerklasse 5 and 6.
+    """Create parameter values for the piecewise polynomial that represents the
+    maximum Lohnsteuer for incomes above thresholds for Steuerklasse 5 and 6.
     """
     thresholds = numpy.asarray(
         [
@@ -71,29 +71,19 @@ def parameter_max_lohnsteuer_klasse_5_6(
     intercepts = numpy.asarray(
         [
             0,
-            basis_für_klassen_5_6(
-                einkommen_y=thresholds[1],
-                parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
-                xnp=xnp,
-            ).item(),
-            basis_für_klassen_5_6(
-                einkommen_y=thresholds[2],
-                parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
-                xnp=xnp,
-            ).item(),
-            basis_für_klassen_5_6(
-                einkommen_y=thresholds[3],
-                parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
-                xnp=xnp,
-            ).item(),
+            *[
+                basis_für_klassen_5_6(
+                    einkommen_y=thresholds[i],
+                    parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
+                    xnp=xnp,
+                ).item()
+                for i in range(1, 4)
+            ],
         ],
     )
-    rates = numpy.expand_dims(
-        einkommensteuer__parameter_einkommensteuertarif.rates[0][
-            numpy.array([3, 3, 3, 4])
-        ],
-        axis=0,
-    )
+    rates = einkommensteuer__parameter_einkommensteuertarif.rates[
+        numpy.array([3, 3, 3, 4]), 0:1
+    ]
     return PiecewisePolynomialParamValue(
         thresholds=xnp.asarray(thresholds),
         intercepts=xnp.asarray(intercepts),
@@ -148,7 +138,7 @@ def tarif_klassen_5_und_6(
         xnp=xnp,
     )
     min_lohnsteuer = (
-        einkommensteuer__parameter_einkommensteuertarif.rates[0, 1] * einkommen_y
+        einkommensteuer__parameter_einkommensteuertarif.rates[1, 0] * einkommen_y
     )
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
@@ -233,7 +223,7 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
         xnp=xnp,
     )
     min_lohnsteuer = (
-        einkommensteuer__parameter_einkommensteuertarif.rates[0, 1]
+        einkommensteuer__parameter_einkommensteuertarif.rates[1, 0]
         * einkommen_abzüglich_kinderfreibetrag_soli
     )
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
