@@ -13,90 +13,90 @@ parameter_behindertenpauschbetrag:
     reference: G. v. 05.08.1974 BGBl. I S. 1769.
     note: DM converted to Euro.
     0:
-      interval: "(-inf, 25)"
+      interval: (-inf, 25)
       intercept: 0
     1:
-      interval: "[25, 35)"
+      interval: '[25, 35)'
       intercept: 307
     2:
-      interval: "[35, 45)"
+      interval: '[35, 45)'
       intercept: 429
     3:
-      interval: "[45, 55)"
+      interval: '[45, 55)'
       intercept: 568
     4:
-      interval: "[55, 65)"
+      interval: '[55, 65)'
       intercept: 721
     5:
-      interval: "[65, 75)"
+      interval: '[65, 75)'
       intercept: 890
     6:
-      interval: "[75, 85)"
+      interval: '[75, 85)'
       intercept: 1058
     7:
-      interval: "[85, 95)"
+      interval: '[85, 95)'
       intercept: 1227
     8:
-      interval: "[95, inf)"
+      interval: '[95, inf)'
       intercept: 1411
   2002-01-01:
     reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790.
     0:
-      interval: "(-inf, 25)"
+      interval: (-inf, 25)
       intercept: 0
     1:
-      interval: "[25, 35)"
+      interval: '[25, 35)'
       intercept: 310
     2:
-      interval: "[35, 45)"
+      interval: '[35, 45)'
       intercept: 430
     3:
-      interval: "[45, 55)"
+      interval: '[45, 55)'
       intercept: 570
     4:
-      interval: "[55, 65)"
+      interval: '[55, 65)'
       intercept: 720
     5:
-      interval: "[65, 75)"
+      interval: '[65, 75)'
       intercept: 890
     6:
-      interval: "[75, 85)"
+      interval: '[75, 85)'
       intercept: 1060
     7:
-      interval: "[85, 95)"
+      interval: '[85, 95)'
       intercept: 1230
     8:
-      interval: "[95, inf)"
+      interval: '[95, inf)'
       intercept: 1420
   2021-01-01:
     reference: Art. 1 G. v. 09.12.2020 BGBL. I  S. 2770.
     0:
-      interval: "(-inf, 20)"
+      interval: (-inf, 20)
       intercept: 0
     1:
-      interval: "[20, 30)"
+      interval: '[20, 30)'
       intercept: 384
     2:
-      interval: "[30, 40)"
+      interval: '[30, 40)'
       intercept: 620
     3:
-      interval: "[40, 50)"
+      interval: '[40, 50)'
       intercept: 860
     4:
-      interval: "[50, 60)"
+      interval: '[50, 60)'
       intercept: 1140
     5:
-      interval: "[60, 70)"
+      interval: '[60, 70)'
       intercept: 1140
     6:
-      interval: "[70, 80)"
+      interval: '[70, 80)'
       intercept: 1780
     7:
-      interval: "[80, 90)"
+      interval: '[80, 90)'
       intercept: 2120
     8:
-      interval: "[90, 100)"
+      interval: '[90, 100)'
       intercept: 2460
     9:
-      interval: "[100, inf)"
+      interval: '[100, inf)'
       intercept: 2840

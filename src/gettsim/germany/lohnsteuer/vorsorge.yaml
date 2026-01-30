@@ -23,15 +23,15 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
   type: piecewise_linear
   2005-01-01:
     0:
-      interval: "(-inf, 2005)"
+      interval: (-inf, 2005)
       slope: 0
       intercept: 0.2
     1:
-      interval: "[2005, 2025)"
+      interval: '[2005, 2025)'
       slope: 0.04
       intercept: 0.2
     2:
-      interval: "[2025, inf)"
+      interval: '[2025, inf)'
       slope: 0
       intercept: 1
   2023-01-01:
