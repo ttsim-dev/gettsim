@@ -11,6 +11,8 @@
   * Standards Track
 - * Created
   * 2025-01-20
+- * Resolution
+  * [Accepted](https://gettsim.zulipchat.com/#narrow/channel/309998-GEPs/topic/GEP.2008/near/573021794)
 ```
 
 ## Abstract
