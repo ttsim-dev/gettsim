@@ -91,6 +91,9 @@ intersphinx_mapping = {
 }
 
 myst_heading_anchors = 3
+myst_enable_extensions = [
+    "dollarmath",
+]
 
 numpydoc_show_class_members = False
 
