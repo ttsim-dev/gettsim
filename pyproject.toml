@@ -1,281 +1,143 @@
-# ======================================================================================
-# Project metadata
-# ======================================================================================
+[build-system]
+build-backend = "hatchling.build"
+requires = [ "hatch-vcs", "hatchling" ]
 
 [project]
-# Basic information
 name = "gettsim"
-dynamic = ["version"]
 description = "The German Taxes and Transfers SIMulator"
 readme = { file = "README.md", content-type = "text/markdown" }
-license = { file = "LICENSE" }
-# About the project
-authors = [
-    { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
-    { name = "Marvin Immesberger" },
-    { name = "Christian Zimpelmann" }
-]
-maintainers = [
-    { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
-    { name = "Marvin Immesberger" }
-]
 keywords = [
-    "Economics",
-    "Taxes",
-    "Benefits",
-    "Transfers",
-    "Pensions",
-    "Germany",
+  "Benefits",
+  "Economics",
+  "Germany",
+  "Pensions",
+  "Taxes",
+  "Transfers",
 ]
-classifiers = [
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-    "Operating System :: MacOS :: MacOS X",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: POSIX",
-    "Operating System :: Unix",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
+license = { file = "LICENSE" }
+maintainers = [
+  { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
+  { name = "Marvin Immesberger" },
 ]
-# Dependencies and requirements
+authors = [
+  { name = "Christian Zimpelmann" },
+  { name = "Hans-Martin von Gaudecker", email = "hmgaudecker@uni-bonn.de" },
+  { name = "Marvin Immesberger" },
+]
 requires-python = ">=3.11"
-dependencies = ["ttsim-backend>=1.1.1"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX",
+  "Operating System :: Unix",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dynamic = [ "version" ]
+dependencies = [ "ttsim-backend>=1.1.1" ]
 
-
-[project.urls]
-Repository = "https://github.com/ttsim-dev/gettsim"
-Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
-Documentation = "https://gettsim.readthedocs.io"
-Github = "https://github.com/ttsim-dev/gettsim"
-Tracker = "https://github.com/ttsim-dev/gettsim/issues"
-
-
-# ======================================================================================
-# Build system configuration
-# ======================================================================================
-
-[build-system]
-requires = ["hatchling", "hatch-vcs"]
-build-backend = "hatchling.build"
+urls.Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
+urls.Documentation = "https://gettsim.readthedocs.io"
+urls.Github = "https://github.com/ttsim-dev/gettsim"
+urls.Repository = "https://github.com/ttsim-dev/gettsim"
+urls.Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/gettsim/_version.py"
 
 [tool.hatch.build.targets.sdist]
-exclude = ["tests"]
+exclude = [ "tests" ]
 only-packages = true
 
 [tool.hatch.build.targets.wheel]
-only-include = ["src"]
-sources = ["src"]
-
-[tool.hatch.version]
-source = "vcs"
+only-include = [ "src" ]
+sources = [ "src" ]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
-
-# ======================================================================================
-# Pixi
-# ======================================================================================
-
-[tool.pixi.workspace]
-channels = ["conda-forge"]
-platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
-
-# Development Dependencies (conda)
-# --------------------------------------------------------------------------------------
-
-[tool.pixi.dependencies]
-ipywidgets = "*"
-jupyterlab = "*"
-numpy_groupies = "*"
-numpydoc = "*"
-openpyxl = "*"
-pandas = ">=2.3"
-pre-commit = "*"
-pygments = "*"
-pygraphviz = "*"
-pytest = "*"
-pytest-cov = "*"
-pytest-profiling = "*"
-pytest-xdist = "*"
-pyyaml = "*"
-snakeviz = ">=2.2.2"
-tabulate = "*"
-toml = "*"
-
-# Development Dependencies (pypi)
-# --------------------------------------------------------------------------------------
-
-[tool.pixi.pypi-dependencies]
-gettsim = {path = ".", editable = true}
-# Leave TTSIM here so we can uncomment it for when we need to use new features.
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
-jaxtyping = ">=0.3.2"
-kaleido = ">=1.0.0"
-pdbp = ">=1.7.1"
-
-
-# Features
-# --------------------------------------------------------------------------------------
-
-[tool.pixi.feature.py311.dependencies]
-python = "~=3.11.0"
-
-[tool.pixi.feature.py312.dependencies]
-python = "~=3.12.0"
-
-[tool.pixi.feature.py313.dependencies]
-python = "~=3.13.0"
-
-[tool.pixi.feature.py314.dependencies]
-python = "~=3.14.0"
-
-[tool.pixi.feature.jax]
-platforms = ["linux-64", "osx-arm64", "win-64"]
-
-[tool.pixi.feature.jax.pypi-dependencies]
-jax = ">=0.8"
-# jax-datetime = { git = "https://github.com/google/jax-datetime.git" }
-
-[tool.pixi.feature.cuda]
-platforms = ["linux-64"]
-system-requirements = {cuda = "13"}
-
-[tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
-jax = {version = ">=0.8", extras = ["cuda13"]}
-
-[tool.pixi.feature.metal]
-platforms = ["osx-arm64"]
-
-[tool.pixi.feature.metal.target.osx-arm64.pypi-dependencies]
-jax = ">=0.8"
-jax-metal = ">=0.1.1"
-
-[tool.pixi.feature.ty.pypi-dependencies]
-ty = ">=0.0.9"
-types-PyYAML = "*"
-types-pytz = "*"
-gettsim = {path = ".", editable = true}
-gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
-ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
-
-[tool.pixi.feature.docs.dependencies]
-myst-parser = "*"
-nbsphinx = "*"
-pydata-sphinx-theme = "*"
-sphinx = "*"
-sphinx-automodapi = "<0.17.0"
-sphinx-copybutton = "*"
-
-
-[tool.pixi.feature.docs.pypi-dependencies]
-gettsim = {path = ".", editable = true}
-gettsim-personas = {git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main"}
-ttsim-backend = {git = "https://github.com/ttsim-dev/ttsim.git", branch = "main"}
-
-# Tasks
-# --------------------------------------------------------------------------------------
-
-[tool.pixi.feature.test.tasks]
-tests = "pytest"
-
-[tool.pixi.feature.jax.tasks]
-tests-jax = "pytest --backend=jax"
-
-[tool.pixi.feature.cuda.tasks]
-tests-jax = "pytest --backend=jax"
-
-[tool.pixi.feature.ty.tasks]
-ty = "ty check"
-
-[tool.pixi.feature.docs.tasks]
-docs = "sphinx-build -T -b html docs docs/_build/html"
-
-# Environments
-# --------------------------------------------------------------------------------------
-
-[tool.pixi.environments]
-py311 = ["test", "py311"]
-py312 = ["test", "py312"]
-py313 = ["test", "py313"]
-py314 = ["test", "py314"]
-py314-jax = ["py314", "test", "jax"]
-py314-cuda = ["py314", "test", "cuda"]
-py314-metal = ["py314", "test", "metal"]
-ty = ["ty"]
-docs = ["docs", "py313"]
-
-# ======================================================================================
-# Ruff configuration
-# ======================================================================================
+[tool.hatch.version]
+source = "vcs"
 
 [tool.ruff]
 target-version = "py311" # Replace by [project] requires-python = ">=3.11" above
 fix = true
 unsafe-fixes = false
 
-[tool.ruff.lint]
-select = ["ALL"]
-extend-ignore = [
-    "COM812", # Avoid conflicts with ruff-format
-    "EM101", # Exception must not use a string literal
-    "EM102", # Exception must not use an f-string literal
-    "F722", # https://docs.kidger.site/jaxtyping/faq/#flake8-or-ruff-are-throwing-an-error
-    "FBT001", # Boolean-typed positional argument in function definition
-    "FBT002", # Boolean default positional argument in function definition
-    "FIX002", # Line contains TODO -- Use stuff from TD area.
-    "ICN001", # numpy should be np, but different convention here.
-    "ISC001", # Avoid conflicts with ruff-format
-    "N999", # Allow non-ASCII characters in file names.
-    "PLC2401", # Allow non-ASCII characters in variable names.
-    "PLC2403", # Allow non-ASCII function names for imports.
-    "PLR0913", # Allow many arguments in function definitions.
-    "PLR5501", # elif not supported by vectorization converter for Jax
-    "TRY003", # Avoid specifying long messages outside the exception class
+lint.select = [ "ALL" ]
+lint.exclude = [  ]
+lint.extend-ignore = [
+  "COM812", # Avoid conflicts with ruff-format
+  # Ignored during transition phase
+  # ======================================
+  "D",       # docstrings
+  "EM101",   # Exception must not use a string literal
+  "EM102",   # Exception must not use an f-string literal
+  "F722",    # https://docs.kidger.site/jaxtyping/faq/#flake8-or-ruff-are-throwing-an-error
+  "FBT001",  # Boolean-typed positional argument in function definition
+  "FBT002",  # Boolean default positional argument in function definition
+  "FIX002",  # Line contains TODO -- Use stuff from TD area.
+  "ICN001",  # numpy should be np, but different convention here.
+  "ISC001",  # Avoid conflicts with ruff-format
+  "N999",    # Allow non-ASCII characters in file names.
+  "PLC2401", # Allow non-ASCII characters in variable names.
+  "PLC2403", # Allow non-ASCII function names for imports.
+  "PLR0913", # Allow many arguments in function definitions.
+  "PLR5501", # elif not supported by vectorization converter for Jax
+  "TRY003",  # Avoid specifying long messages outside the exception class
 
-    # Ignored during transition phase
-    # ======================================
-    "D", # docstrings
 ]
-exclude = []
-
-[tool.ruff.lint.per-file-ignores]
-"conftest.py" = ["ANN"]
-"docs/*" = ["INP001", "T201"]
-# Imports not at top of cell for didactic reasons
-"docs/how_to_guides/modifications_of_policy_environments.ipynb" = ["E402"]
-# Personas have long names
-"docs/tutorials/personas.ipynb" = ["E501"]
-
-"src/gettsim/__init__.py" = [
-    "PLW0127", # Re-export things for tab-completion explicitly.
-    "PT028", # Cannot have default values in test functions with fixtures -- not an issue here.
+lint.per-file-ignores."conftest.py" = [ "ANN" ]
+lint.per-file-ignores."docs/*" = [ "INP001", "T201" ]
+lint.per-file-ignores."docs/how_to_guides/modifications_of_policy_environments.ipynb" = [ "E402" ]
+lint.per-file-ignores."docs/tutorials/personas.ipynb" = [ "E501" ]
+lint.per-file-ignores."src/gettsim/__init__.py" = [
+  "PLW0127", # Re-export things for tab-completion explicitly.
+  "PT028",   # Cannot have default values in test functions with fixtures -- not an issue here.
 ]
-"src/gettsim/plot/dag/__init__.py" = ["PLW0127"] # Re-export things for tab-completion explicitly.
+lint.per-file-ignores."src/gettsim/germany/*" = [ "E501", "E721", "PLR1714", "PLR1716", "RET", "SIM108" ]
+lint.per-file-ignores."src/gettsim/germany/familie/familie.py" = [ "PLR2004" ]
+lint.per-file-ignores."src/gettsim/germany/lohnsteuer/*.py" = [ "PLR2004" ]
+lint.per-file-ignores."src/gettsim/plot/dag/__init__.py" = [
+  "PLW0127",
+]
+lint.per-file-ignores."src/gettsim/tests_germany/**/*.py" = [ "ANN", "S101" ]
+lint.per-file-ignores."src/gettsim/typing.py" = [ "F401" ]
+lint.pydocstyle.convention = "numpy"
 
-# Mostly things vectorization can't handle
-"src/gettsim/germany/*" = ["E501", "PLR1714", "PLR1716", "E721", "SIM108", "RET"]
-# Lohnsteuerklassen and age groups are fine to hard-code.
-"src/gettsim/germany/lohnsteuer/*.py" = ["PLR2004"]
-"src/gettsim/germany/familie/familie.py" = ["PLR2004"]
-# All tests return None and use asserts
-"src/gettsim/tests_germany/**/*.py" = ["ANN", "S101"]
-# Cannot export the typing module via __all__
-"src/gettsim/typing.py" = ["F401"]
-# TODO: remove once ported nicely
-"outdated_docs/**/*.ipynb" = ["ALL"]
+[tool.pytest.ini_options]
+addopts = [ "--pdbcls=pdbp:Pdb" ]
+filterwarnings = [
+  "ignore:.*XMLParser*:DeprecationWarning",
+  "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
+  "ignore:.*Sorting*:FutureWarning",
+  "ignore:The TerminalReporter.writer attribute is",
+  "ignore:Repeated execution of the test suite",
+  "ignore:Using or importing the ABCs from 'collections'",
+  "ignore:Explicitly requested dtype .*64 requested in zeros_like",
+]
+markers = [
+  "wip: Tests that are work-in-progress.",
+  "unit: Flag for unit tests which target mainly a single function.",
+  "integration: Flag for integration tests which may comprise of multiple unit tests.",
+  "end_to_end: Flag for tests that cover the whole program.",
+  "skipif_jax: skip test if backend is jax",
+  "skipif_numpy: skip test if backend is numpy",
+]
+norecursedirs = [ "docs" ]
+testpaths = [ "src/gettsim/tests_germany" ]
 
-[tool.ruff.lint.pydocstyle]
-convention = "numpy"
+[[tool.ty.overrides]]
+include = [ "docs/**" ]
 
-
-# ======================================================================================
-# ty configuration
-# ======================================================================================
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
 
 [tool.ty.rules]
 invalid-return-type = "ignore"
@@ -296,42 +158,114 @@ unsupported-base = "error"
 unused-ignore-comment = "error"
 useless-overload-body = "error"
 
-[[tool.ty.overrides]]
-include = ["docs/**"]
+[tool.pixi.dependencies]
+ipywidgets = "*"
+jupyterlab = "*"
+numpy_groupies = "*"
+numpydoc = "*"
+openpyxl = "*"
+pandas = ">=2.3"
+pre-commit = "*"
+pygments = "*"
+pygraphviz = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-profiling = "*"
+pytest-xdist = "*"
+pyyaml = "*"
+snakeviz = ">=2.2.2"
+tabulate = "*"
+toml = "*"
 
-[tool.ty.overrides.rules]
-unresolved-attribute = "ignore"
+[tool.pixi.environments]
+py311 = [ "test", "py311" ]
+py312 = [ "test", "py312" ]
+py313 = [ "test", "py313" ]
+py314 = [ "test", "py314" ]
+py314-jax = [ "py314", "test", "jax" ]
+py314-cuda = [ "py314", "test", "cuda" ]
+py314-metal = [ "py314", "test", "metal" ]
+ty = [ "ty" ]
+docs = [ "docs", "py313" ]
 
+[tool.pixi.feature.cuda]
+platforms = [ "linux-64" ]
+system-requirements = { cuda = "13" }
 
-# ======================================================================================
-# pytest configuration
-# ======================================================================================
+[tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
+jax = { version = ">=0.8", extras = [ "cuda13" ] }
 
-[tool.pytest.ini_options]
-addopts = ["--pdbcls=pdbp:Pdb"]
-filterwarnings = [
-    "ignore:.*XMLParser*:DeprecationWarning",
-    "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
-    "ignore:.*Sorting*:FutureWarning",
-    "ignore:The TerminalReporter.writer attribute is",
-    "ignore:Repeated execution of the test suite",
-    "ignore:Using or importing the ABCs from 'collections'",
-    "ignore:Explicitly requested dtype .*64 requested in zeros_like"
-]
-markers = [
-    "wip: Tests that are work-in-progress.",
-    "unit: Flag for unit tests which target mainly a single function.",
-    "integration: Flag for integration tests which may comprise of multiple unit tests.",
-    "end_to_end: Flag for tests that cover the whole program.",
-    "skipif_jax: skip test if backend is jax",
-    "skipif_numpy: skip test if backend is numpy"
-]
-norecursedirs = ["docs"]
-testpaths = ["src/gettsim/tests_germany"]
+[tool.pixi.feature.cuda.tasks]
+tests-jax = "pytest --backend=jax"
 
-# ======================================================================================
-# yamlfix configuration
-# ======================================================================================
+[tool.pixi.feature.docs.dependencies]
+myst-parser = "*"
+nbsphinx = "*"
+pydata-sphinx-theme = "*"
+sphinx = "*"
+sphinx-automodapi = "<0.17.0"
+sphinx-copybutton = "*"
+
+[tool.pixi.feature.docs.pypi-dependencies]
+gettsim = { path = ".", editable = true }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+
+[tool.pixi.feature.docs.tasks]
+docs = "sphinx-build -T -b html docs docs/_build/html"
+
+[tool.pixi.feature.jax]
+platforms = [ "linux-64", "osx-arm64", "win-64" ]
+
+[tool.pixi.feature.jax.pypi-dependencies]
+jax = ">=0.8"
+[tool.pixi.feature.jax.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.metal]
+platforms = [ "osx-arm64" ]
+
+[tool.pixi.feature.metal.target.osx-arm64.pypi-dependencies]
+jax = ">=0.8"
+jax-metal = ">=0.1.1"
+
+[tool.pixi.feature.py311.dependencies]
+python = "~=3.11.0"
+
+[tool.pixi.feature.py312.dependencies]
+python = "~=3.12.0"
+
+[tool.pixi.feature.py313.dependencies]
+python = "~=3.13.0"
+
+[tool.pixi.feature.py314.dependencies]
+python = "~=3.14.0"
+
+[tool.pixi.feature.test.tasks]
+tests = "pytest"
+
+[tool.pixi.feature.ty.pypi-dependencies]
+ty = ">=0.0.9"
+types-PyYAML = "*"
+types-pytz = "*"
+gettsim = { path = ".", editable = true }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+# jax-datetime = { git = "https://github.com/google/jax-datetime.git" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+
+[tool.pixi.feature.ty.tasks]
+ty = "ty check"
+
+[tool.pixi.pypi-dependencies]
+gettsim = { path = ".", editable = true }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+jaxtyping = ">=0.3.2"
+kaleido = ">=1.0.0"
+pdbp = ">=1.7.1"
+
+[tool.pixi.workspace]
+channels = [ "conda-forge" ]
+platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
 
 [tool.yamlfix]
 line_length = 88
