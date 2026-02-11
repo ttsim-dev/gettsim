@@ -144,6 +144,7 @@ invalid-return-type = "ignore"
 ambiguous-protocol-member = "error"
 deprecated = "error"
 division-by-zero = "error"
+empty-body = "ignore"                    # raised for all functions decorated with @policy_input
 ignore-comment-unknown-rule = "error"
 invalid-argument-type = "error"
 invalid-ignore-comment = "error"
