@@ -168,13 +168,9 @@ numpy_groupies = "*"
 numpydoc = "*"
 openpyxl = "*"
 pandas = ">=2.3"
-pre-commit = "*"
+prek = "*"
 pygments = "*"
 pygraphviz = "*"
-pytest = "*"
-pytest-cov = "*"
-pytest-profiling = "*"
-pytest-xdist = "*"
 pyyaml = "*"
 snakeviz = ">=2.2.2"
 tabulate = "*"
@@ -221,7 +217,13 @@ platforms = [ "linux-64", "osx-arm64", "win-64" ]
 
 [tool.pixi.feature.jax.pypi-dependencies]
 jax = ">=0.8"
-[tool.pixi.feature.jax.tasks]
+[tool.pixi.feature.jax.target.linux-64.tasks]
+tests-jax = "pytest --backend=jax"
+
+[tool.pixi.feature.jax.target.osx-arm64.tasks]
+tests-jax = "dot -c && pytest --backend=jax" # dot -c needed for pygraphviz on macOS
+
+[tool.pixi.feature.jax.target.win-64.tasks]
 tests-jax = "pytest --backend=jax"
 
 [tool.pixi.feature.metal]
@@ -244,13 +246,28 @@ python = "~=3.13.0"
 python = "~=3.14.0"
 
 [tool.pixi.feature.test.pypi-dependencies]
+pytest = "*"
+pytest-cov = "*"
+pytest-profiling = "*"
+pytest-xdist = "*"
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
 
-[tool.pixi.feature.test.tasks]
+[tool.pixi.feature.test.target.linux-64.tasks]
 tests = "pytest"
+
+[tool.pixi.feature.test.target.osx-64.tasks]
+tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
+
+[tool.pixi.feature.test.target.osx-arm64.tasks]
+tests = "dot -c && pytest" # dot -c needed for pygraphviz on macOS
+
+[tool.pixi.feature.test.target.win-64.tasks]
+tests = "pytest"
+
+[tool.pixi.feature.test.tasks]
 ty = "ty check"
 
 [tool.pixi.pypi-dependencies]

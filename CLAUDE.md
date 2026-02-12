@@ -30,7 +30,7 @@ pixi run -e py314-jax tests -k "kindergeld"
 pixi run -e py314-jax ty
 
 # Quality checks (linting, formatting)
-prek run --all-files
+pixi run prek run --all-files
 
 # Build documentation
 pixi run docs
@@ -40,7 +40,7 @@ Before finishing any task that modifies code, always run these three verificatio
 in order:
 
 1. `pixi run -e py314-jax ty` (type checker)
-1. `prek run --all-files` (quality checks: linting, formatting, yaml, etc.)
+1. `pixi run prek run --all-files` (quality checks: linting, formatting, yaml, etc.)
 1. `pixi run -e py314-jax tests -n 7` (full test suite)
 
 ## Architecture
