@@ -237,8 +237,8 @@ This document has been slightly adapted from NumPy's
 
 This document has been placed in the public domain.
 
-[^id3]: This historical record is available by the normal git commands for retrieving
-    older revisions, and can also be browsed on
+[^id3]: This historical record is available by the normal git commands for retrieving older
+    revisions, and can also be browsed on
     [GitHub](https://github.com/ttsim-dev/gettsim/tree/main/docs/geps).
 
 [^id4]: The URL for viewing GEPs on the web is

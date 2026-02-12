@@ -1213,7 +1213,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-3.0.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.8.3-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-9.1.0-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.16.0-pyh6ff6d48_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.22.0-pyh1139035_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-copybutton-0.5.2-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-applehelp-2.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-devhelp-2.0.0-pyhd8ed1ab_1.conda
@@ -1480,7 +1480,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-3.0.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.8.3-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-9.1.0-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.16.0-pyh6ff6d48_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.22.0-pyh1139035_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-copybutton-0.5.2-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-applehelp-2.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-devhelp-2.0.0-pyhd8ed1ab_1.conda
@@ -1728,7 +1728,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-3.0.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.8.3-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-9.1.0-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.16.0-pyh6ff6d48_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.22.0-pyh1139035_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-copybutton-0.5.2-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-applehelp-2.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-devhelp-2.0.0-pyhd8ed1ab_1.conda
@@ -1966,7 +1966,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-3.0.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.8.3-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-9.1.0-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.16.0-pyh6ff6d48_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.22.0-pyh1139035_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-copybutton-0.5.2-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-applehelp-2.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-devhelp-2.0.0-pyhd8ed1ab_1.conda
@@ -9805,8 +9805,8 @@ packages:
   timestamp: 1750744808182
 - pypi: ./
   name: gettsim
-  version: 1.2.dev48+g08ab81def.d20260212
-  sha256: 27f33d6fdc54882a5cd27c5fb8346197d13b72fee56f23b67b5490d123e2e637
+  version: 1.2.dev49+gc252b579f.d20260212
+  sha256: 8d0c790470820456fe086d308bb300ad9600505aa138c3d6f34a7ff150ea8819
   requires_python: '>=3.11'
 - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#08a60b20b32ea87c7fb839ec9f53bc54430ba0aa
   name: gettsim-personas
@@ -18819,18 +18819,18 @@ packages:
   - pkg:pypi/sphinx?source=hash-mapping
   size: 1584836
   timestamp: 1767271941650
-- conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.16.0-pyh6ff6d48_0.conda
-  sha256: b6b002163c3135cdc69318c43f55d110a15df38c2bbc1a06e359ce3a36d9e8c2
-  md5: c2dfb5d38d19546cf818d75801c21ed0
+- conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-automodapi-0.22.0-pyh1139035_0.conda
+  sha256: 034d0ccd1fb39706b6b333e91ecc04271fa9dba6de61c602824bb451ac4e2737
+  md5: 84a834c6b46f0f2263c15daf127ed5f4
   depends:
-  - python >=3.7
-  - sphinx >=4
+  - python >=3.10
+  - sphinx >=5
   license: BSD-3-Clause
   license_family: BSD
   purls:
   - pkg:pypi/sphinx-automodapi?source=hash-mapping
-  size: 49062
-  timestamp: 1692304668055
+  size: 57199
+  timestamp: 1765586482907
 - conda: https://conda.anaconda.org/conda-forge/noarch/sphinx-copybutton-0.5.2-pyhd8ed1ab_1.conda
   sha256: 8cd892e49cb4d00501bc4439fb0c73ca44905f01a65b2b7fa05ba0e8f3924f19
   md5: bf22cb9c439572760316ce0748af3713
