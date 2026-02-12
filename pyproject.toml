@@ -188,7 +188,6 @@ py314 = [ "test", "py314" ]
 py314-jax = [ "py314", "test", "jax" ]
 py314-cuda = [ "py314", "test", "cuda" ]
 py314-metal = [ "py314", "test", "metal" ]
-ty = [ "ty" ]
 docs = [ "docs", "py313" ]
 
 [tool.pixi.feature.cuda]
@@ -211,7 +210,7 @@ sphinx-copybutton = "*"
 
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
 ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 
 [tool.pixi.feature.docs.tasks]
@@ -244,19 +243,14 @@ python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
 
-[tool.pixi.feature.test.tasks]
-tests = "pytest"
-
-[tool.pixi.feature.ty.pypi-dependencies]
-ty = ">=0.0.9"
+[tool.pixi.feature.test.pypi-dependencies]
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim = { path = ".", editable = true }
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
-# jax-datetime = { git = "https://github.com/google/jax-datetime.git" }
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 
-[tool.pixi.feature.ty.tasks]
+[tool.pixi.feature.test.tasks]
+tests = "pytest"
 ty = "ty check"
 
 [tool.pixi.pypi-dependencies]
