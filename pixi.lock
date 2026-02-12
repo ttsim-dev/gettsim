@@ -9805,8 +9805,8 @@ packages:
   timestamp: 1750744808182
 - pypi: ./
   name: gettsim
-  version: 1.2.dev46+gfb309cf65.d20260212
-  sha256: a9356488b50ddd5d317c4484d13b87fa5a843868025447f5868c5c489c739e50
+  version: 1.2.dev48+g08ab81def.d20260212
+  sha256: 27f33d6fdc54882a5cd27c5fb8346197d13b72fee56f23b67b5490d123e2e637
   requires_python: '>=3.11'
 - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#08a60b20b32ea87c7fb839ec9f53bc54430ba0aa
   name: gettsim-personas
