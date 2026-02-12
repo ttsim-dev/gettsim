@@ -94,8 +94,8 @@ GEP:
 
 This document has been placed in the public domain. [^id1]
 
-[^id1]: Each GEP must either be explicitly labeled as placed in the public domain (see this
-    GEP as an example) or licensed under the [Open Publication License].
+[^id1]: Each GEP must either be explicitly labeled as placed in the public domain (see
+    this GEP as an example) or licensed under the [Open Publication License].
 
 [#geps]: https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs
 [open publication license]: https://www.opencontent.org/openpub/
