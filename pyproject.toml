@@ -40,7 +40,9 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.1.1" ]
+dependencies = [
+  # "ttsim-backend>=1.1.1"
+]
 
 urls.Changelog = "https://gettsim.readthedocs.io/en/stable/changes.html"
 urls.Documentation = "https://gettsim.readthedocs.io"
