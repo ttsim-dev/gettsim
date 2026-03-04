@@ -137,10 +137,9 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
     xnp: ModuleType,
 ) -> float:
     """Share of income which remains to the individual."""
-    return piecewise_polynomial(
+    return nettoquote * piecewise_polynomial(
         x=einnahmen__bruttolohn_m,
         parameters=parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
-        rates_multiplier=nettoquote,
         xnp=xnp,
     )
 
