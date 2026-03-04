@@ -81,9 +81,10 @@ def parameter_max_lohnsteuer_klasse_5_6(
             ],
         ],
     )
-    coefficients = einkommensteuer__parameter_einkommensteuertarif.coefficients[
-        numpy.array([3, 3, 3, 4]), 0:1
-    ]
+    params = einkommensteuer__parameter_einkommensteuertarif
+    coefficients = numpy.asarray(
+        [[params[3].slope], [params[3].slope], [params[3].slope], [params[4].slope]]
+    )
     return PiecewisePolynomialParamValue(
         thresholds=xnp.asarray(thresholds),
         intercepts=xnp.asarray(intercepts),
@@ -138,7 +139,7 @@ def tarif_klassen_5_und_6(
         xnp=xnp,
     )
     min_lohnsteuer = (
-        einkommensteuer__parameter_einkommensteuertarif.coefficients[1, 0] * einkommen_y
+        einkommensteuer__parameter_einkommensteuertarif[1].slope * einkommen_y
     )
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
@@ -223,7 +224,7 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
         xnp=xnp,
     )
     min_lohnsteuer = (
-        einkommensteuer__parameter_einkommensteuertarif.coefficients[1, 0]
+        einkommensteuer__parameter_einkommensteuertarif[1].slope
         * einkommen_abzüglich_kinderfreibetrag_soli
     )
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
