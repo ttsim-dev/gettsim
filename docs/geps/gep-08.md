@@ -89,15 +89,17 @@ parameter_behindertenpauschbetrag:
 parameter_behindertenpauschbetrag:
   type: piecewise_constant
   2021-01-01:
-    - interval: "[0, 20)"
-      intercept: 0
-    - interval: "[20, 30)"
-      intercept: 384
-    - interval: "[30, 40)"
-      intercept: 620
-    # ... more intervals ...
-    - interval: "[100, inf)"
-      intercept: 2840
+    reference: Art. 1 G. v. 09.12.2020 BGBL. I S. 2770.
+    intervals:
+      - interval: "[0, 20)"
+        intercept: 0
+      - interval: "[20, 30)"
+        intercept: 384
+      - interval: "[30, 40)"
+        intercept: 620
+      # ... more intervals ...
+      - interval: "[100, inf)"
+        intercept: 2840
 ```
 
 Note: The domain starts at 0 rather than `(-inf, ...)` since disability percentages
@@ -109,16 +111,56 @@ Note: The domain starts at 0 rather than `(-inf, ...)` since disability percenta
 parameter_solidaritätszuschlag:
   type: piecewise_linear
   2021-01-01:
-    - interval: "[0, 16956)"
-      intercept: 0
-      slope: 0
-    - interval: "[16956, 31528)"
-      # intercept is optional if continuous from previous interval
-      slope: 0.119
-    - interval: "[31528, inf)"
-      # intercept is optional if continuous from previous interval
-      slope: 0.055
+    reference: Artikel 1 G. v. 10.12.2019 BGBl. I S. 2115.
+    intervals:
+      - interval: "[0, 16956)"
+        intercept: 0
+        slope: 0
+      - interval: "[16956, 31528)"
+        # intercept is optional if continuous from previous interval
+        slope: 0.119
+      - interval: "[31528, inf)"
+        # intercept is optional if continuous from previous interval
+        slope: 0.055
 ```
+
+### `updates_previous` Example
+
+When only some intervals change (e.g., updated thresholds), `updates_previous` avoids
+restating the entire definition. The updated intervals take precedence over the previous
+entry: they replace the portion of the domain they cover, and any previously-defined
+intervals that overlap with the updated range are trimmed accordingly. Intervals outside
+the updated range are carried over with their coefficients unchanged.
+
+```yaml
+parameter_solidaritätszuschlag:
+  type: piecewise_linear
+  2021-01-01:
+    reference: Artikel 1 G. v. 10.12.2019 BGBl. I S. 2115.
+    intervals:
+      - interval: "[0, 16956)"
+        intercept: 0
+        slope: 0
+      - interval: "[16956, 31528)"
+        slope: 0.119
+      - interval: "[31528, inf)"
+        slope: 0.055
+  2023-01-01:
+    updates_previous: true
+    reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
+    intervals:
+      - interval: "[0, 17543)"
+      - interval: "[17543, 32619)"
+        slope: 0.119
+```
+
+Here, the updated intervals cover `[0, 32619)`, which overlaps with all three previous
+intervals. The third interval from 2021 is carried over with its lower bound adjusted to
+32619, yielding a resolved entry of `[0, 17543)`, `[17543, 32619)`, `[32619, inf)`.
+Coefficients not specified in the update (e.g., `intercept` and `slope` for the first
+interval) are inherited from the previous entry's interval that covered the same
+starting point. The result must be contiguous; an error is raised if gaps remain after
+merging.
 
 ### Benefits
 
@@ -187,53 +229,63 @@ is used; `slope`, `quadratic`, etc. have no effect). This matches the existing b
 
 #### Parameter Examples
 
+Each list item under `intervals` has a required `interval` key and optional coefficient
+keys. Metadata (`reference`, `note`) belongs on the date entry mapping, not on
+individual interval items (see {ref}`GEP 3 <gep-3-structure-yaml-files>`).
+
 For `piecewise_constant`:
 
 ```yaml
-- interval: "[a, b)"
-  intercept: <number>
+intervals:
+  - interval: "[a, b)"
+    intercept: <number>
 ```
 
 For `piecewise_linear`:
 
 ```yaml
-- interval: "[a, b)"
-  intercept: <number>  # c_0
-  slope: <number>      # c_1
+intervals:
+  - interval: "[a, b)"
+    intercept: <number>  # c_0
+    slope: <number>      # c_1
 ```
 
 For `piecewise_quadratic`:
 
 ```yaml
-- interval: "[a, b)"
-  intercept: <number>   # c_0
-  slope: <number>       # c_1
-  quadratic: <number>   # c_2
+intervals:
+  - interval: "[a, b)"
+    intercept: <number>   # c_0
+    slope: <number>       # c_1
+    quadratic: <number>   # c_2
 ```
 
 For `piecewise_cubic`:
 
 ```yaml
-- interval: "[a, b)"
-  intercept: <number>
-  slope: <number>
-  quadratic: <number>
-  cubic: <number>       # c_3
+intervals:
+  - interval: "[a, b)"
+    intercept: <number>
+    slope: <number>
+    quadratic: <number>
+    cubic: <number>       # c_3
 ```
 
 ### Internal Representation
 
-At load time, the YAML list is converted to portion's `IntervalDict`:
+At load time, the `intervals` list from the YAML is converted to portion's
+`IntervalDict`:
 
 ```python
 import portion
 
 # YAML input:
-# - interval: "[0, 20)"
-#   intercept: 0
-# - interval: "[20, 30)"
-#   intercept: 384
-# ...
+# intervals:
+#   - interval: "[0, 20)"
+#     intercept: 0
+#   - interval: "[20, 30)"
+#     intercept: 384
+#   ...
 
 # Converted to:
 params = portion.IntervalDict(
@@ -275,6 +327,22 @@ coefficients = np.array(
 This layout intuitively maps each row to a specific interval, improving readability and
 aligning with standard data conventions.
 
+### Named Access to Coefficients
+
+The `PiecewisePolynomialParamValue` object supports accessing individual intervals and
+their coefficients by name. For example, given a parameter with three intervals:
+
+```python
+# Access the slope of the first interval:
+parameter_solidaritätszuschlag[0].slope
+
+# Access the intercept of the second interval:
+parameter_solidaritätszuschlag[1].intercept
+```
+
+This is useful in policy functions that need to reference specific coefficients
+directly, without calling `piecewise_polynomial()`.
+
 ### Behavior Outside Defined Domain
 
 When `piecewise_polynomial()` is called with a value outside the defined intervals, it
@@ -299,6 +367,8 @@ At parameter load time, the system will validate:
 1. **Ordering**: Intervals must be specified in ascending order in the YAML file
 1. **Continuity** (optional, for linear+): At boundaries, the polynomial values should
    match (can be a warning rather than error)
+1. **`updates_previous` compatibility**: After merging updated and carried-over
+   intervals, the resolved entry must be contiguous (no gaps)
 
 Full coverage of `(-inf, inf)` is **not** required.
 
