@@ -13,86 +13,86 @@ parameter_solidaritätszuschlag:
   type: piecewise_linear
   1991-01-01:
     reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
-    0:
-      interval: (-inf, 0)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[0, inf)'
-      slope: 0.0375
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, inf)'
+        slope: 0.0375
   1993-01-01:
-    - interval: (-inf, inf)
-      slope: 0
-      intercept: 0
+    intervals:
+      - interval: (-inf, inf)
+        slope: 0
+        intercept: 0
   1995-01-01:
     reference: Artikel 31 G. v. 23.06.1993 BGBl. I S. 944.
-    0:
-      interval: (-inf, 681)
-      intercept: 0
-      slope: 0
-    1:
-      interval: '[681, 1089.6)'
-      slope: 0.2
-    2:
-      interval: '[1089.6, inf)'
-      slope: 0.075
+    intervals:
+      - interval: (-inf, 681)
+        intercept: 0
+        slope: 0
+      - interval: '[681, 1089.6)'
+        slope: 0.2
+      - interval: '[1089.6, inf)'
+        slope: 0.075
   1998-01-01:
     reference: Artikel 1 G. v. 21.11.1997 BGBl. I S. 2743.
-    0:
-      interval: (-inf, 939)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[939, 1295.17)'
-      slope: 0.2
-    2:
-      interval: '[1295.17, inf)'
-      slope: 0.055
+    intervals:
+      - interval: (-inf, 939)
+        slope: 0
+        intercept: 0
+      - interval: '[939, 1295.17)'
+        slope: 0.2
+      - interval: '[1295.17, inf)'
+        slope: 0.055
   2002-01-01:
     reference: G. v. 15.10.2002 BGBl. I S. 4131.
-    0:
-      interval: (-inf, 972)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[972, 1340.69)'
-      slope: 0.2
-    2:
-      interval: '[1340.69, inf)'
-      slope: 0.055
+    intervals:
+      - interval: (-inf, 972)
+        slope: 0
+        intercept: 0
+      - interval: '[972, 1340.69)'
+        slope: 0.2
+      - interval: '[1340.69, inf)'
+        slope: 0.055
   2021-01-01:
     reference: Artikel 1 G. v. 10.12.2019 BGBl. I S. 2115.
-    0:
-      interval: (-inf, 16956)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[16956, 31527.56)'
-      slope: 0.119
-    2:
-      interval: '[31527.56, inf)'
-      slope: 0.055
+    intervals:
+      - interval: (-inf, 16956)
+        slope: 0
+        intercept: 0
+      - interval: '[16956, 31527.56)'
+        slope: 0.119
+      - interval: '[31527.56, inf)'
+        slope: 0.055
   2023-01-01:
     reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
     updates_previous: true
-    0:
-      interval: (-inf, 17543)
-    1:
-      interval: '[17543, 32619.02)'
+    intervals:
+      - interval: (-inf, 17543)
+        slope: 0
+        intercept: 0
+      - interval: '[17543, 32619.02)'
+        slope: 0.119
   2024-01-01:
     reference: Art. 5 G. v. 08.12.2022 BGBl. I S. 2230.
     updates_previous: true
-    0:
-      interval: (-inf, 18130)
-    1:
-      interval: '[18130, 33710.47)'
+    intervals:
+      - interval: (-inf, 18130)
+        slope: 0
+        intercept: 0
+      - interval: '[18130, 33710.47)'
+        slope: 0.119
   2025-01-01:
     updates_previous: true
     reference: Art. 3 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
-    0:
-      interval: (-inf, 19950)
+    intervals:
+      - interval: (-inf, 19950)
+        slope: 0
+        intercept: 0
   2026-01-01:
     updates_previous: true
     reference: Art. 4 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
-    0:
-      interval: (-inf, 20350)
+    intervals:
+      - interval: (-inf, 20350)
+        slope: 0
+        intercept: 0

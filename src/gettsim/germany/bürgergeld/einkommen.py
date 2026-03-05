@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gettsim import upsert_tree
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
-    extend_intervals_to_real_line,
     get_piecewise_parameters,
+    merge_piecewise_intervals,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -163,19 +162,13 @@ def parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg(
     """Parameter for calculation of income not subject to transfer withdrawal when
     children are in the Bedarfsgemeinschaft.
     """
-    base_dict = dict(
-        enumerate(raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg)
-    )  # ty: ignore[invalid-argument-type]
-    merged = upsert_tree(
-        base=base_dict,
-        to_upsert=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,  # ty: ignore[invalid-argument-type]
-    )
-    updated_parameters: list[dict[str, float]] = extend_intervals_to_real_line(  # ty: ignore[invalid-assignment]
-        [merged[i] for i in sorted(k for k in merged if isinstance(k, int))]
+    updated_parameters = merge_piecewise_intervals(
+        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,  # ty: ignore[invalid-argument-type]
+        update=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,  # ty: ignore[invalid-argument-type]
     )
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg",
         func_type="piecewise_linear",
-        parameter_list=updated_parameters,  # ty: ignore[invalid-argument-type]
+        parameter_list=updated_parameters,
         xnp=xnp,
     )

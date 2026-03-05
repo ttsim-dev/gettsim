@@ -17,229 +17,275 @@ raw_parameter_einkommensteuertarif:
   reference_period: Year
   type: require_converter
   2002-01-01:
-    0:
-      interval: (-inf, 7235)
-      slope: 0
-      quadratic: 0
-      intercept: 0
-    1:
-      interval: '[7235, 9251)'
-      slope: 0.199
-    2:
-      interval: '[9251, 55007)'
-      slope: 0.23
-    3:
-      interval: '[55007, inf)'
-      slope: 0.485
-      quadratic: 0
+    intervals:
+      - interval: (-inf, 7235)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[7235, 9251)'
+        slope: 0.199
+      - interval: '[9251, 55007)'
+        slope: 0.23
+      - interval: '[55007, inf)'
+        slope: 0.485
+        quadratic: 0
   2004-01-01:
-    0:
-      interval: (-inf, 7664)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[7664, 12739)'
-      slope: 0.16
-    2:
-      interval: '[12739, 52151)'
-      slope: 0.2405
-    3:
-      interval: '[52151, inf)'
-      slope: 0.45
-      quadratic: 0
+    intervals:
+      - interval: (-inf, 7664)
+        slope: 0
+        intercept: 0
+      - interval: '[7664, 12739)'
+        slope: 0.16
+      - interval: '[12739, 52151)'
+        slope: 0.2405
+      - interval: '[52151, inf)'
+        slope: 0.45
+        quadratic: 0
   2005-01-01:
-    0:
-      interval: (-inf, 7664)
-      slope: 0
-      quadratic: 0
-      intercept: 0
-    1:
-      interval: '[7664, 12739)'
-      slope: 0.15
-    2:
-      interval: '[12739, 52151)'
-      slope: 0.2397
-    3:
-      interval: '[52151, inf)'
-      slope: 0.42
-      quadratic: 0
+    intervals:
+      - interval: (-inf, 7664)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[7664, 12739)'
+        slope: 0.15
+      - interval: '[12739, 52151)'
+        slope: 0.2397
+      - interval: '[52151, inf)'
+        slope: 0.42
+        quadratic: 0
   2007-01-01:
-    0:
-      interval: (-inf, 7664)
-      slope: 0
-      quadratic: 0
-      intercept: 0
-    1:
-      interval: '[7664, 12739)'
-      slope: 0.15
-    2:
-      interval: '[12739, 52151)'
-      slope: 0.2397
-    3:
-      interval: '[52151, 250000)'
-      slope: 0.42
-      quadratic: 0
-    4:
-      interval: '[250000, inf)'
-      slope: 0.45
-      quadratic: 0
+    intervals:
+      - interval: (-inf, 7664)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[7664, 12739)'
+        slope: 0.15
+      - interval: '[12739, 52151)'
+        slope: 0.2397
+      - interval: '[52151, 250000)'
+        slope: 0.42
+        quadratic: 0
+      - interval: '[250000, inf)'
+        slope: 0.45
+        quadratic: 0
   2009-01-01:
     updates_previous: true
-    0:
-      interval: (-inf, 7834)
-    1:
-      interval: '[7834, 13139)'
-      slope: 0.14
-    2:
-      interval: '[13139, 52551)'
-    3:
-      interval: '[52551, 250400)'
+    intervals:
+      - interval: (-inf, 7834)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[7834, 13139)'
+        slope: 0.14
+      - interval: '[13139, 52551)'
+        slope: 0.2397
+      - interval: '[52551, 250400)'
+        slope: 0.42
+        quadratic: 0
   2010-01-01:
     updates_previous: true
     reference: Artikel 1 G. v. 02.03.2009 BGBl. I S. 416
-    0:
-      interval: (-inf, 8004)
-    1:
-      interval: '[8004, 13469)'
-    2:
-      interval: '[13469, 52881)'
-    3:
-      interval: '[52881, 250730)'
+    intervals:
+      - interval: (-inf, 8004)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[8004, 13469)'
+        slope: 0.14
+      - interval: '[13469, 52881)'
+        slope: 0.2397
+      - interval: '[52881, 250730)'
+        slope: 0.42
+        quadratic: 0
   2013-01-01:
     updates_previous: true
-    0:
-      interval: (-inf, 8130)
+    intervals:
+      - interval: (-inf, 8130)
+        slope: 0
+        quadratic: 0
+        intercept: 0
   2014-01-01:
     updates_previous: true
     note: Gesetz zum Abbau der kalten Progression
     reference: G. v. 20.2.2013, BGBl I S.283
-    0:
-      interval: (-inf, 8354)
+    intervals:
+      - interval: (-inf, 8354)
+        slope: 0
+        quadratic: 0
+        intercept: 0
   2015-07-01:
     updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
-    0:
-      interval: (-inf, 8472)
+    intervals:
+      - interval: (-inf, 8472)
+        slope: 0
+        quadratic: 0
+        intercept: 0
   2016-01-01:
     updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
-    0:
-      interval: (-inf, 8652)
-    1:
-      interval: '[8652, 13669)'
-    2:
-      interval: '[13669, 53665)'
-    3:
-      interval: '[53665, 254446)'
+    intervals:
+      - interval: (-inf, 8652)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[8652, 13669)'
+        slope: 0.14
+      - interval: '[13669, 53665)'
+        slope: 0.2397
+      - interval: '[53665, 254446)'
+        slope: 0.42
+        quadratic: 0
   2017-01-01:
     updates_previous: true
     reference: Artikel 8 G. v. 20.12.2016, BGBl I S. 3000
-    0:
-      interval: (-inf, 8820)
-    1:
-      interval: '[8820, 13769)'
-    2:
-      interval: '[13769, 54057)'
-    3:
-      interval: '[54057, 256303)'
+    intervals:
+      - interval: (-inf, 8820)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[8820, 13769)'
+        slope: 0.14
+      - interval: '[13769, 54057)'
+        slope: 0.2397
+      - interval: '[54057, 256303)'
+        slope: 0.42
+        quadratic: 0
   2018-01-01:
     updates_previous: true
     reference: Artikel 9 G. v 23.12.2016, BGBL I, S. 3000
-    0:
-      interval: (-inf, 9000)
-    1:
-      interval: '[9000, 13996)'
-    2:
-      interval: '[13996, 54949)'
-    3:
-      interval: '[54949, 260532)'
+    intervals:
+      - interval: (-inf, 9000)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[9000, 13996)'
+        slope: 0.14
+      - interval: '[13996, 54949)'
+        slope: 0.2397
+      - interval: '[54949, 260532)'
+        slope: 0.42
+        quadratic: 0
   2019-01-01:
     updates_previous: true
-    0:
-      interval: (-inf, 9168)
-    1:
-      interval: '[9168, 14254)'
-    2:
-      interval: '[14254, 55960)'
-    3:
-      interval: '[55960, 265326)'
+    intervals:
+      - interval: (-inf, 9168)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[9168, 14254)'
+        slope: 0.14
+      - interval: '[14254, 55960)'
+        slope: 0.2397
+      - interval: '[55960, 265326)'
+        slope: 0.42
+        quadratic: 0
   2020-01-01:
     updates_previous: true
     reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
-    0:
-      interval: (-inf, 9408)
-    1:
-      interval: '[9408, 14532)'
-    2:
-      interval: '[14532, 57051)'
-    3:
-      interval: '[57051, 270500)'
+    intervals:
+      - interval: (-inf, 9408)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[9408, 14532)'
+        slope: 0.14
+      - interval: '[14532, 57051)'
+        slope: 0.2397
+      - interval: '[57051, 270500)'
+        slope: 0.42
+        quadratic: 0
   2021-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
-    0:
-      interval: (-inf, 9744)
-    1:
-      interval: '[9744, 14753)'
-    2:
-      interval: '[14753, 57918)'
-    3:
-      interval: '[57918, 274612)'
+    intervals:
+      - interval: (-inf, 9744)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[9744, 14753)'
+        slope: 0.14
+      - interval: '[14753, 57918)'
+        slope: 0.2397
+      - interval: '[57918, 274612)'
+        slope: 0.42
+        quadratic: 0
   2022-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 23.05.2022 BGBl. I S. 749
     note: >-
       First specified in Art. 2. G. v. 01.12.2020 BGBl. I S. 2616, new defined resp.
       overridden in above reference.
-    0:
-      interval: (-inf, 10347)
-    1:
-      interval: '[10347, 14926)'
-    2:
-      interval: '[14926, 58596)'
-    3:
-      interval: '[58596, 277826)'
+    intervals:
+      - interval: (-inf, 10347)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[10347, 14926)'
+        slope: 0.14
+      - interval: '[14926, 58596)'
+        slope: 0.2397
+      - interval: '[58596, 277826)'
+        slope: 0.42
+        quadratic: 0
   2023-01-01:
     updates_previous: true
     reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
-    0:
-      interval: (-inf, 10908)
-    1:
-      interval: '[10908, 15999)'
-    2:
-      interval: '[15999, 62809)'
-    3:
-      interval: '[62809, 277825)'
+    intervals:
+      - interval: (-inf, 10908)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[10908, 15999)'
+        slope: 0.14
+      - interval: '[15999, 62809)'
+        slope: 0.2397
+      - interval: '[62809, 277825)'
+        slope: 0.42
+        quadratic: 0
   2024-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
-    0:
-      interval: (-inf, 11784)
-    1:
-      interval: '[11784, 17005)'
-    2:
-      interval: '[17005, 66760)'
-    3:
-      interval: '[66760, 277825)'
+    intervals:
+      - interval: (-inf, 11784)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[11784, 17005)'
+        slope: 0.14
+      - interval: '[17005, 66760)'
+        slope: 0.2397
+      - interval: '[66760, 277825)'
+        slope: 0.42
+        quadratic: 0
   2025-01-01:
     updates_previous: true
     reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
-    0:
-      interval: (-inf, 12096)
-    1:
-      interval: '[12096, 17443)'
-    2:
-      interval: '[17443, 68480)'
-    3:
-      interval: '[68480, 277825)'
+    intervals:
+      - interval: (-inf, 12096)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[12096, 17443)'
+        slope: 0.14
+      - interval: '[17443, 68480)'
+        slope: 0.2397
+      - interval: '[68480, 277825)'
+        slope: 0.42
+        quadratic: 0
   2026-01-01:
     updates_previous: true
     reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
-    0:
-      interval: (-inf, 12348)
-    1:
-      interval: '[12348, 17799)'
-    2:
-      interval: '[17799, 69878)'
+    intervals:
+      - interval: (-inf, 12348)
+        slope: 0
+        quadratic: 0
+        intercept: 0
+      - interval: '[12348, 17799)'
+        slope: 0.14
+      - interval: '[17799, 69878)'
+        slope: 0.2397

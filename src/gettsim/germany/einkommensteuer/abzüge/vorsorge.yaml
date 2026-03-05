@@ -94,13 +94,14 @@ parameter_einführungsfaktor_altersvorsorgeaufwendungen:
   reference_period: null
   type: piecewise_linear
   2005-01-01:
-    - interval: (-inf, 2005)
-      slope: 0
-      intercept: 0.6
-    - interval: '[2005, 2025)'
-      slope: 0.02
-    - interval: '[2025, inf)'
-      slope: 0
+    intervals:
+      - interval: (-inf, 2005)
+        slope: 0
+        intercept: 0.6
+      - interval: '[2005, 2025)'
+        slope: 0.02
+      - interval: '[2025, inf)'
+        slope: 0
   2023-01-01:
     note: Abgeschafft durch G. v. 20.12.2022 BGBl. I S. 2294.
 maximalbetrag_sonstige_vorsorgeaufwendungen:

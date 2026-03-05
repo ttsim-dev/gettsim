@@ -42,13 +42,14 @@ anrechnungsfreier_anteil_gesetzliche_rente:
   reference_period: null
   type: piecewise_linear
   2021-01-01:
-    - interval: (-inf, 0)
-      slope: 0
-      intercept: 0
-    - interval: '[0, 100)'
-      slope: 1
-    - interval: '[100, inf)'
-      slope: 0.3
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1
+      - interval: '[100, inf)'
+        slope: 0.3
 freibetrag_kapitaleinkünfte:
   name:
     de: Freibetrag des Kapitaleinkommens für Grundsicherung
@@ -102,13 +103,14 @@ anrechnungsfreier_anteil_private_renteneinkünfte:
   reference_period: null
   type: piecewise_linear
   2005-01-01:
-    - interval: (-inf, 0)
-      slope: 0
-      intercept: 0
-    - interval: '[0, 100)'
-      slope: 1
-    - interval: '[100, inf)'
-      slope: 0.3
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1
+      - interval: '[100, inf)'
+        slope: 0.3
 mehrbedarf_bei_schwerbehinderungsgrad_g:
   name:
     de: Mehrbedarf bei Schwerbehinderung

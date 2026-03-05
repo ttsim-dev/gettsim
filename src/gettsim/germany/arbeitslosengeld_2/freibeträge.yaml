@@ -143,40 +143,32 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   type: require_converter
   2005-01-01:
     reference: Artikel 1. G. v. 24.12.2003 BGBl. I S. 2954.
-    0:
-      interval: (-inf, 0)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[0, 400)'
-      slope: 0.15
-    2:
-      interval: '[400, 900)'
-      slope: 0.3
-    3:
-      interval: '[900, 1500)'
-      slope: 0.15
-    4:
-      interval: '[1500, inf)'
-      slope: 0
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 400)'
+        slope: 0.15
+      - interval: '[400, 900)'
+        slope: 0.3
+      - interval: '[900, 1500)'
+        slope: 0.15
+      - interval: '[1500, inf)'
+        slope: 0
   2005-10-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
-    0:
-      interval: (-inf, 0)
-      slope: 0
-      intercept: 0
-    1:
-      interval: '[0, 100)'
-      slope: 1.0
-    2:
-      interval: '[100, 800)'
-      slope: 0.2
-    3:
-      interval: '[800, 1200)'
-      slope: 0.1
-    4:
-      interval: '[1200, inf)'
-      slope: 0
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
+      - interval: '[100, 800)'
+        slope: 0.2
+      - interval: '[800, 1200)'
+        slope: 0.1
+      - interval: '[1200, inf)'
+        slope: 0
   2011-04-01:
     reference: Artikel 1 G. v. 20.12.2011 BGBl. I 2854.
     note: >-
@@ -184,8 +176,9 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       ToDo: Check these laws -- did they really happen months after the date of the
       policy change?
     updates_previous: true
-    2:
-      interval: '[100, 1000)'
+    intervals:
+      - interval: '[100, 1000)'
+        slope: 0.2
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
 raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
@@ -212,7 +205,8 @@ raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   type: require_converter
   2005-10-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
-    3:
-      interval: '[800, 1500)'
+    intervals:
+      - interval: '[800, 1500)'
+        slope: 0.1
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
