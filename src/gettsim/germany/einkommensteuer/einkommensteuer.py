@@ -231,9 +231,10 @@ def parameter_einkommensteuertarif(
     (rate_fiv - rate_iv) / (2 * (upper_thres - low_thres))
 
     """
+    raw_intervals = raw_parameter_einkommensteuertarif["intervals"]  # ty: ignore[index]
     expanded: list[dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
         lambda x: x if isinstance(x, str) else float(x),
-        raw_parameter_einkommensteuertarif,  # ty: ignore[invalid-argument-type]
+        raw_intervals,  # ty: ignore[invalid-argument-type]
     )
 
     # Check and extract lower thresholds.
@@ -243,7 +244,7 @@ def parameter_einkommensteuertarif(
         xnp=xnp,
     )[:2]
     for i in range(len(expanded)):
-        if "quadratic" not in raw_parameter_einkommensteuertarif[i]:
+        if "quadratic" not in raw_intervals[i]:
             expanded[i]["quadratic"] = (  # ty: ignore[invalid-argument-type]
                 expanded[i + 1]["slope"] - expanded[i]["slope"]  # ty: ignore[unsupported-operator, invalid-argument-type]
             ) / (2 * (upper_thresholds[i] - lower_thresholds[i]))

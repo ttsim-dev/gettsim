@@ -207,7 +207,7 @@ sphinx-copybutton = "*"
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = { path = ".", editable = true }
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "refactor-piecewise-polynomial" }
 
 [tool.pixi.feature.docs.target.linux-64.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
@@ -281,7 +281,7 @@ ty = "ty check"
 
 [tool.pixi.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "refactor-piecewise-polynomial" }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"

@@ -196,7 +196,9 @@ def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg",
         func_type="piecewise_linear",
-        parameter_list=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,  # ty: ignore[invalid-argument-type]
+        parameter_list=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg[
+            "intervals"
+        ],  # ty: ignore[index]
         xnp=xnp,
     )
 
@@ -211,8 +213,8 @@ def parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg(
     children are in the Bedarfsgemeinschaft.
     """
     updated_parameters = merge_piecewise_intervals(
-        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,  # ty: ignore[invalid-argument-type]
-        update=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg,  # ty: ignore[invalid-argument-type]
+        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg["intervals"],  # ty: ignore[index]
+        update=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg["intervals"],  # ty: ignore[index]
     )
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg",
