@@ -126,11 +126,11 @@ parameter_solidaritätszuschlag:
 
 ### `updates_previous` Example
 
-When only some intervals change (e.g., updated thresholds), `updates_previous` avoids
-restating the entire definition. The updated intervals take precedence over the previous
-entry: they replace the portion of the domain they cover, and any previously-defined
-intervals that overlap with the updated range are trimmed accordingly. Intervals outside
-the updated range are carried over with their coefficients unchanged.
+When only some coefficients change between dates, `updates_previous` avoids restating
+the entire definition. Each interval listed in the update must have bounds that exactly
+match one of the base entry's intervals. Only the specified coefficients are replaced;
+all other coefficients and any intervals not listed in the update are carried over
+unchanged. The interval structure (bounds and ordering) is never modified by an update.
 
 ```yaml
 parameter_solidaritätszuschlag:
@@ -149,18 +149,15 @@ parameter_solidaritätszuschlag:
     updates_previous: true
     reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
     intervals:
-      - interval: "[0, 17543)"
-      - interval: "[17543, 32619)"
-        slope: 0.119
+      - interval: "[16956, 31528)"
+        slope: 0.11
 ```
 
-Here, the updated intervals cover `[0, 32619)`, which overlaps with all three previous
-intervals. The third interval from 2021 is carried over with its lower bound adjusted to
-32619, yielding a resolved entry of `[0, 17543)`, `[17543, 32619)`, `[32619, inf)`.
-Coefficients not specified in the update (e.g., `intercept` and `slope` for the first
-interval) are inherited from the previous entry's interval that covered the same
-starting point. The result must be contiguous; an error is raised if gaps remain after
-merging.
+Here, only the second interval's `slope` changes from 0.119 to 0.11. The interval bounds
+`[16956, 31528)` exactly match the base entry. The first and third intervals are carried
+over unchanged, yielding a resolved entry with the same three intervals and the same
+bounds as before. An error is raised if an update interval's bounds do not match any
+base interval.
 
 ### Benefits
 
@@ -367,8 +364,8 @@ At parameter load time, the system will validate:
 1. **Ordering**: Intervals must be specified in ascending order in the YAML file
 1. **Continuity** (optional, for linear+): At boundaries, the polynomial values should
    match (can be a warning rather than error)
-1. **`updates_previous` compatibility**: After merging updated and carried-over
-   intervals, the resolved entry must be contiguous (no gaps)
+1. **`updates_previous` compatibility**: Each update interval must exactly match a base
+   interval's bounds; only coefficients are replaced
 
 Full coverage of `(-inf, inf)` is **not** required.
 
