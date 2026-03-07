@@ -104,11 +104,31 @@ raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   2023-01-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
     intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
+      - interval: '[100, 1000)'
+        slope: 0.2
       - interval: '[1000, 1500)'
         slope: 0.1
+      - interval: '[1500, inf)'
+        slope: 0
   2023-07-01:
     reference: G. v. 20.12.2022 BGBl. I S. 2328.
     note: Bürgergeld-Gesetz
     intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
+      - interval: '[100, 520)'
+        slope: 0.2
+      - interval: '[520, 1000)'
+        slope: 0.3
       - interval: '[1000, 1500)'
         slope: 0.1
+      - interval: '[1500, inf)'
+        slope: 0

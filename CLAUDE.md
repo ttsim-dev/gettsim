@@ -252,7 +252,9 @@ from gettsim.tt import (
     join,  # For person-to-person lookups
     get_consecutive_int_lookup_table_param_value,
     get_piecewise_parameters,
-    get_piecewise_thresholds,
+    intervals_to_thresholds,
+    merge_piecewise_intervals,
+    PiecewisePolynomialInterval,
 )
 ```
 

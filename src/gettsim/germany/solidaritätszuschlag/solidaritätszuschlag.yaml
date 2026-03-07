@@ -66,33 +66,41 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2023-01-01:
     reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
-    updates_previous: true
     intervals:
       - interval: (-inf, 17543)
         slope: 0
         intercept: 0
       - interval: '[17543, 32619.02)'
         slope: 0.119
+      - interval: '[32619.02, inf)'
+        slope: 0.055
   2024-01-01:
     reference: Art. 5 G. v. 08.12.2022 BGBl. I S. 2230.
-    updates_previous: true
     intervals:
       - interval: (-inf, 18130)
         slope: 0
         intercept: 0
       - interval: '[18130, 33710.47)'
         slope: 0.119
+      - interval: '[33710.47, inf)'
+        slope: 0.055
   2025-01-01:
-    updates_previous: true
     reference: Art. 3 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     intervals:
       - interval: (-inf, 19950)
         slope: 0
         intercept: 0
+      - interval: '[19950, 37094.53)'
+        slope: 0.119
+      - interval: '[37094.53, inf)'
+        slope: 0.055
   2026-01-01:
-    updates_previous: true
     reference: Art. 4 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     intervals:
       - interval: (-inf, 20350)
         slope: 0
         intercept: 0
+      - interval: '[20350, 37838.28)'
+        slope: 0.119
+      - interval: '[37838.28, inf)'
+        slope: 0.055

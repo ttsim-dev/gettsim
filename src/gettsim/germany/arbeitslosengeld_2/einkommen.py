@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     get_piecewise_parameters,
-    merge_piecewise_intervals,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -198,7 +197,7 @@ def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
         func_type="piecewise_linear",
         parameter_list=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg[
             "intervals"
-        ],  # ty: ignore[index]
+        ],
         xnp=xnp,
     )
 
@@ -206,19 +205,16 @@ def parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg(
 @param_function(start_date="2005-10-01", end_date="2022-12-31")
 def parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg(
     raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg: RawParamValue,
-    raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: RawParamValue,
     xnp: ModuleType,
 ) -> PiecewisePolynomialParamValue:
     """Parameter for calculation of income not subject to transfer withdrawal when
     children are in the Bedarfsgemeinschaft.
     """
-    updated_parameters = merge_piecewise_intervals(
-        base=raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg["intervals"],  # ty: ignore[index]
-        update=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg["intervals"],  # ty: ignore[index]
-    )
     return get_piecewise_parameters(
         leaf_name="parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg",
         func_type="piecewise_linear",
-        parameter_list=updated_parameters,
+        parameter_list=raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg[
+            "intervals"
+        ],
         xnp=xnp,
     )

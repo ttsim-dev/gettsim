@@ -71,7 +71,6 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2009-01-01:
-    updates_previous: true
     intervals:
       - interval: (-inf, 7834)
         slope: 0
@@ -84,8 +83,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[52551, 250400)'
         slope: 0.42
         quadratic: 0
+      - interval: '[250400, inf)'
+        slope: 0.45
+        quadratic: 0
   2010-01-01:
-    updates_previous: true
     reference: Artikel 1 G. v. 02.03.2009 BGBl. I S. 416
     intervals:
       - interval: (-inf, 8004)
@@ -99,15 +100,26 @@ raw_parameter_einkommensteuertarif:
       - interval: '[52881, 250730)'
         slope: 0.42
         quadratic: 0
+      - interval: '[250730, inf)'
+        slope: 0.45
+        quadratic: 0
   2013-01-01:
-    updates_previous: true
     intervals:
       - interval: (-inf, 8130)
         slope: 0
         quadratic: 0
         intercept: 0
+      - interval: '[8130, 13469)'
+        slope: 0.14
+      - interval: '[13469, 52881)'
+        slope: 0.2397
+      - interval: '[52881, 250730)'
+        slope: 0.42
+        quadratic: 0
+      - interval: '[250730, inf)'
+        slope: 0.45
+        quadratic: 0
   2014-01-01:
-    updates_previous: true
     note: Gesetz zum Abbau der kalten Progression
     reference: G. v. 20.2.2013, BGBl I S.283
     intervals:
@@ -115,8 +127,17 @@ raw_parameter_einkommensteuertarif:
         slope: 0
         quadratic: 0
         intercept: 0
+      - interval: '[8354, 13469)'
+        slope: 0.14
+      - interval: '[13469, 52881)'
+        slope: 0.2397
+      - interval: '[52881, 250730)'
+        slope: 0.42
+        quadratic: 0
+      - interval: '[250730, inf)'
+        slope: 0.45
+        quadratic: 0
   2015-07-01:
-    updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
     intervals:
@@ -124,8 +145,17 @@ raw_parameter_einkommensteuertarif:
         slope: 0
         quadratic: 0
         intercept: 0
+      - interval: '[8472, 13469)'
+        slope: 0.14
+      - interval: '[13469, 52881)'
+        slope: 0.2397
+      - interval: '[52881, 250730)'
+        slope: 0.42
+        quadratic: 0
+      - interval: '[250730, inf)'
+        slope: 0.45
+        quadratic: 0
   2016-01-01:
-    updates_previous: true
     note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
     reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
     intervals:
@@ -140,8 +170,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[53665, 254446)'
         slope: 0.42
         quadratic: 0
+      - interval: '[254446, inf)'
+        slope: 0.45
+        quadratic: 0
   2017-01-01:
-    updates_previous: true
     reference: Artikel 8 G. v. 20.12.2016, BGBl I S. 3000
     intervals:
       - interval: (-inf, 8820)
@@ -155,8 +187,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[54057, 256303)'
         slope: 0.42
         quadratic: 0
+      - interval: '[256303, inf)'
+        slope: 0.45
+        quadratic: 0
   2018-01-01:
-    updates_previous: true
     reference: Artikel 9 G. v 23.12.2016, BGBL I, S. 3000
     intervals:
       - interval: (-inf, 9000)
@@ -170,8 +204,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[54949, 260532)'
         slope: 0.42
         quadratic: 0
+      - interval: '[260532, inf)'
+        slope: 0.45
+        quadratic: 0
   2019-01-01:
-    updates_previous: true
     intervals:
       - interval: (-inf, 9168)
         slope: 0
@@ -184,8 +220,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[55960, 265326)'
         slope: 0.42
         quadratic: 0
+      - interval: '[265326, inf)'
+        slope: 0.45
+        quadratic: 0
   2020-01-01:
-    updates_previous: true
     reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
     intervals:
       - interval: (-inf, 9408)
@@ -199,8 +237,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[57051, 270500)'
         slope: 0.42
         quadratic: 0
+      - interval: '[270500, inf)'
+        slope: 0.45
+        quadratic: 0
   2021-01-01:
-    updates_previous: true
     reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
     intervals:
       - interval: (-inf, 9744)
@@ -214,8 +254,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[57918, 274612)'
         slope: 0.42
         quadratic: 0
+      - interval: '[274612, inf)'
+        slope: 0.45
+        quadratic: 0
   2022-01-01:
-    updates_previous: true
     reference: Art. 1 G. v. 23.05.2022 BGBl. I S. 749
     note: >-
       First specified in Art. 2. G. v. 01.12.2020 BGBl. I S. 2616, new defined resp.
@@ -232,8 +274,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[58596, 277826)'
         slope: 0.42
         quadratic: 0
+      - interval: '[277826, inf)'
+        slope: 0.45
+        quadratic: 0
   2023-01-01:
-    updates_previous: true
     reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
     intervals:
       - interval: (-inf, 10908)
@@ -247,8 +291,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[62809, 277825)'
         slope: 0.42
         quadratic: 0
+      - interval: '[277825, inf)'
+        slope: 0.45
+        quadratic: 0
   2024-01-01:
-    updates_previous: true
     reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
     intervals:
       - interval: (-inf, 11784)
@@ -262,8 +308,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[66760, 277825)'
         slope: 0.42
         quadratic: 0
+      - interval: '[277825, inf)'
+        slope: 0.45
+        quadratic: 0
   2025-01-01:
-    updates_previous: true
     reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     intervals:
       - interval: (-inf, 12096)
@@ -277,8 +325,10 @@ raw_parameter_einkommensteuertarif:
       - interval: '[68480, 277825)'
         slope: 0.42
         quadratic: 0
+      - interval: '[277825, inf)'
+        slope: 0.45
+        quadratic: 0
   2026-01-01:
-    updates_previous: true
     reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     intervals:
       - interval: (-inf, 12348)
@@ -289,3 +339,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.14
       - interval: '[17799, 69878)'
         slope: 0.2397
+      - interval: '[69878, 277825)'
+        slope: 0.42
+        quadratic: 0
+      - interval: '[277825, inf)'
+        slope: 0.45
+        quadratic: 0

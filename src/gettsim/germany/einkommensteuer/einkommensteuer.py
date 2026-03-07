@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import optree
+import portion
 
 from gettsim.tt import (
     AggType,
@@ -13,7 +14,7 @@ from gettsim.tt import (
     RoundingSpec,
     agg_by_p_id_function,
     get_piecewise_parameters,
-    get_piecewise_thresholds,
+    intervals_to_thresholds,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -231,22 +232,24 @@ def parameter_einkommensteuertarif(
     (rate_fiv - rate_iv) / (2 * (upper_thres - low_thres))
 
     """
-    raw_intervals = raw_parameter_einkommensteuertarif["intervals"]  # ty: ignore[index]
+    raw_intervals = raw_parameter_einkommensteuertarif["intervals"]
     expanded: list[dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
         lambda x: x if isinstance(x, str) else float(x),
-        raw_intervals,  # ty: ignore[invalid-argument-type]
+        raw_intervals,
     )
 
     # Check and extract lower thresholds.
-    lower_thresholds, upper_thresholds = get_piecewise_thresholds(
-        leaf_name="parameter_einkommensteuertarif",
-        parameter_list=expanded,  # ty: ignore[invalid-argument-type]
+    parsed_intervals = [
+        portion.from_string(item["interval"], conv=float) for item in expanded
+    ]
+    lower_thresholds, upper_thresholds = intervals_to_thresholds(
+        intervals=parsed_intervals,
         xnp=xnp,
     )[:2]
     for i in range(len(expanded)):
         if "quadratic" not in raw_intervals[i]:
-            expanded[i]["quadratic"] = (  # ty: ignore[invalid-argument-type]
-                expanded[i + 1]["slope"] - expanded[i]["slope"]  # ty: ignore[unsupported-operator, invalid-argument-type]
+            expanded[i]["quadratic"] = (
+                expanded[i + 1]["slope"] - expanded[i]["slope"]
             ) / (2 * (upper_thresholds[i] - lower_thresholds[i]))
     return get_piecewise_parameters(
         leaf_name="parameter_einkommensteuertarif",

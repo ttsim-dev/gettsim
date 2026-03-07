@@ -175,10 +175,18 @@ raw_parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       Neufassung des SGB II. B. v. 13.5.2011 BGBl. I S. 850. Artikel 5.
       ToDo: Check these laws -- did they really happen months after the date of the
       policy change?
-    updates_previous: true
     intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
       - interval: '[100, 1000)'
         slope: 0.2
+      - interval: '[1000, 1200)'
+        slope: 0.1
+      - interval: '[1200, inf)'
+        slope: 0
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
 raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
@@ -206,7 +214,29 @@ raw_parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   2005-10-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
     intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
+      - interval: '[100, 800)'
+        slope: 0.2
       - interval: '[800, 1500)'
         slope: 0.1
+      - interval: '[1500, inf)'
+        slope: 0
+  2011-04-01:
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1.0
+      - interval: '[100, 1000)'
+        slope: 0.2
+      - interval: '[1000, 1500)'
+        slope: 0.1
+      - interval: '[1500, inf)'
+        slope: 0
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
