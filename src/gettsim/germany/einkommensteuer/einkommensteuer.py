@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import optree
 import portion
 
 from gettsim.tt import (
@@ -233,10 +232,10 @@ def parameter_einkommensteuertarif(
 
     """
     raw_intervals = raw_parameter_einkommensteuertarif["intervals"]
-    expanded: list[dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
-        lambda x: x if isinstance(x, str) else float(x),
-        raw_intervals,
-    )
+    expanded: list[dict[str, float]] = [
+        {k: v if isinstance(v, str) else float(v) for k, v in item.items()}
+        for item in raw_intervals
+    ]
 
     # Check and extract lower thresholds.
     parsed_intervals = [
