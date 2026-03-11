@@ -29,6 +29,7 @@ docs/_build/
 
 # pixi
 .pixi/
+node_modules/
 
 # Python
 __pycache__/

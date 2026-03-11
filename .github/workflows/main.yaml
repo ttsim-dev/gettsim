@@ -23,9 +23,9 @@ jobs:
           cache: true
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           frozen: true
-          environments: py314
+          environments: type-checking
       - name: Run ty
-        run: pixi run -e py314 ty
+        run: pixi run -e type-checking ty
         shell: bash -el {0}
   run-tests:
     name: Run tests for ${{ matrix.os }} on ${{ matrix.environment }}

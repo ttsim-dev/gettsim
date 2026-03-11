@@ -63,12 +63,10 @@ metadata.allow-direct-references = true
 version.source = "vcs"
 
 [tool.ruff]
-target-version = "py311"  # Replace by [project] requires-python = ">=3.11" above
 fix = true
 unsafe-fixes = false
 [tool.ruff.lint]
 select = [ "ALL" ]
-exclude = []
 extend-ignore = [
   "COM812",  # Avoid conflicts with ruff-format
   # Ignored during transition phase
@@ -82,6 +80,9 @@ extend-ignore = [
   "FIX002",  # Line contains TODO -- Use stuff from TD area.
   "ICN001",  # numpy should be np, but different convention here.
   "ISC001",  # Avoid conflicts with ruff-format
+  "TC001",   # Move application import into a type-checking block
+  "TC002",   # Move third-party import into a type-checking block
+  "TC003",   # Move standard library import into a type-checking block
   "N999",    # Allow non-ASCII characters in file names.
   "PLC2401", # Allow non-ASCII characters in variable names.
   "PLC2403", # Allow non-ASCII function names for imports.
@@ -149,7 +150,8 @@ expand_tables = [
   "tool.pixi.feature.tests.target.osx-64.tasks",
   "tool.pixi.feature.tests.target.osx-arm64.tasks",
   "tool.pixi.feature.tests.target.win-64.tasks",
-  "tool.pixi.feature.tests.tasks",
+  "tool.pixi.feature.type-checking.pypi-dependencies",
+  "tool.pixi.feature.type-checking.tasks",
   "tool.pixi.pypi-dependencies",
   "tool.pixi.tasks",
   "tool.pixi.workspace",
@@ -178,7 +180,9 @@ ini_options.norecursedirs = [ "docs" ]
 ini_options.testpaths = [ "src/gettsim/tests_germany" ]
 
 [tool.ty]
-overrides = [ { include = [ "docs/**" ], rules.unresolved-attribute = "ignore" } ]
+overrides = [
+  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore" },
+]
 rules.invalid-return-type = "ignore"
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
@@ -213,12 +217,13 @@ snakeviz = ">=2.2.2"
 tabulate = "*"
 toml = "*"
 [tool.pixi.environments]
-py311 = [ "tests", "py311" ]
-py312 = [ "tests", "py312" ]
-py313 = [ "tests", "py313" ]
-py314 = [ "tests", "py314" ]
-py314-jax = [ "py314", "tests", "jax" ]
+py311 = [ "py311", "tests" ]
+py312 = [ "py312", "tests" ]
+py313 = [ "py313", "tests" ]
+py314 = [ "py314", "tests" ]
 py314-cuda = [ "py314", "tests", "cuda" ]
+py314-jax = [ "py314", "tests", "jax" ]
+type-checking = [ "py314", "type-checking" ]
 py314-metal = [ "py314", "tests", "metal" ]
 docs = [ "docs", "py313" ]
 [tool.pixi.feature.cuda]
@@ -227,7 +232,7 @@ system-requirements = { cuda = "13" }
 [tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
 jax = { version = ">=0.8", extras = [ "cuda13" ] }
 [tool.pixi.feature.cuda.tasks]
-tests-jax = "pytest --backend=jax"
+tests-cuda = "pytest --backend=jax"
 [tool.pixi.feature.docs.dependencies]
 myst-parser = "*"
 nbsphinx = "*"
@@ -238,7 +243,6 @@ sphinx-copybutton = "*"
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = { path = ".", editable = true }
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "refactor-piecewise-polynomial" }
 [tool.pixi.feature.docs.target.linux-64.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
 [tool.pixi.feature.docs.target.osx-64.tasks]
@@ -276,9 +280,6 @@ pytest-cov = "*"
 pytest-profiling = "*"
 pytest-xdist = "*"
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
-ty = "*"
-types-PyYAML = "*"
-types-pytz = "*"
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
 [tool.pixi.feature.tests.target.osx-64.tasks]
@@ -288,13 +289,19 @@ tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.tests.target.win-64.tasks]
 tests = "pytest"
 [tool.pixi.feature.tests.tasks]
+[tool.pixi.feature.type-checking.pypi-dependencies]
+ty = "*"
+types-PyYAML = "*"
+types-pytz = "*"
+[tool.pixi.feature.type-checking.tasks]
 ty = "ty check"
 [tool.pixi.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "refactor-piecewise-polynomial" }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
+dags = ">=0.5"
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "refactor-piecewise-polynomial" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]

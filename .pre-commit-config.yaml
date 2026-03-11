@@ -29,7 +29,6 @@ repos:
       - id: fix-byte-order-marker
         types:
           - text
-      - id: forbid-submodules
       - id: mixed-line-ending
         args:
           - --fix=lf
@@ -78,7 +77,7 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (CLAUDE\.md|README\.md)
+        files: (AGENTS\.md|CLAUDE\.md|README\.md|modules/.*\.md|profiles/.*\.md)
   - repo: https://github.com/executablebooks/mdformat
     rev: 1.0.0
     hooks:
