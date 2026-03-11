@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Literal
 import dags.tree as dt
 import numpy
 import pytest
+from dags.tree.validation import fail_if_top_level_elements_repeated_in_paths
 from ttsim.interface_dag_elements.backend import xnp as get_xnp
 from ttsim.testing_utils import (
     PolicyTest,
@@ -165,7 +166,7 @@ def test_top_level_elements_not_repeated_in_paths(
         rounding=False,
     )
 
-    dt.fail_if_top_level_elements_repeated_in_paths(
+    fail_if_top_level_elements_repeated_in_paths(
         all_tree_paths=set(
             dt.flatten_to_tree_paths(
                 dt.unflatten_from_qnames(
