@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
 def basis_für_klassen_5_6(
-    einkommen_y: FloatColumn,
+    einkommen_y: FloatColumn | float,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> FloatColumn:

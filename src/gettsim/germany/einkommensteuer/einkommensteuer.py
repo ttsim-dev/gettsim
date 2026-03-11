@@ -247,9 +247,10 @@ def parameter_einkommensteuertarif(
     )[:2]
     for i in range(len(expanded)):
         if "quadratic" not in raw_intervals[i]:
-            expanded[i]["quadratic"] = (
-                expanded[i + 1]["slope"] - expanded[i]["slope"]
-            ) / (2 * (upper_thresholds[i] - lower_thresholds[i]))
+            expanded[i]["quadratic"] = float(
+                (expanded[i + 1]["slope"] - expanded[i]["slope"])
+                / (2 * (upper_thresholds[i] - lower_thresholds[i]))
+            )
     return get_piecewise_parameters(
         leaf_name="parameter_einkommensteuertarif",
         func_type="piecewise_quadratic",

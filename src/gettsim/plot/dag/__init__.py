@@ -6,7 +6,7 @@ import ttsim
 
 from gettsim import germany
 
-GETTSIM_COLORMAP = {
+GETTSIM_COLORMAP: dict[tuple[str, ...] | str, str] = {
     # Top-level, background variables - blue.
     ("top-level",): "lightskyblue",
     ("einnahmen",): "mediumblue",
