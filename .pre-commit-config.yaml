@@ -13,6 +13,17 @@ repos:
     rev: 1.19.1
     hooks:
       - id: yamlfix
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.37.0
+    hooks:
+      - id: check-github-workflows
+      - id: check-jsonschema
+        name: Validate JSON/YAML files against schema
+        entry: check-jsonschema
+        language: python
+        files: ^src/gettsim/germany/.*\.(yaml|yml)$
+        args:
+          - --schemafile=docs/geps/params-schema.json
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -45,7 +56,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.5
+    rev: v0.15.6
     hooks:
       - id: ruff-check
         args:
@@ -77,7 +88,7 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (AGENTS\.md|CLAUDE\.md|README\.md|modules/.*\.md|profiles/.*\.md)
+        files: (AGENTS\.md|CLAUDE\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
   - repo: https://github.com/executablebooks/mdformat
     rev: 1.0.0
     hooks:
@@ -89,15 +100,5 @@ repos:
           - --wrap
           - '88'
         files: (docs/.|CHANGES.md|CODE_OF_CONDUCT.md)
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.37.0
-    hooks:
-      - id: check-jsonschema
-        name: Validate JSON/YAML files against schema
-        entry: check-jsonschema
-        language: python
-        files: ^src/gettsim/germany/.*\.(yaml|yml)$
-        args:
-          - --schemafile=docs/geps/params-schema.json
 ci:
   autoupdate_schedule: monthly
