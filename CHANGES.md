@@ -15,6 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1138` Improve introductory tutorial. ({ghuser}`MImmesberger`)
 - {gh}`1128` Add documentation for glob-style pattern matching in DAG plot colormaps,
   improve consistency of visualization tutorial. ({ghuser}`hmgaudecker`)
 
