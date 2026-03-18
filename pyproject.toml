@@ -292,7 +292,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-profiling = "*"
 pytest-xdist = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
 tests-with-cov = "pytest --cov-report=xml --cov=./"
@@ -310,14 +310,14 @@ tests-with-cov = "pytest --cov-report=xml --cov=./"
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
 [tool.pixi.feature.type-checking-jax.tasks]
 ty-jax = "ty check"
 [tool.pixi.feature.type-checking.pypi-dependencies]
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "boilerplate" }
 [tool.pixi.feature.type-checking.tasks]
 ty = "ty check"
 [tool.pixi.pypi-dependencies]
