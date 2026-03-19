@@ -22,21 +22,16 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
   # type: require_converter
   type: piecewise_linear
   2005-01-01:
-    0:
-      lower_threshold: -inf
-      upper_threshold: 2005
-      rate_linear: 0
-      intercept_at_lower_threshold: 0.2
-    1:
-      lower_threshold: 2005
-      upper_threshold: 2025
-      rate_linear: 0.04
-      intercept_at_lower_threshold: 0.2
-    2:
-      lower_threshold: 2025
-      upper_threshold: inf
-      rate_linear: 0
-      intercept_at_lower_threshold: 1
+    intervals:
+      - interval: (-inf, 2005)
+        slope: 0
+        intercept: 0.2
+      - interval: '[2005, 2025)'
+        slope: 0.04
+        intercept: 0.2
+      - interval: '[2025, inf)'
+        slope: 0
+        intercept: 1
   2023-01-01:
     note: Prematurely set to 100% in 2023.
 vorsorgepauschale_mindestanteil:

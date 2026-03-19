@@ -13,4 +13,5 @@ def privat_versichert() -> bool:
 @policy_input()
 def beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_m() -> float:
     """Monthly contribution to private basic health insurance minus (tax-exempt)
-    employer's contribution."""
+    employer's contribution.
+    """

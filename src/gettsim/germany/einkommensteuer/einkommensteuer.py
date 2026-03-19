@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import optree
+import portion
 
 from gettsim.tt import (
     AggType,
@@ -13,7 +13,7 @@ from gettsim.tt import (
     RoundingSpec,
     agg_by_p_id_function,
     get_piecewise_parameters,
-    get_piecewise_thresholds,
+    intervals_to_thresholds,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -231,25 +231,29 @@ def parameter_einkommensteuertarif(
     (rate_fiv - rate_iv) / (2 * (upper_thres - low_thres))
 
     """
-    expanded: dict[int, dict[str, float]] = optree.tree_map(  # ty: ignore[invalid-assignment]
-        float,
-        raw_parameter_einkommensteuertarif,  # ty: ignore[invalid-argument-type]
-    )
+    raw_intervals = raw_parameter_einkommensteuertarif["intervals"]
+    expanded: list[dict[str, float]] = [
+        {k: v if isinstance(v, str) else float(v) for k, v in item.items()}
+        for item in raw_intervals
+    ]
 
     # Check and extract lower thresholds.
-    lower_thresholds, upper_thresholds = get_piecewise_thresholds(
-        leaf_name="parameter_einkommensteuertarif",
-        parameter_dict=expanded,  # ty: ignore[invalid-argument-type]
+    parsed_intervals = [
+        portion.from_string(item["interval"], conv=float) for item in expanded
+    ]
+    lower_thresholds, upper_thresholds = intervals_to_thresholds(
+        intervals=parsed_intervals,
         xnp=xnp,
     )[:2]
-    for key in sorted(raw_parameter_einkommensteuertarif.keys()):
-        if "rate_quadratic" not in raw_parameter_einkommensteuertarif[key]:
-            expanded[key]["rate_quadratic"] = (  # ty: ignore[invalid-argument-type]
-                expanded[key + 1]["rate_linear"] - expanded[key]["rate_linear"]  # ty: ignore[unsupported-operator, invalid-argument-type]
-            ) / (2 * (upper_thresholds[key] - lower_thresholds[key]))
+    for i in range(len(expanded)):
+        if "quadratic" not in raw_intervals[i]:
+            expanded[i]["quadratic"] = float(
+                (expanded[i + 1]["slope"] - expanded[i]["slope"])
+                / (2 * (upper_thresholds[i] - lower_thresholds[i]))
+            )
     return get_piecewise_parameters(
         leaf_name="parameter_einkommensteuertarif",
         func_type="piecewise_quadratic",
-        parameter_dict=expanded,  # ty: ignore[invalid-argument-type]
+        parameter_list=expanded,  # ty: ignore[invalid-argument-type]
         xnp=xnp,
     )

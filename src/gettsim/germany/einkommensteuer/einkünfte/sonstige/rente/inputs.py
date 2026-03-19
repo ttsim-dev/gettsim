@@ -8,7 +8,8 @@ from gettsim.tt import policy_input
 @policy_input()
 def alter_beginn_leistungsbezug_sonstige_private_vorsorge() -> int:
     """Age at which benefits from private pensions without tax-favored contributions
-    commenced."""
+    commenced.
+    """
 
 
 @policy_input(end_date="2004-12-31")

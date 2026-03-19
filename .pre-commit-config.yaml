@@ -6,30 +6,42 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.12.1
+    rev: v2.19.0
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
     rev: 1.19.1
     hooks:
       - id: yamlfix
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.37.0
+    hooks:
+      - id: check-github-workflows
+      - id: check-jsonschema
+        name: Validate JSON/YAML files against schema
+        entry: check-jsonschema
+        language: python
+        files: ^src/gettsim/germany/.*\.(yaml|yml)$
+        args:
+          - --schemafile=docs/geps/params-schema.json
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: check-added-large-files
         args:
           - --maxkb=10000
+      - id: check-ast
       - id: check-case-conflict
+      - id: check-docstring-first
       - id: check-merge-conflict
+      - id: check-toml
       - id: check-vcs-permalinks
       - id: check-yaml
-      - id: check-toml
       - id: debug-statements
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
         types:
           - text
-      - id: forbid-submodules
       - id: mixed-line-ending
         args:
           - --fix=lf
@@ -39,14 +51,12 @@ repos:
           - --branch
           - main
       - id: trailing-whitespace
-      - id: check-ast
-      - id: check-docstring-first
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.38.0
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.0
+    rev: v0.15.6
     hooks:
       - id: ruff-check
         args:
@@ -61,7 +71,7 @@ repos:
           - pyi
           - python
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.9.0
+    rev: 0.9.1
     hooks:
       - id: nbstripout
         args:
@@ -78,10 +88,7 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (CLAUDE\.md|README\.md)
-  - repo: https://github.com/executablebooks/mdformat
-    rev: 1.0.0
-    hooks:
+        files: (AGENTS\.md|CLAUDE\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
       - id: mdformat
         additional_dependencies:
           - mdformat-myst
@@ -90,15 +97,5 @@ repos:
           - --wrap
           - '88'
         files: (docs/.|CHANGES.md|CODE_OF_CONDUCT.md)
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.36.1
-    hooks:
-      - id: check-jsonschema
-        name: Validate JSON/YAML files against schema
-        entry: check-jsonschema
-        language: python
-        files: ^src/gettsim/germany/.*\.(yaml|yml)$
-        args:
-          - --schemafile=docs/geps/params-schema.json
 ci:
   autoupdate_schedule: monthly

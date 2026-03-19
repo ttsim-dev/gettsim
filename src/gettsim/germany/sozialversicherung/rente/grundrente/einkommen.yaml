@@ -16,17 +16,14 @@ anzurechnendes_einkommen_ohne_partner:
   reference_period: null
   type: piecewise_linear
   2021-01-01:
-    0:
-      lower_threshold: -inf
-      upper_threshold: 36.56
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
-    1:
-      upper_threshold: 46.78
-      rate_linear: 0.6
-    2:
-      upper_threshold: inf
-      rate_linear: 1
+    intervals:
+      - interval: (-inf, 36.56)
+        slope: 0
+        intercept: 0
+      - interval: '[36.56, 46.78)'
+        slope: 0.6
+      - interval: '[46.78, inf)'
+        slope: 1
 anzurechnendes_einkommen_mit_partner:
   name:
     de: Einkommensanrechnung Grundrente für Personen mit verheiratetem Partner
@@ -44,14 +41,11 @@ anzurechnendes_einkommen_mit_partner:
   reference_period: null
   type: piecewise_linear
   2021-01-01:
-    0:
-      lower_threshold: -inf
-      upper_threshold: 57.03
-      rate_linear: 0
-      intercept_at_lower_threshold: 0
-    1:
-      upper_threshold: 67.27
-      rate_linear: 0.6
-    2:
-      upper_threshold: inf
-      rate_linear: 1
+    intervals:
+      - interval: (-inf, 57.03)
+        slope: 0
+        intercept: 0
+      - interval: '[57.03, 67.27)'
+        slope: 0.6
+      - interval: '[67.27, inf)'
+        slope: 1

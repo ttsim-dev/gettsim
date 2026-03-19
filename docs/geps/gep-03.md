@@ -396,7 +396,10 @@ The following walks through several cases.
       4: 195
   ```
 
-- Another example would be referring to the parameters of a piecewise linear function:
+- For piecewise polynomial parameters, the date entry is a mapping with an `intervals`
+  key containing a list of intervals (see {ref}`GEP 8 <gep-08>` for the full
+  specification). Metadata keys (`reference`, `note`) appear at the date-entry level,
+  alongside `intervals`:
 
   ```yaml
   parameter_solidaritätszuschlag:
@@ -413,15 +416,12 @@ The following walks through several cases.
     type: piecewise_linear
     1991-01-01:
       reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
-      0:
-        lower_threshold: -inf
-        rate_linear: 0
-        intercept_at_lower_threshold: 0
-        upper_threshold: 0
-      1:
-        lower_threshold: 0
-        rate_linear: 0.0375
-        upper_threshold: inf
+      intervals:
+        - interval: (-inf, 0)
+          slope: 0
+          intercept: 0
+        - interval: "[0, inf)"
+          slope: 0.0375
   ```
 
 - Phase-in or phase-out of age thresholds based on the birth year of the individual

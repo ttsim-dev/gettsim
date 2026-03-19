@@ -21,14 +21,16 @@ docs/_build/
 .idea/
 .vscode/
 
-# Jupyter
+# Jupyter / Jupyter Book
 .ipynb_checkpoints/
+_build
 
 # macOS
 .DS_Store
 
 # pixi
 .pixi/
+node_modules/
 
 # Python
 __pycache__/
