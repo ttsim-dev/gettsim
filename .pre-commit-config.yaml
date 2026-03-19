@@ -96,6 +96,6 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (docs/.|CHANGES.md|CODE_OF_CONDUCT.md)
+        files: docs/.
 ci:
   autoupdate_schedule: monthly
