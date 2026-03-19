@@ -13,10 +13,11 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
-## Unreleased
+## v1.2 — 2026-03-19
 
 - {gh}`1132` Implement GEP 8. ({ghuser} `hmgaudecker`, {ghuser}`MImmesberger`)
 - {gh}`1139` Fix bug in calculation of `kinderbetreuungskosten_bezogen_auf_alle_kinder`
+  ({ghuser}`MImmesberger`)
 - {gh}`1138` Improve introductory tutorial. ({ghuser}`MImmesberger`)
 - {gh}`1136` Add static type checking to CI. ({ghuser}`MImmesberger`,
   {ghuser}`hmgaudecker`)
