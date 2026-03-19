@@ -15,7 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1132` Implement GEP 8. ({ghuser}`MImmesberger`)
+- {gh}`1132` Implement GEP 8. ({ghuser} `hmgaudecker`, {ghuser}`MImmesberger`)
 - {gh}`1139` Fix bug in calculation of `kinderbetreuungskosten_bezogen_auf_alle_kinder`
 - {gh}`1138` Improve introductory tutorial. ({ghuser}`MImmesberger`)
 - {gh}`1136` Add static type checking to CI. ({ghuser}`MImmesberger`,
