@@ -15,9 +15,16 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1132` Implement GEP 8. ({ghuser}`MImmesberger`)
+- {gh}`1139` Fix bug in calculation of `kinderbetreuungskosten_bezogen_auf_alle_kinder`
 - {gh}`1138` Improve introductory tutorial. ({ghuser}`MImmesberger`)
+- {gh}`1136` Add static type checking to CI. ({ghuser}`MImmesberger`,
+  {ghuser}`hmgaudecker`)
+- {gh}`1129` Add GEP 8. ({ghuser}`hmgaudecker`)
 - {gh}`1128` Add documentation for glob-style pattern matching in DAG plot colormaps,
   improve consistency of visualization tutorial. ({ghuser}`hmgaudecker`)
+- {gh}`1127` Replace `neue_entgeltpunkte` with `neue_entgeltpunkte_y`, remove
+  `entgeltpunkte_updated`. ({ghuser}`hmgaudecker`)
 
 ## v1.1 — 2026-01-12
 
