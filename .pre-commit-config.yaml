@@ -6,7 +6,7 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.18.1
+    rev: v2.19.0
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
@@ -45,7 +45,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.5
+    rev: v0.15.6
     hooks:
       - id: ruff-check
         args:
@@ -78,9 +78,6 @@ repos:
           - --wrap
           - '88'
         files: (AGENTS\.md|CLAUDE\.md|README\.md|modules/.*\.md|profiles/.*\.md)
-  - repo: https://github.com/executablebooks/mdformat
-    rev: 1.0.0
-    hooks:
       - id: mdformat
         additional_dependencies:
           - mdformat-myst
@@ -92,6 +89,7 @@ repos:
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.37.0
     hooks:
+      - id: check-github-workflows
       - id: check-jsonschema
         name: Validate JSON/YAML files against schema
         entry: check-jsonschema

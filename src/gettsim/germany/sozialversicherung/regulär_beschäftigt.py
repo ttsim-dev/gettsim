@@ -11,7 +11,8 @@ def regulär_beschäftigt_vor_midijob(
     minijobgrenze: float,
 ) -> bool:
     """Employee is in regular employment, earning more than the marginal employment
-    threshold."""
+    threshold.
+    """
     return einnahmen__bruttolohn_m >= minijobgrenze
 
 

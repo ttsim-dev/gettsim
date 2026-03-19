@@ -156,7 +156,8 @@ def vermögensfreibetrag_eg(
     parameter_vermögensfreibetrag: dict[str, float],
 ) -> float:
     """Calculate wealth not considered for Grundsicherung im Alter on household
-    level."""
+    level.
+    """
     return (
         parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_fg
         + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_fg

@@ -69,15 +69,18 @@ unsafe-fixes = false
 select = [ "ALL" ]
 extend-ignore = [
   "COM812",  # Avoid conflicts with ruff-format
-  "D",       # TEMPORARY: Docstrings
+  "D",       # Docstrings
   "EM101",   # Exception must not use a string literal
   "EM102",   # Exception must not use an f-string literal
   "F722",    # https://docs.kidger.site/jaxtyping/faq/#flake8-or-ruff-are-throwing-an-error
-  "FBT001",  # TEMPORARY: Boolean-typed positional argument in function definition
-  "FBT002",  # TEMPORARY: Boolean default positional argument in function definition
+  "FBT001",  # Boolean-typed positional argument in function definition
+  "FBT002",  # Boolean default positional argument in function definition
   "FIX002",  # Line contains TODO -- Use stuff from TD area.
   "ICN001",  # numpy should be np, but different convention here.
   "ISC001",  # Avoid conflicts with ruff-format
+  "S301",    # pickle module (standard intermediate format)
+  # TC001-TC003: TYPE_CHECKING guards. Always ignore for Python 3.14+ projects
+  # (PEP 649 deferred evaluation makes them unnecessary).
   "TC001",   # Move application import into a type-checking block
   "TC002",   # Move third-party import into a type-checking block
   "TC003",   # Move standard library import into a type-checking block
@@ -173,6 +176,25 @@ expand_tables = [
   "tool.pixi.workspace",
 ]
 
+[tool.ty]
+overrides = [
+  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
+]
+rules.ambiguous-protocol-member = "error"
+rules.deprecated = "error"
+rules.division-by-zero = "error"
+rules.empty-body = "ignore"  # raised for all functions decorated with @policy_input
+rules.ignore-comment-unknown-rule = "error"
+rules.ineffective-final = "error"
+rules.invalid-enum-member-annotation = "error"
+rules.invalid-ignore-comment = "error"
+rules.invalid-legacy-positional-parameter = "error"
+rules.invalid-return-type = "ignore"
+rules.possibly-missing-submodule = "error"
+rules.redundant-cast = "error"
+rules.unused-awaitable = "error"
+rules.unused-ignore-comment = "error"
+
 [tool.pytest]
 ini_options.addopts = [ "--pdbcls=pdbp:Pdb" ]
 ini_options.filterwarnings = [
@@ -194,25 +216,6 @@ ini_options.markers = [
 ]
 ini_options.norecursedirs = [ "docs" ]
 ini_options.testpaths = [ "src/gettsim/tests_germany" ]
-
-[tool.ty]
-overrides = [
-  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
-]
-rules.ambiguous-protocol-member = "error"
-rules.deprecated = "error"
-rules.division-by-zero = "error"
-rules.empty-body = "ignore"  # raised for all functions decorated with @policy_input
-rules.ignore-comment-unknown-rule = "error"
-rules.ineffective-final = "error"
-rules.invalid-enum-member-annotation = "error"
-rules.invalid-ignore-comment = "error"
-rules.invalid-legacy-positional-parameter = "error"
-rules.invalid-return-type = "ignore"
-rules.possibly-missing-submodule = "error"
-rules.redundant-cast = "error"
-rules.unused-awaitable = "error"
-rules.unused-ignore-comment = "error"
 
 [tool.pixi.dependencies]
 ipywidgets = "*"

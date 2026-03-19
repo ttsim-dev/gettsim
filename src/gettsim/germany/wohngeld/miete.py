@@ -167,7 +167,8 @@ def miete_m_wthh(
     anzahl_personen_hh: int,
 ) -> float:
     """Rent considered in housing benefit calculation on wohngeldrechtlicher
-    Teilhaushalt level."""
+    Teilhaushalt level.
+    """
     return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
 
 

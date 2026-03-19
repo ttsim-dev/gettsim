@@ -12,7 +12,8 @@ def vermögensfreibetrag_in_karenzzeit_bg(
 ) -> float:
     """Wealth exemptions during Karenzzeit.
 
-    This variable is also reffered to as 'erhebliches Vermögen'."""
+    This variable is also referred to as 'erhebliches Vermögen'.
+    """
     return (
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
         + (familie__anzahl_personen_bg - 1)
@@ -29,7 +30,8 @@ def vermögensfreibetrag_bg_ab_2023(
 ) -> float:
     """Actual wealth exemptions.
 
-    During the first year (Karenzzeit), the wealth exemption is substantially larger."""
+    During the first year (Karenzzeit), the wealth exemption is substantially larger.
+    """
     if bezug_im_vorjahr:
         out = (
             familie__anzahl_personen_bg
