@@ -12,24 +12,6 @@ on:
     branches:
       - '*'
 jobs:
-  run-ty:
-    name: Run ty
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: prefix-dev/setup-pixi@v0.9.4
-        with:
-          pixi-version: v0.66.0
-          cache: true
-          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-          frozen: true
-          environments: type-checking type-checking-jax
-      - name: Run ty
-        run: pixi run ty
-        shell: bash -el {0}
-      - name: Run ty-jax
-        run: pixi run ty-jax
-        shell: bash -el {0}
   run-tests:
     name: Run tests for ${{ matrix.os }} on ${{ matrix.environment }}
     runs-on: ${{ matrix.os }}
@@ -73,22 +55,40 @@ jobs:
           matrix.environment == 'py311' ||
           matrix.environment == 'py312' ||
           matrix.environment == 'py313'
-        run: pixi run -e ${{ matrix.environment }} tests
+        run: pixi run --locked -e ${{ matrix.environment }} tests
         shell: bash -el {0}
       - name: Run tests on Linux (with NumPy backend and coverage)
         if: runner.os == 'Linux' && matrix.environment == 'py314'
-        run: pixi run -e ${{ matrix.environment }} tests --cov --cov-report=xml
+        run: pixi run --locked -e ${{ matrix.environment }} tests-with-cov
         shell: bash -el {0}
       - name: Run tests on MacOS / Windows (with NumPy backend and without coverage)
         if: runner.os != 'Linux'
-        run: pixi run -e ${{ matrix.environment }} tests
+        run: pixi run --locked -e ${{ matrix.environment }} tests
         shell: bash -el {0}
       - name: Run tests with JAX backend
         if: matrix.environment == 'py314-jax'
-        run: pixi run -e ${{ matrix.environment }} tests-jax
+        run: pixi run --locked -e ${{ matrix.environment }} tests-jax
         shell: bash -el {0}
       - name: Upload coverage reports
         if: runner.os == 'Linux' && matrix.environment == 'py314'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+  run-ty:
+    name: Run ty
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: prefix-dev/setup-pixi@v0.9.4
+        with:
+          pixi-version: v0.66.0
+          cache: true
+          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+          frozen: true
+          environments: type-checking type-checking-jax
+      - name: Run ty
+        run: pixi run --locked ty
+        shell: bash -el {0}
+      - name: Run ty-jax
+        run: pixi run --locked ty-jax
+        shell: bash -el {0}

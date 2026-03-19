@@ -1,4 +1,4 @@
 [submodule ".ai-instructions"]
 	path = .ai-instructions
-	url = git@github.com:OpenSourceEconomics/ai-instructions.git
+	url = https://github.com/OpenSourceEconomics/ai-instructions.git
 	branch = make-submodule

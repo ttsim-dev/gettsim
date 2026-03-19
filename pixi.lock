@@ -2294,7 +2294,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -2532,7 +2532,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -2770,7 +2770,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -3013,7 +3013,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -3302,7 +3302,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -3543,7 +3543,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -3784,7 +3784,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -4030,7 +4030,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -4318,7 +4318,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -4560,7 +4560,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -4802,7 +4802,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -5049,7 +5049,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -5337,7 +5337,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -5579,7 +5579,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -5821,7 +5821,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -6068,7 +6068,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
@@ -6356,7 +6356,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
@@ -6665,7 +6665,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
@@ -6912,7 +6912,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
@@ -7164,7 +7164,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
@@ -7420,7 +7420,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
@@ -7712,7 +7712,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4b/97/f6de8d4af54d6401d6581a686cce3e3e2371a79ba459a449104e026c08bc/kaleido-1.2.0-py3-none-any.whl
@@ -7951,7 +7951,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4b/97/f6de8d4af54d6401d6581a686cce3e3e2371a79ba459a449104e026c08bc/kaleido-1.2.0-py3-none-any.whl
@@ -8190,7 +8190,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4b/97/f6de8d4af54d6401d6581a686cce3e3e2371a79ba459a449104e026c08bc/kaleido-1.2.0-py3-none-any.whl
@@ -8434,7 +8434,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/94/05/3e39d416fb92b2738a76e8265e6bfc5d10542f90a7c32ad1eb831eea3fa3/jaxtyping-0.3.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4b/97/f6de8d4af54d6401d6581a686cce3e3e2371a79ba459a449104e026c08bc/kaleido-1.2.0-py3-none-any.whl
@@ -8719,7 +8719,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/76/fe/67d2c414b0860d42f4a20b1fadbe7aeffb1b3d885efebd7aedf22a4bc2a2/jaxlib-0.9.1-cp314-cp314-manylinux_2_27_x86_64.whl
@@ -8963,7 +8963,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a4/b0/f2c9caa6f545d4ecc1eab528c68c9191e40087f1bc79a6da2e29c6416510/jaxlib-0.9.1-cp314-cp314-macosx_11_0_arm64.whl
@@ -9212,7 +9212,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b7/9f/d73dfb85d7a5b1a56a99adc50f2074029468168c970ff5daeade4ad819e4/choreographer-1.2.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/43/f5/ee39c6e92acc742c052f137b47c210cd0a1b72dcd3f98495528bb4d27761/flatten_dict-0.4.2-py2.py3-none-any.whl
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
       - pypi: https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/e4/88778c6a23b65224e5088e68fd0924e5bde2196a26e76edb3ea3543fed6a/jax-0.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/54/0d/a8e27c1c434e489883c1182bd52de27775b8a78013de62e6eabf80991df5/jaxlib-0.9.1-cp314-cp314-win_amd64.whl
@@ -11483,14 +11483,8 @@ packages:
   timestamp: 1750744808182
 - pypi: ./
   name: gettsim
-  version: 1.2.dev34+g0bbe9af4a.d20260318
-  sha256: ac1f23c44d96b62672c924b951a5acd1a75338e4fe15ca49ec6af1781c885cc1
-  requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#dc8a258b01917f6d6e8401ecb4caa502175cdd02
-  name: gettsim-personas
-  version: 0.1.dev18+gdc8a258b0
-  requires_dist:
-  - gettsim>=1.1
+  version: 1.2.dev35+gf7edb1432.d20260319
+  sha256: b79d5747fdc25f378f08ecb8b9004802b4e26b15ba58fb34f3aab456c6e35461
   requires_python: '>=3.11'
 - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=boilerplate#b7f483c4f19d289cf8a8fa266e25e22d4db56a49
   name: gettsim-personas
