@@ -1,5 +1,5 @@
 @.ai-instructions/profiles/tier-a.md @.ai-instructions/modules/jax.md
-@.ai-instructions/modules/pandas.md
+@.ai-instructions/modules/pandas.md @.ai-instructions/modules/dags.md
 
 # GETTSIM
 
