@@ -68,13 +68,12 @@ def erwerbseinkommen_m(
 
     Legal reference: § 82 SGB XII Abs. 3
 
-    Notes
-    -----
-    - Freibeträge for income are currently not considered
-    - Start date is 2011 because of the reference to regelbedarfsstufen,
-      which was introduced in 2011.
-    - The cap at 1/2 of Regelbedarf was only introduced in 2006 (which is currently
-      not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
+    Note:
+        - Freibeträge for income are currently not considered
+        - Start date is 2011 because of the reference to regelbedarfsstufen,
+          which was introduced in 2011.
+        - The cap at 1/2 of Regelbedarf was only introduced in 2006 (which is currently
+          not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
     """
     earnings = (
         einnahmen__bruttolohn_m

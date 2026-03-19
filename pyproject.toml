@@ -132,7 +132,7 @@ per-file-ignores."src/gettsim/tests_germany/**/*.py" = [
 per-file-ignores."src/gettsim/typing.py" = [
   "F401", # Imported but unused — re-exports
 ]
-pydocstyle.convention = "numpy"
+pydocstyle.convention = "google"
 
 [tool.pyproject-fmt]
 column_width = 88
