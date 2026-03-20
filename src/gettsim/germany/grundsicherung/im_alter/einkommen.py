@@ -39,10 +39,9 @@ def einkommen_m_bis_2017(
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
 ) -> float:
-    """Calculate individual income for Grundsicherung im Alter before 2018.
+    """Income considered for Grundsicherung im Alter before 2018.
 
-    Before 2018, § 82 SGB XII contained no Freibetrag for zusätzliche
-    Altersvorsorge. All pension income is fully counted as income.
+    All pension income is fully counted as income.
     """
     total_income = (
         erwerbseinkommen_m
@@ -81,11 +80,11 @@ def einkommen_m_ab_2018(
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
 ) -> float:
-    """Calculate individual income for Grundsicherung im Alter from 2018.
+    """Income considered for Grundsicherung im Alter from 2018.
 
     From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7
     Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214) introduces
-    a Freibetrag for zusätzliche Altersvorsorge, applied via
+    a Freibetrag for 'zusätzliche Altersvorsorge', applied via
     einkommen_aus_zusätzlicher_altersvorsorge_m.
     """
     total_income = (
@@ -115,17 +114,9 @@ def erwerbseinkommen_m(
     anrechnungsfreier_anteil_erwerbseinkünfte: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Calculate individual earnings considered in the calculation of Grundsicherung im
-    Alter.
+    """Earnings considered for Grundsicherung im Alter.
 
     Legal reference: § 82 SGB XII Abs. 3
-
-    Note:
-        - Freibeträge for income are currently not considered
-        - Start date is 2011 because of the reference to regelbedarfsstufen,
-          which was introduced in 2011.
-        - The cap at 1/2 of Regelbedarf was only introduced in 2006 (which is currently
-          not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
     """
     earnings = (
         einnahmen__bruttolohn_m
@@ -177,16 +168,12 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     Legal reference: § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
     Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214)
 
-    The Freibetrag (100 € + 30 % darüber, max. 50 % RBS 1) applies to
-    "zusätzliche Altersvorsorge" as defined in § 82 Abs. 5 SGB XII:
+    The Freibetrag… applies to "zusätzliche Altersvorsorge" as defined in § 82 Abs. 5
+    SGB XII:
+
     - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
     - Zertifizierte Altersvorsorge / Riester (Abs. 5 Satz 2 Nr. 2)
     - Sonstige private Altersvorsorge (Abs. 5 Satz 1: freiwillig, lebenslang)
-
-    Berufsständische Versorgungswerke (§ 6 Abs. 1 SGB VI) are excluded: they are
-    Pflichtversicherung (fail "auf freiwilliger Grundlage", Abs. 5 Satz 1) and listed
-    as baseline in Abs. 5 Satz 1 ("Versicherungs- und Versorgungseinrichtung, die für
-    Angehörige bestimmter Berufe errichtet ist").
     """
     zusätzliche_altersvorsorge_m = (
         einnahmen__renten__sonstige_private_vorsorge_m
@@ -211,11 +198,7 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 def gesetzliche_rente_m_bis_2020(
     einnahmen__renten__gesetzliche_m: float,
 ) -> float:
-    """Calculate individual public pension benefits which are considered in the
-    calculation of Grundsicherung im Alter until 2020.
-
-    Until 2020: No deduction is possible.
-    """
+    """Public pension benefits considered for Grundsicherung im Alter until 2020."""
     return einnahmen__renten__gesetzliche_m
 
 
@@ -227,11 +210,10 @@ def gesetzliche_rente_m_ab_2021(
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Calculate individual public pension benefits which are considered in the
-    calculation of Grundsicherung im Alter since 2021.
+    """Public pension benefits considered for Grundsicherung im Alter since 2021.
 
     Starting from 2021: If eligible for Grundrente, can deduct 100€ completely and 30%
-    of private pension above 100 (but no more than 1/2 of regelbedarf)
+    of private pension above 100 (but no more than 1/2 of Regelbedarf).
     """
     angerechnete_rente = piecewise_polynomial(
         x=einnahmen__renten__gesetzliche_m,

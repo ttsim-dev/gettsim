@@ -117,5 +117,7 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
+      einkommen_m:
+        - 340.0
       betrag_m_eg:
         - 512.0
