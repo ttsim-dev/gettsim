@@ -1,10 +1,11 @@
 ---
 info:
   note: |-
-    No Grundrentenzeiten-Freibetrag (grundrentenzeiten < 396 months).
-    § 82a SGB XII. Person has only 300 months of Grundrentenzeiten,
-    below the 396-month threshold. Full pension is counted.
-    gesetzliche_rente = 500.
+    No Grundrentenzeiten-Freibetrag (grundrentenzeiten_monate < 396).
+    § 82a SGB XII.
+    einnahmen__renten__gesetzliche_m = altersrente__betrag_m = 500.
+    grundsätzlich_anspruchsberechtigt = false (300 < 396).
+    gesetzliche_rente_m = 500.
   precision_atol: 0.01
   source: manual calculation
 inputs:

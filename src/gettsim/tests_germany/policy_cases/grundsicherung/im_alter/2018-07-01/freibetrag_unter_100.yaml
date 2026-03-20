@@ -1,11 +1,13 @@
 ---
 info:
   note: |-
-    Post-2018: Zusätzliche Altersvorsorge below 100 threshold.
+    Zusätzliche Altersvorsorge below 100 threshold (full exemption).
     § 82 Abs. 4, 5 SGB XII.
-    zusätzliche = 50 (betriebliche only).
-    Freibetrag = 50 (slope=1 in [0, 100) interval).
-    Result = 50 - 50 + 75 (berufsständische) = 75.
+    zusätzliche_altersvorsorge_m = betriebliche_altersvorsorge_m = 50.
+    anrechnungsfreier_anteil_zusätzliche_altersvorsorge(50) = 50.
+    einkommen_aus_zusätzlicher_altersvorsorge_m
+      = 50 - 50 + aus_berufsständischen_versicherungen_m
+      = 50 - 50 + 75 = 75.
   precision_atol: 0.01
   source: manual calculation
 inputs:

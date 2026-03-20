@@ -1,12 +1,12 @@
 ---
 info:
   note: |-
-    Erwerbseinkommen with non-zero earnings.
+    Erwerbseinkommen with non-zero bruttolohn_m.
     § 82 SGB XII Abs. 3.
-    earnings = 300.
-    earnings_after_max_deduction = 300 - 416/2 = 92.
-    earnings_with_deduction = (1 - 0.3) * 300 = 210.
-    Result = max(210, 92) = 210.
+    bruttolohn_m + aus_selbstständiger_arbeit__betrag_m = 300 + 0 = 300.
+    (1 - anrechnungsfreier_anteil_erwerbseinkünfte) * 300 = 0.7 * 300 = 210.
+    300 - rbs_1 / 2 = 300 - 416 / 2 = 92.
+    erwerbseinkommen_m = max(210, 92) = 210.
   precision_atol: 0.01
   source: manual calculation
 inputs:

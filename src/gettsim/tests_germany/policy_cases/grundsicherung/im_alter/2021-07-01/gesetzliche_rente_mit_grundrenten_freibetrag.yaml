@@ -1,12 +1,13 @@
 ---
 info:
   note: |-
-    Grundrentenzeiten-Freibetrag applies (grundrentenzeiten >= 396 months).
+    Grundrentenzeiten-Freibetrag applies (grundrentenzeiten_monate >= 396).
     § 82a SGB XII (Art. 3 Grundrentengesetz v. 12.08.2020, BGBl. I S. 1879).
-    gesetzliche_rente = 500 (altersrente only).
-    Freibetrag = 100 + 0.3 * (500 - 100) = 220.
-    Cap = 446 / 2 = 223. min(220, 223) = 220.
-    Result = 500 - 220 = 280.
+    einnahmen__renten__gesetzliche_m = altersrente__betrag_m = 500.
+    grundsätzlich_anspruchsberechtigt = true (400 >= 396).
+    anrechnungsfreier_anteil_gesetzliche_rente(500) = 100 + 0.3 * 400 = 220.
+    rbs_1 / 2 = 446 / 2 = 223. min(220, 223) = 220.
+    gesetzliche_rente_m = 500 - 220 = 280.
   precision_atol: 0.01
   source: manual calculation
 inputs:
