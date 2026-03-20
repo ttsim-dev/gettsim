@@ -82,10 +82,9 @@ def einkommen_m_ab_2018(
 ) -> float:
     """Income considered for Grundsicherung im Alter from 2018.
 
-    From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7
-    Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214) introduces
-    a Freibetrag for 'zusätzliche Altersvorsorge', applied via
-    einkommen_aus_zusätzlicher_altersvorsorge_m.
+    From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz v.
+    17.08.2017, BGBl. I S. 3214) introduces a Freibetrag for 'zusätzliche
+    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m.
     """
     total_income = (
         erwerbseinkommen_m
@@ -168,7 +167,7 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     Legal reference: § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
     Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214)
 
-    The Freibetrag… applies to "zusätzliche Altersvorsorge" as defined in § 82 Abs. 5
+    The Freibetrag for 'zusätzliche Altersvorsorge' applies as defined in § 82 Abs. 5
     SGB XII:
 
     - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
@@ -210,12 +209,16 @@ def gesetzliche_rente_m_ab_2021(
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Public pension benefits considered for Grundsicherung im Alter since 2021.
+    """Public pension income for Grundsicherung im Alter, with Grundrentenzeiten-Freibetrag.
 
-    Starting from 2021: If eligible for Grundrente, can deduct 100€ completely and 30%
-    of private pension above 100 (but no more than 1/2 of Regelbedarf).
+    Legal reference: § 82a SGB XII (eingeführt durch Art. 3 Grundrentengesetz
+    v. 12.08.2020, BGBl. I S. 1879, effective 2021-01-01)
+
+    Persons with ≥ 33 years of Grundrentenzeiten (§ 76g Abs. 2 SGB VI) receive
+    a Freibetrag: 100 € + 30 % of public pension income above 100 €, capped at
+    50 % of Regelbedarfsstufe 1.
     """
-    angerechnete_rente = piecewise_polynomial(
+    freibetrag = piecewise_polynomial(
         x=einnahmen__renten__gesetzliche_m,
         parameters=anrechnungsfreier_anteil_gesetzliche_rente,
         xnp=xnp,
@@ -223,8 +226,8 @@ def gesetzliche_rente_m_ab_2021(
 
     upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
     if sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt:
-        angerechnete_rente = min(angerechnete_rente, upper)
+        freibetrag = min(freibetrag, upper)
     else:
-        angerechnete_rente = 0.0
+        freibetrag = 0.0
 
-    return einnahmen__renten__gesetzliche_m - angerechnete_rente
+    return einnahmen__renten__gesetzliche_m - freibetrag
