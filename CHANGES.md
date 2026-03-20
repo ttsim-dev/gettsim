@@ -13,6 +13,11 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
+## Unreleased
+
+- {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
+  Alter. ({ghuser}`MImmesberger`)
+
 ## v1.2 — 2026-03-19
 
 - {gh}`1132` Implement GEP 8. ({ghuser} `hmgaudecker`, {ghuser}`MImmesberger`)
