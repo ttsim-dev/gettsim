@@ -23,6 +23,9 @@ parameter_vermögensfreibetrag:
   2017-04-01:
     erwachsene: 5000
     kinder: 500
+  2023-01-01:
+    erwachsene: 10000
+    kinder: 10000
 anrechnungsfreier_anteil_gesetzliche_rente:
   name:
     de: Anrechnungsfreier Anteil der staatlichen Rente (bei mind. 33 Grundrentenzeiten)
