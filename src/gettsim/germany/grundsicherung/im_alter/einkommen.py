@@ -110,42 +110,79 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
     return max(0.0, per_y_to_per_m(capital_income_y))
 
 
-@policy_function(start_date="2011-01-01")
-def einkommen_aus_zusätzlicher_altersvorsorge_m(
+@policy_function(
+    start_date="2011-01-01",
+    end_date="2017-12-31",
+    leaf_name="einkommen_aus_zusätzlicher_altersvorsorge_m",
+)
+def einkommen_aus_zusätzlicher_altersvorsorge_m_bis_2017(
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
-    anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParamValue,
-    grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
-    xnp: ModuleType,
 ) -> float:
-    """Calculate individual private pension benefits considered in the calculation of
-    Grundsicherung im Alter.
+    """Private and occupational pension income for Grundsicherung im Alter.
 
-    Legal reference: § 82 SGB XII Abs. 4
+    Legal reference: § 82 Abs. 1 SGB XII
+
+    Before 2018-01-01, § 82 SGB XII contained no Freibetrag for private or betriebliche
+    Altersvorsorge. The current § 82 Abs. 4 and 5 (Freibetrag for zusätzliche
+    Altersvorsorge) were introduced by Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz
+    v. 17.08.2017 (BGBl. I S. 3214). All pension income is fully counted.
     """
-    freibetrag = piecewise_polynomial(
-        x=(
-            einnahmen__renten__sonstige_private_vorsorge_m
-            + einnahmen__renten__geförderte_private_vorsorge_m
-            + einnahmen__renten__betriebliche_altersvorsorge_m
-            + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        ),
-        parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
-        xnp=xnp,
-    )
-    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
-
     return (
         einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        - min(
-            freibetrag,
-            upper,
-        )
+    )
+
+
+@policy_function(
+    start_date="2018-01-01",
+    leaf_name="einkommen_aus_zusätzlicher_altersvorsorge_m",
+)
+def einkommen_aus_zusätzlicher_altersvorsorge_m_ab_2018(
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
+    anrechnungsfreier_anteil_zusätzliche_altersvorsorge: PiecewisePolynomialParamValue,
+    grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
+    xnp: ModuleType,
+) -> float:
+    """Private and occupational pension income for Grundsicherung im Alter.
+
+    Legal reference: § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
+    Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214)
+
+    The Freibetrag (100 € + 30 % darüber, max. 50 % RBS 1) applies to
+    "zusätzliche Altersvorsorge" as defined in § 82 Abs. 5 SGB XII:
+    - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
+    - Zertifizierte Altersvorsorge / Riester (Abs. 5 Satz 2 Nr. 2)
+    - Sonstige private Altersvorsorge (Abs. 5 Satz 1: freiwillig, lebenslang)
+
+    Berufsständische Versorgungswerke (§ 6 Abs. 1 SGB VI) are excluded: they are
+    Pflichtversicherung (fail "auf freiwilliger Grundlage", Abs. 5 Satz 1) and listed
+    as baseline in Abs. 5 Satz 1 ("Versicherungs- und Versorgungseinrichtung, die für
+    Angehörige bestimmter Berufe errichtet ist").
+    """
+    zusätzliche_altersvorsorge_m = (
+        einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+    )
+    freibetrag = piecewise_polynomial(
+        x=zusätzliche_altersvorsorge_m,
+        parameters=anrechnungsfreier_anteil_zusätzliche_altersvorsorge,
+        xnp=xnp,
+    )
+    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
+
+    return (
+        zusätzliche_altersvorsorge_m
+        - min(freibetrag, upper)
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
     )
 
 
