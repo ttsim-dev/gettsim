@@ -23,6 +23,11 @@ parameter_vermögensfreibetrag:
   2017-04-01:
     erwachsene: 5000
     kinder: 500
+  2023-01-01:
+    erwachsene: 10000
+    kinder: 10000
+    reference: Art. 9 G. v. 16.12.2022 BGBl. I S. 2328
+    note: Bürgergeld-Gesetz
 anrechnungsfreier_anteil_gesetzliche_rente:
   name:
     de: Anrechnungsfreier Anteil der staatlichen Rente (bei mind. 33 Grundrentenzeiten)
