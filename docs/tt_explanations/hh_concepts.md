@@ -269,9 +269,10 @@ Government expenditures: 4 Mrd €
 
 ### Interactions between SGB II / SGB XII
 
-- Partnerships where one partner falls under SGB II and one under SGB XII -> Whole
-  household falls under SGB II
-- Bedarfsgemeinschaft with child under 25 falling under SGB II -> ?
+When one partner falls under SGB II and one under SGB XII, they form a *gemischte
+Bedarfsgemeinschaft*. Each person's benefit is computed by their respective system. See
+{ref}`mixed-benefit-units` for details on the calculation method and how this interacts
+with Wohngeld and Kinderwohngeld.
 
 ## Wohngeld
 
