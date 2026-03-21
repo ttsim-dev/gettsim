@@ -18,8 +18,56 @@ if TYPE_CHECKING:
     from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
 
 
-@policy_function()
-def einkommen_m(
+@policy_function(
+    start_date="2011-01-01",
+    end_date="2017-12-31",
+    leaf_name="einkommen_m",
+)
+def einkommen_m_bis_2017(
+    erwerbseinkommen_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
+    gesetzliche_rente_m: float,
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
+    kapitaleinkommen_brutto_m: float,
+    einkommensteuer__betrag_m_sn: float,
+    solidaritätszuschlag__betrag_m_sn: float,
+    familie__anzahl_personen_sn: int,
+    sozialversicherung__beiträge_versicherter_m: float,
+    elterngeld__anrechenbarer_betrag_m: float,
+) -> float:
+    """Income considered for Grundsicherung im Alter before 2018.
+
+    All pension income is fully counted as income.
+    """
+    total_income = (
+        erwerbseinkommen_m
+        + gesetzliche_rente_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
+        + kapitaleinkommen_brutto_m
+        + elterngeld__anrechenbarer_betrag_m
+    )
+
+    out = (
+        total_income
+        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
+        - sozialversicherung__beiträge_versicherter_m
+    )
+
+    return max(out, 0.0)
+
+
+@policy_function(start_date="2018-01-01", leaf_name="einkommen_m")
+def einkommen_m_ab_2018(
     erwerbseinkommen_m: float,
     einkommen_aus_zusätzlicher_altersvorsorge_m: float,
     gesetzliche_rente_m: float,
@@ -32,10 +80,12 @@ def einkommen_m(
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
 ) -> float:
-    """Calculate individual income considered in the calculation of Grundsicherung im
-    Alter.
+    """Income considered for Grundsicherung im Alter from 2018.
+
+    From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz v.
+    17.08.2017, BGBl. I S. 3214) introduces a Freibetrag for 'zusätzliche
+    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m.
     """
-    # Income
     total_income = (
         erwerbseinkommen_m
         + gesetzliche_rente_m
@@ -63,17 +113,9 @@ def erwerbseinkommen_m(
     anrechnungsfreier_anteil_erwerbseinkünfte: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Calculate individual earnings considered in the calculation of Grundsicherung im
-    Alter.
+    """Earnings considered for Grundsicherung im Alter.
 
     Legal reference: § 82 SGB XII Abs. 3
-
-    Note:
-        - Freibeträge for income are currently not considered
-        - Start date is 2011 because of the reference to regelbedarfsstufen,
-          which was introduced in 2011.
-        - The cap at 1/2 of Regelbedarf was only introduced in 2006 (which is currently
-          not implemented): https://www.buzer.de/gesetz/3415/al3764-0.htm
     """
     earnings = (
         einnahmen__bruttolohn_m
@@ -110,42 +152,43 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
     return max(0.0, per_y_to_per_m(capital_income_y))
 
 
-@policy_function(start_date="2011-01-01")
+@policy_function(start_date="2018-01-01")
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
-    anrechnungsfreier_anteil_private_renteneinkünfte: PiecewisePolynomialParamValue,
+    anrechnungsfreier_anteil_zusätzliche_altersvorsorge: PiecewisePolynomialParamValue,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     xnp: ModuleType,
 ) -> float:
-    """Calculate individual private pension benefits considered in the calculation of
-    Grundsicherung im Alter.
+    """Private and occupational pension income for Grundsicherung im Alter.
 
-    Legal reference: § 82 SGB XII Abs. 4
+    Legal reference: § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
+    Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214)
+
+    The Freibetrag for 'zusätzliche Altersvorsorge' applies as defined in § 82 Abs. 5
+    SGB XII:
+
+    - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
+    - Zertifizierte Altersvorsorge / Riester (Abs. 5 Satz 2 Nr. 2)
+    - Sonstige private Altersvorsorge (Abs. 5 Satz 1: freiwillig, lebenslang)
     """
-    freibetrag = piecewise_polynomial(
-        x=(
-            einnahmen__renten__sonstige_private_vorsorge_m
-            + einnahmen__renten__geförderte_private_vorsorge_m
-            + einnahmen__renten__betriebliche_altersvorsorge_m
-            + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        ),
-        parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
-        xnp=xnp,
-    )
-    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
-
-    return (
+    zusätzliche_altersvorsorge_m = (
         einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
+    )
+    freibetrag = piecewise_polynomial(
+        x=zusätzliche_altersvorsorge_m,
+        parameters=anrechnungsfreier_anteil_zusätzliche_altersvorsorge,
+        xnp=xnp,
+    )
+
+    return (
+        zusätzliche_altersvorsorge_m
+        - min(freibetrag, grundsicherung__regelbedarfsstufen.rbs_1 / 2)
         + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        - min(
-            freibetrag,
-            upper,
-        )
     )
 
 
@@ -153,11 +196,7 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 def gesetzliche_rente_m_bis_2020(
     einnahmen__renten__gesetzliche_m: float,
 ) -> float:
-    """Calculate individual public pension benefits which are considered in the
-    calculation of Grundsicherung im Alter until 2020.
-
-    Until 2020: No deduction is possible.
-    """
+    """Public pension benefits considered for Grundsicherung im Alter until 2020."""
     return einnahmen__renten__gesetzliche_m
 
 
@@ -169,22 +208,24 @@ def gesetzliche_rente_m_ab_2021(
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Calculate individual public pension benefits which are considered in the
-    calculation of Grundsicherung im Alter since 2021.
+    """Public pension income for Grundsicherung im Alter, with Grundrentenzeiten-Freibetrag.
 
-    Starting from 2021: If eligible for Grundrente, can deduct 100€ completely and 30%
-    of private pension above 100 (but no more than 1/2 of regelbedarf)
+    Legal reference: § 82a SGB XII (eingeführt durch Art. 3 Grundrentengesetz
+    v. 12.08.2020, BGBl. I S. 1879, effective 2021-01-01)
+
+    Persons with ≥ 33 years of Grundrentenzeiten (§ 76g Abs. 2 SGB VI) receive
+    a Freibetrag: 100 € + 30 % of public pension income above 100 €, capped at
+    50 % of Regelbedarfsstufe 1.
     """
-    angerechnete_rente = piecewise_polynomial(
+    freibetrag = piecewise_polynomial(
         x=einnahmen__renten__gesetzliche_m,
         parameters=anrechnungsfreier_anteil_gesetzliche_rente,
         xnp=xnp,
     )
 
-    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
     if sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt:
-        angerechnete_rente = min(angerechnete_rente, upper)
+        freibetrag = min(freibetrag, grundsicherung__regelbedarfsstufen.rbs_1 / 2)
     else:
-        angerechnete_rente = 0.0
+        freibetrag = 0.0
 
-    return einnahmen__renten__gesetzliche_m - angerechnete_rente
+    return einnahmen__renten__gesetzliche_m - freibetrag

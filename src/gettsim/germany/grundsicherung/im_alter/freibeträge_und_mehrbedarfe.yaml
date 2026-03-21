@@ -91,23 +91,27 @@ anrechnungsfreier_anteil_erwerbseinkünfte:
   type: scalar
   2005-01-01:
     value: 0.3
-anrechnungsfreier_anteil_private_renteneinkünfte:
+anrechnungsfreier_anteil_zusätzliche_altersvorsorge:
   name:
-    de: Anrechnungsfreie Anteile der privaten Rente für Grundsicherung
-    en: Private pension shares not subject to transfer withdrawal
+    de: >-
+      Anrechnungsfreier Anteil der zusätzlichen Altersvorsorge für Grundsicherung
+    en: >-
+      Supplementary pension share not subject to transfer withdrawal
   description:
     de: >-
-      § 82 SGB XII Abs. 4
-      Anteil der privaten Rente, welcher bei der Berechnung der Grundsicherung nicht zum
-      Einkommen addiert wird.
+      § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
+      Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214).
+      Freibetrag für Einkommen aus zusätzlicher Altersvorsorge (betriebliche
+      Altersversorgung, Riester-Rente, sonstige freiwillige private Altersvorsorge).
     en: >-
-      § 82 SGB XII Abs. 4
-      Share of privat pension, which is not added to total income when calculating the
-      Grundsicherung.
+      § 82 Abs. 4, 5 SGB XII (introduced by Art. 2 Nr. 7
+      Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214).
+      Exemption for income from supplementary old-age provision (occupational pensions,
+      Riester pensions, other voluntary private pensions).
   unit: Share
   reference_period: null
   type: piecewise_linear
-  2005-01-01:
+  2018-01-01:
     intervals:
       - interval: (-inf, 0)
         slope: 0

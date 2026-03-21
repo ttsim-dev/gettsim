@@ -1,0 +1,123 @@
+---
+info:
+  note: |-
+    Zusätzliche Altersvorsorge below 100 threshold (full exemption).
+    § 82 Abs. 4, 5 SGB XII.
+    zusätzliche_altersvorsorge_m = betriebliche_altersvorsorge_m = 50.
+    anrechnungsfreier_anteil_zusätzliche_altersvorsorge(50) = 50.
+    einkommen_aus_zusätzlicher_altersvorsorge_m
+      = 50 - 50 + aus_berufsständischen_versicherungen_m
+      = 50 - 50 + 75 = 75.
+  precision_atol: 0.01
+  source: manual calculation
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 68
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 50.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 75.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1950
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 103
+    kindergeld:
+      betrag_m_eg:
+        - 0.0
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 103
+    schwerbehindert_grad_g:
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 200.0
+        bezieht_rente:
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 300
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m_eg:
+        - 0.0
+    vermögen_eg:
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 344.0
+      heizkosten_m_hh:
+        - 92.0
+      wohnfläche_hh:
+        - 45.0
+outputs:
+  grundsicherung:
+    im_alter:
+      einkommen_aus_zusätzlicher_altersvorsorge_m:
+        - 75.0
