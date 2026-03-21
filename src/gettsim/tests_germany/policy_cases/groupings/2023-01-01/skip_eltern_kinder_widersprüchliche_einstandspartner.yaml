@@ -4,7 +4,7 @@ info:
   precision_atol: 0.01
   source: ''
 inputs:
-  - bürgergeld__p_id_einstandspartner: 1
+  - familie__p_id_einstandspartner: 1
     einkommensteuer__gemeinsam_veranlagt: false
     geburtstag: 1984-07-14
     hh_id: 0
@@ -13,7 +13,7 @@ inputs:
     geburtstag: 1981-07-14
     hh_id: 0
     id: 1
-  - bürgergeld__p_id_einstandspartner: 0
+  - familie__p_id_einstandspartner: 0
     geburtstag: 2010-03-01
     hh_id: 0
     id: 2

@@ -10,10 +10,6 @@ inputs:
     alter:
       - 67
       - 70
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - 25
-        - 24
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -62,6 +58,9 @@ inputs:
         - 0.0
         - 0.0
     familie:
+      p_id_einstandspartner:
+        - 25
+        - 24
       alleinerziehend:
         - false
         - false
@@ -87,7 +86,7 @@ inputs:
       - 19
       - 19
     kindergeld:
-      betrag_m_eg:
+      betrag_m_sg:
         - 0.0
         - 0.0
       p_id_empfänger:
@@ -132,10 +131,10 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m_sg:
         - 0.0
         - 0.0
-    vermögen_eg:
+    vermögen_sg:
       - 0.0
       - 0.0
     wohnen:
@@ -154,6 +153,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
+      betrag_m_sg:
         - 210.13
         - 210.13

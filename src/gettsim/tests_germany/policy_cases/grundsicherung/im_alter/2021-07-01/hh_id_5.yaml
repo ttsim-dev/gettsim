@@ -8,9 +8,6 @@ inputs:
   provided:
     alter:
       - 68
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -65,7 +62,7 @@ inputs:
     hh_id:
       - 5
     kindergeld:
-      betrag_m_eg:
+      betrag_m_sg:
         - 0.0
       p_id_empfänger:
         - -1
@@ -98,9 +95,9 @@ inputs:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m_sg:
         - 0.0
-    vermögen_eg:
+    vermögen_sg:
       - 0.0
     wohnen:
       bewohnt_eigentum_hh:
@@ -114,5 +111,5 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
+      betrag_m_sg:
         - 401.0

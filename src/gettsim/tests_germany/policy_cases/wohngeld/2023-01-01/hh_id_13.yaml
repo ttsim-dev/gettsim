@@ -20,10 +20,6 @@ inputs:
         - false
         - false
         - false
-      p_id_einstandspartner:
-        - 58
-        - 57
-        - -1
     behinderungsgrad:
       - 0
       - 0
@@ -87,6 +83,10 @@ inputs:
         - 0.0
         - 0.0
     familie:
+      p_id_einstandspartner:
+        - 58
+        - 57
+        - -1
       alleinerziehend:
         - false
         - false

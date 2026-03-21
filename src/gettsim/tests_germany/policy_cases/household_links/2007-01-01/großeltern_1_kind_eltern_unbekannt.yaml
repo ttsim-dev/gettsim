@@ -10,11 +10,6 @@ inputs:
       - 74
       - 74
       - 10
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
-        - -1
-        - -1
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
@@ -29,6 +24,10 @@ inputs:
         - -1
         - 1
     familie:
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
       p_id_ehepartner:
         - -1
         - -1

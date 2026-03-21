@@ -10,11 +10,6 @@ inputs:
       - 43
       - 0
       - 43
-    bürgergeld:
-      p_id_einstandspartner:
-        - 2
-        - -1
-        - 0
     arbeitsstunden_w:
       - 0.0
       - 0.0
@@ -47,6 +42,10 @@ inputs:
         - 0.0
         - 0.0
     familie:
+      p_id_einstandspartner:
+        - 2
+        - -1
+        - 0
       alleinerziehend:
         - false
         - false

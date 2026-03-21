@@ -10,9 +10,6 @@ inputs:
       - 52
     anzahl_personen_hh:
       - 1
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
     behinderungsgrad:
       - 0
     einkommensteuer:
@@ -47,6 +44,8 @@ inputs:
       betrag_m:
         - 0.0
     familie:
+      p_id_einstandspartner:
+        - -1
       alleinerziehend:
         - false
       p_id_ehepartner:

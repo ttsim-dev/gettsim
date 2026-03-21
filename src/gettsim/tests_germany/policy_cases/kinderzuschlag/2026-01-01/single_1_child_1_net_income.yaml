@@ -20,9 +20,6 @@ inputs:
       bruttoeinkommen_m:
         - 1509.89
         - 0.0
-      p_id_einstandspartner:
-        - -1
-        - -1
     kindergeld:
       ist_leistungsbegründendes_kind:
         - false
@@ -96,6 +93,9 @@ inputs:
       - 0
       - 1
     familie:
+      p_id_einstandspartner:
+        - -1
+        - -1
       alleinerziehend:
         - true
         - false

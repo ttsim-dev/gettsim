@@ -9,10 +9,9 @@ inputs:
   assumed:
     alter:
       - 17
-    arbeitslosengeld_2:
+    familie:
       p_id_einstandspartner:
         - -1
-    familie:
       alleinerziehend:
         - false
       p_id_elternteil_1:

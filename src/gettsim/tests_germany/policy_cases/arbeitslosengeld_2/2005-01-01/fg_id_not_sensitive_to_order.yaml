@@ -13,7 +13,7 @@ inputs:
       - 12
       - 22
       - 42
-    arbeitslosengeld_2:
+    familie:
       p_id_einstandspartner:
         - -1
         - 5
@@ -21,7 +21,6 @@ inputs:
         - -1
         - -1
         - 1
-    familie:
       p_id_elternteil_1:
         - 1
         - -1

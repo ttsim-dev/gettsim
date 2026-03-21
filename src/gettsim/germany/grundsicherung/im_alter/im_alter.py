@@ -12,21 +12,21 @@ if TYPE_CHECKING:
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2022-12-31", leaf_name="betrag_m_eg")
-def betrag_m_eg_bis_2022(
+@policy_function(end_date="2022-12-31", leaf_name="betrag_m_sg")
+def betrag_m_sg_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
-    mehrbedarf_schwerbehinderung_g_m_eg: float,
-    kindergeld__betrag_m_eg: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m_eg: float,
-    unterhaltsvorschuss__betrag_m_eg: float,
-    einkommen_m_eg: float,
+    mehrbedarf_schwerbehinderung_g_m_sg: float,
+    kindergeld__betrag_m_sg: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m_sg: float,
+    unterhaltsvorschuss__betrag_m_sg: float,
+    einkommen_m_sg: float,
     volljährige_alle_rentenbezieher_hh: bool,
-    vermögen_eg: float,
-    vermögensfreibetrag_eg: float,
-    familie__anzahl_kinder_eg: int,
-    familie__anzahl_personen_eg: int,
+    vermögen_sg: float,
+    vermögensfreibetrag_sg: float,
+    familie__anzahl_kinder_sg: int,
+    familie__anzahl_personen_sg: int,
 ) -> float:
-    """Calculate Grundsicherung im Alter on household level.
+    """Calculate Grundsicherung im Alter on Sozialhilfegemeinschaft level.
 
     # ToDo: There is no check for Wohngeld included as Wohngeld is
     # ToDo: currently not implemented for retirees.
@@ -40,8 +40,8 @@ def betrag_m_eg_bis_2022(
     # `arbeitslosengeld_2__regelbedarf_m_bg`
     # https://github.com/ttsim-dev/gettsim/issues/702
 
-    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_eg ==
-    # familie__anzahl_personen_eg` condition once
+    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_sg ==
+    # familie__anzahl_personen_sg` condition once
     # `volljährige_alle_rentenbezieher_hh`` is replaced by a more accurate
     # variable.
     # https://github.com/ttsim-dev/gettsim/issues/696
@@ -49,40 +49,40 @@ def betrag_m_eg_bis_2022(
     # Wealth check
     # Only pay Grundsicherung im Alter if all adults are retired (see docstring)
     if (
-        (vermögen_eg >= vermögensfreibetrag_eg)
+        (vermögen_sg >= vermögensfreibetrag_sg)
         or (not volljährige_alle_rentenbezieher_hh)
-        or (familie__anzahl_kinder_eg == familie__anzahl_personen_eg)
+        or (familie__anzahl_kinder_sg == familie__anzahl_personen_sg)
     ):
         out = 0.0
     else:
         # Subtract income
         out = (
             arbeitslosengeld_2__regelbedarf_m_bg
-            + mehrbedarf_schwerbehinderung_g_m_eg
-            - einkommen_m_eg
-            - unterhalt__tatsächlich_erhaltener_betrag_m_eg
-            - unterhaltsvorschuss__betrag_m_eg
-            - kindergeld__betrag_m_eg
+            + mehrbedarf_schwerbehinderung_g_m_sg
+            - einkommen_m_sg
+            - unterhalt__tatsächlich_erhaltener_betrag_m_sg
+            - unterhaltsvorschuss__betrag_m_sg
+            - kindergeld__betrag_m_sg
         )
 
     return max(out, 0.0)
 
 
-@policy_function(start_date="2023-01-01", leaf_name="betrag_m_eg")
-def betrag_m_eg_ab_2023(
+@policy_function(start_date="2023-01-01", leaf_name="betrag_m_sg")
+def betrag_m_sg_ab_2023(
     bürgergeld__regelbedarf_m_bg: float,
-    mehrbedarf_schwerbehinderung_g_m_eg: float,
-    kindergeld__betrag_m_eg: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m_eg: float,
-    unterhaltsvorschuss__betrag_m_eg: float,
-    einkommen_m_eg: float,
+    mehrbedarf_schwerbehinderung_g_m_sg: float,
+    kindergeld__betrag_m_sg: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m_sg: float,
+    unterhaltsvorschuss__betrag_m_sg: float,
+    einkommen_m_sg: float,
     volljährige_alle_rentenbezieher_hh: bool,
-    vermögen_eg: float,
-    vermögensfreibetrag_eg: float,
-    familie__anzahl_kinder_eg: int,
-    familie__anzahl_personen_eg: int,
+    vermögen_sg: float,
+    vermögensfreibetrag_sg: float,
+    familie__anzahl_kinder_sg: int,
+    familie__anzahl_personen_sg: int,
 ) -> float:
-    """Calculate Grundsicherung im Alter on household level.
+    """Calculate Grundsicherung im Alter on Sozialhilfegemeinschaft level.
 
     # ToDo: There is no check for Wohngeld included as Wohngeld is
     # ToDo: currently not implemented for retirees.
@@ -96,8 +96,8 @@ def betrag_m_eg_ab_2023(
     # `bürgergeld__regelbedarf_m_bg`
     # https://github.com/ttsim-dev/gettsim/issues/702
 
-    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_eg ==
-    # familie__anzahl_personen_eg` condition once
+    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_sg ==
+    # familie__anzahl_personen_sg` condition once
     # `volljährige_alle_rentenbezieher_hh`` is replaced by a more accurate
     # variable.
     # https://github.com/ttsim-dev/gettsim/issues/696
@@ -105,20 +105,20 @@ def betrag_m_eg_ab_2023(
     # Wealth check
     # Only pay Grundsicherung im Alter if all adults are retired (see docstring)
     if (
-        (vermögen_eg >= vermögensfreibetrag_eg)
+        (vermögen_sg >= vermögensfreibetrag_sg)
         or (not volljährige_alle_rentenbezieher_hh)
-        or (familie__anzahl_kinder_eg == familie__anzahl_personen_eg)
+        or (familie__anzahl_kinder_sg == familie__anzahl_personen_sg)
     ):
         out = 0.0
     else:
         # Subtract income
         out = (
             bürgergeld__regelbedarf_m_bg
-            + mehrbedarf_schwerbehinderung_g_m_eg
-            - einkommen_m_eg
-            - unterhalt__tatsächlich_erhaltener_betrag_m_eg
-            - unterhaltsvorschuss__betrag_m_eg
-            - kindergeld__betrag_m_eg
+            + mehrbedarf_schwerbehinderung_g_m_sg
+            - einkommen_m_sg
+            - unterhalt__tatsächlich_erhaltener_betrag_m_sg
+            - unterhaltsvorschuss__betrag_m_sg
+            - kindergeld__betrag_m_sg
         )
 
     return max(out, 0.0)
@@ -127,7 +127,7 @@ def betrag_m_eg_ab_2023(
 @policy_function(start_date="2011-01-01")
 def mehrbedarf_schwerbehinderung_g_m(
     schwerbehindert_grad_g: bool,
-    familie__anzahl_erwachsene_eg: int,
+    familie__anzahl_erwachsene_sg: int,
     mehrbedarf_bei_schwerbehinderungsgrad_g: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
@@ -139,9 +139,9 @@ def mehrbedarf_schwerbehinderung_g_m(
         grundsicherung__regelbedarfsstufen.rbs_2
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g
 
-    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_sg == 1):
         out = mehrbedarf_single
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_sg > 1):
         out = mehrbedarf_in_couple
     else:
         out = 0.0
@@ -150,15 +150,15 @@ def mehrbedarf_schwerbehinderung_g_m(
 
 
 @policy_function(start_date="2005-01-01")
-def vermögensfreibetrag_eg(
-    familie__anzahl_kinder_fg: int,
-    familie__anzahl_erwachsene_fg: int,
+def vermögensfreibetrag_sg(
+    familie__anzahl_kinder_sg: int,
+    familie__anzahl_erwachsene_sg: int,
     parameter_vermögensfreibetrag: dict[str, float],
 ) -> float:
-    """Calculate wealth not considered for Grundsicherung im Alter on household
-    level.
+    """Calculate wealth not considered for Grundsicherung im Alter on
+    Sozialhilfegemeinschaft level.
     """
     return (
-        parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_fg
-        + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_fg
+        parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_sg
+        + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_sg
     )

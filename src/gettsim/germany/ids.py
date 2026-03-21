@@ -45,9 +45,9 @@ def ehe_id(
     return result
 
 
-@group_creation_function(leaf_name="fg_id", end_date="2022-12-31")
-def fg_id_arbeitslosengeld_2(
-    arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
+@group_creation_function()
+def fg_id(
+    familie__p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     hh_id: IntColumn,
     alter: IntColumn,
@@ -62,35 +62,7 @@ def fg_id_arbeitslosengeld_2(
     2, before excluding children who have enough income to fend for themselves.
     """
     return sgb_ii_fg_id_formula(
-        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
-        p_id=p_id,
-        hh_id=hh_id,
-        alter=alter,
-        p_id_elternteil_1=familie__p_id_elternteil_1,
-        p_id_elternteil_2=familie__p_id_elternteil_2,
-        xnp=xnp,
-        backend=backend,
-    )
-
-
-@group_creation_function(leaf_name="fg_id", start_date="2023-01-01")
-def fg_id_bürgergeld(
-    bürgergeld__p_id_einstandspartner: IntColumn,
-    p_id: IntColumn,
-    hh_id: IntColumn,
-    alter: IntColumn,
-    familie__p_id_elternteil_1: IntColumn,
-    familie__p_id_elternteil_2: IntColumn,
-    xnp: ModuleType,
-    backend: Literal["numpy", "jax"],
-) -> IntColumn:
-    """Familiengemeinschaft. Base unit for some transfers.
-
-    Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
-    2, before excluding children who have enough income to fend for themselves.
-    """
-    return sgb_ii_fg_id_formula(
-        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
+        p_id_einstandspartner=familie__p_id_einstandspartner,
         p_id=p_id,
         hh_id=hh_id,
         alter=alter,
@@ -216,9 +188,9 @@ def bg_id(
     return fg_id
 
 
-@group_creation_function(leaf_name="eg_id", end_date="2022-12-31")
-def eg_id_arbeitslosengeld_2(
-    arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
+@group_creation_function()
+def eg_id(
+    familie__p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     xnp: ModuleType,
 ) -> IntColumn:
@@ -227,24 +199,7 @@ def eg_id_arbeitslosengeld_2(
     A couple whose members are deemed to be responsible for each other.
     """
     return sgb_ii_eg_id_formula(
-        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
-        p_id=p_id,
-        xnp=xnp,
-    )
-
-
-@group_creation_function(leaf_name="eg_id", start_date="2023-01-01")
-def eg_id_bürgergeld(
-    bürgergeld__p_id_einstandspartner: IntColumn,
-    p_id: IntColumn,
-    xnp: ModuleType,
-) -> IntColumn:
-    """Einstandsgemeinschaft / Einstandspartner according to SGB II.
-
-    A couple whose members are deemed to be responsible for each other.
-    """
-    return sgb_ii_eg_id_formula(
-        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
+        p_id_einstandspartner=familie__p_id_einstandspartner,
         p_id=p_id,
         xnp=xnp,
     )
@@ -269,6 +224,126 @@ def sgb_ii_eg_id_formula(
     return (
         xnp.maximum(p_id, p_id_einstandspartner__or_own_p_id)
         + xnp.minimum(p_id, p_id_einstandspartner__or_own_p_id) * n
+    )
+
+
+@group_creation_function()
+def sg_id(
+    familie__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    familie__p_id_elternteil_1: IntColumn,
+    familie__p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
+) -> IntColumn:
+    """Sozialgemeinschaft according to § 27 Abs. 2 SGB XII.
+
+    Maximum of two generations, the relevant base unit for Grundsicherung im Alter /
+    Sozialhilfe, before excluding children who have enough income to fend for themselves.
+    """
+    return sgb_xii_sg_id_formula(
+        p_id_einstandspartner=familie__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+        backend=backend,
+    )
+
+
+def sgb_xii_sg_id_formula(
+    p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    p_id_elternteil_1: IntColumn,
+    p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
+) -> IntColumn:
+    """Formula to compute the SG ID for SGB XII transfers"""
+    n = xnp.max(p_id) + 1
+
+    # Sort all arrays according to p_id to make the id equal location in array
+    sorting = xnp.argsort(p_id)
+    index_after_sort = xnp.argsort(xnp.arange(p_id.shape[0])[sorting])
+    sorted_p_id = p_id[sorting]
+    sorted_hh_id = hh_id[sorting]
+    sorted_alter = alter[sorting]
+    sorted_p_id_elternteil_1 = p_id_elternteil_1[sorting]
+    sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
+    sorted_p_id_einstandspartner = p_id_einstandspartner[sorting]
+
+    # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
+    # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
+    if backend == "jax":
+        isin = functools.partial(xnp.isin, method="sort")
+    else:
+        isin = xnp.isin
+
+    children = isin(sorted_p_id, sorted_p_id_elternteil_1) | isin(
+        sorted_p_id, sorted_p_id_elternteil_2
+    )
+
+    # Assign the same sg_id to everybody who has an Einstandspartner,
+    # otherwise create a new one from p_id
+    out = xnp.where(
+        sorted_p_id_einstandspartner < 0,
+        sorted_p_id + sorted_p_id * n,
+        xnp.maximum(sorted_p_id, sorted_p_id_einstandspartner)
+        + xnp.minimum(sorted_p_id, sorted_p_id_einstandspartner) * n,
+    )
+
+    out = _assign_parents_sg_id(
+        sg_id=out,
+        p_id=sorted_p_id,
+        p_id_elternteil_loc=sorted_p_id_elternteil_1,
+        hh_id=sorted_hh_id,
+        alter=sorted_alter,
+        children=children,
+        n=n,
+        xnp=xnp,
+    )
+    out = _assign_parents_sg_id(
+        sg_id=out,
+        p_id=sorted_p_id,
+        p_id_elternteil_loc=sorted_p_id_elternteil_2,
+        hh_id=sorted_hh_id,
+        alter=sorted_alter,
+        children=children,
+        n=n,
+        xnp=xnp,
+    )
+
+    return out[index_after_sort]
+
+
+def _assign_parents_sg_id(
+    sg_id: IntColumn,
+    p_id: IntColumn,
+    p_id_elternteil_loc: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    children: IntColumn,
+    n: IntColumn,
+    xnp: ModuleType,
+) -> IntColumn:
+    """Return the sg_id of the child's parents."""
+    # TODO(@MImmesberger): Remove hard-coded number
+    # https://github.com/ttsim-dev/gettsim/issues/668
+
+    return xnp.where(
+        (p_id_elternteil_loc >= 0)
+        * (sg_id == p_id + p_id * n)
+        * (hh_id == hh_id[p_id_elternteil_loc])
+        * (alter < 18)  # noqa: PLR2004
+        * (1 - children),
+        sg_id[p_id_elternteil_loc],
+        sg_id,
     )
 
 
