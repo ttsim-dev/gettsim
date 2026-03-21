@@ -31,7 +31,8 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.2" ]
+
+# dependencies = [ "ttsim-backend>=1.2" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
 [[project.authors]]
