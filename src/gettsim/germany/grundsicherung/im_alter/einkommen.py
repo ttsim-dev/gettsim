@@ -184,11 +184,10 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
         parameters=anrechnungsfreier_anteil_zusätzliche_altersvorsorge,
         xnp=xnp,
     )
-    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
 
     return (
         zusätzliche_altersvorsorge_m
-        - min(freibetrag, upper)
+        - min(freibetrag, grundsicherung__regelbedarfsstufen.rbs_1 / 2)
         + einnahmen__renten__aus_berufsständischen_versicherungen_m
     )
 
@@ -224,9 +223,8 @@ def gesetzliche_rente_m_ab_2021(
         xnp=xnp,
     )
 
-    upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
     if sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt:
-        freibetrag = min(freibetrag, upper)
+        freibetrag = min(freibetrag, grundsicherung__regelbedarfsstufen.rbs_1 / 2)
     else:
         freibetrag = 0.0
 
