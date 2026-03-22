@@ -67,7 +67,7 @@ def _vectorize_with_loop(self, backend, xnp):
 
     See https://github.com/ttsim-dev/ttsim/issues/91
     """
-    if self.vectorization_strategy == "vectorize":
+    if self.vectorization_strategy == "vectorize" and backend == "numpy":
         self = replace(self, vectorization_strategy="loop")
     return _original_vectorize(self, backend, xnp)
 
