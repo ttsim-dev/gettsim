@@ -77,15 +77,23 @@ def _force_loop_vectorization_for_coverage(request):
     """Switch 'vectorize' to 'loop' strategy when running with coverage.
 
     Only active when pytest-cov is running (``--cov`` is passed).
+
+    Note: 'yield' is used to separate the setup and teardown of the monkey-patch.
+    Everything before 'yield' is setup, everything after 'yield' is teardown. Tests
+    are executed in between the setup and teardown.
     """
     try:
         cov_source = request.config.getoption("--cov")
     except ValueError:
         cov_source = None
     if not cov_source:
+        # Run tests without any monkey-patching.
         yield
         return
 
+    # Monkey-patch PolicyFunction.vectorize to force "loop" strategy when running with
+    # coverage.
     PolicyFunction.vectorize = _vectorize_with_loop  # type: ignore[assignment]
     yield
+    # Restore the original vectorization strategy.
     PolicyFunction.vectorize = _original_vectorize
