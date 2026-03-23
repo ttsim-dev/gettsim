@@ -32,7 +32,7 @@ Arrays are stored in a nested dictionary (a pytree). One level of the dictionary
 called a *namespace*. Its innermost level is called a *leaf name*. The data columns are
 called *leaves*.
 
-If a leaf name is `[x]_id` with `id` {math}`\in \{` `hh`, `bg`, `fg`, `ehe`, `eg`, `lp`,
+If a leaf name is `[x]_id` with `id` {math}`\in \{` `hh`, `bg`, `fg`, `ehe`, `eg`, `lg`,
 `sn`, `wthh` {math}`\}`, it will be the same for all households, Bedarfsgemeinschaften,
 or any other grouping of individuals specified in {ref}`GEP 1 <gep-1-column-names>`.
 

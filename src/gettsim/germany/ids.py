@@ -194,7 +194,7 @@ def lg_id(
     p_id: IntColumn,
     xnp: ModuleType,
 ) -> IntColumn:
-    """Lebenspartner. A couple whose members are deemed to be responsible for each
+    """Lebensgemeinschaft. A couple whose members are deemed to be responsible for each
     other.
     """
     return sgb_ii_lg_id_formula(
@@ -209,7 +209,7 @@ def sgb_ii_lg_id_formula(
     p_id: IntColumn,
     xnp: ModuleType,
 ) -> IntColumn:
-    """Lebenspartner. A couple whose members are deemed to be responsible for each
+    """Lebensgemeinschaft. A couple whose members are deemed to be responsible for each
     other.
     """
     n = xnp.max(p_id) + 1
