@@ -73,6 +73,11 @@ computes independently:
 Both systems use **raw income**, not each other's transfer amounts (§11 Abs. 1 SGB II;
 §82 Abs. 1 SGB XII), so there is no circular dependency.
 
+The relevant calculation unit for the SGB XII partner is the **Einsatzgemeinschaft**
+(`eg_id`, § 27 Abs. 2 SGB XII), which is analogous to the Bedarfsgemeinschaft for SGB
+II. In a mixed BG, the SGB XII partner forms their own Einsatzgemeinschaft; their Bedarf
+and income are computed at the `_eg` level.
+
 ### Additional rules for mixed BGs
 
 - Both partners receive **Regelbedarfsstufe 2** (the partner rate), not RBS 1 (BSG
@@ -194,13 +199,13 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
 
 ## Implementation status in GETTSIM
 
-| Topic                                 | Status                             | Issues                                                                                                               |
-| ------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Gemischte Bedarfsgemeinschaft         | Not implemented                    | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
-| Sozialhilfegemeinschaft group (`_sg`) | Not implemented                    | [#1147](https://github.com/ttsim-dev/gettsim/issues/1147)                                                            |
-| Wohngeldrechtlicher Teilhaushalt      | Partially implemented (simplified) | [#710](https://github.com/ttsim-dev/gettsim/issues/710), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
-| Kinderwohngeld                        | Not implemented                    | [#750](https://github.com/ttsim-dev/gettsim/issues/750)                                                              |
-| Endogenous BG/WTHH creation           | Simplified; external repo planned  | [#763](https://github.com/ttsim-dev/gettsim/issues/763), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
+| Topic                            | Status                             | Issues                                                                                                               |
+| -------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Gemischte Bedarfsgemeinschaft    | Not implemented                    | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
+| Einsatzgemeinschaft (`_eg`)      | Implemented                        | [#1147](https://github.com/ttsim-dev/gettsim/issues/1147)                                                            |
+| Wohngeldrechtlicher Teilhaushalt | Partially implemented (simplified) | [#710](https://github.com/ttsim-dev/gettsim/issues/710), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
+| Kinderwohngeld                   | Not implemented                    | [#750](https://github.com/ttsim-dev/gettsim/issues/750)                                                              |
+| Endogenous BG/WTHH creation      | Simplified; external repo planned  | [#763](https://github.com/ttsim-dev/gettsim/issues/763), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
 
 ```{seealso}
 **Gemischte Bedarfsgemeinschaft:**

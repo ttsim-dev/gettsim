@@ -24,7 +24,7 @@ The units are:
 | Bedarfsgemeinschaft              | arbeitslosengeld_2\_\_bg_id | Familiengemeinschaft except for children who have enough income to fend for themselves. Relevant unit for Bürgergeld / Arbeitslosengeld 2.                                      | yes        |
 | Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
-| Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
+| Einsatzgemeinschaft              | grundsicherung\_\_eg_id     | Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum of two generations, the relevant base unit for Grundsicherung im Alter / Sozialhilfe.                             | yes        |
 
 Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
 out of the box. If you need to handle more complex cases, you will need to pass all of
