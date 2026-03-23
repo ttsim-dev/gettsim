@@ -220,12 +220,14 @@ ini_options.testpaths = [ "src/gettsim/tests_germany" ]
 [tool.coverage.report]
 exclude_lines = [ "pragma: no cover", "if TYPE_CHECKING:", "^\\s*pass\\s*$" ]
 [tool.coverage.run]
-source = [
-  "src/gettsim/__init__.py",
-  "src/gettsim/germany",
-  "src/gettsim/plot/dag/__init__.py",
+source = [ "src/gettsim/germany" ]
+omit = [
+  "*/__init__.py",
+  ".pixi/*",
+  "*/test_jittability.py",
+  "*/tests_germany/*",
+  "*/_version.py",
 ]
-omit = [ "*/__init__.py", ".pixi/*", "*/test_jittability.py", "*/tests_germany/*" ]
 branch = true
 
 [tool.pixi.dependencies]
