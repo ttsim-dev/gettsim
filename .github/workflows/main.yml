@@ -59,7 +59,7 @@ jobs:
         shell: bash -el {0}
       - name: Run tests on Linux (with NumPy backend and coverage)
         if: runner.os == 'Linux' && matrix.environment == 'py314'
-        run: pixi run --locked -e ${{ matrix.environment }} tests-with-cov
+        run: pixi run --locked tests-with-cov
         shell: bash -el {0}
       - name: Run tests on MacOS / Windows (with NumPy backend and without coverage)
         if: runner.os != 'Linux'

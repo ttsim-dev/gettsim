@@ -21,6 +21,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   Alter. ({ghuser}`MImmesberger`)
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
   ({ghuser}`MImmesberger`)
+- {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
+  ({ghuser}`hmgaudecker`)
 
 ## v1.2 — 2026-03-19
 

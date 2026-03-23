@@ -155,7 +155,7 @@ def basisformel_params_bis_2000(
     c = {i: v["c"] for i, v in koeffizienten_berechnungsformel.items()}
     max_normal = max_anzahl_personen["normale_berechnung"]
     for koeff in [a, b, c]:
-        if max(koeff.keys()) != max_normal:
+        if max(koeff.keys()) != max_normal:  # pragma: no cover
             raise ValueError(
                 "The maximum number of persons for the normal calculation of the basic"
                 "Wohngeld formula `max_anzahl_personen['normale_berechnung'] "
@@ -192,7 +192,7 @@ def basisformel_params_ab_2001(
     c = {i: v["c"] for i, v in koeffizienten_berechnungsformel.items()}
     max_normal = max_anzahl_personen["normale_berechnung"]
     for koeff in [a, b, c]:
-        if max(koeff.keys()) != max_normal:
+        if max(koeff.keys()) != max_normal:  # pragma: no cover
             raise ValueError(
                 "The maximum number of persons for the normal calculation of the basic"
                 "Wohngeld formula `max_anzahl_personen['normale_berechnung'] "
