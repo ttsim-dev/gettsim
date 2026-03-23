@@ -90,8 +90,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 ### Pointers
 
-- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
-  since 2023 (exogenous)
+- `familie__p_id_lebenspartner` (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
@@ -183,8 +182,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
-  since 2023 (exogenous)
+- `familie__p_id_lebenspartner` (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Hilfe zum Lebensunterhalt)
@@ -221,8 +219,7 @@ Regarding the household definition:
 #### Pointers
 
 - `hh_id`
-- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
-  since 2023 (exogenous)
+- `familie__p_id_lebenspartner` (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Grundsicherung im Alter / bei Erwerbsminderung)
@@ -245,8 +242,7 @@ Government expenditures: 7 Mrd €
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
-  since 2023 (exogenous)
+- `familie__p_id_lebenspartner` (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Eingliederungshilfe für Menschen mit Behinderung)
@@ -311,8 +307,7 @@ Government expenditures: 4 Mrd €
 ### Pointers
 
 - `hh_id`
-- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
-  since 2023 (exogenous)
+- `familie__p_id_lebenspartner` (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Kinderwohngeld
