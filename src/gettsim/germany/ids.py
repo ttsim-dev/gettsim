@@ -197,26 +197,11 @@ def lg_id(
     """Lebensgemeinschaft. A couple whose members are deemed to be responsible for each
     other.
     """
-    return sgb_ii_lg_id_formula(
-        p_id_lebenspartner=familie__p_id_lebenspartner,
-        p_id=p_id,
-        xnp=xnp,
-    )
-
-
-def sgb_ii_lg_id_formula(
-    p_id_lebenspartner: IntColumn,
-    p_id: IntColumn,
-    xnp: ModuleType,
-) -> IntColumn:
-    """Lebensgemeinschaft. A couple whose members are deemed to be responsible for each
-    other.
-    """
     n = xnp.max(p_id) + 1
     p_id_lebenspartner__or_own_p_id = xnp.where(
-        p_id_lebenspartner < 0,
+        familie__p_id_lebenspartner < 0,
         p_id,
-        p_id_lebenspartner,
+        familie__p_id_lebenspartner,
     )
 
     return (
@@ -241,29 +226,6 @@ def eg_id(
     Maximum of two generations, the relevant base unit for Grundsicherung im Alter /
     Sozialhilfe, before excluding children who have enough income to fend for themselves.
     """
-    return sgb_xii_eg_id_formula(
-        p_id_lebenspartner=familie__p_id_lebenspartner,
-        p_id=p_id,
-        hh_id=hh_id,
-        alter=alter,
-        p_id_elternteil_1=familie__p_id_elternteil_1,
-        p_id_elternteil_2=familie__p_id_elternteil_2,
-        xnp=xnp,
-        backend=backend,
-    )
-
-
-def sgb_xii_eg_id_formula(
-    p_id_lebenspartner: IntColumn,
-    p_id: IntColumn,
-    hh_id: IntColumn,
-    alter: IntColumn,
-    p_id_elternteil_1: IntColumn,
-    p_id_elternteil_2: IntColumn,
-    xnp: ModuleType,
-    backend: Literal["numpy", "jax"],
-) -> IntColumn:
-    """Formula to compute the EG ID for SGB XII transfers"""
     n = xnp.max(p_id) + 1
 
     # Sort all arrays according to p_id to make the id equal location in array
@@ -272,9 +234,9 @@ def sgb_xii_eg_id_formula(
     sorted_p_id = p_id[sorting]
     sorted_hh_id = hh_id[sorting]
     sorted_alter = alter[sorting]
-    sorted_p_id_elternteil_1 = p_id_elternteil_1[sorting]
-    sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
-    sorted_p_id_lebenspartner = p_id_lebenspartner[sorting]
+    sorted_p_id_elternteil_1 = familie__p_id_elternteil_1[sorting]
+    sorted_p_id_elternteil_2 = familie__p_id_elternteil_2[sorting]
+    sorted_p_id_lebenspartner = familie__p_id_lebenspartner[sorting]
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171

@@ -26,7 +26,7 @@ def betrag_m_eg_bis_2022(
     familie__anzahl_kinder_eg: int,
     familie__anzahl_personen_eg: int,
 ) -> float:
-    """Calculate Grundsicherung im Alter on Einsatzgemeinschaft level.
+    """Grundsicherung im Alter.
 
     # ToDo: There is no check for Wohngeld included as Wohngeld is
     # ToDo: currently not implemented for retirees.
@@ -82,7 +82,7 @@ def betrag_m_eg_ab_2023(
     familie__anzahl_kinder_eg: int,
     familie__anzahl_personen_eg: int,
 ) -> float:
-    """Calculate Grundsicherung im Alter on Einsatzgemeinschaft level.
+    """Grundsicherung im Alter.
 
     # ToDo: There is no check for Wohngeld included as Wohngeld is
     # ToDo: currently not implemented for retirees.
@@ -131,7 +131,7 @@ def mehrbedarf_schwerbehinderung_g_m(
     mehrbedarf_bei_schwerbehinderungsgrad_g: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Calculate additional allowance for individuals with disabled person's pass G."""
+    """Additional allowance for individuals with disabled person's pass G."""
     mehrbedarf_single = (
         grundsicherung__regelbedarfsstufen.rbs_1
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g
@@ -155,9 +155,7 @@ def vermögensfreibetrag_eg(
     familie__anzahl_erwachsene_eg: int,
     parameter_vermögensfreibetrag: dict[str, float],
 ) -> float:
-    """Calculate wealth not considered for Grundsicherung im Alter on
-    Einsatzgemeinschaft level.
-    """
+    """Wealth not considered for Grundsicherung im Alter."""
     return (
         parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_eg
         + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_eg

@@ -213,8 +213,7 @@ Regarding the household definition:
 
 #### Aggregation unit
 
-- Not implemented yet. `grundsicherung__eg_id` (Einsatzgemeinschaft) is defined for
-  Grundsicherung im Alter but not yet used here.
+- `grundsicherung__eg_id` (Einsatzgemeinschaft)
 
 #### Pointers
 
@@ -319,24 +318,6 @@ Government expenditures: 4 Mrd €
 - Only possible if the child can cover its needs with the Wohngeld transfer
 - Does not happen automatically, but upon request by the parents
 - Not implemented yet.
-
-## Limitations
-
-- Within a Wohngeldhaushalt, no distinction can be made between persons without
-  Einstandsverpflichtung according to SGB II or SGB XII and those with
-  Einstandsverpflichtung
-
-- Can only show the two extreme cases
-
-  1. all non-vertical or partner relationships not a candidate for Haushaltsgemeinschaft
-     according to SGB II / SGB XII
-  1. all non-vertical or partner relationships are candidates for Haushaltsgemeinschaft
-     according to SGB II / SGB XII
-
-  Typically, 1. will be the solution (hurdles for joint economic activity are high).
-
-- An alternative would be another ID variable that specifies Einsatzgemeinschaft
-  according to SGB II and SGB XII.
 
 ### Parts of the data not available
 
