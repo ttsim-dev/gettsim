@@ -25,7 +25,7 @@ The units are:
 | Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
 | Einsatzgemeinschaft              | grundsicherung\_\_eg_id     | Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum of two generations, the relevant base unit for Grundsicherung im Alter / Sozialhilfe.                             | yes        |
-| Lebenspartner                    | arbeitslosengeld_2\_\_lp_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
+| Lebenspartner                    | arbeitslosengeld_2\_\_lg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
 Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
 out of the box. If you need to handle more complex cases, you will need to pass all of

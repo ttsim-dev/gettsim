@@ -189,7 +189,7 @@ def bg_id(
 
 
 @group_creation_function()
-def lp_id(
+def lg_id(
     familie__p_id_lebenspartner: IntColumn,
     p_id: IntColumn,
     xnp: ModuleType,
@@ -197,14 +197,14 @@ def lp_id(
     """Lebenspartner. A couple whose members are deemed to be responsible for each
     other.
     """
-    return sgb_ii_lp_id_formula(
+    return sgb_ii_lg_id_formula(
         p_id_lebenspartner=familie__p_id_lebenspartner,
         p_id=p_id,
         xnp=xnp,
     )
 
 
-def sgb_ii_lp_id_formula(
+def sgb_ii_lg_id_formula(
     p_id_lebenspartner: IntColumn,
     p_id: IntColumn,
     xnp: ModuleType,

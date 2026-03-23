@@ -93,7 +93,7 @@ outputs:
     - 2
     - 2
     - 1
-  lp_id:
+  lg_id:
     - 0
     - 1
     - 4
