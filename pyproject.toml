@@ -31,7 +31,8 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.2" ]
+
+# dependencies = [ "ttsim-backend>=1.2" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
 [[project.authors]]
@@ -140,6 +141,7 @@ collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 expand_tables = [
   "tool.pixi.dependencies",
   "tool.pixi.environments",
+  "tool.pixi.feature.coverage.tasks",
   "tool.pixi.feature.cuda",
   "tool.pixi.feature.cuda.target.linux-64.pypi-dependencies",
   "tool.pixi.feature.cuda.tasks",
@@ -215,6 +217,19 @@ ini_options.markers = [
 ini_options.norecursedirs = [ "docs" ]
 ini_options.testpaths = [ "src/gettsim/tests_germany" ]
 
+[tool.coverage.report]
+exclude_lines = [ "pragma: no cover", "if TYPE_CHECKING:", "^\\s*pass\\s*$" ]
+[tool.coverage.run]
+source = [ "src/gettsim/germany" ]
+omit = [
+  "*/__init__.py",
+  ".pixi/*",
+  "*/test_jittability.py",
+  "*/tests_germany/*",
+  "*/_version.py",
+]
+branch = true
+
 [tool.pixi.dependencies]
 ipywidgets = "*"
 jupyterlab = "*"
@@ -233,13 +248,18 @@ toml = "*"
 py311 = [ "py311", "tests" ]
 py312 = [ "py312", "tests" ]
 py313 = [ "py313", "tests" ]
-py314 = [ "py314", "tests" ]
+py314 = [ "py314", "tests", "coverage" ]
 py314-cuda = [ "py314", "tests", "cuda" ]
 py314-jax = [ "py314", "tests", "jax" ]
 type-checking = [ "py314", "type-checking" ]
 type-checking-jax = [ "py314", "type-checking-jax", "jax" ]
 py314-metal = [ "py314", "tests", "metal" ]
 docs = [ "docs", "py313" ]
+[tool.pixi.feature.coverage.tasks]
+tests-with-cov = """\
+  pytest --cov-report=xml --cov=./ \
+  --ignore=src/gettsim/tests_germany/test_jittability.py\
+  """
 [tool.pixi.feature.cuda]
 platforms = [ "linux-64" ]
 system-requirements = { cuda = "13" }
@@ -296,16 +316,12 @@ pytest-xdist = "*"
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
-tests-with-cov = "pytest --cov-report=xml --cov=./"
 [tool.pixi.feature.tests.target.osx-64.tasks]
 tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
-tests-with-cov = "dot -c && pytest --cov-report=xml --cov=./"
 [tool.pixi.feature.tests.target.osx-arm64.tasks]
 tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
-tests-with-cov = "dot -c && pytest --cov-report=xml --cov=./"
 [tool.pixi.feature.tests.target.win-64.tasks]
 tests = "pytest"
-tests-with-cov = "pytest --cov-report=xml --cov=./"
 [tool.pixi.feature.tests.tasks]
 [tool.pixi.feature.type-checking-jax.pypi-dependencies]
 ty = "*"
@@ -327,8 +343,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.5"
-
-# ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]

@@ -38,7 +38,7 @@ def max_miete_m_lookup_mit_baujahr(
     tmp = raw_max_miete_m_nach_baujahr.copy()
     per_additional_person = tmp.pop("jede_weitere_person")
     max_n_p_defined = max(tmp.keys())
-    if not all(isinstance(i, int) for i in tmp):
+    if not all(isinstance(i, int) for i in tmp):  # pragma: no cover
         raise ValueError("All keys must be integers")
     baujahre = sorted(tmp[1].keys())
     lookup_dict = {}
@@ -70,7 +70,7 @@ def max_miete_m_lookup_ohne_baujahr(
     expanded = raw_max_miete_m.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
-    if not all(isinstance(i, int) for i in expanded):
+    if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
         raise ValueError("All keys must be integers")
     for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = {
@@ -89,7 +89,7 @@ def min_miete_lookup(
 ) -> ConsecutiveIntLookupTableParamValue:
     """Minimum rent considered in Wohngeld calculation."""
     max_n_p_normal = max_anzahl_personen["normale_berechnung"]
-    if max(raw_min_miete_m.keys()) != max_n_p_normal:
+    if max(raw_min_miete_m.keys()) != max_n_p_normal:  # pragma: no cover
         raise ValueError(
             "The maximum number of persons for the normal calculation of the basic"
             "Wohngeld formula `max_anzahl_personen['normale_berechnung'] "
@@ -113,7 +113,7 @@ def heizkostenentlastung_m_lookup(
     expanded = raw_heizkostenentlastung_m.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
-    if not all(isinstance(i, int) for i in expanded):
+    if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
         raise ValueError("All keys must be integers")
     for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
@@ -132,7 +132,7 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     expanded = raw_dauerhafte_heizkostenkomponente_m.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
-    if not all(isinstance(i, int) for i in expanded):
+    if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
         raise ValueError("All keys must be integers")
     for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
@@ -151,7 +151,7 @@ def klimakomponente_m_lookup(
     expanded = raw_klimakomponente_m.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
-    if not all(isinstance(i, int) for i in expanded):
+    if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
         raise ValueError("All keys must be integers")
     for n_p in range(max_n_p_defined + 1, max_anzahl_personen["indizierung"] + 1):  # ty: ignore[unsupported-operator]
         expanded[n_p] = (
