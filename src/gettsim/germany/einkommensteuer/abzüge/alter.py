@@ -150,11 +150,13 @@ def get_consecutive_int_1d_lookup_table_with_filled_up_tails(
     right_tail_key by filling the gaps with the minimum and maximum values from the
     original dictionary.
     """
-    if not all(isinstance(k, int) for k in raw):
+    if not all(isinstance(k, int) for k in raw):  # pragma: no cover
         raise ValueError("All dictionary keys must be integers")
     min_key_in_spec = min(raw.keys())
     max_key_in_spec = max(raw.keys())
-    if len(list(raw.keys())) != max_key_in_spec - min_key_in_spec + 1:
+    if (
+        len(list(raw.keys())) != max_key_in_spec - min_key_in_spec + 1
+    ):  # pragma: no cover
         raise ValueError("Dictionary keys must be consecutive integers.")
     consecutive_dict_start = dict.fromkeys(
         range(left_tail_key, min_key_in_spec),
