@@ -22,11 +22,6 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-      p_id_einstandspartner:
-        - 24
-        - 23
-        - -1
-        - -1
     arbeitsstunden_w:
       - 0.0
       - 0.0
@@ -47,6 +42,11 @@ inputs:
         - 0.0
         - 0.0
     familie:
+      p_id_lebenspartner:
+        - 24
+        - 23
+        - -1
+        - -1
       alleinerziehend:
         - false
         - false

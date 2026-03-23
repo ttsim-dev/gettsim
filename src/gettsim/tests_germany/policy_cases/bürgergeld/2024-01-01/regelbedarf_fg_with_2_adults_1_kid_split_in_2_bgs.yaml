@@ -16,15 +16,15 @@ inputs:
         - false
         - false
         - false
-      p_id_einstandspartner:
-        - 2
-        - -1
-        - 0
     bg_id:
       - 0
       - 1
       - 0
     familie:
+      p_id_lebenspartner:
+        - 2
+        - -1
+        - 0
       alleinerziehend:
         - false
         - false

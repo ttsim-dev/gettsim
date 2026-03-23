@@ -21,6 +21,11 @@ def p_id_ehepartner() -> int:
 
 
 @policy_input(foreign_key_type=FKType.MUST_NOT_POINT_TO_SELF)
+def p_id_lebenspartner() -> int:
+    """Identifier of Lebenspartner (§ 7 Abs. 3a SGB II)."""
+
+
+@policy_input(foreign_key_type=FKType.MUST_NOT_POINT_TO_SELF)
 def p_id_elternteil_1() -> int:
     """Identifier of the first parent."""
 

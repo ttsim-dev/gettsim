@@ -10,14 +10,13 @@ inputs:
     alter:
       - 40
       - 10
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
-        - -1
     bg_id:
       - 0
       - 0
     familie:
+      p_id_lebenspartner:
+        - -1
+        - -1
       alleinerziehend:
         - true
         - false

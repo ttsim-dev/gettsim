@@ -16,9 +16,6 @@ inputs:
       mehrbedarf_alleinerziehend_m_bg:
         - 0.36
         - 0.36
-      p_id_einstandspartner:
-        - -1
-        - -1
     arbeitsstunden_w:
       - 0.0
       - 0.0
@@ -27,6 +24,9 @@ inputs:
         - 2000.0
         - 0.0
     familie:
+      p_id_lebenspartner:
+        - -1
+        - -1
       alleinerziehend:
         - true
         - false

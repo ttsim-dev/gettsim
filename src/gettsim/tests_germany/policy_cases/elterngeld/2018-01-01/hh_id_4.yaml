@@ -12,10 +12,6 @@ inputs:
     alter_monate:
       - 0
       - 516
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
-        - -1
     arbeitsstunden_w:
       - 0.0
       - 33.0
@@ -41,6 +37,9 @@ inputs:
         - 0.0
         - 37406.0
     familie:
+      p_id_lebenspartner:
+        - -1
+        - -1
       alleinerziehend:
         - false
         - true

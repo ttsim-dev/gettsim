@@ -198,12 +198,12 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
 def erwachsenensatz_m_bis_2010(
     mehrbedarf_alleinerziehend_m: float,
     kindersatz_m: float,
-    p_id_einstandspartner: int,
+    familie__p_id_lebenspartner: int,
     regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling."""
     # BG has 2 adults
-    if p_id_einstandspartner >= 0:
+    if familie__p_id_lebenspartner >= 0:
         out = regelsatz_anteilsbasiert.basissatz * (
             regelsatz_anteilsbasiert.erwachsen.je_erwachsener_bei_zwei_erwachsenen
         )
@@ -224,12 +224,12 @@ def erwachsenensatz_m_bis_2010(
 def erwachsenensatz_m_ab_2011(
     mehrbedarf_alleinerziehend_m: float,
     kindersatz_m: float,
-    p_id_einstandspartner: int,
+    familie__p_id_lebenspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011."""
     # BG has 2 adults
-    if p_id_einstandspartner >= 0:
+    if familie__p_id_lebenspartner >= 0:
         out = grundsicherung__regelbedarfsstufen.rbs_2
     # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:

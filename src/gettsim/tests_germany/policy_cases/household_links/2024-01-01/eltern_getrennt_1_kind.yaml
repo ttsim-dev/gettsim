@@ -10,17 +10,16 @@ inputs:
       - 34
       - 34
       - 10
-    bürgergeld:
-      p_id_einstandspartner:
-        - -1
-        - -1
-        - -1
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
         - false
         - false
     familie:
+      p_id_lebenspartner:
+        - -1
+        - -1
+        - -1
       alleinerziehend:
         - true
         - false

@@ -9,10 +9,9 @@ inputs:
   assumed:
     alter:
       - 17
-    bürgergeld:
-      p_id_einstandspartner:
-        - -1
     familie:
+      p_id_lebenspartner:
+        - -1
       alleinerziehend:
         - false
       p_id_elternteil_1:

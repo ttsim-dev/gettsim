@@ -26,12 +26,6 @@ inputs:
         - false
         - false
         - false
-      p_id_einstandspartner:
-        - 79
-        - 78
-        - -1
-        - -1
-        - -1
     behinderungsgrad:
       - 0
       - 0
@@ -121,6 +115,12 @@ inputs:
         - 0.0
         - 0.0
     familie:
+      p_id_lebenspartner:
+        - 79
+        - 78
+        - -1
+        - -1
+        - -1
       alleinerziehend:
         - false
         - false

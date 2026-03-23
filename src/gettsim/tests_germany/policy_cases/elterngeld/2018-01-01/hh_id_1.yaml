@@ -10,9 +10,6 @@ inputs:
       - 43
     alter_monate:
       - 516
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
     arbeitsstunden_w:
       - 0.0
     einkommensteuer:
@@ -31,6 +28,8 @@ inputs:
       zu_versteuerndes_einkommen_vorjahr_y_sn:
         - 0.0
     familie:
+      p_id_lebenspartner:
+        - -1
       alleinerziehend:
         - false
       p_id_ehepartner:

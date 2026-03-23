@@ -19,13 +19,13 @@ inputs:
       nettoeinkommen_nach_abzug_freibetrag_m:
         - 555.0
         - 0.0
-      p_id_einstandspartner:
-        - -1
-        - -1
       regelbedarf_m_bg:
         - 1183.64
         - 1183.64
     familie:
+      p_id_lebenspartner:
+        - -1
+        - -1
       p_id_elternteil_1:
         - -1
         - 16

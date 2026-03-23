@@ -236,43 +236,50 @@ def alleinerziehend_sn(familie__alleinerziehend: bool, sn_id: int) -> bool:
     pass
 
 
-@policy_function()
-def ist_kind_in_einstandsgemeinschaft(alter: int) -> bool:
-    """Determines whether the given person is a child in a Einstandsgemeinschaft.
+@policy_function(start_date="2005-01-01", vectorization_strategy="not_required")
+def ist_kind_in_einsatzgemeinschaft(
+    p_id_elternteil_1: IntColumn,
+    p_id_elternteil_2: IntColumn,
+    p_id: IntColumn,
+    eg_id: IntColumn,
+    xnp: ModuleType,
+) -> BoolColumn:
+    """Child in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII)."""
+    eg_id_elternteil_1 = join(
+        foreign_key=p_id_elternteil_1,
+        primary_key=p_id,
+        target=eg_id,
+        value_if_foreign_key_is_missing=-1,
+        xnp=xnp,
+    )
+    eg_id_elternteil_2 = join(
+        foreign_key=p_id_elternteil_2,
+        primary_key=p_id,
+        target=eg_id,
+        value_if_foreign_key_is_missing=-1,
+        xnp=xnp,
+    )
+    in_gleicher_eg_wie_elternteil_1 = eg_id_elternteil_1 == eg_id
+    in_gleicher_eg_wie_elternteil_2 = eg_id_elternteil_2 == eg_id
+    return in_gleicher_eg_wie_elternteil_1 | in_gleicher_eg_wie_elternteil_2
 
-    The 'child' definition follows §27 SGB XII.
-    """
-    # TODO(@MImmesberger): This assumes that parents are part of the minor's (SGB XII)
-    # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
-    # XII.
-    # https://github.com/ttsim-dev/gettsim/issues/738
-    return alter <= 17
 
-
-@policy_function()
-def ist_erwachsener_in_einstandsgemeinschaft(
-    ist_kind_in_einstandsgemeinschaft: bool,
+@policy_function(start_date="2005-01-01")
+def ist_erwachsener_in_einsatzgemeinschaft(
+    ist_kind_in_einsatzgemeinschaft: bool,
 ) -> bool:
-    """
-    Determines whether the given person is an adult in a Einstandsgemeinschaft.
-
-    The 'adult' definition follows §27 SGB XII.
-    """
-    # TODO(@MImmesberger): This assumes that parents are part of the minor's
-    # Einstandsgemeinschaft. This is not necessarily true. Rewrite once we refactor SGB
-    # XII.
-    # https://github.com/ttsim-dev/gettsim/issues/738
-    return not ist_kind_in_einstandsgemeinschaft
+    """Adult in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII)."""
+    return not ist_kind_in_einsatzgemeinschaft
 
 
 @agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
-def anzahl_kinder_eg(ist_kind_in_einstandsgemeinschaft: bool, eg_id: int) -> int:
+def anzahl_kinder_eg(ist_kind_in_einsatzgemeinschaft: bool, eg_id: int) -> int:
     pass
 
 
 @agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
 def anzahl_erwachsene_eg(
-    ist_erwachsener_in_einstandsgemeinschaft: bool, eg_id: int
+    ist_erwachsener_in_einsatzgemeinschaft: bool, eg_id: int
 ) -> int:
     pass
 

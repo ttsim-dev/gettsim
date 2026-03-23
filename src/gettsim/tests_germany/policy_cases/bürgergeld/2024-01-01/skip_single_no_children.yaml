@@ -12,7 +12,7 @@ inputs:
       - 45
     bürgergeld__bezug_im_vorjahr:
       - false
-    bürgergeld__p_id_einstandspartner:
+    familie__p_id_lebenspartner:
       - -1
     arbeitsstunden_w:
       - 20.0

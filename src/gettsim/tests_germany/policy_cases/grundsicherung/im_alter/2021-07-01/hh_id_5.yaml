@@ -8,9 +8,6 @@ inputs:
   provided:
     alter:
       - 68
-    arbeitslosengeld_2:
-      p_id_einstandspartner:
-        - -1
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -50,7 +47,7 @@ inputs:
         - false
       p_id_ehepartner:
         - -1
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
       p_id_elternteil_1:
         - -1
