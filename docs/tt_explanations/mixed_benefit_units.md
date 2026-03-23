@@ -4,10 +4,8 @@
 
 In the German tax-transfer system, the unit at which benefits are computed does not
 always coincide with the household. Members of the same household can fall under
-different benefit systems (SGB II vs. SGB XII), and within a single system, different
-household members may receive benefits through different channels (Bedarfsgemeinschaft
-vs. wohngeldrechtlicher Teilhaushalt). This document explains three "mixed" scenarios
-that arise from these interactions.
+different benefit systems (SGB II vs. SGB XII, or SGB II vs. Wohngeld). This document
+explains three "mixed" scenarios that arise from these interactions.
 
 ## Gemischte Bedarfsgemeinschaft (SGB II / SGB XII)
 
@@ -27,12 +25,11 @@ XII).
 ### Individual entitlements within a Bedarfsgemeinschaft
 
 Bürgergeld is an **individual entitlement**, not a group-level payment. Even within a
-normal Bedarfsgemeinschaft, each person has their own individual claim (BVerfG
-27.07.2016 — 1 BvR 371/11). The Bedarfsgemeinschaft serves as the *calculation unit* for
-pooling income and determining need, but the resulting benefit amount is attributed to
-individual persons.
+normal Bedarfsgemeinschaft, each person has their own individual claim. The
+Bedarfsgemeinschaft serves as the *calculation unit* for pooling income and determining
+need, but the resulting benefit amount is attributed to individual persons.
 
-There are two methods for attributing income to individual BG members:
+In principle, there are two methods for attributing income to individual BG members:
 
 |                           | Horizontal method                                                            | Vertical method                                                           |
 | ------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -217,8 +214,6 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
   Horizontal method for normal BGs
 - [BSG B 14 AS 89/20 R](https://www.bsg.bund.de/SharedDocs/Entscheidungen/DE/2021/2021_11_11_B_14_AS_89_20_R.html) (11.11.2021):
   Vertical method for mixed BGs
-- [BVerfG 1 BvR 371/11](https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/DE/2016/07/rs20160727_1bvr037111.html) (27.07.2016):
-  Individual entitlement within BG
 
 **Wohngeldrechtlicher Teilhaushalt:**
 - [WoGG §7](https://www.gesetze-im-internet.de/wogg/__7.html):
