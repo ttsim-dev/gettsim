@@ -43,7 +43,7 @@ inputs:
         - 22
         - 22
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 23
         - 22
         - -1

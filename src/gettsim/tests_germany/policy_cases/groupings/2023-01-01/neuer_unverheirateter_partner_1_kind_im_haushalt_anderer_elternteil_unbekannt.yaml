@@ -16,7 +16,7 @@ inputs:
         - false
         - false
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 1
         - 0
         - -1
@@ -57,11 +57,11 @@ outputs:
     - 0
     - 0
     - 0
-  eg_id:
+  lp_id:
     - 0
     - 0
     - 1
-  sg_id:
+  eg_id:
     - 0
     - 0
     - 0

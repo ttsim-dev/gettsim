@@ -23,7 +23,7 @@ inputs:
         - 1183.64
         - 1183.64
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
         - -1
       p_id_elternteil_1:

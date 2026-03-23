@@ -47,7 +47,7 @@ inputs:
       betrag_m:
         - 0.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
       alleinerziehend:
         - false
@@ -66,7 +66,7 @@ inputs:
     hh_id:
       - 101
     kindergeld:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
       p_id_empfänger:
         - -1
@@ -99,9 +99,9 @@ inputs:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
-    vermögen_sg:
+    vermögen_eg:
       - 0.0
     wohnen:
       bewohnt_eigentum_hh:
@@ -117,5 +117,5 @@ outputs:
     im_alter:
       einkommen_m:
         - 500.0
-      betrag_m_sg:
+      betrag_m_eg:
         - 352.0

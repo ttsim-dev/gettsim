@@ -88,7 +88,7 @@ transfers), a column is indicated by an underscore plus one of {`y`, `q`, `m`, `
 `d`}.
 
 The default unit a column refers to is an individual. In case of groupings of
-individuals, an underscore plus one of {`sn`, `hh`, `fg`, `bg`, `eg`, `ehe`} will
+individuals, an underscore plus one of {`sn`, `hh`, `fg`, `bg`, `eg`, `lp`, `ehe`} will
 indicate the level of aggregation.
 
 GETTSIM knows about the following units:
@@ -108,9 +108,11 @@ GETTSIM knows about the following units:
 - `arbeitslosengeld_2__bg_id`: Bedarfsgemeinschaft, i.e., Familiengemeinschaft excluding
   children who have enough income to fend for themselves (they will form separate
   `bg`s). Subset of `arbeitslosengeld_2__fg_id`.
-- `arbeitslosengeld_2__eg_id`: Einstandsgemeinschaft, a couple whose members are deemed
-  to be responsible for each other. This includes couples that live together and may or
-  may not be married or in a civil union.
+- `grundsicherung__eg_id`: Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum
+  of two generations, the relevant unit for Grundsicherung im Alter / Sozialhilfe.
+- `arbeitslosengeld_2__lp_id`: Lebenspartner, a couple whose members are deemed to be
+  responsible for each other. This includes couples that live together and may or may
+  not be married or in a civil union.
 - `familie__ehe_id`: Ehegemeinschaft, i.e. couples that are married or in a civil union.
 - `einkommensteuer__sn_id`: Steuernummer (same for spouses filing taxes jointly, not the
   same as the Germany-wide Steuer-ID)

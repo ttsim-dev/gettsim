@@ -30,7 +30,7 @@ inputs:
         - 2000.0
         - 2000.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
         - -1
       alleinerziehend:

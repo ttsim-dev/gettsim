@@ -46,7 +46,7 @@ inputs:
         - 0.0
         - 35760.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 56
         - -1
         - 55

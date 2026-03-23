@@ -24,7 +24,8 @@ The units are:
 | Bedarfsgemeinschaft              | arbeitslosengeld_2\_\_bg_id | Familiengemeinschaft except for children who have enough income to fend for themselves. Relevant unit for Bürgergeld / Arbeitslosengeld 2.                                      | yes        |
 | Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
-| Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
+| Einsatzgemeinschaft              | grundsicherung\_\_eg_id     | Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum of two generations, the relevant base unit for Grundsicherung im Alter / Sozialhilfe.                             | yes        |
+| Lebenspartner                    | arbeitslosengeld_2\_\_lp_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
 Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
 out of the box. If you need to handle more complex cases, you will need to pass all of
@@ -89,8 +90,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 ### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
-  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
+  since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
@@ -167,7 +168,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 #### Description
 
 - Bedarfsgemeinschaft comprised of:
-  - Einstandsgemeinschaft (SGB II - max 2 adults, marriage-like relationships)
+  - Lebenspartner (SGB II - max 2 adults, marriage-like relationships)
   - Children under 18/25 whose income does not exceed their own needs. - The
     "Kinderwohngeld" allows children to leave the Bedarfsgemeinschaft if Wohngeld (and
     other sourced of income) is sufficient to cover their needs. Not implemented yet.
@@ -182,8 +183,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
-  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
+  since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Hilfe zum Lebensunterhalt)
@@ -192,7 +193,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 Government expenditures: 1.5 Mrd €
 
-- Entitled to benefits: Einstandsgemeinschaft (SGB XII) - §27 SGB XII
+- Entitled to benefits: Einsatzgemeinschaft (SGB XII) - §27 SGB XII
   - max 2 adults, marriage-like relationships
   - Their children under 18 living in the same household whose income does not exceed
     their own needs
@@ -214,14 +215,14 @@ Regarding the household definition:
 
 #### Aggregation unit
 
-- Not implemented yet. The current `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is
-  not sufficient as it doesn't include children (it follows the SGB II definition).
+- Not implemented yet. `grundsicherung__eg_id` (Einsatzgemeinschaft) is defined for
+  Grundsicherung im Alter but not yet used here.
 
 #### Pointers
 
 - `hh_id`
-- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
-  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
+  since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Grundsicherung im Alter / bei Erwerbsminderung)
@@ -230,7 +231,7 @@ Regarding the household definition:
 
 Government expenditures: 7 Mrd €
 
-- Entitled to benefits: Einstandsgemeinschaft (SGB XII) - §27 SGB XII
+- Entitled to benefits: Einsatzgemeinschaft (SGB XII) - §27 SGB XII
   - max 2 adults, marriage-like relationships
   - Their children under 18 living in the same household whose income does not exceed
     their own needs
@@ -240,15 +241,12 @@ Government expenditures: 7 Mrd €
 
 #### Aggregation unit
 
-- Currently: `arbeitslosengeld_2__eg_id` until 2022; `bürgergeld__eg_id` since 2023
-  (endogenous)
-- The current implementation of `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is not
-  sufficient as it doesn't include children (it follows the SGB II definition).
+- `grundsicherung__eg_id` (Einsatzgemeinschaft, endogenous)
 
 #### Pointers
 
-- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
-  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
+  since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Eingliederungshilfe für Menschen mit Behinderung)
@@ -282,7 +280,7 @@ Government expenditures: 4 Mrd €
   - Spouse / registered partner / life partner (as long as in same household)
   - Parents (incl. step-, foster- and in-laws) (as long as in same household)
   - Children (incl. step-, foster- and adopted children) (as long as in same household)
-  - "Einstandspartner": non-relatives living in the same household and sharing
+  - "Lebenspartner": non-relatives living in the same household and sharing
     responsibility for each other (e.g. couples that are not married or in a civil
     union) (as long as in same household)
     - A community of responsibility or joint liability is regulated in § 7 Abs. 3a SGB
@@ -313,8 +311,8 @@ Government expenditures: 4 Mrd €
 ### Pointers
 
 - `hh_id`
-- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
-  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
+- `arbeitslosengeld_2__p_id_lebenspartner` until 2022; `bürgergeld__p_id_lebenspartner`
+  since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Kinderwohngeld
@@ -342,7 +340,7 @@ Government expenditures: 4 Mrd €
 
   Typically, 1. will be the solution (hurdles for joint economic activity are high).
 
-- An alternative would be another ID variable that specifies Einstandsgemeinschaft
+- An alternative would be another ID variable that specifies Einsatzgemeinschaft
   according to SGB II and SGB XII.
 
 ### Parts of the data not available

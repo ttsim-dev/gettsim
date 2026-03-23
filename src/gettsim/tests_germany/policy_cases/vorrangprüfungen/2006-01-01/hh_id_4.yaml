@@ -38,7 +38,7 @@ inputs:
         - 2281.0
         - 2281.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 9
         - 8
         - -1

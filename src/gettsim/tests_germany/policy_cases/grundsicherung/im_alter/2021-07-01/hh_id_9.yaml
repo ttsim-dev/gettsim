@@ -59,7 +59,7 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 13
         - 12
       alleinerziehend:
@@ -87,7 +87,7 @@ inputs:
       - 9
       - 9
     kindergeld:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
         - 0.0
       p_id_empfänger:
@@ -132,10 +132,10 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
         - 0.0
-    vermögen_sg:
+    vermögen_eg:
       - 0.0
       - 0.0
     wohnen:
@@ -154,6 +154,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
         - 0.0

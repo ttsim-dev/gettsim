@@ -17,7 +17,7 @@ inputs:
         - false
         - false
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 1
         - 0
         - -1

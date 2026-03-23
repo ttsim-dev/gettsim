@@ -37,7 +37,7 @@ inputs:
         - 7406.0
         - 39806.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 56
         - 55
       alleinerziehend:

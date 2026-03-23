@@ -51,7 +51,7 @@ inputs:
       betrag_m:
         - 0.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
       alleinerziehend:
         - false

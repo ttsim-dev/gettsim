@@ -2,7 +2,7 @@
 info:
   note: |-
     Added capital income of 10 euros for household (expected difference in
-    grundsicherung__im_alter__betrag_m_sg ((10*12)-26)/12)=7.83333333)
+    grundsicherung__im_alter__betrag_m_eg ((10*12)-26)/12)=7.83333333)
   precision_atol: 0.01
   source: |-
     Adjusted test case based on
@@ -61,7 +61,7 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - 18
         - 17
       alleinerziehend:
@@ -89,7 +89,7 @@ inputs:
       - 13
       - 13
     kindergeld:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
         - 0.0
       p_id_empfänger:
@@ -134,10 +134,10 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_sg:
+      betrag_m_eg:
         - 0.0
         - 0.0
-    vermögen_sg:
+    vermögen_eg:
       - 0.0
       - 0.0
     wohnen:
@@ -156,6 +156,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_sg:
+      betrag_m_eg:
         - 314.1666667
         - 314.1666667

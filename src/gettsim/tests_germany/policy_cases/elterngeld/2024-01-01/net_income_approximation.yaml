@@ -21,7 +21,7 @@ inputs:
         - 1000.0
         - 200.0
     familie:
-      p_id_einstandspartner:
+      p_id_lebenspartner:
         - -1
         - -1
       p_id_ehepartner:
