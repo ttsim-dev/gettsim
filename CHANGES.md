@@ -15,8 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1159` Add Einsatzgemeinschaft (SGB XII); rename Einstandsgemeinschaft to
-  Lebensgemeinschaft (SGB II). ({ghuser}`MImmesberger`)
+- {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
+  ({ghuser}`MImmesberger`)
 - {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
   Alter. ({ghuser}`MImmesberger`)
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.

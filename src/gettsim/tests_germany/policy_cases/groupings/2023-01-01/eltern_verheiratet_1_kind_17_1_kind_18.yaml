@@ -1,16 +1,19 @@
 ---
 info:
-  note: ''
+  note: |-
+    Married couple with two children: one aged 17 (in both fg_id and eg_id with parents)
+    and one aged 18 (in fg_id but NOT in eg_id with parents). Tests the eg_id age
+    boundary at alter < 18 vs fg_id boundary at alter < 25.
   precision_atol: 0.01
-  source: ''
+  source: Self-created test case
 inputs:
   assumed: {}
   provided:
     alter:
-      - 39
-      - 42
-      - 13
-      - 10
+      - 45
+      - 48
+      - 17
+      - 18
     einkommensteuer:
       gemeinsam_veranlagt:
         - true
@@ -39,20 +42,20 @@ inputs:
         - 1
         - 1
     geburtsjahr:
-      - 1984
-      - 1981
-      - 2010
-      - 2013
+      - 1978
+      - 1975
+      - 2005
+      - 2004
     geburtsmonat:
       - 7
       - 7
-      - 3
       - 10
+      - 3
     geburtstag:
       - 14
       - 14
       - 1
-      - 21
+      - 1
     hh_id:
       - 0
       - 0
@@ -73,7 +76,7 @@ outputs:
     - 0
     - 0
     - 0
-    - 0
+    - 1
   ehe_id:
     - 0
     - 0

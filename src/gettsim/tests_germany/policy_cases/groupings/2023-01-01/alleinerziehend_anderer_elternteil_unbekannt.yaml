@@ -45,9 +45,6 @@ outputs:
   bg_id:
     - 0
     - 0
-  lg_id:
-    - 0
-    - 1
   eg_id:
     - 0
     - 0

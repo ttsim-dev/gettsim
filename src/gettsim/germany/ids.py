@@ -189,28 +189,6 @@ def bg_id(
 
 
 @group_creation_function()
-def lg_id(
-    familie__p_id_lebenspartner: IntColumn,
-    p_id: IntColumn,
-    xnp: ModuleType,
-) -> IntColumn:
-    """Lebensgemeinschaft. A couple whose members are deemed to be responsible for each
-    other.
-    """
-    n = xnp.max(p_id) + 1
-    p_id_lebenspartner__or_own_p_id = xnp.where(
-        familie__p_id_lebenspartner < 0,
-        p_id,
-        familie__p_id_lebenspartner,
-    )
-
-    return (
-        xnp.maximum(p_id, p_id_lebenspartner__or_own_p_id)
-        + xnp.minimum(p_id, p_id_lebenspartner__or_own_p_id) * n
-    )
-
-
-@group_creation_function()
 def eg_id(
     familie__p_id_lebenspartner: IntColumn,
     p_id: IntColumn,

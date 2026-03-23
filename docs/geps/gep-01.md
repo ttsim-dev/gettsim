@@ -111,9 +111,6 @@ GETTSIM knows about the following units:
   `bürgergeld__fg_id`.
 - `grundsicherung__eg_id`: Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum
   of two generations, the relevant unit for Grundsicherung im Alter / Sozialhilfe.
-- `arbeitslosengeld_2__lg_id` and `bürgergeld__lg_id`: Lebensgemeinschaft, a couple
-  (Lebenspartner) whose members are deemed to be responsible for each other. This
-  includes couples that live together and may or may not be married or in a civil union.
 - `familie__ehe_id`: Ehegemeinschaft, i.e. couples that are married or in a civil union.
 - `einkommensteuer__sn_id`: Steuernummer (same for spouses filing taxes jointly, not the
   same as the Germany-wide Steuer-ID)

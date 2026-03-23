@@ -190,7 +190,6 @@ def höchstbetrag_m(...) -> float: ...
 - `_fg` (Familiengemeinschaft)
 - `_bg` (Bedarfsgemeinschaft)
 - `_eg` (Einsatzgemeinschaft)
-- `_lg` (Lebensgemeinschaft)
 - `_ehe` (Ehegemeinschaft)
 
 Example: `arbeitslosengeld_2__betrag_m_bg` = monthly ALG2 amount at Bedarfsgemeinschaft

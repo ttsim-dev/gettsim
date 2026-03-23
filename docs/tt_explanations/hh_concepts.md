@@ -25,7 +25,6 @@ The units are:
 | Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
 | Einsatzgemeinschaft              | grundsicherung\_\_eg_id     | Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum of two generations, the relevant base unit for Grundsicherung im Alter / Sozialhilfe.                             | yes        |
-| Lebensgemeinschaft               | arbeitslosengeld_2\_\_lg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
 
 Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
 out of the box. If you need to handle more complex cases, you will need to pass all of
@@ -167,7 +166,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 #### Description
 
 - Bedarfsgemeinschaft comprised of:
-  - Lebensgemeinschaft (SGB II - max 2 adults, marriage-like relationships)
+  - A couple (Lebenspartner) whose members are deemed to be responsible for each other
   - Children under 18/25 whose income does not exceed their own needs. - The
     "Kinderwohngeld" allows children to leave the Bedarfsgemeinschaft if Wohngeld (and
     other sourced of income) is sufficient to cover their needs. Not implemented yet.
