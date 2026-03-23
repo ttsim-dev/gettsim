@@ -216,6 +216,17 @@ ini_options.markers = [
 ini_options.norecursedirs = [ "docs" ]
 ini_options.testpaths = [ "src/gettsim/tests_germany" ]
 
+[tool.coverage.report]
+exclude_lines = [ "pragma: no cover", "if TYPE_CHECKING:" ]
+[tool.coverage.run]
+source = [
+  "src/gettsim/__init__.py",
+  "src/gettsim/germany",
+  "src/gettsim/plot/dag/__init__.py",
+]
+omit = [ "*/__init__.py", ".pixi/*" ]
+branch = true
+
 [tool.pixi.dependencies]
 ipywidgets = "*"
 jupyterlab = "*"
