@@ -1,18 +1,19 @@
 ---
 info:
   note: |-
-    Married retired couple, both with Grundrentenzeiten >= 33 years.
-    Tests the 2023 Vermögensfreibetrag (10,000 EUR per adult, § 1 DurchführungsVO zu
-    § 90 Abs. 2 Nr. 9 SGB XII, amended by Art. 9 Bürgergeld-Gesetz) and the couple
-    branch of Mehrbedarf/Regelbedarf at the eg level with anzahl_erwachsene_eg = 2.
+    Two single retirees in separate households. Person 0 receives 100 EUR/month in
+    supplementary pension (50 betriebliche + 50 Riester), which is fully covered by
+    the Freibetrag (§ 82 Abs. 4, 5 SGB XII: first 100 EUR are exempt). Person 1 has
+    no supplementary pension. Both have the same gesetzliche Rente, so the identical
+    betrag_m_eg demonstrates that the Freibetrag fully offsets the supplementary income.
   precision_atol: 0.01
   source: Self-created test case
 inputs:
   assumed: {}
   provided:
     alter:
-      - 70
-      - 67
+      - 73
+      - 73
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -35,8 +36,8 @@ inputs:
             - 0.0
             - 0.0
       gemeinsam_veranlagt:
-        - true
-        - true
+        - false
+        - false
     einnahmen:
       bruttolohn_m:
         - 0.0
@@ -46,10 +47,10 @@ inputs:
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
-          - 0.0
+          - 50.0
           - 0.0
         geförderte_private_vorsorge_m:
-          - 0.0
+          - 50.0
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
@@ -66,14 +67,14 @@ inputs:
         - 0.0
     familie:
       p_id_lebenspartner:
-        - 1
-        - 0
+        - -1
+        - -1
       alleinerziehend:
         - false
         - false
       p_id_ehepartner:
-        - 1
-        - 0
+        - -1
+        - -1
       p_id_elternteil_1:
         - -1
         - -1
@@ -81,8 +82,8 @@ inputs:
         - -1
         - -1
     geburtsjahr:
-      - 1953
-      - 1956
+      - 1950
+      - 1950
     geburtsmonat:
       - 1
       - 1
@@ -91,7 +92,7 @@ inputs:
       - 1
     hh_id:
       - 0
-      - 0
+      - 1
     kindergeld:
       betrag_m_eg:
         - 0.0
@@ -120,7 +121,7 @@ inputs:
       rente:
         altersrente:
           betrag_m:
-            - 400.0
+            - 500.0
             - 500.0
         bezieht_rente:
           - true
@@ -149,17 +150,17 @@ inputs:
         - false
         - false
       bruttokaltmiete_m_hh:
-        - 400.0
-        - 400.0
+        - 350.0
+        - 350.0
       heizkosten_m_hh:
-        - 80.0
-        - 80.0
+        - 60.0
+        - 60.0
       wohnfläche_hh:
-        - 60.0
-        - 60.0
+        - 45.0
+        - 45.0
 outputs:
   grundsicherung:
     im_alter:
       betrag_m_eg:
-        - 892.0
-        - 892.0
+        - 632.0
+        - 632.0

@@ -88,7 +88,7 @@ transfers), a column is indicated by an underscore plus one of {`y`, `q`, `m`, `
 `d`}.
 
 The default unit a column refers to is an individual. In case of groupings of
-individuals, an underscore plus one of {`sn`, `hh`, `fg`, `bg`, `eg`, `lg`, `ehe`} will
+individuals, an underscore plus one of {`sn`, `hh`, `fg`, `bg`, `eg`, `ehe`} will
 indicate the level of aggregation.
 
 GETTSIM knows about the following units:
