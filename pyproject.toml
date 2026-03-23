@@ -343,7 +343,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.5"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "fix/loop-vectorization-scalar-returns" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
