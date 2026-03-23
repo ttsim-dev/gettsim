@@ -1,8 +1,6 @@
 ---
 info:
   note: |-
-    TODO: Recompute expected values with SG grouping (parent + child in same group).
-    See  # 1147.
     Test with child and positive wealth below wealth allowance (website did not add
     general amount for child)
   precision_atol: 0.01
@@ -158,4 +156,4 @@ outputs:
     im_alter:
       betrag_m_eg:
         - 852.71
-        - 0.0
+        - 852.71
