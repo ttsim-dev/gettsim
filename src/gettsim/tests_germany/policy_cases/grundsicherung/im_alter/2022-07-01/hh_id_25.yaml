@@ -11,6 +11,12 @@ inputs:
     alter:
       - 50
       - 16
+    alter_monate:
+      - 606
+      - 198
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -87,6 +93,9 @@ inputs:
       - 25
       - 25
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
       betrag_m_eg:
         - 0.0
         - 0.0

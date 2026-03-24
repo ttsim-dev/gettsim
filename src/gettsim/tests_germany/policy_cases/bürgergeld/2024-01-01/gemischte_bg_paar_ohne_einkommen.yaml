@@ -1,122 +1,193 @@
 ---
 info:
-  note: ''
+  note: |-
+    Gemischte Bedarfsgemeinschaft: Anna (55, erwerbsfähig) and Bernd (67, past
+    Regelaltersgrenze). Neither has any income. Both get RBS 2 (partner rate, 506 EUR).
+    KdU is split kopfteilig (300 EUR each from 600 total rent).
+    Vertical method applies (BSG B 14 AS 89/20 R):
+    - Anna gets Bürgergeld: regelbedarf 806 - 0 income = 806
+    - Bernd gets Grundsicherung im Alter: regelbedarf 806 - 0 income = 806
   precision_atol: 0.01
-  source: |-
-    https://www.bpb.de/politik/innenpolitik/rentenpolitik/289395/leistungshoehe-und-fallbeispiele
+  source: Self-created test case based on docs/tt_explanations/mixed_benefit_units.md
 inputs:
   assumed: {}
   provided:
     alter:
-      - 50
+      - 55
+      - 67
     alter_monate:
-      - 606
+      - 660
+      - 804
     arbeitsstunden_w:
       - 0.0
+      - 0.0
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
     einkommensteuer:
       betrag_y_sn:
+        - 0.0
         - 0.0
       einkünfte:
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
+            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
+            - 0.0
             - 0.0
         sonstige:
           alle_weiteren_m:
             - 0.0
+            - 0.0
       gemeinsam_veranlagt:
-        - false
+        - true
+        - true
     einnahmen:
       bruttolohn_m:
         - 0.0
+        - 0.0
       kapitalerträge_m:
+        - 0.0
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
+          - 0.0
         geförderte_private_vorsorge_m:
+          - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
+          - 0.0
         aus_berufsständischen_versicherungen_m:
+          - 0.0
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
+        - 0.0
       betrag_m:
+        - 0.0
         - 0.0
     familie:
       p_id_lebenspartner:
-        - -1
+        - 1
+        - 0
       alleinerziehend:
         - false
+        - false
       p_id_ehepartner:
-        - -1
+        - 1
+        - 0
       p_id_elternteil_1:
+        - -1
         - -1
       p_id_elternteil_2:
         - -1
+        - -1
     geburtsjahr:
-      - 1967
+      - 1969
+      - 1957
     geburtsmonat:
+      - 1
       - 1
     geburtstag:
       - 1
+      - 1
     hh_id:
-      - 16
+      - 0
+      - 0
     kindergeld:
       in_ausbildung:
         - false
-      betrag_m_eg:
-        - 0.0
+        - false
       p_id_empfänger:
         - -1
+        - -1
     p_id:
-      - 21
+      - 0
+      - 1
     schwerbehindert_grad_g:
-      - true
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
+        - 0.0
         - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
           - 0.0
+          - 0.0
       beiträge_versicherter_m:
+        - 0.0
         - 0.0
       rente:
         altersrente:
           betrag_m:
-            - 425.0
+            - 0.0
+            - 0.0
         bezieht_rente:
+          - false
           - true
         erwerbsminderung:
           betrag_m:
             - 0.0
+            - 0.0
         grundrente:
           grundrentenzeiten_monate:
-            - 120
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
-    unterhaltsvorschuss:
-      betrag_m_eg:
         - 0.0
-    vermögen_eg:
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
       - 0.0
     wohnen:
       bewohnt_eigentum_hh:
         - false
+        - false
       bruttokaltmiete_m_hh:
-        - 252.5
+        - 500.0
+        - 500.0
       heizkosten_m_hh:
-        - 50.0
+        - 100.0
+        - 100.0
       wohnfläche_hh:
-        - 35.0
+        - 60.0
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
 outputs:
+  über_regelaltersgrenze:
+    - false
+    - true
+  ist_gemischte_bg:
+    - true
+    - true
+  bürgergeld:
+    betrag_m:
+      - 806.0
+      - 0.0
+    betrag_m_bg:
+      - 806.0
+      - 806.0
   grundsicherung:
     im_alter:
+      betrag_m:
+        - 0.0
+        - 806.0
       betrag_m_eg:
-        - 356.03
+        - 806.0
+        - 806.0

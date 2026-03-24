@@ -14,6 +14,12 @@ inputs:
     alter:
       - 70
       - 22
+    alter_monate:
+      - 846
+      - 270
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -94,6 +100,9 @@ inputs:
       - 0
       - 0
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
       betrag_m_eg:
         - 0.0
         - 0.0
@@ -162,5 +171,5 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m_eg:
-        - 1194.0
-        - 1134.0
+        - 567.0
+        - 427.0

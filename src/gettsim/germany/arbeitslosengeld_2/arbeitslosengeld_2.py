@@ -6,37 +6,19 @@ from gettsim.tt import policy_function
 
 
 @policy_function(start_date="2005-01-01", end_date="2022-12-31")
-def betrag_m_bg(
-    anspruchshöhe_m_bg: float,
-    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
-    volljährige_alle_rentenbezieher_hh: bool,
-) -> float:
-    """Final monthly subsistence payment on household level."""
-    # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
-    # Alter (SGB XII) is implemented yet. We assume for now that households with only
-    # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
-    # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
-    # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/ttsim-dev/gettsim/issues/703
-    if (
-        vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
-        or volljährige_alle_rentenbezieher_hh
-    ):
-        out = 0.0
-    else:
-        out = anspruchshöhe_m_bg
-
-    return out
-
-
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
 def anspruchshöhe_m_bg(
     regelbedarf_m_bg: float,
     anzurechnendes_einkommen_m_bg: float,
     vermögen_bg: float,
     vermögensfreibetrag_bg: float,
 ) -> float:
-    """Potential basic subsistence (after income deduction and wealth check)."""
+    """Potential basic subsistence at BG level (after income deduction and wealth check).
+
+    Used by the horizontal method (Bedarfsanteilsmethode) to distribute the BG-level
+    entitlement proportionally to individual Bedarf shares.
+
+    Reference: § 9 Abs. 2 Satz 3 SGB II, BSG B 14 AS 55/07 R (18.06.2008)
+    """
     if vermögen_bg > vermögensfreibetrag_bg:
         out = 0.0
     else:
@@ -44,5 +26,76 @@ def anspruchshöhe_m_bg(
             0.0,
             regelbedarf_m_bg - anzurechnendes_einkommen_m_bg,
         )
+
+    return out
+
+
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+def anspruchshöhe_nach_bedarfsanteil_m(
+    regelbedarf_m: float,
+    regelbedarf_m_bg: float,
+    anspruchshöhe_m_bg: float,
+) -> float:
+    """Individual share of BG entitlement, proportional to Bedarf.
+
+    Horizontal method (Bedarfsanteilsmethode) for normal BGs where all members are
+    SGB II eligible.
+
+    Reference: § 9 Abs. 2 Satz 3 SGB II, BSG B 14 AS 55/07 R (18.06.2008)
+    """
+    if regelbedarf_m_bg > 0.0:
+        return (regelbedarf_m / regelbedarf_m_bg) * anspruchshöhe_m_bg
+    else:
+        return 0.0
+
+
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+def anspruchshöhe_nach_vertikalmethode_m(
+    regelbedarf_m: float,
+    anzurechnendes_einkommen_m: float,
+    vermögen_bg: float,
+    vermögensfreibetrag_bg: float,
+) -> float:
+    """Individual entitlement using own Bedarf and income only.
+
+    Vertical method for gemischte Bedarfsgemeinschaften where the SGB XII partner's
+    needs and income are excluded from the SGB II computation.
+
+    Reference: BSG B 14 AS 89/20 R (11.11.2021)
+    """
+    if vermögen_bg > vermögensfreibetrag_bg:
+        out = 0.0
+    else:
+        out = max(0.0, regelbedarf_m - anzurechnendes_einkommen_m)
+
+    return out
+
+
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+def betrag_m(
+    anspruchshöhe_nach_bedarfsanteil_m: float,
+    anspruchshöhe_nach_vertikalmethode_m: float,
+    ist_gemischte_bg: bool,
+    über_regelaltersgrenze: bool,
+    hat_erwerbsfähiges_mitglied_bg: bool,
+    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+) -> float:
+    """Final monthly ALG II benefit per person.
+
+    Persons past the Regelaltersgrenze receive Grundsicherung im Alter (SGB XII) instead.
+    In a gemischte BG, the vertical method is used; otherwise the horizontal method.
+
+    Reference: § 19 Abs. 1 Satz 2 SGB II, § 7 Abs. 3 SGB II
+    """
+    if (
+        über_regelaltersgrenze
+        or not hat_erwerbsfähiges_mitglied_bg
+        or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
+    ):
+        out = 0.0
+    elif ist_gemischte_bg:
+        out = anspruchshöhe_nach_vertikalmethode_m
+    else:
+        out = anspruchshöhe_nach_bedarfsanteil_m
 
     return out

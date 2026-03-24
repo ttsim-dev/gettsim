@@ -12,6 +12,10 @@ inputs:
       - 40
       - 38
       - 3
+    alter_monate:
+      - 480
+      - 456
+      - 36
     bürgergeld:
       bezug_im_vorjahr:
         - false

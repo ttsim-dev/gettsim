@@ -1,40 +1,38 @@
 ---
 info:
-  note: ''
+  note: |-
+    Gemischte Bedarfsgemeinschaft: one partner erwerbsfähig (SGB II), one past
+    Regelaltersgrenze (SGB XII). Both remain in the same BG and EG.
   precision_atol: 0.01
   source: ''
 inputs:
-  assumed: {}
   provided:
     alter:
-      - 39
-      - 13
-    alter_monate:
-      - 462
-      - 154
-    arbeitsstunden_w:
-      - 0.0
-      - 0.0
-    einkommensteuer:
-      gemeinsam_veranlagt:
-        - false
-        - false
+      - 73
+      - 59
     familie:
       p_id_lebenspartner:
-        - -1
-        - -1
+        - 1
+        - 0
+      alleinerziehend:
+        - false
+        - false
       p_id_ehepartner:
-        - -1
-        - -1
+        - 1
+        - 0
       p_id_elternteil_1:
         - -1
-        - 0
+        - -1
       p_id_elternteil_2:
         - -1
         - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
     geburtsjahr:
-      - 1984
-      - 2010
+      - 1950
+      - 1964
     geburtsmonat:
       - 7
       - 3
@@ -51,15 +49,6 @@ outputs:
   bg_id:
     - 0
     - 0
-  eg_id:
-    - 0
-    - 0
-  ehe_id:
-    - 0
-    - 1
-  fg_id:
-    - 0
-    - 0
   sn_id:
     - 0
-    - 1
+    - 0

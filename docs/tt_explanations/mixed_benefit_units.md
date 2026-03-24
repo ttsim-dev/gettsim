@@ -198,7 +198,7 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
 
 | Topic                            | Status                             | Issues                                                                                                               |
 | -------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Gemischte Bedarfsgemeinschaft    | Not implemented                    | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
+| Gemischte Bedarfsgemeinschaft    | Implemented                        | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
 | Einsatzgemeinschaft (`_eg`)      | Implemented                        | [#1147](https://github.com/ttsim-dev/gettsim/issues/1147)                                                            |
 | Wohngeldrechtlicher Teilhaushalt | Partially implemented (simplified) | [#710](https://github.com/ttsim-dev/gettsim/issues/710), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
 | Kinderwohngeld                   | Not implemented                    | [#750](https://github.com/ttsim-dev/gettsim/issues/750)                                                              |

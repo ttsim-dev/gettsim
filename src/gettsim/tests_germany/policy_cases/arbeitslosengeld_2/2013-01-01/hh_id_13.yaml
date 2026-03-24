@@ -1,6 +1,9 @@
 ---
 info:
-  note: Test if household with retired and non-retired adults do get ALG 2
+  note: >-
+    Gemischte BG: one partner (age 40) is erwerbsfähig, the other (age 70)
+    bezieht Rente. The retired partner is excluded from ALG 2 (vertical method)
+    and receives Grundsicherung im Alter instead.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -9,6 +12,9 @@ inputs:
     alter:
       - 40
       - 70
+    alter_monate:
+      - 480
+      - 840
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -153,8 +159,8 @@ outputs:
       - 140.0
       - 0.0
     betrag_m_bg:
-      - 710.0
-      - 710.0
+      - 375.0
+      - 375.0
     kosten_der_unterkunft_m_bg:
       - 480.0
       - 480.0

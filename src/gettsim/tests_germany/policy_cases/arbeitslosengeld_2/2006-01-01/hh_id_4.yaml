@@ -12,6 +12,12 @@ inputs:
       - 12
       - 10
       - 2
+    alter_monate:
+      - 396
+      - 360
+      - 144
+      - 120
+      - 24
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false

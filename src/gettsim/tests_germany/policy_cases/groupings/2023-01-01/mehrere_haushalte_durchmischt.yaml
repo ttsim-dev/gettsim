@@ -13,6 +13,20 @@ inputs:
       - 39
       - 13
       - 13
+    alter_monate:
+      - 462
+      - 462
+      - 154
+      - 462
+      - 154
+      - 154
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
     einkommensteuer:
       gemeinsam_veranlagt:
         - false

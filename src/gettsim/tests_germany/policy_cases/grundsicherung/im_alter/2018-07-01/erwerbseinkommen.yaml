@@ -14,6 +14,10 @@ inputs:
   provided:
     alter:
       - 68
+    alter_monate:
+      - 822
+    arbeitsstunden_w:
+      - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -68,6 +72,8 @@ inputs:
     hh_id:
       - 106
     kindergeld:
+      in_ausbildung:
+        - false
       betrag_m_eg:
         - 0.0
       p_id_empfänger:

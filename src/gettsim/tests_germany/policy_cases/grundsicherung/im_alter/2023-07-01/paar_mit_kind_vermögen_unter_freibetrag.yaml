@@ -14,6 +14,14 @@ inputs:
       - 70
       - 67
       - 10
+    alter_monate:
+      - 846
+      - 810
+      - 121
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -117,6 +125,10 @@ inputs:
       - 0
       - 0
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
       betrag_m_eg:
         - 0.0
         - 0.0

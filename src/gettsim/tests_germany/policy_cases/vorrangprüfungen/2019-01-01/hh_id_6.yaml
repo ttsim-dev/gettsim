@@ -9,6 +9,9 @@ inputs:
     alter:
       - 28
       - 1
+    alter_monate:
+      - 336
+      - 12
     arbeitslosengeld_2:
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
@@ -23,6 +26,9 @@ inputs:
         - 1183.64
         - 1183.64
     familie:
+      alleinerziehend:
+        - true
+        - false
       p_id_lebenspartner:
         - -1
         - -1
@@ -42,6 +48,9 @@ inputs:
       betrag_m:
         - 0.0
         - 0.0
+      p_id_empfänger:
+        - -1
+        - 16
     kinderzuschlag:
       basisbetrag_m_bg:
         - 0.0
@@ -65,6 +74,19 @@ inputs:
     vermögen:
       - 0.0
       - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
     wohngeld:
       anspruchshöhe_m_wthh:
         - 356.0
@@ -72,8 +94,8 @@ inputs:
 outputs:
   arbeitslosengeld_2:
     betrag_m_bg:
-      - 628.64
-      - 628.64
+      - 691.31
+      - 691.31
   kinderzuschlag:
     betrag_m_bg:
       - 0

@@ -1,8 +1,9 @@
 ---
 info:
   note: |-
-    Test if households with non-retired adult do not get Grundsicherung im Alter (as
-    currently implemented those households get ALG 2)
+    Gemischte Bedarfsgemeinschaft: 70yo retired + 60yo erwerbsfähig partner. The retired
+    partner receives Grundsicherung im Alter via the vertical method; the erwerbsfähig
+    partner receives ALG 2 (not tested here).
   precision_atol: 0.01
   source: ''
 inputs:
@@ -11,6 +12,12 @@ inputs:
     alter:
       - 70
       - 60
+    alter_monate:
+      - 846
+      - 726
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -87,6 +94,9 @@ inputs:
       - 9
       - 9
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
       betrag_m_eg:
         - 0.0
         - 0.0
@@ -155,5 +165,5 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m_eg:
-        - 0.0
-        - 0.0
+        - 234.0
+        - 234.0
