@@ -11,6 +11,12 @@ inputs:
       - 37
       - 3
       - 3
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+        - -1
     einkommensteuer:
       gemeinsam_veranlagt:
         - true
@@ -34,11 +40,6 @@ inputs:
         - 0
         - 1
     familie:
-      p_id_lebenspartner:
-        - 1
-        - 0
-        - -1
-        - -1
       alleinerziehend:
         - false
         - false

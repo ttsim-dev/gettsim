@@ -63,7 +63,7 @@ def anzahl_anträge_fg(claimed: bool, fg_id: int) -> int:
 )
 def bezugsmonate_partner_bis_2022(
     bisherige_bezugsmonate: int,
-    familie__p_id_lebenspartner: int,
+    arbeitslosengeld_2__p_id_einstandspartner: int,
     p_id: int,
 ) -> int:
     pass
@@ -74,7 +74,7 @@ def bezugsmonate_partner_bis_2022(
 )
 def bezugsmonate_partner_ab_2023(
     bisherige_bezugsmonate: int,
-    familie__p_id_lebenspartner: int,
+    bürgergeld__p_id_einstandspartner: int,
     p_id: int,
 ) -> int:
     pass

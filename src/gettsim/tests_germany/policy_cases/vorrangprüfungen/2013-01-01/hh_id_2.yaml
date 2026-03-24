@@ -22,10 +22,10 @@ inputs:
       regelbedarf_m_bg:
         - 1170.0
         - 1170.0
-    familie:
-      p_id_lebenspartner:
+      p_id_einstandspartner:
         - 5
         - 4
+    familie:
       p_id_elternteil_1:
         - -1
         - -1

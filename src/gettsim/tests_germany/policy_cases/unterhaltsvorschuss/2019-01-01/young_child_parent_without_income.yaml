@@ -10,6 +10,11 @@ inputs:
       - 45
       - 4
       - 11
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -42,10 +47,6 @@ inputs:
           - 0.0
           - 0.0
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
-        - -1
       alleinerziehend:
         - true
         - false

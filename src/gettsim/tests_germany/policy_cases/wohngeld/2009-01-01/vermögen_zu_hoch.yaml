@@ -12,6 +12,10 @@ inputs:
     anzahl_personen_hh:
       - 2
       - 2
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
     behinderungsgrad:
       - 0
       - 0
@@ -62,9 +66,6 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
       alleinerziehend:
         - true
         - false

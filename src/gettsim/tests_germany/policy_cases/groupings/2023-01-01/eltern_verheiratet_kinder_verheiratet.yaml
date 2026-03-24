@@ -11,6 +11,12 @@ inputs:
       - 52
       - 23
       - 20
+    bürgergeld:
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - 3
+        - 2
     einkommensteuer:
       gemeinsam_veranlagt:
         - true
@@ -18,11 +24,6 @@ inputs:
         - true
         - true
     familie:
-      p_id_lebenspartner:
-        - 1
-        - 0
-        - 3
-        - 2
       p_id_ehepartner:
         - 1
         - 0

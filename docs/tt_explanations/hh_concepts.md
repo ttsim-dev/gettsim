@@ -89,7 +89,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 ### Pointers
 
-- `familie__p_id_lebenspartner` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Elterngeld
@@ -166,7 +167,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 #### Description
 
 - Bedarfsgemeinschaft comprised of:
-  - A couple (Lebenspartner) whose members are deemed to be responsible for each other
+  - A couple (Einstandspartner) whose members are deemed to be responsible for each
+    other
   - Children under 18/25 whose income does not exceed their own needs. - The
     "Kinderwohngeld" allows children to leave the Bedarfsgemeinschaft if Wohngeld (and
     other sourced of income) is sufficient to cover their needs. Not implemented yet.
@@ -181,7 +183,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 #### Pointers
 
-- `familie__p_id_lebenspartner` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Hilfe zum Lebensunterhalt)
@@ -217,7 +220,8 @@ Regarding the household definition:
 #### Pointers
 
 - `hh_id`
-- `familie__p_id_lebenspartner` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Grundsicherung im Alter / bei Erwerbsminderung)
@@ -240,7 +244,8 @@ Government expenditures: 7 Mrd €
 
 #### Pointers
 
-- `familie__p_id_lebenspartner` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ### SGB XII (Eingliederungshilfe für Menschen mit Behinderung)
@@ -274,7 +279,7 @@ Government expenditures: 4 Mrd €
   - Spouse / registered partner / life partner (as long as in same household)
   - Parents (incl. step-, foster- and in-laws) (as long as in same household)
   - Children (incl. step-, foster- and adopted children) (as long as in same household)
-  - "Lebenspartner": non-relatives living in the same household and sharing
+  - "Einstandspartner": non-relatives living in the same household and sharing
     responsibility for each other (e.g. couples that are not married or in a civil
     union) (as long as in same household)
     - A community of responsibility or joint liability is regulated in § 7 Abs. 3a SGB
@@ -305,7 +310,8 @@ Government expenditures: 4 Mrd €
 ### Pointers
 
 - `hh_id`
-- `familie__p_id_lebenspartner` (exogenous)
+- `arbeitslosengeld_2__p_id_einstandspartner` until 2022;
+  `bürgergeld__p_id_einstandspartner` since 2023 (exogenous)
 - `familie__p_id_elternteil_1`, `familie__p_id_elternteil_2` (exogenous)
 
 ## Kinderwohngeld

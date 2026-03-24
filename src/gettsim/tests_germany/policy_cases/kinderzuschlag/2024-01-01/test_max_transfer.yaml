@@ -25,6 +25,9 @@ inputs:
       nettoeinkommen_nach_abzug_freibetrag_m:
         - 1000.0
         - 0.0
+      p_id_einstandspartner:
+        - -1
+        - -1
     arbeitsstunden_w:
       - 40.0
       - 0.0
@@ -33,9 +36,6 @@ inputs:
         - 1000.0
         - 0.0
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
       alleinerziehend:
         - true
         - false

@@ -45,9 +45,9 @@ def ehe_id(
     return result
 
 
-@group_creation_function()
-def fg_id(
-    familie__p_id_lebenspartner: IntColumn,
+@group_creation_function(leaf_name="fg_id", end_date="2022-12-31")
+def fg_id_arbeitslosengeld_2(
+    arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     hh_id: IntColumn,
     alter: IntColumn,
@@ -62,7 +62,35 @@ def fg_id(
     2, before excluding children who have enough income to fend for themselves.
     """
     return sgb_ii_fg_id_formula(
-        p_id_lebenspartner=familie__p_id_lebenspartner,
+        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+        backend=backend,
+    )
+
+
+@group_creation_function(leaf_name="fg_id", start_date="2023-01-01")
+def fg_id_bürgergeld(
+    bürgergeld__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    familie__p_id_elternteil_1: IntColumn,
+    familie__p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
+) -> IntColumn:
+    """Familiengemeinschaft. Base unit for some transfers.
+
+    Maximum of two generations, the relevant base unit for Bürgergeld / Arbeitslosengeld
+    2, before excluding children who have enough income to fend for themselves.
+    """
+    return sgb_ii_fg_id_formula(
+        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
         p_id=p_id,
         hh_id=hh_id,
         alter=alter,
@@ -74,7 +102,7 @@ def fg_id(
 
 
 def sgb_ii_fg_id_formula(
-    p_id_lebenspartner: IntColumn,
+    p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     hh_id: IntColumn,
     alter: IntColumn,
@@ -94,7 +122,7 @@ def sgb_ii_fg_id_formula(
     sorted_alter = alter[sorting]
     sorted_p_id_elternteil_1 = p_id_elternteil_1[sorting]
     sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
-    sorted_p_id_lebenspartner = p_id_lebenspartner[sorting]
+    sorted_p_id_einstandspartner = p_id_einstandspartner[sorting]
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
@@ -107,13 +135,13 @@ def sgb_ii_fg_id_formula(
         sorted_p_id, sorted_p_id_elternteil_2
     )
 
-    # Assign the same fg_id to everybody who has a Lebenspartner,
+    # Assign the same fg_id to everybody who has an Einstandspartner,
     # otherwise create a new one from p_id
     out = xnp.where(
-        sorted_p_id_lebenspartner < 0,
+        sorted_p_id_einstandspartner < 0,
         sorted_p_id + sorted_p_id * n,
-        xnp.maximum(sorted_p_id, sorted_p_id_lebenspartner)
-        + xnp.minimum(sorted_p_id, sorted_p_id_lebenspartner) * n,
+        xnp.maximum(sorted_p_id, sorted_p_id_einstandspartner)
+        + xnp.minimum(sorted_p_id, sorted_p_id_einstandspartner) * n,
     )
 
     out = _assign_parents_fg_id(
@@ -188,9 +216,9 @@ def bg_id(
     return fg_id
 
 
-@group_creation_function()
-def eg_id(
-    familie__p_id_lebenspartner: IntColumn,
+@group_creation_function(leaf_name="eg_id", end_date="2022-12-31")
+def eg_id_arbeitslosengeld_2(
+    arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
     p_id: IntColumn,
     hh_id: IntColumn,
     alter: IntColumn,
@@ -204,6 +232,57 @@ def eg_id(
     Maximum of two generations, the relevant base unit for Grundsicherung im Alter /
     Sozialhilfe, before excluding children who have enough income to fend for themselves.
     """
+    return _eg_id_formula(
+        p_id_einstandspartner=arbeitslosengeld_2__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+        backend=backend,
+    )
+
+
+@group_creation_function(leaf_name="eg_id", start_date="2023-01-01")
+def eg_id_bürgergeld(
+    bürgergeld__p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    familie__p_id_elternteil_1: IntColumn,
+    familie__p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
+) -> IntColumn:
+    """Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII.
+
+    Maximum of two generations, the relevant base unit for Grundsicherung im Alter /
+    Sozialhilfe, before excluding children who have enough income to fend for themselves.
+    """
+    return _eg_id_formula(
+        p_id_einstandspartner=bürgergeld__p_id_einstandspartner,
+        p_id=p_id,
+        hh_id=hh_id,
+        alter=alter,
+        p_id_elternteil_1=familie__p_id_elternteil_1,
+        p_id_elternteil_2=familie__p_id_elternteil_2,
+        xnp=xnp,
+        backend=backend,
+    )
+
+
+def _eg_id_formula(
+    p_id_einstandspartner: IntColumn,
+    p_id: IntColumn,
+    hh_id: IntColumn,
+    alter: IntColumn,
+    p_id_elternteil_1: IntColumn,
+    p_id_elternteil_2: IntColumn,
+    xnp: ModuleType,
+    backend: Literal["numpy", "jax"],
+) -> IntColumn:
+    """Formula to compute the EG ID."""
     n = xnp.max(p_id) + 1
 
     # Sort all arrays according to p_id to make the id equal location in array
@@ -212,9 +291,9 @@ def eg_id(
     sorted_p_id = p_id[sorting]
     sorted_hh_id = hh_id[sorting]
     sorted_alter = alter[sorting]
-    sorted_p_id_elternteil_1 = familie__p_id_elternteil_1[sorting]
-    sorted_p_id_elternteil_2 = familie__p_id_elternteil_2[sorting]
-    sorted_p_id_lebenspartner = familie__p_id_lebenspartner[sorting]
+    sorted_p_id_elternteil_1 = p_id_elternteil_1[sorting]
+    sorted_p_id_elternteil_2 = p_id_elternteil_2[sorting]
+    sorted_p_id_einstandspartner = p_id_einstandspartner[sorting]
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
@@ -227,13 +306,13 @@ def eg_id(
         sorted_p_id, sorted_p_id_elternteil_2
     )
 
-    # Assign the same eg_id to everybody who has a Lebenspartner,
+    # Assign the same eg_id to everybody who has an Einstandspartner,
     # otherwise create a new one from p_id
     out = xnp.where(
-        sorted_p_id_lebenspartner < 0,
+        sorted_p_id_einstandspartner < 0,
         sorted_p_id + sorted_p_id * n,
-        xnp.maximum(sorted_p_id, sorted_p_id_lebenspartner)
-        + xnp.minimum(sorted_p_id, sorted_p_id_lebenspartner) * n,
+        xnp.maximum(sorted_p_id, sorted_p_id_einstandspartner)
+        + xnp.minimum(sorted_p_id, sorted_p_id_einstandspartner) * n,
     )
 
     out = _assign_parents_eg_id(

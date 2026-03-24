@@ -12,6 +12,10 @@ inputs:
     alter:
       - 70
       - 67
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 31
+        - 30
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -60,9 +64,6 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_lebenspartner:
-        - 31
-        - 30
       alleinerziehend:
         - false
         - false

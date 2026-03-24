@@ -16,6 +16,12 @@ inputs:
       - 0
       - 0
       - 516
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - -1
+        - -1
+        - -1
     arbeitsstunden_w:
       - 0.0
       - 0.0
@@ -55,11 +61,6 @@ inputs:
         - 0.0
         - 5760.0
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
-        - -1
-        - -1
       alleinerziehend:
         - false
         - false

@@ -20,6 +20,14 @@ inputs:
       - 6
       - 6
       - 6
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 29
+        - 28
+        - -1
+        - -1
+        - -1
+        - -1
     behinderungsgrad:
       - 0
       - 0
@@ -114,13 +122,6 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_lebenspartner:
-        - 29
-        - 28
-        - -1
-        - -1
-        - -1
-        - -1
       alleinerziehend:
         - false
         - false

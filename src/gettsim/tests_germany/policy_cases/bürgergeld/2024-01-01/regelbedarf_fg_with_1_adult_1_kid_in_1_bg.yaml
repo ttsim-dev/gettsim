@@ -14,6 +14,9 @@ inputs:
       bezug_im_vorjahr:
         - false
         - false
+      p_id_einstandspartner:
+        - -1
+        - -1
     bg_id:
       - 0
       - 0
@@ -22,9 +25,6 @@ inputs:
         - false
         - false
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
       alleinerziehend:
         - true
         - false

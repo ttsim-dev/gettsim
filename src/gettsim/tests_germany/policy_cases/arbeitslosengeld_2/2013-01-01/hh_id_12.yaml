@@ -13,6 +13,9 @@ inputs:
       bezug_im_vorjahr:
         - false
         - false
+      p_id_einstandspartner:
+        - 26
+        - 25
     arbeitsstunden_w:
       - 0.0
       - 0.0
@@ -61,9 +64,6 @@ inputs:
         - 0.0
         - 0.0
     familie:
-      p_id_lebenspartner:
-        - 26
-        - 25
       alleinerziehend:
         - false
         - false

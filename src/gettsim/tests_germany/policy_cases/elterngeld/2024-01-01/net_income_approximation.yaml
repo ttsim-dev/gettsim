@@ -12,6 +12,10 @@ inputs:
     arbeitsstunden_w:
       - 40.0
       - 10.0
+    bürgergeld:
+      p_id_einstandspartner:
+        - -1
+        - -1
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
@@ -21,9 +25,6 @@ inputs:
         - 1000.0
         - 200.0
     familie:
-      p_id_lebenspartner:
-        - -1
-        - -1
       p_id_ehepartner:
         - -1
         - -1
