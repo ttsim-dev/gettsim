@@ -13,7 +13,7 @@ inputs:
       anrechnungsfreies_einkommen_m:
         - 0.0
         - 0.0
-      anspruchshöhe_m_bg:
+      betrag_m:
         - 0.0
         - 0.0
       bezug_im_vorjahr:

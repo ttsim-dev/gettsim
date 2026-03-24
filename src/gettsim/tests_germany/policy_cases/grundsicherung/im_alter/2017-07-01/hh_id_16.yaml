@@ -8,9 +8,9 @@ inputs:
   assumed: {}
   provided:
     alter:
-      - 50
+      - 70
     alter_monate:
-      - 606
+      - 846
     arbeitsstunden_w:
       - 0.0
     einkommensteuer:
@@ -59,7 +59,7 @@ inputs:
       p_id_elternteil_2:
         - -1
     geburtsjahr:
-      - 1967
+      - 1947
     geburtsmonat:
       - 1
     geburtstag:

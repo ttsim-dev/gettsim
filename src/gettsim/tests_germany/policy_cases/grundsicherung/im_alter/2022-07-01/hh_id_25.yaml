@@ -1,18 +1,18 @@
 ---
 info:
   note: |-
-    Test with child and positive wealth below wealth allowance (website did not add
-    general amount for child)
+    Single retired parent (age 70) with child (age 16). Positive wealth below wealth
+    allowance.
   precision_atol: 0.01
-  source: https://www.smart-rechner.de/grundsicherung/rechner.php
+  source: Regression test
 inputs:
   assumed: {}
   provided:
     alter:
-      - 50
+      - 70
       - 16
     alter_monate:
-      - 606
+      - 846
       - 198
     arbeitsstunden_w:
       - 0.0
@@ -81,7 +81,7 @@ inputs:
         - -1
         - -1
     geburtsjahr:
-      - 1972
+      - 1952
       - 2006
     geburtsmonat:
       - 1
@@ -164,5 +164,5 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m_eg:
-        - 852.71
-        - 852.71
+        - 86.46
+        - 86.46

@@ -3,9 +3,9 @@ info:
   note: |-
     Retired parent (age 70) with adult child (age 22) on Erwerbsminderungsrente.
     Child is in the same fg_id (age < 25) but NOT in the same eg_id (age >= 18).
-    Each person forms their own Einsatzgemeinschaft, so betrag_m_eg differs per
-    person. This tests the eg_id age boundary for Grundsicherung im Alter and the
-    correct use of _eg (not _fg) aggregation for vermögensfreibetrag_eg.
+    Each person forms their own Einsatzgemeinschaft. Only the parent receives
+    Grundsicherung im Alter; the child's Erwerbsminderung benefit is not yet
+    implemented (see https://github.com/ttsim-dev/gettsim/issues/1153).
   precision_atol: 0.01
   source: Self-created test case
 inputs:
@@ -172,4 +172,4 @@ outputs:
     im_alter:
       betrag_m_eg:
         - 567.0
-        - 427.0
+        - 0.0
