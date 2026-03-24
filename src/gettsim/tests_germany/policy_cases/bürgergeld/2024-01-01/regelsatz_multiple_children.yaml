@@ -13,12 +13,6 @@ inputs:
       - 10
       - 14
       - 19
-    bg_id:
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
     bürgergeld:
       p_id_einstandspartner:
         - -1
@@ -26,6 +20,12 @@ inputs:
         - -1
         - -1
         - -1
+    bg_id:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
     familie:
       alleinerziehend:
         - true

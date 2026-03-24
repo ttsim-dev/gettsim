@@ -10,15 +10,15 @@ inputs:
       - 43
       - 0
       - 43
-    arbeitsstunden_w:
-      - 0.0
-      - 0.0
-      - 39.83
     bürgergeld:
       p_id_einstandspartner:
         - 2
         - -1
         - 0
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 39.83
     einkommensteuer:
       gemeinsam_veranlagt:
         - false

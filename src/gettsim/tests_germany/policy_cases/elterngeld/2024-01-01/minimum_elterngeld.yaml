@@ -12,13 +12,13 @@ inputs:
     alter_monate:
       - 516
       - 0
-    arbeitsstunden_w:
-      - 0.0
-      - 0.0
     bürgergeld:
       p_id_einstandspartner:
         - -1
         - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
     einkommensteuer:
       gemeinsam_veranlagt:
         - false

@@ -9,13 +9,13 @@ inputs:
     alter:
       - 43
       - 43
-    arbeitsstunden_w:
-      - 40.0
-      - 10.0
     bürgergeld:
       p_id_einstandspartner:
         - -1
         - -1
+    arbeitsstunden_w:
+      - 40.0
+      - 10.0
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
