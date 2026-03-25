@@ -1,35 +1,32 @@
 ---
 info:
   note: |-
-    Retired couple, both past Regelaltersgrenze, no Grundrentenzeiten (no Freibetrag).
-    Person0 receives 500€ gesetzliche Nettorente, Person1 receives 200€.
-    No private pension, no earnings, no other income, no SV-Beiträge.
+    - Person 0: Single retiree with Merkzeichen G → basissatz * 0.17 = 359 * 0.17 =
+    61.03
+    - Person 1: Partnered retiree with Merkzeichen G → basissatz * 0.8 * 0.17 =
+    48.824
+    - Person 2: Partnered retiree without Merkzeichen G → 0
   precision_atol: 0.01
-  source: https://www.vdk.de/deutschland/pages/themen/81170/grundsicherungsrechner
+  source: ''
 inputs:
   assumed: {}
   provided:
     alter:
-      - 70
-      - 68
-    alter_monate:
-      - 846
-      - 822
-    arbeitsstunden_w:
-      - 0.0
-      - 0.0
-    behinderungsgrad:
-      - 0
-      - 0
-    bürgergeld:
-      bezug_im_vorjahr:
-        - false
-        - false
+      - 67
+      - 67
+      - 67
+    arbeitslosengeld_2:
       p_id_einstandspartner:
+        - -1
+        - 2
         - 1
-        - 0
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
+        - 0.0
         - 0.0
         - 0.0
       einkünfte:
@@ -37,100 +34,111 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-          betrag_y:
-            - 0.0
             - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
             - 0.0
-          betrag_y:
             - 0.0
-            - 0.0
-        ist_hauptberuflich_selbstständig:
-          - false
-          - false
         sonstige:
           alle_weiteren_m:
             - 0.0
             - 0.0
-          alle_weiteren_y:
             - 0.0
-            - 0.0
-          rente:
-            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
-              - 65
-              - 65
       gemeinsam_veranlagt:
+        - false
         - true
         - true
     einnahmen:
       bruttolohn_m:
         - 0.0
         - 0.0
+        - 0.0
       kapitalerträge_m:
+        - 0.0
         - 0.0
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
           - 0.0
+          - 0.0
         geförderte_private_vorsorge_m:
+          - 0.0
           - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
+          - 0.0
         aus_berufsständischen_versicherungen_m:
+          - 0.0
           - 0.0
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
         - 0.0
+        - 0.0
       betrag_m:
+        - 0.0
         - 0.0
         - 0.0
     familie:
       alleinerziehend:
         - false
         - false
+        - false
       p_id_ehepartner:
+        - -1
+        - 2
         - 1
-        - 0
       p_id_elternteil_1:
+        - -1
         - -1
         - -1
       p_id_elternteil_2:
         - -1
         - -1
+        - -1
     geburtsjahr:
-      - 1956
-      - 1958
+      - 1943
+      - 1943
+      - 1943
     geburtsmonat:
+      - 1
       - 1
       - 1
     geburtstag:
       - 1
       - 1
+      - 1
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 0
       - 0
+      - 0
     kindergeld:
-      in_ausbildung:
-        - false
-        - false
       p_id_empfänger:
+        - -1
         - -1
         - -1
     p_id:
       - 0
       - 1
+      - 2
     schwerbehindert_grad_g:
-      - false
+      - true
+      - true
       - false
     solidaritätszuschlag:
       betrag_y_sn:
+        - 0.0
         - 0.0
         - 0.0
     sozialversicherung:
@@ -138,80 +146,70 @@ inputs:
         betrag_m:
           - 0.0
           - 0.0
+          - 0.0
       beiträge_versicherter_m:
         - 0.0
         - 0.0
-      kranken:
-        beitrag:
-          privat_versichert:
-            - false
-            - false
+        - 0.0
       rente:
         altersrente:
           betrag_m:
-            - 500.0
-            - 200.0
+            - 250.0
+            - 250.0
+            - 250.0
+          hat_regelaltersgrenze_erreicht:
+            - true
+            - true
+            - true
         bezieht_rente:
+          - true
           - true
           - true
         erwerbsminderung:
           betrag_m:
             - 0.0
             - 0.0
+            - 0.0
         grundrente:
           grundrentenzeiten_monate:
             - 0
             - 0
-        jahr_renteneintritt:
-          - 2021
-          - 2024
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
+        - 0.0
         - 0.0
         - 0.0
     unterhaltsvorschuss:
       betrag_m:
         - 0.0
         - 0.0
-    vermögen_bg:
-      - 0.0
-      - 0.0
+        - 0.0
     vermögen_eg:
       - 0.0
       - 0.0
-    vermögen_wthh:
       - 0.0
-      - 0.0
-    vorrangprüfungen:
-      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
-        - false
-        - false
     wohnen:
       bewohnt_eigentum_hh:
         - false
         - false
+        - false
       bruttokaltmiete_m_hh:
-        - 350.0
-        - 350.0
+        - 300.0
+        - 300.0
+        - 300.0
       heizkosten_m_hh:
-        - 100.0
-        - 100.0
+        - 50.0
+        - 50.0
+        - 50.0
       wohnfläche_hh:
-        - 60.0
-        - 60.0
-    wohngeld:
-      anspruchshöhe_m_wthh:
-        - 0.0
-        - 0.0
-      mietstufe_hh:
-        - 3
-        - 3
+        - 50.0
+        - 50.0
+        - 50.0
 outputs:
   grundsicherung:
     im_alter:
-      anspruchshöhe_m:
-        - 231.0
-        - 531.0
-      betrag_m:
-        - 231.0
-        - 531.0
+      mehrbedarf_schwerbehinderung_g_m:
+        - 61.03
+        - 48.824
+        - 0.0

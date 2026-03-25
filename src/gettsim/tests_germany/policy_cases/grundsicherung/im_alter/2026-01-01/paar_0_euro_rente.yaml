@@ -181,6 +181,10 @@ inputs:
     vermögen_wthh:
       - 0.0
       - 0.0
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
     wohnen:
       bewohnt_eigentum_hh:
         - false
@@ -205,5 +209,8 @@ outputs:
   grundsicherung:
     im_alter:
       anspruchshöhe_m:
+        - 731.0
+        - 731.0
+      betrag_m:
         - 731.0
         - 731.0

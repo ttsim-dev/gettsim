@@ -1,11 +1,8 @@
 ---
 info:
-  note: |-
-    Retired couple, both past Regelaltersgrenze, no Grundrentenzeiten (no Freibetrag).
-    Person0 receives 500€ gesetzliche Nettorente, Person1 receives 200€.
-    No private pension, no earnings, no other income, no SV-Beiträge.
+  note: Wohngeld is more favorable than Grundsicherung im Alter.
   precision_atol: 0.01
-  source: https://www.vdk.de/deutschland/pages/themen/81170/grundsicherungsrechner
+  source: Regression test
 inputs:
   assumed: {}
   provided:
@@ -149,7 +146,7 @@ inputs:
       rente:
         altersrente:
           betrag_m:
-            - 500.0
+            - 900.0
             - 200.0
         bezieht_rente:
           - true
@@ -184,8 +181,8 @@ inputs:
       - 0.0
     vorrangprüfungen:
       wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
-        - false
-        - false
+        - true
+        - true
     wohnen:
       bewohnt_eigentum_hh:
         - false
@@ -210,8 +207,8 @@ outputs:
   grundsicherung:
     im_alter:
       anspruchshöhe_m:
-        - 231.0
-        - 531.0
+        - 0.0
+        - 362.0
       betrag_m:
-        - 231.0
-        - 531.0
+        - 0.0
+        - 0.0
