@@ -12,64 +12,9 @@ if TYPE_CHECKING:
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2022-12-31", leaf_name="ungedeckter_bedarf_m")
-def ungedeckter_bedarf_m_bis_2022(
-    arbeitslosengeld_2__regelbedarf_m: float,
-    mehrbedarf_schwerbehinderung_g_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
-) -> float:
-    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII).
-
-    Returns 0 for persons who have not reached the Regelaltersgrenze.
-    """
-    if not hat_regelaltersgrenze_erreicht:
-        return 0.0
-    else:
-        return arbeitslosengeld_2__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
-
-
-@policy_function(start_date="2023-01-01", leaf_name="ungedeckter_bedarf_m")
-def ungedeckter_bedarf_m_ab_2023(
-    bürgergeld__regelbedarf_m: float,
-    mehrbedarf_schwerbehinderung_g_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
-) -> float:
-    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII).
-
-    Returns 0 for persons who have not reached the Regelaltersgrenze.
-    """
-    if not hat_regelaltersgrenze_erreicht:
-        return 0.0
-    else:
-        return bürgergeld__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
-
-
-@policy_function(start_date="2005-01-01")
-def einkommen_zur_verteilung_m(
-    einkommen_m: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m: float,
-    unterhaltsvorschuss__betrag_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
-) -> float:
-    """Total countable SGB XII income (§82 ff. SGB XII).
-
-    Returns 0 for persons who have not reached the Regelaltersgrenze.
-    Kindergeld is not included here — it flows via
-    hilfe_zum_lebensunterhalt__überschusseinkommen_m.
-    """
-    if not hat_regelaltersgrenze_erreicht:
-        return 0.0
-    else:
-        return (
-            einkommen_m
-            + unterhalt__tatsächlich_erhaltener_betrag_m
-            + unterhaltsvorschuss__betrag_m
-        )
-
-
 @policy_function(end_date="2022-12-31", leaf_name="betrag_m")
 def betrag_m_bis_2022(
-    ungedeckter_bedarf_m: float,
+    bedarf_m: float,
     einkommen_zur_verteilung_m: float,
     arbeitslosengeld_2__überschusseinkommen_m_eg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
@@ -79,7 +24,6 @@ def betrag_m_bis_2022(
     """Grundsicherung im Alter per person (§41 ff. SGB XII).
 
     In mixed BGs, the SGB II partner's excess income above their Bedarf is subtracted.
-    Children's excess income (Kindergeld) flows via Hilfe zum Lebensunterhalt.
 
     Reference: §41 Abs. 1 SGB XII, BSG B 14 AS 89/20 R
 
@@ -93,7 +37,7 @@ def betrag_m_bis_2022(
     else:
         return max(
             0.0,
-            ungedeckter_bedarf_m
+            bedarf_m
             - einkommen_zur_verteilung_m
             - arbeitslosengeld_2__überschusseinkommen_m_eg
             - grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg,
@@ -102,7 +46,7 @@ def betrag_m_bis_2022(
 
 @policy_function(start_date="2023-01-01", leaf_name="betrag_m")
 def betrag_m_ab_2023(
-    ungedeckter_bedarf_m: float,
+    bedarf_m: float,
     einkommen_zur_verteilung_m: float,
     bürgergeld__überschusseinkommen_m_eg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
@@ -112,7 +56,6 @@ def betrag_m_ab_2023(
     """Grundsicherung im Alter per person (§41 ff. SGB XII).
 
     In mixed BGs, the SGB II partner's excess income above their Bedarf is subtracted.
-    Children's excess income (Kindergeld) flows via Hilfe zum Lebensunterhalt.
 
     Reference: §41 Abs. 1 SGB XII, BSG B 14 AS 89/20 R
 
@@ -126,23 +69,76 @@ def betrag_m_ab_2023(
     else:
         return max(
             0.0,
-            ungedeckter_bedarf_m
+            bedarf_m
             - einkommen_zur_verteilung_m
             - bürgergeld__überschusseinkommen_m_eg
             - grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg,
         )
 
 
+@policy_function(end_date="2022-12-31", leaf_name="bedarf_m")
+def bedarf_m_bis_2022(
+    arbeitslosengeld_2__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
+) -> float:
+    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
+    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
+    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
+    # be eligible for this benefit, independently of the Regelaltersgrenze.
+    # https://github.com/ttsim-dev/gettsim/issues/1145
+    if not hat_regelaltersgrenze_erreicht:
+        # Bedarf not considered for Grunds. im Alter ('Vertikalmethode') because
+        # eligible for different program.
+        return 0.0
+    else:
+        return arbeitslosengeld_2__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
+
+
+@policy_function(start_date="2023-01-01", leaf_name="bedarf_m")
+def bedarf_m_ab_2023(
+    bürgergeld__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
+) -> float:
+    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
+    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
+    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
+    # be eligible for this benefit, independently of the Regelaltersgrenze.
+    # https://github.com/ttsim-dev/gettsim/issues/1145
+    if not hat_regelaltersgrenze_erreicht:
+        # Bedarf not considered for Grunds. im Alter ('Vertikalmethode') because
+        # eligible for different program.
+        return 0.0
+    else:
+        return bürgergeld__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
+
+
+@policy_function(start_date="2005-01-01")
+def einkommen_zur_verteilung_m(
+    einkommen_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
+) -> float:
+    """Total countable SGB XII income (§82 ff. SGB XII).
+
+    Returns 0 for persons who have not reached the Regelaltersgrenze.
+    """
+    if not hat_regelaltersgrenze_erreicht:
+        return 0.0
+    else:
+        return einkommen_m
+
+
 @policy_function(start_date="2005-01-01")
 def überschusseinkommen_m(
     einkommen_zur_verteilung_m: float,
-    ungedeckter_bedarf_m: float,
+    bedarf_m: float,
 ) -> float:
     """Excess SGB XII income above own Bedarf, flowing to the SGB II partner.
 
     Reference: BSG B 14 AS 89/20 R
     """
-    return max(0.0, einkommen_zur_verteilung_m - ungedeckter_bedarf_m)
+    return max(0.0, einkommen_zur_verteilung_m - bedarf_m)
 
 
 @policy_function(start_date="2011-01-01")

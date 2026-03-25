@@ -38,6 +38,8 @@ def einkommen_m_bis_2017(
     familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
 ) -> float:
     """Income considered for Grundsicherung im Alter before 2018.
 
@@ -54,6 +56,8 @@ def einkommen_m_bis_2017(
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
         + elterngeld__anrechenbarer_betrag_m
+        + unterhalt__tatsächlich_erhaltener_betrag_m
+        + unterhaltsvorschuss__betrag_m
     )
 
     out = (
@@ -79,6 +83,8 @@ def einkommen_m_ab_2018(
     familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
     elterngeld__anrechenbarer_betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
 ) -> float:
     """Income considered for Grundsicherung im Alter from 2018.
 
@@ -94,6 +100,8 @@ def einkommen_m_ab_2018(
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
         + elterngeld__anrechenbarer_betrag_m
+        + unterhalt__tatsächlich_erhaltener_betrag_m
+        + unterhaltsvorschuss__betrag_m
     )
 
     out = (
