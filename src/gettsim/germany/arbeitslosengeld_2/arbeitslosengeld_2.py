@@ -1,4 +1,11 @@
-"""Arbeitslosengeld II (unemployment benefit II)."""
+"""Arbeitslosengeld II (unemployment benefit II).
+
+For an Explanation how income is distributed in SGB II and SGB XII see:
+
+Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
+des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang, Heft
+5/2012, S. 178-188.
+"""
 
 from __future__ import annotations
 
@@ -32,7 +39,7 @@ def anspruchshöhe_m(
     """Individual share of BG entitlement using the Bedarfsanteilsmethode.
 
     In mixed BGs (gemischte Bedarfsgemeinschaften), the SGB XII partner's needs and
-    income are excluded from the pool (vertical method, BSG B 14 AS 89/20 R).
+    income are excluded from the pool (Vertikalmethode, BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -65,7 +72,8 @@ def ungedeckter_bedarf_m(
     if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
-        # Children's income is counted against the children's own needs first.
+        # Children's income is counted against the children's own needs first
+        # (vertikal-horizontale Methode).
         return max(0.0, regelbedarf_m - anzurechnendes_einkommen_m)
     else:
         return regelbedarf_m
@@ -89,7 +97,8 @@ def einkommen_zur_verteilung_m(
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
         # Children's income is counted against the children's own needs first. Only
-        # the remaining income is counted against the BG's needs.
+        # the remaining income is counted against the BG's needs (vertikal-horizontale
+        # Methode).
         return max(0.0, anzurechnendes_einkommen_m - regelbedarf_m)
     else:
         return anzurechnendes_einkommen_m

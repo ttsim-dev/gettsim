@@ -65,14 +65,15 @@ def ungedeckter_bedarf_m(
     """Bedarf after netting child's own income.
 
     In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('vertikal-horizontale Methode', BSG B 14 AS 89/20 R).
+    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
     if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
-        # Children's income is counted against the children's own needs first.
+        # Children's income is counted against the children's own needs first
+        # (vertikal-horizontale Methode).
         return max(0.0, regelbedarf_m - anzurechnendes_einkommen_m)
     else:
         return regelbedarf_m
@@ -88,15 +89,16 @@ def einkommen_zur_verteilung_m(
     """Income available for proportional distribution across BG.
 
     In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('vertikal-horizontale Methode', see BSG B 14 AS 89/20 R).
+    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
     if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
-        # Children's income is counted against the children's own needs first. Only
-        # the remaining income is counted against the BG's needs.
+        # Children's income is counted against the children's own needs first. Only the
+        # remaining income is counted against the BG's needs (vertikal-horizontale
+        # Methode).
         return max(0.0, anzurechnendes_einkommen_m - regelbedarf_m)
     else:
         return anzurechnendes_einkommen_m
