@@ -32,8 +32,7 @@ def anspruchshöhe_m(
     """Individual share of BG entitlement using the Bedarfsanteilsmethode.
 
     In mixed BGs (gemischte Bedarfsgemeinschaften), the SGB XII partner's needs and
-    income are excluded from the pool (vertical method, BSG B 14 AS 89/20 R). Their
-    excess income above own Bedarf flows into the SGB II income pool.
+    income are excluded from the pool (vertical method, BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
