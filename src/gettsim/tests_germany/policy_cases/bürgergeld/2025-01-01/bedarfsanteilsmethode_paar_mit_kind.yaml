@@ -22,14 +22,6 @@ inputs:
       - 45
       - 43
       - 14
-    alter_monate:
-      - 540
-      - 516
-      - 168
-    schwerbehindert_grad_g:
-      - false
-      - false
-      - false
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -177,11 +169,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        grundrente:
-          grundrentenzeiten_monate:
-            - 0
-            - 0
-            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

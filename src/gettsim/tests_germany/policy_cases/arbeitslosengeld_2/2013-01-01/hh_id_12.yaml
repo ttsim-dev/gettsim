@@ -9,12 +9,6 @@ inputs:
     alter:
       - 70
       - 70
-    alter_monate:
-      - 840
-      - 840
-    schwerbehindert_grad_g:
-      - false
-      - false
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -133,10 +127,6 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        grundrente:
-          grundrentenzeiten_monate:
-            - 0
-            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

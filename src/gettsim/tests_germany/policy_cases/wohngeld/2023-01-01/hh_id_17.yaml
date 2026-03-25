@@ -13,18 +13,6 @@ inputs:
       - 15
       - 10
       - 8
-    alter_monate:
-      - 540
-      - 480
-      - 180
-      - 120
-      - 96
-    schwerbehindert_grad_g:
-      - false
-      - false
-      - false
-      - false
-      - false
     anzahl_personen_hh:
       - 5
       - 5

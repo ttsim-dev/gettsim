@@ -9,10 +9,6 @@ inputs:
   provided:
     alter:
       - 57
-    alter_monate:
-      - 684
-    schwerbehindert_grad_g:
-      - false
     anzahl_personen_hh:
       - 1
     bürgergeld:

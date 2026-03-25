@@ -13,13 +13,6 @@ inputs:
       - 15
       - 6
       - 5
-    schwerbehindert_grad_g:
-      - false
-      - false
-      - false
-      - false
-      - false
-      - false
     alter_monate:
       - 516
       - 576

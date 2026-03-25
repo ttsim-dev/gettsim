@@ -9,12 +9,6 @@ inputs:
     alter:
       - 38
       - 20
-    alter_monate:
-      - 456
-      - 240
-    schwerbehindert_grad_g:
-      - false
-      - false
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -87,12 +81,6 @@ inputs:
       - 2008
     grundsicherung:
       im_alter:
-        bedarf_m:
-          - 0.0
-          - 0.0
-        einkommen_zur_verteilung_m:
-          - 0.0
-          - 0.0
         überschusseinkommen_m_eg:
           - 0.0
           - 0.0
@@ -139,10 +127,6 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        grundrente:
-          grundrentenzeiten_monate:
-            - 0
-            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
