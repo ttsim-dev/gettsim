@@ -163,5 +163,5 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m:
-        - 272.0
+        - 210.13
         - 0.0

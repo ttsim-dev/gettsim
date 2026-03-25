@@ -1,4 +1,11 @@
-"""Bürgergeld."""
+"""Bürgergeld.
+
+For an Explanation how income is distributed in SGB II and SGB XII see:
+
+Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
+des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang, Heft
+5/2012, S. 178-188.
+"""
 
 from __future__ import annotations
 
@@ -32,7 +39,7 @@ def anspruchshöhe_m(
     """Individual share of BG entitlement using the Bedarfsanteilsmethode.
 
     In mixed BGs (gemischte Bedarfsgemeinschaften), the SGB XII partner's needs and
-    income are excluded from the pool (vertical method, BSG B 14 AS 89/20 R).
+    income are excluded from the pool ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -58,7 +65,7 @@ def ungedeckter_bedarf_m(
     """Bedarf after netting child's own income.
 
     In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
+    Bedarfsanteilsmethode ('vertikal-horizontale Methode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -81,7 +88,7 @@ def einkommen_zur_verteilung_m(
     """Income available for proportional distribution across BG.
 
     In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
+    Bedarfsanteilsmethode ('vertikal-horizontale Methode', see BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
