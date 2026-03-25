@@ -34,8 +34,8 @@ def betrag_m(
 
 @policy_function(end_date="2022-12-31", leaf_name="anspruchshöhe_m")
 def anspruchshöhe_m_bis_2022(
-    ungedeckter_bedarf_m: float,
-    ungedeckter_bedarf_m_eg: float,
+    individueller_restbedarf_m: float,
+    individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
     arbeitslosengeld_2__überschusseinkommen_m_eg: float,
@@ -46,7 +46,7 @@ def anspruchshöhe_m_bis_2022(
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
     Each person's income covers their own Bedarf first ('Vertikalmethode'). Only the
-    Überschuss is distributed proportionally to the ungedeckter Bedarf of the
+    Überschuss is distributed proportionally to the individueller Restbedarf of the
     hilfebedürftigen members.
 
     Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
@@ -62,16 +62,18 @@ def anspruchshöhe_m_bis_2022(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if ungedeckter_bedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if individueller_restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
         return 0.0
     else:
-        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_eg) * anspruch_m_eg
+        return (
+            individueller_restbedarf_m / individueller_restbedarf_m_eg
+        ) * anspruch_m_eg
 
 
 @policy_function(start_date="2023-01-01", leaf_name="anspruchshöhe_m")
 def anspruchshöhe_m_ab_2023(
-    ungedeckter_bedarf_m: float,
-    ungedeckter_bedarf_m_eg: float,
+    individueller_restbedarf_m: float,
+    individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
     bürgergeld__überschusseinkommen_m_eg: float,
@@ -82,7 +84,7 @@ def anspruchshöhe_m_ab_2023(
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
     Each person's income covers their own Bedarf first ('Vertikalmethode'). Only the
-    Überschuss is distributed proportionally to the ungedeckter Bedarf of the
+    Überschuss is distributed proportionally to the individueller Restbedarf of the
     hilfebedürftigen members.
 
     Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
@@ -98,14 +100,16 @@ def anspruchshöhe_m_ab_2023(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if ungedeckter_bedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if individueller_restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
         return 0.0
     else:
-        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_eg) * anspruch_m_eg
+        return (
+            individueller_restbedarf_m / individueller_restbedarf_m_eg
+        ) * anspruch_m_eg
 
 
 @policy_function(start_date="2005-01-01")
-def ungedeckter_bedarf_m(
+def individueller_restbedarf_m(
     bedarf_m: float,
     einkommen_zur_verteilung_m: float,
 ) -> float:

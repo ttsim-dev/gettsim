@@ -11,7 +11,7 @@ info:
     überschusseinkommen = max(0, 762 - 751) = 11 per person, _eg = 22.
     GSiA surplus = 0 → anspruch_bg = max(0, 751 - 762) = 0 → betrag P0 = 0.
     SGB XII (Person1): gesetzliche Rente 400 – Grundrentenfreibetrag 190
-    → einkommen = 210. bedarf = 751, ungedeckter_bedarf = 541.
+    → einkommen = 210. bedarf = 751, individueller_restbedarf = 541.
     total_income_eg = 210 + 22 (Bürgergeld surplus) = 232.
     anspruch_eg = max(0, 751 - 232) = 519 → GSiA betrag P1 = 519.
   precision_atol: 0.01

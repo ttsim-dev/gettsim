@@ -13,7 +13,7 @@ info:
     anspruch_bg = max(0, 704 - 0) = 704 → ALG2 betrag Person0 = 704.
     SGB XII (Person1): gesetzliche Rente 400 – Grundrentenfreibetrag
     min(100+0.3·300, 449/2) = min(190, 224.50) = 190 → einkommen = 210.
-    bedarf = 704, ungedeckter_bedarf = max(0, 704-210) = 494.
+    bedarf = 704, individueller_restbedarf = max(0, 704-210) = 494.
     anspruch_eg = max(0, 704 - 210 - 0) = 494 → GSiA betrag Person1 = 494.
   precision_atol: 0.01
   source: Regression test.
