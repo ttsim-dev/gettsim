@@ -22,14 +22,14 @@ def betrag_m() -> float:
     return 0.0  # pragma: no cover
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", vectorization_strategy="loop")
 def überschusseinkommen_m() -> float:
     """Excess HzL income flowing to the parent's Grundsicherung im Alter.
 
     Once Hilfe zum Lebensunterhalt is fully implemented, this should be computed from
     the child's ungedeckter Bedarf and einkommen_zur_verteilung.
 
-    # TODO (@MImmesberger): Compute from full HzL Bedarf/Einkommen once implemented. #
-    https://github.com/ttsim-dev/gettsim/issues/1153
+    # TODO (@MImmesberger): Compute from full HzL Bedarf/Einkommen once implemented.
+    # https://github.com/ttsim-dev/gettsim/issues/1153
     """
-    return 0
+    return 0.0
