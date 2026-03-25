@@ -31,14 +31,14 @@ need, but the resulting benefit amount is attributed to individual persons.
 
 In principle, there are two methods for attributing income to individual BG members:
 
-|                           | Horizontal method                                                            | Vertical method                                                           |
+|                           | Horizontalmethode                                                            | Vertikalmethode                                                           |
 | ------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | **Income attribution**    | Pooled and distributed proportionally to each person's share of total Bedarf | Stays with the earner; only surplus above own Bedarf flows to the partner |
 | **Who is hilfebedürftig** | All members, proportionally                                                  | Only members whose own income falls short                                 |
 | **Applies to**            | Normal BG (all members SGB II eligible)                                      | Mixed BG (one SGB II, one SGB XII)                                        |
 | **Legal basis**           | §9 Abs. 2 Satz 3 SGB II; BSG B 14 AS 55/07 R                                 | BSG B 14 AS 89/20 R                                                       |
 
-### Horizontal method (normal BG)
+### Bedarfsanteilsmethode (Horizontalmethode)
 
 In a normal BG where all members are SGB II eligible, the *Bedarfsanteilsmethode*
 applies (BSG 18.06.2008 — B 14 AS 55/07 R):
@@ -52,28 +52,46 @@ applies (BSG 18.06.2008 — B 14 AS 55/07 R):
 1. Individual benefit: the difference between individual Bedarf and attributed income,
    floored at zero.
 
+For children, income is first counted against the child's own Bedarf before entering the
+pool (*vertikale-horizontale Berechnungsmethode*): Kindergeld is attributed to the child
+per §11 I 4 SGB II, and only the surplus — if the child's income exceeds their Bedarf —
+is distributed horizontally across the BG.
+
 The sum of individual benefits equals the BG-level benefit. This equivalence holds
 because, when the BG is hilfebedürftig, each person's Bedarf is scaled by the same
 factor (one minus the ratio of total income to total Bedarf).
 
-### Vertical method (mixed BG)
+### 'Vertikalmethode' (mixed BG)
 
-When the partner actually receives SGB XII benefits, BSG B 14 AS 89/20 R mandates a
-restrictive interpretation of §9 Abs. 2 Satz 3 SGB II. The SGB XII partner's needs and
-income are **excluded entirely** from the horizontal income distribution. Each system
-computes independently:
+When one partner receives SGB XII benefits and the other receives SGB II benefits, BSG B
+14 AS 89/20 R mandates the 'Vertikalmethode'. The SGB XII partner's needs and income are
+**excluded** from the horizontal income distribution (§11 Abs. 1 SGB II; §82 Abs. 1 SGB
+XII):
 
-- **SGB II** (erwerbsfähige person): own Bedarf minus own countable income
-- **SGB XII** (person past Regelaltersgrenze): own Bedarf minus own countable income
-  under SGB XII rules
+1. **SGB II** (erwerbsfähige person): own Bedarf minus own countable income.
+1. **SGB XII** (person past Regelaltersgrenze): own Bedarf minus own countable income
+   under SGB XII rules.
 
-Both systems use **raw income**, not each other's transfer amounts (§11 Abs. 1 SGB II;
-§82 Abs. 1 SGB XII), so there is no circular dependency.
+#### Überschusseinkommen (surplus income)
+
+The two systems are not fully independent. If one side's countable income exceeds its
+total Bedarf, the surplus (*Überschusseinkommen*) flows to the other side as additional
+income:
+
+- **SGB II → SGB XII**: If the SGB II BG members' total distributable income exceeds
+  their total Bedarf, the surplus enters the SGB XII Einsatzgemeinschaft (BSG B 14 AS
+  89/20 R). In GETTSIM: `bürgergeld__überschusseinkommen_m`.
+- **SGB XII → SGB II**: Conversely, if the Einsatzgemeinschaft's income exceeds its
+  Bedarf, the surplus enters the SGB II BG. In GETTSIM:
+  `grundsicherung__im_alter__überschusseinkommen_m_eg` and
+  `grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg`.
+
+#### Einsatzgemeinschaft
 
 The relevant calculation unit for the SGB XII partner is the **Einsatzgemeinschaft**
-(`eg_id`, § 27 Abs. 2 SGB XII), which is analogous to the Bedarfsgemeinschaft for SGB
-II. In a mixed BG, the SGB XII partner forms their own Einsatzgemeinschaft; their Bedarf
-and income are computed at the `_eg` level.
+(`eg_id`, §27 Abs. 2 SGB XII), analogous to the Bedarfsgemeinschaft for SGB II. In a
+mixed BG, the SGB XII partner forms their own Einsatzgemeinschaft; their Bedarf and
+income are computed at the `_eg` level.
 
 ### Additional rules for mixed BGs
 
@@ -114,6 +132,31 @@ because both have the same Bedarf):
 
 The total benefit is the same (612 EUR in both cases), but the attribution to
 individuals — and thus to SGB II vs. SGB XII — differs.
+
+### Example with Überschusseinkommen
+
+Same setup, but Anna earns 1600 EUR gross (~1100 EUR countable after SGB II Freibeträge)
+and Bernd's pension is only 200 EUR.
+
+|                        | Anna (SGB II) | Bernd (SGB XII) |
+| ---------------------- | ------------- | --------------- |
+| Regelsatz (RBS 2)      | 506           | 506             |
+| KdU (kopfteilig)       | 300           | 300             |
+| **Bedarf**             | **806**       | **806**         |
+| Gross earnings         | 1600          | 0               |
+| Altersrente            | 0             | 200             |
+| Countable income (own) | 1100          | 200             |
+
+**Step 1 — SGB II** (Anna): Countable income (1100) exceeds Bedarf (806). Anna receives
+no Bürgergeld. Her surplus: 1100 − 806 = **294 EUR** (*Überschusseinkommen*).
+
+**Step 2 — SGB XII** (Bernd): Own income (200) plus Anna's Überschuss (294) = 494 total
+income. Grundsicherung: 806 − 494 = **312 EUR**.
+
+Without the surplus flow, Bernd would receive 806 − 200 = 606 EUR. The
+Überschusseinkommen mechanism ensures that Anna's excess income is counted against
+Bernd's SGB XII claim, even though her income is excluded from the horizontal
+distribution.
 
 ## Wohngeldrechtlicher Teilhaushalt and Mischhaushalte
 
@@ -206,14 +249,18 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
 
 ```{seealso}
 **Gemischte Bedarfsgemeinschaft:**
+- Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
+  des SGB II und des SGB XII", DVP 63. Jg., Heft 5/2012, S. 178–188.
 - [SGB II §9 Abs. 2 Satz 3](https://www.gesetze-im-internet.de/sgb_2/__9.html):
   Bedarfsanteilsmethode
 - [SGB II §19 Abs. 1 Satz 2](https://www.gesetze-im-internet.de/sgb_2/__19.html):
   No Bürgergeld for persons with SGB XII Kap. 4 claims
+- [SGB XII §19 Abs. 2 i.V.m. §43 Abs. 1](https://www.gesetze-im-internet.de/sgb_12/__19.html):
+  Verhältnislösung for surplus distribution in the Einsatzgemeinschaft
 - [BSG B 14 AS 55/07 R](https://openjur.de/u/170185.html) (18.06.2008):
   Horizontal method for normal BGs
 - [BSG B 14 AS 89/20 R](https://www.bsg.bund.de/SharedDocs/Entscheidungen/DE/2021/2021_11_11_B_14_AS_89_20_R.html) (11.11.2021):
-  Vertical method for mixed BGs
+  Vertical method and Überschusseinkommen for mixed BGs
 
 **Wohngeldrechtlicher Teilhaushalt:**
 - [WoGG §7](https://www.gesetze-im-internet.de/wogg/__7.html):
