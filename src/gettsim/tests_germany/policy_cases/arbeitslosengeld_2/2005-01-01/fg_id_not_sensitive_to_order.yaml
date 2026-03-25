@@ -13,20 +13,6 @@ inputs:
       - 12
       - 22
       - 42
-    alter_monate:
-      - 144
-      - 468
-      - 156
-      - 144
-      - 264
-      - 504
-    schwerbehindert_grad_g:
-      - false
-      - false
-      - false
-      - false
-      - false
-      - false
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1

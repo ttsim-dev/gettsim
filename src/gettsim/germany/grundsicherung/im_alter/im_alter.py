@@ -1,6 +1,6 @@
 """Grundsicherung im Alter.
 
-For an Explanation how income is distributed in SGB II and SGB XII see:
+For an explanation of how income is distributed in SGB II and SGB XII see:
 
 Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
 des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang, Heft
@@ -214,8 +214,8 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     return out
 
 
-@policy_function(start_date="2011-01-01")
-def mehrbedarf_schwerbehinderung_g_m(
+@policy_function(start_date="2011-01-01", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,

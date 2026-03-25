@@ -18,12 +18,6 @@ inputs:
       - 144
       - 120
       - 24
-    schwerbehindert_grad_g:
-      - false
-      - false
-      - false
-      - false
-      - false
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false

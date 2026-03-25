@@ -1,6 +1,6 @@
 """Bürgergeld.
 
-For an Explanation how income is distributed in SGB II and SGB XII see:
+For an explanation of how income is distributed in SGB II and SGB XII see:
 
 Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
 des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang, Heft
