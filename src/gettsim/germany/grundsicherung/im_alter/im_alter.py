@@ -17,16 +17,26 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import policy_function
+from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 
 
 @policy_function(start_date="2005-01-01")
 def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+    hat_kind_über_einkommensgrenze: bool,
 ) -> float:
-    """Grundsicherung im Alter after Vorrangprüfung (§2 Abs. 1 SGB XII)."""
-    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+    """Grundsicherung im Alter after Vorrangprüfung and 100k-children exclusion.
+
+    §43 SGB XII (BGBl. I 2003 S. 3022): Persons are excluded from Grundsicherung im
+    Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
+    exceeding the threshold.
+    §2 Abs. 1 SGB XII: Vorrangprüfung.
+    """
+    if (
+        hat_kind_über_einkommensgrenze
+        or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
+    ):
         return 0.0
     else:
         return anspruchshöhe_m
@@ -254,3 +264,61 @@ def vermögensfreibetrag_eg(
         parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_eg
         + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_eg
     )
+
+
+# --- 100k children exclusion (§43 SGB XII) ---
+
+
+@policy_function(start_date="2005-01-01")
+def hat_gesamteinkommen_über_einkommensgrenze(
+    einkommensteuer__einkünfte__gesamtbetrag_der_einkünfte_y: float,
+    einkommensgrenze_kinder: float,
+) -> bool:
+    """Whether a person's Gesamteinkommen exceeds the children's income threshold.
+
+    Used to determine if a child's income excludes a parent from Grundsicherung im
+    Alter. The relevant income concept is Gesamteinkommen per § 16 SGB IV, approximated
+    here by the Gesamtbetrag der Einkünfte (§ 2 Abs. 3 EStG).
+
+    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    """
+    return (
+        einkommensteuer__einkünfte__gesamtbetrag_der_einkünfte_y
+        >= einkommensgrenze_kinder
+    )
+
+
+@agg_by_p_id_function(agg_type=AggType.SUM)
+def anzahl_kinder_über_einkommensgrenze_über_elternteil_1(
+    hat_gesamteinkommen_über_einkommensgrenze: bool,
+    familie__p_id_elternteil_1: int,
+    p_id: int,
+) -> int:
+    pass
+
+
+@agg_by_p_id_function(agg_type=AggType.SUM)
+def anzahl_kinder_über_einkommensgrenze_über_elternteil_2(
+    hat_gesamteinkommen_über_einkommensgrenze: bool,
+    familie__p_id_elternteil_2: int,
+    p_id: int,
+) -> int:
+    pass
+
+
+@policy_function(start_date="2005-01-01")
+def hat_kind_über_einkommensgrenze(
+    anzahl_kinder_über_einkommensgrenze_über_elternteil_1: int,
+    anzahl_kinder_über_einkommensgrenze_über_elternteil_2: int,
+) -> bool:
+    """Whether any first-degree child has income above the threshold.
+
+    Both parent pointers are checked because a child may point to either parent via
+    p_id_elternteil_1 or p_id_elternteil_2.
+
+    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    """
+    return (
+        anzahl_kinder_über_einkommensgrenze_über_elternteil_1
+        + anzahl_kinder_über_einkommensgrenze_über_elternteil_2
+    ) > 0

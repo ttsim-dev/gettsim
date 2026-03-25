@@ -21,6 +21,14 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
