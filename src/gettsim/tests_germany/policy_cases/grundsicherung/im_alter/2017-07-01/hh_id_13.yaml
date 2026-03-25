@@ -17,6 +17,9 @@ inputs:
       p_id_einstandspartner:
         - 18
         - 17
+      überschusseinkommen_m:
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -90,7 +93,7 @@ inputs:
       - 13
       - 13
     kindergeld:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
       p_id_empfänger:
@@ -135,7 +138,7 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
     vermögen_eg:
@@ -157,6 +160,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
-        - 314.1666667
-        - 314.1666667
+      betrag_m:
+        - 0.0
+        - 554.6

@@ -142,6 +142,14 @@ inputs:
       - 2015
       - 2010
       - 2015
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 9
       - 9

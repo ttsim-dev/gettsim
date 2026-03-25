@@ -28,6 +28,11 @@ inputs:
         - 0
         - 3
         - 2
+      überschusseinkommen_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -143,7 +148,7 @@ inputs:
       - 1
       - 1
     kindergeld:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
         - 0.0
@@ -212,7 +217,7 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
         - 0.0
@@ -246,8 +251,8 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
-        - 892.0
-        - 892.0
-        - 892.0
-        - 892.0
+      betrag_m:
+        - 481.0
+        - 411.0
+        - 481.0
+        - 411.0

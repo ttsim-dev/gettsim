@@ -100,6 +100,12 @@ inputs:
       - 1989
       - 2011
       - 2016
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 6
       - 6

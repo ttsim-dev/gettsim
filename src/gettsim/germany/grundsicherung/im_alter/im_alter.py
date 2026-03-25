@@ -12,116 +12,146 @@ if TYPE_CHECKING:
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2022-12-31", leaf_name="betrag_m_eg")
-def betrag_m_eg_bis_2022(
-    arbeitslosengeld_2__regelbedarf_m_bg: float,
-    mehrbedarf_schwerbehinderung_g_m_eg: float,
-    kindergeld__betrag_m_eg: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m_eg: float,
-    unterhaltsvorschuss__betrag_m_eg: float,
-    einkommen_m_eg: float,
-    volljährige_alle_rentenbezieher_hh: bool,
+@policy_function(end_date="2022-12-31", leaf_name="betrag_m")
+def betrag_m_bis_2022(
+    arbeitslosengeld_2__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    einkommen_m: float,
+    kindergeld__betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+    arbeitslosengeld_2__überschusseinkommen_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
-    familie__anzahl_kinder_eg: int,
-    familie__anzahl_personen_eg: int,
 ) -> float:
-    """Grundsicherung im Alter.
+    """Grundsicherung im Alter per person (§41 ff. SGB XII).
 
-    # ToDo: There is no check for Wohngeld included as Wohngeld is
-    # ToDo: currently not implemented for retirees.
+    Only persons who have reached the Regelaltersgrenze are eligible. In mixed BGs, the
+    SGB II partner's excess income above their Bedarf is subtracted.
 
+    Reference: §41 Abs. 1 SGB XII, BSG B 14 AS 89/20 R
+
+    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
+    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also be
+    # eligible for this benefit, independently of the Regelaltersgrenze.
+    # https://github.com/ttsim-dev/gettsim/issues/1145
     """
-    # TODO(@ChristianZimpelmann): Treatment of Bedarfsgemeinschaften with both retirees
-    # and unemployed job seekers probably incorrect
-    # https://github.com/ttsim-dev/gettsim/issues/703
-
-    # TODO(@MImmesberger): Check which variable is the correct Regelbedarf in place of
-    # `arbeitslosengeld_2__regelbedarf_m_bg`
-    # https://github.com/ttsim-dev/gettsim/issues/702
-
-    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_eg ==
-    # familie__anzahl_personen_eg` condition once
-    # `volljährige_alle_rentenbezieher_hh`` is replaced by a more accurate
-    # variable.
-    # https://github.com/ttsim-dev/gettsim/issues/696
-
-    # Wealth check
-    # Only pay Grundsicherung im Alter if all adults are retired (see docstring)
-    if (
-        (vermögen_eg >= vermögensfreibetrag_eg)
-        or (not volljährige_alle_rentenbezieher_hh)
-        or (familie__anzahl_kinder_eg == familie__anzahl_personen_eg)
-    ):
+    if not hat_regelaltersgrenze_erreicht or vermögen_eg >= vermögensfreibetrag_eg:
         out = 0.0
     else:
-        # Subtract income
         out = (
-            arbeitslosengeld_2__regelbedarf_m_bg
-            + mehrbedarf_schwerbehinderung_g_m_eg
-            - einkommen_m_eg
-            - unterhalt__tatsächlich_erhaltener_betrag_m_eg
-            - unterhaltsvorschuss__betrag_m_eg
-            - kindergeld__betrag_m_eg
+            arbeitslosengeld_2__regelbedarf_m
+            + mehrbedarf_schwerbehinderung_g_m
+            - einkommen_m
+            - kindergeld__betrag_m
+            - unterhalt__tatsächlich_erhaltener_betrag_m
+            - unterhaltsvorschuss__betrag_m
+            - arbeitslosengeld_2__überschusseinkommen_m
         )
 
     return max(out, 0.0)
 
 
-@policy_function(start_date="2023-01-01", leaf_name="betrag_m_eg")
-def betrag_m_eg_ab_2023(
-    bürgergeld__regelbedarf_m_bg: float,
-    mehrbedarf_schwerbehinderung_g_m_eg: float,
-    kindergeld__betrag_m_eg: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m_eg: float,
-    unterhaltsvorschuss__betrag_m_eg: float,
-    einkommen_m_eg: float,
-    volljährige_alle_rentenbezieher_hh: bool,
+@policy_function(start_date="2023-01-01", leaf_name="betrag_m")
+def betrag_m_ab_2023(
+    bürgergeld__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    einkommen_m: float,
+    kindergeld__betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+    bürgergeld__überschusseinkommen_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
-    familie__anzahl_kinder_eg: int,
-    familie__anzahl_personen_eg: int,
 ) -> float:
-    """Grundsicherung im Alter.
+    """Grundsicherung im Alter per person (§41 ff. SGB XII).
 
-    # ToDo: There is no check for Wohngeld included as Wohngeld is
-    # ToDo: currently not implemented for retirees.
+    Only persons who have reached the Regelaltersgrenze are eligible. In mixed BGs, the
+    SGB II partner's excess income above their Bedarf is subtracted.
 
+    Reference: §41 Abs. 1 SGB XII, BSG B 14 AS 89/20 R
+
+    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
+    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also be
+    # eligible for this benefit, independently of the Regelaltersgrenze.
+    # https://github.com/ttsim-dev/gettsim/issues/1145
     """
-    # TODO(@ChristianZimpelmann): Treatment of Bedarfsgemeinschaften with both retirees
-    # and unemployed job seekers probably incorrect
-    # https://github.com/ttsim-dev/gettsim/issues/703
-
-    # TODO(@MImmesberger): Check which variable is the correct Regelbedarf in place of
-    # `bürgergeld__regelbedarf_m_bg`
-    # https://github.com/ttsim-dev/gettsim/issues/702
-
-    # TODO (@MImmesberger): Remove `familie__anzahl_kinder_eg ==
-    # familie__anzahl_personen_eg` condition once
-    # `volljährige_alle_rentenbezieher_hh`` is replaced by a more accurate
-    # variable.
-    # https://github.com/ttsim-dev/gettsim/issues/696
-
-    # Wealth check
-    # Only pay Grundsicherung im Alter if all adults are retired (see docstring)
-    if (
-        (vermögen_eg >= vermögensfreibetrag_eg)
-        or (not volljährige_alle_rentenbezieher_hh)
-        or (familie__anzahl_kinder_eg == familie__anzahl_personen_eg)
-    ):
+    if not hat_regelaltersgrenze_erreicht or vermögen_eg >= vermögensfreibetrag_eg:
         out = 0.0
     else:
-        # Subtract income
         out = (
-            bürgergeld__regelbedarf_m_bg
-            + mehrbedarf_schwerbehinderung_g_m_eg
-            - einkommen_m_eg
-            - unterhalt__tatsächlich_erhaltener_betrag_m_eg
-            - unterhaltsvorschuss__betrag_m_eg
-            - kindergeld__betrag_m_eg
+            bürgergeld__regelbedarf_m
+            + mehrbedarf_schwerbehinderung_g_m
+            - einkommen_m
+            - kindergeld__betrag_m
+            - unterhalt__tatsächlich_erhaltener_betrag_m
+            - unterhaltsvorschuss__betrag_m
+            - bürgergeld__überschusseinkommen_m
         )
 
     return max(out, 0.0)
+
+
+@policy_function(end_date="2022-12-31", leaf_name="überschusseinkommen_m")
+def überschusseinkommen_m_bis_2022(
+    arbeitslosengeld_2__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    einkommen_m: float,
+    kindergeld__betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
+) -> float:
+    """Excess SGB XII income above own Bedarf, flowing to the SGB II partner.
+
+    Reference: BSG B 14 AS 89/20 R
+    """
+    if not hat_regelaltersgrenze_erreicht:
+        out = 0.0
+    else:
+        out = max(
+            0.0,
+            einkommen_m
+            + kindergeld__betrag_m
+            + unterhalt__tatsächlich_erhaltener_betrag_m
+            + unterhaltsvorschuss__betrag_m
+            - arbeitslosengeld_2__regelbedarf_m
+            - mehrbedarf_schwerbehinderung_g_m,
+        )
+
+    return out
+
+
+@policy_function(start_date="2023-01-01", leaf_name="überschusseinkommen_m")
+def überschusseinkommen_m_ab_2023(
+    bürgergeld__regelbedarf_m: float,
+    mehrbedarf_schwerbehinderung_g_m: float,
+    einkommen_m: float,
+    kindergeld__betrag_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+    hat_regelaltersgrenze_erreicht: bool,
+) -> float:
+    """Excess SGB XII income above own Bedarf, flowing to the SGB II partner.
+
+    Reference: BSG B 14 AS 89/20 R
+    """
+    if not hat_regelaltersgrenze_erreicht:
+        out = 0.0
+    else:
+        out = max(
+            0.0,
+            einkommen_m
+            + kindergeld__betrag_m
+            + unterhalt__tatsächlich_erhaltener_betrag_m
+            + unterhaltsvorschuss__betrag_m
+            - bürgergeld__regelbedarf_m
+            - mehrbedarf_schwerbehinderung_g_m,
+        )
+
+    return out
 
 
 @policy_function(start_date="2011-01-01")

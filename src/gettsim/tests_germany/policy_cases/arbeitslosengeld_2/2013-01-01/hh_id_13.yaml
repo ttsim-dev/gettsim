@@ -79,6 +79,11 @@ inputs:
     geburtsjahr:
       - 1973
       - 1943
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     hh_id:
       - 13
       - 13
@@ -153,8 +158,8 @@ outputs:
       - 140.0
       - 0.0
     betrag_m_bg:
-      - 710.0
-      - 710.0
+      - 375.0
+      - 375.0
     kosten_der_unterkunft_m_bg:
       - 480.0
       - 480.0

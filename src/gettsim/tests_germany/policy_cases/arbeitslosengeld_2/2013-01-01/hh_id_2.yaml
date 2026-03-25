@@ -79,6 +79,11 @@ inputs:
     geburtsjahr:
       - 1973
       - 1973
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     hh_id:
       - 2
       - 2

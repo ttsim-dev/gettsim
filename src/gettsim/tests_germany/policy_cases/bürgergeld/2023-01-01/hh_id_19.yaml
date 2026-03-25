@@ -102,6 +102,12 @@ inputs:
       - 1993
       - 2020
       - 1988
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 19
       - 19

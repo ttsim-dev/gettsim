@@ -58,6 +58,10 @@ inputs:
         - -1
     geburtsjahr:
       - 1978
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m:
+          - 0.0
     hh_id:
       - 16
     kindergeld:
