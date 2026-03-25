@@ -160,6 +160,10 @@ inputs:
             - 400.0
             - 500.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - true
+            - true
+            - false
         bezieht_rente:
           - true
           - true

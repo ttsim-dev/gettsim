@@ -69,6 +69,11 @@ inputs:
           - false
           - false
           - false
+        altersrente:
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
+            - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

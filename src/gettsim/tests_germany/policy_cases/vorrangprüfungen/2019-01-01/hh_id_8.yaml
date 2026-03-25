@@ -41,6 +41,9 @@ inputs:
       rente:
         bezieht_rente:
           - true
+        altersrente:
+          hat_regelaltersgrenze_erreicht:
+            - true
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

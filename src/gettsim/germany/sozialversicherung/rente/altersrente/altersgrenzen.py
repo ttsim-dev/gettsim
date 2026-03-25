@@ -312,7 +312,7 @@ def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
 
 @policy_function()
 def hat_regelaltersgrenze_erreicht(
-    alter_monate: float,
+    alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
 ) -> bool:
     """The person has reached the Regelaltersgrenze.
@@ -327,7 +327,7 @@ def hat_regelaltersgrenze_erreicht(
 
 @policy_function()
 def älter_als_regelaltersgrenze(
-    alter_monate: float,
+    alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
 ) -> bool:
     """The person is older than the Regelaltersgrenze.

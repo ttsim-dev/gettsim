@@ -90,6 +90,8 @@ inputs:
         altersrente:
           betrag_m:
             - 250.0
+          hat_regelaltersgrenze_erreicht:
+            - true
         bezieht_rente:
           - true
         erwerbsminderung:
