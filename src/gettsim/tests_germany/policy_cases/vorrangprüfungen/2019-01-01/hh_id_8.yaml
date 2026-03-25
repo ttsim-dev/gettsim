@@ -8,6 +8,10 @@ inputs:
   provided:
     alter:
       - 80
+    alter_monate:
+      - 960
+    schwerbehindert_grad_g:
+      - false
     arbeitslosengeld_2:
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
@@ -28,6 +32,10 @@ inputs:
       - 1939
     grundsicherung:
       im_alter:
+        bedarf_m:
+          - 0.0
+        einkommen_zur_verteilung_m:
+          - 0.0
         überschusseinkommen_m_eg:
           - 0.0
     hh_id:
@@ -44,6 +52,9 @@ inputs:
         altersrente:
           hat_regelaltersgrenze_erreicht:
             - true
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

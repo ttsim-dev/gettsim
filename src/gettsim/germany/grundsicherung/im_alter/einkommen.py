@@ -19,7 +19,6 @@ if TYPE_CHECKING:
 
 
 @policy_function(
-    start_date="2011-01-01",
     end_date="2017-12-31",
     leaf_name="einkommen_m",
 )

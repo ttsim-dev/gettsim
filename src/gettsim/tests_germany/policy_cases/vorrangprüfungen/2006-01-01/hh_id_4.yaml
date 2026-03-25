@@ -12,6 +12,18 @@ inputs:
       - 12
       - 10
       - 2
+    alter_monate:
+      - 396
+      - 360
+      - 144
+      - 120
+      - 24
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+      - false
     arbeitslosengeld_2:
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
@@ -64,6 +76,18 @@ inputs:
       - 2004
     grundsicherung:
       im_alter:
+        bedarf_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        einkommen_zur_verteilung_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         überschusseinkommen_m_eg:
           - 0.0
           - 0.0
@@ -104,6 +128,13 @@ inputs:
             - false
             - false
             - false
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

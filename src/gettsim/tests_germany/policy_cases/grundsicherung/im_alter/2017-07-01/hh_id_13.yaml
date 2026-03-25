@@ -165,6 +165,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m:
+      anspruchshöhe_m:
         - 0.0
         - 314.1666667

@@ -8,6 +8,10 @@ inputs:
   provided:
     alter:
       - 52
+    alter_monate:
+      - 624
+    schwerbehindert_grad_g:
+      - false
     anzahl_personen_hh:
       - 1
     arbeitslosengeld_2:
@@ -31,6 +35,9 @@ inputs:
           rente:
             betrag_m:
               - 0.0
+            grundrente:
+              grundrentenzeiten_monate:
+                - 0
       gemeinsam_veranlagt:
         - false
     einnahmen:

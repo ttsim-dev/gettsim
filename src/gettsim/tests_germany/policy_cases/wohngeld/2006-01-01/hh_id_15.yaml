@@ -17,6 +17,24 @@ inputs:
       - 2
       - 2
       - 5
+    alter_monate:
+      - 504
+      - 636
+      - 84
+      - 96
+      - 144
+      - 24
+      - 24
+      - 60
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+      - false
+      - false
+      - false
+      - false
     anzahl_personen_hh:
       - 8
       - 8
@@ -96,6 +114,16 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
+            grundrente:
+              grundrentenzeiten_monate:
+                - 0
+                - 0
+                - 0
+                - 0
+                - 0
+                - 0
+                - 0
+                - 0
       gemeinsam_veranlagt:
         - true
         - true

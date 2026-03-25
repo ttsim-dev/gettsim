@@ -14,13 +14,26 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from gettsim.germany.arbeitslosengeld_2.regelbedarf import (
         Regelbedarfsstufen,
+        RegelsatzAnteilsbasiert,
     )
 
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2022-12-31", leaf_name="betrag_m")
-def betrag_m_bis_2022(
+@policy_function(start_date="2005-01-01")
+def betrag_m(
+    anspruchshöhe_m: float,
+    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+) -> float:
+    """Grundsicherung im Alter after Vorrangprüfung (§2 Abs. 1 SGB XII)."""
+    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        return 0.0
+    else:
+        return anspruchshöhe_m
+
+
+@policy_function(end_date="2022-12-31", leaf_name="anspruchshöhe_m")
+def anspruchshöhe_m_bis_2022(
     ungedeckter_bedarf_m: float,
     ungedeckter_bedarf_m_eg: float,
     bedarf_m_eg: float,
@@ -55,8 +68,8 @@ def betrag_m_bis_2022(
         return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_eg) * anspruch_m_eg
 
 
-@policy_function(start_date="2023-01-01", leaf_name="betrag_m")
-def betrag_m_ab_2023(
+@policy_function(start_date="2023-01-01", leaf_name="anspruchshöhe_m")
+def anspruchshöhe_m_ab_2023(
     ungedeckter_bedarf_m: float,
     ungedeckter_bedarf_m_eg: float,
     bedarf_m_eg: float,
@@ -172,14 +185,43 @@ def überschusseinkommen_m_eg(
     return max(0.0, einkommen_zur_verteilung_m_eg - bedarf_m_eg)
 
 
+@policy_function(end_date="2010-12-31", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+def mehrbedarf_schwerbehinderung_g_m_vor_2011(
+    schwerbehindert_grad_g: bool,
+    familie__anzahl_erwachsene_eg: int,
+    arbeitslosengeld_2__regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
+    mehrbedarf_bei_schwerbehinderungsgrad_g: float,
+) -> float:
+    """Additional allowance for individuals with disabled person's pass G."""
+    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+        out = (
+            arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
+            * mehrbedarf_bei_schwerbehinderungsgrad_g
+        )
+    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+        out = (
+            arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
+            * arbeitslosengeld_2__regelsatz_anteilsbasiert.erwachsen.je_erwachsener_ab_drei_erwachsene
+            * mehrbedarf_bei_schwerbehinderungsgrad_g
+        )
+    else:
+        out = 0.0
+
+    return out
+
+
 @policy_function(start_date="2011-01-01")
 def mehrbedarf_schwerbehinderung_g_m(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
-    mehrbedarf_bei_schwerbehinderungsgrad_g: float,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
+    mehrbedarf_bei_schwerbehinderungsgrad_g: float,
 ) -> float:
-    """Additional allowance for individuals with disabled person's pass G."""
+    """Additional allowance for individuals with disabled person's pass G.
+
+    Mehrbedarf is based on Regelbedarfsstufen starting in 2011 (via Gesetz vom
+    24.03.2011 - BGBl. I 2011, Nr. 12 vom 29.03.2011, S. 453).
+    """
     mehrbedarf_single = (
         grundsicherung__regelbedarfsstufen.rbs_1
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g

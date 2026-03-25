@@ -14,22 +14,23 @@ from gettsim.tt import policy_function
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
     arbeitslosengeld_2__anzurechnendes_einkommen_m_bg: float,
+    grundsicherung__im_alter__bedarf_m_eg: float,
+    grundsicherung__im_alter__einkommen_zur_verteilung_m_eg: float,
     kinderzuschlag__anspruchshöhe_m_bg: float,
     wohngeld__anspruchshöhe_m_wthh: float,
 ) -> bool:
-    """
-    Wohngeld and Kinderzuschlag has priority or is more favorable than Arbeitslosengeld
-    II.
+    """Wohngeld/Kinderzuschlag is more favorable than ALG II and Grundsicherung im Alter.
 
-    Note that this check assumes WTHH=BG; it will not work in more complex situations.
+    Note that this check assumes WTHH=BG=EG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
     return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
+        + grundsicherung__im_alter__einkommen_zur_verteilung_m_eg
         + wohngeld__anspruchshöhe_m_wthh
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg
+        >= arbeitslosengeld_2__regelbedarf_m_bg + grundsicherung__im_alter__bedarf_m_eg
     )
 
 
@@ -41,20 +42,21 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     bürgergeld__regelbedarf_m_bg: float,
     bürgergeld__anzurechnendes_einkommen_m_bg: float,
+    grundsicherung__im_alter__bedarf_m_eg: float,
+    grundsicherung__im_alter__einkommen_zur_verteilung_m_eg: float,
     kinderzuschlag__anspruchshöhe_m_bg: float,
     wohngeld__anspruchshöhe_m_wthh: float,
 ) -> bool:
-    """
-    Wohngeld and Kinderzuschlag has priority or is more favorable than Arbeitslosengeld
-    II.
+    """Wohngeld/Kinderzuschlag is more favorable than Bürgergeld and Grundsicherung im Alter.
 
-    Note that this check assumes WTHH=BG; it will not work in more complex situations.
+    Note that this check assumes WTHH=BG=EG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
     return (
         bürgergeld__anzurechnendes_einkommen_m_bg
+        + grundsicherung__im_alter__einkommen_zur_verteilung_m_eg
         + wohngeld__anspruchshöhe_m_wthh
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= bürgergeld__regelbedarf_m_bg
+        >= bürgergeld__regelbedarf_m_bg + grundsicherung__im_alter__bedarf_m_eg
     )

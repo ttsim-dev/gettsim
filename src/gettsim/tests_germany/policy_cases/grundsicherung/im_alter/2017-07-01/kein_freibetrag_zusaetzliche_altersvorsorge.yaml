@@ -124,5 +124,5 @@ outputs:
     im_alter:
       einkommen_m:
         - 500.0
-      betrag_m:
+      anspruchshöhe_m:
         - 345.0
