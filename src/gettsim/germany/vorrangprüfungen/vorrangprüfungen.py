@@ -23,6 +23,8 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
+    # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
+    # https://github.com/ttsim-dev/gettsim/issues/1165
     return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
         + wohngeld__anspruchshöhe_m_wthh
@@ -48,6 +50,8 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
+    # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
+    # https://github.com/ttsim-dev/gettsim/issues/1165
     return (
         bürgergeld__anzurechnendes_einkommen_m_bg
         + wohngeld__anspruchshöhe_m_wthh

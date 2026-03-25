@@ -61,7 +61,7 @@ The sum of individual benefits equals the BG-level benefit. This equivalence hol
 because, when the BG is hilfebedürftig, each person's Bedarf is scaled by the same
 factor (one minus the ratio of total income to total Bedarf).
 
-### 'Vertikalmethode' (mixed BG)
+### Vertikalmethode
 
 When one partner receives SGB XII benefits and the other receives SGB II benefits, BSG B
 14 AS 89/20 R mandates the 'Vertikalmethode'. The SGB XII partner's needs and income are
@@ -75,7 +75,7 @@ XII):
 #### Überschusseinkommen (surplus income)
 
 The two systems are not fully independent. If one side's countable income exceeds its
-total Bedarf, the surplus (*Überschusseinkommen*) flows to the other side as additional
+Bedarf, the surplus (*Überschusseinkommen*) flows to the other side as additional
 income:
 
 - **SGB II → SGB XII**: If the SGB II BG members' total distributable income exceeds
@@ -86,7 +86,7 @@ income:
   `grundsicherung__im_alter__überschusseinkommen_m_eg` and
   `grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg`.
 
-#### Einsatzgemeinschaft
+### Einsatzgemeinschaft
 
 The relevant calculation unit for the SGB XII partner is the **Einsatzgemeinschaft**
 (`eg_id`, §27 Abs. 2 SGB XII), analogous to the Bedarfsgemeinschaft for SGB II. In a
