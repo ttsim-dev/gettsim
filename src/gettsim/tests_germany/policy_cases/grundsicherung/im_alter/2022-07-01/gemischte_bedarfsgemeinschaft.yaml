@@ -7,6 +7,14 @@ info:
     applies: each system computes independently, with excess income above own Bedarf
     flowing to the partner. Person1 has 400€ gesetzliche Rente and 500 months
     Grundrentenzeiten (eligible for Grundrentenfreibetrag). Person0 has no income.
+    Regelsatz (RBS 2, 2022): 404. KdU: (500+100)/2 = 300. Regelbedarf: 704 each.
+    SGB II (Person0): ungedeckter_bedarf = 704, einkommen_zur_verteilung = 0.
+    Person1 excluded (past Regelaltersgrenze). überschusseinkommen = 0.
+    anspruch_bg = max(0, 704 - 0) = 704 → ALG2 betrag Person0 = 704.
+    SGB XII (Person1): gesetzliche Rente 400 – Grundrentenfreibetrag
+    min(100+0.3·300, 449/2) = min(190, 224.50) = 190 → einkommen = 210.
+    bedarf = 704, ungedeckter_bedarf = max(0, 704-210) = 494.
+    anspruch_eg = max(0, 704 - 210 - 0) = 494 → GSiA betrag Person1 = 494.
   precision_atol: 0.01
   source: Regression test.
 inputs:

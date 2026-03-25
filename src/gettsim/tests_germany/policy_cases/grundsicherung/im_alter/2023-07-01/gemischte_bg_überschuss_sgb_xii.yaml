@@ -5,6 +5,15 @@ info:
     Grundsicherung Bedarf. Person1 (age 67, past Regelaltersgrenze) has a high pension
     (1200€/month) that exceeds his Bedarf. The surplus flows to Person0's Bürgergeld
     calculation via grundsicherung__im_alter__überschusseinkommen_m_eg.
+    Regelsatz (RBS 2): 451. KdU: (500+100)/2 = 300. Regelbedarf: 751 each.
+    SGB XII (Person1): gesetzliche Rente 1200 – Grundrentenfreibetrag
+    min(100+0.3·1100, 502/2) = min(430, 251) = 251 → einkommen = 949.
+    bedarf = 751, ungedeckter_bedarf = 0 (income exceeds bedarf).
+    überschusseinkommen_eg = max(0, 949 - 751) = 198.
+    GSiA betrag = 0 (bedarf fully covered).
+    SGB II (Person0): ungedeckter_bedarf = 751, einkommen = 0.
+    total_income_bg = 0 + 198 (GSiA surplus) = 198.
+    anspruch_bg = max(0, 751 - 198) = 553 → Bürgergeld betrag P0 = 553.
   precision_atol: 0.01
   source: Regression test.
 inputs:

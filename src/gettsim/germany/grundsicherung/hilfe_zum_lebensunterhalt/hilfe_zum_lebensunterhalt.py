@@ -23,16 +23,13 @@ def betrag_m() -> float:
 
 
 @policy_function(start_date="2005-01-01")
-def überschusseinkommen_m(
-    kindergeld__betrag_m: float,
-) -> float:
+def überschusseinkommen_m() -> float:
     """Excess HzL income flowing to the parent's Grundsicherung im Alter.
 
-    For now, this returns the child's Kindergeld as a simplified proxy for the child's
-    excess income. Once Hilfe zum Lebensunterhalt is fully implemented, this should be
-    computed from the child's ungedeckter Bedarf and einkommen_zur_verteilung.
+    Once Hilfe zum Lebensunterhalt is fully implemented, this should be computed from
+    the child's ungedeckter Bedarf and einkommen_zur_verteilung.
 
-    # TODO (@MImmesberger): Compute from full HzL Bedarf/Einkommen once implemented.
-    # https://github.com/ttsim-dev/gettsim/issues/1153
+    # TODO (@MImmesberger): Compute from full HzL Bedarf/Einkommen once implemented. #
+    https://github.com/ttsim-dev/gettsim/issues/1153
     """
-    return kindergeld__betrag_m
+    return 0
