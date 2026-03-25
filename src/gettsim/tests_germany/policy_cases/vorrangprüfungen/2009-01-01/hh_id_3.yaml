@@ -37,7 +37,7 @@ inputs:
       - 2008
     grundsicherung:
       im_alter:
-        überschusseinkommen_m:
+        überschusseinkommen_m_eg:
           - 0.0
           - 0.0
     hh_id:

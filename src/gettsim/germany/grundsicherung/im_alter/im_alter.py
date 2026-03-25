@@ -21,8 +21,8 @@ from gettsim.tt import policy_function
 
 @policy_function(end_date="2022-12-31", leaf_name="betrag_m")
 def betrag_m_bis_2022(
-    restbedarf_m: float,
-    restbedarf_m_eg: float,
+    ungedeckter_bedarf_m: float,
+    ungedeckter_bedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
     arbeitslosengeld_2__überschusseinkommen_m_eg: float,
@@ -32,17 +32,16 @@ def betrag_m_bis_2022(
 ) -> float:
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
-    Each person's income covers their own Bedarf first. Only the Überschuss is
-    distributed proportionally to the Restbedarf of the hilfebedürftigen members.
-    Persons who cover their own Bedarf are not hilfebedürftig and receive nothing.
+    Each person's income covers their own Bedarf first ('Vertikalmethode'). Only the
+    Überschuss is distributed proportionally to the ungedeckter Bedarf of the
+    hilfebedürftigen members.
 
     Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
-
+    """
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
     # be eligible for this benefit, independently of the Regelaltersgrenze.
     # https://github.com/ttsim-dev/gettsim/issues/1145
-    """
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
         + arbeitslosengeld_2__überschusseinkommen_m_eg
@@ -50,16 +49,16 @@ def betrag_m_bis_2022(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if ungedeckter_bedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
         return 0.0
     else:
-        return (restbedarf_m / restbedarf_m_eg) * anspruch_m_eg
+        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_eg) * anspruch_m_eg
 
 
 @policy_function(start_date="2023-01-01", leaf_name="betrag_m")
 def betrag_m_ab_2023(
-    restbedarf_m: float,
-    restbedarf_m_eg: float,
+    ungedeckter_bedarf_m: float,
+    ungedeckter_bedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
     bürgergeld__überschusseinkommen_m_eg: float,
@@ -69,17 +68,16 @@ def betrag_m_ab_2023(
 ) -> float:
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
-    Each person's income covers their own Bedarf first. Only the Überschuss is
-    distributed proportionally to the Restbedarf of the hilfebedürftigen members.
-    Persons who cover their own Bedarf are not hilfebedürftig and receive nothing.
+    Each person's income covers their own Bedarf first ('Vertikalmethode'). Only the
+    Überschuss is distributed proportionally to the ungedeckter Bedarf of the
+    hilfebedürftigen members.
 
     Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
-
-    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
-    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also be
-    # eligible for this benefit, independently of the Regelaltersgrenze.
-    # https://github.com/ttsim-dev/gettsim/issues/1145
     """
+    # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
+    # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
+    # be eligible for this benefit, independently of the Regelaltersgrenze.
+    # https://github.com/ttsim-dev/gettsim/issues/1145
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
         + bürgergeld__überschusseinkommen_m_eg
@@ -87,21 +85,21 @@ def betrag_m_ab_2023(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if ungedeckter_bedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
         return 0.0
     else:
-        return (restbedarf_m / restbedarf_m_eg) * anspruch_m_eg
+        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_eg) * anspruch_m_eg
 
 
 @policy_function(start_date="2005-01-01")
-def restbedarf_m(
+def ungedeckter_bedarf_m(
     bedarf_m: float,
     einkommen_zur_verteilung_m: float,
 ) -> float:
     """Remaining need after own income (§19 Abs. 2 i.V.m. §43 Abs. 1 SGB XII).
 
     In the SGB XII Verhältnislösung, each person's income covers their own Bedarf
-    first. Only the Restbedarf enters the proportional distribution.
+    first ('Vertikalmethode').
     """
     return max(0.0, bedarf_m - einkommen_zur_verteilung_m)
 
@@ -160,15 +158,18 @@ def einkommen_zur_verteilung_m(
 
 
 @policy_function(start_date="2005-01-01")
-def überschusseinkommen_m(
-    einkommen_zur_verteilung_m: float,
-    bedarf_m: float,
+def überschusseinkommen_m_eg(
+    einkommen_zur_verteilung_m_eg: float,
+    bedarf_m_eg: float,
 ) -> float:
-    """Excess SGB XII income above own Bedarf, flowing to the SGB II partner.
+    """Net EG excess after internal Verhältnislösung redistribution.
+
+    Only the EG-level surplus (total income > total Bedarf) flows to the SGB II
+    partner.
 
     Reference: BSG B 14 AS 89/20 R
     """
-    return max(0.0, einkommen_zur_verteilung_m - bedarf_m)
+    return max(0.0, einkommen_zur_verteilung_m_eg - bedarf_m_eg)
 
 
 @policy_function(start_date="2011-01-01")
