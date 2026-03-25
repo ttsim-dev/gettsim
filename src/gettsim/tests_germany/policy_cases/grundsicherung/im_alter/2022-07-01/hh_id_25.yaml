@@ -1,15 +1,14 @@
 ---
 info:
   note: |-
-    Test with child and positive wealth below wealth allowance (website did not add
-    general amount for child)
+    Test with child and positive wealth below wealth allowance.
   precision_atol: 0.01
   source: https://www.smart-rechner.de/grundsicherung/rechner.php
 inputs:
   assumed: {}
   provided:
     alter:
-      - 50
+      - 67
       - 16
     arbeitslosengeld_2:
       p_id_einstandspartner:
@@ -123,7 +122,7 @@ inputs:
             - 425.0
             - 0.0
           hat_regelaltersgrenze_erreicht:
-            - false
+            - true
             - false
         bezieht_rente:
           - true
@@ -164,5 +163,5 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m:
-        - 0.0
+        - 305.46
         - 0.0

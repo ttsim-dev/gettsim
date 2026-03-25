@@ -8,7 +8,7 @@ inputs:
   assumed: {}
   provided:
     alter:
-      - 50
+      - 67
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
@@ -90,7 +90,7 @@ inputs:
           betrag_m:
             - 425.0
           hat_regelaltersgrenze_erreicht:
-            - false
+            - true
         bezieht_rente:
           - true
         erwerbsminderung:
@@ -120,4 +120,4 @@ outputs:
   grundsicherung:
     im_alter:
       betrag_m:
-        - 0.0
+        - 356.03
