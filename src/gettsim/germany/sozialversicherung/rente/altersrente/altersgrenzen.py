@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ttsim.unit_converters import m_to_y
+
 from gettsim.tt import policy_function
 
 if TYPE_CHECKING:
@@ -306,3 +308,34 @@ def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
         out = regelaltersrente__altersgrenze
 
     return out
+
+
+@policy_function()
+def hat_regelaltersgrenze_erreicht(
+    alter_monate: float,
+    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
+) -> bool:
+    """The person has reached the Regelaltersgrenze.
+
+    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II
+    """
+    return (
+        m_to_y(alter_monate)
+        >= sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+    )
+
+
+@policy_function()
+def älter_als_regelaltersgrenze(
+    alter_monate: float,
+    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
+) -> bool:
+    """The person is older than the Regelaltersgrenze.
+
+    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II
+    """
+    # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
+    # Hence, we add a number << 1 / 12 to the RHS.
+    return m_to_y(alter_monate) > (
+        sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze + 0.00001
+    )

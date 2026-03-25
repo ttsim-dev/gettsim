@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from ttsim.unit_converters import m_to_y
-
 from gettsim.tt import policy_function
 
 
@@ -68,9 +66,8 @@ def werbungskosten_y(arbeitnehmerpauschbetrag: float) -> float:
 @policy_function(start_date="2026-01-01")
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
-    alter_monate: int,
-    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
     steuerfreibetrag_aktivrente_m: float,
+    sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
 
@@ -91,12 +88,10 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     pays_contributions_to_pension_insurance = (
         sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
     )
-    # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
-    # Hence, we add a number << 1 / 12 to the RHS.
-    older_than_regelaltersgrenze = m_to_y(alter_monate) > (
-        sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze + 0.00001
-    )
-    if older_than_regelaltersgrenze and pays_contributions_to_pension_insurance:
+    if (
+        sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
+        and pays_contributions_to_pension_insurance
+    ):
         return steuerfreibetrag_aktivrente_m
     else:
         return 0.0

@@ -54,7 +54,7 @@ def ungedeckter_bedarf_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
-    hat_regelaltersgrenze_erreicht: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Bedarf after netting child's own income.
 
@@ -63,7 +63,7 @@ def ungedeckter_bedarf_m(
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    if hat_regelaltersgrenze_erreicht:
+    if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
         # Children's income is counted against the children's own needs first.
@@ -77,7 +77,7 @@ def einkommen_zur_verteilung_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
-    hat_regelaltersgrenze_erreicht: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Income available for proportional distribution across BG.
 
@@ -86,7 +86,7 @@ def einkommen_zur_verteilung_m(
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    if hat_regelaltersgrenze_erreicht:
+    if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     elif familie__ist_kind_in_bedarfsgemeinschaft:
         # Children's income is counted against the children's own needs first. Only

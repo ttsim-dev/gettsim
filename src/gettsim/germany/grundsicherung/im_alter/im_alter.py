@@ -80,14 +80,14 @@ def betrag_m_ab_2023(
 def bedarf_m_bis_2022(
     arbeitslosengeld_2__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
     # be eligible for this benefit, independently of the Regelaltersgrenze.
     # https://github.com/ttsim-dev/gettsim/issues/1145
-    if not hat_regelaltersgrenze_erreicht:
+    if not sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         # Bedarf not considered for Grunds. im Alter ('Vertikalmethode') because
         # eligible for different program.
         return 0.0
@@ -99,14 +99,14 @@ def bedarf_m_bis_2022(
 def bedarf_m_ab_2023(
     bürgergeld__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
     # be eligible for this benefit, independently of the Regelaltersgrenze.
     # https://github.com/ttsim-dev/gettsim/issues/1145
-    if not hat_regelaltersgrenze_erreicht:
+    if not sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         # Bedarf not considered for Grunds. im Alter ('Vertikalmethode') because
         # eligible for different program.
         return 0.0
@@ -117,13 +117,13 @@ def bedarf_m_ab_2023(
 @policy_function(start_date="2005-01-01")
 def einkommen_zur_verteilung_m(
     einkommen_m: float,
-    hat_regelaltersgrenze_erreicht: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Total countable SGB XII income (§82 ff. SGB XII).
 
     Returns 0 for persons who have not reached the Regelaltersgrenze.
     """
-    if not hat_regelaltersgrenze_erreicht:
+    if not sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
     else:
         return einkommen_m
