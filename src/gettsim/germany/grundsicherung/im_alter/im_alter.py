@@ -266,26 +266,19 @@ def vermögensfreibetrag_eg(
     )
 
 
-# --- 100k children exclusion (§43 SGB XII) ---
-
-
 @policy_function(start_date="2005-01-01")
 def hat_gesamteinkommen_über_einkommensgrenze(
-    einkommensteuer__einkünfte__gesamtbetrag_der_einkünfte_y: float,
+    einkommensteuer__gesamteinkommen_y: float,
     einkommensgrenze_kinder: float,
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
     Used to determine if a child's income excludes a parent from Grundsicherung im
-    Alter. The relevant income concept is Gesamteinkommen per § 16 SGB IV, approximated
-    here by the Gesamtbetrag der Einkünfte (§ 2 Abs. 3 EStG).
+    Alter.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    return (
-        einkommensteuer__einkünfte__gesamtbetrag_der_einkünfte_y
-        >= einkommensgrenze_kinder
-    )
+    return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)

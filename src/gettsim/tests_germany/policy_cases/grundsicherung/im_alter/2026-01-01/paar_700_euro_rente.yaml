@@ -33,14 +33,6 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
-        aus_forst_und_landwirtschaft:
-          betrag_y:
-            - 0.0
-            - 0.0
-        aus_gewerbebetrieb:
-          betrag_y:
-            - 0.0
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -112,6 +104,11 @@ inputs:
       p_id_elternteil_2:
         - -1
         - -1
+    grundsicherung:
+      im_alter:
+        hat_kind_über_einkommensgrenze:
+          - false
+          - false
     geburtsjahr:
       - 1956
       - 1958

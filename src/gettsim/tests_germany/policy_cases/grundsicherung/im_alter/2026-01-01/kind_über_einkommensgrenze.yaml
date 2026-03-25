@@ -41,6 +41,11 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      abzüge:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+          - 0.0
       einkünfte:
         aus_forst_und_landwirtschaft:
           betrag_y:

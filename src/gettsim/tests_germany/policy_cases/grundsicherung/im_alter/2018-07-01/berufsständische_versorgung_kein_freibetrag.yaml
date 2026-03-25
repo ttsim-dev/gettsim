@@ -21,12 +21,6 @@ inputs:
       betrag_y_sn:
         - 0.0
       einkünfte:
-        aus_forst_und_landwirtschaft:
-          betrag_y:
-            - 0.0
-        aus_gewerbebetrieb:
-          betrag_y:
-            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -75,6 +69,9 @@ inputs:
     hh_id:
       - 101
     grundsicherung:
+      im_alter:
+        hat_kind_über_einkommensgrenze:
+          - false
       hilfe_zum_lebensunterhalt:
         überschusseinkommen_m:
           - 0.0
