@@ -19,7 +19,7 @@ def betrag_m() -> float:
     # TODO (@MImmesberger): Implement Hilfe zum Lebensunterhalt.
     # https://github.com/ttsim-dev/gettsim/issues/1153
     """
-    return 0.0
+    return 0.0  # pragma: no cover
 
 
 @policy_function(start_date="2005-01-01")

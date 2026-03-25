@@ -1,11 +1,10 @@
 ---
 info:
   note: |-
-    Gemischte Bedarfsgemeinschaft (mixed SGB II / SGB XII couple). Person0 (age 55,
-    erwerbsfähig) receives Bürgergeld, Person1 (age 67, past Regelaltersgrenze) receives
-    Grundsicherung im Alter. The vertikale Berechnungsmethode (BSG B 14 AS 89/20 R)
-    applies: each system computes independently, with excess income above own Bedarf
-    flowing to the partner.
+    Gemischte Bedarfsgemeinschaft where the SGB XII partner's income exceeds their
+    Grundsicherung Bedarf. Person1 (age 67, past Regelaltersgrenze) has a high pension
+    (1200€/month) that exceeds his Bedarf. The surplus flows to Person0's Bürgergeld
+    calculation via grundsicherung__im_alter__überschusseinkommen_m_eg.
   precision_atol: 0.01
   source: Regression test.
 inputs:
@@ -68,6 +67,9 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
       betrag_m:
         - 0.0
         - 0.0
@@ -96,11 +98,6 @@ inputs:
     hh_id:
       - 0
       - 0
-    grundsicherung:
-      hilfe_zum_lebensunterhalt:
-        überschusseinkommen_m:
-          - 0.0
-          - 0.0
     kindergeld:
       in_ausbildung:
         - false
@@ -130,7 +127,7 @@ inputs:
         altersrente:
           betrag_m:
             - 0.0
-            - 400.0
+            - 1200.0
           hat_regelaltersgrenze_erreicht:
             - false
             - true
@@ -179,10 +176,10 @@ inputs:
 outputs:
   bürgergeld:
     betrag_m:
-      - 751.0
+      - 553.0
       - 0.0
   grundsicherung:
     im_alter:
       betrag_m:
         - 0.0
-        - 541.0
+        - 0.0

@@ -2,10 +2,11 @@
 info:
   note: |-
     Gemischte Bedarfsgemeinschaft (mixed SGB II / SGB XII couple). Person0 (age 55,
-    erwerbsfähig) receives Bürgergeld, Person1 (age 67, past Regelaltersgrenze) receives
+    erwerbsfähig) receives ALG2, Person1 (age 67, past Regelaltersgrenze) receives
     Grundsicherung im Alter. The vertikale Berechnungsmethode (BSG B 14 AS 89/20 R)
     applies: each system computes independently, with excess income above own Bedarf
-    flowing to the partner.
+    flowing to the partner. Person1 has 400€ gesetzliche Rente and 500 months
+    Grundrentenzeiten (eligible for Grundrentenfreibetrag). Person0 has no income.
   precision_atol: 0.01
   source: Regression test.
 inputs:
@@ -15,12 +16,9 @@ inputs:
       - 55
       - 67
     alter_monate:
-      - 660
-      - 804
-    bürgergeld:
-      bezug_im_vorjahr:
-        - false
-        - false
+      - 666
+      - 810
+    arbeitslosengeld_2:
       p_id_einstandspartner:
         - 1
         - 0
@@ -68,6 +66,9 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
       betrag_m:
         - 0.0
         - 0.0
@@ -85,8 +86,8 @@ inputs:
         - -1
         - -1
     geburtsjahr:
-      - 1968
-      - 1956
+      - 1967
+      - 1955
     geburtsmonat:
       - 1
       - 1
@@ -96,11 +97,6 @@ inputs:
     hh_id:
       - 0
       - 0
-    grundsicherung:
-      hilfe_zum_lebensunterhalt:
-        überschusseinkommen_m:
-          - 0.0
-          - 0.0
     kindergeld:
       in_ausbildung:
         - false
@@ -131,9 +127,6 @@ inputs:
           betrag_m:
             - 0.0
             - 400.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - true
         bezieht_rente:
           - false
           - true
@@ -177,12 +170,12 @@ inputs:
         - 0.0
         - 0.0
 outputs:
-  bürgergeld:
+  arbeitslosengeld_2:
     betrag_m:
-      - 751.0
+      - 704.0
       - 0.0
   grundsicherung:
     im_alter:
       betrag_m:
         - 0.0
-        - 541.0
+        - 494.0
