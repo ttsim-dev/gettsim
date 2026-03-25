@@ -16,7 +16,7 @@ inputs:
         - false
       p_id_einstandspartner:
         - -1
-      überschusseinkommen_m:
+      überschusseinkommen_m_eg:
         - 0.0
     einkommensteuer:
       betrag_y_sn:
@@ -69,9 +69,11 @@ inputs:
       - 1
     hh_id:
       - 0
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
     kindergeld:
-      betrag_m:
-        - 0.0
       p_id_empfänger:
         - -1
     p_id:

@@ -96,10 +96,12 @@ inputs:
     hh_id:
       - 0
       - 0
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     kindergeld:
-      betrag_m:
-        - 0.0
-        - 0.0
       in_ausbildung:
         - false
         - false
