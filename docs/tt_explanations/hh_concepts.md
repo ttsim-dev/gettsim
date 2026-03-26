@@ -24,7 +24,7 @@ The units are:
 | Bedarfsgemeinschaft              | arbeitslosengeld_2\_\_bg_id | Familiengemeinschaft except for children who have enough income to fend for themselves. Relevant unit for Bürgergeld / Arbeitslosengeld 2.                                      | yes        |
 | Steuernummer                     | einkommensteuer\_\_sn_id    | Spouses filing taxes jointly or individuals.                                                                                                                                    | yes        |
 | Ehepartner                       | familie\_\_ehe_id           | Couples that are either married or in a civil union.                                                                                                                            | yes        |
-| Einstandsgemeinschaft            | arbeitslosengeld_2\_\_eg_id | A couple whose members are deemed to be responsible for each other.                                                                                                             | yes        |
+| Einsatzgemeinschaft              | grundsicherung\_\_eg_id     | Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum of two generations, the relevant base unit for Grundsicherung im Alter / Sozialhilfe.                             | yes        |
 
 Note that GETTSIM handles only simple cases (`hh_id` = `fg_id` = `bg_id` = `wthh_id`)
 out of the box. If you need to handle more complex cases, you will need to pass all of
@@ -167,7 +167,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 #### Description
 
 - Bedarfsgemeinschaft comprised of:
-  - Einstandsgemeinschaft (SGB II - max 2 adults, marriage-like relationships)
+  - A single or a couple (Einstandspartner) whose members are deemed to be responsible
+    for each other
   - Children under 18/25 whose income does not exceed their own needs. - The
     "Kinderwohngeld" allows children to leave the Bedarfsgemeinschaft if Wohngeld (and
     other sourced of income) is sufficient to cover their needs. Not implemented yet.
@@ -192,7 +193,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 
 Government expenditures: 1.5 Mrd €
 
-- Entitled to benefits: Einstandsgemeinschaft (SGB XII) - §27 SGB XII
+- Entitled to benefits: Einsatzgemeinschaft (SGB XII) - §27 SGB XII
   - max 2 adults, marriage-like relationships
   - Their children under 18 living in the same household whose income does not exceed
     their own needs
@@ -214,8 +215,7 @@ Regarding the household definition:
 
 #### Aggregation unit
 
-- Not implemented yet. The current `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is
-  not sufficient as it doesn't include children (it follows the SGB II definition).
+- `grundsicherung__eg_id` (Einsatzgemeinschaft)
 
 #### Pointers
 
@@ -230,7 +230,7 @@ Regarding the household definition:
 
 Government expenditures: 7 Mrd €
 
-- Entitled to benefits: Einstandsgemeinschaft (SGB XII) - §27 SGB XII
+- Entitled to benefits: Einsatzgemeinschaft (SGB XII) - §27 SGB XII
   - max 2 adults, marriage-like relationships
   - Their children under 18 living in the same household whose income does not exceed
     their own needs
@@ -240,10 +240,7 @@ Government expenditures: 7 Mrd €
 
 #### Aggregation unit
 
-- Currently: `arbeitslosengeld_2__eg_id` until 2022; `bürgergeld__eg_id` since 2023
-  (endogenous)
-- The current implementation of `arbeitslosengeld_2__eg_id`/`bürgergeld__eg_id` is not
-  sufficient as it doesn't include children (it follows the SGB II definition).
+- `grundsicherung__eg_id` (Einsatzgemeinschaft, endogenous)
 
 #### Pointers
 
@@ -326,24 +323,6 @@ Government expenditures: 4 Mrd €
 - Only possible if the child can cover its needs with the Wohngeld transfer
 - Does not happen automatically, but upon request by the parents
 - Not implemented yet.
-
-## Limitations
-
-- Within a Wohngeldhaushalt, no distinction can be made between persons without
-  Einstandsverpflichtung according to SGB II or SGB XII and those with
-  Einstandsverpflichtung
-
-- Can only show the two extreme cases
-
-  1. all non-vertical or partner relationships not a candidate for Haushaltsgemeinschaft
-     according to SGB II / SGB XII
-  1. all non-vertical or partner relationships are candidates for Haushaltsgemeinschaft
-     according to SGB II / SGB XII
-
-  Typically, 1. will be the solution (hurdles for joint economic activity are high).
-
-- An alternative would be another ID variable that specifies Einstandsgemeinschaft
-  according to SGB II and SGB XII.
 
 ### Parts of the data not available
 

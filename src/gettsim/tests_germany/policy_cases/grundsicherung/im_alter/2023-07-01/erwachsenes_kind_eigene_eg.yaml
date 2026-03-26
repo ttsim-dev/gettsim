@@ -1,17 +1,23 @@
 ---
 info:
   note: |-
-    Test with child and positive wealth below wealth allowance (website did not add
-    general amount for child)
+    Retired parent (age 70) with adult child (age 22) on Erwerbsminderungsrente.
+    Child is in the same fg_id (age < 25) but NOT in the same eg_id (age >= 18).
+    Each person forms their own Einsatzgemeinschaft, so betrag_m_eg differs per
+    person. This tests the eg_id age boundary for Grundsicherung im Alter and the
+    correct use of _eg (not _fg) aggregation for vermögensfreibetrag_eg.
   precision_atol: 0.01
-  source: https://www.smart-rechner.de/grundsicherung/rechner.php
+  source: Self-created test case
 inputs:
   assumed: {}
   provided:
     alter:
-      - 50
-      - 16
-    arbeitslosengeld_2:
+      - 70
+      - 22
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
       p_id_einstandspartner:
         - -1
         - -1
@@ -71,13 +77,13 @@ inputs:
         - -1
       p_id_elternteil_1:
         - -1
-        - 34
+        - 0
       p_id_elternteil_2:
         - -1
         - -1
     geburtsjahr:
-      - 1972
-      - 2006
+      - 1953
+      - 2001
     geburtsmonat:
       - 1
       - 1
@@ -85,20 +91,20 @@ inputs:
       - 1
       - 1
     hh_id:
-      - 25
-      - 25
+      - 0
+      - 0
     kindergeld:
       betrag_m_eg:
         - 0.0
         - 0.0
       p_id_empfänger:
         - -1
-        - 34
+        - 0
     p_id:
-      - 34
-      - 35
+      - 0
+      - 1
     schwerbehindert_grad_g:
-      - true
+      - false
       - false
     solidaritätszuschlag:
       betrag_y_sn:
@@ -115,18 +121,18 @@ inputs:
       rente:
         altersrente:
           betrag_m:
-            - 425.0
+            - 300.0
             - 0.0
         bezieht_rente:
           - true
-          - false
+          - true
         erwerbsminderung:
           betrag_m:
             - 0.0
-            - 0.0
+            - 200.0
         grundrente:
           grundrentenzeiten_monate:
-            - 120
+            - 500
             - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
@@ -137,24 +143,24 @@ inputs:
         - 0.0
         - 0.0
     vermögen_eg:
-      - 5400.0
+      - 0.0
       - 0.0
     wohnen:
       bewohnt_eigentum_hh:
         - false
         - false
       bruttokaltmiete_m_hh:
-        - 252.5
-        - 252.5
+        - 350.0
+        - 350.0
       heizkosten_m_hh:
-        - 50.0
-        - 50.0
+        - 60.0
+        - 60.0
       wohnfläche_hh:
-        - 35.0
-        - 35.0
+        - 50.0
+        - 50.0
 outputs:
   grundsicherung:
     im_alter:
       betrag_m_eg:
-        - 852.71
-        - 852.71
+        - 1194.0
+        - 1134.0
