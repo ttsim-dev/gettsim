@@ -163,7 +163,7 @@ def _assign_parents_fg_id(
     hh_id: IntColumn,
     alter: IntColumn,
     children: IntColumn,
-    n: IntColumn,
+    n: int,
     xnp: ModuleType,
 ) -> IntColumn:
     """Return the fg_id of the child's parents."""
@@ -322,7 +322,7 @@ def _assign_parents_eg_id(
     hh_id: IntColumn,
     alter: IntColumn,
     children: IntColumn,
-    n: IntColumn,
+    n: int,
     xnp: ModuleType,
 ) -> IntColumn:
     """Return the eg_id of the child's parents."""
