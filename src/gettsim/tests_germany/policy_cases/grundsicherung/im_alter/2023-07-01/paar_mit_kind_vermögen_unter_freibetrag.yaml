@@ -216,3 +216,7 @@ outputs:
         - 441.0
         - 371.0
         - 0.0
+      vermögensgrenze_unterschritten_eg:
+        - true
+        - true
+        - true

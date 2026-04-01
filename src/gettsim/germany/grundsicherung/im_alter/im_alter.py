@@ -40,8 +40,7 @@ def anspruchshöhe_m_bis_2022(
     einkommen_zur_verteilung_m_eg: float,
     arbeitslosengeld_2__überschusseinkommen_m_eg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
-    vermögen_eg: float,
-    vermögensfreibetrag_eg: float,
+    vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
@@ -62,7 +61,7 @@ def anspruchshöhe_m_bis_2022(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if individueller_restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
         return (
@@ -78,8 +77,7 @@ def anspruchshöhe_m_ab_2023(
     einkommen_zur_verteilung_m_eg: float,
     bürgergeld__überschusseinkommen_m_eg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
-    vermögen_eg: float,
-    vermögensfreibetrag_eg: float,
+    vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
     """Grundsicherung im Alter per person using the Verhältnislösung.
 
@@ -100,7 +98,7 @@ def anspruchshöhe_m_ab_2023(
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
 
-    if individueller_restbedarf_m_eg == 0.0 or vermögen_eg >= vermögensfreibetrag_eg:
+    if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
         return (
@@ -241,6 +239,15 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
         out = 0.0
 
     return out
+
+
+@policy_function(start_date="2005-01-01")
+def vermögensgrenze_unterschritten_eg(
+    vermögen_eg: float,
+    vermögensfreibetrag_eg: float,
+) -> bool:
+    """Wealth is below the eligibility threshold (§ 90 SGB XII)."""
+    return vermögen_eg < vermögensfreibetrag_eg
 
 
 @policy_function(start_date="2005-01-01")
