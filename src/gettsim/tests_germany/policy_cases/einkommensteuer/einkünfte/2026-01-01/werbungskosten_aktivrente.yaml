@@ -1,0 +1,68 @@
+---
+info:
+  note: >-
+    Tests proportional splitting of Werbungskosten per § 3c Abs. 1 EStG when
+    Aktivrente is claimed. The Arbeitnehmer-Pauschbetrag (1,230 EUR) applies in
+    full without proportional reduction (Günstigerprüfung).
+  precision_atol: 1.0
+  source: >-
+    FAQ Aktivrente, Frage 12: Wie wirkt sich die Aktivrente auf die
+    Werbungskosten aus?
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 794  # At Regelaltersgrenze → not eligible for Aktivrente
+      - 795  # 1 month older → eligible
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0  # No actual WK → Pauschbetrag applies
+            - 0.0  # Aktivrente, no actual WK → Pauschbetrag applies
+            - 2000.0  # Proportional: 2000 * 0.5 = 1000 < 1230 → Pauschbetrag
+            - 6000.0  # Proportional: 6000 * 0.5 = 3000 > 1230 → actual WK
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 50.0
+            - 50.0
+            - 50.0
+            - 50.0
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        werbungskosten_y:
+          - 1230.0  # Pauschbetrag (no Aktivrente, WK=0)
+          - 1230.0  # Pauschbetrag (Aktivrente, WK=0)
+          - 1230.0  # Pauschbetrag wins (1000 < 1230)
+          - 3000.0  # Proportionally reduced actual WK (6000 * 24000/48000)
+        betrag_m:
+          - 3897.5  # (48000 - 1230) / 12
+          - 1897.5  # (48000 - 1230 - 24000) / 12
+          - 1897.5  # (48000 - 1230 - 24000) / 12
+          - 1750.0  # (48000 - 3000 - 24000) / 12

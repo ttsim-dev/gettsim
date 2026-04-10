@@ -34,6 +34,14 @@ inputs:
             - 50.0
             - 0.0
             - 50.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
     p_id:
       - 0
       - 1
