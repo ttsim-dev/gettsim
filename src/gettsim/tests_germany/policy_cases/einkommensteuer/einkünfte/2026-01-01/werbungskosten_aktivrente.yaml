@@ -8,6 +8,7 @@ info:
   source: >-
     FAQ Aktivrente, Frage 12: Wie wirkt sich die Aktivrente auf die
     Werbungskosten aus?
+    https://www.bundesfinanzministerium.de/Content/DE/FAQ/FAQ-zur-Aktivrente.html
 inputs:
   provided:
     geburtsjahr:
@@ -61,8 +62,8 @@ outputs:
           - 1230.0  # Pauschbetrag (Aktivrente, WK=0)
           - 1230.0  # Pauschbetrag wins (1000 < 1230)
           - 3000.0  # Proportionally reduced actual WK (6000 * 24000/48000)
-        betrag_m:
-          - 3897.5  # (48000 - 1230) / 12
-          - 1897.5  # (48000 - 1230 - 24000) / 12
-          - 1897.5  # (48000 - 1230 - 24000) / 12
-          - 1750.0  # (48000 - 3000 - 24000) / 12
+        betrag_y:
+          - 46770.0  # 48000 - 1230
+          - 22770.0  # 48000 - 1230 - 24000
+          - 22770.0  # 48000 - 1230 - 24000
+          - 21000.0  # 48000 - 3000 - 24000
