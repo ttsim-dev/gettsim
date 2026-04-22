@@ -90,54 +90,64 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
 
 
 @policy_function(
-    leaf_name="einkommen_für_mindesteinkommen_m",
+    leaf_name="einkommen_für_mindesteinkommen_m_wthh",
     start_date="2005-01-01",
     end_date="2022-12-31",
 )
-def einkommen_für_mindesteinkommen_m_bis_2022(
-    arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m: float,
-    unterhaltsvorschuss__betrag_m: float,
-    kindergeld__betrag_m: float,
-    kinderzuschlag__anspruchshöhe_m: float,
+def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
+    arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m_wthh: float,
+    unterhaltsvorschuss__betrag_m_wthh: float,
+    kindergeld__betrag_m_wthh: float,
+    kinderzuschlag__anspruchshöhe_m_wthh: float,
+    basisbetrag_m_wthh: float,
 ) -> float:
     """Income for the Mindesteinkommen check.
 
-    Minimum income is defined via VwV 15.01 ff § 15 WoGG.
+    Minimum income is defined via VwV 15.01 ff § 15 WoGG. Per VwV 15.22, the check
+    compares household income *including the anticipated Wohngeld* against the
+    ALG2/Bürgergeld-Regelbedarf.
 
     According to BMI Erlass of 11.03.2020, Unterhaltsvorschuss, Kinderzuschlag and
     Kindergeld count as income for this check.
 
     """
     return (
-        arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m
-        + unterhalt__tatsächlich_erhaltener_betrag_m
-        + unterhaltsvorschuss__betrag_m
-        + kindergeld__betrag_m
-        + kinderzuschlag__anspruchshöhe_m
+        arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh
+        + unterhalt__tatsächlich_erhaltener_betrag_m_wthh
+        + unterhaltsvorschuss__betrag_m_wthh
+        + kindergeld__betrag_m_wthh
+        + kinderzuschlag__anspruchshöhe_m_wthh
+        + basisbetrag_m_wthh
     )
 
 
-@policy_function(leaf_name="einkommen_für_mindesteinkommen_m", start_date="2023-01-01")
-def einkommen_für_mindesteinkommen_m_ab_2023(
-    bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m: float,
-    unterhalt__tatsächlich_erhaltener_betrag_m: float,
-    unterhaltsvorschuss__betrag_m: float,
-    kindergeld__betrag_m: float,
-    kinderzuschlag__anspruchshöhe_m: float,
+@policy_function(
+    leaf_name="einkommen_für_mindesteinkommen_m_wthh", start_date="2023-01-01"
+)
+def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
+    bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m_wthh: float,
+    unterhaltsvorschuss__betrag_m_wthh: float,
+    kindergeld__betrag_m_wthh: float,
+    kinderzuschlag__anspruchshöhe_m_wthh: float,
+    basisbetrag_m_wthh: float,
 ) -> float:
     """Income for the Mindesteinkommen check.
 
-    Minimum income is defined via VwV 15.01 ff § 15 WoGG.
+    Minimum income is defined via VwV 15.01 ff § 15 WoGG. Per VwV 15.22, the check
+    compares household income *including the anticipated Wohngeld* against the
+    ALG2/Bürgergeld-Regelbedarf.
 
     According to BMI Erlass of 11.03.2020, Unterhaltsvorschuss, Kinderzuschlag and
     Kindergeld count as income for this check.
 
     """
     return (
-        bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m
-        + unterhalt__tatsächlich_erhaltener_betrag_m
-        + unterhaltsvorschuss__betrag_m
-        + kindergeld__betrag_m
-        + kinderzuschlag__anspruchshöhe_m
+        bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh
+        + unterhalt__tatsächlich_erhaltener_betrag_m_wthh
+        + unterhaltsvorschuss__betrag_m_wthh
+        + kindergeld__betrag_m_wthh
+        + kinderzuschlag__anspruchshöhe_m_wthh
+        + basisbetrag_m_wthh
     )
