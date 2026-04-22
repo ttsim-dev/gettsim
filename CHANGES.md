@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.
+  ({ghuser}`MImmesberger`)
 - {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
   ({ghuser}`hmgaudecker`)
 
