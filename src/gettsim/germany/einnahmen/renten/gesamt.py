@@ -6,7 +6,8 @@ from gettsim.tt import policy_function
 @policy_function()
 def gesamt_m(
     gesetzliche_m: float,
-    sonstige_private_vorsorge_m: float,
+    sonstige_private_vorsorge_nachgelagert_besteuert_m: float,
+    sonstige_private_vorsorge_ertragsanteil_besteuert_m: float,
     geförderte_private_vorsorge_m: float,
     betriebliche_altersvorsorge_m: float,
     aus_berufsständischen_versicherungen_m: float,
@@ -14,7 +15,8 @@ def gesamt_m(
     """Sum of all Renteneinnahmen."""
     return (
         gesetzliche_m
-        + sonstige_private_vorsorge_m
+        + sonstige_private_vorsorge_nachgelagert_besteuert_m
+        + sonstige_private_vorsorge_ertragsanteil_besteuert_m
         + geförderte_private_vorsorge_m
         + betriebliche_altersvorsorge_m
         + aus_berufsständischen_versicherungen_m

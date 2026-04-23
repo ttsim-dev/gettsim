@@ -54,7 +54,7 @@ inputs:
               - 57
               - 58
               - 59
-            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert:
               - 50
               - 51
               - 52
@@ -89,7 +89,18 @@ inputs:
           - 1000.0
           - 1000.0
           - 1000.0
-        sonstige_private_vorsorge_m:
+        sonstige_private_vorsorge_nachgelagert_besteuert_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_ertragsanteil_besteuert_m:
           - 1000.0
           - 1000.0
           - 1000.0

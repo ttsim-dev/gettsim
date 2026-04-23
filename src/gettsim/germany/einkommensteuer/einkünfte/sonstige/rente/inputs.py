@@ -6,9 +6,13 @@ from gettsim.tt import policy_input
 
 
 @policy_input()
-def alter_beginn_leistungsbezug_sonstige_private_vorsorge() -> int:
-    """Age at which benefits from private pensions without tax-favored contributions
-    commenced.
+def alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert() -> (
+    int
+):
+    """Age at which benefits from private pensions taxed via Ertragsanteil commenced.
+
+    Applies to Private Rentenversicherung and annuitized Kapitallebensversicherung.
+    Determines the Ertragsanteil per § 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. bb EStG.
     """
 
 

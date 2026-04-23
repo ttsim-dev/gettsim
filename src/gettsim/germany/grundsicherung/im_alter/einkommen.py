@@ -112,7 +112,8 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
 
 @policy_function(start_date="2011-01-01")
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
-    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_nachgelagert_besteuert_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
@@ -125,27 +126,23 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 
     Legal reference: § 82 SGB XII Abs. 4
     """
+    private_vorsorge_gesamt = (
+        einnahmen__renten__sonstige_private_vorsorge_nachgelagert_besteuert_m
+        + einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
+    )
     freibetrag = piecewise_polynomial(
-        x=(
-            einnahmen__renten__sonstige_private_vorsorge_m
-            + einnahmen__renten__geförderte_private_vorsorge_m
-            + einnahmen__renten__betriebliche_altersvorsorge_m
-            + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        ),
+        x=private_vorsorge_gesamt,
         parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
         xnp=xnp,
     )
     upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
 
-    return (
-        einnahmen__renten__sonstige_private_vorsorge_m
-        + einnahmen__renten__geförderte_private_vorsorge_m
-        + einnahmen__renten__betriebliche_altersvorsorge_m
-        + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        - min(
-            freibetrag,
-            upper,
-        )
+    return private_vorsorge_gesamt - min(
+        freibetrag,
+        upper,
     )
 
 

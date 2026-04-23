@@ -15,6 +15,13 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and split the input
+  into `sonstige_private_vorsorge_nachgelagert_besteuert_m` (Basisrente / Rürup) and
+  `sonstige_private_vorsorge_ertragsanteil_besteuert_m` (Private Rentenversicherung,
+  annuitized Kapitallebensversicherung). The age input
+  `alter_beginn_leistungsbezug_sonstige_private_vorsorge` has been renamed to
+  `alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert`.
+  Breaking change — user input mappers must be migrated. ({ghuser}`MImmesberger`)
 - {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
   ({ghuser}`hmgaudecker`)
 

@@ -32,7 +32,7 @@ inputs:
       einkünfte:
         sonstige:
           rente:
-            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert:
               - 50
               - 51
               - 52
@@ -67,7 +67,18 @@ inputs:
           - 1000.0
           - 1000.0
           - 1000.0
-        sonstige_private_vorsorge_m:
+        sonstige_private_vorsorge_nachgelagert_besteuert_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_ertragsanteil_besteuert_m:
           - 1000.0
           - 1000.0
           - 1000.0
@@ -119,13 +130,13 @@ outputs:
       sonstige:
         rente:
           betrag_m:
-            - 3800.0
-            - 4090.0
-            - 4390.0
-            - 4680.0
-            - 4775.0
-            - 4840.0
-            - 4915.0
-            - 4980.0
-            - 5045.0
-            - 5110.0
+            - 3300.0
+            - 3490.0
+            - 3690.0
+            - 3880.0
+            - 3940.0
+            - 3980.0
+            - 4030.0
+            - 4070.0
+            - 4110.0
+            - 4150.0
