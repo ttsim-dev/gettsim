@@ -13,6 +13,228 @@ beitragspflichtiges_durchschnittsentgelt_y:
   unit: Euros
   reference_period: Year
   type: scalar
+  1949-01-01:
+    value: 2838
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1950-01-01:
+    value: 3161
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1951-01-01:
+    value: 3579
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1952-01-01:
+    value: 3852
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1953-01-01:
+    value: 4061
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1954-01-01:
+    value: 4234
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1955-01-01:
+    value: 4548
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1956-01-01:
+    value: 4844
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1957-01-01:
+    value: 5043
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1958-01-01:
+    value: 5330
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1959-01-01:
+    value: 5602
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1960-01-01:
+    value: 6101
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1961-01-01:
+    value: 6723
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1962-01-01:
+    value: 7328
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1963-01-01:
+    value: 7775
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1964-01-01:
+    value: 8467
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1965-01-01:
+    value: 9229
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1966-01-01:
+    value: 9893
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1967-01-01:
+    value: 10219
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1968-01-01:
+    value: 10842
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1969-01-01:
+    value: 11839
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1970-01-01:
+    value: 13343
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1971-01-01:
+    value: 14931
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1972-01-01:
+    value: 16335
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1973-01-01:
+    value: 18295
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1974-01-01:
+    value: 20381
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1975-01-01:
+    value: 21808
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1976-01-01:
+    value: 23335
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1977-01-01:
+    value: 24945
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1978-01-01:
+    value: 26242
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1979-01-01:
+    value: 27685
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1980-01-01:
+    value: 29485
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1981-01-01:
+    value: 30900
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1982-01-01:
+    value: 32198
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1983-01-01:
+    value: 33293
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1984-01-01:
+    value: 34292
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1985-01-01:
+    value: 35286
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1986-01-01:
+    value: 36627
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1987-01-01:
+    value: 37726
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1988-01-01:
+    value: 38896
+    unit: DM
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+  1989-01-01:
+    value: 40063
+    unit: DM
+    reference: V. v. 18.12.1990 BGBl. I S. 2940
+  1990-01-01:
+    value: 41946
+    unit: DM
+    reference: V. v. 18.12.1991 BGBl. I S. 2331
+  1991-01-01:
+    value: 44421
+    unit: DM
+    reference: V. v. 22.12.1992 BGBl. I S. 2474
+  1992-01-01:
+    value: 46820
+    unit: DM
+    reference: V. v. 01.12.1993 BGBl. I S. 1987
+  1993-01-01:
+    value: 48178
+    unit: DM
+    reference: V. v. 12.12.1994 BGBl. I S. 3806
+  1994-01-01:
+    value: 49142
+    unit: DM
+    reference: V. v. 04.12.1995 BGBl. I S. 1577
+  1995-01-01:
+    value: 50665
+    unit: DM
+    reference: V. v. 11.12.1996 BGBl. I S. 1870
+  1996-01-01:
+    value: 51678
+    unit: DM
+    reference: V. v. 19.12.1997 BGBl. I S. 3219
+  1997-01-01:
+    value: 52143
+    unit: DM
+    reference: V. v. 18.12.1998 BGBl. I S. 3823
+  1998-01-01:
+    value: 52925
+    unit: DM
+    reference: V. v. 29.11.1999 BGBl. I S. 2375
+  1999-01-01:
+    value: 53507
+    unit: DM
+    reference: V. v. 13.12.2000 BGBl. I S. 1710
+  2000-01-01:
+    value: 54256
+    unit: DM
+    reference: V. v. 03.12.2001 BGBl. I S. 3302
+  2001-01-01:
+    value: 55216
+    unit: DM
+    reference: V. v. 17.12.2002 BGBl. I S. 4561
+  2002-01-01:
+    value: 28626
+    unit: Euros
+    reference: V. v. 09.12.2003 BGBl. I S. 2497
+  2003-01-01:
+    value: 28938
+    reference: V. v. 29.11.2004 BGBl. I S. 3098
+  2004-01-01:
+    value: 29060
+    reference: V. v. 21.12.2005 BGBl. I S. 3627
   2005-01-01:
     value: 29202
   2006-01-01:
