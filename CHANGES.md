@@ -15,12 +15,19 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+<<<<<<< gsia-rewrite
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
   ({ghuser}`MImmesberger`)
 - {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
   Alter. ({ghuser}`MImmesberger`)
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
   ({ghuser}`MImmesberger`)
+=======
+- {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.
+  ({ghuser}`MImmesberger`)
+- {gh}`1170` Add proportional splitting of Werbungskosten (§ 3c EStG) and add new input
+  variable `tatsächliche_werbungskosten_y`. ({ghuser}`MImmesberger`)
+>>>>>>> main
 - {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
   ({ghuser}`hmgaudecker`)
 
