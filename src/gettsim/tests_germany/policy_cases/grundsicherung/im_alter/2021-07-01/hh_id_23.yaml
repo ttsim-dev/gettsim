@@ -93,7 +93,7 @@ inputs:
       - 23
     grundsicherung:
       im_alter:
-        hat_kind_über_einkommensgrenze:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
           - false
           - false
       hilfe_zum_lebensunterhalt:

@@ -24,7 +24,7 @@ from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
-    hat_kind_über_einkommensgrenze: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze: bool,
 ) -> float:
     """Grundsicherung im Alter after Vorrangprüfung and 100k-children exclusion.
 
@@ -34,7 +34,7 @@ def betrag_m(
     §2 Abs. 1 SGB XII: Vorrangprüfung.
     """
     if (
-        hat_kind_über_einkommensgrenze
+        hat_kind_mit_einkommen_über_einkommensgrenze
         or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
     ):
         return 0.0
@@ -267,7 +267,7 @@ def vermögensfreibetrag_eg(
 
 
 @policy_function(start_date="2005-01-01")
-def hat_gesamteinkommen_über_einkommensgrenze(
+def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     einkommensteuer__gesamteinkommen_y: float,
     einkommensgrenze_kinder: float,
 ) -> bool:
@@ -282,8 +282,8 @@ def hat_gesamteinkommen_über_einkommensgrenze(
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)
-def anzahl_kinder_über_einkommensgrenze_über_elternteil_1(
-    hat_gesamteinkommen_über_einkommensgrenze: bool,
+def anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1(
+    hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
     p_id: int,
 ) -> int:
@@ -291,8 +291,8 @@ def anzahl_kinder_über_einkommensgrenze_über_elternteil_1(
 
 
 @agg_by_p_id_function(agg_type=AggType.SUM)
-def anzahl_kinder_über_einkommensgrenze_über_elternteil_2(
-    hat_gesamteinkommen_über_einkommensgrenze: bool,
+def anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2(
+    hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
     p_id: int,
 ) -> int:
@@ -300,9 +300,9 @@ def anzahl_kinder_über_einkommensgrenze_über_elternteil_2(
 
 
 @policy_function(start_date="2005-01-01")
-def hat_kind_über_einkommensgrenze(
-    anzahl_kinder_über_einkommensgrenze_über_elternteil_1: int,
-    anzahl_kinder_über_einkommensgrenze_über_elternteil_2: int,
+def hat_kind_mit_einkommen_über_einkommensgrenze(
+    anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1: int,
+    anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2: int,
 ) -> bool:
     """Whether any first-degree child has income above the threshold.
 
@@ -312,6 +312,6 @@ def hat_kind_über_einkommensgrenze(
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
     return (
-        anzahl_kinder_über_einkommensgrenze_über_elternteil_1
-        + anzahl_kinder_über_einkommensgrenze_über_elternteil_2
+        anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1
+        + anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2
     ) > 0
