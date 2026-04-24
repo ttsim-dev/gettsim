@@ -53,8 +53,20 @@ def betrag_m_wthh(
     return out
 
 
+@policy_function()
+def anspruchshöhe_m_wthh(
+    basisbetrag_m_wthh: float,
+    grundsätzlich_anspruchsberechtigt_wthh: bool,
+) -> float:
+    """Housing benefit after eligibility checks."""
+    if grundsätzlich_anspruchsberechtigt_wthh:
+        return basisbetrag_m_wthh
+    else:
+        return 0.0
+
+
 @policy_function(
-    leaf_name="anspruchshöhe_m_wthh",
+    leaf_name="basisbetrag_m_wthh",
     end_date="2000-12-31",
     rounding_spec=RoundingSpec(
         base=1,
@@ -62,15 +74,14 @@ def betrag_m_wthh(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
 )
-def anspruchshöhe_m_wthh_bis_2000(
+def basisbetrag_m_wthh_bis_2000(
     anzahl_personen_wthh: int,
     einkommen_m_wthh: float,
     miete_m_wthh: float,
-    grundsätzlich_anspruchsberechtigt_wthh: bool,
     basisformel_params: BasisformelParamValues,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit after wealth and income check."""
+    """Housing benefit from the basis formula."""
     a = basisformel_params.a.look_up(anzahl_personen_wthh)
     b = basisformel_params.b.look_up(anzahl_personen_wthh)
     c = basisformel_params.c.look_up(anzahl_personen_wthh)
@@ -82,14 +93,11 @@ def anspruchshöhe_m_wthh_bis_2000(
             - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
         ),
     )
-    if grundsätzlich_anspruchsberechtigt_wthh:
-        return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
-    else:
-        return 0.0
+    return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
 
 
 @policy_function(
-    leaf_name="anspruchshöhe_m_wthh",
+    leaf_name="basisbetrag_m_wthh",
     start_date="2001-01-01",
     rounding_spec=RoundingSpec(
         base=1,
@@ -97,15 +105,14 @@ def anspruchshöhe_m_wthh_bis_2000(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
 )
-def anspruchshöhe_m_wthh_ab_2001(
+def basisbetrag_m_wthh_ab_2001(
     anzahl_personen_wthh: int,
     einkommen_m_wthh: float,
     miete_m_wthh: float,
-    grundsätzlich_anspruchsberechtigt_wthh: bool,
     basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit after wealth and income check."""
+    """Housing benefit from the basis formula."""
     a = basisformel_params.a.look_up(anzahl_personen_wthh)
     b = basisformel_params.b.look_up(anzahl_personen_wthh)
     c = basisformel_params.c.look_up(anzahl_personen_wthh)
@@ -122,10 +129,7 @@ def anspruchshöhe_m_wthh_ab_2001(
             - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
         ),
     )
-    if grundsätzlich_anspruchsberechtigt_wthh:
-        return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
-    else:
-        return 0.0
+    return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
 
 
 @dataclass(frozen=True)
