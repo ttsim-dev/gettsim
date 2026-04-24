@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
+  ({ghuser}`MImmesberger`)
 - {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.
   ({ghuser}`MImmesberger`)
 - {gh}`1170` Add proportional splitting of Werbungskosten (§ 3c EStG) and add new input
