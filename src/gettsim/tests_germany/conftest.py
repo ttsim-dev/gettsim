@@ -62,11 +62,7 @@ def skipif_numpy(request, backend):
 _original_vectorize = PolicyFunction.vectorize
 
 
-def _vectorize_with_loop(
-    self: PolicyFunction,
-    backend: Literal["numpy", "jax"],
-    xnp: ModuleType,
-) -> PolicyFunction:
+def _vectorize_with_loop(self, backend, xnp):
     """Force 'loop' strategy so coverage.py sees the original function body.
 
     See https://github.com/ttsim-dev/ttsim/issues/91
@@ -97,7 +93,7 @@ def _force_loop_vectorization_for_coverage(request):
 
     # Monkey-patch PolicyFunction.vectorize to force "loop" strategy when running with
     # coverage.
-    PolicyFunction.vectorize = _vectorize_with_loop
+    PolicyFunction.vectorize = _vectorize_with_loop  # ty: ignore[invalid-assignment]
     yield
     # Restore the original vectorization strategy.
     PolicyFunction.vectorize = _original_vectorize
