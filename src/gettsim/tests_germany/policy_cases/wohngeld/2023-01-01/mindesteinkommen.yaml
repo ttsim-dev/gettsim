@@ -1,8 +1,11 @@
 ---
 info:
   note: |-
-    Several households that differ in their eligibility for Wohngeld because of
-    Mindesteinkommen.
+    Three households at different income levels illustrating the Mindesteinkommen
+    check per VwV 15.22 to § 15 WoGG (Wohngeld itself counts toward the sum):
+      HH0 — high income, meets the Regelbedarf without needing Wohngeld.
+      HH1 — medium income, meets the Regelbedarf only once Wohngeld is added.
+      HH2 — no income, even with Wohngeld the sum stays below Regelbedarf.
   precision_atol: 0.01
   source: Made up.
 inputs:
@@ -54,6 +57,14 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
@@ -99,8 +110,8 @@ inputs:
         - 1200.0
         - 750.0
         - 750.0
-        - 600.0
-        - 600.0
+        - 450.0
+        - 450.0
       kapitalerträge_y:
         - 0.0
         - 0.0
@@ -352,17 +363,17 @@ outputs:
       - 1452.0
   wohngeld:
     einkommen_für_mindesteinkommen_m_wthh:
-      - 1983.33
-      - 1983.33
-      - 1295.83
-      - 1295.83
-      - 1200.0
-      - 1200.0
+      - 2153.33
+      - 2153.33
+      - 1721.83
+      - 1721.83
+      - 1405.0
+      - 1405.0
     mindesteinkommen_erreicht_wthh:
       - true
       - true
-      - false
-      - false
+      - true
+      - true
       - false
       - false
   wthh_id:
