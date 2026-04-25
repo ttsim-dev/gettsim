@@ -57,5 +57,5 @@ The following inputs are taxed at the deferred taxation regime:
 Additionally, other private pensions that were not subsidised during accumulation are
 taxed via the Ertragsanteilbesteuerung (§ 22 Nr. 1 Satz 3 Buchst. a bb EStG):
 
-- **`einnahmen.renten.sonstige_private_vorsorge_m`** — Kapitallebensversicherung and
-  other private pension plans outside Basisrente / Riester.
+- **einnahmen.renten.sonstige_private_vorsorge_m** — Kapitallebensversicherung and other
+  private pension plans outside Basisrente / Riester.

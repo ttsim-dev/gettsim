@@ -1,11 +1,11 @@
 ---
 info:
   note: >-
-    Verifies that nachgelagert and ertragsanteil regimes are applied to disjoint
-    bases (§ 22 Nr. 1 Satz 3 Buchst. a EStG). For jahr_renteneintritt=2025
-    Besteuerungsanteil is 0.835 (post-Wachstumschancengesetz) and Ertragsanteil
-    at age 65 is 0.18.
-  precision_atol: 1
+    Verify that private pensions are taxed either at the deferred taxation regime or at
+    the Ertragsanteilbesteuerung, not both.  For `jahr_renteneintritt=2025`, the
+    Besteuerungsanteil is 0.835 (post-Wachstumschancengesetz) and the Ertragsanteil at
+    age 65 is 0.18.
+  precision_atol: 0.01
   source: Hand-computed.
 inputs:
   assumed: {}
