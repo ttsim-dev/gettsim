@@ -3,19 +3,22 @@
 # Taxation of pension income
 
 The taxation of pension income depends on how contributions were taxed during the
-accumulation period. Since 2005, there are two types of taxation schemes:
+accumulation period. Pension income is taxed under one of two regimes:
 
 - **Deferred taxation** (nachgelagerte Besteuerung): Pension income is fully (or
   partially) taxed when payout is received.
 - **Ertragsanteilbesteuerung**: Pension income is taxed based on a fixed share of the
   notional return.
 
-In principle, pensions that were favourably taxes during the accumulation phase (i.e.,
+In principle, pensions that were favourably taxed during the accumulation phase (i.e.,
 contributions were fully or partially income tax-deductible) are taxed via the deferred
 taxation schemes. Pensions for which contributions were paid from already-taxed income
 are taxed via the Ertragsanteilbesteuerung.
 
-Before 2005, all pensions were taxed via the Ertragsanteilbesteuerung.
+Before 2005, all 1st-pillar pensions were taxed via the Ertragsanteilbesteuerung. The
+*Alterseinkünftegesetz* (AltEinkG, BGBl. 2004 I Nr. 33) moved them to the cohort-based
+deferred-taxation regime from 2005 onwards. Other deferred-taxation regimes (§ 22 Nr. 5
+EStG, § 19 EStG) for occupational and Riester pensions were unaffected.
 
 ## Mapping products to GETTSIM input columns
 

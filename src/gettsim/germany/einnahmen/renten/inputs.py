@@ -14,9 +14,9 @@ def betriebliche_altersvorsorge_m() -> float:
 def aus_berufsständischen_versicherungen_m() -> float:
     """Monthly payout from a berufsständisches Versorgungswerk.
 
-    Benefits from the statutory pension schemes for liberal professions (Ärzte,
-    Apotheker, Rechtsanwälte, Architekten, …) that substitute for the gesetzliche
-    Rentenversicherung.
+    Benefits from the compulsory public-law pension schemes for liberal professions
+    (Ärzte, Apotheker, Rechtsanwälte, Architekten, …) that substitute for the
+    gesetzliche Rentenversicherung.
     """
 
 
@@ -36,7 +36,7 @@ def basisrente_m() -> float:
     """Monthly payout from the Basisrente (colloquially Rürup-Rente).
 
     Contributions to the Basisrente were fully tax-deductible during accumulation
-    (Sonderausgabenabzug per § 10 Abs. 1 Nr. 2 Buchst. b EStG). Other than the income in
+    (Sonderausgabenabzug per § 10 Abs. 1 Nr. 2 Buchst. b EStG). Unlike the income in
     `geförderte_private_vorsorge_m`, the payouts are taxed at the cohort-based
     Besteuerungsanteil that depends on the year of retirement (§ 22 Nr. 1 Satz 3 Buchst.
     a Doppelbuchst. aa EStG).
