@@ -57,6 +57,10 @@ inputs:
           alle_weiteren_m:
             - 0.0
             - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
       gemeinsam_veranlagt:
         - true
         - true
