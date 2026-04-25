@@ -126,7 +126,7 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 
     Legal reference: § 82 SGB XII Abs. 4
     """
-    private_vorsorge_gesamt = (
+    zusätzliche_altersvorsorge_brutto_m = (
         einnahmen__renten__sonstige_private_vorsorge_nachgelagert_besteuert_m
         + einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m
         + einnahmen__renten__geförderte_private_vorsorge_m
@@ -134,13 +134,13 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
         + einnahmen__renten__aus_berufsständischen_versicherungen_m
     )
     freibetrag = piecewise_polynomial(
-        x=private_vorsorge_gesamt,
+        x=zusätzliche_altersvorsorge_brutto_m,
         parameters=anrechnungsfreier_anteil_private_renteneinkünfte,
         xnp=xnp,
     )
     upper = grundsicherung__regelbedarfsstufen.rbs_1 / 2
 
-    return private_vorsorge_gesamt - min(
+    return zusätzliche_altersvorsorge_brutto_m - min(
         freibetrag,
         upper,
     )

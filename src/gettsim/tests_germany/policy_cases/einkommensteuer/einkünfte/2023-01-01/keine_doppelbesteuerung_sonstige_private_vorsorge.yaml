@@ -1,0 +1,69 @@
+---
+info:
+  note: >-
+    Verifies that nachgelagert and ertragsanteil regimes are applied to disjoint
+    bases (§ 22 Nr. 1 Satz 3 Buchst. a EStG). For jahr_renteneintritt=2025
+    Besteuerungsanteil is 0.835 (post-Wachstumschancengesetz) and Ertragsanteil
+    at age 65 is 0.18.
+  precision_atol: 1
+  source: Hand-computed.
+inputs:
+  assumed: {}
+  provided:
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert:
+              - 65
+              - 65
+              - 65
+    einnahmen:
+      renten:
+        gesetzliche_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_nachgelagert_besteuert_m:
+          - 1000.0
+          - 0.0
+          - 1000.0
+        sonstige_private_vorsorge_ertragsanteil_besteuert_m:
+          - 0.0
+          - 1000.0
+          - 1000.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      rente:
+        jahr_renteneintritt:
+          - 2025
+          - 2025
+          - 2025
+outputs:
+  einkommensteuer:
+    einkünfte:
+      sonstige:
+        rente:
+          betrag_m:
+            - 835.0
+            - 180.0
+            - 1015.0

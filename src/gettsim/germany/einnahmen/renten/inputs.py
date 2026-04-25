@@ -5,12 +5,14 @@ from __future__ import annotations
 from gettsim.tt import policy_input
 
 
-@policy_input()
+@policy_input(start_date="2005-01-01")
 def sonstige_private_vorsorge_nachgelagert_besteuert_m() -> float:
     """Monthly payout from private pensions taxed as deferred (nachgelagerte Besteuerung).
 
-    Primarily Basisrente / Rürup. Subject to the cohort-based besteuerungsanteil per
-    § 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa EStG.
+    Primarily Basisrente / Rürup, introduced by the Alterseinkünftegesetz
+    (BGBl. 2004 I Nr. 33 vom 05.07.2004) effective 2005-01-01. Subject to the
+    cohort-based besteuerungsanteil per § 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa
+    EStG.
     """
 
 
