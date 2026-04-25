@@ -20,7 +20,7 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
     ertragsanteil_betriebliche_altersvorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
-    einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
@@ -30,7 +30,7 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
         + ertragsanteil_berufsständische_altersvorsorge
         * einnahmen__renten__aus_berufsständischen_versicherungen_m
         + ertragsanteil_sonstige_private_vorsorge
-        * einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m
+        * einnahmen__renten__sonstige_private_vorsorge_m
         + ertragsanteil_betriebliche_altersvorsorge
         * einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
@@ -43,8 +43,8 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
     ertragsanteil_sonstige_private_vorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
-    einnahmen__renten__sonstige_private_vorsorge_nachgelagert_besteuert_m: float,
-    einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m: float,
+    einnahmen__renten__basisrente_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
@@ -56,11 +56,11 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
         besteuerungsanteil
         * (
             einnahmen__renten__gesetzliche_m
-            + einnahmen__renten__sonstige_private_vorsorge_nachgelagert_besteuert_m
+            + einnahmen__renten__basisrente_m
             + einnahmen__renten__aus_berufsständischen_versicherungen_m
         )
         + ertragsanteil_sonstige_private_vorsorge
-        * einnahmen__renten__sonstige_private_vorsorge_ertragsanteil_besteuert_m
+        * einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
     )
@@ -68,12 +68,12 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
 
 @policy_function()
 def ertragsanteil_sonstige_private_vorsorge(
-    alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert: int,
+    alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Ertragsanteil."""
     return parameter_ertragsanteil.look_up(
-        alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert
+        alter_beginn_leistungsbezug_sonstige_private_vorsorge
     )
 
 

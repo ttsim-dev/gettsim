@@ -15,15 +15,26 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and split the input
-  into `sonstige_private_vorsorge_nachgelagert_besteuert_m` (Basisrente / Rürup) and
-  `sonstige_private_vorsorge_ertragsanteil_besteuert_m` (Private Rentenversicherung,
-  annuitized Kapitallebensversicherung). The age input
-  `alter_beginn_leistungsbezug_sonstige_private_vorsorge` has been renamed to
-  `alter_beginn_leistungsbezug_sonstige_private_vorsorge_ertragsanteil_besteuert`.
-  `sonstige_private_vorsorge_nachgelagert_besteuert_m` is only required from 2005-01-01
-  onwards (Alterseinkünftegesetz). Breaking change — user input mappers must be
-  migrated. ({ghuser}`MImmesberger`)
+- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and split the input to
+  reflect the two regimes of § 22 Nr. 1 Satz 3 Buchst. a EStG.
+
+  **Breaking change for user input mappers.** Migration:
+
+  - Basisrente / Rürup-Rente payouts move into a new column
+    `einnahmen.renten.basisrente_m` (taxed at the cohort-based Besteuerungsanteil, § 22
+    Nr. 1 Satz 3 Buchst. a Doppelbuchst. aa EStG). Only valid from 2005-01-01 onwards
+    (Alterseinkünftegesetz).
+  - Payouts from Private Rentenversicherung and annuitized Kapitallebensversicherung
+    keep the existing column `einnahmen.renten.sonstige_private_vorsorge_m`. **Its
+    semantics is now narrower** — it no longer covers Basisrente / Rürup. If you
+    previously fed Rürup payouts in here, move them to `einnahmen.renten.basisrente_m`
+    to avoid silent under- or over-taxation.
+  - The age input
+    `einkommensteuer.einkünfte.sonstige.rente.alter_beginn_leistungsbezug_sonstige_private_vorsorge`
+    keeps its name and applies to `sonstige_private_vorsorge_m` only.
+
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
   ({ghuser}`hmgaudecker`)
 

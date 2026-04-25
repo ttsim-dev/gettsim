@@ -75,7 +75,7 @@ inputs:
     einkommensteuer__einkünfte__sonstige__geförderte_private_vorsorge_m:
       - 0.0
       - 0.0
-    einkommensteuer__einkünfte__sonstige__sonstige_private_vorsorge_ertragsanteil_besteuert_m:
+    einkommensteuer__einkünfte__sonstige__sonstige_private_vorsorge_m:
       - 0.0
       - 0.0
     unterhalt__tatsächlich_erhaltener_betrag_m:

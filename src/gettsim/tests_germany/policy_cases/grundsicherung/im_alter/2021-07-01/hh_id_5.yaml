@@ -36,9 +36,9 @@ inputs:
           - 0.0
         geförderte_private_vorsorge_m:
           - 0.0
-        sonstige_private_vorsorge_nachgelagert_besteuert_m:
+        basisrente_m:
           - 0.0
-        sonstige_private_vorsorge_ertragsanteil_besteuert_m:
+        sonstige_private_vorsorge_m:
           - 0.0
         aus_berufsständischen_versicherungen_m:
           - 0.0
