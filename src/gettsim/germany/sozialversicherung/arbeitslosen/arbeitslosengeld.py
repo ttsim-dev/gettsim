@@ -90,22 +90,17 @@ def mindestversicherungszeit_erreicht(
 
 @policy_function()
 def grundsätzlich_anspruchsberechtigt(
-    alter: int,
     arbeitssuchend: bool,
     monate_verbleibender_anspruchsdauer: int,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
     arbeitsstunden_w: float,
-    sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
     stundengrenze: float,
 ) -> bool:
     """Check eligibility for unemployment benefit."""
-    regelaltersgrenze = (
-        sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-    )
-
     return (
         arbeitssuchend
         and (monate_verbleibender_anspruchsdauer > 0)
-        and (alter < regelaltersgrenze)
+        and not sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht
         and (arbeitsstunden_w < stundengrenze)
     )
 

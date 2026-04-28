@@ -17,6 +17,8 @@ inputs:
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
+      überschusseinkommen_m_eg:
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -68,9 +70,11 @@ inputs:
       - 1
     hh_id:
       - 106
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
     kindergeld:
-      betrag_m_eg:
-        - 0.0
       p_id_empfänger:
         - -1
     p_id:
@@ -90,6 +94,8 @@ inputs:
         altersrente:
           betrag_m:
             - 200.0
+          hat_regelaltersgrenze_erreicht:
+            - true
         bezieht_rente:
           - true
         erwerbsminderung:
@@ -102,7 +108,7 @@ inputs:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
     vermögen_eg:
       - 0.0

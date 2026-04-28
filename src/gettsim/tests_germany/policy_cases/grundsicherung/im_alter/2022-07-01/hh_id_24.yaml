@@ -13,6 +13,9 @@ inputs:
       p_id_einstandspartner:
         - -1
         - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -88,10 +91,12 @@ inputs:
     hh_id:
       - 24
       - 24
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     kindergeld:
-      betrag_m_eg:
-        - 0.0
-        - 0.0
       p_id_empfänger:
         - -1
         - -1
@@ -118,6 +123,9 @@ inputs:
           betrag_m:
             - 425.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
         bezieht_rente:
           - true
           - false
@@ -134,7 +142,7 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
     vermögen_eg:
@@ -156,6 +164,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
+      anspruchshöhe_m:
         - 0.0
         - 0.0

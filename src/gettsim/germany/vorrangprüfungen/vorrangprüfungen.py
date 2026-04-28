@@ -17,14 +17,14 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     kinderzuschlag__anspruchshöhe_m_bg: float,
     wohngeld__anspruchshöhe_m_wthh: float,
 ) -> bool:
-    """
-    Wohngeld and Kinderzuschlag has priority or is more favorable than Arbeitslosengeld
-    II.
+    """Wohngeld/Kinderzuschlag is more favorable than ALG II.
 
     Note that this check assumes WTHH=BG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
+    # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
+    # https://github.com/ttsim-dev/gettsim/issues/1165
     return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
         + wohngeld__anspruchshöhe_m_wthh
@@ -44,14 +44,14 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     kinderzuschlag__anspruchshöhe_m_bg: float,
     wohngeld__anspruchshöhe_m_wthh: float,
 ) -> bool:
-    """
-    Wohngeld and Kinderzuschlag has priority or is more favorable than Arbeitslosengeld
-    II.
+    """Wohngeld/Kinderzuschlag is more favorable than Bürgergeld.
 
     Note that this check assumes WTHH=BG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
     """
+    # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
+    # https://github.com/ttsim-dev/gettsim/issues/1165
     return (
         bürgergeld__anzurechnendes_einkommen_m_bg
         + wohngeld__anspruchshöhe_m_wthh

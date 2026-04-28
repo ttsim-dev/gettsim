@@ -25,6 +25,11 @@ inputs:
         monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
           - 12
           - 0
+      rente:
+        altersrente:
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
   provided:
     alter:
       - 40

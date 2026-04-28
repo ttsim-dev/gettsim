@@ -106,6 +106,12 @@ inputs:
       - 1983
       - 1985
       - 2020
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m_eg:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 22
       - 22
@@ -148,6 +154,10 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
+            - false
         bezieht_rente:
           - false
           - false

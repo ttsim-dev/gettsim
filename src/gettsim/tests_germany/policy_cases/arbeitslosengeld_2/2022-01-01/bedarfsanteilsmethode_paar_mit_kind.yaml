@@ -74,10 +74,6 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-        basisrente_m:
-          - 0.0
-          - 0.0
-          - 0.0
         aus_berufsständischen_versicherungen_m:
           - 0.0
           - 0.0
@@ -108,6 +104,12 @@ inputs:
       - 1980
       - 1981
       - 2010
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m_eg:
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 0
       - 0
@@ -146,6 +148,10 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
+            - false
         bezieht_rente:
           - false
           - false

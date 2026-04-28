@@ -148,6 +148,14 @@ inputs:
       - 1994
       - 1996
       - 2004
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m_eg:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 4
       - 4
@@ -208,6 +216,12 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
+            - false
+            - false
+            - false
         bezieht_rente:
           - false
           - false

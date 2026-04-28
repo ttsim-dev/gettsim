@@ -35,6 +35,11 @@ inputs:
     geburtsjahr:
       - 1973
       - 1973
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m_eg:
+          - 0.0
+          - 0.0
     hh_id:
       - 2
       - 2
@@ -50,6 +55,10 @@ inputs:
         bezieht_rente:
           - false
           - false
+        altersrente:
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
