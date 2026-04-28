@@ -1,0 +1,253 @@
+---
+info:
+  note: |-
+    Two retired couples in separate households. Couple A (persons 0, 1) receives
+    100 EUR/month in supplementary pension (50 betriebliche + 50 Riester on person 0),
+    which is fully covered by the Freibetrag (§ 82 Abs. 4, 5 SGB XII: first 100 EUR
+    are exempt). Couple B (persons 2, 3) has no supplementary pension. Both couples
+    have the same gesetzliche Rente, so the identical betrag_m_eg demonstrates that
+    the Freibetrag fully offsets the supplementary income at the couple level.
+  precision_atol: 0.01
+  source: Self-created test case
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+      - 67
+      - 70
+      - 67
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - 3
+        - 2
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - true
+        - true
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 50.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 50.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - 3
+        - 2
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1953
+      - 1956
+      - 1953
+      - 1956
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 1
+      - 1
+    kindergeld:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 400.0
+            - 500.0
+            - 400.0
+            - 500.0
+        bezieht_rente:
+          - true
+          - true
+          - true
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 500
+            - 500
+            - 500
+            - 500
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m_eg:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 400.0
+        - 400.0
+        - 400.0
+        - 400.0
+      heizkosten_m_hh:
+        - 80.0
+        - 80.0
+        - 80.0
+        - 80.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+        - 60.0
+        - 60.0
+outputs:
+  grundsicherung:
+    im_alter:
+      betrag_m_eg:
+        - 892.0
+        - 892.0
+        - 892.0
+        - 892.0

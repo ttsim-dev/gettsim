@@ -17,6 +17,11 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 - {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
   variable `einnahmen.renten.basisrente_m` for Basisrente / Rürup-Rente.
+- {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
+  ({ghuser}`MImmesberger`)
+- {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
+  Alter. ({ghuser}`MImmesberger`)
+- {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
   ({ghuser}`MImmesberger`)
 - {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
   ({ghuser}`MImmesberger`)

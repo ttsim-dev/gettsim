@@ -1,13 +1,17 @@
 ---
 info:
-  note: ''
+  note: |-
+    Pre-2018: No Freibetrag for zusätzliche Altersvorsorge existed.
+    § 82 Abs. 4/5 SGB XII were introduced by Art. 2 Nr. 7
+    Betriebsrentenstärkungsgesetz v. 17.08.2017 (BGBl. I S. 3214),
+    effective 2018-01-01. All pension income is fully counted.
   precision_atol: 0.01
-  source: https://pflegebox.de/ratgeber/leben-im-alter/grundsicherung-im-alter/
+  source: manual calculation
 inputs:
   assumed: {}
   provided:
     alter:
-      - 68
+      - 72
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
@@ -33,11 +37,9 @@ inputs:
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
-          - 0.0
+          - 100.0
         geförderte_private_vorsorge_m:
-          - 0.0
-        basisrente_m:
-          - 0.0
+          - 200.0
         sonstige_private_vorsorge_m:
           - 0.0
         aus_berufsständischen_versicherungen_m:
@@ -57,20 +59,20 @@ inputs:
       p_id_elternteil_2:
         - -1
     geburtsjahr:
-      - 1953
+      - 1945
     geburtsmonat:
       - 1
     geburtstag:
       - 1
     hh_id:
-      - 5
+      - 100
     kindergeld:
       betrag_m_eg:
         - 0.0
       p_id_empfänger:
         - -1
     p_id:
-      - 7
+      - 100
     schwerbehindert_grad_g:
       - false
     solidaritätszuschlag:
@@ -85,7 +87,7 @@ inputs:
       rente:
         altersrente:
           betrag_m:
-            - 430.0
+            - 200.0
         bezieht_rente:
           - true
         erwerbsminderung:
@@ -93,7 +95,7 @@ inputs:
             - 0.0
         grundrente:
           grundrentenzeiten_monate:
-            - 0
+            - 300
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -106,13 +108,15 @@ inputs:
       bewohnt_eigentum_hh:
         - false
       bruttokaltmiete_m_hh:
-        - 350.0
+        - 344.0
       heizkosten_m_hh:
-        - 35.0
+        - 92.0
       wohnfläche_hh:
-        - 40.0
+        - 45.0
 outputs:
   grundsicherung:
     im_alter:
+      einkommen_m:
+        - 500.0
       betrag_m_eg:
-        - 401.0
+        - 345.0
