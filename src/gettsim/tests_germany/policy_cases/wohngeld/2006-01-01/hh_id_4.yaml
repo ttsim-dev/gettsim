@@ -39,6 +39,13 @@ inputs:
         - 0.0
         - 0.0
       einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0

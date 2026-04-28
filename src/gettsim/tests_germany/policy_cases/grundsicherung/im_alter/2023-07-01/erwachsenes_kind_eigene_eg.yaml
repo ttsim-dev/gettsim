@@ -15,6 +15,12 @@ inputs:
     alter:
       - 70
       - 22
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+    behinderungsgrad:
+      - 0
+      - 0
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -29,7 +35,29 @@ inputs:
       betrag_y_sn:
         - 0.0
         - 0.0
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+        kinderbetreuungskosten_m:
+          - 0.0
+          - 0.0
+        p_id_kinderbetreuungskostenträger:
+          - -1
+          - -1
       einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -38,10 +66,17 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
         sonstige:
           alle_weiteren_m:
             - 0.0
             - 0.0
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
       gemeinsam_veranlagt:
         - false
         - false
@@ -60,6 +95,9 @@ inputs:
           - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        basisrente_m:
           - 0.0
           - 0.0
         aus_berufsständischen_versicherungen_m:
@@ -103,6 +141,9 @@ inputs:
           - 0.0
           - 0.0
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
       p_id_empfänger:
         - -1
         - 0
@@ -124,6 +165,16 @@ inputs:
       beiträge_versicherter_m:
         - 0.0
         - 0.0
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
       rente:
         altersrente:
           betrag_m:
@@ -143,6 +194,9 @@ inputs:
           grundrentenzeiten_monate:
             - 500
             - 0
+        jahr_renteneintritt:
+          - 2018
+          - 2023
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -171,6 +225,9 @@ inputs:
       wohnfläche_hh:
         - 50.0
         - 50.0
+    wohnort_ost_hh:
+      - false
+      - false
 outputs:
   grundsicherung:
     im_alter:

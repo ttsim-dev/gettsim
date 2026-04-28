@@ -5,9 +5,8 @@ info:
     § 82 Abs. 4, 5 SGB XII.
     zusätzliche_altersvorsorge_m = betriebliche_altersvorsorge_m = 50.
     anrechnungsfreier_anteil_zusätzliche_altersvorsorge(50) = 50.
-    einkommen_aus_zusätzlicher_altersvorsorge_m
-      = 50 - 50 + aus_berufsständischen_versicherungen_m
-      = 50 - 50 + 75 = 75.
+    einkommen_aus_zusätzlicher_altersvorsorge_m = 50 - 50 = 0.
+    aus_berufsständischen_versicherungen_m is added separately in einkommen_m.
   precision_atol: 0.01
   source: manual calculation
 inputs:
@@ -24,6 +23,9 @@ inputs:
       betrag_y_sn:
         - 0.0
       einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -46,6 +48,8 @@ inputs:
         geförderte_private_vorsorge_m:
           - 0.0
         sonstige_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
           - 0.0
         aus_berufsständischen_versicherungen_m:
           - 75.0
@@ -129,4 +133,4 @@ outputs:
   grundsicherung:
     im_alter:
       einkommen_aus_zusätzlicher_altersvorsorge_m:
-        - 75.0
+        - 0.0

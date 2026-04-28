@@ -9,9 +9,8 @@ info:
       = 200 + 200 + 200 = 600.
     anrechnungsfreier_anteil_zusätzliche_altersvorsorge(600) = 100 + 0.3 * 500 = 250.
     rbs_1 / 2 = 416 / 2 = 208. min(250, 208) = 208.
-    einkommen_aus_zusätzlicher_altersvorsorge_m
-      = 600 - 208 + aus_berufsständischen_versicherungen_m
-      = 600 - 208 + 100 = 492.
+    einkommen_aus_zusätzlicher_altersvorsorge_m = 600 - 208 = 392.
+    aus_berufsständischen_versicherungen_m is added separately in einkommen_m.
   precision_atol: 0.01
   source: manual calculation
 inputs:
@@ -28,6 +27,9 @@ inputs:
       betrag_y_sn:
         - 0.0
       einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -51,6 +53,8 @@ inputs:
           - 200.0
         sonstige_private_vorsorge_m:
           - 200.0
+        basisrente_m:
+          - 0.0
         aus_berufsständischen_versicherungen_m:
           - 100.0
     elterngeld:
@@ -133,4 +137,4 @@ outputs:
   grundsicherung:
     im_alter:
       einkommen_aus_zusätzlicher_altersvorsorge_m:
-        - 492.0
+        - 392.0

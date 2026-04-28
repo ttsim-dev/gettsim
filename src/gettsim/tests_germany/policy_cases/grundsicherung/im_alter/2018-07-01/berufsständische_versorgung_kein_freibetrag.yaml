@@ -44,6 +44,8 @@ inputs:
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
+        basisrente_m:
+          - 0.0
         aus_berufsständischen_versicherungen_m:
           - 300.0
     elterngeld:
