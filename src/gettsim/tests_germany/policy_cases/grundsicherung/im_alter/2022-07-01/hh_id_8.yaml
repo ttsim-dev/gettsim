@@ -67,6 +67,9 @@ inputs:
     hh_id:
       - 8
     grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
       hilfe_zum_lebensunterhalt:
         überschusseinkommen_m:
           - 0.0

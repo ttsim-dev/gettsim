@@ -104,6 +104,11 @@ inputs:
       p_id_elternteil_2:
         - -1
         - -1
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
     geburtsjahr:
       - 1956
       - 1958
