@@ -56,8 +56,8 @@ The following inputs are taxed under the deferred-taxation regime:
 - `einnahmen.renten.geförderte_private_vorsorge_m` — Riester-Rente and other contracts
   subsidised via § 10a EStG. Fully taxable (§ 22 Nr. 5 EStG).
 
-Additionally, other private pensions that were not subsidised during accumulation are
-taxed via the Ertragsanteilbesteuerung (§ 22 Nr. 1 Satz 3 Buchst. a bb EStG):
+Private pension contracts that were not subsidised during accumulation are taxed via the
+Ertragsanteilbesteuerung (§ 22 Nr. 1 Satz 3 Buchst. a bb EStG):
 
 - `einnahmen.renten.sonstige_private_vorsorge_m` — Kapitallebensversicherung and other
   private pension plans outside Basisrente / Riester.
