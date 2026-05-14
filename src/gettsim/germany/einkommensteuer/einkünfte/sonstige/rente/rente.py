@@ -43,19 +43,20 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
     ertragsanteil_sonstige_private_vorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
     """Pension income counting towards taxable income.
 
-    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    Reference: § 22 Nr. 1 Satz 3 Buchstabe a EStG
     """
     return (
         besteuerungsanteil
         * (
             einnahmen__renten__gesetzliche_m
-            + einnahmen__renten__sonstige_private_vorsorge_m
+            + einnahmen__renten__basisrente_m
             + einnahmen__renten__aus_berufsständischen_versicherungen_m
         )
         + ertragsanteil_sonstige_private_vorsorge

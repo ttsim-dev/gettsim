@@ -15,6 +15,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
+  variable `einnahmen.renten.basisrente_m` for Basisrente / Rürup-Rente.
+  ({ghuser}`MImmesberger`)
 - {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
   ({ghuser}`MImmesberger`)
 - {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.
