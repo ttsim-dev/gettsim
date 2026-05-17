@@ -15,6 +15,12 @@ jobs:
   run-tests:
     name: Run tests for ${{ matrix.os }} on ${{ matrix.environment }}
     runs-on: ${{ matrix.os }}
+    # Enable both package-wide beartype claws for the rollout PR
+    # (gettsim transitively exercises ttsim). Flip to always-on (remove
+    # this env block + the gates in the `__init__.py` files) at merge.
+    env:
+      GETTSIM_BEARTYPE_CLAW: '1'
+      TTSIM_BEARTYPE_CLAW: '1'
     strategy:
       fail-fast: false
       matrix:

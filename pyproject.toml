@@ -139,6 +139,14 @@ python = "~=3.12.0"
 python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
+[tool.pixi.feature.tests.activation.env]
+# Activate the package-wide beartype claws whenever the tests env is in
+# use (env-var-gated during the rollout PR; flip to always-on at merge).
+# Both gettsim's claw and ttsim's claw fire — gettsim transitively
+# exercises ttsim code paths and we want violations on either side to
+# surface.
+GETTSIM_BEARTYPE_CLAW = "1"
+TTSIM_BEARTYPE_CLAW = "1"
 [tool.pixi.feature.tests.pypi-dependencies]
 pytest = "*"
 pytest-cov = "*"
@@ -280,6 +288,7 @@ expand_tables = [
   "tool.pixi.feature.py312.dependencies",
   "tool.pixi.feature.py313.dependencies",
   "tool.pixi.feature.py314.dependencies",
+  "tool.pixi.feature.tests.activation.env",
   "tool.pixi.feature.tests.pypi-dependencies",
   "tool.pixi.feature.tests.target.linux-64.tasks",
   "tool.pixi.feature.tests.target.osx-64.tasks",
