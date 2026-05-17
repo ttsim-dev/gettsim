@@ -2,6 +2,24 @@
 
 from __future__ import annotations
 
+import os
+
+# Register beartype's package claw before any gettsim submodule imports
+# so every gettsim.* module loads with runtime type checks installed via
+# INTERNAL_CONF. This claw is independent of ttsim's; both share the
+# same `INTERNAL_CONF` so violations under either claw surface as
+# beartype's own `BeartypeCallHintViolation`. User-facing constructors
+# inherited from ttsim keep their `@beartype(conf=...)` decorators that
+# map violations to the relevant `ttsim.exceptions.*` class.
+#
+# Env-var gated during rollout; flip to always-on at merge.
+if os.environ.get("GETTSIM_BEARTYPE_CLAW", "0") != "0":
+    from beartype.claw import beartype_package
+
+    from gettsim._beartype_conf import INTERNAL_CONF
+
+    beartype_package("gettsim", conf=INTERNAL_CONF)
+
 try:
     # Import the version from _version.py which is dynamically created by
     # setuptools-scm upon installing the project with pip.
