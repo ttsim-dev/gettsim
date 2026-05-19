@@ -181,7 +181,7 @@ gettsim = { path = ".", editable = true }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
-dags = ">=0.5"
+dags = { git = "https://github.com/OpenSourceEconomics/dags.git", branch = "main" }
 ttsim-backend = { path = "../ttsim", editable = true }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
