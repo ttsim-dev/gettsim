@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2004-12-31", leaf_name="betrag_m")
-def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
+@policy_function(end_date="2004-12-31", leaf_name="einnahmen_steuerpflichtig_m")
+def einnahmen_steuerpflichtig_m_nach_ertragsanteil(
     ertragsanteil_gesetzliche_rente: float,
     ertragsanteil_berufsständische_altersvorsorge: float,
     ertragsanteil_sonstige_private_vorsorge: float,
@@ -24,7 +24,7 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
-    """Pension income counting towards taxable income."""
+    """Pension income counting towards taxable income, before Werbungskosten."""
     return (
         ertragsanteil_gesetzliche_rente * einnahmen__renten__gesetzliche_m
         + ertragsanteil_berufsständische_altersvorsorge
@@ -37,8 +37,8 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_ertragsanteil(
     )
 
 
-@policy_function(start_date="2005-01-01", leaf_name="betrag_m")
-def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
+@policy_function(start_date="2005-01-01", leaf_name="einnahmen_steuerpflichtig_m")
+def einnahmen_steuerpflichtig_m_nach_besteuerungsanteil(
     besteuerungsanteil: float,
     ertragsanteil_sonstige_private_vorsorge: float,
     einnahmen__renten__gesetzliche_m: float,
@@ -48,7 +48,7 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
-    """Pension income counting towards taxable income.
+    """Pension income counting towards taxable income, before Werbungskosten.
 
     Reference: § 22 Nr. 1 Satz 3 Buchstabe a EStG
     """
@@ -64,6 +64,18 @@ def betrag_m_besteuerung_gesetzliche_rente_nach_besteuerungsanteil(
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
     )
+
+
+@policy_function()
+def betrag_y(
+    einnahmen_steuerpflichtig_y: float,
+    werbungskostenpauschbetrag: float,
+) -> float:
+    """Pension income counting towards taxable income, after Werbungskostenpauschbetrag.
+
+    Reference: § 9a Satz 1 Nr. 3 EStG.
+    """
+    return max(einnahmen_steuerpflichtig_y - werbungskostenpauschbetrag, 0.0)
 
 
 @policy_function()

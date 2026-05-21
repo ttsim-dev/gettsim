@@ -1,0 +1,24 @@
+---
+werbungskostenpauschbetrag:
+  name:
+    de: Werbungskostenpauschbetrag für sonstige Einkünfte (Renten).
+    en: Lump-sum deduction for miscellaneous income (pensions).
+  description:
+    de: >-
+      § 9a Satz 1 Nr. 3 EStG. Pauschbetrag, der von den Einnahmen i.S.d. § 22 Nr. 1, 1a
+      und 5 EStG abgezogen wird. Höchstens bis zur Höhe der Einnahmen (§ 9a Satz 2
+      EStG). In GETTSIM wird der Pauschbetrag auf die Summe der Renteneinkünfte
+      angewendet.
+    en: >-
+      § 9a Satz 1 Nr. 3 EStG. Lump-sum deducted from income within the meaning of § 22
+      Nr. 1, 1a, and 5 EStG, capped at the income itself (§ 9a Satz 2 EStG). In
+      GETTSIM, applied to the sum of pension income.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  1984-01-01:
+    value: 200
+    unit: DM
+  2002-01-01:
+    value: 102
+    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
