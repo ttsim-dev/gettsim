@@ -17,10 +17,10 @@ def betrag_y(
 @policy_function()
 def einnahmen_y(
     alle_weiteren_y: float,
-    rente__einnahmen_y: float,
+    rente__steuerpflichtige_einnahmen_y: float,
 ) -> float:
     """Steuerpflichtige Einnahmen aus sonstigen Einkünften i.S.d. § 22 EStG."""
-    return alle_weiteren_y + rente__einnahmen_y
+    return alle_weiteren_y + rente__steuerpflichtige_einnahmen_y
 
 
 @policy_function()

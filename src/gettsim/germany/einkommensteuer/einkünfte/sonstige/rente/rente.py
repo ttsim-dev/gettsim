@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 from gettsim.tt import policy_function
 
 
-@policy_function(end_date="2004-12-31", leaf_name="einnahmen_m")
-def einnahmen_m_nach_ertragsanteil(
+@policy_function(end_date="2004-12-31", leaf_name="steuerpflichtige_einnahmen_m")
+def steuerpflichtige_einnahmen_m_nach_ertragsanteil(
     ertragsanteil_gesetzliche_rente: float,
     ertragsanteil_berufsständische_altersvorsorge: float,
     ertragsanteil_sonstige_private_vorsorge: float,
@@ -37,8 +37,8 @@ def einnahmen_m_nach_ertragsanteil(
     )
 
 
-@policy_function(start_date="2005-01-01", leaf_name="einnahmen_m")
-def einnahmen_m_nach_besteuerungsanteil(
+@policy_function(start_date="2005-01-01", leaf_name="steuerpflichtige_einnahmen_m")
+def steuerpflichtige_einnahmen_m_nach_besteuerungsanteil(
     besteuerungsanteil: float,
     ertragsanteil_sonstige_private_vorsorge: float,
     einnahmen__renten__gesetzliche_m: float,

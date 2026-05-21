@@ -84,7 +84,7 @@ inputs:
             - 0.0
             - 0.0
           rente:
-            einnahmen_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
               - 0.0
               - 0.0
