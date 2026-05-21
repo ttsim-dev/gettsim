@@ -35,7 +35,7 @@ inputs:
           alle_weiteren_m:
             - 0.0
           rente:
-            betrag_m:
+            einnahmen_m:
               - 0.0
       gemeinsam_veranlagt:
         - false

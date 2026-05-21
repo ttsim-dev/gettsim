@@ -39,7 +39,7 @@ inputs:
           - false
         sonstige:
           rente:
-            betrag_m:
+            einnahmen_m:
               - 0.0
           alle_weiteren_m:
             - 0.0

@@ -7,8 +7,28 @@ from gettsim.tt import policy_function
 
 @policy_function()
 def betrag_y(
-    alle_weiteren_y: float,
-    rente__betrag_y: float,
+    einnahmen_y: float,
+    werbungskosten_y: float,
 ) -> float:
-    """Total sonstige Einkünfte."""
-    return alle_weiteren_y + rente__betrag_y
+    """Sonstige Einkünfte nach Abzug der Werbungskosten."""
+    return max(einnahmen_y - werbungskosten_y, 0.0)
+
+
+@policy_function()
+def einnahmen_y(
+    alle_weiteren_y: float,
+    rente__einnahmen_y: float,
+) -> float:
+    """Steuerpflichtige Einnahmen aus sonstigen Einkünften i.S.d. § 22 EStG."""
+    return alle_weiteren_y + rente__einnahmen_y
+
+
+@policy_function()
+def werbungskosten_y(
+    werbungskostenpauschbetrag: float,
+) -> float:
+    """Werbungskosten für sonstige Einkünfte.
+
+    Reference: § 9a Satz 1 Nr. 3 EStG.
+    """
+    return werbungskostenpauschbetrag

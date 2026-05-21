@@ -63,7 +63,7 @@ outputs:
     einkünfte:
       sonstige:
         rente:
-          betrag_m:
-            - 826.5
-            - 171.5
-            - 1006.5
+          einnahmen_m:
+            - 835.0
+            - 180.0
+            - 1015.0
