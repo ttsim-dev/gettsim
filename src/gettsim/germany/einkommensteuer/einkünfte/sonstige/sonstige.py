@@ -7,8 +7,14 @@ from gettsim.tt import policy_function
 
 @policy_function()
 def betrag_y(
+    rente__steuerpflichtige_einnahmen_y: float,
     alle_weiteren_y: float,
-    rente__betrag_y: float,
+    werbungskostenpauschbetrag: float,
 ) -> float:
-    """Total sonstige Einkünfte."""
-    return alle_weiteren_y + rente__betrag_y
+    """Sonstige Einkünfte nach Abzug der Werbungskosten."""
+    return max(
+        rente__steuerpflichtige_einnahmen_y
+        + alle_weiteren_y
+        - werbungskostenpauschbetrag,
+        0.0,
+    )
