@@ -29,7 +29,7 @@ inputs:
           alle_weiteren_m:
             - 0.0
           rente:
-            betrag_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
