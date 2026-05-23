@@ -139,14 +139,13 @@ python = "~=3.12.0"
 python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
-[tool.pixi.feature.tests.activation.env]
-# Activate the package-wide beartype claws whenever the tests env is in
-# use (env-var-gated during the rollout PR; flip to always-on at merge).
-# Both gettsim's claw and ttsim's claw fire — gettsim transitively
-# exercises ttsim code paths and we want violations on either side to
-# surface.
-GETTSIM_BEARTYPE_CLAW = "1"
-TTSIM_BEARTYPE_CLAW = "1"
+
+# The package-wide beartype claws (gettsim's and ttsim's, both checked
+# because gettsim transitively exercises ttsim code paths) are off by
+# default while the decision on GEP-09 is pending. To activate them
+# locally for testing, set `GETTSIM_BEARTYPE_CLAW=1` and
+# `TTSIM_BEARTYPE_CLAW=1` in the shell environment. They will be activated
+# by default once GEP-09 is resolved.
 [tool.pixi.feature.tests.pypi-dependencies]
 pytest = "*"
 pytest-cov = "*"
