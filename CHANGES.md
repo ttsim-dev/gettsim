@@ -15,6 +15,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1185` Adopt the package-wide beartype claw and the typed exception hierarchy
+  re-exported from ttsim, so malformed input is rejected with curated errors at the
+  user-facing boundaries. ({ghuser}`hmgaudecker`)
 - {gh}`1183` Add Werbungskostenpauschbetrag for sonstige Einkünfte.
   ({ghuser}`MImmesberger`)
 - {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
