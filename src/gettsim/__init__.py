@@ -12,7 +12,9 @@ import os
 # inherited from ttsim keep their `@beartype(conf=...)` decorators that
 # map violations to the relevant `ttsim.exceptions.*` class.
 #
-# Env-var gated during rollout; flip to always-on at merge.
+# Env-var gated: users of a released package leave
+# `GETTSIM_BEARTYPE_CLAW` unset and never see it. The gate stays in place
+# until GEP-09's decision on the rollout lands.
 if os.environ.get("GETTSIM_BEARTYPE_CLAW", "0") != "0":
     from beartype.claw import beartype_package
 
