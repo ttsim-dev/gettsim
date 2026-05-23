@@ -16,7 +16,7 @@
 - * Created
   * 2022-03-28
 - * Updated
-  * 2026-05-19
+  * 2026-05-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2004)
 ```
@@ -430,18 +430,16 @@ infrastructure. Scalar annotations let them write functions that read like the
 underlying legal text—one individual / household / Bedarfsgemeinschaft / ... at a time
 —and let `ty` check the body against the same scalar contract the author had in mind.
 The auto-vectorised wrapper that the DAG actually calls is generated separately; see
-{ref}`gep-9` for the wrapper-annotation-strip pattern that prevents the wrapper from
-inheriting the user's scalar annotations and surfacing them as false positives under the
-runtime claw.
+{ref}`gep-9` for the layered inner/outer wrapper pattern that strips the user's scalar
+annotations on the inner runtime executor and stamps a synthesised column-typed
+signature on the outer beartype-checked forwarder.
 
 ### Build-time annotation synthesis
 
-The wrapper-annotation strip described in {ref}`gep-9` removes a user's scalar
-annotations from an auto-generated wrapper so the runtime claw does not check a
-column-typed call against a scalar contract. That strip leaves the wrapper *untyped*,
-which is safe but imprecise. Two kinds of DAG node are generated rather than written by
-hand, and both need a concrete type to take part in the DAG's annotation-consistency
-check:
+The auto-vectorised wrapper described in {ref}`gep-9` carries a synthesised column-typed
+signature stamped at DAG-build time, so the runtime claw checks columns against column
+types. Two kinds of DAG node are generated rather than written by hand, and both need a
+concrete type to take part in the DAG's annotation-consistency check:
 
 - **auto-vectorised wrappers** — the column-operating wrapper that the DAG calls in
   place of a scalar policy function;

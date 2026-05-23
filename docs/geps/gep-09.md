@@ -10,7 +10,7 @@
 - * Type
   * Standards Track
 - * Created
-  * 2026-05-17
+  * 2026-05-23
 - * Resolution
   * Pending — see [#GEPs](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2009)
 ```
@@ -30,11 +30,11 @@ claw checks the wrapper against its true (column) signature.
 
 The ttsim DAG accepts a wide range of objects at its outer boundary — pandas Series,
 numpy arrays, Python scalars, JAX arrays — and converts them internally into a narrower,
-performance-oriented representation: jaxtyping-shaped JAX arrays for columns and Python
-or numpy scalars for parameters. Today this distinction is implicit. `typing.py` exposes
-a single `Array`-based vocabulary, the canonical internal types are not named separately
-from their user-friendly supersets, and nothing enforces either contract at runtime.
-Three problems follow:
+performance-oriented representation: jaxtyping-shaped JAX or numpy arrays for columns
+and Python or numpy scalars for parameters. Today this distinction is implicit.
+`typing.py` exposes a single `Array`-based vocabulary, the canonical internal types are
+not named separately from their user-friendly supersets, and nothing enforces either
+contract at runtime. Three problems follow:
 
 1. **Silent contract drift.** A policy function annotated `int` that is invoked with a
    `jax.Array` works today, fails tomorrow on a backend swap, and has no guard at the
@@ -50,18 +50,13 @@ Three problems follow:
    tell whether they passed bad data, mis-declared a policy function, or hit an internal
    ttsim bug. There is no exception vocabulary that maps to architectural layers.
 
-These cost real time during model development and during workshop teaching. The
-[pylcm beartype rollout](https://github.com/OpenSourceEconomics/pylcm/pull/355)
-addressed the same three problems for the life-cycle-model framework with a package-wide
-AST-rewriting claw, layered project exceptions, and a formal boundary-vs-canonical type
-split. This GEP adopts the same pattern for the ttsim ecosystem.
+These cost real time during model development and during workshop teaching.
 
-**Scope.** The GEP covers `ttsim`, `gettsim`, and `gettsim-personas`. `soep-preparation`
-is excluded — it ingests survey microdata with idiosyncratic shape contracts that the
-claw does not buy us much on. The `@policy_function` dual-mode contract (scalar default
-vs. column-direct via `vectorization_strategy="not_required"`) is touched here only
-insofar as the claw makes it enforceable; the full contract is specified in a separate
-update to {ref}`GEP 4 <gep-4>`.
+**Scope.** The GEP covers `ttsim`, `gettsim`, and `gettsim-personas`. The
+`@policy_function` dual-mode contract (scalar default vs. column-direct via
+`vectorization_strategy="not_required"`) is touched here only insofar as the claw makes
+it enforceable; the full contract is specified in a separate update to
+{ref}`GEP 4 <gep-4>`.
 
 ## Usage and Impact
 
@@ -293,7 +288,11 @@ columns. If the wrapper inherits the user function's scalar annotations via
 `functools.wraps`, the claw checks column inputs against scalar annotations and rejects
 every legitimate call.
 
-Wrappers therefore copy everything from the wrapped function *except* annotations:
+The fix uses two layers. The **inner** runtime executor — `numpy.vectorize`, the
+AST-rewrite output, or the rounding callable — wraps the user function with
+`functools.wraps(func, assigned=...)` that *omits* `__annotations__` and `__annotate__`
+(the PEP 649 deferred alias). This layer carries no annotations and is never
+beartype-decorated; its only job is to apply the auto-vectorisation or rounding logic.
 
 ```python
 import functools
@@ -309,16 +308,29 @@ _WRAPPER_ASSIGNMENTS_NO_ANNOTATIONS = tuple(
 def wrapper(...): ...
 ```
 
-Both `__annotations__` (eager) and `__annotate__` (PEP 649 deferred, Python 3.14+) are
-excluded.
+The **outer** layer is a real-parameter forwarder synthesised at DAG-build time. It
+mirrors the wrapped function's parameter list verbatim — same names, same order — and
+forwards every argument positionally. Two channels of annotation live on it:
 
-This is the right fix for today: the wrapper's signature is generically typed and the
-claw stops mistakenly enforcing the user's scalar contract on column inputs. It is also
-a stop-gap. The wrapper's *true* signature — column types for every input that was
-scalar in the user function — is knowable at DAG-build time. A follow-up will synthesise
-precise column-typed annotations on each wrapper as it is constructed, so the claw can
-again check the boundary. The annotation strip stays until that follow-up lands; it is
-local, explicit, and trivially reversible.
+- `__signature__` carries the **narrow** per-kind column-type strings (`FloatColumn`,
+  `IntColumn`, `BoolColumn`). `dags`' annotation-consistency check reads these and
+  distinguishes a producer typed `IntColumn` from a consumer expecting `BoolColumn`.
+- `__annotations__` carries the **wide** numeric-or-scalar union —
+  `FloatColumn | IntColumn | BoolColumn | ScalarFloat | ScalarInt | ScalarBool | 0-d-array`.
+  beartype compiles its runtime check against this wider type so the boundary catches
+  structural misuse (a string / mapping / `None` reaching a numeric node) without
+  enforcing exact array dtype.
+
+The forwarder is defined with its `__module__` pointed at `ttsim.typing`, so beartype
+resolves the column-type strings against the module where the aliases live (rather than
+the user-function module where they are not importable). It is then decorated with
+`@beartype(conf=INTERNAL_CONF)`. The result is what the DAG sees and consumers call:
+beartype catches structural misuse at this boundary, and `dags` sees concrete column
+types for the consistency check.
+
+Both `vectorize_function` and `RoundingSpec.apply_rounding` build this outer forwarder
+through a shared helper (`build_beartype_checkable_wrapper`) so the synthesis pattern
+stays single-source.
 
 ### Forward references, `from __future__ import annotations`, and recursive aliases
 
@@ -448,8 +460,10 @@ chose.
 
 Possible via a per-function opt-out (`@beartype(conf=BeartypeConf(...))` with
 `claw_skip_mandatory_conf=True`). Rejected because the wrappers are the exact site at
-which a precise column-typed annotation will eventually be synthesised; an opt-out now
-would have to be undone then. The annotation strip is a smaller, more local change.
+which precise column-typed annotations *can* be synthesised at DAG-build time; an
+opt-out would have left the boundary unchecked even when the synthesis is mechanical.
+The layered inner-strip / outer-synthesised-forwarder pattern keeps the boundary
+beartype-checkable.
 
 ### Validate `vectorization_strategy` consistency at TT-DAG-build time
 
