@@ -51,7 +51,7 @@ inputs:
           - false
         sonstige:
           rente:
-            betrag_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
               - 0.0
           alle_weiteren_m:

@@ -129,7 +129,7 @@ outputs:
     einkünfte:
       sonstige:
         rente:
-          betrag_m:
+          steuerpflichtige_einnahmen_m:
             - 3300.0
             - 3490.0
             - 3690.0
