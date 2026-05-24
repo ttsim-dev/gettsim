@@ -47,7 +47,6 @@ if TYPE_CHECKING:
     from ttsim.typing import (
         ColumnFunction,
         ColumnObject,
-        FlatColumnObjects,
         FlatColumnObjectsParamFunctions,
         FlatInterfaceObjects,
         FlatOrigParamSpecs,
@@ -65,6 +64,7 @@ if TYPE_CHECKING:
         ParamObject,
         PolicyEnvironment,
         PolicyInput,
+        QNameColumnObjects,
         SpecEnvWithoutTreeLogicAndWithDerivedFunctions,
         SpecEnvWithPartialledParamsAndScalars,
         SpecEnvWithProcessedParamsAndScalars,
