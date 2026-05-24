@@ -90,8 +90,7 @@ sees a `pd.Series` or a bare Python `float` where a column is expected.
 
 The claw adds an O(n) container check on entry to every clawed function, but ttsim's
 entry points are called rarely (per-run, not per-row), so the cost is invisible at the
-boundary. Hot inner loops are JIT-compiled and beartype's AST-rewritten checks live
-outside the JIT region.
+boundary.
 
 ## Backward Compatibility
 
@@ -280,6 +279,13 @@ The user boundaries covered are:
   `@group_creation_function` — their matching confs
 - `RoundingSpec` dataclass — `ROUNDING_SPEC_CONF`
 
+The five `@*_function` decorators (`@policy_function`, `@param_function`,
+`@agg_by_p_id_function`, `@agg_by_group_function`, `@group_creation_function`)
+additionally require the wrapped function to carry an annotation on every parameter and
+on the return — missing annotations raise `PolicyFunctionDefinitionError` (or the
+decorator's matching analogue) at decoration time, so the stack trace points at the
+function's definition site rather than at an internal DAG-build helper.
+
 ### The auto-vectorized-wrapper annotation problem
 
 Scalar policy functions are wrapped at DAG-build time by `ttsim.tt.vectorization` and
@@ -288,8 +294,8 @@ columns. If the wrapper inherits the user function's scalar annotations via
 `functools.wraps`, the claw checks column inputs against scalar annotations and rejects
 every legitimate call.
 
-The fix uses two layers. The **inner** runtime executor — `numpy.vectorize`, the
-AST-rewrite output, or the rounding callable — wraps the user function with
+The fix uses two layers. The **inner** runtime executor—`numpy.vectorize`, the
+AST-rewrite output, or the rounding callable—wraps the user function with
 `functools.wraps(func, assigned=...)` that *omits* `__annotations__` and `__annotate__`
 (the PEP 649 deferred alias). This layer carries no annotations and is never
 beartype-decorated; its only job is to apply the auto-vectorisation or rounding logic.
@@ -309,7 +315,7 @@ def wrapper(...): ...
 ```
 
 The **outer** layer is a real-parameter forwarder synthesised at DAG-build time. It
-mirrors the wrapped function's parameter list verbatim — same names, same order — and
+mirrors the wrapped function's parameter list verbatim (same names, same order) and
 forwards every argument positionally. Two channels of annotation live on it:
 
 - `__signature__` carries the **narrow** per-kind column-type strings (`FloatColumn`,
@@ -335,17 +341,13 @@ stays single-source.
 ### Forward references, `from __future__ import annotations`, and recursive aliases
 
 `from __future__ import annotations` defers all annotations to strings and breaks the
-claw's runtime resolution. Python 3.14's PEP 649 deferred evaluation makes the pragma
-unnecessary; the AI coding standards in this repo already prohibit it for 3.14+
-projects.
-
-`ttsim`, `gettsim`, and `gettsim-personas` all keep `requires-python = ">=3.11"`. PEP
-649 is unavailable on 3.11–3.13, so the pragma stays. The trade is local: only the
-specific names beartype must resolve at decoration time are lifted out of
-`TYPE_CHECKING` blocks and into runtime scope — column aliases, scalar aliases, `User*`
-aliases, `DashedISOString`, `Callable`, `Any`, `ModuleType`, `datetime`, and the few
-`NestedX` families that decorated boundaries reference directly. Everything else stays
-in `TYPE_CHECKING` to avoid import-cycle costs. A future bump to
+claw's runtime resolution. While Python 3.14's PEP 649 deferred evaluation makes the
+pragma unnecessary, at the time of writing we still support 3.11–3.13, so the pragma
+stays. The trade is local: only the specific names beartype must resolve at decoration
+time are lifted out of `TYPE_CHECKING` blocks and into runtime scope — column aliases,
+scalar aliases, `User*` aliases, `DashedISOString`, `Callable`, `Any`, `ModuleType`,
+`datetime`, and the few `NestedX` families that decorated boundaries reference directly.
+Everything else stays in `TYPE_CHECKING` to avoid import-cycle costs. A future bump to
 `requires-python = ">=3.14"` will let the pragma go and the hoists with it.
 
 Two annotation shapes resist the strip even after hoisting:
@@ -371,17 +373,17 @@ Two annotation shapes resist the strip even after hoisting:
 
 1. **PEP 612 `ParamSpec`.**
    `def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:` is unresolvable under
-   stringified annotations + the claw. The affected methods —
-   `InterfaceFunction.__call__`/`ColumnFunction.__call__`/`ParamFunction.__call__` — are
-   decorated `@no_type_check` until the migration to PEP 695 generic syntax (which
+   stringified annotations + the claw. The affected
+   methods—`InterfaceFunction.__call__`/`ColumnFunction.__call__`/`ParamFunction.__call__`—
+   are decorated `@no_type_check` until the migration to PEP 695 generic syntax (which
    allows the typing machinery to live without the `from __future__` pragma).
 
 ## Related Work
 
-- [pylcm PR #355](https://github.com/OpenSourceEconomics/pylcm/pull/355): Adopts
-  beartype across the life-cycle-model framework. This GEP follows its layering
-  decisions verbatim (package claw + per-component decorators + project exceptions) and
-  its naming (`_beartype_conf.py`, `INTERNAL_CONF`, `<COMPONENT>_CONF`).
+- [pylcm PR #355](https://github.com/OpenSourceEconomics/pylcm/pull/355): Adopts the
+  beartype framework in another project. This GEP follows its layering decisions
+  verbatim (package claw + per-component decorators + project exceptions) and its naming
+  (`_beartype_conf.py`, `INTERNAL_CONF`, `<COMPONENT>_CONF`).
 - [beartype documentation](https://beartype.readthedocs.io/en/latest/): the
   `beartype.claw.beartype_package` API used here, the `violation_param_type` hook, the
   `On` strategy.
@@ -392,54 +394,16 @@ Two annotation shapes resist the strip even after hoisting:
 
 ## Implementation
 
-The rollout proceeds as three coordinated pull requests — one per package — merged
-together so no intermediate state has a partially-installed claw. Each PR follows the
-same shape:
+The pattern — package-wide beartype claw, `<Package>Error` exception hierarchy, wide
+`UserX` types at user boundaries narrowing to canonical `X` types internally — is in
+place across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Every pixi test
+environment runs with the claw on; a missing or mistaken annotation is a build break.
 
-1. **Add the exception hierarchy.** `<package>/exceptions.py` with `<Package>Error` (or,
-   for `gettsim`, the re-exported `TTSIMError`) and the boundary subclasses. Hoist any
-   pre-existing exception types into the hierarchy by widening their base class; keep
-   the definition site so existing imports keep working; re-export from `exceptions.py`
-   for discoverability.
-
-1. **Add the conf factory.** `<package>/_beartype_conf.py` exposing `INTERNAL_CONF` and
-   one named conf per boundary exception.
-
-1. **Lift typing aliases out of `TYPE_CHECKING` and widen them.** The column aliases
-   move to module top level and switch to `Array | np.ndarray`. Add the `UserX` family.
-   Add the narrow `ScalarX` family. Keep `from __future__ import annotations` while
-   `requires-python` includes 3.11–3.13; lift only the specific names that decorated
-   boundaries need to resolve at runtime. Apply the two-definition pattern to recursive
-   aliases (see Detailed Description).
-
-1. **Add `_canonicalize_*` boundary helpers** for every entry point that today
-   implicitly converts user inputs. Typed `UserX → X`. Push the per-call casts out of
-   internal helpers.
-
-1. **Register the claw** at the top of `<package>/__init__.py`, before any submodule
-   import. During the rollout PR, guard with
-   `if os.environ.get("<PACKAGE>_BEARTYPE_CLAW", "0") != "0":` so reviewers can run with
-   and without. The env-var gate is removed in a follow-up immediately after merge.
-
-1. **Stack `@beartype(conf=<COMPONENT_CONF>)`** on every user-facing entry point and
-   decorator listed in the Detailed Description.
-
-1. **Strip annotations on auto-vectorized wrappers** in `ttsim.tt.vectorization` and
-   `ttsim.tt.rounding` via `_WRAPPER_ASSIGNMENTS_NO_ANNOTATIONS`.
-
-1. **Pin dependencies** in `pyproject.toml`: `beartype >= 0.18` (for
-   `violation_param_type`), `jaxtyping >= 0.2`. Re-lock with `pixi lock` in the same
-   commit.
-
-CI runs with `<PACKAGE>_BEARTYPE_CLAW=1` for the rollout PR. Once merged, the env-var
-gate is removed and the claw runs in every pixi environment by default — `py314`,
-`py314-jax`, `py314-cuda`, `py314-metal`, `type-checking`, `type-checking-jax`. CI
-failure on a missing or mistaken annotation is a build break, not a warning.
-
-`.ai-instructions/modules/beartype.md` documents the conventions for contributors: when
-to use `UserX` vs `X`, how to add a new boundary decorator, the wrapper-annotation rule,
-and the diagnostic workflow when a beartype violation surfaces. The module is included
-in the `tier-a` profile by default so every agent picks it up.
+`.ai-instructions/modules/beartype.md` documents the conventions contributors follow:
+when to use `UserX` vs `X`, how to add a new boundary decorator, the wrapper-annotation
+rule, the claw-and-callable-instance gotcha, and the diagnostic workflow when a beartype
+violation surfaces. The module is included in the `tier-a` profile by default so every
+agent picks it up.
 
 ## Alternatives
 

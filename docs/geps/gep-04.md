@@ -423,6 +423,14 @@ Every column parameter must carry a column annotation (`FloatColumn`, `IntColumn
 The error points at the function's definition site, not at an internal DAG-build helper,
 so the fix is local and obvious.
 
+Beyond the dual-mode consistency check, every `@*_function` decorator
+(`@policy_function`, `@param_function`, `@agg_by_p_id_function`,
+`@agg_by_group_function`, `@group_creation_function`) requires the wrapped function to
+carry an annotation on every parameter and on the return value; missing annotations
+raise `PolicyFunctionDefinitionError` (or the decorator's matching analogue) at
+decoration time. See {ref}`GEP 9 <gep-9>` for the runtime-type-checking rollout that the
+requirement supports.
+
 ### Why scalar by default
 
 Policy code is the primary entry point for domain experts who do not maintain the DAG
