@@ -19,7 +19,7 @@
 
 - GETTSIM today has limited runtime type checking. Mismatched user inputs surface as
   cryptic `TypeError`s from deep inside the DAG — or worse, as silent numerical bugs
-  ([ttsim#97](https://github.com/ttsim-dev/ttsim/issues/97)).
+  ([TTSIM #97](https://github.com/ttsim-dev/ttsim/issues/97)).
 - This GEP adopts [beartype](https://beartype.readthedocs.io) as a runtime type checker
   that automatically verifies every annotated function in `ttsim`, `gettsim`, and
   `gettsim-personas` against its declared signature. Users get curated errors at the
@@ -44,7 +44,7 @@
 
 ## Motivation and Scope
 
-The ttsim DAG accepts a wide range of objects as inputs — pandas Series, numpy arrays,
+The TTSIM DAG accepts a wide range of objects as inputs — pandas Series, numpy arrays,
 Python scalars, JAX arrays — and converts them internally into a narrower,
 performance-oriented representation: jaxtyping-shaped JAX or numpy arrays for columns
 and Python or numpy scalars for parameters. Today this distinction is implicit.
@@ -63,11 +63,11 @@ compliance. Four problems follow:
 
 1. **Indistinguishable bug classes.** When a TT DAG raises `TypeError`, the user cannot
    tell whether they passed bad data, mis-declared a policy function, or hit an internal
-   ttsim bug. There is no exception vocabulary that maps to architectural layers.
+   TTSIM bug. There is no exception vocabulary that maps to architectural layers.
 
 1. **Past silent bugs.** Missing or imprecise type checks have caused real,
    hard-to-diagnose bugs (e.g.
-   [ttsim#97](https://github.com/ttsim-dev/ttsim/issues/97)).
+   [TTSIM #97](https://github.com/ttsim-dev/ttsim/issues/97)).
 
 These cost real time during model development and during workshop teaching.
 
@@ -110,7 +110,7 @@ incompatible with column-direct execution.
 
 ### Same runtime, more discoverable failures
 
-The claw adds an O(n) container check on entry to every clawed function, but ttsim's
+The claw adds an O(n) container check on entry to every clawed function, but TTSIM's
 entry points are called rarely (per-run, not per-row), so the cost is invisible at the
 boundary.
 
@@ -118,7 +118,7 @@ boundary.
 
 Existing user code keeps working unchanged in shape. Two narrowed claims:
 
-- Code that caught `TypeError` or `ValueError` from inside ttsim should broaden to
+- Code that caught `TypeError` or `ValueError` from inside TTSIM should broaden to
   `TTSIMError` (or the relevant subclass). Code that catches `Exception` is unaffected.
   Two pre-existing exception types are hoisted into the hierarchy without changing their
   definition site: `ConflictingActivePeriodsError` and `TranslateToVectorizableError`.
@@ -131,7 +131,7 @@ Existing user code keeps working unchanged in shape. Two narrowed claims:
   `KeyError` later.
 
 Internal code that passes wide types into narrow-typed functions surfaces as
-`BeartypeCallHintViolation` from the package-wide claw. These are pre-existing ttsim
+`BeartypeCallHintViolation` from the package-wide claw. These are pre-existing TTSIM
 bugs to fix at the call site, not user-facing changes.
 
 ## Detailed Description
@@ -167,7 +167,7 @@ the backend.
 The aliases live at module top level, not under `if TYPE_CHECKING`. The claw needs them
 at runtime to rewrite call sites.
 
-The wide forms are restricted to the user boundary. Inside ttsim, the narrow forms are
+The wide forms are restricted to the user boundary. Inside TTSIM, the narrow forms are
 the rule. Conversions are funnelled through explicit `_canonicalize_*` helpers — one per
 boundary — typed `UserX → X`. Outside these helpers, no code converts pandas Series to
 JAX arrays or numeric promotes Python scalars to numpy scalars on the fly.
