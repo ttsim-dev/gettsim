@@ -126,9 +126,11 @@ Existing user code keeps working unchanged in shape. Two narrowed claims:
 
 - Every `@*_function` decorator now requires a type annotation on every parameter and on
   the return value. This is the convention every existing `gettsim` policy function
-  already follows; functions that omit annotations raise `PolicyFunctionDefinitionError`
-  (or the matching `*DefinitionError`) at decoration time instead of an obscure
-  `KeyError` later.
+  already follows. Pre-GEP, missing annotations were tolerated unevenly:
+  `@policy_function` silently fell back to a wide default union via `dags`, while
+  `@policy_input` raised a `KeyError` at decoration time. Post-GEP, all five
+  `@*_function` decorators raise their matching `*DefinitionError` at decoration time,
+  so the convention is enforced uniformly.
 
 Internal code that passes wide types into narrow-typed functions surfaces as
 `BeartypeCallHintViolation` from the package-wide claw. These are pre-existing TTSIM
