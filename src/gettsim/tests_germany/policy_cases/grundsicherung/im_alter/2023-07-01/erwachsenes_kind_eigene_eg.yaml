@@ -1,10 +1,12 @@
 ---
 info:
   note: |-
-    Married retired couple with one child (age 10). Child is in the same eg_id as the
-    parents (age < 18). Tests vermögensfreibetrag_eg with 2023 parameters at the eg
-    level: 2 * 10,000 (adults) + 1 * 10,000 (child) = 30,000 EUR.
-    Wealth of 15,000 is below this threshold, so entitlement is not blocked.
+    Retired parent (age 70) with adult child (age 22) on Erwerbsminderungsrente.
+    Child is in the same fg_id (age < 25) but NOT in the same eg_id (age >= 18).
+    Person 0 (past Regelaltersgrenze): RBS 1 = 502, KdU = (350+60)/2 = 205,
+    bedarf = 707. Altersrente 300 − Grundrentenfreibetrag 160 = einkommen 140.
+    anspruchshöhe = 707 − 140 = 567.
+    Person 1 (age 22, not past Regelaltersgrenze): betrag_m = 0.
   precision_atol: 0.01
   source: Self-created test case
 inputs:
@@ -12,24 +14,19 @@ inputs:
   provided:
     alter:
       - 70
-      - 67
-      - 10
+      - 22
     bürgergeld:
       bezug_im_vorjahr:
         - false
         - false
-        - false
       p_id_einstandspartner:
-        - 1
-        - 0
+        - -1
         - -1
       überschusseinkommen_m_eg:
         - 0.0
         - 0.0
-        - 0.0
     einkommensteuer:
       betrag_y_sn:
-        - 0.0
         - 0.0
         - 0.0
       einkünfte:
@@ -37,116 +34,86 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
-            - 0.0
             - 0.0
             - 0.0
         sonstige:
           alle_weiteren_m:
             - 0.0
             - 0.0
-            - 0.0
       gemeinsam_veranlagt:
-        - true
-        - true
+        - false
         - false
     einnahmen:
       bruttolohn_m:
         - 0.0
         - 0.0
-        - 0.0
       kapitalerträge_m:
-        - 0.0
         - 0.0
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
           - 0.0
-          - 0.0
         geförderte_private_vorsorge_m:
-          - 0.0
           - 0.0
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
-          - 0.0
         aus_berufsständischen_versicherungen_m:
-          - 0.0
           - 0.0
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 0.0
         - 0.0
-        - 0.0
       betrag_m:
-        - 0.0
         - 0.0
         - 0.0
     familie:
       alleinerziehend:
-        - false
-        - false
+        - true
         - false
       p_id_ehepartner:
-        - 1
-        - 0
+        - -1
         - -1
       p_id_elternteil_1:
-        - -1
         - -1
         - 0
       p_id_elternteil_2:
         - -1
         - -1
-        - 1
     geburtsjahr:
       - 1953
-      - 1956
-      - 2013
+      - 2001
     geburtsmonat:
       - 1
       - 1
-      - 6
     geburtstag:
       - 1
       - 1
-      - 15
     hh_id:
       - 0
       - 0
-      - 0
     grundsicherung:
-      im_alter:
-        hat_kind_mit_einkommen_über_einkommensgrenze:
-          - false
-          - false
-          - false
       hilfe_zum_lebensunterhalt:
         überschusseinkommen_m:
-          - 0.0
           - 0.0
           - 0.0
     kindergeld:
       p_id_empfänger:
         - -1
-        - -1
         - 0
     p_id:
       - 0
       - 1
-      - 2
     schwerbehindert_grad_g:
-      - false
       - false
       - false
     solidaritätszuschlag:
       betrag_y_sn:
-        - 0.0
         - 0.0
         - 0.0
     sozialversicherung:
@@ -154,74 +121,59 @@ inputs:
         betrag_m:
           - 0.0
           - 0.0
-          - 0.0
       beiträge_versicherter_m:
-        - 0.0
         - 0.0
         - 0.0
       rente:
         altersrente:
           betrag_m:
-            - 400.0
-            - 500.0
+            - 300.0
             - 0.0
           hat_regelaltersgrenze_erreicht:
-            - true
             - true
             - false
         bezieht_rente:
           - true
           - true
-          - false
         erwerbsminderung:
           betrag_m:
             - 0.0
-            - 0.0
-            - 0.0
+            - 200.0
         grundrente:
           grundrentenzeiten_monate:
-            - 500
             - 500
             - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
         - 0.0
-        - 0.0
     unterhaltsvorschuss:
       betrag_m:
         - 0.0
         - 0.0
-        - 0.0
     vermögen_eg:
-      - 15000.0
-      - 15000.0
-      - 15000.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
     wohnen:
       bewohnt_eigentum_hh:
         - false
         - false
-        - false
       bruttokaltmiete_m_hh:
-        - 500.0
-        - 500.0
-        - 500.0
+        - 350.0
+        - 350.0
       heizkosten_m_hh:
-        - 100.0
-        - 100.0
-        - 100.0
+        - 60.0
+        - 60.0
       wohnfläche_hh:
-        - 75.0
-        - 75.0
-        - 75.0
+        - 50.0
+        - 50.0
 outputs:
   grundsicherung:
     im_alter:
-      anspruchshöhe_m:
-        - 441.0
-        - 371.0
+      betrag_m:
+        - 567.0
         - 0.0
-      vermögensgrenze_unterschritten_eg:
-        - true
-        - true
-        - true

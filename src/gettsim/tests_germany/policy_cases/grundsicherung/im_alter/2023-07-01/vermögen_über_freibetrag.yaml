@@ -128,3 +128,5 @@ outputs:
     im_alter:
       anspruchshöhe_m:
         - 0.0
+      vermögensgrenze_unterschritten_eg:
+        - false

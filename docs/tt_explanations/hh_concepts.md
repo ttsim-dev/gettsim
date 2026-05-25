@@ -167,8 +167,8 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 #### Description
 
 - Bedarfsgemeinschaft comprised of:
-  - A couple (Einstandspartner) whose members are deemed to be responsible for each
-    other
+  - A single or a couple (Einstandspartner) whose members are deemed to be responsible
+    for each other
   - Children under 18/25 whose income does not exceed their own needs. - The
     "Kinderwohngeld" allows children to leave the Bedarfsgemeinschaft if Wohngeld (and
     other sourced of income) is sufficient to cover their needs. Not implemented yet.
