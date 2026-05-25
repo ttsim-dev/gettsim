@@ -17,38 +17,57 @@
 
 ## Abstract
 
-This GEP introduces runtime type checking across `ttsim`, `gettsim`, and
-`gettsim-personas` via [beartype](https://beartype.readthedocs.io)'s package claw, and
-formalises the two-tier type vocabulary that the claw makes enforceable: a wide `UserX`
-family at the user boundary and a narrow canonical `X` family inside the package. Each
-user-facing entry point and decorator is wrapped with an explicit beartype configuration
-that re-raises type-violations as a documented subclass of `TTSIMError`. Auto-vectorized
-policy-function wrappers have their inherited scalar annotations stripped so that the
-claw checks the wrapper against its true (column) signature.
+- GETTSIM today has limited runtime type checking. Mismatched user inputs surface as
+  cryptic `TypeError`s from deep inside the DAG — or worse, as silent numerical bugs
+  ([ttsim#97](https://github.com/ttsim-dev/ttsim/issues/97)).
+- This GEP adopts [beartype](https://beartype.readthedocs.io) as a runtime type checker
+  that automatically verifies every annotated function in `ttsim`, `gettsim`, and
+  `gettsim-personas` against its declared signature. Users get curated errors at the
+  boundary they wrote, not at an internal helper six frames deep.
+- GETTSIM/TTSIM become explicit about the types they expect and about how user inputs (a
+  wide vocabulary, e.g. `pd.Series` or Python scalars) are canonicalised into a single
+  internal vocabulary (`numpy` / `jax` arrays).
+- The convention "every `@policy_function` carries full type annotations" — already
+  universally followed in `gettsim` — is promoted to a decoration-time check, so any
+  future omission is caught at the function's definition site with a clear
+  `PolicyFunctionDefinitionError`.
+
+### Terminology
+
+- **claw** — `beartype`'s import-hook mechanism: a single `beartype_package()` call
+  installs an AST rewriter that automatically applies `@beartype` to every annotated
+  function in the package. No per-file decorator, no opt-in list.
+- **runtime check** — a guard that runs at function call time and validates the argument
+  values against the function's declared type annotations.
+- **boundary** — a function the user calls directly: `main()`,
+  `InputData.df_and_mapper`, the `@policy_function` decorator, and similar entry points.
 
 ## Motivation and Scope
 
-The ttsim DAG accepts a wide range of objects at its outer boundary — pandas Series,
-numpy arrays, Python scalars, JAX arrays — and converts them internally into a narrower,
+The ttsim DAG accepts a wide range of objects as inputs — pandas Series, numpy arrays,
+Python scalars, JAX arrays — and converts them internally into a narrower,
 performance-oriented representation: jaxtyping-shaped JAX or numpy arrays for columns
 and Python or numpy scalars for parameters. Today this distinction is implicit.
 `typing.py` exposes a single `Array`-based vocabulary, the canonical internal types are
-not named separately from their user-friendly supersets, and nothing enforces either
-contract at runtime. Three problems follow:
+not named separately from their user-friendly supersets, and no runtime check guarantees
+compliance. Four problems follow:
 
-1. **Silent contract drift.** A policy function annotated `int` that is invoked with a
-   `jax.Array` works today, fails tomorrow on a backend swap, and has no guard at the
-   boundary that would surface the mismatch with a useful error. Annotations are
-   documentation, not specification.
+1. **Silent type drift.** A policy function annotated `int` that is invoked with a
+   `jax.Array` runs silently today; the mismatch only surfaces if a downstream
+   JAX-specific operation fails on the unexpected dtype, often far from the offending
+   input. Annotations are documentation, not specification.
 
-1. **No single boundary for canonicalisation.** Every code path that takes user input
-   re-implements the cast from "pandas Series or Python float or numpy scalar" to "JAX
-   float column / numpy float scalar". The conversion is scattered, inconsistent, and
-   impossible to type-check.
+1. **Scattered canonicalisation.** Every code path that takes user input re-implements
+   the cast from `pd.Series` or Python scalar or numpy scalar to a canonical numpy / JAX
+   form. The conversions are scattered, and nothing enforces that they agree.
 
 1. **Indistinguishable bug classes.** When a TT DAG raises `TypeError`, the user cannot
    tell whether they passed bad data, mis-declared a policy function, or hit an internal
    ttsim bug. There is no exception vocabulary that maps to architectural layers.
+
+1. **Past silent bugs.** Missing or imprecise type checks have caused real,
+   hard-to-diagnose bugs (e.g.
+   [ttsim#97](https://github.com/ttsim-dev/ttsim/issues/97)).
 
 These cost real time during model development and during workshop teaching.
 
@@ -80,11 +99,14 @@ incompatible with column-direct execution.
 
 ### Wider boundary types, narrower internal types
 
-Code that takes user input declares its parameters with `UserX` aliases. The same code's
-internal callees declare narrow canonical aliases (`X`). A small set of
-`_canonicalize_*` functions sits at the boundary and is the only place that returns the
-canonical form from the wide form. Once past canonicalisation, no internal function ever
-sees a `pd.Series` or a bare Python `float` where a column is expected.
+- A broad set of input types is accepted at the boundary. Their collective name is
+  `UserX`, where `X` is `FloatColumn`, `IntColumn`, `BoolColumn`, etc.
+- Each `UserX` is converted by an explicit `_canonicalize_*` function into a single
+  internal representation (e.g., a `pd.Series` of unsigned ints becomes a numpy `int64`
+  array). The internal type collection is named `X`.
+- This formalises how types are reasoned about inside TTSIM and pins the conversion to
+  one named function per boundary. The public API does not change in shape: users still
+  pass the wide forms.
 
 ### Same runtime, more discoverable failures
 
@@ -94,18 +116,23 @@ boundary.
 
 ## Backward Compatibility
 
-User-facing public API is unchanged. Anyone whose code raised `TypeError`, `ValueError`,
-or a bare `Exception` from inside ttsim will now see a `TTSIMError` subclass instead.
-Code that catches `Exception` keeps working; code that catches narrow built-in
-exceptions will have to broaden to `TTSIMError` (or the relevant subclass). Two
-pre-existing exception types are hoisted into the hierarchy without changing their
-definition site: `ConflictingActivePeriodsError` and `TranslateToVectorizableError`.
-Both keep their original import path.
+Existing user code keeps working unchanged in shape. Two narrowed claims:
 
-Internal callers that relied on the wide-form types (passing a `pd.Series` into a
-function with column-typed parameters) will surface as `BeartypeCallHintViolation` from
-the internal claw. These are by definition ttsim bugs, not user-facing changes; the fix
-is to canonicalise at the boundary instead of pushing wide types deeper.
+- Code that caught `TypeError` or `ValueError` from inside ttsim should broaden to
+  `TTSIMError` (or the relevant subclass). Code that catches `Exception` is unaffected.
+  Two pre-existing exception types are hoisted into the hierarchy without changing their
+  definition site: `ConflictingActivePeriodsError` and `TranslateToVectorizableError`.
+  Both keep their original import path.
+
+- Every `@*_function` decorator now requires a type annotation on every parameter and on
+  the return value. This is the convention every existing `gettsim` policy function
+  already follows; functions that omit annotations raise `PolicyFunctionDefinitionError`
+  (or the matching `*DefinitionError`) at decoration time instead of an obscure
+  `KeyError` later.
+
+Internal code that passes wide types into narrow-typed functions surfaces as
+`BeartypeCallHintViolation` from the package-wide claw. These are pre-existing ttsim
+bugs to fix at the call site, not user-facing changes.
 
 ## Detailed Description
 
@@ -294,8 +321,8 @@ columns. If the wrapper inherits the user function's scalar annotations via
 `functools.wraps`, the claw checks column inputs against scalar annotations and rejects
 every legitimate call.
 
-The fix uses two layers. The **inner** runtime executor—`numpy.vectorize`, the
-AST-rewrite output, or the rounding callable—wraps the user function with
+The fix uses two layers. The **inner** runtime executor — `numpy.vectorize`, the
+AST-rewrite output, or the rounding callable — wraps the user function with
 `functools.wraps(func, assigned=...)` that *omits* `__annotations__` and `__annotate__`
 (the PEP 649 deferred alias). This layer carries no annotations and is never
 beartype-decorated; its only job is to apply the auto-vectorisation or rounding logic.
@@ -378,6 +405,21 @@ Two annotation shapes resist the strip even after hoisting:
    are decorated `@no_type_check` until the migration to PEP 695 generic syntax (which
    allows the typing machinery to live without the `from __future__` pragma).
 
+### Limitations
+
+- **Callable-instance binding under normal `import`.** `@policy_function` and similar
+  decorators return a callable dataclass instance (`PolicyFunction`) that wraps the raw
+  function. The claw rebinds module-level names that point at such callable instances:
+  under normal `import`, the module-level name becomes a bound method of `__call__`, so
+  `isinstance(x, PolicyFunction)` fails. The standard policy-module loader
+  (`orig_policy_objects.py` → `importlib.util.spec_from_file_location`) bypasses the
+  claw, so policy modules loaded via
+  `main(orig_policy_objects=OrigPolicyObjects(root=...))` are unaffected. The binding
+  only bites users who `from my_pkg.policy_module import my_fn` and then perform
+  `isinstance` checks on the imported name. See `beartype.md` ("The claw binds
+  decorator-produced callable instances") for the workaround (use the claw-free loader,
+  or read `.function` off the bound method).
+
 ## Related Work
 
 - [pylcm PR #355](https://github.com/OpenSourceEconomics/pylcm/pull/355): Adopts the
@@ -394,10 +436,14 @@ Two annotation shapes resist the strip even after hoisting:
 
 ## Implementation
 
-The pattern — package-wide beartype claw, `<Package>Error` exception hierarchy, wide
-`UserX` types at user boundaries narrowing to canonical `X` types internally — is in
-place across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Every pixi test
-environment runs with the claw on; a missing or mistaken annotation is a build break.
+The pattern — package-wide beartype claw, `TTSIMError` exception hierarchy, wide `UserX`
+types at user boundaries narrowing to canonical `X` types internally — is implemented
+across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Each package's `__init__.py`
+calls `beartype_package(...)` behind an env-var gate (`TTSIM_BEARTYPE_CLAW`,
+`GETTSIM_BEARTYPE_CLAW`, `GETTSIM_PERSONAS_BEARTYPE_CLAW`), default off in production,
+on in every pixi test environment so CI exercises the claw on every run. Once this GEP
+is accepted, the env-var gate will be removed and the claw will be on for everyone,
+always — see the Discussion section for the vote.
 
 `.ai-instructions/modules/beartype.md` documents the conventions contributors follow:
 when to use `UserX` vs `X`, how to add a new boundary decorator, the wrapper-annotation
@@ -435,6 +481,22 @@ Possible, but later in the lifecycle than at `@policy_function` decoration time.
 Validation at decoration gives the user a stack trace pointing at their function
 definition, not at an internal DAG-build helper. The full contract specification lives
 in the GEP 4 update.
+
+### Custom per-function type checks instead of runtime checking
+
+The pre-GEP approach — `_fail_if_*` helpers in `fail_if.py` per validated input —
+remains valid but does not scale. Adding a check requires editing a separate file and
+remembering to wire it in. The claw eliminates the wiring step; the cost is exactly one
+mandatory annotation per parameter, which the codebase already carries.
+
+### Leave annotations on user-written functions optional
+
+Possible: `_fail_if_missing_annotations` could downgrade to a warning, and beartype
+would silently skip un-annotated parameters. Rejected because the goal — "every function
+in the package is checked" — degrades into "some functions are checked, some are not",
+with no in-band signal to the reader that the missing check is deliberate vs.
+accidental. Since every existing `gettsim` policy function already carries full
+annotations, the strict policy enforces an existing convention, not a new requirement.
 
 ## Discussion
 

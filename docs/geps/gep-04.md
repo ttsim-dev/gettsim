@@ -445,9 +445,9 @@ signature on the outer beartype-checked forwarder.
 ### Build-time annotation synthesis
 
 The auto-vectorised wrapper described in {ref}`gep-9` carries a synthesised column-typed
-signature stamped at DAG-build time, so the runtime claw checks columns against column
-types. Two kinds of DAG node are generated rather than written by hand, and both need a
-concrete type to take part in the DAG's annotation-consistency check:
+signature stamped at DAG-build time, so the runtime type checker checks columns against
+column types. Two kinds of DAG node are generated rather than written by hand, and both
+need a concrete type to take part in the DAG's annotation-consistency check:
 
 - **auto-vectorised wrappers** — the column-operating wrapper that the DAG calls in
   place of a scalar policy function;
