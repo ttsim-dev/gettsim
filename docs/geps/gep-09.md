@@ -444,8 +444,10 @@ across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Each package's `__in
 calls `beartype_package(...)` behind an env-var gate (`TTSIM_BEARTYPE_CLAW`,
 `GETTSIM_BEARTYPE_CLAW`, `GETTSIM_PERSONAS_BEARTYPE_CLAW`), default off in production,
 on in every pixi test environment so CI exercises the claw on every run. Once this GEP
-is accepted, the env-var gate will be removed and the claw will be on for everyone,
-always — see the Discussion section for the vote.
+is accepted, the gate's default flips to on; the env var stays in place as an opt-out
+(`GETTSIM_BEARTYPE_CLAW=0` disables the claw for one process or environment) so users
+who hit a false positive can unblock themselves while the rejection is triaged. See the
+Discussion section for the vote.
 
 `.ai-instructions/modules/beartype.md` documents the conventions contributors follow:
 when to use `UserX` vs `X`, how to add a new boundary decorator, the wrapper-annotation
