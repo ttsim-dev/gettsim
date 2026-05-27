@@ -1259,8 +1259,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -1506,8 +1506,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/33/93fcc25907235c344ae73122f8a4e01d2d393ef062b4af7d2e2487a32c37/orjson-3.11.9-cp313-cp313-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -1753,8 +1753,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/33/93fcc25907235c344ae73122f8a4e01d2d393ef062b4af7d2e2487a32c37/orjson-3.11.9-cp313-cp313-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -2006,8 +2006,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -2283,8 +2283,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/09/b9/f668bc51129c0fec7728ae8b43180417fe1c1fe99f71d302739f6cc50944/optree-0.19.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -2520,8 +2520,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/51/3fb9e65ae76ee97bd611869a503fa3fc0a6e81dd8b737cf3003f682df7ff/orjson-3.11.9-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -2757,8 +2757,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/51/3fb9e65ae76ee97bd611869a503fa3fc0a6e81dd8b737cf3003f682df7ff/orjson-3.11.9-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -3000,8 +3000,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/22/64/3cc7b08cb1c0f1949895f9490217ca8db6ced7f3bf75c65a5bf31c07bf1e/optree-0.19.1-cp311-cp311-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -3286,8 +3286,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/0c/b6/156a8de1e1b47694f0e7de6675866936608d45dc68388fd017d36f8693be/simplejson-4.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0e/a4/82b7a2fe5d8a67a59ed831b24d59a3d46ea7d207b66e1602d376541d94a6/orjson-3.11.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -3526,8 +3526,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/09/1e/2f996b2c8415cbb6f54b0f5ec1ee850c96d7911961afb4fc05f4a89d8c58/coverage-7.14.0-cp312-cp312-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/16/6d/11867a3ffa3a3608d84a4de51ef4dd0896d6b5cc9132fbe1daf593e677bc/orjson-3.11.9-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -3766,8 +3766,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/16/6d/11867a3ffa3a3608d84a4de51ef4dd0896d6b5cc9132fbe1daf593e677bc/orjson-3.11.9-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -4012,8 +4012,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/97/d7e3ec79dcdde81f785a0446acf75fea77723f5ca4b98556350d7877986f/optree-0.19.1-cp312-cp312-win_amd64.whl
@@ -4297,8 +4297,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -4538,8 +4538,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/33/93fcc25907235c344ae73122f8a4e01d2d393ef062b4af7d2e2487a32c37/orjson-3.11.9-cp313-cp313-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -4779,8 +4779,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/33/93fcc25907235c344ae73122f8a4e01d2d393ef062b4af7d2e2487a32c37/orjson-3.11.9-cp313-cp313-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -5026,8 +5026,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -5311,8 +5311,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -5552,8 +5552,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1c/18/b9a6586d73992807c26f9a5f274131be3d76b56b18a82b9392e2a25d2e45/coverage-7.14.0-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -5793,8 +5793,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
@@ -6040,8 +6040,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -6325,8 +6325,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/0b/2e/7eea398450457ecb54e18e9d10110993fa65561c4f3add5e8eccd2b9cd41/scipy-1.17.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/b5/dae67f0c45516cfaff2d7fba873c7425c2866d4c9ede5c14a269d89ed79b/nvidia_nvjitlink-13.2.78-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl
@@ -6631,8 +6631,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/0b/2e/7eea398450457ecb54e18e9d10110993fa65561c4f3add5e8eccd2b9cd41/scipy-1.17.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -6877,8 +6877,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/0b/a1/c4d4c0530313c50dd1ba07fff480cfd0c5f18c5ec49742f4a52a6edfd95f/jaxlib-0.10.1-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7129,8 +7129,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7382,8 +7382,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/09/dc/6d8fbfc29d902251cf333414cf7dcfaf4b252a9920c881354584ed36270d/jax_metal-0.1.1-py3-none-macosx_13_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/0b/a1/c4d4c0530313c50dd1ba07fff480cfd0c5f18c5ec49742f4a52a6edfd95f/jaxlib-0.10.1-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -7673,8 +7673,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -7911,8 +7911,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -8149,8 +8149,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/c1/a662f0a8f6e024fca239d493f278d9adf5de1c8408af46a53a76beb13534/dags-0.5.1-py3-none-any.whl
@@ -8393,8 +8393,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/15/64/941b205e2e46cc2297c245c64aa7691410b7454fa4d07a6cb3cf59487833/ty-0.0.38-py3-none-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
@@ -8675,8 +8675,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/2e/7eea398450457ecb54e18e9d10110993fa65561c4f3add5e8eccd2b9cd41/scipy-1.17.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -8918,8 +8918,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/a1/c4d4c0530313c50dd1ba07fff480cfd0c5f18c5ec49742f4a52a6edfd95f/jaxlib-0.10.1-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/77/928ea2e70641ca177a11140062cc5840d421795f2e82749d408d0cce900a/narwhals-2.21.2-py3-none-any.whl
@@ -9167,8 +9167,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
+      - pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
       - pypi: https://files.pythonhosted.org/packages/06/a2/c01db32be2ae7d6a1689972f3c492b149ee4e164b12fdfd9f64b50888215/types_pyyaml-6.0.12.20260518-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/15/64/941b205e2e46cc2297c245c64aa7691410b7454fa4d07a6cb3cf59487833/ty-0.0.38-py3-none-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
@@ -20174,13 +20174,33 @@ packages:
 - pypi: .
   name: gettsim
   requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=add-werbungskostenpauschale-sonstige-einkuenfte#5cc4a75fd8bf0750c233c50d4bbcb83956086cf6
+- pypi: git+https://github.com/ttsim-dev/gettsim-personas?branch=main#b89d2b7f937979de3cd81bf1128e8634d092292f
   name: gettsim-personas
-  version: 0.1.dev32+g5cc4a75fd
+  version: 0.1.dev25+gb89d2b7f9
   requires_dist:
   - gettsim>=1.1
   requires_python: '>=3.11'
 - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
+  name: ttsim-backend
+  version: 1.2.1.dev1+g8ecbaca54
+  requires_dist:
+  - dags>=0.5.1
+  - ipywidgets
+  - kaleido>=1.1
+  - networkx>=3.5
+  - numpy
+  - numpy-groupies
+  - openpyxl
+  - optree>=0.16
+  - pandas>=3
+  - plotly>=6.5
+  - portion
+  - pygments
+  - pygraphviz
+  - pytest
+  - pyyaml
+  requires_python: '>=3.11'
+- pypi: git+https://github.com/ttsim-dev/ttsim?branch=main#8ecbaca5462925442afe795e67408a355266e9cb
   name: ttsim-backend
   version: 1.2.1.dev1+g8ecbaca54
   requires_dist:
