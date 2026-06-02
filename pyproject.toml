@@ -143,9 +143,10 @@ python = "~=3.14.0"
 # Run internal tests with the package-wide beartype claws on. Both
 # gettsim's and ttsim's claws fire — gettsim transitively exercises
 # ttsim code paths and we want violations on either side to surface.
-# The claws are env-var-gated (see each package's `__init__.py`); users
-# of a released package leave both env vars unset and never see them.
-# The gate stays in place until GEP-09's decision on the rollout lands.
+# The claws are on by default (GEP 9, Option A; see each package's
+# `__init__.py`); set the env vars to 0 to opt out. Set explicitly here
+# so the test environment exercises the claws even if the default ever
+# changes.
 [tool.pixi.feature.tests.activation.env]
 GETTSIM_BEARTYPE_CLAW = "1"
 TTSIM_BEARTYPE_CLAW = "1"
