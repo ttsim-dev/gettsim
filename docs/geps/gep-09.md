@@ -21,9 +21,9 @@
   cryptic `TypeError`s from deep inside the DAG — or worse, as silent numerical bugs
   ([TTSIM #97](https://github.com/ttsim-dev/ttsim/issues/97)).
 - This GEP adopts [beartype](https://beartype.readthedocs.io) as a runtime type checker
-  that automatically verifies every annotated function in `ttsim` and `gettsim` against
-  its declared signature. Users get curated errors at the boundary they wrote, not at an
-  internal helper six frames deep.
+  that automatically verifies every annotated function in `ttsim`, `gettsim`, and
+  `gettsim-personas` against its declared signature. Users get curated errors at the
+  boundary they wrote, not at an internal helper six frames deep.
 - GETTSIM/TTSIM become explicit about the types they expect and about how user inputs (a
   wide vocabulary, e.g. `pd.Series` or Python scalars) are canonicalised into a single
   internal vocabulary (`numpy` / `jax` arrays).
@@ -71,9 +71,8 @@ compliance. Four problems follow:
 
 These cost real time during model development and during workshop teaching.
 
-**Scope.** The claw covers `ttsim` and `gettsim`. `gettsim-personas` ships example data
-consumed by `gettsim` and is type-checked at that boundary, so it carries no claw of its
-own. The `@policy_function` dual-mode contract (scalar default vs. column-direct via
+**Scope.** The GEP covers `ttsim`, `gettsim`, and `gettsim-personas`. The
+`@policy_function` dual-mode contract (scalar default vs. column-direct via
 `vectorization_strategy="not_required"`) is touched here only insofar as the claw makes
 it enforceable; the full contract is specified in a separate update to
 {ref}`GEP 4 <gep-4>`.
@@ -218,6 +217,8 @@ class RoundingSpecError(TTSIMError): ...
 ```
 
 `gettsim` reuses the hierarchy without adding a `GETTSIMError` of its own.
+`gettsim-personas` adds one class, `PersonaDefinitionError(TTSIMError)`, for
+persona-construction validation.
 
 ### Per-component beartype configurations
 
@@ -292,8 +293,8 @@ beartype_package("ttsim", conf=INTERNAL_CONF)
 `beartype_package` installs an AST rewriter against the package's import hook. Every
 subsequent `import ttsim.*` produces a module whose annotated callables wrap themselves
 in a beartype check on load. There is no per-file decorator, no opt-in list, and no way
-to forget a function. `gettsim` does the same with its own root package and its own
-`INTERNAL_CONF`.
+to forget a function. `gettsim` and `gettsim-personas` do the same with their own root
+packages and their own `INTERNAL_CONF`.
 
 ### Explicit decorators at user boundaries
 
@@ -446,10 +447,11 @@ Two annotation shapes resist the strip even after hoisting:
 
 The pattern — package-wide beartype claw, `TTSIMError` exception hierarchy, wide `UserX`
 types at user boundaries narrowing to canonical `X` types internally — is implemented
-across `ttsim`, `gettsim`, and `pylcm`. Each package's `__init__.py` calls
-`beartype_package(...)` behind an env-var gate (`TTSIM_BEARTYPE_CLAW`,
-`GETTSIM_BEARTYPE_CLAW`). Following acceptance of this GEP (Option A), the gate defaults
-to on: every `import` installs the claw, so a user writing a reform, a custom
+across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Each package's `__init__.py`
+calls `beartype_package(...)` behind an env-var gate (`TTSIM_BEARTYPE_CLAW` and
+`GETTSIM_BEARTYPE_CLAW`; `gettsim-personas` reuses `GETTSIM_BEARTYPE_CLAW` rather than a
+separate switch). Following acceptance of this GEP (Option A), the gate defaults to on:
+every `import` installs the claw, so a user writing a reform, a custom
 `@policy_function`, or a pipeline on top of GETTSIM gets the runtime check without doing
 anything. The env var stays in place as an opt-out (`GETTSIM_BEARTYPE_CLAW=0` disables
 the claw for one process or environment) so anyone who hits a false positive — or who
@@ -518,19 +520,20 @@ everyone — with an explicit env-var opt-out retained.
 
 A genuinely open question at the point of asking for feedback on this GEP was the
 default for *user-written* code: reforms, custom `@policy_function`s, and microsim
-pipelines built on top of GETTSIM. Our own packages (`ttsim` and `gettsim`) are already
-checked on every commit because the claw is on in every test environment; the decision
-was what `import gettsim` should do in a user's own process.
+pipelines built on top of GETTSIM. Our own packages (`ttsim`, `gettsim`, and
+`gettsim-personas`) are already checked on every commit because the claw is on in every
+test environment; the decision was what `import gettsim` should do in a user's own
+process.
 
 - **Option A — on by default for everyone (accepted).** Dropping the opt-in means every
-  `import gettsim` / `import ttsim` installs the claw automatically, so a type error is
-  surfaced loudly at the boundary the user wrote, without them doing anything. This
-  matters most for AI-assisted development: agents writing reforms see type violations
-  immediately, at the boundary, with a message they can iterate on — rather than
-  producing code that runs silently with the wrong types and surfaces the bug far from
-  its cause. In a world where most new GETTSIM code is written with AI assistance, the
-  users least likely to set an opt-in flag are exactly the ones whose code most needs
-  the check.
+  `import gettsim` / `import ttsim` / `import gettsim_personas` installs the claw
+  automatically, so a type error is surfaced loudly at the boundary the user wrote,
+  without them doing anything. This matters most for AI-assisted development: agents
+  writing reforms see type violations immediately, at the boundary, with a message they
+  can iterate on — rather than producing code that runs silently with the wrong types
+  and surfaces the bug far from its cause. In a world where most new GETTSIM code is
+  written with AI assistance, the users least likely to set an opt-in flag are exactly
+  the ones whose code most needs the check.
 - **Option B — opt-in for user code (rejected).** Keeping the switch off by default
   removes all risk of a user pipeline breaking, but leaves enforcement conditional on
   the user remembering to set an env var. "Your inputs are checked unless someone forgot
