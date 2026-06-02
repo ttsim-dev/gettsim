@@ -6,13 +6,13 @@
 - * Author
   * [Hans-Martin von Gaudecker](https://github.com/hmgaudecker)
 - * Status
-  * Draft
+  * Accepted
 - * Type
   * Standards Track
 - * Created
   * 2026-05-23
 - * Resolution
-  * Pending — see [#GEPs](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2009)
+  * [Accepted](https://gettsim.zulipchat.com/#narrow/channel/309998-GEPs/topic/GEP.2009/with/599362373)
 ```
 
 ## Abstract
@@ -116,7 +116,14 @@ boundary.
 
 ## Backward Compatibility
 
-Existing user code keeps working unchanged in shape. Two narrowed claims:
+Existing user code keeps working unchanged in shape. Three narrowed claims:
+
+- With the claw on by default for everyone (Option A; see Discussion), a user reform or
+  pipeline that previously relied on an implicit type coercion beartype rejects now
+  raises at the boundary where the mismatched value enters, instead of running silently.
+  This did not occur in our own test suite during the default-on trial. A user who needs
+  the pre-GEP behaviour while triaging can opt out with `GETTSIM_BEARTYPE_CLAW=0` (or
+  the `TTSIM_` / `GETTSIM_PERSONAS_` analogue).
 
 - Code that caught `TypeError` or `ValueError` from inside TTSIM should broaden to
   `TTSIMError` (or the relevant subclass). Code that catches `Exception` is unaffected.
@@ -442,12 +449,15 @@ The pattern — package-wide beartype claw, `TTSIMError` exception hierarchy, wi
 types at user boundaries narrowing to canonical `X` types internally — is implemented
 across `ttsim`, `gettsim`, `gettsim-personas`, and `pylcm`. Each package's `__init__.py`
 calls `beartype_package(...)` behind an env-var gate (`TTSIM_BEARTYPE_CLAW`,
-`GETTSIM_BEARTYPE_CLAW`, `GETTSIM_PERSONAS_BEARTYPE_CLAW`), default off in production,
-on in every pixi test environment so CI exercises the claw on every run. Once this GEP
-is accepted, the gate's default flips to on; the env var stays in place as an opt-out
-(`GETTSIM_BEARTYPE_CLAW=0` disables the claw for one process or environment) so users
-who hit a false positive can unblock themselves while the rejection is triaged. See the
-Discussion section for the vote.
+`GETTSIM_BEARTYPE_CLAW`, `GETTSIM_PERSONAS_BEARTYPE_CLAW`). Following acceptance of this
+GEP (Option A), the gate defaults to on: every `import` installs the claw, so a user
+writing a reform, a custom `@policy_function`, or a pipeline on top of GETTSIM gets the
+runtime check without doing anything. The env var stays in place as an opt-out
+(`GETTSIM_BEARTYPE_CLAW=0` disables the claw for one process or environment) so anyone
+who hits a false positive — or who wants the pre-GEP behaviour for their own code — can
+unblock themselves while the rejection is triaged. Every pixi test environment continues
+to set the env var explicitly, so CI exercises the claw on every run regardless of the
+default. See the Discussion section for the resolution.
 
 `.ai-instructions/modules/beartype.md` documents the conventions contributors follow:
 when to use `UserX` vs `X`, how to add a new boundary decorator, the wrapper-annotation
@@ -504,16 +514,45 @@ annotations, the strict policy enforces an existing convention, not a new requir
 
 ## Discussion
 
-- `[#GEPs]` thread on Zulip for GEP 9 (to be linked once opened).
-- pylcm PR #355 for the originating precedent.
+Resolved 2026-06-02 in favour of **Option A** — runtime checking on by default for
+everyone — with an explicit env-var opt-out retained.
+
+A genuinely open question at the point of asking for feedback on this GEP was the
+default for *user-written* code: reforms, custom `@policy_function`s, and microsim
+pipelines built on top of GETTSIM. Our own packages (`ttsim`, `gettsim`,
+`gettsim-personas`) are already checked on every commit because the claw is on in every
+test environment; the decision was what `import gettsim` should do in a user's own
+process.
+
+- **Option A — on by default for everyone (accepted).** Dropping the opt-in means every
+  `import gettsim` / `import ttsim` / `import gettsim_personas` installs the claw
+  automatically, so a type error is surfaced loudly at the boundary the user wrote,
+  without them doing anything. This matters most for AI-assisted development: agents
+  writing reforms see type violations immediately, at the boundary, with a message they
+  can iterate on — rather than producing code that runs silently with the wrong types
+  and surfaces the bug far from its cause. In a world where most new GETTSIM code is
+  written with AI assistance, the users least likely to set an opt-in flag are exactly
+  the ones whose code most needs the check.
+- **Option B — opt-in for user code (rejected).** Keeping the switch off by default
+  removes all risk of a user pipeline breaking, but leaves enforcement conditional on
+  the user remembering to set an env var. "Your inputs are checked unless someone forgot
+  to set an env var" is not the guarantee the GEP promises, and it withholds the safety
+  net from precisely the AI-assisted workflows that benefit most.
+- **Opt-out caveat (Christian Pugnaghi Zimpelmann).** "Remove the switch" was narrowed
+  to "flip the default and keep the switch as a fallback": the env var stays as an
+  opt-out, so `GETTSIM_BEARTYPE_CLAW=0` (and the `TTSIM_` / `GETTSIM_PERSONAS_`
+  analogues) disables the claw for one process or environment. Anyone who hits a false
+  positive — or who wants the pre-GEP behaviour for their own code — can unblock
+  themselves while the rejection is triaged.
 
 ## References and Footnotes
 
-- pylcm beartype rollout — <https://github.com/OpenSourceEconomics/pylcm/pull/355>
-- beartype — <https://beartype.readthedocs.io>
-- jaxtyping — <https://docs.kidger.site/jaxtyping/>
-- PEP 484 numeric tower — <https://peps.python.org/pep-0484/#the-numeric-tower>
-- PEP 649 (deferred annotation evaluation) — <https://peps.python.org/pep-0649/>
+- [GEP 09 thread on Zulip](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2009)
+- [pylcm PR #355 for the originating precedent](https://github.com/OpenSourceEconomics/pylcm/pull/355)
+- [beartype](https://beartype.readthedocs.io)
+- [jaxtyping](https://docs.kidger.site/jaxtyping/)
+- [PEP 484 numeric tower](https://peps.python.org/pep-0484/#the-numeric-tower)
+- [PEP 649 (deferred annotation evaluation)](https://peps.python.org/pep-0649/)
 
 ## Copyright
 
