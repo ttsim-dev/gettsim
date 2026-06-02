@@ -107,7 +107,7 @@ sphinx-automodapi = "*"
 sphinx-copybutton = "*"
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.docs.target.linux-64.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
 [tool.pixi.feature.docs.target.osx-64.tasks]
@@ -155,7 +155,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-profiling = "*"
 pytest-xdist = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
 [tool.pixi.feature.tests.target.osx-64.tasks]
@@ -169,14 +169,14 @@ tests = "pytest"
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.type-checking-jax.tasks]
 ty-jax = "ty check"
 [tool.pixi.feature.type-checking.pypi-dependencies]
 ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.type-checking.tasks]
 ty = "ty check"
 [tool.pixi.pypi-dependencies]
@@ -185,7 +185,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "beartype" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
