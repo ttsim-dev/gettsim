@@ -53,13 +53,13 @@ Repository = "https://github.com/ttsim-dev/gettsim"
 Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 [tool.hatch]
+version.source = "vcs"
+metadata.allow-direct-references = true
 build.hooks.vcs.version-file = "src/gettsim/_version.py"
 build.targets.sdist.exclude = [ "tests" ]
 build.targets.sdist.only-packages = true
 build.targets.wheel.only-include = [ "src" ]
 build.targets.wheel.sources = [ "src" ]
-metadata.allow-direct-references = true
-version.source = "vcs"
 
 [tool.pixi.dependencies]
 ipywidgets = "*"
@@ -107,7 +107,7 @@ sphinx-automodapi = "*"
 sphinx-copybutton = "*"
 [tool.pixi.feature.docs.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.docs.target.linux-64.tasks]
 docs = "sphinx-build -T -b html docs docs/_build/html"
 [tool.pixi.feature.docs.target.osx-64.tasks]
@@ -143,9 +143,10 @@ python = "~=3.14.0"
 # Run internal tests with the package-wide beartype claws on. Both
 # gettsim's and ttsim's claws fire — gettsim transitively exercises
 # ttsim code paths and we want violations on either side to surface.
-# The claws are env-var-gated (see each package's `__init__.py`); users
-# of a released package leave both env vars unset and never see them.
-# The gate stays in place until GEP-09's decision on the rollout lands.
+# The claws are on by default (GEP 9, Option A; see each package's
+# `__init__.py`); set the env vars to 0 to opt out. Set explicitly here
+# so the test environment exercises the claws even if the default ever
+# changes.
 [tool.pixi.feature.tests.activation.env]
 GETTSIM_BEARTYPE_CLAW = "1"
 TTSIM_BEARTYPE_CLAW = "1"
@@ -154,7 +155,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-profiling = "*"
 pytest-xdist = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
 [tool.pixi.feature.tests.target.osx-64.tasks]
@@ -165,17 +166,17 @@ tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 tests = "pytest"
 [tool.pixi.feature.tests.tasks]
 [tool.pixi.feature.type-checking-jax.pypi-dependencies]
-ty = "==0.0.23"
+ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.type-checking-jax.tasks]
 ty-jax = "ty check"
 [tool.pixi.feature.type-checking.pypi-dependencies]
-ty = "==0.0.23"
+ty = "*"
 types-PyYAML = "*"
 types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "add-werbungskostenpauschale-sonstige-einkuenfte" }
+gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.type-checking.tasks]
 ty = "ty check"
 [tool.pixi.pypi-dependencies]
@@ -184,7 +185,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "beartype" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
@@ -306,9 +307,6 @@ expand_tables = [
 ]
 
 [tool.ty]
-overrides = [
-  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
-]
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
 rules.division-by-zero = "error"
@@ -323,28 +321,31 @@ rules.possibly-missing-submodule = "error"
 rules.redundant-cast = "error"
 rules.unused-awaitable = "error"
 rules.unused-ignore-comment = "error"
+overrides = [
+  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
+]
 
 [tool.pytest]
+ini_options.testpaths = [ "src/gettsim/tests_germany" ]
+ini_options.norecursedirs = [ "docs" ]
 ini_options.addopts = [ "--pdbcls=pdbp:Pdb" ]
-ini_options.filterwarnings = [
-  "ignore:.*XMLParser*:DeprecationWarning",
-  "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
-  "ignore:.*Sorting*:FutureWarning",
-  "ignore:The TerminalReporter.writer attribute is",
-  "ignore:Repeated execution of the test suite",
-  "ignore:Using or importing the ABCs from 'collections'",
-  "ignore:Explicitly requested dtype .*64 requested in zeros_like",
-]
 ini_options.markers = [
-  "wip: Tests that are work-in-progress.",
-  "unit: Flag for unit tests which target mainly a single function.",
-  "integration: Flag for integration tests which may comprise of multiple unit tests.",
   "end_to_end: Flag for tests that cover the whole program.",
+  "integration: Flag for integration tests which may comprise of multiple unit tests.",
   "skipif_jax: skip test if backend is jax",
   "skipif_numpy: skip test if backend is numpy",
+  "unit: Flag for unit tests which target mainly a single function.",
+  "wip: Tests that are work-in-progress.",
 ]
-ini_options.norecursedirs = [ "docs" ]
-ini_options.testpaths = [ "src/gettsim/tests_germany" ]
+ini_options.filterwarnings = [
+  "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
+  "ignore:.*Sorting*:FutureWarning",
+  "ignore:.*XMLParser*:DeprecationWarning",
+  "ignore:Explicitly requested dtype .*64 requested in zeros_like",
+  "ignore:Repeated execution of the test suite",
+  "ignore:The TerminalReporter.writer attribute is",
+  "ignore:Using or importing the ABCs from 'collections'",
+]
 
 [tool.coverage.report]
 exclude_lines = [ "pragma: no cover", "if TYPE_CHECKING:", "^\\s*pass\\s*$" ]

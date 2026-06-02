@@ -16,7 +16,7 @@
 - * Created
   * 2022-03-28
 - * Updated
-  * 2025-07-23
+  * 2026-05-23
 - * Resolution
   * [Accepted](https://gettsim.zulipchat.com/#narrow/stream/309998-GEPs/topic/GEP.2004)
 ```
@@ -353,6 +353,145 @@ These values average over leap years. They ensure that conversion is always poss
 both ways without changing quantities. In case more complex conversions are needed (for
 example to account for irregular days per month, leap years, or the like), explicit
 functions for, say, `[column]_w` need to be set.
+
+(gep-4-policy-function-dual-mode-contract)=
+
+## The `@policy_function` dual-mode annotation contract
+
+`@policy_function` accepts two ways of annotating column parameters, picked via
+`vectorization_strategy`. The contract is enforced at decoration time, so an
+inconsistent declaration fails immediately at import rather than later inside the DAG
+build.
+
+### Scalar mode (default, `vectorization_strategy in {"loop", "vmap"}`)
+
+Policy functions are written in scalar terms — one observation at a time. GETTSIM
+auto-vectorises them when assembling the TT DAG. This is the default and the form used
+throughout GETTSIM's policy code:
+
+```python
+@policy_function(start_date="2023-01-01", leaf_name="betrag_m")
+def kindergeld_betrag_m(anzahl_kinder: int, kindergeld_satz: float) -> float:
+    return anzahl_kinder * kindergeld_satz
+```
+
+Every column parameter must carry a scalar annotation (`int`, `float`, or `bool`). This
+keeps policy code readable for authors who think in terms of single units of
+observation, keeps the function body amenable to static type checking with `ty`, and
+lets the vectorisation layer remain implementation detail. Parameters that are
+themselves scalars at the DAG level (e.g., the output of a `@param_function`) carry the
+same scalar annotations; the validator distinguishes column from parameter inputs via
+the dependency graph, not via the annotation alone.
+
+### Column-direct mode (`vectorization_strategy="not_required"`)
+
+Some policy functions operate on whole columns directly — typically because they need an
+`xnp` reduction, a `join`, or a numerical routine that does not fit the scalar mental
+model. In that case the function is expected to receive arrays and return an array:
+
+```python
+from gettsim.tt import FloatColumn, IntColumn
+
+
+@policy_function(
+    start_date="2023-01-01",
+    leaf_name="betrag_m",
+    vectorization_strategy="not_required",
+)
+def kindergeld_betrag_m(
+    anzahl_kinder: IntColumn,
+    kindergeld_satz: float,
+) -> FloatColumn:
+    return anzahl_kinder * kindergeld_satz
+```
+
+Every column parameter must carry a column annotation (`FloatColumn`, `IntColumn`, or
+`BoolColumn`, defined in `ttsim.typing`). Scalar parameters that flow in from
+`@param_function` outputs keep their scalar annotations.
+
+### Decoration-time validation
+
+`@policy_function` inspects the wrapped function's annotations and raises
+`PolicyFunctionDefinitionError` if the annotations are inconsistent with the declared
+`vectorization_strategy`:
+
+- `vectorization_strategy="not_required"` with any column parameter annotated as a
+  scalar type — error.
+- `vectorization_strategy in {"loop", "vmap"}` with any column parameter annotated as a
+  column type — error.
+
+The error points at the function's definition site, not at an internal DAG-build helper,
+so the fix is local and obvious.
+
+Beyond the dual-mode consistency check, every `@*_function` decorator
+(`@policy_function`, `@param_function`, `@agg_by_p_id_function`,
+`@agg_by_group_function`, `@group_creation_function`) requires the wrapped function to
+carry an annotation on every parameter and on the return value; missing annotations
+raise `PolicyFunctionDefinitionError` (or the decorator's matching analogue) at
+decoration time. See {ref}`GEP 9 <gep-9>` for the runtime-type-checking rollout that the
+requirement supports.
+
+### Why scalar by default
+
+Policy code is the primary entry point for domain experts who do not maintain the DAG
+infrastructure. Scalar annotations let them write functions that read like the
+underlying legal text—one individual / household / Bedarfsgemeinschaft / ... at a time
+—and let `ty` check the body against the same scalar contract the author had in mind.
+The auto-vectorised wrapper that the DAG actually calls is generated separately; see
+{ref}`gep-9` for the layered inner/outer wrapper pattern that strips the user's scalar
+annotations on the inner runtime executor and stamps a synthesised column-typed
+signature on the outer beartype-checked forwarder.
+
+### Build-time annotation synthesis
+
+The auto-vectorised wrapper described in {ref}`gep-9` carries a synthesised column-typed
+signature stamped at DAG-build time, so the runtime type checker checks columns against
+column types. Two kinds of DAG node are generated rather than written by hand, and both
+need a concrete type to take part in the DAG's annotation-consistency check:
+
+- **auto-vectorised wrappers** — the column-operating wrapper that the DAG calls in
+  place of a scalar policy function;
+- **aggregation wrappers** — the `grouped_*` / `*_by_p_id` primitive adapted to the
+  DAG's argument names for a group sum (`my_col_hh`) or a person-pointer aggregation.
+
+The aggregation primitives are the harder case. Each is declared with a stack of
+`@overload` signatures carrying a precise per-input-dtype return type — a sum of an
+integer column returns an integer column, a sum of a boolean column returns an integer
+column, and so on. `@overload` is a static-checker construct only; at runtime the
+primitive exposes a single *widened* implementation signature whose return type is the
+union of all the overloads (`FloatColumn | IntColumn`). Left on the DAG node, that union
+is dishonest: a node that genuinely produces an integer column advertises
+"float-or-integer", and a downstream consumer typed concretely is rejected by the
+annotation-consistency check.
+
+The honest type of such a node *is* knowable when the DAG is built. The output kind of
+an aggregation is a function of two things GETTSIM already knows at build time: the
+dtype of the source column being aggregated, and the kind of aggregation. A build-time
+type-resolution pass therefore runs once as the DAG is constructed. For every
+auto-generated node it:
+
+1. resolves the source column's kind — float, integer, or boolean — from the producing
+   function's annotation or, for a pure input column, from the `@policy_input`
+   declaration;
+1. applies a hand-written aggregation rule table — keyed by aggregation type and source
+   kind — to obtain the concrete output kind. The rules are: a sum keeps float and
+   integer and promotes boolean to integer; a mean is always float; a minimum or maximum
+   keeps float and integer; `any` and `all` produce boolean; `count` is always integer
+   regardless of input;
+1. stamps the resulting concrete column type onto the synthesised wrapper's signature.
+
+The pass is strict. A node it must resolve but cannot — an aggregation applied to a kind
+the rule table forbids, a source column with no declared dtype — raises an error rather
+than falling back to the imprecise union, so a genuine type drift surfaces loudly at
+build time instead of silently producing a wrong result. The rule table is kept honest
+by a test that cross-checks it against the primitives' `@overload` stacks and fails if
+the two ever diverge.
+
+With concrete annotations on every node, the DAG's annotation-consistency check sees an
+honest producer type everywhere, and a real disagreement between a producer and a
+consumer — for example, a minimum aggregation of an integer column feeding a parameter
+mistakenly typed as float — is reported as the type error it is, rather than being
+masked by the union.
 
 ## Related Work
 

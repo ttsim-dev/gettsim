@@ -129,15 +129,15 @@ available for failed builds.
 unexpected attributes — `isinstance(my_fn, PolicyFunction)` returns `False`, or
 `my_fn.leaf_name` is missing.
 
-**Answer**: With the runtime type-checking claw on (the default in development
-environments — see {ref}`GEP 9 <gep-9>`), a normal `import` of a module containing
+**Answer**: With the runtime type-checking claw on (on by default — see
+{ref}`GEP 9 <gep-9>`), a normal `import` of a module containing
 `@policy_function`-decorated callables binds them as `beartype`-wrapped bound methods of
 the underlying `PolicyFunction.__call__`, not the pristine instance. The TT DAG loader
 bypasses the claw, so the running model sees the right object — but `importlib`-style
 introspection from outside the loader doesn't. Two options when you need to introspect:
 
-- Unset the env var: `TTSIM_BEARTYPE_CLAW=0 python my_script.py` re-imports the module
-  with the claw off, leaving instances pristine.
+- Opt out via the env var: `TTSIM_BEARTYPE_CLAW=0 python my_script.py` re-imports the
+  module with the claw off, leaving instances pristine.
 - Use the claw-free loader directly:
   `ttsim.interface_dag_elements.orig_policy_objects.load_module(path, root)` returns the
   module exactly as the TT DAG sees it.
