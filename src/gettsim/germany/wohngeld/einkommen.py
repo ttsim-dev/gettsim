@@ -252,7 +252,7 @@ def freibetrag_m_ab_2021(
     xnp: ModuleType,
 ) -> float:
     """Freibeträge on Einkommen relevant for Wohngeld calculation from 2021 onwards.
-    
+
     Wohngeld-Freibeträge inklusive § 17a WoGG (Grundrentenfreibetrag).
     """
     freibetrag_bei_behinderung = (
