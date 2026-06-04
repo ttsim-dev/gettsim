@@ -15,8 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1167` Implement 100k children exclusion for Grundsicherung im Alter (§43 SGB
-  XII). ({ghuser}`MImmesberger`)
+- {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen is 100,000 €
+  or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
 - {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
   Vertikalmethode. ({ghuser}`MImmesberger`)
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.

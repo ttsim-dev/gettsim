@@ -26,7 +26,7 @@ def betrag_m(
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze: bool,
 ) -> float:
-    """Grundsicherung im Alter after Vorrangprüfung and 100k-children exclusion.
+    """Grundsicherung im Alter after Vorrangprüfung and children's income test.
 
     §43 SGB XII (BGBl. I 2003 S. 3022): Persons are excluded from Grundsicherung im
     Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
@@ -280,9 +280,6 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
-    Used to determine if a child's income excludes a parent from Grundsicherung im
-    Alter.
-
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
     return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
@@ -312,9 +309,6 @@ def hat_kind_mit_einkommen_über_einkommensgrenze(
     anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2: int,
 ) -> bool:
     """Whether any first-degree child has income above the threshold.
-
-    Both parent pointers are checked because a child may point to either parent via
-    p_id_elternteil_1 or p_id_elternteil_2.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
