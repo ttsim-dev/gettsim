@@ -8,6 +8,8 @@ inputs:
   provided:
     alter:
       - 77
+    alter_monate:
+      - 924
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
@@ -88,8 +90,6 @@ inputs:
         altersrente:
           betrag_m:
             - 250.0
-          hat_regelaltersgrenze_erreicht:
-            - true
         bezieht_rente:
           - true
         erwerbsminderung:

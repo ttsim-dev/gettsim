@@ -131,9 +131,6 @@ inputs:
           betrag_m:
             - 0.0
             - 400.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - true
         bezieht_rente:
           - false
           - true

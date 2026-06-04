@@ -174,10 +174,6 @@ inputs:
             - 0.0
             - 400.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - true
-            - false
         bezieht_rente:
           - false
           - true

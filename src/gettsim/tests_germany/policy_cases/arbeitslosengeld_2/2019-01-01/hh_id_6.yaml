@@ -10,6 +10,10 @@ inputs:
       - 30
       - 8
       - 3
+    alter_monate:
+      - 360
+      - 96
+      - 36
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -148,10 +152,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
-            - false
         bezieht_rente:
           - false
           - false
