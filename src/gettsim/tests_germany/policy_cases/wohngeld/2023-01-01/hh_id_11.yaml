@@ -93,8 +93,8 @@ inputs:
             - 80.0
       rente:
         grundrente:
-          grundsätzlich_anspruchsberechtigt:
-            - false
+          grundrentenzeiten_monate:
+            - 0
         beitrag:
           betrag_versicherter_m:
             - 100.0
