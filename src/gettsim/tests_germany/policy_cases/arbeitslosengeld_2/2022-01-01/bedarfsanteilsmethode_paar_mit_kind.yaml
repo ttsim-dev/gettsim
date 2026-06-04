@@ -18,6 +18,10 @@ inputs:
       - 42
       - 40
       - 11
+    alter_monate:
+      - 504
+      - 480
+      - 132
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - 1
@@ -121,6 +125,10 @@ inputs:
       - 0
       - 1
       - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -151,6 +159,11 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

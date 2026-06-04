@@ -12,6 +12,10 @@ inputs:
       - 30
       - 3
       - 35
+    alter_monate:
+      - 360
+      - 36
+      - 420
     bürgergeld:
       bezug_im_vorjahr:
         - true
@@ -127,6 +131,10 @@ inputs:
       - 46
       - 47
       - 48
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -157,6 +165,11 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

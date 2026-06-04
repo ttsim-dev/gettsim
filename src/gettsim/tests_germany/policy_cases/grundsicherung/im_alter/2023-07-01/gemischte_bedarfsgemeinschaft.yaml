@@ -1,0 +1,185 @@
+---
+info:
+  note: |-
+    Gemischte Bedarfsgemeinschaft (mixed SGB II / SGB XII couple). Person0 (age 55,
+    erwerbsfähig) receives Bürgergeld, Person1 (age 67, past Regelaltersgrenze) receives
+    Grundsicherung im Alter. The vertikale Berechnungsmethode (BSG B 14 AS 89/20 R)
+    applies: each system computes independently, with excess income above own Bedarf
+    flowing to the partner.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 55
+      - 67
+    alter_monate:
+      - 660
+      - 804
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+      p_id_elternteil_1:
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+    geburtsjahr:
+      - 1968
+      - 1956
+    geburtsmonat:
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+    schwerbehindert_grad_g:
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 400.0
+        bezieht_rente:
+          - false
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 500
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 500.0
+        - 500.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    betrag_m:
+      - 751.0
+      - 0.0
+  grundsicherung:
+    im_alter:
+      anspruchshöhe_m:
+        - 0.0
+        - 541.0

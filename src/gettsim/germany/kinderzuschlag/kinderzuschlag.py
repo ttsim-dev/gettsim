@@ -71,17 +71,12 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
 def betrag_m_bg(
     anspruchshöhe_m_bg: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
-    anzahl_rentenbezieher_hh: int,
 ) -> float:
     """Amount of Kinderzuschlag at the Bedarfsgemeinschaft level."""
-    if (not vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger) or (
-        anzahl_rentenbezieher_hh > 0
-    ):
-        out = 0.0
+    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        return anspruchshöhe_m_bg
     else:
-        out = anspruchshöhe_m_bg
-
-    return out
+        return 0.0
 
 
 @policy_function(start_date="2005-01-01")

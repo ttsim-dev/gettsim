@@ -10,6 +10,10 @@ inputs:
       - 30
       - 14
       - 13
+    alter_monate:
+      - 360
+      - 168
+      - 156
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -121,6 +125,10 @@ inputs:
       - 0
       - 1
       - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0

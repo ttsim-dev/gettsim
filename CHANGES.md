@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
+  Vertikalmethode. ({ghuser}`MImmesberger`)
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
   ({ghuser}`MImmesberger`)
 - {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im

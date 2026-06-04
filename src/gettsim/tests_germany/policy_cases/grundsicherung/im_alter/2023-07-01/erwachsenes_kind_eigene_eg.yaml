@@ -3,9 +3,10 @@ info:
   note: |-
     Retired parent (age 70) with adult child (age 22) on Erwerbsminderungsrente.
     Child is in the same fg_id (age < 25) but NOT in the same eg_id (age >= 18).
-    Each person forms their own Einsatzgemeinschaft, so betrag_m_eg differs per
-    person. This tests the eg_id age boundary for Grundsicherung im Alter and the
-    correct use of _eg (not _fg) aggregation for vermögensfreibetrag_eg.
+    Person 0 (past Regelaltersgrenze): RBS 1 = 502, KdU = (350+60)/2 = 205,
+    bedarf = 707. Altersrente 300 − Grundrentenfreibetrag 160 = einkommen 140.
+    anspruchshöhe = 707 − 140 = 567.
+    Person 1 (age 22, not past Regelaltersgrenze): betrag_m = 0.
   precision_atol: 0.01
   source: Self-created test case
 inputs:
@@ -14,6 +15,9 @@ inputs:
     alter:
       - 70
       - 22
+    alter_monate:
+      - 840
+      - 264
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -21,6 +25,9 @@ inputs:
       p_id_einstandspartner:
         - -1
         - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -93,10 +100,12 @@ inputs:
     hh_id:
       - 0
       - 0
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     kindergeld:
-      betrag_m_eg:
-        - 0.0
-        - 0.0
       p_id_empfänger:
         - -1
         - 0
@@ -139,12 +148,16 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
     vermögen_eg:
       - 0.0
       - 0.0
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
     wohnen:
       bewohnt_eigentum_hh:
         - false
@@ -161,6 +174,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
-        - 1194.0
-        - 1134.0
+      betrag_m:
+        - 567.0
+        - 0.0

@@ -14,6 +14,9 @@ inputs:
     alter:
       - 73
       - 73
+    alter_monate:
+      - 876
+      - 876
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -21,6 +24,9 @@ inputs:
       p_id_einstandspartner:
         - -1
         - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -93,10 +99,12 @@ inputs:
     hh_id:
       - 0
       - 1
+    grundsicherung:
+      hilfe_zum_lebensunterhalt:
+        überschusseinkommen_m:
+          - 0.0
+          - 0.0
     kindergeld:
-      betrag_m_eg:
-        - 0.0
-        - 0.0
       p_id_empfänger:
         - -1
         - -1
@@ -139,7 +147,7 @@ inputs:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
     vermögen_eg:
@@ -161,6 +169,6 @@ inputs:
 outputs:
   grundsicherung:
     im_alter:
-      betrag_m_eg:
+      anspruchshöhe_m:
         - 632.0
         - 632.0
