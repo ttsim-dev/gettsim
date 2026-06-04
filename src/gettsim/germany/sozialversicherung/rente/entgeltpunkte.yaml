@@ -172,15 +172,19 @@ beitragspflichtiges_durchschnittsentgelt_y:
   1988-01-01:
     value: 38896
     unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Die ursprüngliche Anlage 1 SGB VI (Art. 1 G. v. 18.12.1989 BGBl. I S. 2261) endet
+      mit dem Jahr 1987. Die Werte für 1988 bis 1990 wurden durch die
+      Sozialversicherungs-Rechengrößenverordnung 1992 ergänzt.
   1989-01-01:
     value: 40063
     unit: DM
-    reference: V. v. 18.12.1990 BGBl. I S. 2940
+    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
   1990-01-01:
     value: 41946
     unit: DM
-    reference: V. v. 18.12.1991 BGBl. I S. 2331
+    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
   1991-01-01:
     value: 44421
     unit: DM
@@ -204,7 +208,7 @@ beitragspflichtiges_durchschnittsentgelt_y:
   1996-01-01:
     value: 51678
     unit: DM
-    reference: V. v. 19.12.1997 BGBl. I S. 3219
+    reference: V. v. 02.12.1997 BGBl. I S. 2782
   1997-01-01:
     value: 52143
     unit: DM

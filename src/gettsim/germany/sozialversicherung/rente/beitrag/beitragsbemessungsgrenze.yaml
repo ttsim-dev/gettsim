@@ -19,47 +19,11 @@ beitragsbemessungsgrenze_m:
     unit: DM
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.6.1949-31.8.1952 (7.200 DM jährlich).
-  1950-01-01:
-    value: 600
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1951-01-01:
-    value: 600
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1952-01-01:
-    value: 600
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1952-09-01:
     value: 750
     unit: DM
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958 (9.000 DM jährlich).
-  1953-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1954-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1955-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1956-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1957-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1958-01-01:
-    value: 750
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1959-01-01:
     value: 800
     unit: DM
@@ -331,10 +295,10 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
 beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   name:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West)
-    en: Maximum income subject to statutory pension insurance (West)
+    en: Maximum income subject to statutory miners' pension insurance (West)
   description:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West).
-    en: Income threshold for statutory pension insurance (West).
+    en: Income threshold for statutory miners' pension insurance (West).
   unit: Euros
   reference_period: Year
   type: scalar
@@ -348,63 +312,18 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
     unit: DM
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.6.1949-31.8.1952.
-  1950-01-01:
-    value: 8400
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1951-01-01:
-    value: 8400
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1952-01-01:
-    value: 8400
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1952-09-01:
     value: 12000
     unit: DM
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-    note: Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958.
-  1953-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1954-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1955-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1956-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1957-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1958-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1959-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1960-01-01:
-    value: 12000
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958. Der Wert bleibt laut Anlage 2 auch
+      1959 und 1960 unverändert.
   1961-01-01:
     value: 13200
     unit: DM
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-  1962-01-01:
-    value: 13200
-    unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Der Wert bleibt laut Anlage 2 SGB VI auch 1962 unverändert.
   1963-01-01:
     value: 14400
     unit: DM
@@ -516,15 +435,19 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   1990-01-01:
     value: 93600
     unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Die ursprüngliche Anlage 2 SGB VI (Art. 1 G. v. 18.12.1989 BGBl. I S. 2261) endet
+      mit dem Jahr 1989. Die Werte für 1990 bis 1992 wurden durch die
+      Sozialversicherungs-Rechengrößenverordnung 1992 ergänzt.
   1991-01-01:
     value: 96000
     unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
   1992-01-01:
     value: 100800
     unit: DM
-    reference: V. v. 18.12.1991 BGBl. I S. 2331
+    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
   1993-01-01:
     value: 106800
     unit: DM
@@ -548,7 +471,7 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   1998-01-01:
     value: 123600
     unit: DM
-    reference: V. v. 19.12.1997 BGBl. I S. 3219
+    reference: V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 124800
     unit: DM
@@ -662,27 +585,34 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   description:
     de: >-
       Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung im
-      Beitrittsgebiet (Anlage 2a SGB VI). Für 1990 wird der ab 1. Juli 1990
-      geltende Wert verwendet, für 1991 der im ersten Halbjahr geltende Wert.
+      Beitrittsgebiet (Anlage 2a SGB VI). Anlage 2a beginnt mit dem 1. Juli 1990; für
+      das gesamte Jahr 1990 wird der ab diesem Datum geltende Wert verwendet.
     en: >-
       Income threshold for statutory miners' pension insurance in the territory of
-      the former GDR (Anlage 2a SGB VI). 1990 uses the value effective 1 July 1990;
-      1991 uses the value valid in the first half of the year.
+      the former GDR (Anlage 2a SGB VI). Anlage 2a starts on 1 July 1990; the value
+      effective from that date is used for all of 1990.
   unit: Euros
   reference_period: Year
   type: scalar
   1990-01-01:
     value: 32400
     unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 2a SGB VI, eingefügt durch das Renten-Überleitungsgesetz.
   1991-01-01:
     value: 36000
     unit: DM
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 2a SGB VI, Zeitraum 1.1.1991-30.6.1991.
+  1991-07-01:
+    value: 40800
+    unit: DM
+    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 2a SGB VI, Zeitraum 1.7.1991-31.12.1991.
   1992-01-01:
     value: 70800
     unit: DM
-    reference: V. v. 18.12.1991 BGBl. I S. 2331
+    reference: § 2 V. v. 19.12.1991 BGBl. I S. 2344 (3. Rentenanpassungsverordnung)
   1993-01-01:
     value: 78000
     unit: DM
@@ -706,7 +636,7 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   1998-01-01:
     value: 103200
     unit: DM
-    reference: V. v. 19.12.1997 BGBl. I S. 3219
+    reference: V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 105600
     unit: DM
@@ -761,19 +691,29 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
     reference: V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 76200
-    reference: V. v. 01.12.2014 BGBl. I S. 1957
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
+      1957
   2016-01-01:
     value: 79800
-    reference: V. v. 30.11.2015 BGBl. I S. 2137
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
+      2137
   2017-01-01:
     value: 84000
-    reference: V. v. 28.11.2016 BGBl. I S. 2665
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
+      2665
   2018-01-01:
     value: 85800
-    reference: V. v. 16.11.2017 BGBl. I S. 3778
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
+      3778
   2019-01-01:
     value: 91200
-    reference: V. v. 27.11.2018 BGBl. I S. 2024
+    reference: >-
+      Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
+      2024
   2020-01-01:
     value: 94800
     reference: V. v. 17.12.2019 BGBl. I S. 2848
@@ -785,10 +725,14 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
     reference: V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 104400
-    reference: V. v. 28.11.2022 BGBl. I S. 2128
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
+      2128
   2024-01-01:
     value: 110400
-    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+    reference: >-
+      Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
+      Nr. 322
   2025-01-01:
     note: >-
       Beitragsbemessungsgrenze ist einheitlich zwischen West und Ost. Siehe
