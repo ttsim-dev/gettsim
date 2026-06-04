@@ -235,10 +235,8 @@ freibetrag_bei_behinderung_pauschal_y:
     value: 1800
 anrechnungsfreier_anteil_gesetzliche_rente:
   name:
-    de: Anrechnungsfreier Anteil der staatlichen Rente (bei mind. 33 Grundrentenzeiten)
-    en: >-
-      Public pension share not subject to transfer withdrawal (if at least 33
-      Grundrentenzeiten)
+    de: Anrechnungsfreier Anteil der staatlichen Rente
+    en: Share of public pension not subject to transfer withdrawal
   description:
     de: >-
       § 17a WoGG (eingeführt durch Art. 4 Grundrentengesetz v. 12.08.2020,

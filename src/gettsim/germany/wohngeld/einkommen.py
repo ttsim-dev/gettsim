@@ -211,17 +211,17 @@ def freibetrag_m_bis_2015(
     end_date="2020-12-31",
     leaf_name="freibetrag_m",
 )
-def freibetrag_m_2016_2020(
+def freibetrag_m_ab_2016_bis_2020(
     einnahmen__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
-    freibetrag_bei_behinderung_pauschal_y: float,
+    freibetrag_bei_behinderung_pauschal_m: float,
     freibetrag_kinder_m: dict[str, float],
 ) -> float:
-    """Calculate housing benefit subtracting for one individual since 2016."""
-    freibetrag_bei_behinderung = per_y_to_per_m(
-        freibetrag_bei_behinderung_pauschal_y if behinderungsgrad > 0 else 0
+    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2016 to 2020."""
+    freibetrag_bei_behinderung = (
+        freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
     )
 
     if ist_kind_mit_erwerbseinkommen:
@@ -245,15 +245,18 @@ def freibetrag_m_ab_2021(
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
-    freibetrag_bei_behinderung_pauschal_y: float,
+    freibetrag_bei_behinderung_pauschal_m: float,
     freibetrag_kinder_m: dict[str, float],
     anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     xnp: ModuleType,
 ) -> float:
-    """Wohngeld-Freibeträge inklusive § 17a WoGG (Grundrentenfreibetrag)."""
-    freibetrag_bei_behinderung = per_y_to_per_m(
-        freibetrag_bei_behinderung_pauschal_y if behinderungsgrad > 0 else 0
+    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2021 onwards.
+    
+    Wohngeld-Freibeträge inklusive § 17a WoGG (Grundrentenfreibetrag).
+    """
+    freibetrag_bei_behinderung = (
+        freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
     )
 
     if ist_kind_mit_erwerbseinkommen:
