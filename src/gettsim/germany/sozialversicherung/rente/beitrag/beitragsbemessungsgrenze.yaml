@@ -161,6 +161,7 @@ beitragsbemessungsgrenze_y:
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
   2026-01-01:
     value: 101400
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
       Nr. 278
@@ -493,91 +494,115 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
     reference: V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 75000
+    unit: Euros
     reference: V. v. 17.12.2002 BGBl. I S. 4561
   2004-01-01:
     value: 76200
+    unit: Euros
     reference: V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 76800
+    unit: Euros
     reference: V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 77400
+    unit: Euros
     reference: V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 77400
+    unit: Euros
     reference: G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 78600
+    unit: Euros
     reference: V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 79800
+    unit: Euros
     reference: V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 81600
+    unit: Euros
     reference: V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 81000
+    unit: Euros
     reference: V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 82800
+    unit: Euros
     reference: V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 85200
+    unit: Euros
     reference: V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 87600
+    unit: Euros
     reference: V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 89400
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
       1957
   2016-01-01:
     value: 91800
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
       2137
   2017-01-01:
     value: 94200
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
       2665
   2018-01-01:
     value: 96000
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
       3778
   2019-01-01:
     value: 98400
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
       2024
   2020-01-01:
     value: 101400
+    unit: Euros
     reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
   2021-01-01:
     value: 104400
+    unit: Euros
     reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
   2022-01-01:
     value: 103800
+    unit: Euros
     reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
   2023-01-01:
     value: 107400
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
       2128
   2024-01-01:
     value: 111600
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
       Nr. 322
   2025-01-01:
     value: 118800
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2025 vom 25. November 2024 BGBl. 2024 I
       Nr. 365
   2026-01-01:
     value: 124800
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
       Nr. 278
@@ -656,81 +681,103 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
     reference: V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 63000
+    unit: Euros
     reference: V. v. 17.12.2002 BGBl. I S. 4561
   2004-01-01:
     value: 64200
+    unit: Euros
     reference: V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 64800
+    unit: Euros
     reference: V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 64800
+    unit: Euros
     reference: V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 66600
+    unit: Euros
     reference: G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 66600
+    unit: Euros
     reference: V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 67200
+    unit: Euros
     reference: V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 68400
+    unit: Euros
     reference: V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 70800
+    unit: Euros
     reference: V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 70800
+    unit: Euros
     reference: V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 72600
+    unit: Euros
     reference: V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 73800
+    unit: Euros
     reference: V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 76200
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
       1957
   2016-01-01:
     value: 79800
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
       2137
   2017-01-01:
     value: 84000
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
       2665
   2018-01-01:
     value: 85800
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
       3778
   2019-01-01:
     value: 91200
+    unit: Euros
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
       2024
   2020-01-01:
     value: 94800
+    unit: Euros
     reference: V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     value: 99000
+    unit: Euros
     reference: V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     value: 100200
+    unit: Euros
     reference: V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 104400
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
       2128
   2024-01-01:
     value: 110400
+    unit: Euros
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
       Nr. 322
