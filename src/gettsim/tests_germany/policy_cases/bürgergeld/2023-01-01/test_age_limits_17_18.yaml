@@ -13,6 +13,11 @@ inputs:
       - 38
       - 18
       - 17
+    alter_monate:
+      - 480
+      - 456
+      - 216
+      - 204
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -181,11 +186,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
-            - false
-            - false
         bezieht_rente:
           - false
           - false
