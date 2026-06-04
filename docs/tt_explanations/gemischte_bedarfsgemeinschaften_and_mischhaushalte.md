@@ -1,11 +1,21 @@
 (gemischte-bedarfsgemeinschaften)=
 
-# Gemischte Bedarfsgemeinschaften
+# Gemischte Bedarfsgemeinschaften and Mischhaushalte
 
 In the German tax-transfer system, the unit at which benefits are computed does not
 always coincide with the household. Members of the same household can fall under
-different benefit systems (SGB II vs. SGB XII, or SGB II vs. Wohngeld). This document
-explains three "mixed" scenarios that arise from these interactions.
+different benefit systems (SGB II vs. SGB XII, or SGB II vs. Wohngeld). Two distinct
+concepts arise from these interactions:
+
+- A **gemischte Bedarfsgemeinschaft** is a couple whose members fall under different
+  Existenzsicherungssysteme: one partner under SGB II (Bürgergeld), the other under SGB
+  XII (Grundsicherung im Alter oder bei Erwerbsminderung).
+- A **Mischhaushalt** is a *household* in which some members receive
+  Grundsicherungsleistungen (SGB II or SGB XII) while the other members receive
+  Wohngeld, forming the *wohngeldrechtlicher Teilhaushalt*.
+
+*Kinderwohngeld* is a special case of the latter. This document explains all three
+scenarios.
 
 ## Gemischte Bedarfsgemeinschaft (SGB II / SGB XII)
 
@@ -14,13 +24,23 @@ different benefit systems:
 
 - One partner is *erwerbsfähig* and below the *Regelaltersgrenze* → eligible for **SGB
   II** (Bürgergeld)
-- The other partner has reached the *Regelaltersgrenze* → eligible for **SGB XII**
-  (Grundsicherung im Alter)
+- The other partner is eligible for **SGB XII** (Grundsicherung im Alter und bei
+  Erwerbsminderung, SGB XII Kapitel 4) because they either
+  - have reached the *Regelaltersgrenze* → *Grundsicherung im Alter* (§41 Abs. 2 SGB
+    XII), or
+  - are *dauerhaft voll erwerbsgemindert* — typically receiving an
+    Erwerbsminderungsrente → *Grundsicherung bei Erwerbsminderung* (§41 Abs. 3 SGB XII).
 
-The partner past the Regelaltersgrenze remains a *member* of the SGB II
-Bedarfsgemeinschaft (§7 Abs. 3 SGB II) but receives no Bürgergeld (§19 Abs. 1 Satz 2 SGB
-II; §5 Abs. 2 Satz 2 SGB II). Their needs are covered by SGB XII instead (§43 Abs. 1 SGB
-XII).
+The mechanism described below is identical in both cases. The SGB XII partner remains a
+*member* of the SGB II Bedarfsgemeinschaft (§7 Abs. 3 SGB II) but receives no Bürgergeld
+(§19 Abs. 1 Satz 2 SGB II; §5 Abs. 2 Satz 2 SGB II). Their needs are covered by SGB XII
+instead (§43 Abs. 1 SGB XII).
+
+```{note}
+GETTSIM currently implements only the Grundsicherung im Alter case. Grundsicherung bei
+Erwerbsminderung is not implemented yet
+([#1145](https://github.com/ttsim-dev/gettsim/issues/1145)).
+```
 
 ### Individual entitlements within a Bedarfsgemeinschaft
 
@@ -35,7 +55,7 @@ In principle, there are two methods for attributing income to individual BG memb
 | ------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | **Income attribution**    | Pooled and distributed proportionally to each person's share of total Bedarf | Stays with the earner; only surplus above own Bedarf flows to the partner |
 | **Who is hilfebedürftig** | All members, proportionally                                                  | Only members whose own income falls short                                 |
-| **Applies to**            | Normal BG (all members SGB II eligible)                                      | Mixed BG (one SGB II, one SGB XII)                                        |
+| **Applies to**            | Normal BG (all members SGB II eligible)                                      | Gemischte BG (one SGB II, one SGB XII)                                    |
 | **Legal basis**           | §9 Abs. 2 Satz 3 SGB II; BSG B 14 AS 55/07 R                                 | BSG B 14 AS 89/20 R                                                       |
 
 ### Bedarfsanteilsmethode (Horizontalmethode)
@@ -69,8 +89,8 @@ When one partner receives SGB XII benefits and the other receives SGB II benefit
 XII):
 
 1. **SGB II** (erwerbsfähige person): own Bedarf minus own countable income.
-1. **SGB XII** (person past Regelaltersgrenze): own Bedarf minus own countable income
-   under SGB XII rules.
+1. **SGB XII** (person past Regelaltersgrenze or dauerhaft voll erwerbsgemindert): own
+   Bedarf minus own countable income under SGB XII rules.
 
 #### Überschusseinkommen (surplus income)
 
@@ -90,10 +110,10 @@ income:
 
 The relevant calculation unit for the SGB XII partner is the **Einsatzgemeinschaft**
 (`eg_id`, §27 Abs. 2 SGB XII), analogous to the Bedarfsgemeinschaft for SGB II. In a
-mixed BG, the SGB XII partner forms their own Einsatzgemeinschaft; their Bedarf and
+gemischte BG, the SGB XII partner forms their own Einsatzgemeinschaft; their Bedarf and
 income are computed at the `_eg` level.
 
-### Additional rules for mixed BGs
+### Additional rules for gemischte BGs
 
 - Both partners receive **Regelbedarfsstufe 2** (the partner rate), not RBS 1 (BSG
   16.10.2007 — B 8/9b SO 2/06 R).
@@ -157,6 +177,8 @@ Without the surplus flow, Bernd would receive 806 − 200 = 606 EUR. The
 Überschusseinkommen mechanism ensures that Anna's excess income is counted against
 Bernd's SGB XII claim, even though her income is excluded from the horizontal
 distribution.
+
+(mischhaushalte)=
 
 ## Wohngeldrechtlicher Teilhaushalt and Mischhaushalte
 
@@ -239,13 +261,14 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
 
 ## Implementation status in GETTSIM
 
-| Topic                            | Status                             | Issues                                                                                                               |
-| -------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Gemischte Bedarfsgemeinschaft    | Implemented                        | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
-| Einsatzgemeinschaft (`_eg`)      | Implemented                        | [#1147](https://github.com/ttsim-dev/gettsim/issues/1147)                                                            |
-| Wohngeldrechtlicher Teilhaushalt | Partially implemented (simplified) | [#710](https://github.com/ttsim-dev/gettsim/issues/710), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
-| Kinderwohngeld                   | Not implemented                    | [#750](https://github.com/ttsim-dev/gettsim/issues/750)                                                              |
-| Endogenous BG/WTHH creation      | Simplified; external repo planned  | [#763](https://github.com/ttsim-dev/gettsim/issues/763), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
+| Topic                               | Status                             | Issues                                                                                                               |
+| ----------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Gemischte Bedarfsgemeinschaft       | Implemented                        | [#1146](https://github.com/ttsim-dev/gettsim/issues/1146), [#1157](https://github.com/ttsim-dev/gettsim/issues/1157) |
+| Grundsicherung bei Erwerbsminderung | Not implemented                    | [#1145](https://github.com/ttsim-dev/gettsim/issues/1145)                                                            |
+| Einsatzgemeinschaft (`_eg`)         | Implemented                        | [#1147](https://github.com/ttsim-dev/gettsim/issues/1147)                                                            |
+| Wohngeldrechtlicher Teilhaushalt    | Partially implemented (simplified) | [#710](https://github.com/ttsim-dev/gettsim/issues/710), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
+| Kinderwohngeld                      | Not implemented                    | [#750](https://github.com/ttsim-dev/gettsim/issues/750)                                                              |
+| Endogenous BG/WTHH creation         | Simplified; external repo planned  | [#763](https://github.com/ttsim-dev/gettsim/issues/763), [#1010](https://github.com/ttsim-dev/gettsim/issues/1010)   |
 
 ```{seealso}
 **Gemischte Bedarfsgemeinschaft:**
@@ -260,7 +283,7 @@ for at least 3 consecutive months (§12a Satz 2 Nr. 2 SGB II).
 - [BSG B 14 AS 55/07 R](https://openjur.de/u/170185.html) (18.06.2008):
   Horizontal method for normal BGs
 - [BSG B 14 AS 89/20 R](https://www.bsg.bund.de/SharedDocs/Entscheidungen/DE/2021/2021_11_11_B_14_AS_89_20_R.html) (11.11.2021):
-  Vertical method and Überschusseinkommen for mixed BGs
+  Vertical method and Überschusseinkommen for gemischte BGs
 
 **Wohngeldrechtlicher Teilhaushalt:**
 - [WoGG §7](https://www.gesetze-im-internet.de/wogg/__7.html):

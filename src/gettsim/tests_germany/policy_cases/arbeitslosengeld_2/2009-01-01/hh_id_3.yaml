@@ -9,6 +9,9 @@ inputs:
     alter:
       - 28
       - 1
+    alter_monate:
+      - 336
+      - 12
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -81,7 +84,9 @@ inputs:
       - 2008
     grundsicherung:
       im_alter:
-        überschusseinkommen_m_eg:
+        # TODO(@MImmesberger): Remove once Grundsicherung im Alter works pre-2011.
+        # https://github.com/ttsim-dev/gettsim/issues/685
+        erwerbseinkommen_m:
           - 0.0
           - 0.0
     hh_id:
@@ -100,6 +105,9 @@ inputs:
     p_id:
       - 10
       - 11
+    schwerbehindert_grad_g:
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 66.0
@@ -117,9 +125,6 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
         bezieht_rente:
           - false
           - false

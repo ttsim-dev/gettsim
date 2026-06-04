@@ -38,8 +38,8 @@ def anspruchshöhe_m(
 ) -> float:
     """Individual share of BG entitlement using the Bedarfsanteilsmethode.
 
-    In mixed BGs (gemischte Bedarfsgemeinschaften), the SGB XII partner's needs and
-    income are excluded from the pool (Vertikalmethode, BSG B 14 AS 89/20 R).
+    In gemischten Bedarfsgemeinschaften, the SGB XII partner's needs and income are
+    excluded from the pool ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -64,8 +64,8 @@ def ungedeckter_bedarf_m(
 ) -> float:
     """Bedarf after netting child's own income.
 
-    In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
+    In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
+    excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -88,8 +88,8 @@ def einkommen_zur_verteilung_m(
 ) -> float:
     """Income available for proportional distribution across BG.
 
-    In mixed BGs, persons past the Regelaltersgrenze are excluded from the
-    Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
+    In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
+    excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
@@ -111,9 +111,9 @@ def überschusseinkommen_m(
 ) -> float:
     """SGB II excess income that flows to the SGB XII partner.
 
-    In mixed BGs (one partner is SGB II eligible, the other one SGB XII), if the SGB II
-    members' total income exceeds their total Bedarf, the surplus is counted as income
-    for the SGB XII partner's Grundsicherung calculation.
+    In gemischten Bedarfsgemeinschaften (one partner is SGB II eligible, the other
+    one SGB XII), if the SGB II members' total income exceeds their total Bedarf, the
+    surplus is counted as income for the SGB XII partner's Grundsicherung calculation.
 
     Reference: BSG B 14 AS 89/20 R
     """
