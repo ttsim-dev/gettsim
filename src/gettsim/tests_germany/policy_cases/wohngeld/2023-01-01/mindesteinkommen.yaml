@@ -120,6 +120,13 @@ inputs:
         - 0.0
         - 0.0
       renten:
+        gesetzliche_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         gesamt_m:
           - 0.0
           - 0.0
@@ -255,6 +262,14 @@ inputs:
             - 0.0
             - 0.0
       rente:
+        grundrente:
+          grundsätzlich_anspruchsberechtigt:
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
         beitrag:
           betrag_versicherter_m:
             - 100.0
