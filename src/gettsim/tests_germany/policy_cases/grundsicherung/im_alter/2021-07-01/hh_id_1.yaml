@@ -10,6 +10,9 @@ inputs:
     alter:
       - 70
       - 67
+    alter_monate:
+      - 840
+      - 804
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - 2
@@ -125,9 +128,6 @@ inputs:
           betrag_m:
             - 350.0
             - 590.0
-          hat_regelaltersgrenze_erreicht:
-            - true
-            - true
         bezieht_rente:
           - true
           - true

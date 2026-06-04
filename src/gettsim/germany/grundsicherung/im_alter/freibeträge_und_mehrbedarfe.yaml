@@ -122,17 +122,21 @@ anrechnungsfreier_anteil_zusätzliche_altersvorsorge:
         slope: 0.3
 einkommensgrenze_kinder:
   name:
-    de: Einkommensgrenze der Kinder für Grundsicherung im Alter
-    en: Children's income threshold for Grundsicherung im Alter
+    de: >-
+      Gesamteinkommensgrenze der Kinder ersten Grades, ab der Grundsicherungsbezug der
+      Eltern ausgeschlossen ist
+    en: >-
+      Total income threshold of first-degree children, above which parents are excluded
+      from receiving Grundsicherung
   description:
     de: >-
       § 43 SGB XII (BGBl. I 2003 S. 3022).
-      Übersteigt das jährliche Gesamteinkommen (§ 16 SGB IV) eines Kindes ersten Grades
-      diesen Betrag, besteht kein Anspruch auf Grundsicherung im Alter.
+      Erreicht oder übersteigt das jährliche Gesamteinkommen (§ 16 SGB IV) eines Kindes
+      diesen Betrag, haben die Eltern keinen Anspruch auf Grundsicherung im Alter.
     en: >-
       § 43 SGB XII (BGBl. I 2003 S. 3022).
-      If the annual Gesamteinkommen (§ 16 SGB IV) of any first-degree descendant exceeds
-      this threshold, the applicant is excluded from Grundsicherung im Alter.
+      If the annual Gesamteinkommen (§ 16 SGB IV) of any child reaches or exceeds this
+      threshold, the parents are excluded from Grundsicherung im Alter.
   unit: Euros
   reference_period: Year
   type: scalar

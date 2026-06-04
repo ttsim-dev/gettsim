@@ -19,10 +19,61 @@ if TYPE_CHECKING:
 
 
 @policy_function(
+    end_date="2006-12-31",
+    leaf_name="einkommen_m",
+)
+def einkommen_m_bis_2006(
+    erwerbseinkommen_m: float,
+    einnahmen__renten__sonstige_private_vorsorge_m: float,
+    einnahmen__renten__geförderte_private_vorsorge_m: float,
+    einnahmen__renten__betriebliche_altersvorsorge_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
+    gesetzliche_rente_m: float,
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
+    kapitaleinkommen_brutto_m: float,
+    einkommensteuer__betrag_m_sn: float,
+    solidaritätszuschlag__betrag_m_sn: float,
+    familie__anzahl_personen_sn: int,
+    sozialversicherung__beiträge_versicherter_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+) -> float:
+    """Income considered for Grundsicherung im Alter.
+
+    All pension income is fully counted as income. Erziehungsgeld is not counted as
+    income (§8 Abs. 1 BErzGG).
+    """
+    total_income = (
+        erwerbseinkommen_m
+        + gesetzliche_rente_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
+        + einnahmen__renten__geförderte_private_vorsorge_m
+        + einnahmen__renten__betriebliche_altersvorsorge_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
+        + kapitaleinkommen_brutto_m
+        + unterhalt__tatsächlich_erhaltener_betrag_m
+        + unterhaltsvorschuss__betrag_m
+    )
+
+    out = (
+        total_income
+        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
+        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
+        - sozialversicherung__beiträge_versicherter_m
+    )
+
+    return max(out, 0.0)
+
+
+@policy_function(
+    start_date="2007-01-01",
     end_date="2017-12-31",
     leaf_name="einkommen_m",
 )
-def einkommen_m_bis_2017(
+def einkommen_m_ab_2007_bis_2017(
     erwerbseinkommen_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
@@ -40,9 +91,9 @@ def einkommen_m_bis_2017(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
 ) -> float:
-    """Income considered for Grundsicherung im Alter before 2018.
+    """Income considered for Grundsicherung im Alter from 2007 until 2017.
 
-    All pension income is fully counted as income.
+    Introduces Elterngeld as income. All pension income is fully counted as income.
     """
     total_income = (
         erwerbseinkommen_m

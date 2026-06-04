@@ -9,6 +9,9 @@ inputs:
     alter:
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -79,11 +82,6 @@ inputs:
     geburtsjahr:
       - 1973
       - 1973
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
-          - 0.0
     hh_id:
       - 2
       - 2
@@ -100,6 +98,9 @@ inputs:
     p_id:
       - 15
       - 16
+    schwerbehindert_grad_g:
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -117,9 +118,6 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
         bezieht_rente:
           - false
           - false

@@ -9,6 +9,9 @@ inputs:
     alter:
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
     arbeitslosengeld_2:
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
@@ -55,10 +58,6 @@ inputs:
         bezieht_rente:
           - false
           - false
-        altersrente:
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

@@ -22,6 +22,10 @@ inputs:
       - 45
       - 43
       - 14
+    alter_monate:
+      - 540
+      - 516
+      - 168
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -112,12 +116,6 @@ inputs:
       - 1980
       - 1981
       - 2010
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
-          - 0.0
-          - 0.0
     hh_id:
       - 0
       - 0
@@ -135,6 +133,10 @@ inputs:
       - 0
       - 1
       - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -156,10 +158,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-          hat_regelaltersgrenze_erreicht:
-            - false
-            - false
-            - false
         bezieht_rente:
           - false
           - false
@@ -169,6 +167,11 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

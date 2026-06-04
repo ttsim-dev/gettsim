@@ -19,13 +19,11 @@ inputs:
           - 0
         monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
           - 12
-      rente:
-        altersrente:
-          hat_regelaltersgrenze_erreicht:
-            - false
   provided:
     alter:
       - 30
+    alter_monate:
+      - 360
     arbeitsstunden_w:
       - 0.0
     familie:
