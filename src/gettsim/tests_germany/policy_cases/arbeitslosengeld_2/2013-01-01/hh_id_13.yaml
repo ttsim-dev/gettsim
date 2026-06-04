@@ -82,11 +82,6 @@ inputs:
     geburtsjahr:
       - 1973
       - 1943
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
-          - 0.0
     hh_id:
       - 13
       - 13
@@ -103,6 +98,9 @@ inputs:
     p_id:
       - 27
       - 28
+    schwerbehindert_grad_g:
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0

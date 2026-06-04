@@ -60,10 +60,6 @@ inputs:
         - -1
     geburtsjahr:
       - 1978
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
     hh_id:
       - 25
     kindergeld:
@@ -75,6 +71,8 @@ inputs:
         - -1
     p_id:
       - 60
+    schwerbehindert_grad_g:
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -93,6 +91,9 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

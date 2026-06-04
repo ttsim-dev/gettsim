@@ -150,7 +150,16 @@ inputs:
       - 2004
     grundsicherung:
       im_alter:
-        überschusseinkommen_m_eg:
+        # TODO(@MImmesberger): Remove the following two columns once Grundsicherung
+        # im Alter works pre-2011.
+        # https://github.com/ttsim-dev/gettsim/issues/685
+        erwerbseinkommen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        mehrbedarf_bei_schwerbehinderungsgrad_g:
           - 0.0
           - 0.0
           - 0.0
@@ -187,6 +196,12 @@ inputs:
       - 7
       - 8
       - 9
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0

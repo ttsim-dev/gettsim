@@ -106,12 +106,6 @@ inputs:
       - 1983
       - 1985
       - 2020
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
-          - 0.0
-          - 0.0
     hh_id:
       - 22
       - 22
@@ -133,6 +127,10 @@ inputs:
       - 53
       - 54
       - 55
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -163,6 +161,11 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

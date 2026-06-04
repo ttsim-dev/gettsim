@@ -148,14 +148,6 @@ inputs:
       - 2015
       - 2010
       - 2015
-    grundsicherung:
-      im_alter:
-        überschusseinkommen_m_eg:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
     hh_id:
       - 9
       - 9
@@ -187,6 +179,12 @@ inputs:
       - 19
       - 20
       - 21
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+      - false
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
