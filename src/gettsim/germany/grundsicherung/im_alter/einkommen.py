@@ -39,10 +39,10 @@ def einkommen_m_bis_2006(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
 ) -> float:
-    """Income considered for Grundsicherung im Alter before the introduction of
-    Elterngeld in 2007.
+    """Income considered for Grundsicherung im Alter.
 
-    All pension income is fully counted as income.
+    All pension income is fully counted as income. Erziehungsgeld is not counted as
+    income (§8 Abs. 1 BErzGG).
     """
     total_income = (
         erwerbseinkommen_m
@@ -93,7 +93,7 @@ def einkommen_m_ab_2007_bis_2017(
 ) -> float:
     """Income considered for Grundsicherung im Alter from 2007 until 2017.
 
-    All pension income is fully counted as income.
+    Introduces Elterngeld as income. All pension income is fully counted as income.
     """
     total_income = (
         erwerbseinkommen_m
