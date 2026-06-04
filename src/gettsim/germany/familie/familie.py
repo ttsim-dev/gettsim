@@ -139,7 +139,7 @@ def anzahl_erwachsene_fg(
 
 
 @agg_by_group_function(agg_type=AggType.MIN)
-def alter_monate_jüngstes_mitglied_fg(alter_monate: int, fg_id: int) -> float:
+def alter_monate_jüngstes_mitglied_fg(alter_monate: int, fg_id: int) -> int:
     pass
 
 

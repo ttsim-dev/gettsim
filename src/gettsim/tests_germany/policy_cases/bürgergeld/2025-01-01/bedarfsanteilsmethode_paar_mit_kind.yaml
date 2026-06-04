@@ -1,0 +1,247 @@
+---
+info:
+  note: |-
+    Married couple (Georg 45, Anna 43) with child (Lena 14). Georg earns 520€/month
+    (Minijob, no taxes/SV). Lena receives 255€ Kindergeld. Tests the
+    Bedarfsanteilsmethode: children's income is netted against their own Bedarf before
+    distributing adults' income proportionally by ungedeckter Bedarf shares. Values
+    differ slightly from the document because GETTSIM includes the Kindersofortzuschlag
+    (25€) in the child's Regelbedarf.
+  precision_atol: 0.01
+  source: |-
+    Musterberechnungsbogen Bürgergeld 2025 (Jobcenter Ingolstadt)
+    https://www.ingolstadt.de/Leben/Arbeit-Jobcenter/Arbeitsuchend/
+inputs:
+  assumed:
+    bg_id:
+      - 0
+      - 0
+      - 0
+  provided:
+    alter:
+      - 45
+      - 43
+      - 14
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 520.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+    geburtsjahr:
+      - 1980
+      - 1981
+      - 2010
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - false
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 840.0
+        - 840.0
+        - 840.0
+      heizkosten_m_hh:
+        - 160.0
+        - 160.0
+        - 160.0
+      wohnfläche_hh:
+        - 80.0
+        - 80.0
+        - 80.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    anrechnungsfreies_einkommen_m:
+      - 184.0
+      - 0.0
+      - 0.0
+    anspruchshöhe_m:
+      - 714.16
+      - 714.16
+      - 488.68
+    anzurechnendes_einkommen_m:
+      - 336.0
+      - 0.0
+      - 255.0
+    einkommen_zur_verteilung_m:
+      - 336.0
+      - 0.0
+      - 0.0
+    erwachsenensatz_m:
+      - 506.0
+      - 506.0
+      - 0.0
+    kindergeld_zur_bedarfsdeckung_m:
+      - 0.0
+      - 0.0
+      - 255.0
+    kindersatz_m:
+      - 0.0
+      - 0.0
+      - 496.0
+    kosten_der_unterkunft_m:
+      - 333.33
+      - 333.33
+      - 333.33
+    regelbedarf_m:
+      - 839.33
+      - 839.33
+      - 829.33
+    regelsatz_m:
+      - 506.0
+      - 506.0
+      - 496.0
+    ungedeckter_bedarf_m:
+      - 839.33
+      - 839.33
+      - 574.33

@@ -61,12 +61,19 @@ inputs:
             - 0.0
             - 0.0
           rente:
-            betrag_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
               - 0.0
               - 0.0
               - 0.0
               - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -87,7 +94,7 @@ inputs:
         - 0.0
         - 0.0
       renten:
-        gesamt_m:
+        betrag_gesamt_m:
           - 0.0
           - 0.0
           - 0.0
