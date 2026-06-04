@@ -1,7 +1,5 @@
 """Hilfe zum Lebensunterhalt (SGB XII Kap. 3)."""
 
-from __future__ import annotations
-
 from gettsim.tt import param_function, policy_function
 
 
