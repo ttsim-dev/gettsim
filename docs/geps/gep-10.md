@@ -36,10 +36,16 @@
 
 ### Terminology
 
-- **dimension** — a kind of quantity: `[currency]`, `[time]`, `[area]`, `[count]`, or
-  dimensionless. The closed set recognised by GETTSIM.
+- **dimension** — a kind of quantity: `[currency]`, `[time]`, `[area]`, or
+  dimensionless. Counting quantities (children, adults, members) are dimensionless,
+  following SI and pint convention.
 - **unit** — a concrete measure within a dimension: `euro`, `month`, `meter**2`.
-  Declared as a pint-parseable string in the new `unit=` field.
+  Declared as a pint-parseable string in the new `unit=` field. The vocabulary is closed
+  at the *token* level: a declaration may only combine units GETTSIM knows about;
+  anything else is rejected.
+- **dimensionless declaration** — a share, a rate, a head count declares *no* unit:
+  `unit=None` in code, `unit: null` in YAML. Spelled-out synonyms (`"dimensionless"`,
+  pint's built-in `count`) are rejected so there is exactly one way to write it.
 - **flow** — a per-period quantity (Euros *per month*). Its time period is supplied by
   the name suffix (`_m`) for columns/functions or by `reference_period` for parameters.
 - **CURRENCY** — the token used in a `unit=` string to mean "of the `[currency]`
@@ -93,10 +99,21 @@ def betrag_m(satz: float, anzahl: int) -> float:
 arbeitnehmerpauschbetrag:
   unit: CURRENCY        # non-time part
   reference_period: Year  # functional: supplies /year
+  source_currency: DM   # stored in the legal currency; build-time -> run currency
   type: scalar
   1975-01-01:
     value: 564
-    unit_value: DM      # stored in the legal currency; build-time -> run currency
+```
+
+A dimensionless parameter declares `unit: null`:
+
+```yaml
+beitragssatz:
+  unit: null            # a rate is dimensionless
+  reference_period: null
+  type: scalar
+  2024-01-01:
+    value: 0.013
 ```
 
 ### Functions are currency-agnostic; one knob sets the currency
@@ -107,10 +124,14 @@ converted to the run currency at build time. Functions never mention a currency.
 
 ### Errors are loud and early
 
+- A `unit=` string involving a unit GETTSIM does not know about fails at decoration time
+  (functions) or load time (parameters).
 - A dimensionally invalid operation inside a body fails at environment build, naming the
   function.
 - A producer/consumer unit mismatch across a DAG edge fails at build.
-- A missing `unit=` fails at decoration time, like a missing GEP-9 annotation.
+- A missing `unit=` fails at environment build, paralleling GEP-9's mandatory return
+  types. `unit=None` / `unit: null` is *not* missing — it declares a dimensionless
+  quantity.
 - An input column tagged with a pint `Quantity` whose unit disagrees with the declared
   unit fails loudly at the boundary.
 
@@ -130,12 +151,28 @@ converted to the run currency at build time. Functions never mention a currency.
 
 ## Detailed Description
 
-### The dimension vocabulary
+### The unit vocabulary
 
-A closed set of dimensions is recognised: `[currency]`, `[time]`, `[area]`, `[count]`,
-and dimensionless (shares, rates, percentages, booleans). `[count]` is a single
-catch-all countable dimension (children, adults, and members are all `count`), distinct
-from a dimensionless *share*. New dimensions require a GEP amendment.
+The vocabulary is closed at the **token** level: a declared unit may only combine units
+GETTSIM knows about — the time units (`year`, `quarter_year`, `month`, `week`, `day`,
+`hour`), the area units (`meter`, `hectare`), and `CURRENCY` plus the concrete
+currencies registered via `register_currency`. Every other token is rejected at
+declaration time, *including* pint built-ins that happen to live in an admissible
+dimension (`count`, `percent`, prefixed units like `kilometer`): there is exactly one
+way to write every unit. New units require a GEP amendment.
+
+**Counting quantities are dimensionless**, following SI and pint convention. A
+per-person parameter is plain `CURRENCY`; scaling it by a head count is a plain
+multiplication that preserves the unit. A dimensionless quantity (a share, a rate, a
+head count) declares **no unit at all** — `unit=None` in code, `unit: null` in YAML —
+and the spelling `"dimensionless"` is rejected. Declaring nothing is distinct from a
+*missing* declaration: an omitted `unit=` is an error under mandatory units, an explicit
+`None`/`null` is a statement that the quantity carries no dimension.
+
+**Boolean nodes are dimensionless by construction** and are structurally exempt: they
+declare no unit, and declaring one on a boolean node is an error. The same structural
+exemption covers identifiers (`p_id`, `*_id`, `p_id_*`) and `@group_creation_function`s
+— identifiers are labels, not quantities.
 
 ### pint runs at build time only
 
@@ -162,6 +199,28 @@ Time is a first-class pint dimension. The hand-written arithmetic in
 `unit_converters.py` is reimplemented so factors are sourced from pint
 (`Quantity(1, "year").to("month")`), while the suffix auto-generation and naming are
 kept verbatim.
+
+### Dict parameters with heterogeneous leaves
+
+A dict parameter whose leaves carry different units declares `unit:` as a **mapping from
+leaf names to complete unit strings** (or `null` for a dimensionless leaf);
+`reference_period` must then be `null`, since each leaf's unit is already complete:
+
+```yaml
+schedule:
+  unit:
+    child_amount_y: CURRENCY / year
+    max_age: year
+  reference_period: null
+  type: dict
+  2024-01-01:
+    child_amount_y: 3000.0
+    max_age: 18
+```
+
+In the dry-run, dict parameters become dicts of representative `Quantity`s (uniform for
+a scalar `unit:`, per-leaf for a mapping), so bodies that subscript them are verifiable.
+The mandatory-units check covers every leaf of the value active at the policy date.
 
 ### Currency
 
@@ -193,12 +252,21 @@ concrete currency is fixed by the `currency` knob at factor-baking time.
 checked by running them in NumPy+pint on small synthetic arrays; a declared output unit
 is the last-resort fallback.
 
+**Booleans in the dry-run.** Boolean inputs are not quantities: they enter the dry-run
+as bare `True`/`False`. Because branch selection hinges on them, a body with boolean
+inputs is dry-run **twice** — once with all of them truthy, once falsy — so both arms of
+the dominant guard pattern (`if exempt: return 0.0 else: <real arithmetic>`) are
+verified. The falsy run is what concretely catches a stock×rate body whose rate is
+missing its time component.
+
 ### Auto-generated nodes
 
 Auto-generated nodes receive auto-assigned units: time-conversion variants inherit the
 source's non-time unit with the period swapped; auto-aggregations derive their unit from
-the source and the aggregation type (SUM/MEAN/MIN/MAX preserve, COUNT → `[count]`,
-ANY/ALL → dimensionless), paralleling how {ref}`GEP 4 <gep-4>` resolves their types.
+the source and the aggregation type (SUM/MEAN/MIN/MAX preserve; COUNT, ANY, and ALL are
+dimensionless), paralleling how {ref}`GEP 4 <gep-4>` resolves their types. An automatic
+SUM over a boolean column is a head count and resolves to dimensionless; an explicit SUM
+aggregation declares its unit (`unit=None` when the source is boolean).
 
 ### Literals
 
@@ -231,6 +299,10 @@ annotation. The tracking issues are:
 - gettsim [#1191](https://github.com/ttsim-dev/gettsim/issues/1191) — register EUR/DM
 - gettsim [#1192](https://github.com/ttsim-dev/gettsim/issues/1192) — gettsim rollout
 
+The schema copy at `docs/geps/params-schema.json` (the validation target for all German
+parameter YAMLs) still describes the pre-GEP-10 label vocabulary; it is migrated
+together with the YAML files in #1192, mirroring the updated schema shipped with ttsim.
+
 ## Alternatives
 
 ### Runtime pint Quantities flowing through the DAG
@@ -253,6 +325,36 @@ Possible, but the stock/flow duality is exactly what a unit engine encodes for f
 Sourcing the factors from pint removes a class of hand-maintained arithmetic without
 touching the naming.
 
+### A `[count]` dimension for head counts
+
+Considered, prototyped, and rejected. An earlier draft promoted counting quantities to a
+custom `[count]` dimension, making per-person parameters `CURRENCY / count` and head
+counts `count`. The intended payoff was catching a forgotten per-capita scaling
+(comparing a per-person threshold against a family-level income without multiplying by
+the family size would not type-check). It was dropped because:
+
+- the protection is weaker than it looks: a single generic `[count]` cannot distinguish
+  per-child from per-adult from per-household, so scaling by the *wrong* count still
+  type-checks — only the forgot-entirely case is caught;
+- the annotation tax lands on every per-capita parameter in the system (Regelsätze,
+  Kindergeld, Freibeträge, …), which would read `CURRENCY / count` where the law and
+  every practitioner say "Euros per month";
+- SI and pint treat counting quantities as dimensionless; deviating from that convention
+  surprises anyone who knows either.
+
+The accepted cost is that a missing per-capita scaling is no longer a unit error. If
+that bug class accumulates in practice, the closed token vocabulary makes a future
+amendment with genuinely distinct dimensions (`[person]`, `[child]`, …) a clean
+retrofit.
+
+### A `"dimensionless"` unit string instead of `null`
+
+Rejected. With counts dimensionless, pint would happily parse `"count"`,
+`"dimensionless"`, and `"CURRENCY / count"` (silently equal to `"CURRENCY"`) — three
+spellings for two meanings, and a trap. Declaring *nothing* (`unit=None` / `unit: null`)
+is the single canonical form; the mandatory-units check distinguishes it from an omitted
+declaration via a sentinel, so nothing is lost.
+
 ### Make functions time-agnostic
 
 Rejected. Collapsing `betrag_m` and `betrag_y` into one node would erase the law-to-code
@@ -261,8 +363,9 @@ correspondence GEP 1 is built on.
 ## Discussion
 
 (Open. To be resolved on Zulip.) Known points for debate: the strictness of literal
-tagging; whether `[count]` should ever be split; and whether the gettsim rollout should
-be a single large PR or staged behind a temporary gate.
+tagging; whether per-capita scaling should ever get dedicated dimensions (see the
+rejected `[count]` alternative — revisit if missing-scale bugs accumulate); and whether
+the gettsim rollout should be a single large PR or staged behind a temporary gate.
 
 ## References and Footnotes
 
