@@ -244,6 +244,7 @@ def freibetrag_m_ab_2021(
     ist_kind_mit_erwerbseinkommen: bool,
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
+    sozialversicherung__rente__bezieht_rente: bool,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
     freibetrag_bei_behinderung_pauschal_m: float,
     freibetrag_kinder_m: dict[str, float],
@@ -254,6 +255,13 @@ def freibetrag_m_ab_2021(
     """Freibeträge on Einkommen relevant for Wohngeld calculation from 2021 onwards.
 
     Wohngeld-Freibeträge inklusive § 17a WoGG (Grundrentenfreibetrag).
+
+    The Grundrentenfreibetrag requires drawing a public pension and 33 years of
+    Grundrentenzeiten (§ 76g Abs. 2 SGB VI); it does not require actually receiving
+    the Grundrentenzuschlag (which may be fully withdrawn under the income test of
+    § 97a SGB VI). The Freibetrag is computed from the public pension actually
+    received (§ 17a Abs. 1 Satz 2 WoGG; BMI-Hinweise v. 15.12.2021: "Nur Rentner
+    [...] erhalten im Wohngeld einen Freibetrag").
     """
     freibetrag_bei_behinderung = (
         freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
@@ -269,7 +277,10 @@ def freibetrag_m_ab_2021(
     else:
         freibetrag_kinder = 0.0
 
-    if sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt:
+    if (
+        sozialversicherung__rente__bezieht_rente
+        and sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt
+    ):
         freibetrag_grundrente = min(
             piecewise_polynomial(
                 x=einnahmen__renten__gesetzliche_m,

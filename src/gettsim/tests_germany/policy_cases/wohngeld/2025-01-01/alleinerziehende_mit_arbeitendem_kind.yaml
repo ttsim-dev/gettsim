@@ -148,6 +148,9 @@ inputs:
         jahr_renteneintritt:
           - 2052
           - 2076
+        bezieht_rente:
+          - false
+          - false
         grundrente:
           grundrentenzeiten_monate:
             - 0

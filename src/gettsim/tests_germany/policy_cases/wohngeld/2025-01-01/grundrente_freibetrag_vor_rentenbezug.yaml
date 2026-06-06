@@ -1,14 +1,18 @@
 ---
 info:
-  note: Created with Wohngeldrechner that doesn't check for Mindesteinkommen.
+  note: |-
+    Single worker aged 64 with 396 months of Grundrentenzeiten (meets the 33-year
+    requirement of § 17a WoGG) who has not yet claimed a public pension. The
+    Grundrentenfreibetrag is zero: it is computed from the public pension actually
+    received (§ 17a Abs. 1 Satz 2 WoGG; BMI-Hinweise v. 15.12.2021: "Nur Rentner
+    [...] erhalten im Wohngeld einen Freibetrag").
   precision_atol: 0.01
-  source: |-
-    https://www.bmwsb.bund.de/SiteGlobals/Forms/wohngeldrechner/wohngeldrechner-2023-formular.html?resourceId=18737268&input_=18737272&pageLocale=de&householdMembers=1&housingbenefitRecipients=1&income=735&rent=600&rentLevelZIPCode=53123&rentLevelTown.GROUP=1&rentLevel=5&rentLevel.GROUP=1&update=Berechnen&result=260%2C00
+  source: Made up; expected Freibetrag follows directly from § 17a WoGG.
 inputs:
   assumed: {}
   provided:
     alter:
-      - 57
+      - 64
     anzahl_personen_hh:
       - 1
     bürgergeld:
@@ -20,11 +24,8 @@ inputs:
       - 0
     einkommensteuer:
       betrag_y_sn:
-        - 300.0
+        - 0.0
       einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          einnahmen_nach_abzug_werbungskosten_y:
-            - 12600.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
@@ -35,19 +36,32 @@ inputs:
           alle_weiteren_m:
             - 0.0
           rente:
-            steuerpflichtige_einnahmen_m:
+            betrag_m:
               - 0.0
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
       gemeinsam_veranlagt:
         - false
     einnahmen:
       bruttolohn_m:
-        - 1050.0
+        - 1400.0
       kapitalerträge_y:
         - 0.0
       renten:
         gesetzliche_m:
           - 0.0
-        gesamt_m:
+        sonstige_private_vorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
@@ -64,20 +78,20 @@ inputs:
       p_id_elternteil_2:
         - -1
     geburtsjahr:
-      - 1966
+      - 1961
     geburtsmonat:
       - 1
     geburtstag:
       - 1
     hh_id:
-      - 11
+      - 0
     kindergeld:
       ist_leistungsbegründendes_kind:
         - false
       p_id_empfänger:
         - -1
     p_id:
-      - 55
+      - 0
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -90,16 +104,18 @@ inputs:
       kranken:
         beitrag:
           betrag_versicherter_m:
-            - 80.0
+            - 110.0
       rente:
+        jahr_renteneintritt:
+          - 2027
         bezieht_rente:
           - false
         grundrente:
           grundrentenzeiten_monate:
-            - 0
+            - 396
         beitrag:
           betrag_versicherter_m:
-            - 100.0
+            - 130.0
         erwerbsminderung:
           betrag_m:
             - 0.0
@@ -131,5 +147,5 @@ inputs:
         - true
 outputs:
   wohngeld:
-    anspruchshöhe_m_wthh:
-      - 425.0
+    freibetrag_m:
+      - 0.0

@@ -92,6 +92,8 @@ inputs:
           betrag_versicherter_m:
             - 80.0
       rente:
+        bezieht_rente:
+          - false
         grundrente:
           grundrentenzeiten_monate:
             - 0
