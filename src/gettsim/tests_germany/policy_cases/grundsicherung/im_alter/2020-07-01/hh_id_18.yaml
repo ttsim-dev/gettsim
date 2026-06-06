@@ -69,10 +69,6 @@ inputs:
       - 1
     hh_id:
       - 18
-    grundsicherung:
-      hilfe_zum_lebensunterhalt:
-        überschusseinkommen_m:
-          - 0.0
     kindergeld:
       p_id_empfänger:
         - -1

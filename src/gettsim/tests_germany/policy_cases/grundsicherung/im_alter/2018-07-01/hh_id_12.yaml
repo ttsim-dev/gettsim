@@ -75,9 +75,6 @@ inputs:
       im_alter:
         hat_kind_mit_einkommen_über_einkommensgrenze:
           - false
-      hilfe_zum_lebensunterhalt:
-        überschusseinkommen_m:
-          - 0.0
     kindergeld:
       p_id_empfänger:
         - -1

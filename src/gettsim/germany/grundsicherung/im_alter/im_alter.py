@@ -308,40 +308,38 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
 
 
-# TODO (@MImmesberger): Use AggType.ANY once `any_by_p_id` is implemented in
-# ttsim-backend (it currently raises NotImplementedError in both backends).
-@agg_by_p_id_function(agg_type=AggType.SUM, end_date="2019-12-31")
-def anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
+@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
     p_id: int,
-) -> int:
+) -> bool:
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, end_date="2019-12-31")
-def anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
+@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
     p_id: int,
-) -> int:
+) -> bool:
     pass
 
 
 @policy_function(start_date="2005-01-01", end_date="2019-12-31")
 def hat_kind_mit_einkommen_über_einkommensgrenze(
-    anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_1: int,
-    anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_2: int,
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,
 ) -> bool:
     """Whether any first-degree child has income above the threshold.
 
     Children point to their parents via `familie__p_id_elternteil_1` and
-    `familie__p_id_elternteil_2`; the counts cover both slots so that a parent is
-    caught regardless of which slot they occupy in the child's record.
+    `familie__p_id_elternteil_2`; both slots are covered so that a parent is caught
+    regardless of which slot they occupy in the child's record.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
     return (
-        anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_1
-        + anzahl_kinder_mit_einkommen_über_einkommensgrenze_als_elternteil_2
-    ) > 0
+        hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1
+        or hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2
+    )

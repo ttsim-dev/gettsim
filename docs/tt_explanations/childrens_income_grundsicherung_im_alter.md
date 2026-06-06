@@ -8,15 +8,15 @@ regimes.
 
 ## 2005–2019: Exclusion from the benefit (§ 43 SGB XII)
 
-Until the end of 2019, § 43 SGB XII (originally Abs. 2, later Abs. 5; BGBl. I 2003
-S. 3022) excluded persons from Grundsicherung im Alter altogether if any of their
-children (or parents) had an annual Gesamteinkommen (§ 16 SGB IV) of 100,000 Euro or
-more. Excluded persons could claim Hilfe zum Lebensunterhalt (3. Kapitel SGB XII)
-instead, where the Sozialhilfeträger could take recourse against the children
+Until the end of 2019, § 43 SGB XII (originally Abs. 2, later Abs. 5; BGBl. I 2003 S.
+3022\) excluded persons from Grundsicherung im Alter altogether if any of their children
+(or parents) had an annual Gesamteinkommen (§ 16 SGB IV) of 100,000 Euro or more.
+Excluded persons could claim Hilfe zum Lebensunterhalt (3. Kapitel SGB XII) instead,
+where the Sozialhilfeträger could take recourse against the children
 (Unterhaltsrückgriff, § 94 SGB XII).
 
-For policy dates up to 2019-12-31, GETTSIM sets
-`grundsicherung__im_alter__betrag_m` to zero for persons for whom
+For policy dates up to 2019-12-31, GETTSIM sets `grundsicherung__im_alter__betrag_m` to
+zero for persons for whom
 `grundsicherung__im_alter__hat_kind_mit_einkommen_über_einkommensgrenze` is true. A
 child's income is compared against the threshold parameter
 `grundsicherung__im_alter__einkommensgrenze_kinder` (100,000 Euro per year). Children
@@ -43,20 +43,20 @@ Caveats of the GETTSIM implementation:
 
 ## Since 2020: Recourse limit only (Angehörigen-Entlastungsgesetz)
 
-The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed § 43 Abs. 5 SGB XII
-as of 2020-01-01. Since then, children's income no longer affects eligibility for or
-the amount of Grundsicherung im Alter. The 100,000 Euro threshold lives on in § 94
-Abs. 1a SGB XII, where it limits the recourse of the Sozialhilfeträger against the
-children: maintenance claims are only transferred to the Träger if a child's annual
+The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed § 43 Abs. 5 SGB XII as
+of 2020-01-01. Since then, children's income no longer affects eligibility for or the
+amount of Grundsicherung im Alter. The 100,000 Euro threshold lives on in § 94 Abs. 1a
+SGB XII, where it limits the recourse of the Sozialhilfeträger against the children:
+maintenance claims are only transferred to the Träger if a child's annual
 Gesamteinkommen exceeds 100,000 Euro.
 
-Because the recourse happens between the Sozialhilfeträger and the children, it does
-not change the benefit received by the claimant. GETTSIM therefore computes
-Grundsicherung im Alter independently of children's incomes for policy dates from
-2020-01-01 onwards. Maintenance payments that claimants actually receive reduce the
-benefit via the input `unterhalt__tatsächlich_erhaltener_betrag_m`, as in the years
-before. The fiscal burden shift from the Sozialhilfeträger to high-income children
-(i.e., the recourse itself) is not modeled.
+Because the recourse happens between the Sozialhilfeträger and the children, it does not
+change the benefit received by the claimant. GETTSIM therefore computes Grundsicherung
+im Alter independently of children's incomes for policy dates from 2020-01-01 onwards.
+Maintenance payments that claimants actually receive reduce the benefit via the input
+`unterhalt__tatsächlich_erhaltener_betrag_m`, as in the years before. The fiscal burden
+shift from the Sozialhilfeträger to high-income children (i.e., the recourse itself) is
+not modeled.
 
 ```{seealso}
 - § 43 SGB XII in its version up to 2019:

@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 )
 def einkommen_m_bis_2006(
     erwerbseinkommen_m: float,
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
@@ -47,6 +48,7 @@ def einkommen_m_bis_2006(
     total_income = (
         erwerbseinkommen_m
         + gesetzliche_rente_m
+        + einnahmen__renten__basisrente_m
         + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
@@ -75,6 +77,7 @@ def einkommen_m_bis_2006(
 )
 def einkommen_m_ab_2007_bis_2017(
     erwerbseinkommen_m: float,
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
@@ -98,6 +101,7 @@ def einkommen_m_ab_2007_bis_2017(
     total_income = (
         erwerbseinkommen_m
         + gesetzliche_rente_m
+        + einnahmen__renten__basisrente_m
         + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
