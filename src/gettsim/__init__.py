@@ -2,6 +2,37 @@
 
 from __future__ import annotations
 
+import os
+
+# GEP 9 opt-out propagation: a user who sets `GETTSIM_BEARTYPE_CLAW=0` expects
+# *all* beartype checking off. gettsim's own package claw is gated below, but
+# the perimeter `@beartype` decorators and the synthesized forwarder live in
+# ttsim and follow `TTSIM_BEARTYPE_CLAW`. Propagate the opt-out so a single env
+# var disables everything; an explicit `TTSIM_BEARTYPE_CLAW` set by the user
+# still wins, because `setdefault` does not overwrite it. This must run before
+# any ttsim import (the claw gate below imports `ttsim._beartype_conf`).
+if os.environ.get("GETTSIM_BEARTYPE_CLAW", "1") == "0":
+    os.environ.setdefault("TTSIM_BEARTYPE_CLAW", "0")
+
+# Register beartype's package claw before any gettsim submodule imports
+# so every gettsim.* module loads with runtime type checks installed via
+# INTERNAL_CONF. This claw is independent of ttsim's; both share the
+# same `INTERNAL_CONF` so violations under either claw surface as
+# beartype's own `BeartypeCallHintViolation`. User-facing constructors
+# inherited from ttsim keep their `@beartype(conf=...)` decorators that
+# map violations to the relevant `ttsim.exceptions.*` class.
+#
+# On by default (GEP 9, Option A): every `import gettsim` installs the
+# claw, so runtime type checks are active for everyone without any action.
+# The env var stays as an opt-out — set `GETTSIM_BEARTYPE_CLAW=0` to
+# disable the claw for one process or environment.
+if os.environ.get("GETTSIM_BEARTYPE_CLAW", "1") != "0":
+    from beartype.claw import beartype_package
+
+    from gettsim._beartype_conf import INTERNAL_CONF
+
+    beartype_package("gettsim", conf=INTERNAL_CONF)
+
 try:
     # Import the version from _version.py which is dynamically created by
     # setuptools-scm upon installing the project with pip.

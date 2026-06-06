@@ -1,8 +1,15 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from pathlib import Path
+from typing import Any, Literal
 
+import plotly.graph_objects as go
 import ttsim
+from ttsim.main_args import InputData, Labels, OrigPolicyObjects
+
+# Hoisted at runtime: beartype must resolve these on `@beartype`-decorated
+# `gettsim.plot.dag.*` boundaries that this module exposes.
+from ttsim.typing import DashedISOString, PolicyEnvironment, QNameData
 
 from gettsim import germany
 
@@ -41,14 +48,6 @@ GETTSIM_COLORMAP: dict[tuple[str, ...] | str, str] = {
     ("arbeitslosengeld_2",): "lime",
     ("vorrangprüfungen",): "green",
 }
-
-if TYPE_CHECKING:
-    from pathlib import Path
-    from typing import Any, Literal
-
-    import plotly.graph_objects as go
-    from ttsim.main_args import InputData, Labels, OrigPolicyObjects
-    from ttsim.typing import DashedISOString, PolicyEnvironment, QNameData
 
 
 def interface(

@@ -41,7 +41,7 @@ inputs:
             - 250.0
             - 0.0
           rente:
-            betrag_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
               - 0.0
             grundrente:
@@ -59,7 +59,7 @@ inputs:
         - 0.0
         - 0.0
       renten:
-        gesamt_m:
+        betrag_gesamt_m:
           - 0.0
           - 0.0
     elterngeld:
