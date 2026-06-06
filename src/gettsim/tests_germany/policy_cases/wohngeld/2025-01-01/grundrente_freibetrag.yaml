@@ -40,6 +40,8 @@ inputs:
           rente:
             betrag_m:
               - 500.0
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
             - 0.0
@@ -56,6 +58,8 @@ inputs:
         sonstige_private_vorsorge_m:
           - 0.0
         geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
           - 0.0
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -104,6 +108,8 @@ inputs:
           betrag_versicherter_m:
             - 40.0
       rente:
+        jahr_renteneintritt:
+          - 2024
         grundrente:
           grundrentenzeiten_monate:
             - 396

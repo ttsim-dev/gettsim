@@ -49,6 +49,9 @@ inputs:
             betrag_m:
               - 0.0
               - 0.0
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
             - 0.0
@@ -71,6 +74,9 @@ inputs:
           - 0.0
           - 0.0
         geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        basisrente_m:
           - 0.0
           - 0.0
         betriebliche_altersvorsorge_m:
@@ -139,6 +145,9 @@ inputs:
             - 150.0
             - 0.0
       rente:
+        jahr_renteneintritt:
+          - 2052
+          - 2076
         grundrente:
           grundrentenzeiten_monate:
             - 0
