@@ -2,14 +2,15 @@
 beitragsbemessungsgrenze_m:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
-    en: Maximum income subject to health insurance contributions
+    en: Maximum amount of income subject to health insurance contributions
   description:
     de: >-
       Die Beitragsbemessungsgrenze ist einheitlich in der gesamten BRD. Die
       Bemessungsgrenze gilt auch für die Pflegeversicherung.
     en: >-
-      The income threshold is uniform throughout the Federal Republic of Germany.
-      The threshold also applies to long-term care insurance.
+      The maximum amount of income subject to health insurance contributions is
+      uniform throughout the Federal Republic of Germany. It also applies to
+      long-term care insurance.
   unit: Euros
   reference_period: Month
   type: scalar
@@ -94,15 +95,15 @@ beitragsbemessungsgrenze_m:
 parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
-    en: Maximum income subject to health insurance contributions
+    en: Maximum amount of income subject to health insurance contributions
   description:
     de: >-
       Die Beitragsbemessungsgrenze für Krankenversicherung ist unterschiedlich
       zwischen West- und Ostdeutschland. Die Bemessungsgrenze gilt auch für die
       Pflegeversicherung.
     en: >-
-      The income threshold is different for health insurance between West and East
-      Germany. The threshold also applies to long-term care insurance.
+      The maximum amount of income subject to health insurance contributions differs
+      between West and East Germany. It also applies to long-term care insurance.
   unit: Euros
   reference_period: Month
   type: dict

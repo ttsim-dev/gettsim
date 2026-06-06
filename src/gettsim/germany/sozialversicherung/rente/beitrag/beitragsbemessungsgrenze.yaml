@@ -2,13 +2,14 @@
 beitragsbemessungsgrenze_y:
   name:
     de: Beitragsbemessungsgrenzen der gesetzlichen Rentenversicherung
-    en: Maximum income subject to pension insurance contributions
+    en: Maximum amount of income subject to pension insurance contributions
   description:
     de: >-
       Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung (Anlage 2 SGB
       VI).
     en: >-
-      Income threshold for statutory pension insurance (Anlage 2 SGB VI).
+      Maximum amount of income subject to statutory pension insurance contributions
+      (Anlage 2 SGB VI).
   unit: Euros
   reference_period: Year
   type: scalar
@@ -168,14 +169,14 @@ beitragsbemessungsgrenze_y:
 parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Rentenversicherung
-    en: Maximum income subject to pension insurance contributions
+    en: Maximum amount of income subject to pension insurance contributions
   description:
     de: >-
       Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung mit Unterschied
       zwischen West und Ost
     en: >-
-      Maximum income subject to statutory pension insurance contributions with
-      different values for West and East
+      Maximum amount of income subject to statutory pension insurance contributions,
+      with different values for West and East Germany.
   unit: Euros
   reference_period: Month
   type: dict
@@ -299,10 +300,14 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
 beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   name:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West)
-    en: Maximum income subject to statutory miners' pension insurance (West)
+    en: >-
+      Maximum amount of income subject to miners' pension insurance contributions
+      (West)
   description:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West).
-    en: Income threshold for statutory miners' pension insurance (West).
+    en: >-
+      Maximum amount of income subject to statutory miners' pension insurance
+      contributions (West).
   unit: Euros
   reference_period: Year
   type: scalar
@@ -609,14 +614,16 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
 beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   name:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (Ost)
-    en: Maximum income subject to statutory miners' pension insurance (East)
+    en: >-
+      Maximum amount of income subject to miners' pension insurance contributions
+      (East)
   description:
     de: >-
       Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung im
       Beitrittsgebiet (Anlage 2a SGB VI).
     en: >-
-      Income threshold for statutory miners' pension insurance in the territory of
-      the former GDR (Anlage 2a SGB VI).
+      Maximum amount of income subject to statutory miners' pension insurance
+      contributions in the territory of the former GDR (Anlage 2a SGB VI).
   unit: Euros
   reference_period: Year
   type: scalar
