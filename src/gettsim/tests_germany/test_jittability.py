@@ -69,7 +69,7 @@ def test_jittable(tree_path, fun, backend, xnp):
 
     if not fun.fail_msg_if_included:
         main(
-            main_target=("raw_results", "columns"),
+            main_target=("raw_results", "columns_with_internal_p_ids"),
             policy_date=policy_date,
             specialized_environment=SpecializedEnvironment.with_partialled_params_and_scalars(
                 env
