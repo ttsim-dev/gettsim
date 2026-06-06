@@ -3,17 +3,17 @@
 # Children's income and Grundsicherung im Alter
 
 Eligibility for Grundsicherung im Alter may depend on the income of the claimant's
-children. The legal mechanism changed fundamentally on 2020-01-01; GETTSIM models both
-regimes.
+children. The legal mechanism changed fundamentally on 2020-01-01; GETTSIM models only
+the regime until 2019.
 
 ## 2005–2019: Exclusion from the benefit (§ 43 SGB XII)
 
 Until the end of 2019, § 43 SGB XII (originally Abs. 2, later Abs. 5; BGBl. I 2003 S.
 3022\) excluded persons from Grundsicherung im Alter altogether if any of their children
-(or parents) had an annual Gesamteinkommen (§ 16 SGB IV) of 100,000 Euro or more.
-Excluded persons could claim Hilfe zum Lebensunterhalt (3. Kapitel SGB XII) instead,
-where the Sozialhilfeträger could take recourse against the children
-(Unterhaltsrückgriff, § 94 SGB XII).
+had an annual Gesamteinkommen (§ 16 SGB IV) of 100,000 Euro or more. Excluded persons
+could claim Hilfe zum Lebensunterhalt (3. Kapitel SGB XII) instead, where the
+Sozialhilfeträger could take recourse against the children (Unterhaltsrückgriff, § 94
+SGB XII).
 
 For policy dates up to 2019-12-31, GETTSIM sets `grundsicherung__im_alter__betrag_m` to
 zero for persons for whom
@@ -27,9 +27,6 @@ the sum of all children's incomes.
 ```{note}
 Caveats of the GETTSIM implementation:
 
-- GETTSIM uses `einkommensteuer__gesamteinkommen_y` as a proxy for the
-  Gesamteinkommen in the sense of § 16 SGB IV (the Summe der Einkünfte im Sinne des
-  Einkommensteuerrechts).
 - The law contains a Vermutungsregelung: the Sozialhilfeträger presumes that the
   children's income is below the threshold unless there are sufficient indications to
   the contrary (hinreichende Anhaltspunkte). GETTSIM abstracts from this procedural
@@ -38,7 +35,7 @@ Caveats of the GETTSIM implementation:
   relevant for Grundsicherung bei Erwerbsminderung. This is not implemented (see
   [#1145](https://github.com/ttsim-dev/gettsim/issues/1145)).
 - The fallback to Hilfe zum Lebensunterhalt of excluded persons and the
-  Unterhaltsrückgriff against their children are not modeled.
+  Unterhaltsrückgriff against their children are currently not modeled.
 ```
 
 ## Since 2020: Recourse limit only (Angehörigen-Entlastungsgesetz)
@@ -53,10 +50,8 @@ Gesamteinkommen exceeds 100,000 Euro.
 Because the recourse happens between the Sozialhilfeträger and the children, it does not
 change the benefit received by the claimant. GETTSIM therefore computes Grundsicherung
 im Alter independently of children's incomes for policy dates from 2020-01-01 onwards.
-Maintenance payments that claimants actually receive reduce the benefit via the input
-`unterhalt__tatsächlich_erhaltener_betrag_m`, as in the years before. The fiscal burden
-shift from the Sozialhilfeträger to high-income children (i.e., the recourse itself) is
-not modeled.
+The fiscal burden shift from the Sozialhilfeträger to high-income children (i.e., the
+recourse itself) is not modeled.
 
 ```{seealso}
 - § 43 SGB XII in its version up to 2019:
