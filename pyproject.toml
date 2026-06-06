@@ -53,13 +53,13 @@ Repository = "https://github.com/ttsim-dev/gettsim"
 Tracker = "https://github.com/ttsim-dev/gettsim/issues"
 
 [tool.hatch]
+version.source = "vcs"
+metadata.allow-direct-references = true
 build.hooks.vcs.version-file = "src/gettsim/_version.py"
 build.targets.sdist.exclude = [ "tests" ]
 build.targets.sdist.only-packages = true
 build.targets.wheel.only-include = [ "src" ]
 build.targets.wheel.sources = [ "src" ]
-metadata.allow-direct-references = true
-version.source = "vcs"
 
 [tool.pixi.dependencies]
 ipywidgets = "*"
@@ -139,6 +139,17 @@ python = "~=3.12.0"
 python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
+
+# Run internal tests with the package-wide beartype claws on. Both
+# gettsim's and ttsim's claws fire — gettsim transitively exercises
+# ttsim code paths and we want violations on either side to surface.
+# The claws are on by default (GEP 9, Option A; see each package's
+# `__init__.py`); set the env vars to 0 to opt out. Set explicitly here
+# so the test environment exercises the claws even if the default ever
+# changes.
+[tool.pixi.feature.tests.activation.env]
+GETTSIM_BEARTYPE_CLAW = "1"
+TTSIM_BEARTYPE_CLAW = "1"
 [tool.pixi.feature.tests.pypi-dependencies]
 pytest = "*"
 pytest-cov = "*"
@@ -173,7 +184,7 @@ gettsim = { path = ".", editable = true }
 jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
-dags = ">=0.5"
+dags = ">=0.6.0"
 ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
@@ -280,6 +291,7 @@ expand_tables = [
   "tool.pixi.feature.py312.dependencies",
   "tool.pixi.feature.py313.dependencies",
   "tool.pixi.feature.py314.dependencies",
+  "tool.pixi.feature.tests.activation.env",
   "tool.pixi.feature.tests.pypi-dependencies",
   "tool.pixi.feature.tests.target.linux-64.tasks",
   "tool.pixi.feature.tests.target.osx-64.tasks",
@@ -295,9 +307,6 @@ expand_tables = [
 ]
 
 [tool.ty]
-overrides = [
-  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
-]
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
 rules.division-by-zero = "error"
@@ -312,28 +321,31 @@ rules.possibly-missing-submodule = "error"
 rules.redundant-cast = "error"
 rules.unused-awaitable = "error"
 rules.unused-ignore-comment = "error"
+overrides = [
+  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
+]
 
 [tool.pytest]
+ini_options.testpaths = [ "src/gettsim/tests_germany" ]
+ini_options.norecursedirs = [ "docs" ]
 ini_options.addopts = [ "--pdbcls=pdbp:Pdb" ]
-ini_options.filterwarnings = [
-  "ignore:.*XMLParser*:DeprecationWarning",
-  "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
-  "ignore:.*Sorting*:FutureWarning",
-  "ignore:The TerminalReporter.writer attribute is",
-  "ignore:Repeated execution of the test suite",
-  "ignore:Using or importing the ABCs from 'collections'",
-  "ignore:Explicitly requested dtype .*64 requested in zeros_like",
-]
 ini_options.markers = [
-  "wip: Tests that are work-in-progress.",
-  "unit: Flag for unit tests which target mainly a single function.",
-  "integration: Flag for integration tests which may comprise of multiple unit tests.",
   "end_to_end: Flag for tests that cover the whole program.",
+  "integration: Flag for integration tests which may comprise of multiple unit tests.",
   "skipif_jax: skip test if backend is jax",
   "skipif_numpy: skip test if backend is numpy",
+  "unit: Flag for unit tests which target mainly a single function.",
+  "wip: Tests that are work-in-progress.",
 ]
-ini_options.norecursedirs = [ "docs" ]
-ini_options.testpaths = [ "src/gettsim/tests_germany" ]
+ini_options.filterwarnings = [
+  "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
+  "ignore:.*Sorting*:FutureWarning",
+  "ignore:.*XMLParser*:DeprecationWarning",
+  "ignore:Explicitly requested dtype .*64 requested in zeros_like",
+  "ignore:Repeated execution of the test suite",
+  "ignore:The TerminalReporter.writer attribute is",
+  "ignore:Using or importing the ABCs from 'collections'",
+]
 
 [tool.coverage.report]
 exclude_lines = [ "pragma: no cover", "if TYPE_CHECKING:", "^\\s*pass\\s*$" ]

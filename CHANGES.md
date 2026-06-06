@@ -23,6 +23,18 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   Alter. ({ghuser}`MImmesberger`)
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
   ({ghuser}`MImmesberger`)
+- {gh}`1174` Add historical values since 1949 for Beitragsbemessungsgrenzen (incl. new
+  parameter for knappschaftliche Rentenversicherung Ost) and Durchschnittsentgelt.
+  Replace `beitragsbemessungsgrenze_m` with `beitragsbemessungsgrenze_y`.
+  ({ghuser}`MImmesberger`)
+- {gh}`1185` Adopt the package-wide beartype claw and the typed exception hierarchy
+  re-exported from ttsim, so malformed input is rejected with curated errors at the
+  user-facing boundaries. ({ghuser}`hmgaudecker`)
+- {gh}`1183` Add Werbungskostenpauschbetrag for sonstige Einkünfte.
+  ({ghuser}`MImmesberger`)
+- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
+  variable `einnahmen.renten.basisrente_m` for Basisrente / Rürup-Rente.
+  ({ghuser}`MImmesberger`)
 - {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
   ({ghuser}`MImmesberger`)
 - {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.

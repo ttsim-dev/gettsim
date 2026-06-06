@@ -49,7 +49,11 @@ def cached_specialized_environment(
 def test_jittable(tree_path, fun, backend, xnp):
     policy_date = min(fun.end_date, datetime.date.today())  # noqa: DTZ011
     qname = dt.qname_from_tree_path((*tree_path[:-2], fun.leaf_name))
-    env = {qname: cached_specialized_environment(policy_date, backend)[qname]}
+    env = {
+        qname: cached_specialized_environment(policy_date=policy_date, backend=backend)[
+            qname
+        ]
+    }
 
     processed_data = {}
     for arg_name in get_free_arguments(env[qname]):
@@ -63,8 +67,7 @@ def test_jittable(tree_path, fun, backend, xnp):
         else:
             raise ValueError(f"Unknown column type: {arg.annotation}")
 
-    func = env[qname].func if isinstance(env[qname], functools.partial) else env[qname]  # ty: ignore[unresolved-attribute]
-    if not func.fail_msg_if_included:
+    if not fun.fail_msg_if_included:
         main(
             main_target=("raw_results", "columns"),
             policy_date=policy_date,
