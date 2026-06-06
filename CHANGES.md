@@ -17,7 +17,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 - {gh}`1178` Add Grundrentenfreibetrag to Wohngeld calculation. ({ghuser}`MImmesberger`)
 - {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen is 100,000 €
-  or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
+  or more (§ 43 Abs. 5 SGB XII, in force 2005–2019; repealed by the
+  Angehörigen-Entlastungsgesetz). ({ghuser}`MImmesberger`)
 - {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
   Vertikalmethode. ({ghuser}`MImmesberger`)
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
@@ -25,6 +26,18 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 - {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
   Alter. ({ghuser}`MImmesberger`)
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
+  ({ghuser}`MImmesberger`)
+- {gh}`1174` Add historical values since 1949 for Beitragsbemessungsgrenzen (incl. new
+  parameter for knappschaftliche Rentenversicherung Ost) and Durchschnittsentgelt.
+  Replace `beitragsbemessungsgrenze_m` with `beitragsbemessungsgrenze_y`.
+  ({ghuser}`MImmesberger`)
+- {gh}`1185` Adopt the package-wide beartype claw and the typed exception hierarchy
+  re-exported from ttsim, so malformed input is rejected with curated errors at the
+  user-facing boundaries. ({ghuser}`hmgaudecker`)
+- {gh}`1183` Add Werbungskostenpauschbetrag for sonstige Einkünfte.
+  ({ghuser}`MImmesberger`)
+- {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
+  variable `einnahmen.renten.basisrente_m` for Basisrente / Rürup-Rente.
   ({ghuser}`MImmesberger`)
 - {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
   ({ghuser}`MImmesberger`)

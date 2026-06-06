@@ -15,6 +15,15 @@ jobs:
   run-tests:
     name: Run tests for ${{ matrix.os }} on ${{ matrix.environment }}
     runs-on: ${{ matrix.os }}
+    # Run CI with both package-wide beartype claws on (gettsim transitively
+    # exercises ttsim, so we want violations on either side to surface).
+    # The claws are on by default (GEP 9, Option A; see each package's
+    # `__init__.py`); set the env vars to 0 to opt out. We set them
+    # explicitly here so CI exercises the claws even if the default ever
+    # changes.
+    env:
+      GETTSIM_BEARTYPE_CLAW: '1'
+      TTSIM_BEARTYPE_CLAW: '1'
     strategy:
       fail-fast: false
       matrix:
@@ -71,7 +80,7 @@ jobs:
         shell: bash -el {0}
       - name: Upload coverage reports
         if: runner.os == 'Linux' && matrix.environment == 'py314'
-        uses: codecov/codecov-action@v6.0.0
+        uses: codecov/codecov-action@v6.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   run-ty:

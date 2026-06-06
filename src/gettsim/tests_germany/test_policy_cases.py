@@ -151,7 +151,7 @@ def test_top_level_elements_not_repeated_in_paths(
     )
 
     # Step 3: Create fake input data from template
-    fake_input = _create_fake_input_data_from_template(template, xnp)
+    fake_input = _create_fake_input_data_from_template(template_tree=template, xnp=xnp)
 
     # Step 4: Call main with fake input data
     gettsim_objects = main(

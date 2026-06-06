@@ -3,9 +3,9 @@ info:
   note: |-
     Retired couple (Person0 age 70, Person1 age 68), both past Regelaltersgrenze, no
     income. Person2 is their adult child (age 40) living in a separate household with
-    annual gross income of 72,000 EUR (Gesamtbetrag der Einkünfte < 100,000 EUR).
-    §43 SGB XII: because no child's Gesamteinkommen (§16 SGB IV) exceeds 100,000 EUR,
-    the parents remain eligible for Grundsicherung im Alter.
+    monthly gross earnings of 10,000 EUR (annual Gesamtbetrag der Einkünfte >
+    100,000 EUR). §43 SGB XII: because a child's Gesamteinkommen (§16 SGB IV) exceeds
+    100,000 EUR, both parents are excluded from Grundsicherung im Alter.
   precision_atol: 0.01
   source: Regression test.
 inputs:
@@ -27,11 +27,7 @@ inputs:
       - 0
       - 0
       - 0
-    bürgergeld:
-      bezug_im_vorjahr:
-        - false
-        - false
-        - false
+    arbeitslosengeld_2:
       p_id_einstandspartner:
         - 1
         - 0
@@ -106,7 +102,7 @@ inputs:
       bruttolohn_m:
         - 0.0
         - 0.0
-        - 6000.0
+        - 10000.0
       kapitalerträge_m:
         - 0.0
         - 0.0
@@ -117,6 +113,10 @@ inputs:
           - 0.0
           - 0.0
         geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
           - 0.0
           - 0.0
           - 0.0
@@ -155,9 +155,9 @@ inputs:
         - -1
         - 1
     geburtsjahr:
-      - 1956
-      - 1958
-      - 1986
+      - 1948
+      - 1950
+      - 1978
     geburtsmonat:
       - 1
       - 1
@@ -229,9 +229,9 @@ inputs:
             - 0
             - 0
         jahr_renteneintritt:
-          - 2021
-          - 2024
-          - 2050
+          - 2013
+          - 2015
+          - 2043
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -289,10 +289,10 @@ outputs:
   grundsicherung:
     im_alter:
       hat_kind_mit_einkommen_über_einkommensgrenze:
-        - false
-        - false
+        - true
+        - true
         - false
       betrag_m:
-        - 731.0
-        - 731.0
+        - 0.0
+        - 0.0
         - 0.0

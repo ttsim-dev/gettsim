@@ -69,6 +69,9 @@ inputs:
         geförderte_private_vorsorge_m:
           - 0.0
           - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
@@ -95,11 +98,6 @@ inputs:
       p_id_elternteil_2:
         - -1
         - -1
-    grundsicherung:
-      im_alter:
-        hat_kind_mit_einkommen_über_einkommensgrenze:
-          - false
-          - false
     geburtsjahr:
       - 1968
       - 1956

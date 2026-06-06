@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 )
 def einkommen_m_bis_2006(
     erwerbseinkommen_m: float,
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
@@ -47,6 +48,7 @@ def einkommen_m_bis_2006(
     total_income = (
         erwerbseinkommen_m
         + gesetzliche_rente_m
+        + einnahmen__renten__basisrente_m
         + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
@@ -75,6 +77,7 @@ def einkommen_m_bis_2006(
 )
 def einkommen_m_ab_2007_bis_2017(
     erwerbseinkommen_m: float,
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
@@ -98,6 +101,7 @@ def einkommen_m_ab_2007_bis_2017(
     total_income = (
         erwerbseinkommen_m
         + gesetzliche_rente_m
+        + einnahmen__renten__basisrente_m
         + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
@@ -212,6 +216,7 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
 
 @policy_function(start_date="2018-01-01")
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
+    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
@@ -230,10 +235,12 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 
     - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
     - Zertifizierte Altersvorsorge / Riester (Abs. 5 Satz 2 Nr. 2)
+    - Basisrente / Rürup (Abs. 5 Satz 1: freiwillig, lebenslang)
     - Sonstige private Altersvorsorge (Abs. 5 Satz 1: freiwillig, lebenslang)
     """
     zusätzliche_altersvorsorge_m = (
-        einnahmen__renten__sonstige_private_vorsorge_m
+        einnahmen__renten__basisrente_m
+        + einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
     )

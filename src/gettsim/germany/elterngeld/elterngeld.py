@@ -302,7 +302,7 @@ def anrechenbarer_betrag_m(
 @policy_function()
 def jüngstes_kind_oder_mehrling(
     alter_monate: int,
-    familie__alter_monate_jüngstes_mitglied_fg: float,
+    familie__alter_monate_jüngstes_mitglied_fg: int,
     ist_leistungsbegründendes_kind: bool,
 ) -> bool:
     """Check if person is the youngest child in the household or a twin, triplet, etc.

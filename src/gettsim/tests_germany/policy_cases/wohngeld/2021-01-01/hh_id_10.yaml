@@ -32,7 +32,7 @@ inputs:
           alle_weiteren_m:
             - 0.0
           rente:
-            betrag_m:
+            steuerpflichtige_einnahmen_m:
               - 0.0
       gemeinsam_veranlagt:
         - false
@@ -44,7 +44,7 @@ inputs:
       renten:
         gesetzliche_m:
           - 0.0
-        gesamt_m:
+        betrag_gesamt_m:
           - 0.0
     elterngeld:
       anrechenbarer_betrag_m:

@@ -1,0 +1,63 @@
+(besteuerung-renteneinkünfte)=
+
+# Taxation of pension income
+
+The taxation of pension income depends on how contributions were taxed during the
+accumulation period. Pension income is taxed under one of two regimes:
+
+- **Deferred taxation** (nachgelagerte Besteuerung): Pension income is fully (or
+  partially) taxed when payout is received.
+- **Ertragsanteilbesteuerung**: Pension income is taxed based on a fixed share of the
+  notional return.
+
+In principle, pensions that were favourably taxed during the accumulation phase (i.e.,
+contributions were fully or partially income tax-deductible) are taxed via the
+deferred-taxation schemes. Pensions for which contributions were paid from already-taxed
+income are taxed via the Ertragsanteilbesteuerung.
+
+Before 2005, all 1st-pillar pensions were taxed via the Ertragsanteilbesteuerung. The
+*Alterseinkünftegesetz* (AltEinkG, BGBl. 2004 I Nr. 33) moved them to the cohort-based
+deferred-taxation regime from 2005 onwards. Other deferred-taxation regimes (§ 22 Nr. 5
+EStG, § 19 EStG) for occupational and Riester pensions were unaffected.
+
+## Mapping products to GETTSIM input columns
+
+### 1st pillar (statutory)
+
+1st pillar pensions are subject to deferred taxation since 2005 (AltEinkG, BGBl. 2004 I
+Nr. 33). There is a phase-in based on the year of retirement that determines the taxable
+share of the pension (Besteuerungsanteil, § 22 Nr. 1 Satz 3 Buchst. a aa EStG).
+
+You can pass them to GETTSIM via the following inputs:
+
+- `einnahmen.renten.gesetzliche_m` — Gesetzliche Rentenversicherung (DRV).
+- `einnahmen.renten.aus_berufsständischen_versicherungen_m` — Berufsständisches
+  Versorgungswerk (Ärzte, Anwälte, Apotheker, etc.).
+
+### 2nd pillar (occupational)
+
+Occupational pensions are fully taxable — either as Versorgungsbezüge under § 19 EStG
+(Direktzusage, Unterstützungskasse) or as sonstige Einkünfte under § 22 Nr. 5 EStG
+(Pensionskasse, Pensionsfonds, Direktversicherung).
+
+You can pass them to GETTSIM via the following input:
+
+- `einnahmen.renten.betriebliche_altersvorsorge_m` — Betriebliche Altersversorgung.
+
+### 3rd pillar (private)
+
+Private pensions are subject to deferred taxation or Ertragsanteilbesteuerung depending
+on how contributions were taxed during accumulation.
+
+The following inputs are taxed under the deferred-taxation regime:
+
+- `einnahmen.renten.basisrente_m` — Basisrente / Rürup-Rente. Taxed using the
+  Besteuerungsanteil (§ 22 Nr. 1 Satz 3 Buchst. a aa EStG).
+- `einnahmen.renten.geförderte_private_vorsorge_m` — Riester-Rente and other contracts
+  subsidised via § 10a EStG. Fully taxable (§ 22 Nr. 5 EStG).
+
+Private pension contracts that were not subsidised during accumulation are taxed via the
+Ertragsanteilbesteuerung (§ 22 Nr. 1 Satz 3 Buchst. a bb EStG):
+
+- `einnahmen.renten.sonstige_private_vorsorge_m` — Kapitallebensversicherung and other
+  private pension plans outside Basisrente / Riester.

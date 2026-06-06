@@ -129,8 +129,8 @@ def tarif_klassen_5_und_6(
 ) -> float:
     """Lohnsteuer for Lohnsteuerklassen 5 and 6."""
     basis = basis_für_klassen_5_6(
-        einkommen_y,
-        einkommensteuer__parameter_einkommensteuertarif,
+        einkommen_y=einkommen_y,
+        parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
         xnp=xnp,
     )
     max_lohnsteuer = piecewise_polynomial(
@@ -214,8 +214,8 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
     )
 
     basis = basis_für_klassen_5_6(
-        einkommen_abzüglich_kinderfreibetrag_soli,
-        einkommensteuer__parameter_einkommensteuertarif,
+        einkommen_y=einkommen_abzüglich_kinderfreibetrag_soli,
+        parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
         xnp=xnp,
     )
     max_lohnsteuer = piecewise_polynomial(

@@ -20,8 +20,12 @@ if TYPE_CHECKING:
 from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 
 
-@policy_function(start_date="2005-01-01")
-def betrag_m(
+@policy_function(
+    start_date="2005-01-01",
+    end_date="2019-12-31",
+    leaf_name="betrag_m",
+)
+def betrag_m_mit_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze: bool,
@@ -37,6 +41,25 @@ def betrag_m(
         hat_kind_mit_einkommen_über_einkommensgrenze
         or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
     ):
+        return 0.0
+    else:
+        return anspruchshöhe_m
+
+
+@policy_function(start_date="2020-01-01", leaf_name="betrag_m")
+def betrag_m_ohne_kindeseinkommensgrenze(
+    anspruchshöhe_m: float,
+    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+) -> float:
+    """Grundsicherung im Alter after Vorrangprüfung.
+
+    The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed §43 Abs. 5 SGB
+    XII as of 2020-01-01. Since then, children's income no longer affects eligibility;
+    the 100,000 Euro threshold only limits the recourse of the Sozialhilfeträger
+    against the children (§94 Abs. 1a SGB XII).
+    §2 Abs. 1 SGB XII: Vorrangprüfung.
+    """
+    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         return 0.0
     else:
         return anspruchshöhe_m
@@ -273,7 +296,7 @@ def vermögensfreibetrag_eg(
     )
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2019-12-31")
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     einkommensteuer__gesamteinkommen_y: float,
     einkommensgrenze_kinder: float,
@@ -285,34 +308,38 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
-def anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1(
+@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
     p_id: int,
-) -> int:
+) -> bool:
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
-def anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2(
+@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
     p_id: int,
-) -> int:
+) -> bool:
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", end_date="2019-12-31")
 def hat_kind_mit_einkommen_über_einkommensgrenze(
-    anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1: int,
-    anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2: int,
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,
 ) -> bool:
     """Whether any first-degree child has income above the threshold.
+
+    Children point to their parents via `familie__p_id_elternteil_1` and
+    `familie__p_id_elternteil_2`; both slots are covered so that a parent is caught
+    regardless of which slot they occupy in the child's record.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
     return (
-        anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_1
-        + anzahl_kinder_mit_einkommen_über_einkommensgrenze_über_elternteil_2
-    ) > 0
+        hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1
+        or hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2
+    )

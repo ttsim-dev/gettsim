@@ -143,6 +143,13 @@ einkommensgrenze_kinder:
   2005-01-01:
     value: 100000
     reference: § 43 Abs. 2 SGB XII, BGBl. I 2003 S. 3022
+  2020-01-01:
+    reference: Art. 1 Angehörigen-Entlastungsgesetz, BGBl. I 2019 S. 2135
+    note: >-
+      § 43 Abs. 5 SGB XII wurde aufgehoben. Seither schließt das Einkommen der Kinder
+      den Anspruch auf Grundsicherung im Alter nicht mehr aus; die 100.000-Euro-Grenze
+      begrenzt nur noch den Unterhaltsrückgriff des Sozialhilfeträgers gegenüber den
+      Kindern (§ 94 Abs. 1a SGB XII).
 mehrbedarf_bei_schwerbehinderungsgrad_g:
   name:
     de: Mehrbedarf bei Schwerbehinderung

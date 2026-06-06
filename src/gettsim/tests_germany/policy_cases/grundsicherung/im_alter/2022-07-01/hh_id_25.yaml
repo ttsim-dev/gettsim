@@ -54,6 +54,9 @@ inputs:
         geförderte_private_vorsorge_m:
           - 0.0
           - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
@@ -92,15 +95,6 @@ inputs:
     hh_id:
       - 25
       - 25
-    grundsicherung:
-      im_alter:
-        hat_kind_mit_einkommen_über_einkommensgrenze:
-          - false
-          - false
-      hilfe_zum_lebensunterhalt:
-        überschusseinkommen_m:
-          - 0.0
-          - 0.0
     kindergeld:
       p_id_empfänger:
         - -1
