@@ -1,53 +1,69 @@
 ---
 info:
   note: |-
-    Two retired couples in separate households. Couple A (persons 0, 1) receives
-    100 EUR/month in supplementary pension (50 betriebliche + 50 Riester on person 0),
-    which is fully covered by the Freibetrag (§ 82 Abs. 4, 5 SGB XII: first 100 EUR
-    are exempt). Couple B (persons 2, 3) has no supplementary pension. Both couples
-    have the same gesetzliche Rente, so the identical betrag_m_eg demonstrates that
-    the Freibetrag fully offsets the supplementary income at the couple level.
+    Retired couple (Person0 age 70, Person1 age 68), both past Regelaltersgrenze, no
+    income. Person2 is their adult child (age 40) living in a separate household with
+    monthly gross earnings of 6,000 EUR (annual Gesamtbetrag der Einkünfte <
+    100,000 EUR). §43 SGB XII: because no child's Gesamteinkommen (§16 SGB IV) exceeds
+    100,000 EUR, the parents remain eligible for Grundsicherung im Alter.
   precision_atol: 0.01
-  source: Self-created test case
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
     alter:
       - 70
-      - 67
-      - 70
-      - 67
+      - 68
+      - 40
     alter_monate:
-      - 840
-      - 804
-      - 840
-      - 804
-    bürgergeld:
-      bezug_im_vorjahr:
-        - false
-        - false
-        - false
-        - false
+      - 846
+      - 822
+      - 486
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 40.0
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+    arbeitslosengeld_2:
       p_id_einstandspartner:
         - 1
         - 0
-        - 3
-        - 2
-      überschusseinkommen_m_eg:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
+        - -1
     einkommensteuer:
       betrag_y_sn:
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
+      abzüge:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+          - 0.0
       einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
         aus_selbstständiger_arbeit:
           betrag_m:
             - 0.0
+            - 0.0
+            - 0.0
+          betrag_y:
             - 0.0
             - 0.0
             - 0.0
@@ -56,37 +72,47 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+          betrag_y:
             - 0.0
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
         sonstige:
           alle_weiteren_m:
             - 0.0
             - 0.0
             - 0.0
+          alle_weiteren_y:
             - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
+              - 65
       gemeinsam_veranlagt:
         - true
         - true
-        - true
-        - true
+        - false
     einnahmen:
       bruttolohn_m:
         - 0.0
         - 0.0
-        - 0.0
-        - 0.0
+        - 6000.0
       kapitalerträge_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
-          - 50.0
           - 0.0
           - 0.0
           - 0.0
         geförderte_private_vorsorge_m:
-          - 50.0
           - 0.0
           - 0.0
           - 0.0
@@ -94,14 +120,11 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
         aus_berufsständischen_versicherungen_m:
-          - 0.0
           - 0.0
           - 0.0
           - 0.0
@@ -110,9 +133,7 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
       betrag_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -121,29 +142,23 @@ inputs:
         - false
         - false
         - false
-        - false
       p_id_ehepartner:
         - 1
         - 0
-        - 3
-        - 2
+        - -1
       p_id_elternteil_1:
         - -1
         - -1
-        - -1
-        - -1
+        - 0
       p_id_elternteil_2:
         - -1
         - -1
-        - -1
-        - -1
+        - 1
     geburtsjahr:
-      - 1953
-      - 1956
-      - 1953
-      - 1956
+      - 1948
+      - 1950
+      - 1978
     geburtsmonat:
-      - 1
       - 1
       - 1
       - 1
@@ -151,22 +166,16 @@ inputs:
       - 1
       - 1
       - 1
-      - 1
     hh_id:
       - 0
       - 0
       - 1
-      - 1
-    grundsicherung:
-      im_alter:
-        hat_kind_mit_einkommen_über_einkommensgrenze:
-          - false
-          - false
-          - false
-          - false
     kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
       p_id_empfänger:
-        - -1
         - -1
         - -1
         - -1
@@ -174,15 +183,12 @@ inputs:
       - 0
       - 1
       - 2
-      - 3
     schwerbehindert_grad_g:
-      - false
       - false
       - false
       - false
     solidaritätszuschlag:
       betrag_y_sn:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -192,39 +198,42 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
       beiträge_versicherter_m:
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
       rente:
         altersrente:
           betrag_m:
-            - 400.0
-            - 500.0
-            - 400.0
-            - 500.0
+            - 0.0
+            - 0.0
+            - 0.0
         bezieht_rente:
           - true
           - true
-          - true
-          - true
+          - false
         erwerbsminderung:
           betrag_m:
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
         grundrente:
           grundrentenzeiten_monate:
-            - 500
-            - 500
-            - 500
-            - 500
+            - 0
+            - 0
+            - 0
+        jahr_renteneintritt:
+          - 2013
+          - 2015
+          - 2043
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
-        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -233,38 +242,57 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-        - 0.0
+    vermögen_bg:
+      - 0.0
+      - 0.0
+      - 0.0
     vermögen_eg:
       - 0.0
       - 0.0
       - 0.0
+    vermögen_wthh:
       - 0.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
+        - false
     wohnen:
       bewohnt_eigentum_hh:
         - false
         - false
         - false
-        - false
       bruttokaltmiete_m_hh:
-        - 400.0
-        - 400.0
-        - 400.0
-        - 400.0
+        - 350.0
+        - 350.0
+        - 500.0
       heizkosten_m_hh:
-        - 80.0
-        - 80.0
-        - 80.0
-        - 80.0
+        - 100.0
+        - 100.0
+        - 100.0
       wohnfläche_hh:
         - 60.0
         - 60.0
-        - 60.0
-        - 60.0
+        - 50.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+      mietstufe_hh:
+        - 3
+        - 3
+        - 3
 outputs:
   grundsicherung:
     im_alter:
-      anspruchshöhe_m:
-        - 481.0
-        - 411.0
-        - 481.0
-        - 411.0
+      hat_kind_mit_einkommen_über_einkommensgrenze:
+        - false
+        - false
+        - false
+      betrag_m:
+        - 599.0
+        - 599.0
+        - 0.0

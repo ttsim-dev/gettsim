@@ -17,16 +17,38 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import policy_function
+from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 
 
 @policy_function(start_date="2005-01-01")
 def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze: bool,
 ) -> float:
-    """Grundsicherung im Alter after Vorrangprüfung (§2 Abs. 1 SGB XII)."""
-    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+    """Grundsicherung im Alter after Vorrangprüfung and children's income test.
+
+    §43 SGB XII (BGBl. I 2003 S. 3022): Persons are excluded from Grundsicherung im
+    Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
+    exceeding the threshold.
+    §2 Abs. 1 SGB XII: Vorrangprüfung.
+
+    The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed §43 Abs. 5 SGB
+    XII as of 2020-01-01; since then the 100,000 Euro threshold only limits the
+    Unterhaltsrückgriff of the Sozialhilfeträger against the children (§94 Abs. 1a SGB
+    XII). Because the Rückgriff is typically enforced but not modeled in GETTSIM, the
+    exclusion remains the default also after 2019. Set
+    `hat_kind_mit_einkommen_über_einkommensgrenze` to False via the input data to turn
+    it off. See the documentation page on children's income and Grundsicherung im
+    Alter for details.
+    """
+    # TODO (@MImmesberger): Model the Unterhaltsrückgriff of the Sozialhilfeträger
+    # against children with income above 100,000 Euro (§94 Abs. 1a SGB XII, from 2020).
+    # https://github.com/ttsim-dev/gettsim/issues/1197
+    if (
+        hat_kind_mit_einkommen_über_einkommensgrenze
+        or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
+    ):
         return 0.0
     else:
         return anspruchshöhe_m
@@ -260,4 +282,53 @@ def vermögensfreibetrag_eg(
     return (
         parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_eg
         + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_eg
+    )
+
+
+@policy_function(start_date="2005-01-01")
+def hat_gesamteinkommen_über_kindeseinkommensgrenze(
+    einkommensteuer__gesamteinkommen_y: float,
+    einkommensgrenze_kinder: float,
+) -> bool:
+    """Whether a person's Gesamteinkommen exceeds the children's income threshold.
+
+    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    """
+    return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
+
+
+@agg_by_p_id_function(agg_type=AggType.ANY)
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
+    hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
+    familie__p_id_elternteil_1: int,
+    p_id: int,
+) -> bool:
+    pass
+
+
+@agg_by_p_id_function(agg_type=AggType.ANY)
+def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
+    hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
+    familie__p_id_elternteil_2: int,
+    p_id: int,
+) -> bool:
+    pass
+
+
+@policy_function(start_date="2005-01-01")
+def hat_kind_mit_einkommen_über_einkommensgrenze(
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,
+) -> bool:
+    """Whether any first-degree child has income above the threshold.
+
+    Children point to their parents via `familie__p_id_elternteil_1` and
+    `familie__p_id_elternteil_2`; both slots are covered so that a parent is caught
+    regardless of which slot they occupy in the child's record.
+
+    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    """
+    return (
+        hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1
+        or hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2
     )

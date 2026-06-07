@@ -79,6 +79,10 @@ inputs:
       - 1
     hh_id:
       - 102
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
     kindergeld:
       p_id_empfänger:
         - -1

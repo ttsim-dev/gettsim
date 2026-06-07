@@ -120,6 +120,40 @@ anrechnungsfreier_anteil_zusätzliche_altersvorsorge:
         slope: 1
       - interval: '[100, inf)'
         slope: 0.3
+einkommensgrenze_kinder:
+  name:
+    de: >-
+      Gesamteinkommensgrenze der Kinder ersten Grades, ab der Grundsicherungsbezug der
+      Eltern ausgeschlossen ist
+    en: >-
+      Total income threshold of first-degree children, above which parents are excluded
+      from receiving Grundsicherung
+  description:
+    de: >-
+      § 43 SGB XII (BGBl. I 2003 S. 3022).
+      Erreicht oder übersteigt das jährliche Gesamteinkommen (§ 16 SGB IV) eines Kindes
+      diesen Betrag, haben die Eltern keinen Anspruch auf Grundsicherung im Alter.
+    en: >-
+      § 43 SGB XII (BGBl. I 2003 S. 3022).
+      If the annual Gesamteinkommen (§ 16 SGB IV) of any child reaches or exceeds this
+      threshold, the parents are excluded from Grundsicherung im Alter.
+  unit: Euros
+  reference_period: Year
+  type: scalar
+  2005-01-01:
+    value: 100000
+    reference: § 43 Abs. 2 SGB XII, BGBl. I 2003 S. 3022
+  2020-01-01:
+    value: 100000
+    reference: Art. 1 Angehörigen-Entlastungsgesetz, BGBl. I 2019 S. 2135
+    note: >-
+      § 43 Abs. 5 SGB XII wurde aufgehoben. Seither schließt das Einkommen der Kinder
+      den Anspruch auf Grundsicherung im Alter nicht mehr aus; die 100.000-Euro-Grenze
+      begrenzt nur noch den Unterhaltsrückgriff des Sozialhilfeträgers gegenüber den
+      Kindern (§ 94 Abs. 1a SGB XII). Da der Rückgriff in der Praxis üblicherweise
+      geltend gemacht wird, in GETTSIM aber nicht modelliert ist, bleibt der Ausschluss
+      auch ab 2020 die Standardannahme.
+      Siehe https://github.com/ttsim-dev/gettsim/issues/1197
 mehrbedarf_bei_schwerbehinderungsgrad_g:
   name:
     de: Mehrbedarf bei Schwerbehinderung
