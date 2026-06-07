@@ -20,12 +20,8 @@ if TYPE_CHECKING:
 from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 
 
-@policy_function(
-    start_date="2005-01-01",
-    end_date="2019-12-31",
-    leaf_name="betrag_m",
-)
-def betrag_m_mit_kindeseinkommensgrenze(
+@policy_function(start_date="2005-01-01")
+def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze: bool,
@@ -36,30 +32,23 @@ def betrag_m_mit_kindeseinkommensgrenze(
     Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
     exceeding the threshold.
     §2 Abs. 1 SGB XII: Vorrangprüfung.
+
+    The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed §43 Abs. 5 SGB
+    XII as of 2020-01-01; since then the 100,000 Euro threshold only limits the
+    Unterhaltsrückgriff of the Sozialhilfeträger against the children (§94 Abs. 1a SGB
+    XII). Because the Rückgriff is typically enforced but not modeled in GETTSIM, the
+    exclusion remains the default also after 2019. Set
+    `hat_kind_mit_einkommen_über_einkommensgrenze` to False via the input data to turn
+    it off. See the documentation page on children's income and Grundsicherung im
+    Alter for details.
     """
+    # TODO (@MImmesberger): Model the Unterhaltsrückgriff of the Sozialhilfeträger
+    # against children with income above 100,000 Euro (§94 Abs. 1a SGB XII, from 2020).
+    # https://github.com/ttsim-dev/gettsim/issues/1197
     if (
         hat_kind_mit_einkommen_über_einkommensgrenze
         or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
     ):
-        return 0.0
-    else:
-        return anspruchshöhe_m
-
-
-@policy_function(start_date="2020-01-01", leaf_name="betrag_m")
-def betrag_m_ohne_kindeseinkommensgrenze(
-    anspruchshöhe_m: float,
-    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
-) -> float:
-    """Grundsicherung im Alter after Vorrangprüfung.
-
-    The Angehörigen-Entlastungsgesetz (BGBl. I 2019 S. 2135) repealed §43 Abs. 5 SGB
-    XII as of 2020-01-01. Since then, children's income no longer affects eligibility;
-    the 100,000 Euro threshold only limits the recourse of the Sozialhilfeträger
-    against the children (§94 Abs. 1a SGB XII).
-    §2 Abs. 1 SGB XII: Vorrangprüfung.
-    """
-    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         return 0.0
     else:
         return anspruchshöhe_m
@@ -296,7 +285,7 @@ def vermögensfreibetrag_eg(
     )
 
 
-@policy_function(start_date="2005-01-01", end_date="2019-12-31")
+@policy_function(start_date="2005-01-01")
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     einkommensteuer__gesamteinkommen_y: float,
     einkommensgrenze_kinder: float,
@@ -308,7 +297,7 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+@agg_by_p_id_function(agg_type=AggType.ANY)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
@@ -317,7 +306,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY, end_date="2019-12-31")
+@agg_by_p_id_function(agg_type=AggType.ANY)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
@@ -326,7 +315,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01", end_date="2019-12-31")
+@policy_function(start_date="2005-01-01")
 def hat_kind_mit_einkommen_über_einkommensgrenze(
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,
