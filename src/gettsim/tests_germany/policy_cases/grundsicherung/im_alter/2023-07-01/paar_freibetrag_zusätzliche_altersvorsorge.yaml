@@ -157,6 +157,13 @@ inputs:
       - 0
       - 1
       - 1
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
+          - false
+          - false
     kindergeld:
       p_id_empfänger:
         - -1

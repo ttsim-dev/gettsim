@@ -17,11 +17,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 - {gh}`1178` Add Grundrentenfreibetrag to Wohngeld calculation. ({ghuser}`MImmesberger`)
 - {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen (§ 16 SGB
-  IV) is 100,000 € or more (§ 43 Abs. 5 SGB XII). Applies to policy dates 2005–2019; the
-  Angehörigen-Entlastungsgesetz repealed the exclusion as of 2020, leaving the 100,000 €
-  limit only as a restriction on the Unterhaltsrückgriff against the children (§ 94 Abs.
-  1a SGB XII), which does not affect the benefit. Add a documentation page explaining
-  both regimes. ({ghuser}`MImmesberger`)
+  IV) is 100,000 € or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
 - {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
   Vertikalmethode. ({ghuser}`MImmesberger`)
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.

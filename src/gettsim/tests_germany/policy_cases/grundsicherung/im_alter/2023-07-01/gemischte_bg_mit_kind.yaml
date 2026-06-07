@@ -140,6 +140,12 @@ inputs:
       - 0
       - 0
       - 0
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
+          - false
     kindergeld:
       in_ausbildung:
         - false
