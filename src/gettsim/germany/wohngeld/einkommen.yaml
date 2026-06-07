@@ -233,3 +233,34 @@ freibetrag_bei_behinderung_pauschal_y:
   2020-01-01:
     reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
     value: 1800
+anrechnungsfreier_anteil_gesetzliche_rente:
+  name:
+    de: Anrechnungsfreier Anteil der staatlichen Rente
+    en: Share of public pension not subject to transfer withdrawal
+  description:
+    de: >-
+      § 17a WoGG (eingeführt durch Art. 4 Grundrentengesetz v. 12.08.2020,
+      BGBl. I S. 1879, mit Wirkung zum 01.01.2021).
+      Vom Renteneinkommen abziehbarer Freibetrag für Bezieher einer Rente nach dem
+      Sechsten Buch Sozialgesetzbuch mit mindestens 33 Jahren Grundrentenzeiten:
+      100 € Sockel zuzüglich 30 % des darüber liegenden Renteneinkommens, gedeckelt
+      auf 50 % der Regelbedarfsstufe 1 nach der Anlage zu § 28 SGB XII.
+    en: >-
+      § 17a WoGG (introduced by Art. 4 Grundrentengesetz v. 12.08.2020, BGBl. I S.
+      1879, effective 2021-01-01).
+      Allowance deducted from public pension income for recipients of a pension under
+      SGB VI with at least 33 years of Grundrentenzeiten: € 100 base plus 30 % of
+      pension income above € 100, capped at 50 % of Regelbedarfsstufe 1 (Anlage zu
+      § 28 SGB XII).
+  unit: Share
+  reference_period: null
+  type: piecewise_linear
+  2021-01-01:
+    intervals:
+      - interval: (-inf, 0)
+        slope: 0
+        intercept: 0
+      - interval: '[0, 100)'
+        slope: 1
+      - interval: '[100, inf)'
+        slope: 0.3

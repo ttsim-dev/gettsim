@@ -44,10 +44,6 @@ inputs:
             steuerpflichtige_einnahmen_m:
               - 0.0
               - 0.0
-            grundrente:
-              grundrentenzeiten_monate:
-                - 0
-                - 0
       gemeinsam_veranlagt:
         - false
         - false

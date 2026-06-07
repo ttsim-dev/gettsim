@@ -20,8 +20,34 @@ if TYPE_CHECKING:
 from gettsim.tt import AggType, agg_by_p_id_function, policy_function
 
 
-@policy_function(start_date="2005-01-01")
-def betrag_m(
+@policy_function(
+    start_date="2005-01-01",
+    end_date="2019-12-31",
+    leaf_name="betrag_m",
+)
+def betrag_m_mit_kindeseinkommensgrenze(
+    anspruchshöhe_m: float,
+    vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
+    hat_kind_mit_einkommen_über_einkommensgrenze: bool,
+) -> float:
+    """Grundsicherung im Alter after Vorrangprüfung and children's income test.
+
+    §43 SGB XII (BGBl. I 2003 S. 3022): Persons are excluded from Grundsicherung im
+    Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
+    exceeding the threshold.
+    §2 Abs. 1 SGB XII: Vorrangprüfung.
+    """
+    if (
+        hat_kind_mit_einkommen_über_einkommensgrenze
+        or vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
+    ):
+        return 0.0
+    else:
+        return anspruchshöhe_m
+
+
+@policy_function(start_date="2020-01-01", leaf_name="betrag_m")
+def betrag_m_ohne_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze: bool,

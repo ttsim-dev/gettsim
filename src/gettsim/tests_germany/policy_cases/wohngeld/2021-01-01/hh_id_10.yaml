@@ -34,9 +34,6 @@ inputs:
           rente:
             steuerpflichtige_einnahmen_m:
               - 0.0
-            grundrente:
-              grundrentenzeiten_monate:
-                - 0
       gemeinsam_veranlagt:
         - false
     einnahmen:
@@ -45,6 +42,8 @@ inputs:
       kapitalerträge_y:
         - 0.0
       renten:
+        gesetzliche_m:
+          - 0.0
         betrag_gesamt_m:
           - 0.0
     elterngeld:
@@ -90,6 +89,11 @@ inputs:
           betrag_versicherter_m:
             - 80.0
       rente:
+        bezieht_rente:
+          - false
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
         beitrag:
           betrag_versicherter_m:
             - 100.0
