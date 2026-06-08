@@ -15,6 +15,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
+  {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).
+  ({ghuser}`MImmesberger`)
 - {gh}`1178` Add Grundrentenfreibetrag to Wohngeld calculation. ({ghuser}`MImmesberger`)
 - {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen (§ 16 SGB
   IV) is 100,000 € or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
