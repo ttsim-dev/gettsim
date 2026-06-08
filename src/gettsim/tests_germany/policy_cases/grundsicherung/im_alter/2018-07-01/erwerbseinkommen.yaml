@@ -1,0 +1,130 @@
+---
+info:
+  note: |-
+    Erwerbseinkommen with non-zero bruttolohn_m.
+    § 82 SGB XII Abs. 3.
+    bruttolohn_m + aus_selbstständiger_arbeit__betrag_m = 300 + 0 = 300.
+    (1 - anrechnungsfreier_anteil_erwerbseinkünfte) * 300 = 0.7 * 300 = 210.
+    300 - rbs_1 / 2 = 300 - 416 / 2 = 92.
+    erwerbseinkommen_m = max(210, 92) = 210.
+  precision_atol: 0.01
+  source: manual calculation
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 68
+    alter_monate:
+      - 816
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 300.0
+      kapitalerträge_m:
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1950
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 106
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+    kindergeld:
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 106
+    schwerbehindert_grad_g:
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 200.0
+        bezieht_rente:
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 300
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen_eg:
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 344.0
+      heizkosten_m_hh:
+        - 92.0
+      wohnfläche_hh:
+        - 45.0
+outputs:
+  grundsicherung:
+    im_alter:
+      erwerbseinkommen_m:
+        - 210.0

@@ -75,8 +75,8 @@ outputs:
   eg_id:
     - 0
     - 0
+    - 0
     - 1
-    - 2
   ehe_id:
     - 0
     - 0

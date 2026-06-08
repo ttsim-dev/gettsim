@@ -1,0 +1,151 @@
+---
+info:
+  note: |-
+    Single worker aged 64 with 396 months of Grundrentenzeiten (meets the 33-year
+    requirement of § 17a WoGG) who has not yet claimed a public pension. The
+    Grundrentenfreibetrag is zero: it is computed from the public pension actually
+    received (§ 17a Abs. 1 Satz 2 WoGG; BMI-Hinweise v. 15.12.2021: "Nur Rentner
+    [...] erhalten im Wohngeld einen Freibetrag").
+  precision_atol: 0.01
+  source: Made up; expected Freibetrag follows directly from § 17a WoGG.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 64
+    anzahl_personen_hh:
+      - 1
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+      p_id_einstandspartner:
+        - -1
+    behinderungsgrad:
+      - 0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+          rente:
+            betrag_m:
+              - 0.0
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 1400.0
+      kapitalerträge_y:
+        - 0.0
+      renten:
+        gesetzliche_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1961
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 0
+    kindergeld:
+      ist_leistungsbegründendes_kind:
+        - false
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 0
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+      kranken:
+        beitrag:
+          betrag_versicherter_m:
+            - 110.0
+      rente:
+        jahr_renteneintritt:
+          - 2027
+        bezieht_rente:
+          - false
+        grundrente:
+          grundrentenzeiten_monate:
+            - 396
+        beitrag:
+          betrag_versicherter_m:
+            - 130.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen:
+      - 5000.0
+    wohnen:
+      baujahr_immobilie_hh:
+        - 1982
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 600.0
+      heizkosten_m_hh:
+        - 50.0
+      wohnfläche_hh:
+        - 40.0
+    wohngeld:
+      mietstufe_hh:
+        - 5
+      mindesteinkommen_erreicht_bg:
+        - true
+      mindesteinkommen_erreicht_wthh:
+        - true
+outputs:
+  wohngeld:
+    freibetrag_m:
+      - 0.0

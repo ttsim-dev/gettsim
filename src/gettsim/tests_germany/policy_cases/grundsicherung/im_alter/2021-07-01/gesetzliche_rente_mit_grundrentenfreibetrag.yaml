@@ -1,0 +1,131 @@
+---
+info:
+  note: |-
+    Grundrentenzeiten-Freibetrag applies (grundrentenzeiten_monate >= 396).
+    § 82a SGB XII (Art. 3 Grundrentengesetz v. 12.08.2020, BGBl. I S. 1879).
+    einnahmen__renten__gesetzliche_m = altersrente__betrag_m = 500.
+    grundsätzlich_anspruchsberechtigt = true (400 >= 396).
+    anrechnungsfreier_anteil_gesetzliche_rente(500) = 100 + 0.3 * 400 = 220.
+    rbs_1 / 2 = 446 / 2 = 223. min(220, 223) = 220.
+    gesetzliche_rente_m = 500 - 220 = 280.
+  precision_atol: 0.01
+  source: manual calculation
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+    alter_monate:
+      - 840
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+      betrag_m:
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+      p_id_ehepartner:
+        - -1
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    geburtsjahr:
+      - 1951
+    geburtsmonat:
+      - 1
+    geburtstag:
+      - 1
+    hh_id:
+      - 104
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+    kindergeld:
+      p_id_empfänger:
+        - -1
+    p_id:
+      - 104
+    schwerbehindert_grad_g:
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 500.0
+        bezieht_rente:
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 400
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+    vermögen_eg:
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+      bruttokaltmiete_m_hh:
+        - 344.0
+      heizkosten_m_hh:
+        - 92.0
+      wohnfläche_hh:
+        - 45.0
+outputs:
+  grundsicherung:
+    im_alter:
+      gesetzliche_rente_m:
+        - 280.0

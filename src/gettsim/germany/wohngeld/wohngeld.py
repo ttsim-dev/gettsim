@@ -32,25 +32,13 @@ def anzahl_personen_wthh(wthh_id: int) -> int:
 @policy_function()
 def betrag_m_wthh(
     anspruchshöhe_m_wthh: float,
-    volljährige_alle_rentenbezieher_hh: bool,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
 ) -> float:
-    """Housing benefit after wealth and priority checks."""
-    # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
-    # Alter (SGB XII) is implemented yet. We assume for now that households with only
-    # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
-    # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
-    # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/ttsim-dev/gettsim/issues/703
-
-    if not volljährige_alle_rentenbezieher_hh and (
-        vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
-    ):
-        out = anspruchshöhe_m_wthh
+    """Housing benefit after priority checks (§12a SGB II)."""
+    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        return anspruchshöhe_m_wthh
     else:
-        out = 0.0
-
-    return out
+        return 0.0
 
 
 @policy_function()

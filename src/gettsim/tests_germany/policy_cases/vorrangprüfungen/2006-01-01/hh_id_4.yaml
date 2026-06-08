@@ -12,6 +12,12 @@ inputs:
       - 12
       - 10
       - 2
+    alter_monate:
+      - 396
+      - 360
+      - 144
+      - 120
+      - 24
     arbeitslosengeld_2:
       kindergeld_zur_bedarfsdeckung_m:
         - 0.0
@@ -62,6 +68,14 @@ inputs:
       - 1994
       - 1996
       - 2004
+    grundsicherung:
+      im_alter:
+        überschusseinkommen_m_eg:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     hh_id:
       - 4
       - 4

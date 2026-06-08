@@ -1,0 +1,252 @@
+---
+info:
+  note: |-
+    Gemischte Bedarfsgemeinschaft with a child. Person0 (age 55, erwerbsfähig) receives
+    Bürgergeld, Person1 (age 67, past Regelaltersgrenze) receives Grundsicherung im
+    Alter, Person2 (age 10) is their child. Person2's Kindergeld flows as
+    hilfe_zum_lebensunterhalt.überschusseinkommen_m to the EG-level Grundsicherung
+    calculation.
+    Regelsatz: Person0/1 = 451 (RBS 2), Person2 = 368 (child 6-13).
+    KdU: (500+100)/3 = 200. Regelbedarf: P0 = 651, P1 = 651, P2 = 568.
+    SGB II (Bedarfsanteilsmethode, Person1 excluded as past NRA):
+    P0 ungedeckter_bedarf = 651 (adult, full regelbedarf).
+    P2 ungedeckter_bedarf = max(0, 568 - 250) = 318 (Kindergeld 250 netted first).
+    ungedeckter_bedarf_bg = 969, einkommen_zur_verteilung_bg = 0.
+    anspruch_bg = 969 → P0 betrag = 651, P2 betrag = 318.
+    SGB XII (Verhältnislösung, Person1):
+    gesetzliche Rente 400 – Grundrentenfreibetrag min(190, 502/2) = 190
+    → einkommen = 210. bedarf = 651, individueller_restbedarf = 441.
+    anspruch_eg = max(0, 651 - 210 - 0) = 441 → GSiA betrag P1 = 441.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 55
+      - 67
+      - 10
+    alter_monate:
+      - 660
+      - 804
+      - 120
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+    geburtsjahr:
+      - 1968
+      - 1956
+      - 2013
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 0
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
+          - false
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 400.0
+            - 0.0
+        bezieht_rente:
+          - false
+          - true
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 500
+            - 0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
+      - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 500.0
+        - 500.0
+        - 500.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  bürgergeld:
+    betrag_m:
+      - 651.0
+      - 0.0
+      - 318.0
+  grundsicherung:
+    im_alter:
+      anspruchshöhe_m:
+        - 0.0
+        - 441.0
+        - 0.0

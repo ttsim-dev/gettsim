@@ -20,6 +20,8 @@ from gettsim.tt import (
 if TYPE_CHECKING:
     from types import ModuleType
 
+    from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
+
 
 @agg_by_p_id_function(agg_type=AggType.SUM, end_date="2015-12-31")
 def alleinerziehendenbonus(
@@ -146,7 +148,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     """
     # TODO(@MImmesberger): Find out whether unterhalt__tatsächlich_erhaltener_betrag_m and
     # unterhaltsvorschuss__betrag_m are counted as income for Wohngeld income check.
-    # https://github.com/iza-institute-of-labor-economics/gettsim/issues/357
+    # https://github.com/ttsim-dev/gettsim/issues/357
     einkommen = (
         einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m
@@ -204,18 +206,22 @@ def freibetrag_m_bis_2015(
     return freibetrag_bei_behinderung + freibetrag_kinder
 
 
-@policy_function(start_date="2016-01-01", leaf_name="freibetrag_m")
-def freibetrag_m_ab_2016(
+@policy_function(
+    start_date="2016-01-01",
+    end_date="2020-12-31",
+    leaf_name="freibetrag_m",
+)
+def freibetrag_m_ab_2016_bis_2020(
     einnahmen__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
     behinderungsgrad: int,
     familie__alleinerziehend: bool,
-    freibetrag_bei_behinderung_pauschal_y: float,
+    freibetrag_bei_behinderung_pauschal_m: float,
     freibetrag_kinder_m: dict[str, float],
 ) -> float:
-    """Calculate housing benefit subtracting for one individual since 2016."""
-    freibetrag_bei_behinderung = per_y_to_per_m(
-        freibetrag_bei_behinderung_pauschal_y if behinderungsgrad > 0 else 0
+    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2016 to 2020."""
+    freibetrag_bei_behinderung = (
+        freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
     )
 
     if ist_kind_mit_erwerbseinkommen:
@@ -229,6 +235,64 @@ def freibetrag_m_ab_2016(
         freibetrag_kinder = 0.0
 
     return freibetrag_bei_behinderung + freibetrag_kinder
+
+
+@policy_function(start_date="2021-01-01", leaf_name="freibetrag_m")
+def freibetrag_m_ab_2021(
+    einnahmen__bruttolohn_m: float,
+    einnahmen__renten__gesetzliche_m: float,
+    ist_kind_mit_erwerbseinkommen: bool,
+    behinderungsgrad: int,
+    familie__alleinerziehend: bool,
+    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,
+    freibetrag_bei_behinderung_pauschal_m: float,
+    freibetrag_kinder_m: dict[str, float],
+    anrechnungsfreier_anteil_gesetzliche_rente: PiecewisePolynomialParamValue,
+    grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
+    xnp: ModuleType,
+) -> float:
+    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2021 onwards.
+
+    Wohngeld-Freibeträge inklusive § 17a WoGG (Grundrentenfreibetrag).
+
+    The Grundrentenfreibetrag requires drawing a public pension and 33 years of
+    Grundrentenzeiten (§ 76g Abs. 2 SGB VI); it does not require actually receiving
+    the Grundrentenzuschlag (which may be fully withdrawn under the income test of
+    § 97a SGB VI). The Freibetrag is computed from the public pension actually
+    received (§ 17a Abs. 1 Satz 2 WoGG; BMI-Hinweise v. 15.12.2021: "Nur Rentner
+    [...] erhalten im Wohngeld einen Freibetrag").
+    """
+    freibetrag_bei_behinderung = (
+        freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
+    )
+
+    if ist_kind_mit_erwerbseinkommen:
+        freibetrag_kinder = min(
+            einnahmen__bruttolohn_m,
+            freibetrag_kinder_m["arbeitendes_kind"],
+        )
+    elif familie__alleinerziehend:
+        freibetrag_kinder = freibetrag_kinder_m["alleinerziehend"]
+    else:
+        freibetrag_kinder = 0.0
+
+    if (
+        sozialversicherung__rente__bezieht_rente
+        and sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt
+    ):
+        freibetrag_grundrente = min(
+            piecewise_polynomial(
+                x=einnahmen__renten__gesetzliche_m,
+                parameters=anrechnungsfreier_anteil_gesetzliche_rente,
+                xnp=xnp,
+            ),
+            grundsicherung__regelbedarfsstufen.rbs_1 / 2,
+        )
+    else:
+        freibetrag_grundrente = 0.0
+
+    return freibetrag_bei_behinderung + freibetrag_kinder + freibetrag_grundrente
 
 
 @policy_function()

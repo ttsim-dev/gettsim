@@ -1,20 +1,40 @@
 ---
 info:
   note: |-
-    Test if households with non-retired adult do not get Grundsicherung im Alter (as
-    currently implemented those households get ALG 2)
+    Gemischte Bedarfsgemeinschaft where the SGB XII partner's income exceeds their
+    Grundsicherung Bedarf. Person1 (age 67, past Regelaltersgrenze) has a high pension
+    (1200€/month) that exceeds his Bedarf. The surplus flows to Person0's Bürgergeld
+    calculation via grundsicherung__im_alter__überschusseinkommen_m_eg.
+    Regelsatz (RBS 2): 451. KdU: (500+100)/2 = 300. Regelbedarf: 751 each.
+    SGB XII (Person1): gesetzliche Rente 1200 – Grundrentenfreibetrag
+    min(100+0.3·1100, 502/2) = min(430, 251) = 251 → einkommen = 949.
+    bedarf = 751, individueller_restbedarf = 0 (income exceeds bedarf).
+    überschusseinkommen_eg = max(0, 949 - 751) = 198.
+    GSiA betrag = 0 (bedarf fully covered).
+    SGB II (Person0): ungedeckter_bedarf = 751, einkommen = 0.
+    total_income_bg = 0 + 198 (GSiA surplus) = 198.
+    anspruch_bg = max(0, 751 - 198) = 553 → Bürgergeld betrag P0 = 553.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
     alter:
-      - 70
-      - 60
-    arbeitslosengeld_2:
+      - 55
+      - 67
+    alter_monate:
+      - 660
+      - 804
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
       p_id_einstandspartner:
-        - 13
-        - 12
+        - 1
+        - 0
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -70,8 +90,8 @@ inputs:
         - false
         - false
       p_id_ehepartner:
-        - 13
-        - 12
+        - 1
+        - 0
       p_id_elternteil_1:
         - -1
         - -1
@@ -79,8 +99,8 @@ inputs:
         - -1
         - -1
     geburtsjahr:
-      - 1951
-      - 1961
+      - 1968
+      - 1956
     geburtsmonat:
       - 1
       - 1
@@ -88,18 +108,23 @@ inputs:
       - 1
       - 1
     hh_id:
-      - 9
-      - 9
+      - 0
+      - 0
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
     kindergeld:
-      betrag_m_eg:
-        - 0.0
-        - 0.0
+      in_ausbildung:
+        - false
+        - false
       p_id_empfänger:
         - -1
         - -1
     p_id:
-      - 12
-      - 13
+      - 0
+      - 1
     schwerbehindert_grad_g:
       - false
       - false
@@ -118,27 +143,30 @@ inputs:
       rente:
         altersrente:
           betrag_m:
-            - 350.0
             - 0.0
+            - 1200.0
         bezieht_rente:
-          - true
           - false
+          - true
         erwerbsminderung:
           betrag_m:
             - 0.0
             - 0.0
         grundrente:
           grundrentenzeiten_monate:
-            - 240
-            - 240
+            - 0
+            - 500
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
         - 0.0
     unterhaltsvorschuss:
-      betrag_m_eg:
+      betrag_m:
         - 0.0
         - 0.0
+    vermögen:
+      - 0.0
+      - 0.0
     vermögen_eg:
       - 0.0
       - 0.0
@@ -147,17 +175,25 @@ inputs:
         - false
         - false
       bruttokaltmiete_m_hh:
-        - 300.0
-        - 300.0
+        - 500.0
+        - 500.0
       heizkosten_m_hh:
-        - 66.0
-        - 66.0
+        - 100.0
+        - 100.0
       wohnfläche_hh:
-        - 50.0
-        - 50.0
+        - 60.0
+        - 60.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
 outputs:
+  bürgergeld:
+    betrag_m:
+      - 553.0
+      - 0.0
   grundsicherung:
     im_alter:
-      betrag_m_eg:
+      anspruchshöhe_m:
         - 0.0
         - 0.0

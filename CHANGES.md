@@ -15,6 +15,20 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
+  {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).
+  ({ghuser}`MImmesberger`)
+- {gh}`1178` Add Grundrentenfreibetrag to Wohngeld calculation. ({ghuser}`MImmesberger`)
+- {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen (§ 16 SGB
+  IV) is 100,000 € or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
+- {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
+  Vertikalmethode. ({ghuser}`MImmesberger`)
+- {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
+  ({ghuser}`MImmesberger`)
+- {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
+  Alter. ({ghuser}`MImmesberger`)
+- {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
+  ({ghuser}`MImmesberger`)
 - {gh}`1174` Add historical values since 1949 for Beitragsbemessungsgrenzen (incl. new
   parameter for knappschaftliche Rentenversicherung Ost) and Durchschnittsentgelt.
   Replace `beitragsbemessungsgrenze_m` with `beitragsbemessungsgrenze_y`.
