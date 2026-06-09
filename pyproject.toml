@@ -239,10 +239,9 @@ per-file-ignores."src/gettsim/__init__.py" = [
 per-file-ignores."src/gettsim/germany/*" = [
   "E501",    # Line too long — policy functions have long expressions
   "E721",    # Do not compare types, use isinstance() — needed for type(x) == type(y)
-  "PLR1714", # Consider merging multiple comparisons with in
-  "PLR1716", # Boolean expression may be simplified with chained comparison
-  "RET",     # Flake8-return — vectorization requires specific return patterns
-  "SIM108",  # Use ternary operator — vectorization requires if/else blocks
+  "PLR1714", # Consider merging multiple comparisons with `in` — not vectorizable
+  "PLR1716", # Boolean expression may be simplified with chained comparison — not vectorizable
+  "RET505",  # Vectorizer requires both if/else branches; it rejects the early-return form
 ]
 per-file-ignores."src/gettsim/germany/familie/familie.py" = [
   "PLR2004", # Magic value used in comparison

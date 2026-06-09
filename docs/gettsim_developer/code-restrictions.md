@@ -6,6 +6,17 @@ error if violated.
 
 ## If-Else Conditions
 
+1. For a single assignment that depends on one condition, prefer a ternary expression.
+   Vectorization converts it to `xnp.where`, just as it does for the equivalent if /
+   else block:
+
+   ```python
+   out = 1 if x > 1 else 0
+   ```
+
+   Use statement `if` / `elif` / `else` for nested or multi-branch logic where a ternary
+   would hurt readability.
+
 1. Code inside an if / elif / else block can only perform one operation. For example,
    the following is allowed:
 

@@ -110,10 +110,7 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
         "grundhöchstbetrag"
     ]
 
-    if item_1 > höchstbetrag:
-        multiplikator2 = höchstbetrag
-    else:
-        multiplikator2 = item_1
+    multiplikator2 = min(item_1, höchstbetrag)
 
     item_2 = (1 / familie__anzahl_personen_sn) * multiplikator2
 
@@ -247,9 +244,8 @@ def altersvorsorge_y_sn_phase_in(
         - sozialversicherung__rente__beitrag__betrag_versicherter_y_sn
     )
     max_value = familie__anzahl_personen_sn * maximalbetrag_altersvorsorgeaufwendungen_y
-    out = min(out, max_value)
 
-    return out
+    return min(out, max_value)
 
 
 @policy_function(start_date="2023-01-01", leaf_name="altersvorsorge_y_sn")

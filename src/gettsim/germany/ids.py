@@ -37,12 +37,10 @@ def ehe_id(
         p_id,
         familie__p_id_ehepartner,
     )
-    result = (
+    return (
         xnp.maximum(p_id, p_id_ehepartner_or_own_p_id)
         + xnp.minimum(p_id, p_id_ehepartner_or_own_p_id) * n
     )
-
-    return result
 
 
 @group_creation_function(leaf_name="fg_id", end_date="2022-12-31")
@@ -116,10 +114,11 @@ def sgb_ii_fg_id_formula(
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
-    if backend == "jax":  # pragma: no cover
-        isin = functools.partial(xnp.isin, method="sort")
-    else:
-        isin = xnp.isin
+    isin = (
+        functools.partial(xnp.isin, method="sort")  # pragma: no cover
+        if backend == "jax"
+        else xnp.isin
+    )
 
     children = isin(p_id, p_id_elternteil_1) | isin(p_id, p_id_elternteil_2)
 
@@ -142,7 +141,7 @@ def sgb_ii_fg_id_formula(
         n=n,
         xnp=xnp,
     )
-    out = _assign_parents_fg_id(
+    return _assign_parents_fg_id(
         fg_id=out,
         p_id=p_id,
         p_id_elternteil_loc=p_id_elternteil_2,
@@ -152,8 +151,6 @@ def sgb_ii_fg_id_formula(
         n=n,
         xnp=xnp,
     )
-
-    return out
 
 
 def _assign_parents_fg_id(
@@ -275,10 +272,7 @@ def _eg_id_formula(
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
-    if backend == "jax":
-        isin = functools.partial(xnp.isin, method="sort")
-    else:
-        isin = xnp.isin
+    isin = functools.partial(xnp.isin, method="sort") if backend == "jax" else xnp.isin
 
     children = isin(p_id, p_id_elternteil_1) | isin(p_id, p_id_elternteil_2)
 
@@ -301,7 +295,7 @@ def _eg_id_formula(
         n=n,
         xnp=xnp,
     )
-    out = _assign_parents_eg_id(
+    return _assign_parents_eg_id(
         eg_id=out,
         p_id=p_id,
         p_id_elternteil_loc=p_id_elternteil_2,
@@ -311,8 +305,6 @@ def _eg_id_formula(
         n=n,
         xnp=xnp,
     )
-
-    return out
 
 
 def _assign_parents_eg_id(

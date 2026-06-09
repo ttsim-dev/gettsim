@@ -89,11 +89,7 @@ def betrag_m(
     anspruchshöhe_m: float,
 ) -> float:
     """Parental leave benefit (Elterngeld) received by the parent."""
-    if grundsätzlich_anspruchsberechtigt:
-        out = anspruchshöhe_m
-    else:
-        out = 0.0
-    return out
+    return anspruchshöhe_m if grundsätzlich_anspruchsberechtigt else 0.0
 
 
 @policy_function(start_date="2007-01-01")
