@@ -81,14 +81,12 @@ def grundsätzlich_anspruchsberechtigt(
 
     Legal reference: § 43 Abs. 1  SGB VI.
     """
-    anspruch_erwerbsm_rente = (
+    return (
         (voll_erwerbsgemindert or teilweise_erwerbsgemindert)
         and sozialversicherung__rente__mindestwartezeit_erfüllt
         and sozialversicherung__rente__pflichtbeitragsmonate
         >= mindestpflichtbeitragszeiten_monate
     )
-
-    return anspruch_erwerbsm_rente
 
 
 @policy_function(start_date="2001-01-01", end_date="2023-06-30")
