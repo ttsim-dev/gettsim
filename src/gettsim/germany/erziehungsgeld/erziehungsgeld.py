@@ -69,12 +69,7 @@ def betrag_m(
 
     Legal reference: BErzGG (BGBl. I 1985 S. 2154; BGBl. I 2004 S. 206)
     """
-    if grundsätzlich_anspruchsberechtigt:
-        out = anspruchshöhe_m
-    else:
-        out = 0.0
-
-    return out
+    return anspruchshöhe_m if grundsätzlich_anspruchsberechtigt else 0.0
 
 
 @policy_function(

@@ -242,7 +242,6 @@ per-file-ignores."src/gettsim/germany/*" = [
   "PLR1714", # Consider merging multiple comparisons with in
   "PLR1716", # Boolean expression may be simplified with chained comparison
   "RET",     # Flake8-return — vectorization requires specific return patterns
-  "SIM108",  # Use ternary operator — vectorization requires if/else blocks
 ]
 per-file-ignores."src/gettsim/germany/familie/familie.py" = [
   "PLR2004", # Magic value used in comparison

@@ -226,6 +226,9 @@ outputs:
 
 Functions must follow these rules for automatic vectorization:
 
+1. **Ternaries**: For a single assignment depending on one condition, prefer a ternary
+   (`out = 1 if x > 1 else 0`) — vectorization converts it to `xnp.where`. Use statement
+   `if`/`elif`/`else` for nested or multi-branch logic.
 1. **If-else blocks**: Only one operation per branch, no return inside single if (must
    have else)
 1. **Function calls**: `sum`, `any`, `all` require iterable arguments; `min`, `max` take

@@ -116,10 +116,11 @@ def sgb_ii_fg_id_formula(
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
-    if backend == "jax":  # pragma: no cover
-        isin = functools.partial(xnp.isin, method="sort")
-    else:
-        isin = xnp.isin
+    isin = (
+        functools.partial(xnp.isin, method="sort")  # pragma: no cover
+        if backend == "jax"
+        else xnp.isin
+    )
 
     children = isin(p_id, p_id_elternteil_1) | isin(p_id, p_id_elternteil_2)
 
@@ -275,10 +276,7 @@ def _eg_id_formula(
 
     # Necessary because JAX's `isin` uses keyword `method` instead of NumPy's `kind`
     # See https://github.com/ttsim-dev/ttsim/pull/41#issuecomment-3180607171
-    if backend == "jax":
-        isin = functools.partial(xnp.isin, method="sort")
-    else:
-        isin = xnp.isin
+    isin = functools.partial(xnp.isin, method="sort") if backend == "jax" else xnp.isin
 
     children = isin(p_id, p_id_elternteil_1) | isin(p_id, p_id_elternteil_2)
 
