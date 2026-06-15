@@ -17,59 +17,49 @@
 
 ## Abstract
 
-- GETTSIM mixes quantities of incompatible kinds on the same DAG — Euros, Euros per
-  square meter, shares, ages in years, counts of people — but nothing checks that the
-  arithmetic combining them is dimensionally sound. A monthly amount can be added to a
-  per-square-meter rent, or a stock to a flow, and the model runs silently.
-- Historical parameters denominated in Deutsche Mark are converted to Euros *by hand* in
-  the YAML files (e.g. a 1975 value stored as `288` with `note: 564 DM`). The conversion
-  is invisible to the machine and easy to get wrong
+This GEP gives every quantity in GETTSIM a unit — Euros, Euros per square meter, shares,
+years, head counts — and puts those units to work in three ways:
+
+- **Dimensional safety.** The framework checks that the arithmetic combining quantities
+  is sound, so mixing incompatible kinds — say, a monthly amount and a per-square-meter
+  rent — becomes a loud error when the model is defined, instead of a silent wrong
+  number that surfaces, if ever, far downstream.
+- **Automatic currency conversion.** Each historical parameter is stored in its original
+  legal currency (a 1975 value in Deutsche Mark, say), and the framework converts it to
+  the currency the user chooses to run in. Today that conversion is done by hand in the
+  YAML files, where it is invisible to the machine and easy to get wrong
   ([gettsim #1174](https://github.com/ttsim-dev/gettsim/issues/1174)).
-- This GEP adopts [pint](https://pint.readthedocs.io) as the unit engine and introduces
-  a dimensionality check across the DAG, automatic currency resolution, and a
-  pint-backed reimplementation of the time-conversion arithmetic. The win, in the spirit
-  of {ref}`GEP 9 <gep-9>`, is that a whole class of unit bugs becomes a loud error at
-  definition time instead of a silent numerical fault.
-- Crucially, pint runs **only at environment-build time** and at the **input boundary**.
-  It never wraps a live array, so the JAX/NumPy runtime — and the GEP-9 type vocabulary
-  — are untouched.
+- **Unified time conversion.** The existing `_y`/`_m`/`_w` period arithmetic moves onto
+  the same engine, replacing ~50 hand-written conversion functions.
+
+GETTSIM adopts [pint](https://pint.readthedocs.io) for this. As with
+{ref}`GEP 9 <gep-9>`, the checks run when the model is built, catching these bugs before
+they can affect a result.
 
 ### Terminology
 
-- **dimension** — a kind of quantity: `[currency]`, `[time]`, `[area]`, or
-  dimensionless. Counting quantities (children, adults, members) are dimensionless,
-  following SI and pint convention.
-- **unit token** — the value of the `unit=` field: one member of the token vocabulary,
-  which is a closed core enumeration (`Unit.CURRENCY_FLOW`, `Unit.YEARS`, …; spelled as
-  the identical string in YAML) plus the **currency tokens** each package derives by
-  registering its currencies (`DM_STOCK`, `EURO_FLOW`, …). Tokens come in two kinds:
-  **flow tokens** (named `…_FLOW`) denote a per-period quantity and are completed by a
-  period supplied elsewhere; all other tokens are **complete** as written. Internally
-  every token resolves to a pint unit; declarations never contain pint syntax. Some
-  tokens are units in the strict metrological sense (`YEARS`), others denote a family of
-  units closed over the period (`CURRENCY_FLOW`) — the field is called `unit=` for the
-  colloquial question it answers.
-- **flow** — a per-period quantity (Euros *per month*). Declared with a `…_FLOW` token;
-  the period is supplied by the name suffix (`_m`) for columns/functions or by
-  `reference_period` for parameters. A **stock** (wealth, an asset threshold) and other
-  intrinsically a-temporal or intrinsically temporal quantities (ages) use complete
-  tokens and carry no period source.
-- **dimensionless declaration** — a share, a rate, a head count declares *no* unit:
-  `unit=None` in code, `unit: null` in YAML. Spelled-out synonyms (`"dimensionless"`,
-  pint's built-in `count`) are rejected so there is exactly one way to write it. A
-  dimensionless declaration never combines with a period source; a dimensionless
-  quantity *per period* is its own flow token (`SHARE_FLOW`).
-- **agnostic vs. concrete currency tokens** — the agnostic tokens (`CURRENCY_FLOW`,
-  `CURRENCY_STOCK`, …) denote the *union* of the registered currencies: "of the
-  `[currency]` dimension, in whatever currency". Registering a currency derives one
-  concrete variant per agnostic token (`DM_FLOW`, `EURO_STOCK`, …). For every
-  dimensionality check a concrete token means exactly what its agnostic counterpart
-  means; in addition it names the currency a parameter's numbers are written in. Columns
-  and functions declare agnostic tokens only — that is what makes them provably
-  currency-agnostic; parameters must pin down the concrete currency.
-- **dry-run** — the build-time pass that executes a function body on representative pint
-  `Quantity`s to infer and check its unit. Never runs on user data values and never
-  under `jit`.
+- **dimension** — the kind of a quantity: `[currency]`, `[time]`, `[area]`, or
+  dimensionless. Counting quantities (children, adults, household members) are
+  dimensionless, following the SI and pint convention.
+- **unit token** — the value written in the `unit=` field, taken from a fixed list of
+  allowed names. The list has two parts: the **core tokens** the framework ships
+  (`CURRENCY_FLOW`, `CURRENCY_STOCK`, `SHARE_FLOW`, `YEARS`, `HECTARES`, …), and the
+  **currency tokens** each package adds when it registers its currencies (`DM_FLOW`,
+  `EURO_STOCK`, …). A name ending in `…_FLOW` stands for a per-period quantity and is
+  completed by a period given elsewhere — a name suffix such as `_m`, or
+  `reference_period`. Every other name is complete on its own.
+- **agnostic currency token** — a core token of the `[currency]` dimension that does not
+  commit to any particular currency (`CURRENCY_FLOW`, `CURRENCY_STOCK`, …): an amount of
+  money, in whatever currency the model runs in. Columns and functions use these and
+  only these, which is what lets them run in any currency.
+- **concrete currency token** — a token that names one specific currency (`DM_FLOW`,
+  `EURO_STOCK`, …), added when that currency is registered. It appears on parameters, to
+  record which currency the stored numbers are written in. In every dimensional check it
+  behaves exactly like the matching agnostic token; the specific currency matters only
+  for converting the stored values.
+- **dry-run** — the build-time pass that runs a function body on stand-in pint
+  quantities to work out and check its unit. It uses placeholder values, never the
+  user's data, and never runs inside the compiled numerical path.
 
 ## Motivation and Scope
 
@@ -90,11 +80,11 @@ Three long-standing problems motivate this GEP.
    hand. The stock/flow split is exactly the kind of distinction a unit engine gets
    right by construction.
 
-**Scope.** The GEP covers `ttsim` (the framework), `gettsim` (German currencies and
-policy annotations), and `gettsim-personas`/`mettsim` (the example system, used as the
-end-to-end proof). It deliberately does **not** make policy functions time-agnostic: the
-`_y`/`_m`/`_w` suffix automation and the law-to-code naming of {ref}`GEP 1 <gep-1>` are
-preserved. Only the *arithmetic* behind the conversions changes.
+**Scope.** The GEP covers `ttsim` (the framework), `gettsim` (the German currencies and
+the policy annotations), and `gettsim-personas`/`mettsim` (the example system, used as
+the end-to-end proof). GEP 1's `_y`/`_m`/`_w` suffix automation and law-to-code naming
+are preserved unchanged; only the *arithmetic* behind the conversions moves onto the
+unit engine.
 
 ## Usage and Impact
 
@@ -143,40 +133,53 @@ wealth-tax rate (one percent of the stock, per year) is `unit: SHARE_FLOW` with
 `reference_period: Year`, resolving to `1/year`; multiplied by a `CURRENCY_STOCK` it
 yields a well-formed `CURRENCY_FLOW`.
 
-### Functions are currency-agnostic; one knob sets the currency
+### Functions work in any currency; one setting picks the run currency
 
-A new optional `main()` input `currency` (defaulting to the registered base currency,
-`"euro"` for GETTSIM) sets the currency of the input data and of the output. Parameters
-name their legal denomination in the unit token itself (`DM_FLOW`, `EURO_STOCK`), and
-every currency-denominated number is converted to the run currency at build time.
-Functions only ever declare the agnostic tokens and never mention a concrete currency.
+Parameters record their legal currency in the unit token itself (`DM_FLOW`,
+`EURO_STOCK`). An optional `currency` argument to `main()` chooses the currency the
+model runs in, defaulting to the registered base currency (`"euro"` for GETTSIM).
+
+- **Parameters** are converted from their stored currency to the run currency at build
+  time — so a Deutsche-Mark value and a Euro value can sit in the same parameter's
+  history and both come out in the run currency.
+- **Input data** is taken to already be in the run currency; the framework does not
+  convert it. A user may attach an explicit unit to an input column, but it is then
+  *checked* against the run currency and stripped — never rescaled — so a wrong-currency
+  tag fails loudly instead of being silently converted.
+- **Outputs** come out in the run currency.
+
+A policy function never names a concrete currency; it uses the agnostic tokens only,
+which is what lets the same function serve a Euro run and a DM run unchanged.
 
 ### Errors are loud and early
 
-- A `unit=` value that is not a member of the token vocabulary fails at decoration time
-  (functions) or load time (parameters); the YAML schema enumerates the legal strings —
-  the core tokens plus the package's own currency tokens — so pre-commit catches it
-  before GETTSIM even loads the file.
-- A kind/period-source mismatch fails at build, with no precedence rules: a time suffix
-  on a node with a complete token; a `…_FLOW` token with no period source; a
-  `reference_period` on a complete or `null` declaration; a suffix and a
-  `reference_period` that disagree. Wherever two period sources apply to the same
-  quantity they must coincide — disagreement is an error, never resolved silently.
-- A currency-placement error fails at decoration or build: a concrete currency token on
-  a column or function (functions are currency-agnostic); an agnostic `CURRENCY_*` token
-  on a parameter once a concrete currency is registered (the numbers are written in
-  *some* currency, and the declaration must name it); a `unit:` on a function-like
-  parameter type, which declares `input_unit:`/`output_unit:` instead.
-- `updates_previous` across a currency changeover fails at load: a dated entry that
-  restates the unit declaration must restate the full value.
-- A dimensionally invalid operation inside a body fails at environment build, naming the
-  function.
-- A producer/consumer unit mismatch across a DAG edge fails at build.
-- A missing `unit=` fails at environment build, paralleling GEP-9's mandatory return
-  types. `unit=None` / `unit: null` is *not* missing — it declares a dimensionless
-  quantity.
-- An input column tagged with a pint `Quantity` whose unit disagrees with the declared
-  unit fails loudly at the boundary.
+- A `unit=` value that is not in the list of allowed tokens fails at decoration time
+  (functions) or load time (parameters). The YAML schema lists the legal values — the
+  core tokens plus the package's own currency tokens — so pre-commit rejects a typo
+  before GETTSIM loads the file.
+- A period that is given twice and disagrees fails at build, with no precedence rule to
+  paper over it: where both a name suffix and a `reference_period` apply, they must
+  agree. Naming a quantity as if it had a period when it does not — a one-off amount
+  written `vermögen_m`, or a `reference_period` on a token that is already complete or
+  dimensionless — fails the same way.
+- A `…_FLOW` token with no period at all (no suffix, no `reference_period`) fails: the
+  framework cannot tell what the quantity is *per*.
+- A currency in the wrong place fails at decoration or build: a concrete currency token
+  on a column or function (these must stay currency-neutral); an agnostic `CURRENCY_*`
+  token on a parameter once a currency is registered (the stored numbers are in *some*
+  currency, and the declaration must say which); a plain `unit:` on a schedule or lookup
+  parameter, which uses `input_unit:`/`output_unit:` instead.
+- `updates_previous` across a currency changeover fails at load: an entry that switches
+  the currency must restate the whole value, not patch the previous one.
+- A dimensionally invalid operation inside a function body fails at environment build,
+  naming the function.
+- A unit that does not line up across a DAG edge — a producer feeding a consumer that
+  expects something else — fails at build.
+- A missing `unit=` fails at environment build, the way a missing return type does under
+  GEP 9. `unit=None` / `unit: null` is *not* missing — it states that the quantity is
+  dimensionless.
+- An input column tagged by the user with a pint unit that disagrees with the declared
+  one fails loudly at the boundary.
 
 ## Backward Compatibility
 
