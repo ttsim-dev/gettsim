@@ -17,24 +17,27 @@
 
 ## Abstract
 
-This GEP gives every quantity in GETTSIM a unit — Euros, Euros per square meter, shares,
-years, head counts — and puts those units to work in three ways:
+This GEP gives every quantity in GETTSIM a **unit** — Euros, Euros per square meter,
+shares, years, head counts — declared on the parameters and input columns and drawn from
+a fixed vocabulary of tokens. The framework reads those units to do three things:
 
-- **Dimensional safety.** The framework checks that the arithmetic combining quantities
-  is sound, so mixing incompatible kinds — say, a monthly amount and a per-square-meter
-  rent — becomes a loud error when the model is defined, instead of a silent wrong
-  number that surfaces, if ever, far downstream.
+- **Dimensional safety.** It checks that the arithmetic combining quantities is sound,
+  so mixing incompatible kinds — say, a monthly amount and a per-square-meter rent —
+  becomes a loud error when the model is defined, not a silent wrong number far
+  downstream.
 - **Automatic currency conversion.** Each historical parameter is stored in its original
-  legal currency (a 1975 value in Deutsche Mark, say), and the framework converts it to
-  the currency the user chooses to run in. Today that conversion is done by hand in the
-  YAML files, where it is invisible to the machine and easy to get wrong
+  legal currency (a 1975 value in Deutsche Mark, say) and converted to the currency the
+  user runs in, replacing the by-hand conversions in today's YAML files — invisible to
+  the machine and easy to get wrong
   ([gettsim #1174](https://github.com/ttsim-dev/gettsim/issues/1174)).
 - **Unified time conversion.** The existing `_y`/`_m`/`_w` period arithmetic moves onto
   the same engine, replacing ~50 hand-written conversion functions.
 
-GETTSIM adopts [pint](https://pint.readthedocs.io) for this. As with
-{ref}`GEP 9 <gep-9>`, the checks run when the model is built, catching these bugs before
-they can affect a result.
+The engine is [pint](https://pint.readthedocs.io), and it runs **only while the model is
+built**: it checks dimensions and bakes the time and currency factors into the workers,
+then steps aside. The numeric runtime — bare arrays, a single currency, JAX-safe — is
+unchanged. As in {ref}`GEP 9 <gep-9>`, the checks fire at definition time, catching a
+whole class of unit bugs before they can reach a result.
 
 ### Terminology
 
@@ -391,14 +394,14 @@ derives the currency's **declaration tokens** — one concrete variant per
 currency-dimensioned core token (`DM_STOCK`, `DM_FLOW`, `DM_PER_SQUARE_METER_FLOW`,
 `EURO_*`, …) — extending the registering package's unit vocabulary.
 
-**Union semantics.** The agnostic tokens (`CURRENCY_STOCK`, `CURRENCY_FLOW`, …) denote
-the union of the registered currencies; for every dimensionality check a concrete token
-means exactly what its agnostic counterpart means. The dry-run and the edge check
-compare at the dimensionality level and never see a concrete currency — a DM-denominated
-parameter feeds a currency-agnostic function without further ado, while adding Euros to
-Euros per square meter is still caught. What a concrete token adds is **denomination**:
-it names the currency the parameter's numbers are written in, which the build-time
-conversion to the run currency reads off the declaration.
+**Agnostic and concrete tokens.** The agnostic tokens (`CURRENCY_STOCK`,
+`CURRENCY_FLOW`, …) stand for any registered currency; for every dimensionality check a
+concrete token means exactly what its agnostic counterpart means. The dry-run and the
+edge check compare at the dimensionality level and never see a concrete currency — a
+DM-denominated parameter feeds a currency-agnostic function without further ado, while
+adding Euros to Euros per square meter is still caught. What a concrete token adds is
+**denomination**: it names the currency the parameter's numbers are written in, which
+the build-time conversion to the run currency reads off the declaration.
 
 **Parameters must be concrete; functions must be agnostic.** A parameter's numbers are
 written in *some* currency, so once a concrete currency is registered, an agnostic
@@ -407,13 +410,13 @@ denomination (`DM_FLOW`, not `CURRENCY_FLOW`). Columns and functions may *only* 
 agnostic tokens (`unit=` accepts core-enumeration members and rejects concrete currency
 tokens) — that is what makes them provably currency-agnostic.
 
-**The run currency.** The `currency` knob defaults to the registered base currency
-(`"euro"` for GETTSIM) and sets the currency of the input data and of the output. At
-environment build, every currency-denominated number is converted from its declared
-denomination to the run currency: scalar values, dict parameters leaf by leaf (each
-currency leaf by its own token), schedules axis by axis, and lookup-table values (see
-the per-axis rules above). The factors are baked in at build time; the numeric runtime
-path stays single-currency.
+**The run currency.** The `currency` argument to `main()` defaults to the registered
+base currency (`"euro"` for GETTSIM); it is the currency the input data is taken to be
+in and that the outputs come out in. At environment build, every currency-denominated
+*parameter* is converted from its declared denomination to the run currency: scalar
+values, dict parameters leaf by leaf (each currency leaf by its own token), schedules
+axis by axis, and lookup-table values (see the per-axis rules above). The factors are
+baked in at build time; the numeric runtime path stays single-currency.
 
 **A changeover within one parameter's history.** A dated entry may restate the unit
 field(s), overriding the top-level declaration for that entry's numbers. This is how the
