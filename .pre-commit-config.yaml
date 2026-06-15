@@ -70,6 +70,30 @@ repos:
           - jupyter
           - pyi
           - python
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.49
+    hooks:
+      - id: ty
+        name: ty (numpy backend)
+        # `--no-project` keeps uv from creating a `.venv`/`uv.lock` in this
+        # pixi-managed repo; ty resolves third-party imports from the env named
+        # in `[tool.ty] environment.python` (run `pixi install` once).
+        args:
+          - --no-project
+  - repo: local
+    hooks:
+      - id: ty-jax
+        name: ty (jax backend)
+        # A local hook because the official hook's `uv check` cannot forward
+        # `--python` to ty; this checks against the JAX environment. Keep the
+        # ty pin in sync with the `ty-pre-commit` rev above.
+        language: python
+        additional_dependencies:
+          - ty==0.0.49
+        entry: ty check --python .pixi/envs/py314-jax
+        pass_filenames: false
+        always_run: true
+        require_serial: true
   - repo: https://github.com/kynan/nbstripout
     rev: 0.9.1
     hooks:
@@ -99,3 +123,8 @@ repos:
         files: docs/.
 ci:
   autoupdate_schedule: monthly
+  # pre-commit.ci has no pixi environments and blocks network at hook runtime;
+  # the GitHub Actions run-ty job covers type checking.
+  skip:
+    - ty
+    - ty-jax
