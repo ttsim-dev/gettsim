@@ -160,10 +160,12 @@ in the same parameter's history and both come out in the run currency.
 
 Tagging input data with pint units is **optional**. A column may be passed as a bare
 array — taken to be in the run currency, exactly as today — or as a pint `Quantity`, in
-which case the framework converts its currency to the run currency at the boundary and
+which case the framework converts its *currency* to the run currency at the boundary and
 strips the tag, so a user holding DM figures can feed them into a Euro run without
-converting them by hand. A tag of the wrong *dimension* (an area on a currency column)
-still fails loudly. Tagging is a convenience, never a requirement.
+converting them by hand. Only the currency is rescaled; the tag must otherwise describe
+the column's own quantity — its period in particular, which the boundary does not
+reinterpret (use the `_y`/`_m` suffix for that). A tag built from a unit TTSIM does not
+know fails loudly. Tagging is a convenience, never a requirement.
 
 Results are returned as bare arrays in the run currency; optionally labelling them with
 pint units is left to future work.
@@ -195,9 +197,9 @@ pint units is left to future work.
 - A missing `unit=` fails at environment build, the way a missing return type does under
   GEP 9. `unit=None` / `unit: null` is *not* missing — it states that the quantity is
   dimensionless.
-- An input column tagged with a pint unit of the wrong *dimension* (an area on a
-  currency column) fails loudly at the boundary; a tag in another currency is converted
-  to the run currency, not rejected.
+- An input column tagged with a pint `Quantity` in another currency is converted to the
+  run currency at the boundary, not rejected; a tag built from a unit token TTSIM does
+  not know fails loudly there.
 
 ## Backward Compatibility
 
@@ -465,12 +467,15 @@ currency outputs).
   CI test over all policy dates and as an always-on build-time `fail_if` on the
   assembled environment.
 - **Layer 2 — input compatibility (boundary).** Users *may* attach pint `Quantity`s to
-  individual input columns. At the GEP-9 canonicalisation boundary a tag is checked
-  against the `@policy_input`'s declared *dimension* and then converted to the column's
-  declared unit in the run currency — a DM-tagged column feeds a Euro run, converted at
-  the boundary — before being stripped to a bare array for the numeric path. A bare,
-  untagged column is taken to already be in the run currency and passes through
-  unchanged; a tag of an incompatible dimension fails loudly.
+  individual input columns. At the GEP-9 canonicalisation boundary the tag's *currency*
+  is converted to the run currency — a DM-tagged column feeds a Euro run, rescaled at
+  the boundary — and the tag is stripped to a bare array for the numeric path; its
+  period and area are left untouched. A bare, untagged column is taken to already be in
+  the run currency. (Checking the tag's *full* unit against the column's declared unit —
+  which would also convert periods and reject a wrong-dimension tag — needs that
+  declared unit at the boundary; the interface DAG cannot supply it there without a
+  cycle, since the environment already depends on the input columns, so it is left to
+  future work.)
 
 `vectorization_strategy="not_required"` functions, which use raw `xnp` column ops, are
 checked by running them in NumPy+pint on small synthetic arrays; a declared output unit
