@@ -88,13 +88,22 @@ unit engine.
 
 ## Usage and Impact
 
-### Maintainers annotate units; the period stays implicit for flows
+### Units come from parameters and inputs; functions supply the timing
 
-Every `@policy_function`, `@policy_input`, `@param_function`, and `@agg_*_function`
-carries a `unit=` token. Flow tokens (`…_FLOW`) get their period from the name suffix
-(columns/functions) or from `reference_period` (parameters); complete tokens are the
-whole unit and admit no period source. Reading a declaration requires no rule book: a
-token either names the complete unit, or says in its own name that it is a flow.
+Units enter the model through its **data**: every parameter and every input column
+carries a `unit=` declaration (a token, or `null` for a dimensionless one). From there
+the framework works out the unit of whatever a policy function computes, by running the
+body on its inputs (the dry-run). A function still restates that unit in `unit=`,
+checked against the inferred result — the way {ref}`GEP 9 <gep-9>` has it restate the
+return type — so its declaration is a guard rail, not a new source of truth. What the
+function author genuinely supplies is the *timing*: whether the result is a per-period
+quantity, and at which period, carried by the name suffix (`_m`) or by
+`reference_period`.
+
+A `…_FLOW` token takes its period from that suffix (columns and functions) or from
+`reference_period` (parameters); every other token is already complete. Reading a
+declaration needs no rule book: a token either names a complete unit, or says in its own
+name that it is a flow.
 
 ```python
 @policy_function(unit=Unit.CURRENCY_FLOW)  # name betrag_m -> resolved CURRENCY/month
