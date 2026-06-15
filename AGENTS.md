@@ -26,9 +26,9 @@ pixi run -e py314-jax tests src/gettsim/tests_germany/test_policy_cases.py
 # Run tests for a specific policy area (by test ID pattern)
 pixi run -e py314-jax tests -k "kindergeld"
 
-# Type checking
-pixi run ty
-pixi run ty-jax
+# Type checking (runs as the ty / ty-jax pre-commit hooks)
+prek run ty --all-files
+prek run ty-jax --all-files
 
 # Quality checks (linting, formatting)
 pixi run prek run --all-files
@@ -37,11 +37,11 @@ pixi run prek run --all-files
 pixi run docs
 ```
 
-Before finishing any task that modifies code, always run these three verification steps
-in order:
+Before finishing any task that modifies code, always run these two verification steps in
+order:
 
-1. `pixi run ty` and `pixi run ty-jax` (type checker)
-1. `pixi run prek run --all-files` (quality checks: linting, formatting, yaml, etc.)
+1. `pixi run prek run --all-files` (quality checks: ty / ty-jax type checking, linting,
+   formatting, yaml, etc.)
 1. `pixi run -e py314-jax tests -n 7` (full test suite)
 
 ## Architecture

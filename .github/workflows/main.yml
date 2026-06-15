@@ -94,10 +94,10 @@ jobs:
           cache: true
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           frozen: true
-          environments: type-checking type-checking-jax
-      - name: Run ty
-        run: pixi run --locked ty
+          environments: py314 py314-jax
+      - name: Run ty (numpy backend)
+        run: pixi run --locked -e py314 prek run ty --all-files
         shell: bash -el {0}
-      - name: Run ty-jax
-        run: pixi run --locked ty-jax
+      - name: Run ty (jax backend)
+        run: pixi run --locked -e py314 prek run ty-jax --all-files
         shell: bash -el {0}
