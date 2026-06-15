@@ -162,10 +162,12 @@ Tagging input data with pint units is **optional**. A column may be passed as a 
 array — taken to be in the run currency, exactly as today — or as a pint `Quantity`, in
 which case the framework converts its *currency* to the run currency at the boundary and
 strips the tag, so a user holding DM figures can feed them into a Euro run without
-converting them by hand. Only the currency is rescaled; the tag must otherwise describe
-the column's own quantity — its period in particular, which the boundary does not
-reinterpret (use the `_y`/`_m` suffix for that). A tag built from a unit TTSIM does not
-know fails loudly. Tagging is a convenience, never a requirement.
+converting them by hand. Only the currency is rescaled. The tag's **period must match
+the column's `_y`/`_m` suffix exactly** — a `_m` column needs a `/month` tag, an
+unsuffixed column a tag with no period — so a contradictory period (a `_m` column tagged
+per year) fails loudly instead of being silently mis-scaled; the boundary converts
+currencies, not periods. A tag built from a unit TTSIM does not know also fails loudly.
+Tagging is a convenience, never a requirement.
 
 Results are returned as bare arrays in the run currency; optionally labelling them with
 pint units is left to future work.
@@ -198,8 +200,9 @@ pint units is left to future work.
   GEP 9. `unit=None` / `unit: null` is *not* missing — it states that the quantity is
   dimensionless.
 - An input column tagged with a pint `Quantity` in another currency is converted to the
-  run currency at the boundary, not rejected; a tag built from a unit token TTSIM does
-  not know fails loudly there.
+  run currency at the boundary, not rejected. A tag whose period disagrees with the
+  column's time suffix, or that is built from a unit token TTSIM does not know, fails
+  loudly there.
 
 ## Backward Compatibility
 
@@ -469,13 +472,14 @@ currency outputs).
 - **Layer 2 — input compatibility (boundary).** Users *may* attach pint `Quantity`s to
   individual input columns. At the GEP-9 canonicalisation boundary the tag's *currency*
   is converted to the run currency — a DM-tagged column feeds a Euro run, rescaled at
-  the boundary — and the tag is stripped to a bare array for the numeric path; its
-  period and area are left untouched. A bare, untagged column is taken to already be in
-  the run currency. (Checking the tag's *full* unit against the column's declared unit —
-  which would also convert periods and reject a wrong-dimension tag — needs that
-  declared unit at the boundary; the interface DAG cannot supply it there without a
-  cycle, since the environment already depends on the input columns, so it is left to
-  future work.)
+  the boundary — and the tag is stripped to a bare array for the numeric path; its area
+  is left untouched. The tag's *period* is checked against the column's GEP-1 time
+  suffix (read off the column name, so no declared unit is needed) and must match
+  exactly, so a contradictory period fails loudly rather than being silently mis-scaled.
+  A bare, untagged column is taken to already be in the run currency. Validating the
+  tag's *dimension* against the column's declared unit (to reject e.g. a currency tag on
+  an age column) would have to thread that declared unit to the boundary and is deferred
+  to future work.
 
 `vectorization_strategy="not_required"` functions, which use raw `xnp` column ops, are
 checked by running them in NumPy+pint on small synthetic arrays; a declared output unit
