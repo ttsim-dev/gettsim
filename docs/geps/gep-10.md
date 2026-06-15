@@ -147,21 +147,26 @@ yields a well-formed `CURRENCY_FLOW`.
 
 ### Functions work in any currency; one setting picks the run currency
 
-Parameters record their legal currency in the unit token itself (`DM_FLOW`,
-`EURO_STOCK`). An optional `currency` argument to `main()` chooses the currency the
-model runs in, defaulting to the registered base currency (`"euro"` for GETTSIM).
-
-- **Parameters** are converted from their stored currency to the run currency at build
-  time — so a Deutsche-Mark value and a Euro value can sit in the same parameter's
-  history and both come out in the run currency.
-- **Input data** is taken to already be in the run currency; the framework does not
-  convert it. A user may attach an explicit unit to an input column, but it is then
-  *checked* against the run currency and stripped — never rescaled — so a wrong-currency
-  tag fails loudly instead of being silently converted.
-- **Outputs** come out in the run currency.
-
 A policy function never names a concrete currency; it uses the agnostic tokens only,
 which is what lets the same function serve a Euro run and a DM run unchanged.
+Parameters, by contrast, record their legal currency in the unit token itself
+(`DM_FLOW`, `EURO_STOCK`). An optional `currency` argument to `main()` chooses the
+currency the model runs in, defaulting to the registered base currency (`"euro"` for
+GETTSIM); at build time every currency-denominated parameter is converted from its
+stored currency to that run currency, so a Deutsche-Mark value and a Euro value can sit
+in the same parameter's history and both come out in the run currency.
+
+### Units at the boundary
+
+Tagging input data with pint units is **optional**. A column may be passed as a bare
+array — taken to be in the run currency, exactly as today — or as a pint `Quantity`, in
+which case the framework converts its currency to the run currency at the boundary and
+strips the tag, so a user holding DM figures can feed them into a Euro run without
+converting them by hand. A tag of the wrong *dimension* (an area on a currency column)
+still fails loudly. Tagging is a convenience, never a requirement.
+
+Results are returned as bare arrays in the run currency; optionally labelling them with
+pint units is left to future work.
 
 ### Errors are loud and early
 
@@ -190,8 +195,9 @@ which is what lets the same function serve a Euro run and a DM run unchanged.
 - A missing `unit=` fails at environment build, the way a missing return type does under
   GEP 9. `unit=None` / `unit: null` is *not* missing — it states that the quantity is
   dimensionless.
-- An input column tagged by the user with a pint unit that disagrees with the declared
-  one fails loudly at the boundary.
+- An input column tagged with a pint unit of the wrong *dimension* (an area on a
+  currency column) fails loudly at the boundary; a tag in another currency is converted
+  to the run currency, not rejected.
 
 ## Backward Compatibility
 
@@ -459,10 +465,12 @@ currency outputs).
   CI test over all policy dates and as an always-on build-time `fail_if` on the
   assembled environment.
 - **Layer 2 — input compatibility (boundary).** Users *may* attach pint `Quantity`s to
-  individual input columns. At the GEP-9 canonicalisation boundary the tag is a pure
-  *assertion* against the `@policy_input`'s declared unit (currency must equal the run
-  knob; period must match): a mismatch fails loudly. The quantity is then stripped to a
-  bare array. Tags never convert.
+  individual input columns. At the GEP-9 canonicalisation boundary a tag is checked
+  against the `@policy_input`'s declared *dimension* and then converted to the column's
+  declared unit in the run currency — a DM-tagged column feeds a Euro run, converted at
+  the boundary — before being stripped to a bare array for the numeric path. A bare,
+  untagged column is taken to already be in the run currency and passes through
+  unchanged; a tag of an incompatible dimension fails loudly.
 
 `vectorization_strategy="not_required"` functions, which use raw `xnp` column ops, are
 checked by running them in NumPy+pint on small synthetic arrays; a declared output unit
@@ -647,6 +655,8 @@ correspondence GEP 1 is built on.
 tagging; whether per-capita scaling should ever get dedicated dimensions (see the
 rejected `[count]` alternative — revisit if missing-scale bugs accumulate); and whether
 the gettsim rollout should be a single large PR or staged behind a temporary gate.
+Returning results as pint-labelled `Quantity`s, rather than the bare arrays produced
+today, is left as future work.
 
 ## References and Footnotes
 
