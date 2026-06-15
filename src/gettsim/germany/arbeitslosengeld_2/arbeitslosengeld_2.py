@@ -1,4 +1,11 @@
-"""Arbeitslosengeld II (unemployment benefit II)."""
+"""Arbeitslosengeld II (unemployment benefit II).
+
+For an explanation of how income is distributed in SGB II and SGB XII see:
+
+Kulle, Thomas: „Der Einkommenseinsatz nach den diversen Berechnungsmethoden im Rahmen
+des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang, Heft
+5/2012, S. 178-188.
+"""
 
 from __future__ import annotations
 
@@ -9,24 +16,15 @@ from gettsim.tt import policy_function
 def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
-    volljährige_alle_rentenbezieher_hh: bool,
 ) -> float:
-    """Final monthly subsistence payment on household level."""
-    # TODO (@MImmesberger): No interaction between Wohngeld/ALG2 and Grundsicherung im
-    # Alter (SGB XII) is implemented yet. We assume for now that households with only
-    # retirees are eligible for Grundsicherung im Alter but not for ALG2/Wohngeld. All
-    # other households are not eligible for SGB XII, but SGB II / Wohngeld. Once this is
-    # resolved, remove the `volljährige_alle_rentenbezieher_hh` condition.
-    # https://github.com/ttsim-dev/gettsim/issues/703
-    if (
-        vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger
-        or volljährige_alle_rentenbezieher_hh
-    ):
-        out = 0.0
-    else:
-        out = anspruchshöhe_m
+    """Final monthly ALG II payment per person.
 
-    return out
+    Reference: §19 Abs. 1 SGB II
+    """
+    if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        return 0.0
+    else:
+        return anspruchshöhe_m
 
 
 @policy_function(start_date="2005-01-01", end_date="2022-12-31")
@@ -34,19 +32,24 @@ def anspruchshöhe_m(
     ungedeckter_bedarf_m: float,
     ungedeckter_bedarf_m_bg: float,
     einkommen_zur_verteilung_m_bg: float,
+    grundsicherung__im_alter__überschusseinkommen_m_eg: float,
     vermögen_bg: float,
     vermögensfreibetrag_bg: float,
 ) -> float:
     """Individual share of BG entitlement using the Bedarfsanteilsmethode.
 
-    Adults' pooled income is distributed proportionally by each person's share of
-    ungedeckter Bedarf.
+    In gemischten Bedarfsgemeinschaften, the SGB XII partner's needs and income are
+    excluded from the pool ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: § 9 Abs. 2 Satz 3 SGB II, § 11 Abs. 1 Satz 5 SGB II
+    Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    anspruch_m_bg = max(0.0, ungedeckter_bedarf_m_bg - einkommen_zur_verteilung_m_bg)
+    total_income_m_bg = (
+        einkommen_zur_verteilung_m_bg
+        + grundsicherung__im_alter__überschusseinkommen_m_eg
+    )
+    anspruch_m_bg = max(0.0, ungedeckter_bedarf_m_bg - total_income_m_bg)
 
-    if vermögen_bg > vermögensfreibetrag_bg:
+    if ungedeckter_bedarf_m_bg == 0.0 or vermögen_bg > vermögensfreibetrag_bg:
         return 0.0
     else:
         return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
@@ -57,16 +60,20 @@ def ungedeckter_bedarf_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Bedarf after netting child's own income.
 
-    For children in the BG, own income (mainly Kindergeld) is first netted against
-    their own Bedarf per § 11 Abs. 1 Satz 5 SGB II. For adults, Bedarf is unchanged —
-    their income enters the pool for proportional distribution.
+    In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
+    excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: § 9 Abs. 2 Satz 3 SGB II
+    Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    if familie__ist_kind_in_bedarfsgemeinschaft:
+    if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
+        return 0.0
+    elif familie__ist_kind_in_bedarfsgemeinschaft:
+        # Children's income is counted against the children's own needs first
+        # (vertikal-horizontale Methode).
         return max(0.0, regelbedarf_m - anzurechnendes_einkommen_m)
     else:
         return regelbedarf_m
@@ -77,15 +84,37 @@ def einkommen_zur_verteilung_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
+    sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
     """Income available for proportional distribution across BG.
 
-    Adults' full income enters the pool. For children, only excess income beyond own
-    Bedarf enters the pool; the rest was already netted in ungedeckter_bedarf_m.
+    In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
+    excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: § 9 Abs. 2 Satz 3 SGB II
+    Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    if familie__ist_kind_in_bedarfsgemeinschaft:
+    if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
+        return 0.0
+    elif familie__ist_kind_in_bedarfsgemeinschaft:
+        # Children's income is counted against the children's own needs first. Only
+        # the remaining income is counted against the BG's needs (vertikal-horizontale
+        # Methode).
         return max(0.0, anzurechnendes_einkommen_m - regelbedarf_m)
     else:
         return anzurechnendes_einkommen_m
+
+
+@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+def überschusseinkommen_m(
+    einkommen_zur_verteilung_m_bg: float,
+    ungedeckter_bedarf_m_bg: float,
+) -> float:
+    """SGB II excess income that flows to the SGB XII partner.
+
+    In gemischten Bedarfsgemeinschaften (one partner is SGB II eligible, the other
+    one SGB XII), if the SGB II members' total income exceeds their total Bedarf, the
+    surplus is counted as income for the SGB XII partner's Grundsicherung calculation.
+
+    Reference: BSG B 14 AS 89/20 R
+    """
+    return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)

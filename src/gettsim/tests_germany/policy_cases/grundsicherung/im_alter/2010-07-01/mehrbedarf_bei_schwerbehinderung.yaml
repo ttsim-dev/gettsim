@@ -1,0 +1,219 @@
+---
+info:
+  note: |-
+    - Person 0: Single retiree with Merkzeichen G → basissatz * 0.17 = 359 * 0.17 =
+    61.03
+    - Person 1: Partnered retiree with Merkzeichen G → basissatz * 0.8 * 0.17 =
+    48.824
+    - Person 2: Partnered retiree without Merkzeichen G → 0
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 67
+      - 67
+      - 67
+    alter_monate:
+      - 804
+      - 804
+      - 804
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - -1
+        - 2
+        - 1
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - true
+        - true
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+    geburtsjahr:
+      - 1943
+      - 1943
+      - 1943
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
+          - false
+    hh_id:
+      - 0
+      - 0
+      - 0
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+    schwerbehindert_grad_g:
+      - true
+      - true
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 250.0
+            - 250.0
+            - 250.0
+        bezieht_rente:
+          - true
+          - true
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+      - 0.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 300.0
+        - 300.0
+        - 300.0
+      heizkosten_m_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+      wohnfläche_hh:
+        - 50.0
+        - 50.0
+        - 50.0
+outputs:
+  grundsicherung:
+    im_alter:
+      mehrbedarf_schwerbehinderung_g_m:
+        - 61.03
+        - 48.824
+        - 0.0

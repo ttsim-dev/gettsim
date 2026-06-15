@@ -29,6 +29,9 @@ inputs:
     alter:
       - 5
       - 30
+    alter_monate:
+      - 60
+      - 360
     arbeitsstunden_w:
       - 0.0
       - 0.0

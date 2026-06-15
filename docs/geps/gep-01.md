@@ -101,16 +101,16 @@ GETTSIM knows about the following units:
   unit is based on the priority check via
   `vorrangprüfungen__wohngeld_vorrang_vor_arbeitslosengeld_2_bg` and
   `vorrangprüfungen__wohngeld_und_kinderzuschlag_vorrang_vor_arbeitslosengeld_2_bg`.
-- `arbeitslosengeld_2__fg_id`: Familiengemeinschaft. Maximum of two generations, the
-  relevant unit for Bürgergeld / Arbeitslosengeld 2. Another way to think about this is
-  the potential Bedarfsgemeinschaft before making checks for whether children have
-  enough income fend for themselves. Subset of `hh`.
-- `arbeitslosengeld_2__bg_id`: Bedarfsgemeinschaft, i.e., Familiengemeinschaft excluding
-  children who have enough income to fend for themselves (they will form separate
-  `bg`s). Subset of `arbeitslosengeld_2__fg_id`.
-- `arbeitslosengeld_2__eg_id`: Einstandsgemeinschaft, a couple whose members are deemed
-  to be responsible for each other. This includes couples that live together and may or
-  may not be married or in a civil union.
+- `arbeitslosengeld_2__fg_id` and `bürgergeld__fg_id`: Familiengemeinschaft. Maximum of
+  two generations, the relevant unit for Bürgergeld / Arbeitslosengeld 2. Another way to
+  think about this is the potential Bedarfsgemeinschaft before making checks for whether
+  children have enough income fend for themselves. Subset of `hh`.
+- `arbeitslosengeld_2__bg_id` and `bürgergeld__bg_id`: Bedarfsgemeinschaft, i.e.,
+  Familiengemeinschaft excluding children who have enough income to fend for themselves
+  (they will form separate `bg`s). Subset of `arbeitslosengeld_2__fg_id` /
+  `bürgergeld__fg_id`.
+- `grundsicherung__eg_id`: Einsatzgemeinschaft according to § 27 Abs. 2 SGB XII. Maximum
+  of two generations, the relevant unit for Grundsicherung im Alter / Sozialhilfe.
 - `familie__ehe_id`: Ehegemeinschaft, i.e. couples that are married or in a civil union.
 - `einkommensteuer__sn_id`: Steuernummer (same for spouses filing taxes jointly, not the
   same as the Germany-wide Steuer-ID)

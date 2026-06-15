@@ -8,6 +8,8 @@ inputs:
   provided:
     alter:
       - 45
+    alter_monate:
+      - 540
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -71,6 +73,8 @@ inputs:
         - -1
     p_id:
       - 39
+    schwerbehindert_grad_g:
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0
@@ -89,6 +93,9 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

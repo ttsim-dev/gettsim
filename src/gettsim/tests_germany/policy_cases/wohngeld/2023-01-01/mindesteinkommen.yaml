@@ -112,6 +112,13 @@ inputs:
         - 0.0
         - 0.0
       renten:
+        gesetzliche_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         betrag_gesamt_m:
           - 0.0
           - 0.0
@@ -247,6 +254,14 @@ inputs:
             - 0.0
             - 0.0
       rente:
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
         beitrag:
           betrag_versicherter_m:
             - 100.0

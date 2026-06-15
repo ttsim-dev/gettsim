@@ -1,0 +1,298 @@
+---
+info:
+  note: |-
+    Retired couple (Person0 age 70, Person1 age 68), both past Regelaltersgrenze, no
+    income. Person2 is their adult child (age 40) living in a separate household with
+    monthly gross earnings of 6,000 EUR (annual Gesamtbetrag der Einkünfte <
+    100,000 EUR). §43 SGB XII: because no child's Gesamteinkommen (§16 SGB IV) exceeds
+    100,000 EUR, the parents remain eligible for Grundsicherung im Alter.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+      - 68
+      - 40
+    alter_monate:
+      - 846
+      - 822
+      - 486
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 40.0
+    behinderungsgrad:
+      - 0
+      - 0
+      - 0
+    arbeitslosengeld_2:
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      abzüge:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
+              - 65
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 6000.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+    geburtsjahr:
+      - 1948
+      - 1950
+      - 1978
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+    geburtstag:
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 0
+      - 1
+    kindergeld:
+      in_ausbildung:
+        - false
+        - false
+        - false
+      p_id_empfänger:
+        - -1
+        - -1
+        - -1
+    p_id:
+      - 0
+      - 1
+      - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        bezieht_rente:
+          - true
+          - true
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 0
+            - 0
+            - 0
+        jahr_renteneintritt:
+          - 2013
+          - 2015
+          - 2043
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen_bg:
+      - 0.0
+      - 0.0
+      - 0.0
+    vermögen_eg:
+      - 0.0
+      - 0.0
+      - 0.0
+    vermögen_wthh:
+      - 0.0
+      - 0.0
+      - 0.0
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
+        - false
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 350.0
+        - 350.0
+        - 500.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 60.0
+        - 60.0
+        - 50.0
+    wohngeld:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+      mietstufe_hh:
+        - 3
+        - 3
+        - 3
+outputs:
+  grundsicherung:
+    im_alter:
+      hat_kind_mit_einkommen_über_einkommensgrenze:
+        - false
+        - false
+        - false
+      betrag_m:
+        - 599.0
+        - 599.0
+        - 0.0

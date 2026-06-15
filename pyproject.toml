@@ -82,8 +82,6 @@ py313 = [ "py313", "tests" ]
 py314 = [ "py314", "tests", "coverage" ]
 py314-cuda = [ "py314", "tests", "cuda" ]
 py314-jax = [ "py314", "tests", "jax" ]
-type-checking = [ "py314", "type-checking" ]
-type-checking-jax = [ "py314", "type-checking-jax", "jax" ]
 py314-metal = [ "py314", "tests", "metal" ]
 docs = [ "docs", "py313" ]
 [tool.pixi.feature.coverage.tasks]
@@ -165,20 +163,6 @@ tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.tests.target.win-64.tasks]
 tests = "pytest"
 [tool.pixi.feature.tests.tasks]
-[tool.pixi.feature.type-checking-jax.pypi-dependencies]
-ty = "*"
-types-PyYAML = "*"
-types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
-[tool.pixi.feature.type-checking-jax.tasks]
-ty-jax = "ty check"
-[tool.pixi.feature.type-checking.pypi-dependencies]
-ty = "*"
-types-PyYAML = "*"
-types-pytz = "*"
-gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
-[tool.pixi.feature.type-checking.tasks]
-ty = "ty check"
 [tool.pixi.pypi-dependencies]
 gettsim = { path = ".", editable = true }
 jaxtyping = ">=0.3.2"
@@ -239,10 +223,9 @@ per-file-ignores."src/gettsim/__init__.py" = [
 per-file-ignores."src/gettsim/germany/*" = [
   "E501",    # Line too long — policy functions have long expressions
   "E721",    # Do not compare types, use isinstance() — needed for type(x) == type(y)
-  "PLR1714", # Consider merging multiple comparisons with in
-  "PLR1716", # Boolean expression may be simplified with chained comparison
-  "RET",     # Flake8-return — vectorization requires specific return patterns
-  "SIM108",  # Use ternary operator — vectorization requires if/else blocks
+  "PLR1714", # Consider merging multiple comparisons with `in` — not vectorizable
+  "PLR1716", # Boolean expression may be simplified with chained comparison — not vectorizable
+  "RET505",  # Vectorizer requires both if/else branches; it rejects the early-return form
 ]
 per-file-ignores."src/gettsim/germany/familie/familie.py" = [
   "PLR2004", # Magic value used in comparison
@@ -297,16 +280,16 @@ expand_tables = [
   "tool.pixi.feature.tests.target.osx-64.tasks",
   "tool.pixi.feature.tests.target.osx-arm64.tasks",
   "tool.pixi.feature.tests.target.win-64.tasks",
-  "tool.pixi.feature.type-checking.pypi-dependencies",
-  "tool.pixi.feature.type-checking.tasks",
-  "tool.pixi.feature.type-checking-jax.pypi-dependencies",
-  "tool.pixi.feature.type-checking-jax.tasks",
   "tool.pixi.pypi-dependencies",
   "tool.pixi.tasks",
   "tool.pixi.workspace",
 ]
 
 [tool.ty]
+# ty resolves third-party imports from this pixi env (the ty-pre-commit hook runs
+# `uv check --no-project`, so uv neither creates a `.venv` nor resolves deps). Run
+# `pixi install` once. The ty-jax hook overrides this on the command line for jax.
+environment.python = ".pixi/envs/py314"
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
 rules.division-by-zero = "error"

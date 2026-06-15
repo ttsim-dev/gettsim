@@ -1,0 +1,226 @@
+---
+info:
+  note: |-
+    Married retired couple with one child (age 10). Child is in the same eg_id as the
+    parents (age < 18). Tests vermögensfreibetrag_eg with 2023 parameters at the eg
+    level: 2 * 10,000 (adults) + 1 * 10,000 (child) = 30,000 EUR.
+    Wealth of 15,000 is below this threshold, so entitlement is not blocked.
+  precision_atol: 0.01
+  source: Self-created test case
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+      - 67
+      - 10
+    alter_monate:
+      - 840
+      - 804
+      - 120
+    bürgergeld:
+      bezug_im_vorjahr:
+        - false
+        - false
+        - false
+      p_id_einstandspartner:
+        - 1
+        - 0
+        - -1
+      überschusseinkommen_m_eg:
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - false
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    familie:
+      alleinerziehend:
+        - false
+        - false
+        - false
+      p_id_ehepartner:
+        - 1
+        - 0
+        - -1
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - 0
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - 1
+    geburtsjahr:
+      - 1953
+      - 1956
+      - 2013
+    geburtsmonat:
+      - 1
+      - 1
+      - 6
+    geburtstag:
+      - 1
+      - 1
+      - 15
+    hh_id:
+      - 0
+      - 0
+      - 0
+    grundsicherung:
+      im_alter:
+        hat_kind_mit_einkommen_über_einkommensgrenze:
+          - false
+          - false
+          - false
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - -1
+        - 0
+    p_id:
+      - 0
+      - 1
+      - 2
+    schwerbehindert_grad_g:
+      - false
+      - false
+      - false
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 400.0
+            - 500.0
+            - 0.0
+        bezieht_rente:
+          - true
+          - true
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        grundrente:
+          grundrentenzeiten_monate:
+            - 500
+            - 500
+            - 0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    vermögen_eg:
+      - 15000.0
+      - 15000.0
+      - 15000.0
+    wohnen:
+      bewohnt_eigentum_hh:
+        - false
+        - false
+        - false
+      bruttokaltmiete_m_hh:
+        - 500.0
+        - 500.0
+        - 500.0
+      heizkosten_m_hh:
+        - 100.0
+        - 100.0
+        - 100.0
+      wohnfläche_hh:
+        - 75.0
+        - 75.0
+        - 75.0
+outputs:
+  grundsicherung:
+    im_alter:
+      anspruchshöhe_m:
+        - 441.0
+        - 371.0
+        - 0.0
+      vermögensgrenze_unterschritten_eg:
+        - true
+        - true
+        - true

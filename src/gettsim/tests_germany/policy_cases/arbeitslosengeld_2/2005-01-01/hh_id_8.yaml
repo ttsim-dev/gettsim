@@ -8,6 +8,8 @@ inputs:
   provided:
     alter:
       - 45
+    alter_monate:
+      - 540
     arbeitslosengeld_2:
       bezug_im_vorjahr:
         - false
@@ -60,6 +62,15 @@ inputs:
         - -1
     geburtsjahr:
       - 1960
+    grundsicherung:
+      im_alter:
+        # TODO(@MImmesberger): Remove the following two columns once Grundsicherung
+        # im Alter works pre-2011.
+        # https://github.com/ttsim-dev/gettsim/issues/685
+        erwerbseinkommen_m:
+          - 0.0
+        mehrbedarf_bei_schwerbehinderungsgrad_g:
+          - 0.0
     hh_id:
       - 8
     kindergeld:
@@ -71,6 +82,8 @@ inputs:
         - -1
     p_id:
       - 4
+    schwerbehindert_grad_g:
+      - false
     solidaritätszuschlag:
       betrag_y_sn:
         - 0.0

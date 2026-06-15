@@ -411,8 +411,7 @@ We chose descriptive names because:
 
 - [ttsim #5](https://github.com/ttsim-dev/ttsim/issues/5): Proposal to improve the
   interface for piecewise polynomials (rates shape)
-- [gettsim #901](https://github.com/iza-institute-of-labor-economics/gettsim/issues/901):
-  Original issue
+- [gettsim #901](https://github.com/ttsim-dev/gettsim/issues/901): Original issue
 - [pylcm #210](https://github.com/OpenSourceEconomics/pylcm/issues/210): Discussion on
   interval specification
 

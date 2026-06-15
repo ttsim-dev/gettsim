@@ -11,12 +11,7 @@ def alleinerziehend_betrag_y_pauschal(
     alleinerziehendenfreibetrag_basis: float,
 ) -> float:
     """Calculate tax deduction allowance for single parents until 2014"""
-    if familie__alleinerziehend_sn:
-        out = alleinerziehendenfreibetrag_basis
-    else:
-        out = 0.0
-
-    return out
+    return alleinerziehendenfreibetrag_basis if familie__alleinerziehend_sn else 0.0
 
 
 @policy_function(start_date="2015-01-01", leaf_name="alleinerziehend_betrag_y")
