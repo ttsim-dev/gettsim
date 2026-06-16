@@ -84,11 +84,11 @@ unchanged; only the *arithmetic* behind the conversions moves onto the unit engi
 ### Units come from parameters and inputs; functions supply the timing
 
 Units enter the model through its **data**: every parameter and every input column
-carries a `unit=` declaration (a token, or `null` for a dimensionless one). From there
-the framework works out the unit of whatever a policy function computes, by running the
-body on its inputs (the dry-run). A function still restates that unit in `unit=`,
-checked against the inferred result — the way {ref}`GEP 9 <gep-9>` has it restate the
-return type — so its declaration is a guard rail, not a new source of truth.
+carries a `unit=` declaration (a token; `DIMENSIONLESS` for a dimensionless one). From
+there the framework works out the unit of whatever a policy function computes, by
+running the body on its inputs (the dry-run). A function still restates that unit in
+`unit=`, checked against the inferred result — the way {ref}`GEP 9 <gep-9>` has it
+restate the return type — so its declaration is a guard rail, not a new source of truth.
 
 The only exception are tokens that include a "flow" time dimension (`CURRENCY_FLOW`,
 `HOURS_FLOW`, …). For those, the period is taken from the name suffix (e.g. `betrag_m`)
@@ -252,8 +252,8 @@ parameters declare the concrete variants (see {ref}`Currency <gep-10-currency>` 
 **Counting quantities are dimensionless**, following SI and pint convention. A
 per-person parameter declares the same token as any other amount (`EURO_FLOW` for a
 monthly Regelsatz); scaling it by a head count is a plain multiplication that preserves
-the unit. A dimensionless quantity (a share, a rate, a head count) declares **no unit at
-all** — it declares `DIMENSIONLESS` (`unit: DIMENSIONLESS`); the bare-string spellings
+the unit. A dimensionless quantity (a share, a rate, a head count) declares
+`DIMENSIONLESS` (`unit: DIMENSIONLESS`); the bare-string spellings
 `"dimensionless"`/`"count"`/`"percent"` are rejected, one token one meaning. There is no
 `DIMENSIONLESS_STOCK`: a dimensionless *level* is the bare `DIMENSIONLESS` token — only
 currency forces the explicit `_STOCK`/`_FLOW` split. `DIMENSIONLESS` is distinct from a
@@ -292,11 +292,11 @@ quantity they must coincide — there is no precedence order:
   build. This makes the {ref}`GEP 1 <gep-1>` convention machine-checked: a node named
   `…_m` whose body computes a stock cannot be declared consistently.
 - **Scalar parameters.** A `…_FLOW` token requires a non-null `reference_period`, which
-  supplies the period; a complete or `null` declaration requires
+  supplies the period; a complete or `DIMENSIONLESS` declaration requires
   `reference_period: null`. A parameter whose *name* carries a time suffix
   (`lump_sum_deduction_y`) is thereby a flow with a second period source: the suffix
-  must coincide with `reference_period`, and a complete or `null` token under a suffixed
-  name fails.
+  must coincide with `reference_period`, and a complete or `DIMENSIONLESS` token under a
+  suffixed name fails.
 
 Time is a first-class pint dimension. The hand-written arithmetic in
 `unit_converters.py` is reimplemented so factors are sourced from pint
@@ -306,9 +306,9 @@ kept verbatim.
 ### Dict parameters with heterogeneous leaves
 
 A dict parameter whose leaves carry different units declares `unit:` as a **mapping from
-leaf names to tokens** (or `null` for a dimensionless leaf). A flow leaf gets its period
-from the leaf key's own time suffix, or — for keys that cannot carry one, such as
-integer keys — from the dict-level `reference_period`:
+leaf names to tokens** (or `DIMENSIONLESS` for a dimensionless leaf). A flow leaf gets
+its period from the leaf key's own time suffix, or — for keys that cannot carry one,
+such as integer keys — from the dict-level `reference_period`:
 
 ```yaml
 schedule:
@@ -347,8 +347,8 @@ The strict-coincidence rule applies per leaf:
 In the dry-run, dict parameters become dicts of representative `Quantity`s (uniform for
 a scalar `unit:`, per-leaf for a mapping), so bodies that subscript them are verifiable.
 The mandatory-units check covers every leaf of the value active at the policy date; a
-leaf missing from the `unit:` mapping is a *missing* declaration, a `null` leaf is a
-dimensionless one.
+leaf missing from the `unit:` mapping is a *missing* declaration, a `DIMENSIONLESS` leaf
+is a dimensionless one.
 
 ### Function-like parameters: one token per axis
 
@@ -368,11 +368,11 @@ tarif:
 ```
 
 Each axis token follows the same kind rules as a scalar declaration; per-axis
-declarations are single tokens (or `null` for a dimensionless axis), never mappings. The
-single `reference_period` supplies the period of *every* flow axis; a `reference_period`
-that no flow axis consumes is dangling and fails; a time suffix on the parameter's
-*name* must coincide with the **output** axis — the suffix names what the parameter
-yields.
+declarations are single tokens (or `DIMENSIONLESS` for a dimensionless axis), never
+mappings. The single `reference_period` supplies the period of *every* flow axis; a
+`reference_period` that no flow axis consumes is dangling and fails; a time suffix on
+the parameter's *name* must coincide with the **output** axis — the suffix names what
+the parameter yields.
 
 The pair also resolves an ambiguity a single `unit:` cannot: *which* of a schedule's
 numbers a currency conversion rescales. Scaling the input axis by $f_{in}$ and the
