@@ -88,9 +88,9 @@ policy function computes, by running the body on its inputs (the dry-run). A fun
 still restates that unit in `unit=`, checked against the inferred result so its
 declaration is a guard rail, not a new source of truth.
 
-The only exception are tokens that include a "flow" time dimension (`CURRENCY_FLOW`,
-`HOURS_FLOW`, …). For those, the period is taken from the name suffix (e.g. `betrag_m`)
-or from `reference_period` (if its a parameter):
+The only exception are flow tokens (`CURRENCY_FLOW`, `HOURS_FLOW`, …). For those the
+period comes from the name suffix (e.g. `betrag_m`); only where a name cannot carry one
+— an integer-keyed dict, a schedule axis — does it come from `reference_period`:
 
 ```python
 @policy_function(unit=Unit.CURRENCY_FLOW)  # name betrag_m -> resolved CURRENCY/month
@@ -98,16 +98,15 @@ def betrag_m(satz: float, anzahl: int) -> float:
     return satz * anzahl
 
 
-@policy_function(unit=Unit.CURRENCY_STOCK)  # a stock; a time suffix would be an error
+@policy_function(unit=Unit.CURRENCY)  # a stock; a time suffix would be an error
 def vermögen(aktien: float, immobilien: float) -> float:
     return aktien + immobilien
 ```
 
 ```yaml
-arbeitnehmerpauschbetrag:
+arbeitnehmerpauschbetrag_y:
   unit: DM_FLOW         # a flow, denominated in DM; build-time -> run currency
-  reference_period: Year  # functional: supplies /year
-  type: scalar
+  type: scalar          # period comes from the _y suffix; no reference_period
   1975-01-01:
     value: 564
 ```
@@ -137,11 +136,11 @@ yields the dimensionless Zugangsfaktor adjustment.
 A policy function never names a concrete currency; it uses the agnostic tokens only,
 which is what lets the same function serve a Euro run and a DM run unchanged.
 Parameters, by contrast, record their legal currency in the unit token itself
-(`DM_FLOW`, `EURO_STOCK`). An optional `currency` argument to `main()` chooses the
-currency the model runs in, defaulting to the registered base currency (`"euro"` for
-GETTSIM); at build time every currency-denominated parameter is converted from its
-stored currency to that run currency, so a Deutsche-Mark value and a Euro value can sit
-in the same parameter's history and both come out in the run currency.
+(`DM_FLOW`, `EUR`). An optional `currency` argument to `main()` chooses the currency the
+model runs in, defaulting to the registered base currency (`"EUR"` for GETTSIM); at
+build time every currency-denominated parameter is converted from its stored currency to
+that run currency, so a Deutsche-Mark value and a Euro value can sit in the same
+parameter's history and both come out in the run currency.
 
 ### Units at the boundary
 
@@ -160,13 +159,16 @@ Results are returned as bare arrays in the run currency.
 
 - A `unit=` value that is not in the list of allowed tokens fails at decoration time
   (functions) or load time (parameters).
-- A period that is given twice and disagrees fails at build, with no precedence rule to
-  paper over it: where both a name suffix and a `reference_period` apply, they must
-  agree. Naming a quantity as if it had a period when it does not — a one-off amount
-  written `vermögen_m`, or a `reference_period` on a token that is already complete or
+- A `reference_period` on a **scalar** parameter fails at build: a scalar takes its
+  period from a time suffix on its name, and `reference_period` is reserved for the
+  cases with no name to suffix (integer-keyed dict leaves, schedule axes; a dict leaf
+  with a suffixed key must instead *coincide* with the dict-level `reference_period`).
+  Naming a quantity as if it had a period when it does not — a one-off amount written
+  `vermögen_m`, or a `reference_period` on a token that is already complete or
   dimensionless — fails the same way.
-- A `…_FLOW` token with no period at all (no suffix, no `reference_period`) fails: the
-  framework cannot tell what the quantity is *per*.
+- A `…_FLOW` token with no period at all (no suffix where one is required, no
+  `reference_period` where it applies) fails: the framework cannot tell what the
+  quantity is *per*.
 - A currency in the wrong place fails at decoration or build: a concrete currency token
   on a column or function (these must stay currency-neutral); an agnostic `CURRENCY_*`
   token on a parameter once a currency is registered (the stored numbers are in *some*
@@ -185,14 +187,17 @@ Results are returned as bare arrays in the run currency.
 ## Backward Compatibility
 
 - **User code shape is unchanged.** Bare arrays and the DataFrame/mapper interface keep
-  working; `currency` defaults to `"euro"` and output stays in Euros.
+  working; `currency` defaults to `"EUR"` and output stays in Euros.
 - **The `unit`/`reference_period` metadata is repurposed.** `unit` becomes one member of
   the token vocabulary and `reference_period` becomes *functional* (it supplies the
   period for `…_FLOW` parameters) rather than purely descriptive.
 - **No opt-out.** Unlike the {ref}`GEP 9 <gep-9>` beartype claw, the unit check has no
   env-var escape hatch.
-- **A migration is required.** Every node must declare a unit and every bare literal in
-  mixed-unit arithmetic must be unit-tagged.
+- **A migration is required.** Every node must declare a unit; suffix-less flow
+  parameters are renamed to carry a time suffix (`arbeitnehmerpauschbetrag` →
+  `arbeitnehmerpauschbetrag_y`), since the suffix is now the period source wherever a
+  name can carry one; and a bare literal of a real dimension is promoted to a parameter
+  or its function body opts out with `verify_units=False`.
 
 ## Detailed Description
 
@@ -202,32 +207,36 @@ A declaration is one member of the **token vocabulary**. Its backbone is a close
 enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in code
 (`Unit.CURRENCY_FLOW`) and in YAML (`unit: CURRENCY_FLOW`):
 
-| token                            | kind     | resolves to                      | typical use              |
-| -------------------------------- | -------- | -------------------------------- | ------------------------ |
-| `CURRENCY_FLOW`                  | flow     | `CURRENCY / period`              | wages, claims, benefits  |
-| `CURRENCY_STOCK`                 | complete | `CURRENCY`                       | wealth, asset thresholds |
-| `DIMENSIONLESS`                  | complete | `dimensionless`                  | shares, rates, counts    |
-| `DIMENSIONLESS_FLOW`             | flow     | `1 / period`                     | Zugangsfaktor per year   |
-| `YEARS`                          | complete | `year`                           | ages, durations          |
-| `HOURS_FLOW`                     | flow     | `hour / period`                  | working hours            |
-| `SQUARE_METERS`                  | complete | `meter ** 2`                     | dwelling size            |
-| `HECTARES`                       | complete | `hectare`                        | land area                |
-| `CURRENCY_PER_SQUARE_METER_FLOW` | flow     | `CURRENCY / meter ** 2 / period` | rent caps                |
+| token                            | resolves to                      | typical use              |
+| -------------------------------- | -------------------------------- | ------------------------ |
+| `CURRENCY_FLOW`                  | `CURRENCY / period`              | wages, claims, benefits  |
+| `CURRENCY`                       | `CURRENCY`                       | wealth, asset thresholds |
+| `DIMENSIONLESS`                  | `dimensionless`                  | shares, rates, counts    |
+| `DIMENSIONLESS_FLOW`             | `1 / period`                     | Zugangsfaktor per year   |
+| `YEARS`                          | `year`                           | ages, durations          |
+| `HOURS_FLOW`                     | `hour / period`                  | working hours            |
+| `SQUARE_METERS`                  | `meter ** 2`                     | dwelling size            |
+| `CURRENCY_PER_SQUARE_METER_FLOW` | `CURRENCY / meter ** 2 / period` | rent caps                |
+
+A token ending in `…_FLOW` needs a period — supplied by the name suffix, or by
+`reference_period` only where no name can carry one (see below); every other token is
+complete as written and takes no period. So the `…_FLOW` suffix is the only flow marker;
+there is no separate "stock" spelling — a currency stock is the bare `CURRENCY` token.
 
 Tokens are not pint syntax. Internally each token resolves to a pint unit (flow tokens
 after the period is filled in); pint expressions never appear in a declaration. The core
 enumeration lives in `ttsim`, is shared by all downstream packages, and grows only by an
 upstream PR. The full vocabulary adds one set of **concrete currency tokens** per
 currency a package registers: `register_currency("DM", ...)` derives one variant per
-currency-dimensioned core token — `DM_STOCK`, `DM_FLOW`, `DM_PER_SQUARE_METER_FLOW` —
-spelled by replacing the agnostic `CURRENCY` prefix with the upper-cased currency name.
-The JSON schema for the parameter YAMLs stays statically enumerable: each package's copy
-lists the core tokens plus its own currency tokens. The currency-dimensioned rows of the
-table above are the *agnostic* tokens; they belong to columns and functions, while
-parameters declare the concrete variants (see {ref}`Currency <gep-10-currency>` below).
+currency-dimensioned core token — `DM`, `DM_FLOW`, `DM_PER_SQUARE_METER_FLOW` — spelled
+by replacing the agnostic `CURRENCY` prefix with the upper-cased currency name. The JSON
+schema for the parameter YAMLs stays statically enumerable: each package's copy lists
+the core tokens plus its own currency tokens. The currency-dimensioned rows of the table
+above are the *agnostic* tokens; they belong to columns and functions, while parameters
+declare the concrete variants (see {ref}`Currency <gep-10-currency>` below).
 
 **Counting quantities are dimensionless**, following SI and pint convention. A
-per-person parameter declares the same token as any other amount (`EURO_FLOW` for a
+per-person parameter declares the same token as any other amount (`EUR_FLOW` for a
 monthly Regelsatz); scaling it by a head count is a plain multiplication that preserves
 the unit. A dimensionless quantity (a share, a rate, a head count) declares
 `DIMENSIONLESS` (`unit: DIMENSIONLESS`).
@@ -253,20 +262,28 @@ The numeric runtime path is unchanged: pure arrays, single currency, JAX-safe.
 ### Units, suffixes, and periods
 
 A flow token is completed by exactly one period source; complete tokens admit none. The
-rules are checked in both directions, and wherever two sources could apply to the same
-quantity they must coincide — there is no precedence order:
+period comes from the **name suffix wherever a name or key can carry one**, and from
+`reference_period` only where it cannot:
 
 - **Columns and functions.** A time suffix (`_y/_q/_m/_w/_d`) requires a `…_FLOW` token,
   and a `…_FLOW` token requires a time suffix; the suffix supplies the period. A
   complete token on a suffixed name — or a flow token on an unsuffixed one — fails at
   build. This makes the {ref}`GEP 1 <gep-1>` convention machine-checked: a node named
   `…_m` whose body computes a stock cannot be declared.
-- **Scalar parameters.** A `…_FLOW` token requires a non-null `reference_period`, which
-  supplies the period; a complete or `DIMENSIONLESS` declaration requires
-  `reference_period: null`. A parameter whose *name* carries a time suffix
-  (`lump_sum_deduction_y`) is thereby a flow with a second period source: the suffix
-  must coincide with `reference_period`, and a complete or `DIMENSIONLESS` token under a
-  suffixed name fails.
+- **Scalar parameters and string-keyed dict leaves.** Their name (or key) can carry a
+  suffix, so it must: a `…_FLOW` token requires a time suffix on the name
+  (`arbeitnehmerpauschbetrag_y`), which supplies the period, and `reference_period` is
+  **forbidden** there. A complete or `DIMENSIONLESS` declaration carries no period.
+- **Where no name can carry a suffix** — integer-keyed dict leaves and the axes of a
+  function-like parameter — the `…_FLOW` token takes its period from `reference_period`
+  instead. This is the only place `reference_period` is functional.
+
+For a scalar the suffix is then the *sole* source — `reference_period` is forbidden, so
+there is nothing to reconcile. A dict leaf may instead fall back to the dict-level
+`reference_period` (next section); where a leaf carries a suffix *and* the dict sets a
+`reference_period`, the two must coincide — there is no precedence order. A
+function-like parameter keeps a similar cross-check: a time suffix on its *name* must
+match its `output_unit` axis (see below).
 
 Time is a first-class pint dimension. The hand-written arithmetic in
 `unit_converters.py` is reimplemented so factors are sourced from pint
@@ -276,16 +293,15 @@ kept verbatim.
 ### Dict parameters with heterogeneous leaves
 
 A dict parameter whose leaves carry different units declares `unit:` as a **mapping from
-leaf names to tokens** (or `DIMENSIONLESS` for a dimensionless leaf). A flow leaf gets
-its period from the leaf key's own time suffix, or — for keys that cannot carry one,
-such as integer keys — from the dict-level `reference_period`:
+leaf keys to tokens** (or `DIMENSIONLESS` for a dimensionless leaf). A flow leaf with a
+string key takes its period from the key's own time suffix; an integer-keyed flow leaf,
+which has no suffix to carry, takes it from the dict-level `reference_period`:
 
 ```yaml
 schedule:
   unit:
-    child_amount_y: EURO_FLOW   # period from the leaf key's _y
+    child_amount_y: EUR_FLOW   # string key -> period from its own _y
     max_age: YEARS
-  reference_period: null
   type: dict
   2024-01-01:
     child_amount_y: 3000.0
@@ -294,29 +310,42 @@ schedule:
 
 ```yaml
 satz_nach_kindanzahl:
-  unit: EURO_FLOW           # uniform: one token for all leaves
-  reference_period: Month   # integer keys carry no suffix
+  unit: EUR_FLOW            # uniform: one token for all leaves
+  reference_period: Month   # integer keys carry no suffix -> dict-level period
   type: dict
   2024-01-01:
     1: 250.0
     2: 250.0
 ```
 
-The strict-coincidence rule applies per leaf:
+A flow leaf's period comes from its key's time suffix, or — for a key without one, such
+as an integer key — from the dict-level `reference_period`. Where a leaf key carries a
+suffix *and* the dict also sets a `reference_period`, the two must coincide (no
+precedence order). Mixed-period dicts are legal when each flow leaf carries its own
+suffix (`base_amount_m` next to `annual_bonus_y`).
 
-- a suffixed flow leaf under a non-null `reference_period` must **agree** with it —
-  disagreement is a build error, the suffix does not win;
-- a suffix-less flow leaf takes the dict-level `reference_period`; if that is `null`,
-  the leaf has no period source and fails;
-- mixed-period dicts are legal when each flow leaf carries its own suffix
-  (`base_amount_m` next to `annual_bonus_y`): every period is explicit in a key, so
-  nothing is left to convention.
+**Leaves that change name across the parameter's history.** The `unit:` mapping is a
+**union over all dated entries**: the mandatory-units check looks only at the leaves
+present in the value active at the policy date and ignores mapping entries for leaves
+that exist only at other dates. So a leaf renamed across a reform is covered by listing
+both names —
+
+```yaml
+unit:
+  child_amount_y: EUR_FLOW   # only present before the reform
+  base_amount_y: EUR_FLOW    # only present after it
+```
+
+A value leaf with no entry in the mapping is a *missing* declaration and is flagged, so
+a mistyped key cannot pass silently. When the renamed leaves share a token, the simpler
+route is the **uniform** form — a single scalar `unit: EUR_FLOW` with the period read
+from each leaf's own suffix — which makes the rename irrelevant; the mapping is only for
+genuinely heterogeneous leaves. A leaf whose *currency* changes across dates is a
+changeover, written with a per-entry override (see {ref}`Currency <gep-10-currency>`).
 
 In the dry-run, dict parameters become dicts of representative `Quantity`s (uniform for
 a scalar `unit:`, per-leaf for a mapping), so bodies that subscript them are verifiable.
-The mandatory-units check covers every leaf of the value active at the policy date; a
-leaf missing from the `unit:` mapping is a *missing* declaration, a `DIMENSIONLESS` leaf
-is a dimensionless one.
+A `DIMENSIONLESS` leaf is a dimensionless one.
 
 ### Function-like parameters: one token per axis
 
@@ -328,8 +357,8 @@ enforces the split per `type:`:
 
 ```yaml
 tarif:
-  input_unit: EURO_FLOW    # taxable income per year in ...
-  output_unit: EURO_FLOW   # ... tax per year out
+  input_unit: EUR_FLOW    # taxable income per year in ...
+  output_unit: EUR_FLOW   # ... tax per year out
   reference_period: Year
   type: piecewise_quadratic
   ...
@@ -348,21 +377,21 @@ the parameter yields.
 
 Currencies live in the framework as a `[currency]` dimension with concrete currencies
 registered by downstream packages via
-`register_currency(name, *, base=False, definition=None)`. `gettsim` registers `euro`
-(base) and `DM = euro / 1.95583`. Registration does two things: it provides the
+`register_currency(name, *, base=False, definition=None)`. `gettsim` registers `EUR`
+(base) and `DM = EUR / 1.95583`. Registration does two things: it provides the
 **conversion factors**, with pint as the single source of truth for the rate; and it
 derives the currency's **declaration tokens** — one concrete variant per
-currency-dimensioned core token (`DM_STOCK`, `DM_FLOW`, `DM_PER_SQUARE_METER_FLOW`,
-`EURO_*`, …) — extending the registering package's unit vocabulary.
+currency-dimensioned core token (`DM`, `DM_FLOW`, `DM_PER_SQUARE_METER_FLOW`, `EUR_*`,
+…) — extending the registering package's unit vocabulary.
 
-**Agnostic and concrete tokens.** The agnostic tokens (`CURRENCY_STOCK`,
-`CURRENCY_FLOW`, …) stand for any registered currency; for every dimensionality check a
-concrete token means exactly what its agnostic counterpart means. The dry-run and the
-edge check compare at the dimensionality level and never see a concrete currency — a
-DM-denominated parameter feeds a currency-agnostic function without further ado, while
-adding Euros to Euros per square meter is still caught. What a concrete token adds is
-**denomination**: it names the currency the parameter's numbers are written in, which
-the build-time conversion to the run currency reads off the declaration.
+**Agnostic and concrete tokens.** The agnostic tokens (`CURRENCY`, `CURRENCY_FLOW`, …)
+stand for any registered currency; for every dimensionality check a concrete token means
+exactly what its agnostic counterpart means. The dry-run and the edge check compare at
+the dimensionality level and never see a concrete currency — a DM-denominated parameter
+feeds a currency-agnostic function without further ado, while adding Euros to Euros per
+square meter is still caught. What a concrete token adds is **denomination**: it names
+the currency the parameter's numbers are written in, which the build-time conversion to
+the run currency reads off the declaration.
 
 **Parameters must be concrete; functions must be agnostic.** A parameter's numbers are
 written in *some* currency, so once a concrete currency is registered, an agnostic
@@ -371,8 +400,8 @@ denomination (`DM_FLOW`, not `CURRENCY_FLOW`). Columns and functions may *only* 
 agnostic tokens
 
 **The run currency.** The `currency` argument to `main()` defaults to the registered
-base currency (`"euro"` for GETTSIM); it is the currency the input data is taken to be
-in and that the outputs come out in. At environment build, every currency-denominated
+base currency (`"EUR"` for GETTSIM); it is the currency the input data is taken to be in
+and that the outputs come out in. At environment build, every currency-denominated
 *parameter* is converted from its declared denomination to the run currency: scalar
 values, dict parameters leaf by leaf (each currency leaf by its own token), schedules
 axis by axis, and lookup-table values (see the per-axis rules above). The factors are
@@ -384,14 +413,13 @@ DM→Euro switch is written: entries before the reform are denominated in the le
 currency, entries from the reform date in the new one —
 
 ```yaml
-arbeitnehmerpauschbetrag:
+arbeitnehmerpauschbetrag_y:
   unit: DM_FLOW
-  reference_period: Year
   type: scalar
   1990-01-01:
     value: 2000
   2002-01-01:
-    unit: EURO_FLOW   # the changeover: denominated in Euro from here on
+    unit: EUR_FLOW   # the changeover: denominated in Euro from here on
     value: 1044
 ```
 
@@ -426,18 +454,36 @@ verified.
 
 Auto-generated nodes receive auto-assigned units: time-conversion variants inherit the
 source's base token and the variant's period is read off its own suffix;
-auto-aggregations derive their token from the source and the aggregation type
-(SUM/MEAN/MIN/MAX preserve; COUNT, ANY, and ALL are dimensionless), paralleling how
-{ref}`GEP 4 <gep-4>` resolves their types. An automatic SUM over a boolean column is a
-head count and resolves to dimensionless; an explicit SUM aggregation declares its unit
-(`unit=DIMENSIONLESS` when the source is boolean). Where the source's token pins down a
+auto-aggregations derive their token from the source and the aggregation type,
+paralleling how {ref}`GEP 4 <gep-4>` resolves their types. `SUM`/`MEAN`/`MIN`/`MAX`
+preserve the source token; `COUNT` is a head count and is `DIMENSIONLESS`. `ANY`/`ALL`
+yield a **boolean**, which is structurally exempt and declares no unit at all — *not*
+`DIMENSIONLESS`, which is a number with no dimension. A `SUM` over a boolean column is a
+head count and so *is* `DIMENSIONLESS`; the discriminator is the output type — a boolean
+result is exempt, a numeric one dimensionless. Where the source's token pins down a
 concrete currency (a parameter), the derived node inherits the **agnostic counterpart**.
 
 ### Literals
 
-Bare numeric literals in mixed-unit arithmetic must be unit-tagged in code
-(`geburtsmonat - 1 * month`, `regelaltersgrenze + 0.00001 * year`). This is strict by
-choice: it makes the ambient unit explicit and lets the check catch a wrong literal.
+The dry-run executes a function body on representative `Quantity`s, so a bare numeric
+literal combined *additively* with a unit-carrying value raises (pint refuses to add a
+dimensionless number to a currency). A literal that is only a multiplicative factor
+(`betrag * 0.5`) is fine — multiplying by a dimensionless number preserves the unit.
+
+Most apparent cases dissolve once the quantities are declared correctly: an ordinal such
+as `geburtsmonat` (the month 1–12) is `DIMENSIONLESS`, so `geburtsmonat - 1` is
+dimensionless arithmetic and needs no tag. For a genuine constant of a real dimension
+there are two routes:
+
+- **Promote it to a parameter** with a unit (the norm). The constant then gets the same
+  provenance, currency conversion, and checking as any other parameter, and the body
+  becomes dry-runnable.
+- **Opt the body out** of unit inference with `@policy_function(verify_units=False)`,
+  for genuine code-level constants where a parameter would be artificial. The function
+  must still declare `unit=` — the opt-out is of body *inference*, not of the
+  declaration — so its consumers are still checked against its declared unit and its
+  inputs against their own; only this body is trusted. It silences the *whole* body, so
+  it is a deliberate, rare escape hatch, not a default.
 
 ## Related Work
 
@@ -472,7 +518,7 @@ per-entry overrides in dated entries. The schema shipped with ttsim (listing met
 `CASTAR_*`/`SILVER_PENNY_*` tokens) is the template; the copy at
 `docs/geps/params-schema.json` (the validation target for all German parameter YAMLs)
 still describes the pre-GEP-10 label vocabulary and is migrated together with the YAML
-files in #1192, adding the `DM_*`/`EURO_*` tokens.
+files in #1192, adding the `DM_*`/`EUR_*` tokens.
 
 ## Alternatives
 
