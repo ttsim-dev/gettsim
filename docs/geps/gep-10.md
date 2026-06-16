@@ -18,8 +18,8 @@
 ## Abstract
 
 This GEP gives every quantity in GETTSIM a **unit** — Euros, Euros per square meter,
-shares, years, head counts — declared on the parameters and input columns and drawn from
-a fixed vocabulary of tokens. The framework reads those units to do three things:
+etc. — declared on parameters, policy functions, and (optionally) input data. The
+framework reads those units to do three things:
 
 - **Dimensional safety.** It checks that the arithmetic combining quantities is sound,
   so mixing incompatible kinds — say, a monthly amount and a per-square-meter rent —
@@ -27,42 +27,34 @@ a fixed vocabulary of tokens. The framework reads those units to do three things
   downstream.
 - **Automatic currency conversion.** Each historical parameter is stored in its original
   legal currency (a 1975 value in Deutsche Mark, say) and converted to the currency the
-  user runs in, replacing the by-hand conversions in today's YAML files — invisible to
-  the machine and easy to get wrong
-  ([gettsim #1174](https://github.com/ttsim-dev/gettsim/issues/1174)).
+  user runs in, replacing the by-hand conversions in today's YAML files.
 - **Unified time conversion.** The existing `_y`/`_m`/`_w` period arithmetic moves onto
   the same engine, replacing ~50 hand-written conversion functions.
 
 The engine is [pint](https://pint.readthedocs.io), and it runs **only while the model is
 built**: it checks dimensions and bakes the time and currency factors into the workers,
-then steps aside. The numeric runtime — bare arrays, a single currency, JAX-safe — is
-unchanged. As in {ref}`GEP 9 <gep-9>`, the checks fire at definition time, catching a
-whole class of unit bugs before they can reach a result.
+then steps aside. The numeric runtime is unchanged. As in {ref}`GEP 9 <gep-9>`, the
+checks fire at definition time, catching a whole class of unit bugs before they can
+reach a result.
 
 ### Terminology
+
+These terms are used in the GEP:
 
 - **dimension** — the kind of a quantity: `[currency]`, `[time]`, `[area]`, or
   dimensionless. Counting quantities (children, adults, household members) are
   dimensionless, following the SI and pint convention.
-- **unit token** — the value written in the `unit=` field, taken from a fixed list of
-  allowed names. The list has two parts: the **core tokens** the framework ships
-  (`CURRENCY_FLOW`, `CURRENCY_STOCK`, `SHARE_FLOW`, `YEARS`, `HECTARES`, …), and the
-  **currency tokens** each package adds when it registers its currencies (`DM_FLOW`,
-  `EURO_STOCK`, …). A name ending in `…_FLOW` stands for a per-period quantity and is
-  completed by a period given elsewhere — a name suffix such as `_m`, or
-  `reference_period`. Every other name is complete on its own.
+- **unit token** — the actual unit defined as a (mix of multiple) dimension(s), taken
+  from a fixed list of allowed names. The list has two parts: the **core tokens** the
+  framework ships (`CURRENCY_FLOW`, `CURRENCY_STOCK`, `DIMENSIONLESS`,
+  `DIMENSIONLESS_FLOW`, `YEARS`, `HECTARES`, …), and the **currency tokens** each
+  package adds when it registers its currencies (`DM_FLOW`, `EURO_STOCK`, …).
 - **agnostic currency token** — a core token of the `[currency]` dimension that does not
   commit to any particular currency (`CURRENCY_FLOW`, `CURRENCY_STOCK`, …): an amount of
-  money, in whatever currency the model runs in. Columns and functions use these and
-  only these, which is what lets them run in any currency.
+  money, in whatever currency the model runs in. Policy functions use these and only
+  these, which is what lets them run in any currency.
 - **concrete currency token** — a token that names one specific currency (`DM_FLOW`,
-  `EURO_STOCK`, …), added when that currency is registered. It appears on parameters, to
-  record which currency the stored numbers are written in. In every dimensional check it
-  behaves exactly like the matching agnostic token; the specific currency matters only
-  for converting the stored values.
-- **dry-run** — the build-time pass that runs a function body on stand-in pint
-  quantities to work out and check its unit. It uses placeholder values, never the
-  user's data, and never runs inside the compiled numerical path.
+  `EURO_STOCK`, …).
 
 ## Motivation and Scope
 
@@ -80,14 +72,12 @@ Three long-standing problems motivate this GEP.
 
 1. **Hand-written time arithmetic.** `ttsim/unit_converters.py` implements ~50
    conversion functions (`y_to_m`, `per_y_to_per_m`, …) and their stock/flow duals by
-   hand. The stock/flow split is exactly the kind of distinction a unit engine gets
-   right by construction.
+   hand. The resulting arithmetic was the source of some bugs (that are hopefully fixed
+   by now).
 
-**Scope.** The GEP covers `ttsim` (the framework), `gettsim` (the German currencies and
-the policy annotations), and `gettsim-personas`/`mettsim` (the example system, used as
-the end-to-end proof). GEP 1's `_y`/`_m`/`_w` suffix automation and law-to-code naming
-are preserved unchanged; only the *arithmetic* behind the conversions moves onto the
-unit engine.
+**Scope.** The GEP covers `ttsim` (the framework) and `gettsim` (the German currencies
+and the policy annotations). GEP 1's `_y`/`_m`/`_w` suffix automation are preserved
+unchanged; only the *arithmetic* behind the conversions moves onto the unit engine.
 
 ## Usage and Impact
 
@@ -98,15 +88,11 @@ carries a `unit=` declaration (a token, or `null` for a dimensionless one). From
 the framework works out the unit of whatever a policy function computes, by running the
 body on its inputs (the dry-run). A function still restates that unit in `unit=`,
 checked against the inferred result — the way {ref}`GEP 9 <gep-9>` has it restate the
-return type — so its declaration is a guard rail, not a new source of truth. What the
-function author genuinely supplies is the *timing*: whether the result is a per-period
-quantity, and at which period, carried by the name suffix (`_m`) or by
-`reference_period`.
+return type — so its declaration is a guard rail, not a new source of truth.
 
-A `…_FLOW` token takes its period from that suffix (columns and functions) or from
-`reference_period` (parameters); every other token is already complete. Reading a
-declaration needs no rule book: a token either names a complete unit, or says in its own
-name that it is a flow.
+The only exception are tokens that include a "flow" time dimension (`CURRENCY_FLOW`,
+`HOURS_FLOW`, …). For those, the period is taken from the name suffix (e.g. `betrag_m`)
+or from `reference_period` (if its a parameter):
 
 ```python
 @policy_function(unit=Unit.CURRENCY_FLOW)  # name betrag_m -> resolved CURRENCY/month
@@ -128,22 +114,27 @@ arbeitnehmerpauschbetrag:
     value: 564
 ```
 
-A dimensionless parameter declares `unit: null` — and never carries a
+A dimensionless parameter declares `unit: DIMENSIONLESS` — and never carries a
 `reference_period`:
 
 ```yaml
 beitragssatz:
-  unit: null            # a rate is dimensionless
+  unit: DIMENSIONLESS   # a rate is dimensionless
   reference_period: null
   type: scalar
   2024-01-01:
     value: 0.013
 ```
 
-A *per-period* dimensionless quantity is not `null` — it is its own flow token. The
-wealth-tax rate (one percent of the stock, per year) is `unit: SHARE_FLOW` with
-`reference_period: Year`, resolving to `1/year`; multiplied by a `CURRENCY_STOCK` it
-yields a well-formed `CURRENCY_FLOW`.
+A *per-period* dimensionless quantity is not `DIMENSIONLESS` — it is its own flow token.
+The pension Zugangsfaktor moves by a fixed factor for each year of earlier or later
+retirement (`zugangsfaktor_veränderung_pro_jahr`, § 77 SGB VI). The factor is a pure
+number, but *per year* it is `1/year` — **not** dimensionless — so
+`unit: DIMENSIONLESS_FLOW` with `reference_period: Year`. Multiplied by the gap in
+`YEARS` between the actual and the reference retirement age, the years cancel and it
+yields the dimensionless Zugangsfaktor adjustment. (Declared `DIMENSIONLESS`, the rate
+times the year gap would be a span in years, and adding it to 1 a dimensional error —
+which is what `DIMENSIONLESS_FLOW` catches.)
 
 ### Functions work in any currency; one setting picks the run currency
 
@@ -197,8 +188,8 @@ pint units is left to future work.
 - A unit that does not line up across a DAG edge — a producer feeding a consumer that
   expects something else — fails at build.
 - A missing `unit=` fails at environment build, the way a missing return type does under
-  GEP 9. `unit=None` / `unit: null` is *not* missing — it states that the quantity is
-  dimensionless.
+  GEP 9. `DIMENSIONLESS` is *not* missing — it states that the quantity carries no
+  dimension.
 - An input column tagged with a pint `Quantity` in another currency is converted to the
   run currency at the boundary, not rejected. A tag whose period disagrees with the
   column's time suffix, or that is built from a unit token TTSIM does not know, fails
@@ -232,7 +223,8 @@ enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in co
 | -------------------------------- | -------- | -------------------------------- | ------------------------ |
 | `CURRENCY_FLOW`                  | flow     | `CURRENCY / period`              | wages, claims, benefits  |
 | `CURRENCY_STOCK`                 | complete | `CURRENCY`                       | wealth, asset thresholds |
-| `SHARE_FLOW`                     | flow     | `1 / period`                     | wealth-tax rate          |
+| `DIMENSIONLESS`                  | complete | `dimensionless`                  | shares, rates, counts    |
+| `DIMENSIONLESS_FLOW`             | flow     | `1 / period`                     | Zugangsfaktor per year   |
 | `YEARS`                          | complete | `year`                           | ages, durations          |
 | `HOURS_FLOW`                     | flow     | `hour / period`                  | working hours            |
 | `SQUARE_METERS`                  | complete | `meter ** 2`                     | dwelling size            |
@@ -261,12 +253,14 @@ parameters declare the concrete variants (see {ref}`Currency <gep-10-currency>` 
 per-person parameter declares the same token as any other amount (`EURO_FLOW` for a
 monthly Regelsatz); scaling it by a head count is a plain multiplication that preserves
 the unit. A dimensionless quantity (a share, a rate, a head count) declares **no unit at
-all** — `unit=None` in code, `unit: null` in YAML — and the spelling `"dimensionless"`
-is rejected. Declaring nothing is distinct from a *missing* declaration: an omitted
-`unit=` is an error under mandatory units, an explicit `None`/`null` is a statement that
-the quantity carries no dimension. A `null` declaration never combines with a period
-source — `unit: null` next to a non-null `reference_period` is an error, not a
-per-period rate. The per-period dimensionless quantity has its own token, `SHARE_FLOW`.
+all** — it declares `DIMENSIONLESS` (`unit: DIMENSIONLESS`); the bare-string spellings
+`"dimensionless"`/`"count"`/`"percent"` are rejected, one token one meaning. There is no
+`DIMENSIONLESS_STOCK`: a dimensionless *level* is the bare `DIMENSIONLESS` token — only
+currency forces the explicit `_STOCK`/`_FLOW` split. `DIMENSIONLESS` is distinct from a
+*missing* declaration: an omitted `unit=` is an error under mandatory units. It never
+combines with a period source — `DIMENSIONLESS` next to a non-null `reference_period` is
+an error, not a per-period rate. The per-period dimensionless quantity has its own
+token, `DIMENSIONLESS_FLOW`.
 
 **Boolean nodes are dimensionless by construction** and are structurally exempt: they
 declare no unit, and declaring one on a boolean node is an error. The same structural
@@ -500,9 +494,9 @@ variant's period is read off its own suffix; auto-aggregations derive their toke
 the source and the aggregation type (SUM/MEAN/MIN/MAX preserve; COUNT, ANY, and ALL are
 dimensionless), paralleling how {ref}`GEP 4 <gep-4>` resolves their types. An automatic
 SUM over a boolean column is a head count and resolves to dimensionless; an explicit SUM
-aggregation declares its unit (`unit=None` when the source is boolean). Where the
-source's token pins down a concrete currency (a parameter), the derived node inherits
-the **agnostic counterpart** — derived nodes are functions, they compute on
+aggregation declares its unit (`unit=DIMENSIONLESS` when the source is boolean). Where
+the source's token pins down a concrete currency (a parameter), the derived node
+inherits the **agnostic counterpart** — derived nodes are functions, they compute on
 already-converted run-currency values.
 
 ### Literals
@@ -646,12 +640,16 @@ vocabulary is no longer one static enumeration but core plus per-package currenc
 — is contained: each package's JSON schema copy still enumerates its complete vocabulary
 statically.
 
-### A `"dimensionless"` unit string instead of `null`
+### `null` instead of a `DIMENSIONLESS` token
 
-Rejected. A `DIMENSIONLESS` token (or accepting pint's `"count"`/`"dimensionless"`
-spellings) would be a second way to write what declaring *nothing* already says.
-`unit=None` / `unit: null` is the single canonical form; the mandatory-units check
-distinguishes it from an omitted declaration via a sentinel, so nothing is lost.
+Rejected. An earlier revision spelled a dimensionless quantity as *nothing* —
+`unit=None` / `unit: null` — and used a sentinel to tell that apart from an *omitted*
+declaration. It was dropped for the explicit `DIMENSIONLESS` token: declaring something
+is clearer than declaring nothing, it pairs symmetrically with `DIMENSIONLESS_FLOW`
+(which *is* a token, so `null` for the complete form read as an odd exception), and it
+folds the omitted-vs-dimensionless distinction back into "is a token present?". The
+bare-string spellings `"dimensionless"`/`"count"`/`"percent"` stay rejected —
+`DIMENSIONLESS` is the single canonical form.
 
 ### Make functions time-agnostic
 
