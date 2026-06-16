@@ -444,11 +444,17 @@ denominated in different currencies.
   column's declared unit (to reject e.g. a currency tag on an age column) would have to
   thread that declared unit to the boundary and is deferred to future work.
 
-**Booleans in the dry-run.** Boolean inputs are not quantities: they enter the dry-run
-as bare `True`/`False`. Because branch selection hinges on them, a body with boolean
-inputs is dry-run **twice** — once with all of them truthy, once falsy — so both arms of
-the dominant guard pattern (`if exempt: return 0.0 else: <real arithmetic>`) are
-verified.
+**Branch coverage in the dry-run.** Units are data-independent: data only selects which
+branch runs, never the unit that branch produces. The dry-run therefore checks every
+*syntactic* branch instead of relying on representative data to reach them. Each input
+is wrapped in a proxy whose arithmetic forwards to its `Quantity` (units propagate
+exactly) but whose comparisons and truth tests are resolved by a path explorer that
+re-runs the body once per reachable path through its branch tree. The unit contract is
+thus verified on every arm — multi-condition guards, multiple guarded returns, and
+numeric-driven branches (`if income > limit`) alike; a boolean input is simply one more
+branch decision. An early `return 0.0` arm infers a dimensionless result and falls back
+to the declaration, so the dominant guard pattern
+(`if exempt: return 0.0 else: <real arithmetic>`) is verified without false positives.
 
 ### Auto-generated nodes
 
