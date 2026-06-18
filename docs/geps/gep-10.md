@@ -245,11 +245,16 @@ the unit. A dimensionless quantity (a share, a rate, a head count) declares
 `DIMENSIONLESS` like any other node. A boolean is a `{0, 1}` value, and an identifier
 (`p_id`, `*_id`, `p_id_*`) carries no dimension; both spell that out with
 `unit=Unit.DIMENSIONLESS` / `unit: DIMENSIONLESS` rather than being silently waved
-through. The only structural exemptions are `@group_creation_function`s and the
-framework-injected date nodes, which carry no unit at all. Keeping the exemption this
-narrow means `UNSET_UNIT` has a single meaning — *no declaration was made* — which the
-mandatory-units check always reports as an error, with no second "legitimately blank"
-reading to disambiguate.
+through.
+
+**There are no exemptions** — every active node has a unit; only its *source* differs.
+Most nodes declare it. Derived nodes get one auto-assigned: aggregations and
+time-conversion variants inherit it from their source, and a `@group_creation_function`
+group id is auto-assigned `DIMENSIONLESS` (it is an identifier, and the decorator
+exposes no `unit=`). The framework-injected date nodes get theirs from the framework
+(`policy_year` is in years, etc.). So `UNSET_UNIT` has a single meaning — *no
+declaration was made* — which the mandatory-units check always reports as an error, with
+no second "legitimately blank" reading to disambiguate.
 
 ### pint runs at build time only
 
