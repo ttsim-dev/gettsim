@@ -441,10 +441,12 @@ denominated in different currencies.
 
 - **Layer 1 — DAG validity (data-independent).** Each function is checked in isolation:
   its inputs are wrapped in `Quantity`s of their *declared* units, the scalar body is
-  executed in NumPy+pint, and the result must carry no dimensional error and match the
-  declared output unit. An *edge-consistency* pass then confirms each producer's unit
-  equals the consumer's declared expectation. No user data or fabricated dataset is
-  needed. Layer 1 runs as an build-time `fail_if` on the assembled environment.
+  executed in NumPy+pint, its additions, subtractions, and ordering comparisons must
+  combine only unit-equivalent operands, and the result must carry no dimensional error
+  and match the declared output unit. An *edge-consistency* pass then confirms each
+  producer's unit equals the consumer's declared expectation. No user data or fabricated
+  dataset is needed. Layer 1 runs as an build-time `fail_if` on the assembled
+  environment.
 - **Layer 2 — input conversion (boundary).** Users *may* attach a pint `Quantity`s to
   their input data. At the GEP-9 canonicalisation boundary the tag's *currency* is
   converted to the run currency — a DM-tagged column feeds a Euro run, rescaled at the
@@ -465,6 +467,38 @@ numeric-driven branches (`if income > limit`) alike; a boolean input is simply o
 branch decision. An early `return 0.0` arm infers a dimensionless result and falls back
 to the declaration, so the dominant guard pattern
 (`if exempt: return 0.0 else: <real arithmetic>`) is verified without false positives.
+
+**What the dry-run catches — and what it cannot.** Because it runs in pint at build
+time, the dry-run is a *dimensional* check, not a numerical one. It catches:
+
+- a body whose inferred unit disagrees with its declaration, on any reachable branch — a
+  stock times a per-year rate labelled as a stock, or a `_m` flow returned where a `_y`
+  flow is declared;
+- an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
+  yearly one (`betrag_m + miete_pro_qm`), or a stock plus a flow. At run time the
+  assembled DAG computes on bare arrays with no pint, so such a combination is
+  unit-blind and silently wrong; the dry-run rejects it rather than letting pint's
+  build-time auto-conversion of same-dimension operands paper over it;
+- an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities, for
+  the same reason;
+- a missing unit, and malformed declarations: a flow token without a period, a
+  currency-agnostic token on a parameter, disagreeing period sources, or a boolean node
+  carrying a concrete unit.
+
+It cannot catch:
+
+- **wrong magnitudes** — a coefficient, rate, or constant with the correct unit but the
+  wrong value (a 2.5% rate written as `0.25`); units are not values;
+- **bugs behind un-dry-runnable operations** — a body that routes through a piecewise
+  polynomial, a lookup table, `join`, or a raw `xnp` operation cannot be executed
+  symbolically, so downstream of such an operation the declared unit is trusted rather
+  than derived;
+- **errors that surface only as a dimensionless result** — a body inferring a
+  dimensionless value (an early `return 0.0`, or arithmetic that cancels) falls back to
+  the declaration; in particular a forgotten per-capita scaling (`* anzahl_kinder`) goes
+  unnoticed because counts are dimensionless (an accepted trade-off, see Alternatives);
+- **equality comparisons (`==`, `!=`) and bodies opted out with `verify_units=False`**,
+  which trust the declaration by design.
 
 ### Auto-generated nodes
 
