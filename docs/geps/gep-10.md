@@ -456,17 +456,49 @@ denominated in different currencies.
   column's declared unit (to reject e.g. a currency tag on an age column) would have to
   thread that declared unit to the boundary and is deferred to future work.
 
-**Branch coverage in the dry-run.** Units are data-independent: data only selects which
-branch runs, never the unit that branch produces. The dry-run therefore checks every
-*syntactic* branch instead of relying on representative data to reach them. Each input
-is wrapped in a proxy whose arithmetic forwards to its `Quantity` (units propagate
-exactly) but whose comparisons and truth tests are resolved by a path explorer that
-re-runs the body once per reachable path through its branch tree. The unit contract is
-thus verified on every arm — multi-condition guards, multiple guarded returns, and
-numeric-driven branches (`if income > limit`) alike; a boolean input is simply one more
-branch decision. An early `return 0.0` arm infers a dimensionless result and falls back
-to the declaration, so the dominant guard pattern
-(`if exempt: return 0.0 else: <real arithmetic>`) is verified without false positives.
+**How the dry-run checks one body.** The check *runs the function body*, but with
+**units in place of numbers**. Each input becomes a stand-in that carries its resolved
+unit and a throwaway magnitude of `1`; pint then carries the units through the body's
+arithmetic, and the unit that falls out of the `return` is compared to the declaration.
+Because the magnitude is never used, no real data is needed — the same reason the check
+is independent of the policy data.
+
+```python
+@policy_function(unit=Unit.CURRENCY_FLOW)  # -> CURRENCY / month
+def betrag_m(
+    einkommen_m: float, satz: float, mindestbetrag_m: float, befreit: bool
+) -> float:
+    if befreit:
+        return 0.0
+    if einkommen_m > mindestbetrag_m:
+        return einkommen_m * satz
+    return mindestbetrag_m
+```
+
+Here `einkommen_m` and `mindestbetrag_m` enter as `EUR/month`, `satz` as a dimensionless
+`1`, and `befreit` as a boolean stand-in. `einkommen_m * satz` is a flow times a
+dimensionless number, so it stays `EUR/month` — matching the declared
+`CURRENCY / month`; the `mindestbetrag_m` arm matches too.
+
+**Every branch is covered, by re-running.** To evaluate `if befreit:` or
+`if einkommen_m > mindestbetrag_m:` Python needs a yes/no, but a unit stand-in has no
+value to compare. So the stand-in intercepts the *truth test* itself (Python's
+`__bool__`) and hands it to a small driver — the **path explorer** — that decides which
+way to go. The explorer runs the body repeatedly, each time steering the open branches a
+different way (a depth-first walk of the decision tree, in the style of *concolic*
+execution), until it has driven every reachable path:
+
+1. `befreit` true → `return 0.0`
+1. `befreit` false, `einkommen_m > mindestbetrag_m` true → `einkommen_m * satz`
+1. `befreit` false, comparison false → `mindestbetrag_m`
+
+The number of runs is the number of *reachable* paths, not `2^n` conditions: when
+`befreit` is true the body returns before the income test, so that comparison never even
+becomes a question. Each run's result is checked on its own, so a unit slip on a single
+arm — say, returning a yearly figure where `_m` was declared — is caught even though the
+other arms are clean. The `return 0.0` arm yields a dimensionless result and falls back
+to the declaration, so the ubiquitous `if befreit: return 0.0` guard never raises a
+false alarm.
 
 **What the dry-run catches — and what it cannot.** Because it runs in pint at build
 time, the dry-run is a *dimensional* check, not a numerical one. It catches:
