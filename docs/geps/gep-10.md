@@ -489,17 +489,20 @@ It cannot catch:
 
 - **wrong magnitudes** — a coefficient, rate, or constant with the correct unit but the
   wrong value (a 2.5% rate written as `0.25`); units are not values;
-- **bugs behind un-dry-runnable operations** — a body that routes through a piecewise
-  polynomial, a lookup table, `join`, or a raw `xnp` operation cannot be executed
-  symbolically, so downstream of such an operation the declared unit is trusted rather
-  than derived;
-- **a wrong result that is nevertheless dimensionless** — a body whose result carries no
-  dimension (an early `return 0.0`, arithmetic that cancels, or a forgotten per-capita
-  `* anzahl_kinder` scaling, since counts are dimensionless) falls back to the
-  declaration rather than being flagged;
-- **equality comparisons and opted-out bodies** — `==` and `!=` are not unit-screened
-  (unlike the ordering comparisons above), and a body marked
-  `@policy_function(verify_units=False)` trusts its own declaration by design.
+- **a result that comes out dimensionless** — a body inferring a dimensionless value (an
+  early `return 0.0`, or arithmetic that cancels) falls back to the declaration rather
+  than being flagged;
+- **equality comparisons** — `==` and `!=` are not unit-screened, unlike the ordering
+  comparisons above.
+
+**A body the dry-run cannot evaluate must opt out explicitly.** Some bodies use an
+operation pint cannot execute symbolically — a piecewise polynomial, a lookup table,
+`join`, or a raw `xnp` op. Rather than silently trusting such a body, the check
+**rejects** it unless the author marks it `verify_units=False` on the decorator. The
+opt-out is of body *inference* only: the declared unit still stands and the body's edges
+are still checked. Because the flag is explicit, every un-verified body is greppable — a
+deliberate choice, and a ready-made worklist should the dry-run later learn to evaluate
+these operations.
 
 ### Auto-generated nodes
 
@@ -532,8 +535,9 @@ there are two routes:
   for genuine code-level constants where a parameter would be artificial. The function
   must still declare `unit=` — the opt-out is of body *inference*, not of the
   declaration — so its consumers are still checked against its declared unit and its
-  inputs against their own; only this body is trusted. It silences the *whole* body, so
-  it is a deliberate, rare escape hatch, not a default.
+  inputs against their own; only this body is trusted. It silences the *whole* body's
+  inference — the same opt-out a body must use when the dry-run cannot evaluate it at
+  all (a piecewise polynomial, a lookup table, `join`, or a raw `xnp` op).
 
 ## Related Work
 
