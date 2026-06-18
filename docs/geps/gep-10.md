@@ -492,7 +492,14 @@ It cannot catch:
 - **bugs behind un-dry-runnable operations** — a body that routes through a piecewise
   polynomial, a lookup table, `join`, or a raw `xnp` operation cannot be executed
   symbolically, so downstream of such an operation the declared unit is trusted rather
-  than derived.
+  than derived;
+- **a wrong result that is nevertheless dimensionless** — a body whose result carries no
+  dimension (an early `return 0.0`, arithmetic that cancels, or a forgotten per-capita
+  `* anzahl_kinder` scaling, since counts are dimensionless) falls back to the
+  declaration rather than being flagged;
+- **equality comparisons and opted-out bodies** — `==` and `!=` are not unit-screened
+  (unlike the ordering comparisons above), and a body marked
+  `@policy_function(verify_units=False)` trusts its own declaration by design.
 
 ### Auto-generated nodes
 
