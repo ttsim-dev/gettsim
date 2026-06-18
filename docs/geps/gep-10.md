@@ -241,10 +241,15 @@ monthly Regelsatz); scaling it by a head count is a plain multiplication that pr
 the unit. A dimensionless quantity (a share, a rate, a head count) declares
 `DIMENSIONLESS` (`unit: DIMENSIONLESS`).
 
-**Boolean nodes are dimensionless by construction** and are structurally exempt: they
-declare no unit, and declaring one on a boolean node is an error. The same structural
-exemption covers identifiers (`p_id`, `*_id`, `p_id_*`) and `@group_creation_function`s
-— identifiers are labels, not quantities.
+**Boolean nodes and identifiers are dimensionless quantities** and declare
+`DIMENSIONLESS` like any other node. A boolean is a `{0, 1}` value, and an identifier
+(`p_id`, `*_id`, `p_id_*`) carries no dimension; both spell that out with
+`unit=Unit.DIMENSIONLESS` / `unit: DIMENSIONLESS` rather than being silently waved
+through. The only structural exemptions are `@group_creation_function`s and the
+framework-injected date nodes, which carry no unit at all. Keeping the exemption this
+narrow means `UNSET_UNIT` has a single meaning — *no declaration was made* — which the
+mandatory-units check always reports as an error, with no second "legitimately blank"
+reading to disambiguate.
 
 ### pint runs at build time only
 
@@ -463,11 +468,10 @@ source's base token and the variant's period is read off its own suffix;
 auto-aggregations derive their token from the source and the aggregation type,
 paralleling how {ref}`GEP 4 <gep-4>` resolves their types. `SUM`/`MEAN`/`MIN`/`MAX`
 preserve the source token; `COUNT` is a head count and is `DIMENSIONLESS`. `ANY`/`ALL`
-yield a **boolean**, which is structurally exempt and declares no unit at all — *not*
-`DIMENSIONLESS`, which is a number with no dimension. A `SUM` over a boolean column is a
-head count and so *is* `DIMENSIONLESS`; the discriminator is the output type — a boolean
-result is exempt, a numeric one dimensionless. Where the source's token pins down a
-concrete currency (a parameter), the derived node inherits the **agnostic counterpart**.
+yield a **boolean**, which is a dimensionless quantity, so they too auto-assign
+`DIMENSIONLESS` (as does a `SUM` over a boolean column — a head count). Where the
+source's token pins down a concrete currency (a parameter), the derived node inherits
+the **agnostic counterpart**.
 
 ### Literals
 
