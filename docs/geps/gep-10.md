@@ -492,13 +492,7 @@ It cannot catch:
 - **bugs behind un-dry-runnable operations** — a body that routes through a piecewise
   polynomial, a lookup table, `join`, or a raw `xnp` operation cannot be executed
   symbolically, so downstream of such an operation the declared unit is trusted rather
-  than derived;
-- **errors that surface only as a dimensionless result** — a body inferring a
-  dimensionless value (an early `return 0.0`, or arithmetic that cancels) falls back to
-  the declaration; in particular a forgotten per-capita scaling (`* anzahl_kinder`) goes
-  unnoticed because counts are dimensionless (an accepted trade-off, see Alternatives);
-- **equality comparisons (`==`, `!=`) and bodies opted out with `verify_units=False`**,
-  which trust the declaration by design.
+  than derived.
 
 ### Auto-generated nodes
 
