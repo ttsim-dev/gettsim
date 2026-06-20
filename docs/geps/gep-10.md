@@ -218,7 +218,7 @@ period comes from the **name suffix wherever a name or key can carry one**, and 
 | column / policy function                  | name suffix `_y/_q/_m/_w/_d`  | forbidden          |
 | scalar parameter / string-keyed dict leaf | name (or key) suffix          | forbidden          |
 | integer-keyed dict leaf                   | dict-level `reference_period` | required           |
-| function-like parameter axis              | `reference_period`            | required           |
+| mapping parameter axis                    | `reference_period`            | required           |
 
 Where the suffix supplies the period it is also *mandatory and exclusive*: a time suffix
 requires a `…_FLOW` token and a `…_FLOW` token requires a time suffix, so a complete
@@ -274,11 +274,11 @@ rename irrelevant; the mapping is only for genuinely heterogeneous leaves. A lea
 In the dry-run, dict parameters become dicts of representative `Quantity`s (uniform for
 a scalar `unit:`, per-leaf for a mapping), so bodies that subscript them are verifiable.
 
-### Function-like parameters: one token per axis
+### Mapping parameters: one token per axis
 
 A schedule or lookup table is not a quantity — it is a *function between quantities*,
-with a domain and a codomain. The function-like parameter types (the `piecewise_*`
-family, the lookup tables, the phase-in/out types) therefore declare `input_unit:` and
+with a domain and a codomain. The mapping parameter types (the `piecewise_*` family, the
+lookup tables, the phase-in/out types) therefore declare `input_unit:` and
 `output_unit:` instead of `unit:`; a `unit:` on them is an error, and the JSON schema
 enforces the split per `type:`:
 
