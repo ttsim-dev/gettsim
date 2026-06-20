@@ -43,7 +43,7 @@ whole class of unit bugs before they can reach a result.
   dimensionless, following the SI and pint convention.
 - **unit** — a particular way of measuring a dimension, such as Euros for `[currency]`
   or years for `[time]`. A unit carries a conversion factor to the dimension's base
-  unit, so e.g. `1 month = 1/12 year`. The available units are called **unit tokens**.
+  unit, so e.g. `1 month = 1/12 year`.
 
 ## Motivation and Scope
 
@@ -68,14 +68,49 @@ Three long-standing problems motivate this GEP.
 and the policy annotations). GEP 1's `_y`/`_q`/`_m`/`_w`/`_d` suffix automation is
 preserved; only the *arithmetic* behind the conversions moves onto the unit engine.
 
+## The available units
+
+Every quantity in GETTSIM is declared as one of a small, fixed set of **unit tokens**. A
+special, but common, special case is the currency dimension. GETTSIM supports two
+currencies: Euros (EUR) and Deutsche Mark (DM). However, policy functions are written to
+be currency-agnostic, i.e. they can run in either currency without change. Only
+parameters and input data carry a concrete currency declaration.
+
+Policy functions and columns declare their unit as one of the **agnostic tokens**:
+
+- **`CURRENCY`** is a *stock* — an amount of money at a point in time, such as wealth or
+  an asset threshold.
+- **`CURRENCY_FLOW`** is a *flow* — an amount of money per unit of time, such as a
+  monthly Regelsatz or an annual income. The period (per month, per year, …) is read off
+  the {ref}`GEP 1 <gep-1>` name suffix (`_m`, `_y`, …), so a `betrag_m` declared
+  `CURRENCY_FLOW` resolves to `CURRENCY / month`.
+
+Parameters, which record a legal amount in a specific historical currency, instead use
+the *concrete* currency tokens `EUR` / `EUR_FLOW` and `DM` / `DM_FLOW`.
+
+The remaining tokens cover the other dimensions GETTSIM needs:
+
+| token                            | measures                                                     |
+| -------------------------------- | ------------------------------------------------------------ |
+| `DIMENSIONLESS`                  | shares, rates, counts (children, household size)             |
+| `DIMENSIONLESS_FLOW`             | a pure number per period (e.g. change of Zugangsfaktor p.a.) |
+| `YEARS`                          | ages and durations                                           |
+| `HOURS_FLOW`                     | working hours per period                                     |
+| `SQUARE_METERS`                  | dwelling size                                                |
+| `CURRENCY_PER_SQUARE_METER_FLOW` | rent caps                                                    |
+
+The same `…_FLOW` rule applies throughout: a token ending in `…_FLOW` needs a period —
+from a name suffix for single values, from `reference_period` for tables — while every
+other token is complete on its own. The full vocabulary, the rules for where the period
+comes from, and the currency model are spelled out in the
+{ref}`token vocabulary <gep-10-vocabulary>` below.
+
 ## Usage and Impact
 
-Units enter the model through its **data**: every parameter and every input column
-carries a `unit=` declaration. From there the framework works out the unit of whatever a
-policy function computes by running the body on its inputs (the *dry-run*); the function
-still restates that unit in `unit=`, checked against the inferred result so its
-declaration is a guard rail, not a new source of truth. Flow tokens (`CURRENCY_FLOW`, …)
-take their period from the {ref}`GEP 1 <gep-1>` name suffix:
+Every parameter and policy function carries a `unit=` declaration. The unit declaration
+on policy functions is a guard rail: GETTSIM checks that the unit that falls out of the
+function body matches the declaration, so a mismatch is a loud error at definition time,
+but the declaration itself is not a source of truth for the unit.
 
 ```python
 @policy_function(unit=Unit.CURRENCY_FLOW)  # name betrag_m -> resolved CURRENCY/month
@@ -88,23 +123,14 @@ def vermögen(aktien: float, immobilien: float) -> float:
     return aktien + immobilien
 ```
 
-A policy function names no particular currency, so the same body serves a Euro run and a
-DM run unchanged; parameters, by contrast, record their legal currency in the token
-itself (`DM_FLOW`, `EUR_FLOW`). One optional `currency` argument to `main()` picks the
-currency the model runs in — defaulting to the registered base currency (`"EUR"` for
-GETTSIM) — and every currency-denominated parameter is converted to it at build time.
+One optional `currency` argument to `main()` picks the currency the model runs in —
+defaulting to the registered base currency (`"EUR"` for GETTSIM) — and every
+currency-denominated parameter is converted to it at build time.
 
 Tagging input data with units is **optional**, through a dedicated unit-annotated input
-tree; results can likewise be returned as a unit-annotated tree in precise run-currency
-units. And every mistake the framework can see — a mistyped token, mixing incompatible
-quantities, a unit that does not line up across a DAG edge, a missing declaration —
-surfaces when the model is *defined* (at decoration, load, or environment build), never
-as a wrong number at run time. `DIMENSIONLESS` is a real declaration — it states that
-the quantity carries no dimension — not a blank one.
-
-The rest of this GEP is the reference: the {ref}`token vocabulary <gep-10-vocabulary>`,
-the {ref}`period sources <gep-10-periods>`, the {ref}`currency model <gep-10-currency>`,
-and {ref}`exactly what the checks catch <gep-10-checks>`.
+tree; results can likewise be returned as a unit-annotated tree. This provides
+additional boundary checks on the user's input data and clarifies the units of the
+outputs.
 
 ## Backward Compatibility
 
@@ -112,15 +138,12 @@ and {ref}`exactly what the checks catch <gep-10-checks>`.
   working; `currency` defaults to `"EUR"` and output stays in Euros.
 - **The `unit`/`reference_period` metadata is repurposed.** `unit` becomes one member of
   the token vocabulary and `reference_period` becomes *functional* (it supplies the
-  period for `…_FLOW` parameters that no name can carry) rather than purely descriptive.
+  period for structured `…_FLOW` parameters — dicts, schedules, lookup tables — which do
+  not auto-convert) rather than purely descriptive.
 - **No blanket opt-out.** Unlike the {ref}`GEP 9 <gep-9>` beartype claw, there is no
-  env-var escape hatch that switches the unit check off wholesale; the only opt-out is
-  per-function and body-only (`verify_units=False`, {ref}`see below <gep-10-checks>`).
-- **A migration is required.** Every node must declare a unit; suffix-less flow
-  parameters are renamed to carry a time suffix (`arbeitnehmerpauschbetrag` →
-  `arbeitnehmerpauschbetrag_y`), since the suffix is now the period source wherever a
-  name can carry one; and a bare literal of a real dimension is promoted to a parameter
-  or its function body opts out with `verify_units=False`.
+  env-var escape hatch that switches the unit check off wholesale. Users can opt-out of
+  unit checking for specific functions (`verify_units=False`,
+  {ref}`see below <gep-10-checks>`) or by turning off GETTSIM's fail-if nodes.
 
 ## Detailed Description
 
@@ -129,8 +152,8 @@ and {ref}`exactly what the checks catch <gep-10-checks>`.
 ### The unit vocabulary
 
 A declaration is one member of the **token vocabulary**. Its backbone is a closed core
-enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in code
-(`Unit.CURRENCY_FLOW`) and in YAML (`unit: CURRENCY_FLOW`):
+enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in code (e.g.
+`unit=Unit.HOURS_FLOW`) and in YAML (e.g. `unit: HOURS_FLOW`):
 
 | token                            | resolves to                      | typical use              |
 | -------------------------------- | -------------------------------- | ------------------------ |
@@ -144,10 +167,9 @@ enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in co
 | `CURRENCY_PER_SQUARE_METER_FLOW` | `CURRENCY / meter ** 2 / period` | rent caps                |
 
 A token ending in `…_FLOW` needs a period; every other token is complete as written and
-takes no period. So the `…_FLOW` suffix is the only flow marker — there is no separate
-"stock" spelling, a currency stock is the bare `CURRENCY` token. Tokens are not pint
-syntax: each resolves internally to a pint unit (flow tokens after the period is filled
-in), but pint expressions never appear in a declaration.
+takes no period. Tokens are not pint syntax: each resolves internally to a pint unit
+(flow tokens after the period is filled in), but pint expressions never appear in a
+declaration.
 
 `HOURS_FLOW` is the one flow token that resolves to a *dimensionless* quantity: hours
 and the period are both `[time]`, so hours per week is a time-over-time ratio. It is
@@ -209,24 +231,33 @@ the {ref}`GEP 1 <gep-1>` conventions.
 
 ### Units, suffixes, and periods
 
-A flow token is completed by exactly one period source; complete tokens admit none. The
-period comes from the **name suffix wherever a name or key can carry one**, and from
-`reference_period` only where it cannot:
+A flow token is completed by exactly one period source; complete tokens admit none.
+Which source applies is not arbitrary — it tells you whether the value
+**time-converts**: a name suffix means it does, `reference_period` means it does not.
 
-| node kind                                 | flow period from              | `reference_period` |
-| ----------------------------------------- | ----------------------------- | ------------------ |
-| column / policy function                  | name suffix `_y/_q/_m/_w/_d`  | forbidden          |
-| scalar parameter / string-keyed dict leaf | name (or key) suffix          | forbidden          |
-| integer-keyed dict leaf                   | dict-level `reference_period` | required           |
-| mapping parameter axis                    | `reference_period`            | required           |
+- A **single value** — a column, a policy function, or a scalar parameter — carries its
+  period in a `_y/_q/_m/_w/_d` **name suffix** ({ref}`GEP 1 <gep-1>`), and the framework
+  manufactures its other-period siblings on demand: declare
+  `arbeitnehmerpauschbetrag_y`, and a consumer may ask for `arbeitnehmerpauschbetrag_m`
+  and get the converted value.
+- A **structured value** — a dict, a schedule, or a lookup table — does not
+  auto-convert: nothing stands behind `min_einkommen` to make a `min_einkommen_y`. It
+  carries its period in **`reference_period`**.
+
+| what you declare                                         | period from                  | auto-converts |
+| -------------------------------------------------------- | ---------------------------- | ------------- |
+| single value — column, policy function, scalar parameter | name suffix `_y/_q/_m/_w/_d` | yes           |
+| structured value — dict, schedule, lookup table          | `reference_period`           | no            |
+
+So the question an author has to answer is simply: *when this is requested at another
+period, should the framework hand back a converted version?* If yes, it is a single
+value — give it a suffix; if no, it is a table — give it a `reference_period`.
 
 Where the suffix supplies the period it is also *mandatory and exclusive*: a time suffix
 requires a `…_FLOW` token and a `…_FLOW` token requires a time suffix, so a complete
 token on a suffixed name — or a flow token on an unsuffixed one — fails at build. This
 makes the {ref}`GEP 1 <gep-1>` convention machine-checked: a node named `…_m` whose body
-computes a stock cannot be declared. Because `reference_period` is forbidden there,
-there is nothing to reconcile; only where no name carries a suffix (integer keys,
-schedule axes) is `reference_period` functional.
+computes a stock cannot be declared.
 
 ### Dict parameters with heterogeneous leaves
 
