@@ -197,19 +197,17 @@ beitragssatz:
     value: 0.013
 ```
 
-**There are no exemptions** — every active node has a unit; only its *source* differs.
-Most nodes declare it. Derived nodes get one auto-assigned
-({ref}`see below <gep-10-auto>`); the framework-injected date nodes get theirs from the
-framework (`policy_year` is in years, etc.). So `UNSET_UNIT` has a single meaning — *no
-declaration was made* — which the mandatory-units check always reports as an error, with
-no second "legitimately blank" reading to disambiguate.
+**There are no exemptions** — every active node has a unit. Most nodes declare it
+directly. Derived nodes get one auto-assigned ({ref}`see below <gep-10-auto>`); the
+framework-injected date nodes get theirs from the framework (`policy_year` is in years,
+etc.). So `UNSET_UNIT` has a single meaning — *no declaration was made* — which the
+mandatory-units check always reports as an error, with no second "legitimately blank"
+reading to disambiguate.
 
 Beyond the core enumeration, the full vocabulary adds one set of **concrete currency
 tokens** per registered currency ({ref}`see Currency <gep-10-currency>`); the
 currency-dimensioned rows of the table above are the *agnostic* tokens. The core
-enumeration lives in `ttsim`, is shared by all downstream packages, and grows only by an
-upstream PR; each package's params JSON schema stays statically enumerable, listing the
-core tokens plus its own currency tokens.
+enumeration lives in `ttsim` and is shared by all downstream packages.
 
 ### pint runs at build time only
 
@@ -229,32 +227,21 @@ the {ref}`GEP 1 <gep-1>` conventions.
 
 (gep-10-periods)=
 
-### Units, suffixes, and periods
+### Flow tokens
 
-A flow token is completed by exactly one period source; complete tokens admit none.
-Which source applies is not arbitrary — it tells you whether the value
-**time-converts**: a name suffix means it does, `reference_period` means it does not.
-
-- A **single value** — a column, a policy function, or a scalar parameter — carries its
-  period in a `_y/_q/_m/_w/_d` **name suffix** ({ref}`GEP 1 <gep-1>`), and the framework
-  manufactures its other-period siblings on demand: declare
-  `arbeitnehmerpauschbetrag_y`, and a consumer may ask for `arbeitnehmerpauschbetrag_m`
-  and get the converted value.
-- A **structured value** — a dict, a schedule, or a lookup table — does not
-  auto-convert: nothing stands behind `min_einkommen` to make a `min_einkommen_y`. It
-  carries its period in **`reference_period`**.
+Flow units need a reference period source. For many functions and parameters, the period
+comes from the name suffix (`_y`, `_m`, …) as laid out in {ref}`GEP 1 <gep-1>`. Only
+parameters that cannot auto-convert because they are structured values (dicts,
+schedules, lookup tables) need to declare a `reference_period` to supply the period that
+a consumer would read off a suffix if it were there..
 
 | what you declare                                         | period from                  | auto-converts |
 | -------------------------------------------------------- | ---------------------------- | ------------- |
 | single value — column, policy function, scalar parameter | name suffix `_y/_q/_m/_w/_d` | yes           |
 | structured value — dict, schedule, lookup table          | `reference_period`           | no            |
 
-So the question an author has to answer is simply: *when this is requested at another
-period, should the framework hand back a converted version?* If yes, it is a single
-value — give it a suffix; if no, it is a table — give it a `reference_period`.
-
 Where the suffix supplies the period it is also *mandatory and exclusive*: a time suffix
-requires a `…_FLOW` token and a `…_FLOW` token requires a time suffix, so a complete
+requires a `…_FLOW` token and a `…_FLOW` token requires a time suffix, so a non-flow
 token on a suffixed name — or a flow token on an unsuffixed one — fails at build. This
 makes the {ref}`GEP 1 <gep-1>` convention machine-checked: a node named `…_m` whose body
 computes a stock cannot be declared.
@@ -287,23 +274,12 @@ satz_nach_kindanzahl:
     2: 250.0
 ```
 
-Where a leaf key carries a suffix *and* the dict also sets a `reference_period`, the two
-must coincide — there is no precedence order. Mixed-period dicts are legal when each
-flow leaf carries its own suffix (`base_amount_m` next to `annual_bonus_y`).
-
 **Leaves that change name across the parameter's history.** The `unit:` mapping is a
 **union over all dated entries**: the mandatory-units check looks only at the leaves
 present in the value active at the policy date and ignores mapping entries for leaves
 that exist only at other dates. So a leaf renamed across a reform is covered by listing
-both names (`child_amount_y` before, `base_amount_y` after). A value leaf with no entry
-in the mapping is a *missing* declaration and is flagged, so a mistyped key cannot pass
-silently. When the renamed leaves share a token, the simpler **uniform** form — a single
-scalar `unit: EUR_FLOW` with the period read from each leaf's own suffix — makes the
-rename irrelevant; the mapping is only for genuinely heterogeneous leaves. A leaf whose
-*currency* changes across dates is a changeover ({ref}`see Currency <gep-10-currency>`).
-
-In the dry-run, dict parameters become dicts of representative `Quantity`s (uniform for
-a scalar `unit:`, per-leaf for a mapping), so bodies that subscript them are verifiable.
+both names. A value leaf with no entry in the mapping is a *missing* declaration and is
+flagged, so a mistyped key cannot pass silently.
 
 ### Mapping parameters: one token per axis
 
@@ -322,19 +298,13 @@ tarif:
   ...
 ```
 
-Each axis token follows the same kind rules as a scalar declaration; per-axis
-declarations are single tokens (or `DIMENSIONLESS`), never mappings. The single
-`reference_period` supplies the period of *every* flow axis; a `reference_period` that
-no flow axis consumes is dangling and fails; a time suffix on the parameter's *name*
-must coincide with the **output** axis — the suffix names what the parameter yields.
-
 (gep-10-currency)=
 
 ### Currency
 
 Currencies live in the framework as a `[currency]` dimension, with concrete currencies
 registered by downstream packages via
-`register_currency(name, *, base=False, definition=None)`. `gettsim` registers `EUR`
+`register_currency(name, *, base=False, definition=None)`. GETTSIM registers `EUR`
 (base) and `DM = EUR / 1.95583`. Registration does two things: it provides the
 **conversion factors**, with pint as the single source of truth for the rate; and it
 derives the currency's **declaration tokens** — one concrete variant per
@@ -348,25 +318,18 @@ of a function or column for which it does not matter which currency the model ru
 **concrete currency token** (`DM_FLOW`, `EUR`) names one specific currency; what it adds
 over its agnostic counterpart is **denomination** — it names the currency a parameter's
 stored numbers are written in, which the build-time conversion reads off the
-declaration. For every *dimensionality* check a concrete token means exactly what its
-agnostic counterpart means: the dry-run and the edge check compare at the dimension
-level and never see a concrete currency, so a DM-denominated parameter feeds a
-currency-agnostic function without further ado, while adding Euros to Euros per square
-meter is still caught.
+declaration.
 
 **Parameters must be concrete; functions must be agnostic.** A parameter's numbers are
 written in *some* currency, so once a concrete currency is registered, an agnostic
 `CURRENCY_*` token on a parameter is a build error — the declaration must name the
-denomination (`DM_FLOW`, not `CURRENCY_FLOW`). Columns and functions may *only* declare
+denomination (`EUR_FLOW`, not `CURRENCY_FLOW`). Columns and functions may *only* declare
 agnostic tokens.
 
 **The run currency.** The `currency` argument to `main()` defaults to the registered
 base currency; it is the currency the input data is taken to be in and that the outputs
 come out in. At environment build, every currency-denominated *parameter* is converted
-from its declared denomination to the run currency: scalar values, dict parameters leaf
-by leaf (each currency leaf by its own token), schedules axis by axis, and lookup-table
-values. The factors are baked in at build time; the numeric runtime path stays
-single-currency.
+from its declared denomination to the run currency.
 
 **A changeover within one parameter's history.** A dated entry may restate the unit
 field(s), overriding the top-level declaration for that entry's numbers. This is how the
@@ -392,36 +355,24 @@ denominated in different currencies.
 
 ### Build-time checks and boundary conversion
 
-The checks run in two layers, both at build time, neither needing a fabricated dataset:
+The checks run in two layers, both at build time:
 
-|        | **Layer 1 — DAG validity**                                                                              | **Layer 2 — boundary**                                                                                          |
-| ------ | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                                                                  | GEP-9 canonicalisation boundary                                                                                 |
-| input  | none — representative `Quantity`s                                                                       | the user's unit-annotated input tree                                                                            |
-| checks | inferred body unit vs. declaration; `+`/`−`/ordering operands equivalent; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; unknown token rejected; every tag's dimension vs. resolved unit |
+|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                          |
+| ------ | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| when   | `fail_if` on the assembled environment                            | GEP-9 canonicalisation boundary                                                                                 |
+| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                            |
+| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; unknown token rejected; every tag's dimension vs. resolved unit |
+
+#### Layer 1: the **dry-run** dimensionality check.
 
 **Layer 1** runs each scalar body in NumPy+pint, infers the unit that falls out, and
 checks it against the declaration; an edge-consistency pass then confirms each
-producer's unit equals its consumer's declared expectation. The mechanics are below.
-
-**Layer 2** is offered through the unit-annotated input tree (a sibling of the ordinary
-input tree in which every leaf is a pint `Quantity`). Only the tree interface carries
-tags — a DataFrame column has nowhere to hang a per-column unit, so the DataFrame modes
-and the bare tree stay tag-free and are taken to already be in the run currency. When
-the mode is used **every** leaf must be tagged, including identifiers and other
-dimensionless columns (tagged `dimensionless`) — a full-coverage contract that is what
-lets the dimension check be exhaustive. The dimension check reads the extracted input
-units against the resolved environment units; it feeds no node, so it adds no back-edge
-to the boundary and needs no declared unit threaded through `processed_data`.
-Symmetrically, the **unit-annotated result tree** relabels each output leaf with its
-precise run-currency unit (`euro/month`, not the agnostic `CURRENCY_FLOW`) — pure
-naming, since results are already computed in the run currency.
+producer's unit equals its consumer's declared expectation.
 
 **How the dry-run checks one body.** The check *runs the function body*, but with
 **units in place of numbers**. Each input becomes a stand-in carrying its resolved unit
 and a throwaway magnitude of `1`; pint carries the units through the body's arithmetic,
-and the unit that falls out of the `return` is compared to the declaration. Because the
-magnitude is never used, no real data is needed:
+and the unit that falls out of the `return` is compared to the declaration:
 
 ```python
 @policy_function(unit=Unit.CURRENCY_FLOW)  # -> CURRENCY / month
@@ -446,12 +397,11 @@ yes/no, but a unit stand-in has no value to compare. So the stand-in intercepts 
 explorer** — that decides which way to go, re-running the body and steering the open
 branches differently each time (a depth-first walk of the decision tree, in the style of
 *concolic* execution) until every reachable path is driven. The number of runs is the
-number of *reachable* paths, not `2^n`: when `befreit` is true the body returns before
-the income test, so that comparison never even becomes a question. Each run's result is
-checked on its own, so a unit slip on a single arm — say, returning a yearly figure
-where `_m` was declared — is caught even though the other arms are clean. A `return 0.0`
-arm yields a dimensionless result and falls back to the declaration, so the ubiquitous
-`if befreit: return 0.0` guard never raises a false alarm.
+number of *reachable* paths. Each run's result is checked on its own, so a unit slip on
+a single arm — say, returning a yearly figure where `_m` was declared — is caught even
+though the other arms are clean. A `return 0.0` arm yields a dimensionless result and
+falls back to the declaration, so the ubiquitous `if befreit: return 0.0` guard never
+raises a false alarm.
 
 **What the dry-run catches:**
 
@@ -470,11 +420,8 @@ arm yields a dimensionless result and falls back to the declaration, so the ubiq
 
 **What it cannot catch:**
 
-- **wrong magnitudes** — a coefficient, rate, or constant with the correct unit but the
-  wrong value (a 2.5% rate written as `0.25`); units are not values;
 - **a result that comes out dimensionless** — a body inferring a dimensionless value (an
   early `return 0.0`, or arithmetic that cancels) falls back to the declaration;
-- **equality comparisons** — `==` and `!=` are not unit-screened, unlike ordering.
 
 **A body the dry-run cannot evaluate must opt out explicitly.** The dry-run executes a
 *scalar* body symbolically, so a body it cannot trace must opt out: vectorized functions
@@ -483,8 +430,18 @@ polynomials and lookup tables (evaluated by table machinery), and bodies calling
 or a raw `xnp` op. Rather than silently trusting such a body, the check **rejects** it
 unless the author marks it `verify_units=False` on the decorator. The opt-out is of body
 *inference only*: the declared unit still stands and the body's edges are still checked.
-Because the flag is explicit, every un-verified body is greppable — a deliberate choice,
-and a ready-made worklist should the dry-run later learn to evaluate these operations.
+
+#### Layer 2: the **boundary check** on the unit-annotated input tree.
+
+**Layer 2** is offered through the unit-annotated input tree (a sibling of the ordinary
+input tree in which every leaf is a pint `Quantity`). When the mode is used **every**
+leaf must be tagged, including identifiers and other dimensionless columns (tagged
+`dimensionless`). The dimension check reads the extracted input units against the
+resolved environment units; it feeds no node, so it adds no back-edge to the boundary
+and needs no declared unit threaded through `processed_data`. Symmetrically, the
+**unit-annotated result tree** relabels each output leaf with its precise run-currency
+unit (`euro/month`, not the agnostic `CURRENCY_FLOW`) — pure naming, since results are
+already computed in the run currency.
 
 (gep-10-auto)=
 
@@ -560,13 +517,6 @@ vocabulary, and adds hot-path cost. Units in a tax-transfer model are static str
 properties of nodes, not of data, so runtime wrapping buys nothing the build-time check
 does not already provide.
 
-### Inference-only (no declared units)
-
-Rejected in favour of mandatory declarations. Inference alone localises a bug only where
-dimensions clash downstream; a mandatory declared return unit localises it at the
-offending function and is self-documenting, at the cost of annotation churn the codebase
-largely already absorbs for types.
-
 ### Keep hand-written time conversions; use pint only for checks
 
 Possible, but the stock/flow duality is exactly what a unit engine encodes for free.
@@ -598,13 +548,6 @@ retrofit.
 
 Rejected. Collapsing `betrag_m` and `betrag_y` into one node would erase the law-to-code
 correspondence GEP 1 is built on.
-
-## Discussion
-
-(Open. To be resolved on Zulip.) Known points for debate: the strictness of literal
-tagging; whether per-capita scaling should ever get dedicated dimensions (see the
-rejected `[count]` alternative — revisit if missing-scale bugs accumulate); and whether
-the gettsim rollout should be a single large PR or staged behind a temporary gate.
 
 ## References and Footnotes
 
