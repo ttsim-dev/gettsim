@@ -396,12 +396,14 @@ yes/no, but a unit stand-in has no value to compare. So the stand-in intercepts 
 *truth test* itself (Python's `__bool__`) and hands it to a small driver — the **path
 explorer** — that decides which way to go, re-running the body and steering the open
 branches differently each time (a depth-first walk of the decision tree, in the style of
-*concolic* execution) until every reachable path is driven. The number of runs is the
-number of *reachable* paths. Each run's result is checked on its own, so a unit slip on
-a single arm — say, returning a yearly figure where `_m` was declared — is caught even
-though the other arms are clean. A `return 0.0` arm yields a dimensionless result and
-falls back to the declaration, so the ubiquitous `if befreit: return 0.0` guard never
-raises a false alarm.
+*concolic* execution) until every syntactically reachable branch combination is driven —
+the explorer tracks no path constraints, so it counts branch combinations, not strictly
+feasible paths. A body whose branching exceeds an internal cap is rejected (it must opt
+out), never passed with some combinations left unchecked. Each run's result is checked
+on its own, so a unit slip on a single arm — say, returning a yearly figure where `_m`
+was declared — is caught even though the other arms are clean. A `return 0.0` arm yields
+a dimensionless result and falls back to the declaration, so the ubiquitous
+`if befreit: return 0.0` guard never raises a false alarm.
 
 **What the dry-run catches:**
 
@@ -413,7 +415,9 @@ raises a false alarm.
   assembled DAG computes on bare arrays with no pint, so such a combination is
   unit-blind and silently wrong; the dry-run rejects it rather than letting pint's
   build-time auto-conversion of same-dimension operands paper over it;
-- an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities;
+- an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities, or of
+  a quantity against a bare non-zero literal — the literal silently carries the
+  quantity's unit, so promote the bound to a parameter (only `0` is allowed inline);
 - a logical operator (`&`, `|`, `~`) applied to a unit-carrying operand —
   `wealth & is_adult`, where `wealth` is a stock. Logical operators combine truth
   values, so an operand carrying a real unit is a bug the run-time arrays would silently
@@ -430,8 +434,9 @@ raises a false alarm.
 **A body the dry-run cannot evaluate must opt out explicitly.** The dry-run executes a
 *scalar* body symbolically, so a body it cannot trace must opt out: vectorized functions
 (`vectorization_strategy="not_required"`, no scalar form for pint to walk), piecewise
-polynomials and lookup tables (evaluated by table machinery), and bodies calling `join`
-or a raw `xnp` op. Rather than silently trusting such a body, the check **rejects** it
+polynomials and lookup tables (evaluated by table machinery), bodies calling `join` or a
+raw `xnp` op, and bodies returning an opaque value (a dataclass, a tuple) the dry-run
+cannot unit-check. Rather than silently trusting such a body, the check **rejects** it
 unless the author marks it `verify_units=False` on the decorator. The opt-out is of body
 *inference only*: the declared unit still stands and the body's edges are still checked.
 
