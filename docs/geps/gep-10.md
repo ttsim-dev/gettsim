@@ -90,14 +90,20 @@ the *concrete* currency tokens `EUR` / `EUR_FLOW` and `DM` / `DM_FLOW`.
 
 The remaining tokens cover the other dimensions GETTSIM needs:
 
-| token                            | measures                                                     |
-| -------------------------------- | ------------------------------------------------------------ |
-| `DIMENSIONLESS`                  | shares, rates, counts (children, household size)             |
-| `DIMENSIONLESS_FLOW`             | a pure number per period (e.g. change of Zugangsfaktor p.a.) |
-| `YEARS`                          | ages and durations                                           |
-| `HOURS_FLOW`                     | working hours per period                                     |
-| `SQUARE_METERS`                  | dwelling size                                                |
-| `CURRENCY_PER_SQUARE_METER_FLOW` | rent caps                                                    |
+| token                                               | measures                                                     |
+| --------------------------------------------------- | ------------------------------------------------------------ |
+| `DIMENSIONLESS`                                     | shares, rates, counts (children, household size)             |
+| `DIMENSIONLESS_FLOW`                                | a pure number per period (e.g. change of Zugangsfaktor p.a.) |
+| `YEARS` / `MONTHS` / `DAYS`                         | *durations*: an age, a number of years/months/days           |
+| `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY` | *calendar points*: a birth year, the policy date             |
+| `HOURS_FLOW`                                        | working hours per period                                     |
+| `SQUARE_METERS`                                     | dwelling size                                                |
+| `CURRENCY_PER_SQUARE_METER_FLOW`                    | rent caps                                                    |
+
+A *calendar point* (a year/month/day **on** the calendar) is distinct from a *duration*
+(a number of years/months/days): the difference of two calendar points is a duration
+(`policy_year - geburtsjahr` is an age in `YEARS`), but two calendar points cannot be
+added. The {ref}`vocabulary <gep-10-vocabulary>` below spells out the algebra.
 
 The same `…_FLOW` rule applies throughout: a token ending in `…_FLOW` needs a period —
 from a name suffix for single values, from `reference_period` for tables — while every
@@ -155,16 +161,17 @@ A declaration is one member of the **token vocabulary**. Its backbone is a close
 enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in code (e.g.
 `unit=Unit.HOURS_FLOW`) and in YAML (e.g. `unit: HOURS_FLOW`):
 
-| token                            | resolves to                      | typical use              |
-| -------------------------------- | -------------------------------- | ------------------------ |
-| `CURRENCY_FLOW`                  | `CURRENCY / period`              | wages, claims, benefits  |
-| `CURRENCY`                       | `CURRENCY`                       | wealth, asset thresholds |
-| `DIMENSIONLESS`                  | `dimensionless`                  | shares, rates, counts    |
-| `DIMENSIONLESS_FLOW`             | `1 / period`                     | Zugangsfaktor per year   |
-| `YEARS`                          | `year`                           | ages, durations          |
-| `HOURS_FLOW`                     | `hour / period` (dimensionless)  | working hours            |
-| `SQUARE_METERS`                  | `meter ** 2`                     | dwelling size            |
-| `CURRENCY_PER_SQUARE_METER_FLOW` | `CURRENCY / meter ** 2 / period` | rent caps                |
+| token                                               | resolves to                           | typical use                   |
+| --------------------------------------------------- | ------------------------------------- | ----------------------------- |
+| `CURRENCY_FLOW`                                     | `CURRENCY / period`                   | wages, claims, benefits       |
+| `CURRENCY`                                          | `CURRENCY`                            | wealth, asset thresholds      |
+| `DIMENSIONLESS`                                     | `dimensionless`                       | shares, rates, counts         |
+| `DIMENSIONLESS_FLOW`                                | `1 / period`                          | Zugangsfaktor per year        |
+| `YEARS` / `MONTHS` / `DAYS`                         | a duration in `year`/`month`/`day`    | an age, a span                |
+| `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY` | a calendar point in years/months/days | a birth year, the policy date |
+| `HOURS_FLOW`                                        | `hour / period` (dimensionless)       | working hours                 |
+| `SQUARE_METERS`                                     | `meter ** 2`                          | dwelling size                 |
+| `CURRENCY_PER_SQUARE_METER_FLOW`                    | `CURRENCY / meter ** 2 / period`      | rent caps                     |
 
 A token ending in `…_FLOW` needs a period; every other token is complete as written and
 takes no period. Tokens are not pint syntax: each resolves internally to a pint unit
@@ -180,6 +187,31 @@ quantity. Likewise, a *per-period* dimensionless quantity is `DIMENSIONLESS_FLOW
 or later retirement (`zugangsfaktor_veränderung_y`, § 77 SGB VI) — a pure number, but
 *per year* it is `1/year`, and multiplied by the gap in `YEARS` the years cancel to the
 dimensionless adjustment.
+
+**Calendar points are distinct from durations.** A year *on the calendar* — a birth
+year, the policy year — is an affine *point*, not a *duration*. The two do not share
+arithmetic: subtracting two points gives a duration, and shifting a point by a duration
+gives a point, but two points cannot be added and a point cannot be scaled. The
+`CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY` tokens carry the point on each axis;
+`YEARS` / `MONTHS` / `DAYS` carry the corresponding duration. The dry-run enforces the
+algebra (the duration `D` of a point `P`):
+
+| operation                 | result    | example                              |
+| ------------------------- | --------- | ------------------------------------ |
+| `P − P`                   | duration  | `policy_year − geburtsjahr` → an age |
+| `P ± D` (same axis)       | point     | `geburtsjahr + statutory_age`        |
+| `P + P`, `P × n`, `P / n` | **error** | two calendar years cannot be added   |
+| mixing calendar axes      | **error** | a year point plus a month duration   |
+
+This is the one case where a quantity's token decides whether an operation is *allowed*,
+not just whether two units match: the affine point and its duration have the same
+dimension but obey different algebra. A *cyclic* ordinal — a month-of-year
+(`geburtsmonat` 1-12), a day-of-week, a quarter — is **not** a calendar point but
+`DIMENSIONLESS`: it is a recurring label, not a position on a running calendar.
+Migration is a no-op for existing `YEARS` declarations: an age, an age threshold, a
+contribution count stay `YEARS` and behave exactly as before (a duration is fully
+multiplicative); only quantities that are genuinely points on the calendar move to a
+`CALENDAR_*` token.
 
 **Counting quantities, booleans, and identifiers are dimensionless** (`DIMENSIONLESS`),
 following SI and pint convention. A per-person parameter declares the same token as any
@@ -199,10 +231,10 @@ beitragssatz:
 
 **There are no exemptions** — every active node has a unit. Most nodes declare it
 directly. Derived nodes get one auto-assigned ({ref}`see below <gep-10-auto>`); the
-framework-injected date nodes get theirs from the framework (`policy_year` is in years,
-etc.). So `UNSET_UNIT` has a single meaning — *no declaration was made* — which the
-mandatory-units check always reports as an error, with no second "legitimately blank"
-reading to disambiguate.
+framework-injected date nodes get theirs from the framework (`policy_year` is a
+`CALENDAR_YEAR`, etc.). So `UNSET_UNIT` has a single meaning — *no declaration was made*
+— which the mandatory-units check always reports as an error, with no second
+"legitimately blank" reading to disambiguate.
 
 Beyond the core enumeration, the full vocabulary adds one set of **concrete currency
 tokens** per registered currency ({ref}`see Currency <gep-10-currency>`); the
