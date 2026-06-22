@@ -414,6 +414,10 @@ raises a false alarm.
   unit-blind and silently wrong; the dry-run rejects it rather than letting pint's
   build-time auto-conversion of same-dimension operands paper over it;
 - an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities;
+- a logical operator (`&`, `|`, `~`) applied to a unit-carrying operand —
+  `wealth & is_adult`, where `wealth` is a stock. Logical operators combine truth
+  values, so an operand carrying a real unit is a bug the run-time arrays would silently
+  swallow;
 - a missing unit, and malformed declarations: a flow token without a period, a
   currency-agnostic token on a parameter, disagreeing period sources, or a boolean node
   carrying a concrete unit.
