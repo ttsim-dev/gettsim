@@ -477,7 +477,14 @@ a dimensionless result and falls back to the declaration, so the ubiquitous
   build-time auto-conversion of same-dimension operands paper over it;
 - an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities, or of
   a quantity against a bare non-zero literal — the literal silently carries the
-  quantity's unit, so promote the bound to a parameter (only `0` is allowed inline);
+  quantity's unit, so promote the bound to a parameter (only `0` is allowed inline).
+  Equality (`==`, `!=`) is deliberately **not** screened: it is the operator for
+  sentinel and exact-marker tests — a person-pointer's no-link marker
+  (`p_id_empfänger == -1`) or an exact-zero guard (`kindersatz_m == 0.0`) — where the
+  literal is a deliberate marker, not a hidden dimensioned bound to be promoted to a
+  parameter. The trade-off is that an equality between two genuinely non-equivalent
+  quantities is not caught, so `==`/`!=` are reserved for marker tests rather than for
+  comparing computed amounts;
 - a logical operator (`&`, `|`, `~`) applied to a unit-carrying operand —
   `wealth & is_adult`, where `wealth` is a stock. Logical operators combine truth
   values, so an operand carrying a real unit is a bug the run-time arrays would silently
@@ -488,8 +495,14 @@ a dimensionless result and falls back to the declaration, so the ubiquitous
 
 **What it cannot catch:**
 
-- **a result that comes out dimensionless** — a body inferring a dimensionless value (an
-  early `return 0.0`, or arithmetic that cancels) falls back to the declaration;
+- **anything that reduces to dimensionless.** The check is *dimensional*, not
+  *semantic*: quantities that collapse to the dimensionless dimension are
+  indistinguishable to it. A per-period count is `[time]/[time] = 1`, so `HOURS_FLOW`
+  (working hours per period) reads as a plain number — adding working hours to a share
+  or a head count is *not* caught. The same blind spot covers a body whose result
+  *infers* dimensionless (an early `return 0.0`, or arithmetic that cancels): it falls
+  back to the declaration rather than contradicting it. So the engine guarantees
+  *dimensional* soundness, not that every quantity is the intended *kind*;
 
 **A body the dry-run cannot evaluate must opt out explicitly.** The dry-run executes a
 *scalar* body symbolically, so a body it cannot trace must opt out: vectorized functions
