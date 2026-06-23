@@ -383,6 +383,28 @@ arbeitnehmerpauschbetrag_y:
 declaration must restate the full value, because a merged value would mix numbers
 denominated in different currencies.
 
+**Converters (`require_converter`).** A `require_converter` hands an arbitrary nested
+structure to a `@param_function` that knows how to read it. The framework cannot, so for
+currency conversion the parameter declares one of two *honest* shapes:
+
+- **Homogeneous** — a single `unit:`, when every numeric leaf is the same currency. The
+  structure is scaled uniformly, leaf by leaf, before the converter runs.
+- **Function-like** — `input_unit:` / `output_unit:` axes, when the converter produces a
+  schedule or lookup table (a function between quantities, like a mapping parameter).
+  The raw structure is then left untouched and the converter's *typed output* is
+  converted per axis, so an order-`j` polynomial coefficient scales by `f_out / f_in**j`
+  (the slope invariant, the quadratic by `1 / f_in`) rather than by one uniform factor.
+
+A structure that **mixes** a currency with non-currency numbers — a `satz` bundled with
+the age bracket it applies to, an amount next to a dimensionless share — is neither
+shape: a single blob offers no surface on which to declare a unit per leaf, and uniform
+scaling would corrupt the non-currency numbers. Such a parameter is **split** into
+separate homogeneous parameters (the amount as a currency parameter, the ages as a
+`YEARS` parameter), each independently declarable and checkable. Accordingly, a
+homogeneous (single-`unit:`) converter that is found to produce a function-like value is
+rejected at build time — uniform scaling cannot state its coefficients correctly — with
+the error pointing the author at the per-axis declaration.
+
 (gep-10-checks)=
 
 ### Build-time checks and boundary conversion
