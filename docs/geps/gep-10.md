@@ -278,6 +278,12 @@ token on a suffixed name — or a flow token on an unsuffixed one — fails at b
 makes the {ref}`GEP 1 <gep-1>` convention machine-checked: a node named `…_m` whose body
 computes a stock cannot be declared.
 
+The two period sources are mutually exclusive: `reference_period` exists only for the
+structured values that have no suffix to read, so declaring it on a single value — a
+column, a policy function, or a **scalar parameter** — is an error. A scalar parameter's
+period therefore comes *only* from its name suffix, and the JSON schema rejects a
+`reference_period` on `type: scalar`.
+
 ### Dict parameters with heterogeneous leaves
 
 A dict parameter whose leaves carry different units declares `unit:` as a **mapping from
@@ -577,12 +583,16 @@ annotation. The tracking issues are:
 
 Each package's params schema enumerates its own token vocabulary: the core tokens minus
 the agnostic currency tokens (the schema governs parameters, which must be concrete)
-plus the concrete variants of that package's registered currencies. It also enforces the
-`unit:` XOR `input_unit:`/`output_unit:` split per parameter `type:` and admits the
-per-entry overrides in dated entries. The schema shipped with ttsim (listing mettsim's
-`CASTAR_*`/`SILVER_PENNY_*` tokens) is the template; the copy at
-`docs/geps/params-schema.json` (the validation target for all German parameter YAMLs) is
-migrated together with the YAML files in #1192, adding the `DM_*`/`EUR_*` tokens.
+plus the concrete variants of that package's registered currencies. It also enforces,
+per parameter `type:`, both the `unit:` XOR `input_unit:`/`output_unit:` split *and the
+shape of the declaration itself*: a `type: scalar` parameter's `unit:` must be a single
+token — the leaf-keys-to-tokens mapping form is admitted only for `type: dict` — and
+`type: scalar` may not carry a `reference_period` (see
+{ref}`Flow tokens <gep-10-periods>` above). It admits the per-entry overrides in dated
+entries. The schema shipped with ttsim (listing mettsim's `CASTAR_*`/`SILVER_PENNY_*`
+tokens) is the template; the copy at `docs/geps/params-schema.json` (the validation
+target for all German parameter YAMLs) is migrated together with the YAML files in
+#1192, adding the `DM_*`/`EUR_*` tokens.
 
 ## Alternatives
 
