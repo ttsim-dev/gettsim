@@ -492,7 +492,20 @@ polynomials and lookup tables (evaluated by table machinery), bodies calling `jo
 raw `xnp` op, and bodies returning an opaque value (a dataclass, a tuple) the dry-run
 cannot unit-check. Rather than silently trusting such a body, the check **rejects** it
 unless the author marks it `verify_units=False` on the decorator. The opt-out is of body
-*inference only*: the declared unit still stands and the body's edges are still checked.
+*inference only*: the declared output unit still stands, so every *consumer* of this
+node is still checked against it. The units flowing *into* the body are sound as well —
+each is the declared, separately verified output of its producer. What the opt-out drops
+is any check *internal* to the body: for a schedule, the binding of its declared domain
+(`input_unit`) to the argument it is evaluated at is not verified, because the body is
+never dry-run.
+
+**Known limitation.** An opted-out schedule (e.g. a `piecewise_polynomial`) could in
+principle be evaluated at an argument whose unit differs from its declared `input_unit`
+without the dry-run catching it. The residual risk is small: schedule evaluation goes
+through a single standardized primitive, and the argument it receives is itself a
+verified producer output, so a mismatch would have to originate inside that standardized
+machinery. It could escape unit-checking end to end only if two opt-out bodies fed one
+another directly — which does not occur in the current system.
 
 #### Layer 2: the **boundary check** on the unit-annotated input tree.
 
