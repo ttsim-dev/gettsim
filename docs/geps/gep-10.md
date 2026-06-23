@@ -143,9 +143,9 @@ outputs.
 - **User code shape is unchanged.** Bare arrays and the DataFrame/mapper interface keep
   working; `currency` defaults to `"EUR"` and output stays in Euros.
 - **The `unit`/`reference_period` metadata is repurposed.** `unit` becomes one member of
-  the token vocabulary and `reference_period` becomes *functional* (it supplies the
-  period for structured `…_FLOW` parameters — dicts, schedules, lookup tables — which do
-  not auto-convert) rather than purely descriptive.
+  the token vocabulary and `reference_period` becomes *functional* — it now supplies the
+  period for the structured flow parameters that cannot read a name suffix
+  ({ref}`Flow tokens <gep-10-periods>`) rather than being purely descriptive.
 - **No blanket opt-out.** Unlike the {ref}`GEP 9 <gep-9>` beartype claw, there is no
   env-var escape hatch that switches the unit check off wholesale. Users can opt-out of
   unit checking for specific functions (`verify_units=False`,
@@ -173,10 +173,8 @@ enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in co
 | `SQUARE_METERS`                                     | `meter ** 2`                          | dwelling size                 |
 | `CURRENCY_PER_SQUARE_METER_FLOW`                    | `CURRENCY / meter ** 2 / period`      | rent caps                     |
 
-A token ending in `…_FLOW` needs a period; every other token is complete as written and
-takes no period. Tokens are not pint syntax: each resolves internally to a pint unit
-(flow tokens after the period is filled in), but pint expressions never appear in a
-declaration.
+Tokens are not pint syntax: each resolves internally to a pint unit (flow tokens after
+the period is filled in), but pint expressions never appear in a declaration.
 
 `HOURS_FLOW` is the one flow token that resolves to a *dimensionless* quantity: hours
 and the period are both `[time]`, so hours per week is a time-over-time ratio. It is
