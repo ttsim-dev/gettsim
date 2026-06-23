@@ -417,11 +417,11 @@ the error pointing the author at the per-axis declaration.
 
 The checks run in two layers, both at build time:
 
-|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                          |
-| ------ | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                            | GEP-9 canonicalisation boundary                                                                                 |
-| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                            |
-| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; unknown token rejected; every tag's dimension vs. resolved unit |
+|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                                                             |
+| ------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| when   | `fail_if` on the assembled environment                            | GEP-9 canonicalisation boundary                                                                                                                    |
+| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                                                               |
+| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; unknown token rejected; every tag equivalent to its resolved unit (currency and flow period aside) |
 
 #### Layer 1: the **dry-run** dimensionality check.
 
@@ -531,12 +531,15 @@ another directly — which does not occur in the current system.
 **Layer 2** is offered through the unit-annotated input tree (a sibling of the ordinary
 input tree in which every leaf is a pint `Quantity`). When the mode is used **every**
 leaf must be tagged, including identifiers and other dimensionless columns (tagged
-`dimensionless`). The dimension check reads the extracted input units against the
-resolved environment units; it feeds no node, so it adds no back-edge to the boundary
-and needs no declared unit threaded through `processed_data`. Symmetrically, the
-**unit-annotated result tree** relabels each output leaf with its precise run-currency
-unit (`euro/month`, not the agnostic `CURRENCY_FLOW`) — pure naming, since results are
-already computed in the run currency.
+`dimensionless`). The boundary check requires each tagged input to be *equivalent* to
+its resolved environment unit once the two axes handled elsewhere — currency (converted
+by the strip path) and a flow's reference period (owned by the suffix guard) — are
+divided out, so a same-dimension level error such as a `HECTARES` column tagged `m²`, or
+a `YEARS` input tagged in months, is rejected rather than silently mis-scaled. It feeds
+no node, so it adds no back-edge to the boundary and needs no declared unit threaded
+through `processed_data`. Symmetrically, the **unit-annotated result tree** relabels
+each output leaf with its precise run-currency unit (`euro/month`, not the agnostic
+`CURRENCY_FLOW`) — pure naming, since results are already computed in the run currency.
 
 (gep-10-auto)=
 
