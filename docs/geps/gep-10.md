@@ -728,26 +728,25 @@ derive their token from the source and the aggregation type, paralleling how
 {ref}`GEP 4 <gep-4>` resolves their types — and, with grouping levels now in the unit,
 the aggregation is also where a level is minted, swapped, or preserved:
 
-| aggregation                    | physical token  | level                                                  |
-| ------------------------------ | --------------- | ------------------------------------------------------ |
-| `SUM` over an extensive value  | preserved       | **swapped** source level → target group level          |
-| `COUNT`, `SUM` over a boolean  | `[person]`      | **minted** `[person] / [target]` (a head count)        |
-| `MEAN`/`MIN`/`MAX`             | preserved       | **preserved** (source level-ness; level-less stays so) |
-| `ANY`/`ALL`                    | `DIMENSIONLESS` | level-less (a boolean)                                 |
+| aggregation                   | physical token  | level                                                  |
+| ----------------------------- | --------------- | ------------------------------------------------------ |
+| `SUM` over an extensive value | preserved       | **swapped** source level → target group level          |
+| `COUNT`, `SUM` over a boolean | `[person]`      | **minted** `[person] / [target]` (a head count)        |
+| `MEAN`/`MIN`/`MAX`            | preserved       | **preserved** (source level-ness; level-less stays so) |
+| `ANY`/`ALL`                   | `DIMENSIONLESS` | level-less (a boolean)                                 |
 
 `SUM` over an extensive value (currency, area) swaps the denominator `[person] → [hh]`,
 giving a household total `CURRENCY/month/[hh]`. A **head count** — `COUNT`, *or* a `SUM`
-over a *boolean* (a per-person indicator, so its sum counts the persons it is true for) —
-mints `[person]/[target]`; the two are the same kind of quantity and must agree, so
-`anzahl_erwachsene_bg` reached by `COUNT` and by summing an `ist_erwachsen` flag carry the
-identical `[person]/[bg]`. `MEAN`/`MIN`/`MAX` pick a representative member's value, which
-is the *same kind* of quantity as the source — so they preserve its level-ness: the min of
-person incomes stays `CURRENCY/[person]`, the min of (level-less) ages stays `MONTHS`.
-`ANY`/`ALL` yield a *boolean* (not a count) and auto-assign `DIMENSIONLESS`. A
-`@group_creation_function`
-group id is auto-assigned `DIMENSIONLESS` (an identifier). Where the source's token pins
-down a concrete currency (a parameter), the derived node inherits the **agnostic
-counterpart**.
+over a *boolean* (a per-person indicator, so its sum counts the persons it is true for)
+— mints `[person]/[target]`; the two are the same kind of quantity and must agree, so
+`anzahl_erwachsene_bg` reached by `COUNT` and by summing an `ist_erwachsen` flag carry
+the identical `[person]/[bg]`. `MEAN`/`MIN`/`MAX` pick a representative member's value,
+which is the *same kind* of quantity as the source — so they preserve its level-ness:
+the min of person incomes stays `CURRENCY/[person]`, the min of (level-less) ages stays
+`MONTHS`. `ANY`/`ALL` yield a *boolean* (not a count) and auto-assign `DIMENSIONLESS`. A
+`@group_creation_function` group id is auto-assigned `DIMENSIONLESS` (an identifier).
+Where the source's token pins down a concrete currency (a parameter), the derived node
+inherits the **agnostic counterpart**.
 
 ### Literals
 
