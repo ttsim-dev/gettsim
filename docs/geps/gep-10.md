@@ -130,11 +130,14 @@ The remaining tokens cover the other dimensions GETTSIM needs:
 | `HOURS_FLOW`                                        | working hours per period                                |
 | `SQUARE_METERS`                                     | dwelling size                                           |
 | `CURRENCY_PER_SQUARE_METER_FLOW`                    | rent caps                                               |
+| `HEADCOUNT`                                         | a *declared* head count: persons per reference level    |
 
 Head counts are **not** dimensionless. A count of persons is the count dimension
 `[person]`; aggregated to a group it is persons-over-group (`[person] / [hh]`). This is
 the change that makes the per-capita conversions GETTSIM already performs type-check,
-and it is spelled out in the {ref}`vocabulary <gep-10-vocabulary>` below.
+and it is spelled out in the {ref}`vocabulary <gep-10-vocabulary>` below. A `COUNT`
+aggregation *mints* this unit; the `HEADCOUNT` token lets a parameter, a hand-written
+function, or an input column *declare* the very same `[person] / [level]` directly.
 
 A *calendar point* (a year/month/day **on** the calendar) is distinct from a *duration*
 (a number of years/months/days): the difference of two calendar points is a duration
@@ -224,6 +227,7 @@ enumeration — a `Unit` `StrEnum` shipped by `ttsim`, spelled identically in co
 | `HOURS_FLOW`                                        | `hour / period` (dimensionless physical part) | working hours             |
 | `SQUARE_METERS`                                     | `meter ** 2 / [level]`                        | dwelling size             |
 | `CURRENCY_PER_SQUARE_METER_FLOW`                    | `CURRENCY / meter ** 2 / period`              | rent caps                 |
+| `HEADCOUNT`                                         | `[person] / [level]`                          | a declared head count     |
 
 Tokens are not pint syntax: each resolves internally to a pint unit (flow tokens after
 the period is filled in, leveled tokens after the level is filled in), but pint
@@ -313,6 +317,17 @@ the per-capita divisions and the multiply-by-count splittings GETTSIM already pe
 type-check on their own once counts carry `[person]` and per-person parameters carry
 `reference_level: person`. `ANY`/`ALL`/booleans stay `DIMENSIONLESS`: they are not
 counts.
+
+A head count need not come from an aggregation. The `HEADCOUNT` token lets a parameter
+(a cap on the number of family members considered), a hand-written function (a count
+clamped to that cap), or a raw input column *declare* a head count, resolving to the
+identical `[person] / [target]` a `COUNT` mints — so a declared cap and an aggregated
+count compose and compare without an opt-out. A head count is always persons per
+*something*: the reference level is mandatory (a `HEADCOUNT` parameter sets
+`reference_level`; a `HEADCOUNT` column reads it from the name position). The individual
+level is allowed and meaningful — a count *per person* (the persons an `agg_by_p_id`
+count attributes to one individual) is `[person] / [person]`, which *is* a plain
+dimensionless number — but it must be stated, not left bare.
 
 (gep-10-extensive)=
 
@@ -740,13 +755,14 @@ giving a household total `CURRENCY/month/[hh]`. A **head count** — `COUNT`, *o
 over a *boolean* (a per-person indicator, so its sum counts the persons it is true for)
 — mints `[person]/[target]`; the two are the same kind of quantity and must agree, so
 `anzahl_erwachsene_bg` reached by `COUNT` and by summing an `ist_erwachsen` flag carry
-the identical `[person]/[bg]`. `MEAN`/`MIN`/`MAX` pick a representative member's value,
-which is the *same kind* of quantity as the source — so they preserve its level-ness:
-the min of person incomes stays `CURRENCY/[person]`, the min of (level-less) ages stays
-`MONTHS`. `ANY`/`ALL` yield a *boolean* (not a count) and auto-assign `DIMENSIONLESS`. A
-`@group_creation_function` group id is auto-assigned `DIMENSIONLESS` (an identifier).
-Where the source's token pins down a concrete currency (a parameter), the derived node
-inherits the **agnostic counterpart**.
+the identical `[person]/[bg]` — the same unit a `HEADCOUNT` declaration at `bg` resolves
+to (the placeholder token a `COUNT` auto-assigns is `HEADCOUNT`). `MEAN`/`MIN`/`MAX`
+pick a representative member's value, which is the *same kind* of quantity as the source
+— so they preserve its level-ness: the min of person incomes stays `CURRENCY/[person]`,
+the min of (level-less) ages stays `MONTHS`. `ANY`/`ALL` yield a *boolean* (not a count)
+and auto-assign `DIMENSIONLESS`. A `@group_creation_function` group id is auto-assigned
+`DIMENSIONLESS` (an identifier). Where the source's token pins down a concrete currency
+(a parameter), the derived node inherits the **agnostic counterpart**.
 
 ### Literals
 
