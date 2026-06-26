@@ -842,6 +842,52 @@ per-person amount, and a household total cannot be told from a Bedarfsgemeinscha
 total. Adopting `[person]` (the count dimension) and the grouping-level dimensions is
 what turns the cross-level bodies GETTSIM already writes into self-checking arithmetic.
 
+### Grouping levels on dimensionless quantities
+
+Rejected — the mirror temptation to the head count above. If a count earns a `[person]`
+numerator, why not give a family-level boolean a `[fam]` level too, so that
+`requirement_fulfilled_fam` reads as dimensionally distinct from a person-level flag?
+Because a grouping level is sound only on an **extensive** quantity
+({ref}`gep-10-extensive`); forcing one onto a dimensionless (intensive) quantity has no
+consistent algebra. Two concrete failures.
+
+*A share derives an uninterpretable level.* A family's share of household income is a
+pure number, but the level algebra leaves a residual:
+
+```text
+anteil_fam = einkommen_m_fam / einkommen_m_hh
+  = (CURRENCY / month / [fam]) / (CURRENCY / month / [hh])
+  = [hh] / [fam]      # currency and period cancel; the levels do not
+```
+
+The leaf name says `_fam`, the algebra says `[hh]/[fam]`, and the truth is "no level —
+it is a ratio". No single declaration satisfies all three. The same residual appears in
+every per-capita rate or take-up ratio built from two different-level extensives.
+
+*Gating forces the level to evaporate, which makes it inert.* The common idiom gates a
+per-person amount by a group-level predicate, which vectorizes to a `where`:
+
+```text
+betrag_m = satz_m if requirement_fulfilled_fam else 0.0
+  → where(requirement_fulfilled_fam, satz_m, 0.0) = CURRENCY / month   # satz_m's per-person unit
+```
+
+For that to type-check, `where` must **discard** the predicate's level. But `a and b` is
+the same primitive (`where(a, b, False)`), so a legitimate cross-level conjunction —
+
+```text
+kind_in_anspruchsberechtigter_familie = child and requirement_fulfilled_fam   # correct, per-person
+```
+
+— either has its levels discarded too (the annotation then propagates nowhere and
+catches nothing, including the bad `flag_fam and flag_bg` it was meant to catch) or has
+them *multiplied* to `[person]·[fam]`, rejecting correct code. The dimension algebra has
+a product, never the *meet* the per-person result actually needs. The operation that
+would make a boolean level useful is the very one that makes ordinary gating fail — so
+dimensionless quantities stay level-less, and cross-level *index* mistakes among them
+stay the structural system's concern ({ref}`gep-10-index-vs-unit`), not the unit
+system's.
+
 ### A single generic `[count]` dimension with no level
 
 Rejected. An intermediate design promoted counts to one generic `[count]` and per-person
