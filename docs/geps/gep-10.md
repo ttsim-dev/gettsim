@@ -764,6 +764,15 @@ and auto-assign `DIMENSIONLESS`. A `@group_creation_function` group id is auto-a
 `DIMENSIONLESS` (an identifier). Where the source's token pins down a concrete currency
 (a parameter), the derived node inherits the **agnostic counterpart**.
 
+A hand-written aggregation also carries an author-declared token (one is required to
+pass the mandatory-units check), and that declaration is **checked against the derived
+unit**, the same declared-vs-produced contract a `@policy_function` body is held to: its
+physical *kind* — currency, the `[person]` count, area, a duration — must match what the
+aggregation produces, so a `SUM` over a boolean declared `DIMENSIONLESS` rather than
+`HEADCOUNT` is rejected. Only the kind is the author's to state; the flow period and the
+grouping level are the framework's to derive (a group suffix on a `MEAN`/`MIN`/`MAX` is
+a mere *index* level, not a unit level), so they are not compared.
+
 ### Literals
 
 The dry-run executes a body on representative `Quantity`s, so a bare numeric literal
