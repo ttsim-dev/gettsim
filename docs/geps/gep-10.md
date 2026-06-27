@@ -82,7 +82,7 @@ Four long-standing problems motivate this GEP.
 1. **No dimensional safety.** The DAG carries quantities of many kinds, but a function
    body may add, subtract, or compare them freely. `betrag_m + miete_pro_qm_m` (a
    monthly amount plus a monthly rent *per square meter*) is a bug that runs silently
-   today and surfaces, if at all, as an implausible number far downstream.
+   today and surfaces, if noticed at all, as an implausible number far downstream.
 
 1. **No grouping-level safety.** Quantities live at many grouping levels (`_hh`, `_bg`,
    `_sn`, …) and the framework broadcasts a coarser level down to the individuals it
@@ -642,7 +642,7 @@ The checks run in two layers, both at build time:
 
 |        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                                                 |
 | ------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                            | GEP-9 canonicalisation boundary                                                                                                        |
+| when   | `fail_if` on the assembled environment                            | where GEP-9 normalises user input into canonical arrays                                                                                |
 | input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                                                   |
 | checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; level vs. suffix; unknown spelling rejected; every tag equivalent to its resolved unit |
 
@@ -760,16 +760,16 @@ verified producer outputs.
 **Layer 2** is offered through the unit-annotated input tree (a sibling of the ordinary
 input tree in which every leaf is a pint `Quantity`). When the mode is used **every**
 leaf must be tagged, including identifiers and other dimensionless columns (tagged
-`dimensionless`). The boundary check requires each tagged input to be *equivalent* to
-its resolved environment unit once the axes handled elsewhere — currency (converted by
-the strip path), a flow's reference period, and the grouping level (both owned by the
-suffix guard) — are divided out, so a same-dimension error such as a `HECTARE` column
-tagged `m²`, or a `YEARS` input tagged in months, is rejected rather than silently
-mis-scaled. It feeds no node, so it adds no back-edge to the boundary and needs no
-declared unit threaded through `processed_data`. Symmetrically, the **unit-annotated
-result tree** relabels each output leaf with its precise run-currency unit
-(`euro/month`, not the agnostic `CURRENCY`) — pure naming, since results are already
-computed in the run currency.
+`dimensionless`). The boundary check compares each tagged input to the unit the
+environment resolves for that leaf. Three axes are verified elsewhere and so are divided
+out first: currency (by the strip path), a flow's reference period, and the grouping
+level (the latter two owned by the suffix guard). What remains is the physical dimension
+— so a same-dimension error, such as a `HECTARE` column tagged `m²` or a `YEARS` input
+tagged in months, is rejected rather than silently mis-scaled. It feeds no node, so it
+adds no back-edge to the boundary and needs no declared unit threaded through
+`processed_data`. Symmetrically, the **unit-annotated result tree** relabels each output
+leaf with its precise run-currency unit (`euro/month`, not the agnostic `CURRENCY`) —
+pure naming, since results are already computed in the run currency.
 
 (gep-10-auto)=
 
@@ -831,6 +831,33 @@ currency conversion, level, and checking as any other parameter, and the body be
 dry-runnable), or **opt the body out** with `@policy_function(verify_units=False)` for
 genuine code-level constants where a parameter would be artificial.
 
+Promotion means the constant moves into a YAML parameter file (as any other parameter,
+{ref}`GEP 3 <gep-3>`) and the function gains it as an argument — not a Python-level
+declaration. An inline bound is rejected because the literal silently inherits the
+operand's unit:
+
+```python
+@policy_function(unit=Unit.DIMENSIONLESS)
+def anspruchsberechtigt(einkommen_m: float) -> bool:
+    return einkommen_m < 1000.0  # 1000.0 silently carries EUR/month → rejected
+```
+
+Promoting the bound to a parameter makes the body dry-runnable, with no opt-out:
+
+```yaml
+einkommensgrenze_m:
+  unit: EUR_PER_MONTH
+  type: scalar
+  2024-01-01:
+    value: 1000.0
+```
+
+```python
+@policy_function(unit=Unit.DIMENSIONLESS)
+def anspruchsberechtigt(einkommen_m: float, einkommensgrenze_m: float) -> bool:
+    return einkommen_m < einkommensgrenze_m
+```
+
 ## Related Work
 
 - {ref}`GEP 9 <gep-9>`: runtime type checking via beartype; this GEP follows its
@@ -844,24 +871,26 @@ genuine code-level constants where a parameter would be artificial.
 
 ## Implementation
 
-Delivered as several PRs, with the framework proven on `mettsim` before any German
-annotation. The compositional vocabulary, the `[hours]` dimension, leveled booleans, and
-the T8 aggregation rule are surface and model changes over a shared pint core; the
-dimensional resolution, conversion factors, dry-run algebra, and input/output boundary
-are reused throughout. The tracking issues are:
+Delivered as a stacked set of PRs, with the framework proven on `mettsim` before any
+German annotation. The compositional vocabulary, the `[hours]` dimension, leveled
+booleans, and the T8 aggregation rule are surface and model changes over a shared pint
+core; the dimensional resolution, conversion factors, dry-run algebra, and input/output
+boundary are reused throughout. The ttsim delivery stack is:
 
-- ttsim [#117](https://github.com/ttsim-dev/ttsim/issues/117) — framework core + tracer
-  bullet
-- ttsim [#118](https://github.com/ttsim-dev/ttsim/issues/118) — full dimension model
-  (time, currency, **grouping levels and the `[person]` count**)
-- ttsim [#119](https://github.com/ttsim-dev/ttsim/issues/119) — mandatory units +
-  edge-consistency (including the level-vs-suffix check and the aggregation level rules)
-- ttsim [#120](https://github.com/ttsim-dev/ttsim/issues/120) — currency knob + Layer-2
-  boundary
-- ttsim [#121](https://github.com/ttsim-dev/ttsim/issues/121) — annotate mettsim, switch
-  check on, CI test
-- gettsim [#1191](https://github.com/ttsim-dev/gettsim/issues/1191) — register EUR/DM
-- gettsim [#1192](https://github.com/ttsim-dev/gettsim/issues/1192) — gettsim rollout
+- ttsim [#138](https://github.com/ttsim-dev/ttsim/pull/138) — dimensional core (the pint
+  registry, the full dimension model: time, currency, the `[hours]` dimension,
+  **grouping levels and the `[person]` count**, mandatory units + edge-consistency)
+- ttsim [#139](https://github.com/ttsim-dev/ttsim/pull/139) — currency knob + Layer-2
+  boundary conversion
+- ttsim [#140](https://github.com/ttsim-dev/ttsim/pull/140) — compositional units + the
+  T8 aggregation-level rule
+- ttsim [#141](https://github.com/ttsim-dev/ttsim/pull/141) — annotate `mettsim`
+  end-to-end (the worked example), switch the check on, CI test over all dates
+
+The gettsim rollout is tracked by issues
+[#1191](https://github.com/ttsim-dev/gettsim/issues/1191) (register EUR/DM currencies)
+and [#1192](https://github.com/ttsim-dev/gettsim/issues/1192) (annotate everything,
+switch the check on); the implementation PRs are not yet open.
 
 Each package's params schema validates the compositional spelling (a coarse
 `^[A-Z][A-Z0-9_]*$` pattern, with `parse_compositional_unit` enforcing the grammar at
