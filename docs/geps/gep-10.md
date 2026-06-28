@@ -541,22 +541,23 @@ from its declared denomination to the run currency.
 **A changeover within one parameter's history.** A parameter's unit is constant within a
 currency regime and changes only at a changeover — the DM→Euro switch. Rather than
 repeat it on every dated entry, the unit is **forward-filled**: each dated entry
-inherits the most recent *earlier* `unit:` declaration, with the top-level `unit:` as
-the seed. A dated entry that restates the unit becomes the new seed from its date
-onward, so the unit is spelled once at the start and again only at each changeover; the
-entries in between omit it:
+inherits the most recent *earlier* `unit:` declaration. The first declaration is the
+seed — either a top-level `unit:` shared by every date, or, as here, spelled on the
+first dated entry. A dated entry that restates the unit becomes the new seed from its
+date onward, so the unit is spelled once at the start and again only at each changeover;
+the entries in between omit it:
 
 ```yaml
 arbeitnehmerpauschbetrag_y:
-  unit: DM_PER_YEAR        # the seed: Deutsche Mark until restated
   type: scalar
   1990-01-01:
+    unit: DM_PER_YEAR      # the first declaration: Deutsche Mark until restated
     value: 2000
   2002-01-01:
     unit: EUR_PER_YEAR     # the changeover: Euro from here on
     value: 1044
   2011-01-01:
-    value: 1000            # no unit: — inherits EUR_PER_YEAR, not the DM seed
+    value: 1000            # no unit: — inherits EUR_PER_YEAR
 ```
 
 Resolution only ever looks **backward**. A dated entry with no `unit:`, no earlier
