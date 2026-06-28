@@ -50,7 +50,7 @@ Four long-standing problems motivate this GEP.
    level to another. Both are silent wrong numbers today.
 
 1. **Hand-converted historical currency.** Every Deutsche-Mark-era parameter is divided
-   by `1.95583` by a maintainer before being written to YAML, with the original value
+   by `1.95583` by the contributor before being written to YAML, with the original value
    preserved only in a free-text `note`. There is no machine-checkable provenance and no
    guard against a transcription error. This is both prone to errors and violates
    GETTSIM's law-to-code approach.
@@ -59,36 +59,37 @@ Four long-standing problems motivate this GEP.
    conversion functions (`y_to_m`, `per_y_to_per_m`, …) and their stock/flow duals by
    hand. The resulting arithmetic has itself been a source of bugs.
 
-**Scope.** The GEP covers `ttsim` (the framework) and `gettsim` (the German currencies
-and the policy annotations). GEP 1's `_y`/`_q`/`_m`/`_w`/`_d` and aggregation-level
-suffix automation is preserved; only the *arithmetic* behind the conversions, and the
-*checking* of dimensions and levels, moves onto the unit engine.
+**Scope.** The GEP covers `TTSIM` (the framework) and `GETTSIM` (the German currencies
+and the policy annotations).
 
 ## Units as guards
 
-The framework reads units to turn the DAG's arithmetic into checkable algebra: **an
-operation that is dimensionally sound passes; one that is not is a build error.** Adding
-a monthly amount to a per-square-meter rent, returning a `_m` flow where `_y` is
-declared, or dividing by a head count and landing at the wrong grouping level — each
-becomes loud when the policy environment is built, instead of a silent wrong number
-downstream.
+Every quantity in the tax-transfer system has a *kind*: a monthly Euro amount per
+person, a rent per square metre, the number of children in a household. An operation is
+correct only if it respects those kinds — two monthly amounts may be added, an amount
+may be divided by a head count, an age may be compared to an age limit; a monthly amount
+may not be added to a per-square-metre rent, nor a household total to a
+Bedarfsgemeinschaft total. Nothing in GETTSIM records a quantity's kind today, so
+nothing can tell a sound combination from a wrong one — that is what problems 1 and 2
+are.
 
-Most of this is ordinary dimensional analysis: two quantities may be added only if their
-dimensions match; a product multiplies dimensions, a ratio divides them. But a unit also
-lets a quantity's *kind* decide whether an operation is **allowed at all**, not merely
-whether two units agree. Three kinds carry their own algebra:
+A unit **records the kind**, on every parameter and every function. Once it is written
+down, "is this operation meaningful?" becomes a mechanical check the framework runs when
+the policy environment is built: a sound operation passes, a meaningless one is a build
+error instead of a silent wrong number far downstream. Authors keep writing ordinary
+arithmetic; the check sits beside it and rejects only the combinations that cannot be
+right.
 
-- **grouping levels** — a household total and a Bedarfsgemeinschaft total share a
-  physical dimension yet may not be added; only a per-capita division reconciles them.
-- **calendar points vs. durations** — a birth year and an age both live in `[time]` but
-  obey different arithmetic.
-- **booleans** — a truth value carries the level of the entity it is about, and two are
-  combined by a rule that is not multiplication.
+A GETTSIM unit is richer than a physical dimension — it also encodes the time period of
+a flow, the currency, and the grouping level a quantity is denominated per. That breadth
+is why the same check catches a yearly amount returned where a monthly one is declared,
+or a household total added to a Bedarfsgemeinschaft total, and not only metres added to
+seconds; {ref}`the vocabulary <gep-10-vocabulary>` that follows is built around these
+facets, and {ref}`the build-time checks <gep-10-checks>` are what enforce them.
 
-Each is defined with its dimension in {ref}`the vocabulary <gep-10-vocabulary>` and
-enforced by the {ref}`build-time checks <gep-10-checks>`. The same units drive the
-second job, **automatic conversion** — between time units, and between currencies (Euro
-↔ Deutsche Mark) — replacing the hand-written arithmetic of problems 3–4 above.
+The same units drive the second job, **automatic conversion** — between time units and
+between currencies (Euro ↔ Deutsche Mark) — replacing the hand-written arithmetic of
+problems 3 and 4.
 
 (gep-10-vocabulary)=
 
