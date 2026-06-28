@@ -538,25 +538,43 @@ base currency; it is the currency the input data is taken to be in and that the 
 come out in. At environment build, every currency-denominated *parameter* is converted
 from its declared denomination to the run currency.
 
-**A changeover within one parameter's history.** A dated entry may restate the unit
-field, overriding the top-level declaration for that entry's numbers. This is how the
-DM→Euro switch is written — entries before the reform denominated in the legacy
-currency, entries from the reform date in the new one:
+**A changeover within one parameter's history.** A parameter's unit is constant within a
+currency regime and changes only at a changeover — the DM→Euro switch. Rather than
+repeat it on every dated entry, the unit is **forward-filled**: each dated entry
+inherits the most recent *earlier* `unit:` declaration, with the top-level `unit:` as
+the seed. A dated entry that restates the unit becomes the new seed from its date
+onward, so the unit is spelled once at the start and again only at each changeover; the
+entries in between omit it:
 
 ```yaml
 arbeitnehmerpauschbetrag_y:
-  unit: DM_PER_YEAR
+  unit: DM_PER_YEAR        # the seed: Deutsche Mark until restated
   type: scalar
   1990-01-01:
     value: 2000
   2002-01-01:
-    unit: EUR_PER_YEAR   # the changeover: denominated in Euro from here on
+    unit: EUR_PER_YEAR     # the changeover: Euro from here on
     value: 1044
+  2011-01-01:
+    value: 1000            # no unit: — inherits EUR_PER_YEAR, not the DM seed
 ```
 
-`updates_previous` cannot cross a changeover: an entry that restates the unit must
-restate the full value, because a merged value would mix numbers denominated in
-different currencies.
+Resolution only ever looks **backward**. A dated entry with no `unit:`, no earlier
+declaration, and no top-level seed stays unset, and the mandatory-units check reports it
+as a missing declaration — silence means "the same unit as the last explicit
+declaration", never "no unit". (A parameter whose unit never changes therefore needs
+only the top-level `unit:`.)
+
+A restatement **replaces** the previous declaration wholesale; it is never merged. For a
+per-leaf `unit:` mapping that means the restatement must spell *every* leaf, so a
+changeover cannot silently leave some leaves denominated in the old currency.
+
+`updates_previous` — which merges a dated entry's *value* into the previous one — and a
+unit restatement are **independent** mechanisms; the framework does not couple them.
+Combining them is the author's responsibility: a unit-change entry should restate its
+value in full. Were it instead to merge, the carried-over leaves would keep their
+old-currency magnitudes under the new unit — an error a dimensional check cannot catch,
+because the two currencies share the `[currency]` dimension and differ only in scale.
 
 **Converters (`require_converter`).** A `require_converter` hands an arbitrary nested
 structure to a `@param_function` that knows how to read it. The framework cannot, so for
