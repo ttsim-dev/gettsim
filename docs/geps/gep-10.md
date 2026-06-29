@@ -192,6 +192,32 @@ The head count is the conversion factor between levels, and these cross-level bo
 the per-capita divisions and the multiply-by-count splittings GETTSIM already performs —
 type-check on their own once counts carry `[person]`.
 
+(gep-10-cross-level-shares)=
+
+**Two axes: measurement and indexing.** Note the subtle difference between units that
+measure something (e.g. years, Euros, etc.) and units that serve as an index (e.g.
+`[hh]`, `[bg]`, etc.). While the former have fixed conversion factors, the latter are
+*base dimensions* that are not interconvertible. For TTSIM and GETTSIM it makes sense to
+mix them in the same algebra because almost every time we can treat them the same way.
+There is one exception though. Consider the following function:
+
+```python
+@policy_function(unit=Unit.DIMENSIONLESS)  # [hh] / [bg] cross-level result is a share
+def anteil_am_hh(betrag_m_bg: float, betrag_m_hh: float) -> float:
+    return betrag_m_bg / betrag_m_hh
+```
+
+Strictly speaking, its return unit would be `[hh] / [bg]`, which cannot be traced back
+to a measurable quantity. Here, the major advantage of using composite units bites us
+because it produces a unit that is unnameable. There is no reason to treat `[hh] / [bg]`
+differently than any other dimensionless share defined as a parameter. Hence, we
+override the return unit to be `DIMENSIONLESS`.
+
+We only drop the *level* part though: the physical content is still checked, so a
+cross-level result accidentally declared as e.g. `CURRENCY` is still caught. And this
+only kicks in for a *non-person* numerator level — a head count like `[person] / [hh]`
+is a proper, declarable unit and stays as is.
+
 (gep-10-booleans)=
 
 ### Leveled booleans
@@ -572,7 +598,9 @@ on one arm is caught while the others are clean.
 - a body whose inferred unit disagrees with its declaration, on any reachable branch — a
   `_m` flow returned where `_y` is declared, or a `…/[person]` result on a `_hh` name (a
   level-less result at a group suffix is exempt — its index-correctness is the
-  structural system's concern, not the unit check's);
+  structural system's concern, not the unit check's; so is the level claim of a
+  {ref}`cross-level share <gep-10-cross-level-shares>` like `[bg]/[hh]`, which is the
+  dimensionless share it represents — though its physical content is still checked);
 - an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
   yearly one (`betrag_m + freibetrag_y`), a stock plus a flow, **or two different
   grouping levels** (`einkommen_m_hh − einkommen_m_bg`);
