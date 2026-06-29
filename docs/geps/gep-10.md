@@ -64,42 +64,27 @@ and the policy annotations).
 
 ## Units as guards
 
-Every quantity in the tax-transfer system has a *kind*: a monthly Euro amount per
-person, a rent per square metre, the number of children in a household. An operation is
-correct only if it respects those kinds — two monthly amounts may be added, an amount
-may be divided by a head count, an age may be compared to an age limit; a monthly amount
-may not be added to a per-square-metre rent, nor a household total to a
-Bedarfsgemeinschaft total. Nothing in GETTSIM records a quantity's kind today, so
-nothing can tell a sound combination from a wrong one — that is what problems 1 and 2
-are.
-
-A unit **records the kind**, on every parameter and every function. Once it is written
-down, "is this operation meaningful?" becomes a mechanical check the framework runs when
-the policy environment is built: a sound operation passes, a meaningless one is a build
-error instead of a silent wrong number far downstream. Authors keep writing ordinary
-arithmetic; the check sits beside it and rejects only the combinations that cannot be
-right.
-
-A GETTSIM unit is richer than a physical dimension — it also encodes the time period of
-a flow, the currency, and the grouping level a quantity is denominated per. That breadth
-is why the same check catches a yearly amount returned where a monthly one is declared,
-or a household total added to a Bedarfsgemeinschaft total, and not only metres added to
-seconds; {ref}`the vocabulary <gep-10-vocabulary>` that follows is built around these
-facets, and {ref}`the build-time checks <gep-10-checks>` are what enforce them.
-
-The same units drive the second job, **automatic conversion** — between time units and
-between currencies (Euro ↔ Deutsche Mark) — replacing the hand-written arithmetic of
-problems 3 and 4.
+A quantity's unit already says which operations are meaningful: two monthly amounts may
+be added and an amount may be divided by a head count, but a monthly amount may not be
+added to a rent per square metre, nor a household total to a Bedarfsgemeinschaft total.
+Recording the unit on every parameter and function turns that into a check the framework
+runs when the policy environment is built — a meaningful operation passes, a meaningless
+one is a build error. The same units also drive automatic conversion, between time units
+and between currencies (Euro ↔ Deutsche Mark).
 
 (gep-10-vocabulary)=
 
 ## The unit vocabulary
 
+Developers need to attach a unit to every policy function and parameter explicitly.
+GETTSIM will check the unit's validity using the function's name, return type and its
+arguments' units.
+
 A unit is **compositional**: a base optionally divided by denominators, in a fixed
-canonical order, joined by `_PER_`:
+canonical order, joined by `_PER_`: <base> _PER_ <denominator> _PER_ <denominator> …,
+with at most one denominator of each kind.
 
 ```text
-unit        := base ( "_PER_" denominator )*
 base        := CURRENCY                       # agnostic, .py / functions only
              | EUR | DM | …                   # concrete currency, param-YAML only
              | DIMENSIONLESS
@@ -126,9 +111,7 @@ Rules:
   per unit**.
 - **The person leaf is implied, never spelled.** The individual level is the default for
   every leveled quantity, so it is never written: a per-person monthly amount is
-  `CURRENCY_PER_MONTH`, and `_PER_PERSON` is a build error. Only *group* levels are
-  spelled (`CURRENCY_PER_MONTH_PER_HH`). See
-  {ref}`the person-leaf convention <gep-10-convention>`.
+  `CURRENCY_PER_MONTH`. Only *group* levels are spelled (`CURRENCY_PER_MONTH_PER_HH`).
 
 A few worked spellings:
 
@@ -145,8 +128,8 @@ A few worked spellings:
 | `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter ** 2 / month` | a rent cap                 |
 | `YEARS` / `CALENDAR_YEAR`             | a duration / an affine point    | an age / a birth year      |
 
-The fluent builder spells the same units in `.py`, with autocomplete and the canonical
-order enforced by the staged return types:
+In `.py` modules, developers can work with autocomplete and the canonical order enforced
+by the staged return types:
 
 ```python
 Unit.CURRENCY.PER_MONTH.PER_BG  # -> "CURRENCY_PER_MONTH_PER_BG"
@@ -157,37 +140,10 @@ Unit.DIMENSIONLESS.PER_FAM  # a fam-level boolean
 Unit.HOURS.PER_WEEK
 ```
 
-`Unit.CURRENCY` *is* `CompositeUnit(base="CURRENCY")`; `.PER_<area>` / `.PER_<period>`
-are properties on small staged types, and `.PER_<level>` is added per build for each
-registered grouping level. Only the ~6 bases and ~13 denominators are hand-written; the
-cross product is reached by chaining (no code generation, no giant enum). YAML declares
-the flat string parsed by the *same* core, so `.py` and YAML round-trip:
-`str(Unit.CURRENCY.PER_MONTH.PER_BG) == "CURRENCY_PER_MONTH_PER_BG"`.
-
 A special, but common, case is the currency dimension. GETTSIM supports two currencies:
 Euros (EUR) and Deutsche Mark (DM). Policy functions are written to be currency-agnostic
 — they run in either currency without change — so only parameters and input data carry a
 concrete currency base ({ref}`Currency <gep-10-currency>`).
-
-(gep-10-convention)=
-
-### The person-leaf convention
-
-One rule governs how a leveled quantity spells its level, everywhere — columns, policy
-functions, parameters, schedule axes, and aggregations:
-
-> **The person leaf is implied and never spelled; every group level is spelled.**
-
-So a per-person amount is `CURRENCY_PER_MONTH`, a per-Bedarfsgemeinschaft amount is
-`CURRENCY_PER_MONTH_PER_BG`, and `CURRENCY_PER_MONTH_PER_PERSON` is a build error. The
-payoff is that there is exactly one spelling per unit, the common case is the short one,
-and a level in a spelling is always a *group* level worth reading.
-
-Which quantities carry a level at all is the **extensive/intensive** distinction
-({ref}`below <gep-10-extensive>`), with booleans added in: *extensive* bases (currency,
-area, the `[person]` count) and **booleans** are **leveled** — an unspelled level means
-the person leaf, a spelled one a group; *intensive* bases (durations, calendar points,
-plain `DIMENSIONLESS` shares and rates) are **level-less**, no level spelled or implied.
 
 (gep-10-levels)=
 
@@ -198,8 +154,8 @@ and one group per `*_id` column ({ref}`GEP 2 <gep-2>`) — in gettsim the househ
 (`hh`), the Familiengemeinschaft (`fg`), the Bedarfsgemeinschaft (`bg`), the tax unit
 (`sn`), the Einsatzgemeinschaft (`eg`), the Ehegemeinschaft (`ehe`), and the
 wohngeldrechtlicher Teilhaushalt (`wthh`). The framework discovers the levels from the
-`*_id` columns of the policy environment and registers each as a base dimension; `ttsim`
-ships no fixed list. The fluent builder learns a `PER_<level>` step for each.
+`*_id` columns of the policy environment and registers each as a base dimension; `TTSIM`
+ships no fixed list. The unit builder learns a `PER_<level>` step for each.
 
 **Each level is a base dimension.** There is no fixed conversion between a person and a
 household — a household holds a *variable* number of persons — so the levels are not
@@ -212,9 +168,7 @@ counts and per-person amounts cancel cleanly (below).
 **A level is a denominator.** A leveled quantity carries its level as a denominator,
 exactly as a flow carries its period. For a column the level comes from the aggregation
 suffix (an unsuffixed name is at `[person]`, a `_hh` name at `[hh]`); for a parameter it
-is spelled in the unit string. Either way the person leaf is implied
-({ref}`the convention <gep-10-convention>`), so `betrag_m` is
-`CURRENCY / month / [person]` and `betrag_m_hh` is `CURRENCY / month / [hh]`.
+is spelled in the unit string.
 
 **Head counts.** A head count is the count dimension over the group it counts within. A
 `COUNT` aggregation to the household yields `anzahl_personen_hh` with unit
@@ -238,32 +192,22 @@ The head count is the conversion factor between levels, and these cross-level bo
 the per-capita divisions and the multiply-by-count splittings GETTSIM already performs —
 type-check on their own once counts carry `[person]`.
 
-A head count need not come from an aggregation. The `PERSON` base lets a parameter (a
-cap on the number of family members considered), a hand-written function (a count
-clamped to that cap), or a raw input column *declare* a head count: `PERSON_PER_FAM`
-resolves to the identical `[person] / [fam]` a `COUNT` creates, so a declared cap and an
-aggregated count compose and compare without an opt-out. A head count *per person* — the
-persons an `agg_by_p_id` count attributes to one individual — is the bare `PERSON`:
-`[person] / [person]` resolves (the person leaf implied) to a plain dimensionless
-number, exactly what a count-per-individual is.
-
 (gep-10-booleans)=
 
 ### Leveled booleans
 
 A boolean is a *leveled* quantity: a truth value about an entity at some level. A
-person-level indicator is `1 / [person]`, a family-level one `1 / [fam]`. Booleans
-follow {ref}`the person-leaf convention <gep-10-convention>` like any leveled quantity —
-a person boolean is bare `DIMENSIONLESS` (the leaf implied), a group boolean spells its
-level, `DIMENSIONLESS_PER_FAM`. A node is recognised as a boolean by its `-> bool`
-return type (orthogonal to its declared unit), and that is what distinguishes a boolean
-from a plain dimensionless *share*: a share stays level-less, a boolean carries its
-level.
+person-level indicator is `1 / [person]`, a family-level one `1 / [fam]`. Like any
+leveled quantity a person boolean is bare `DIMENSIONLESS` (the leaf implied), a group
+boolean spells its level, `DIMENSIONLESS_PER_FAM`. A node is recognised as a boolean by
+its `-> bool` return type (orthogonal to its declared unit), and that is what
+distinguishes a boolean from a plain dimensionless *share*: a share stays level-less, a
+boolean carries its level.
 
-This catches a class of wrong-level predicate bugs that level-less booleans let through.
-A `_fam`-named predicate that actually compares *person*-level quantities infers
-`1 / [person]`, which disagrees with its `_fam` suffix and is rejected — where before
-the dimensionless result bypassed the suffix-level check entirely:
+This catches a class of wrong-level predicate bugs. The function below carries a `_fam`
+name, so it declares a family-level boolean (`1 / [fam]`); but its body compares two
+*person*-level quantities, so the unit check infers `1 / [person]`. That contradicts the
+`_fam` suffix, and the function throws an error:
 
 ```python
 @policy_function(unit=Unit.DIMENSIONLESS.PER_FAM)  # claims 1 / [fam]
@@ -296,24 +240,19 @@ Working hours are a genuine dimension `[hours]`, registered as `working_hour` an
 the `[time]` `hour`, then `hours / week` would be `[time] / [time]` and collapse to a
 bare number — adding working hours to a share would not be caught, and an hours quantity
 could not be told from a dimensionless one. With its own dimension, `HOURS_PER_WEEK` is
-`[hours] / [time]`, distinct from both a share and a currency, so
-`arbeitsstunden_w + anteil` is a dimension mismatch and fails.
+`[hours] / [time]`.
 
 `HOURS_PER_WEEK → HOURS_PER_MONTH` re-bases the **period** only (the existing
-time-conversion machinery), leaving the `[hours]` numerator untouched. There is no
-conversion between `[hours]` and `[time]`: `working_hour` has no `[time]` partner, so
-`HOURS ↔ MONTHS` is impossible by construction. pint's own `hour` is left intact (the
-calendar units depend on `day = 24 · hour`) but is not an admissible declaration token.
+time-conversion machinery), leaving the `[hours]` numerator untouched.
 
 ### Calendar points are distinct from durations
 
 A year *on the calendar* — a birth year, the policy year — is an affine *point*, not a
-*duration*. The two do not share arithmetic: subtracting two points gives a duration,
-and shifting a point by a duration gives a point, but two points cannot be added and a
-point cannot be scaled. The `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY` bases
-carry the point on each axis (pint offset units); `YEARS` / `MONTHS` / `DAYS` carry the
-corresponding duration. The build-time check enforces the algebra (the duration `D` of a
-point `P`):
+*duration*. The two do not share arithmetic: subtracting two calendar years gives a
+duration, and shifting a year by a duration gives a year, but two year cannot be added
+and a year cannot be scaled. The `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY`
+bases carry the calendar point; `YEARS` / `MONTHS` / `DAYS` carry the corresponding
+duration. The build-time check enforces the algebra (the duration `D` of a point `P`):
 
 | operation                 | result    | example                              |
 | ------------------------- | --------- | ------------------------------------ |
@@ -322,55 +261,33 @@ point `P`):
 | `P + P`, `P × n`, `P / n` | **error** | two calendar years cannot be added   |
 | mixing calendar axes      | **error** | a year point plus a month duration   |
 
-The affine point and its duration have the same dimension but obey different algebra —
-so this, like mixing two grouping levels and combining booleans across levels, is a case
-where the quantity's *kind* decides whether an operation is allowed, not just whether
-two units match. A *cyclic* ordinal — a month-of-year (`geburtsmonat` 1–12), a
-day-of-week, a quarter — is **not** a calendar point but `DIMENSIONLESS`: it is a
-recurring label, not a position on a running calendar.
+A *cyclic* ordinal — a month-of-year (`geburtsmonat` 1–12), a day-of-week, a quarter —
+is **not** a calendar point but `DIMENSIONLESS`: it is a recurring label, not a position
+on a running calendar.
 
-(gep-10-extensive)=
+(gep-10-leveled)=
 
 ### Which quantities carry a level
 
-The rule behind the distinction: a base carries `/[level]` exactly when summing the
-level's members sums it meaningfully. A household income is the sum of its members'
-incomes and a dwelling's area divides by a head count to a per-capita area, so currency,
-the `[person]` count, and `SQUARE_METER` / `HECTARE` are extensive and leveled (booleans
-too, {ref}`above <gep-10-booleans>`, though their base is dimensionless). Summing ages
-is meaningless and a per-m² cap is the same regardless of how many people it applies to,
-so `YEARS` / `MONTHS` / `DAYS`, `CALENDAR_*`, `HOURS`, and plain `DIMENSIONLESS` shares
-are intensive and level-less; an intensive quantity is the multiplicative scalar that
-*scales* a leveled amount (`amount * share`), so it must carry no level of its own.
+A quantity carries a level in one of two cases:
 
-This keeps the per-capita bridges working (dwelling area divides by a head count just
-like currency) while avoiding false positives on intensive quantities: an age limit is a
-level-agnostic `YEARS`, so `alter < altersgrenze` is a plain duration comparison, not a
-level mismatch.
+- **additive amounts** — currency, area, the `[person]` count — where summing an
+  entity's members is meaningful (a household income is the sum of its members'
+  incomes).
+- **booleans** — a truth value *about* an entity, whose level is tracked so the
+  {ref}`combine rule <gep-10-booleans>` and the suffix check apply.
 
-The distinction anchors **base columns** (inputs) and **parameters**. **Derived columns
-get their level from the algebra**, and an intensive-but-leveled result is normal: the
-per-person rent share above is `CURRENCY / month / [person]` — intensive (you do not sum
-per-capita shares), yet leveled, because the division *put* a `[person]` in the
-denominator. Such a quantity has the *identical* unit to a genuinely extensive
-person-level amount (an individual's own income is also `CURRENCY / month / [person]`);
-the unit captures dimension, not extensive-vs-intensive provenance, and need not tell
-the two apart.
-
-**Identifiers and pure shares are dimensionless** (`DIMENSIONLESS`), and therefore
-level-less: an identifier (`p_id`, `*_id`, `p_id_*`) carries no dimension; a share
-computed as `count / count` cancels its levels
-(`anteil_kinder_hh = anzahl_kinder_hh / anzahl_personen_hh = ([person]/[hh]) / ([person]/[hh])`)
-and is dimensionless by construction. A *boolean* is the exception that
-{ref}`carries a level <gep-10-booleans>`.
+Everything else is **level-less**: `YEARS` / `MONTHS` / `DAYS`, `CALENDAR_*`, `HOURS`,
+and plain `DIMENSIONLESS` shares and rates.
 
 ## Declaring units on functions and parameters
 
-Every active node carries a unit, and `UNSET_UNIT` has a single meaning — *no
-declaration was made* — which the mandatory-units check always reports as an error. Most
-nodes declare it directly; derived nodes get one auto-assigned
-({ref}`below <gep-10-auto>`), and framework-injected date nodes get theirs from the
-framework (`policy_year` is a `CALENDAR_YEAR`).
+Every active node carries a unit. If no unit was specified, the unit is marked
+`UNSET_UNIT` which throws an error at build time. Most nodes declare it directly;
+derived nodes get one auto-assigned ({ref}`below <gep-10-auto>`), and framework-injected
+date nodes get theirs from the framework (`policy_year` is a `CALENDAR_YEAR`).
+
+### Policy functions
 
 The declaration on a policy function is a guard rail: GETTSIM checks that the unit that
 falls out of the function body — its physical dimension, its flow period, *and* its
@@ -390,28 +307,16 @@ def vermögen(aktien: float, immobilien: float) -> float:
     return aktien + immobilien
 ```
 
-How a declaration is read differs only in where the period and level come from:
-
-- **Columns and policy functions** spell their period and any group level, and the
-  framework **validates them against the name suffix** ({ref}`GEP 1 <gep-1>`): a `_m`
-  name must spell `..._PER_MONTH`, a `_hh` name must spell `..._PER_HH`, an unsuffixed
-  name is at the person leaf. A `_hh`-named extensive column that fails to spell
-  `_PER_HH` is rejected — the person leaf is the only level a column may leave implicit.
-- **Parameters** have no name suffix, so they spell their period and group level in the
-  unit string directly; the person leaf is still implied (a per-person threshold is
-  `EUR_PER_YEAR`, a per-family one `EUR_PER_YEAR_PER_FAM`). A scalar parameter's *name*
-  may carry a time suffix, which must agree with the spelled period.
-
 ### Parameters
 
-A parameter spells its unit fully (period and group level), with the person leaf
-implied. The shape of the `unit:` declaration follows the parameter `type:`:
+The shape of the `unit:` declaration follows the parameter `type:`. Units can be defined
+once for all policy dates (as described here), or for specific dates individually
+(helpful for currency changeovers, see {ref}`Currency <gep-10-currency>`).
 
 **Scalar.** One token; the parameter's *name* may carry a time suffix, which must agree
 with the spelled period (`lump_sum_deduction_y` declaring `EUR_PER_YEAR`).
 
-**Dict with homogeneous leaves.** One token for the whole structure. Integer keys carry
-no time suffix, so the period is spelled in the token:
+**Dict with homogeneous leaves.** One token for the whole structure:
 
 ```yaml
 satz_nach_kindanzahl:
@@ -422,9 +327,7 @@ satz_nach_kindanzahl:
     2: 250.0
 ```
 
-**Dict with heterogeneous leaves.** `unit:` is a **mapping from leaf keys to tokens**. A
-string-keyed flow leaf may take its period from the key's own time suffix; every leaf is
-spelled (`DIMENSIONLESS` for a dimensionless leaf), nested mappings recurse:
+**Dict with heterogeneous leaves.** `unit:` is a **mapping from leaf keys to tokens**:
 
 ```yaml
 schedule:
@@ -470,32 +373,15 @@ source and the aggregation type, paralleling how {ref}`GEP 4 <gep-4>` resolves t
 types — and, with grouping levels in the unit, the aggregation is where a level is
 created, swapped, or acquired:
 
-| aggregation                    | physical base   | level                                                                  |
-| ------------------------------ | --------------- | ---------------------------------------------------------------------- |
-| `SUM` / `MEAN` / `MIN` / `MAX` | preserved       | **target** level — source level swapped, level-less source acquires it |
-| `COUNT`, `SUM` over a boolean  | `[person]`      | **created** `[person] / [target]` (a head count)                       |
-| `ANY` / `ALL`                  | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                       |
+| aggregation                    | physical base   | level                                            |
+| ------------------------------ | --------------- | ------------------------------------------------ |
+| `SUM` / `MEAN` / `MIN` / `MAX` | preserved       | **target** level                                 |
+| `COUNT`, `SUM` over a boolean  | `[person]`      | **created** `[person] / [target]`                |
+| `ANY` / `ALL`                  | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`) |
 
-**Group aggregations resolve to their target level.** All of `SUM`/`MEAN`/`MIN`/`MAX`
-resolve to the level the node's suffix names: the source's own level (if any) is swapped
-for the target, and a level-less source *acquires* it. So a `SUM` of person incomes to
-the household gives `CURRENCY/month/[hh]`, and a `MIN` over level-less ages to the
-Familiengemeinschaft gives `MONTHS/[fg]` (not level-less `MONTHS`). This keeps a
-column's `_xx` suffix and its unit level always in sync on an aggregation result, and
-makes an aggregation node agree by construction with its own auto-generated
-time-conversion variant. The few genuine cross-level bodies this no longer special-cases
-— comparing a group `MAX` back against a person value — opt out locally with
-`verify_units=False`.
-
-A **head count** — `COUNT`, *or* a `SUM` over a *boolean* (a per-person indicator, so
-its sum counts the persons it is true for) — creates `[person]/[target]`; the two are
-the same kind of quantity and must agree, so `anzahl_erwachsene_bg` reached by `COUNT`
-and by summing an `ist_erwachsen` flag carry the identical `[person]/[bg]` — the same
-unit a `PERSON_PER_BG` declaration resolves to. `ANY`/`ALL` yield a *boolean* (not a
-count) at the target level: bare `DIMENSIONLESS` for an individual result,
-`DIMENSIONLESS_PER_<target>` for a group one. A `@group_creation_function` group id is
-auto-assigned `DIMENSIONLESS` (an identifier). Where the source pins down a concrete
-currency (a parameter), the derived node inherits the **agnostic** counterpart.
+Sometimes, a policy may require a cross-level comparison, e.g. a group `MAX` against a
+person value. The unit check will reject that, since the two levels are not compatible.
+The author can opt out locally with `verify_units=False` on the function.
 
 A hand-written aggregation also carries an author-declared unit (one is required to pass
 the mandatory-units check), and that declaration is **checked against the derived
@@ -506,23 +392,14 @@ aggregation produces, so a `SUM` over a boolean declared `DIMENSIONLESS` rather 
 
 ### Literals
 
-The dry-run executes a body on representative `Quantity`s, so a bare numeric literal
-combined *additively* with a unit-carrying value raises (pint refuses to add a
-dimensionless number to a currency). A literal that is only a multiplicative factor
-(`betrag * 0.5`) is fine — multiplying by a dimensionless number preserves the unit.
+Adding dimensionless numbers to a non-dimensionless quantity is forbidden. A literal
+that is only a multiplicative factor (`betrag * 0.5`) is fine — multiplying by a
+dimensionless number preserves the unit.
 
 Most apparent cases dissolve once the quantities are declared correctly: an ordinal such
 as `geburtsmonat` (the month 1–12) is `DIMENSIONLESS`, so `geburtsmonat - 1` is
 dimensionless arithmetic and needs no tag. For a genuine constant of a real dimension,
-either **promote it to a parameter** (the norm — it then gets the same provenance,
-currency conversion, level, and checking as any other parameter, and the body becomes
-dry-runnable), or **opt the body out** with `@policy_function(verify_units=False)` for
-genuine code-level constants where a parameter would be artificial.
-
-Promotion means the constant moves into a YAML parameter file (as any other parameter,
-{ref}`GEP 3 <gep-3>`) and the function gains it as an argument — not a Python-level
-declaration. An inline bound is rejected because the literal silently inherits the
-operand's unit:
+either **promote it to a parameter**:
 
 ```python
 @policy_function(unit=Unit.DIMENSIONLESS)
@@ -530,7 +407,7 @@ def anspruchsberechtigt(einkommen_m: float) -> bool:
     return einkommen_m < 1000.0  # 1000.0 silently carries EUR/month → rejected
 ```
 
-Promoting the bound to a parameter makes the body dry-runnable, with no opt-out:
+Promoting the bound to a parameter makes the body dimensionally sound:
 
 ```yaml
 einkommensgrenze_m:
@@ -546,11 +423,26 @@ def anspruchsberechtigt(einkommen_m: float, einkommensgrenze_m: float) -> bool:
     return einkommen_m < einkommensgrenze_m
 ```
 
+If that doesn't work for some reason, the author can turn off unit checks for that
+function with `@policy_function(verify_units=False)`.
+
+The only exception is `0.0` which is a common literal for eligibility checks. The
+following is dimensionally sound and does not raise an error:
+
+```python
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+def betrag_m(einkommen_m: float, befreit: bool) -> float:
+    if befreit:
+        return 0.0  # 0.0 is dimensionless, but takes the unit of the return type
+    else:
+        return einkommen_m
+```
+
 (gep-10-currency)=
 
 ## Currency
 
-Currencies live in the framework as a `[currency]` dimension, with concrete currencies
+Currencies are units defined in the `[currency]` dimension, with concrete currencies
 registered by downstream packages via
 `register_currency(name, *, base=False, definition=None)`. GETTSIM registers `EUR`
 (base) and `DM = EUR / 1.95583`. Registration does two things: it provides the
@@ -562,16 +454,12 @@ the concrete currency their numbers are written in.
 **Agnostic and concrete bases.** The **currency-agnostic** base `CURRENCY` is a
 placeholder for any registered currency: it declares the unit of a function or column
 for which it does not matter which currency GETTSIM runs in. A **concrete currency**
-base (`DM`, `EUR`) names one specific currency; what it adds over the agnostic base is
-**denomination** — it names the currency a parameter's stored numbers are written in,
-which the build-time conversion reads off the declaration. The level facet is orthogonal
-to currency: both acquire their level from the convention just like everything else.
+base (`DM`, `EUR`) names one specific currency.
 
 **Parameters must be concrete; functions must be agnostic.** A parameter's numbers are
-written in *some* currency, so once a concrete currency is registered, an agnostic
-`CURRENCY` base on a parameter is a build error — the declaration must name the
-denomination (`EUR_PER_YEAR`, not `CURRENCY_PER_YEAR`). Columns and functions may *only*
-declare the agnostic `CURRENCY`. A derived node — a time-conversion variant or an
+written in a concrete currency — the declaration must name the denomination
+(`EUR_PER_YEAR`, not `CURRENCY_PER_YEAR`). Columns and functions may *only* declare the
+agnostic `CURRENCY` as base unit. A derived node — a time-conversion variant or an
 aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart, as
 it computes on values already converted to the run currency.
 
@@ -580,11 +468,11 @@ base currency; it is the currency the input data is taken to be in and that the 
 come out in. At environment build, every currency-denominated *parameter* is converted
 from its declared denomination to the run currency.
 
-**A changeover within one parameter's history.** A parameter's unit is constant within a
-currency regime and changes only at a changeover — the DM→Euro switch. Rather than
-repeat it on every dated entry, the unit is **forward-filled**: each dated entry
-inherits the most recent *earlier* `unit:` declaration. The first declaration is the
-seed — either a top-level `unit:` shared by every date, or, as here, spelled on the
+**A changeover within one parameter's history.** Many parameters were written in
+Deutsche Mark before 2002 and in Euro afterward. Rather than repeating the currency on
+every dated entry of the parameter YAMLs, the unit is **forward-filled**: each dated
+entry inherits the most recent *earlier* `unit:` declaration. The first declaration is
+the seed — either a top-level `unit:` shared by every date, or, as here, spelled on the
 first dated entry. A dated entry that restates the unit becomes the new seed from its
 date onward, so the unit is spelled once at the start and again only at each changeover;
 the entries in between omit it:
@@ -604,36 +492,12 @@ arbeitnehmerpauschbetrag_y:
 
 Resolution only ever looks **backward**. A dated entry with no `unit:`, no earlier
 declaration, and no top-level seed stays unset, and the mandatory-units check reports it
-as a missing declaration — silence means "the same unit as the last explicit
-declaration", never "no unit". (A parameter whose unit never changes therefore needs
-only the top-level `unit:`.)
+as a missing declaration.
 
 A restatement **replaces** the previous declaration wholesale; for a per-leaf `unit:`
 mapping it must therefore spell *every* leaf, so a changeover cannot silently leave some
 leaves in the old currency. This is independent of `updates_previous` (which merges a
-dated entry's *value* into the previous one): a unit-change entry must restate its value
-in full, since a merge would leave the carried-over leaves at their old-currency
-magnitudes under the new unit — an error a dimensional check cannot catch, the two
-currencies sharing the `[currency]` dimension and differing only in scale.
-
-**Converters (`require_converter`).** A `require_converter` hands an arbitrary nested
-structure to a `@param_function` that knows how to read it. The framework cannot, so for
-currency conversion the parameter declares one of two *honest* shapes:
-
-- **Homogeneous** — a single `unit:`, when every numeric leaf is the same currency. The
-  structure is scaled uniformly, leaf by leaf, before the converter runs.
-- **Function-like** — `input_unit:` / `output_unit:` axes, when the converter produces a
-  schedule or lookup table (a function between quantities, like a mapping parameter).
-  The raw structure is then left untouched and the converter's *typed output* is
-  converted per axis, so an order-`j` polynomial coefficient scales by `f_out / f_in**j`
-  (the slope invariant, the quadratic by `1 / f_in`) rather than by one uniform factor.
-
-A structure that **mixes** a currency with non-currency numbers — a `satz` bundled with
-the age bracket it applies to — is neither shape and is **split** into separate
-homogeneous parameters (the amount as a currency parameter, the ages as a `YEARS`
-parameter), each independently declarable and checkable. A homogeneous (single-`unit:`)
-converter that is found to produce a function-like value is rejected at build time, with
-the error pointing the author at the per-axis declaration.
+dated entry's *value* into the previous one).
 
 (gep-10-trees)=
 
@@ -642,12 +506,9 @@ the error pointing the author at the per-axis declaration.
 Tagging input data with units is **optional**, through a dedicated unit-annotated input
 tree — a sibling of the ordinary input tree in which every leaf is a pint `Quantity`.
 When the mode is used **every** leaf must be tagged, including identifiers and other
-dimensionless columns (tagged `dimensionless`). The tree clarifies the units of the
-user's data; it feeds no node, so it adds no back-edge to the boundary and needs no
-declared unit threaded through `processed_data`. Symmetrically, the **unit-annotated
+dimensionless columns (tagged `dimensionless`). Symmetrically, the **unit-annotated
 result tree** relabels each output leaf with its precise run-currency unit
-(`euro/month`, not the agnostic `CURRENCY`) — pure naming, since results are already
-computed in the run currency. The check the input tree enables is
+(`euro/month`, not the agnostic `CURRENCY`). The check the input tree enables is
 {ref}`Layer 2 <gep-10-checks>` below.
 
 (gep-10-checks)=
@@ -665,11 +526,7 @@ roles:
   compiled workers as plain numeric constants; and
 - to run the **dry-run** dimensionality check on representative `Quantity`s.
 
-The numeric runtime path stays pure arrays, single currency, and JAX-safe. Time and the
-isolated working hours are first-class pint dimensions here, and so are the grouping
-levels: the level dimensions carry no conversion factor (there is nothing to convert),
-only the algebra that catches mixing them. The suffix auto-generation and naming follow
-the {ref}`GEP 1 <gep-1>` conventions.
+The numeric runtime path stays pure arrays, single currency, and JAX-safe.
 
 The checks run in two layers, both at build time:
 
@@ -701,27 +558,14 @@ def bruttokaltmiete_m(
 
 Here `wohnen__bruttokaltmiete_m_hh` enters as `EUR / month / [hh]` and
 `anzahl_personen_hh` as `[person] / [hh]`; the division cancels `[hh]` and yields
-`EUR / month / [person]` — matching the declaration *and* the unsuffixed (person-level)
-name.
-
-**Broadcast changes the index, preserves the unit.** When a coarser-level input is used
-in a finer-level body, the framework broadcasts it down — replicating the household's
-value onto each member. The *index* becomes the finer level, but the *unit* level is
-untouched: a broadcast `einkommen_m_hh` is still `CURRENCY / month / [hh]` on each
-person's row. This is what makes grouping-level safety fall out for free.
-`einkommen_m_hh − einkommen_m_bg`, even after both broadcast to persons, is
-`CURRENCY/month/[hh] − CURRENCY/month/[bg]` → a dimension mismatch, while a *reconciled*
-cross-level mix passes: `miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)`
-cancels `[hh]` against the count ratio and lands at `CURRENCY/month/[wthh]`.
+`EUR / month / [person]` — matching the unit declaration *and* being consistent with the
+function name name.
 
 **Every branch is covered, by re-running.** A unit stand-in has no value to compare, so
 it intercepts the *truth test* itself (Python's `__bool__`) and hands it to the **path
 explorer**, which re-runs the body and steers each open branch both ways until every
-reachable branch combination is driven; a body whose branching exceeds an internal cap
-must opt out rather than pass unchecked. Each run is checked on its own, so a unit slip
-on one arm is caught while the others are clean — and a `return 0.0` arm infers
-dimensionless and falls back to the declaration, so the ubiquitous
-`if befreit: return 0.0` guard never raises a false alarm.
+reachable branch combination is driven. Each run is checked on its own, so a unit slip
+on one arm is caught while the others are clean.
 
 **What the dry-run catches:**
 
@@ -731,9 +575,7 @@ dimensionless and falls back to the declaration, so the ubiquitous
   structural system's concern, not the unit check's);
 - an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
   yearly one (`betrag_m + freibetrag_y`), a stock plus a flow, **or two different
-  grouping levels** (`einkommen_m_hh − einkommen_m_bg`). At run time the bare-array DAG
-  is unit-blind and would compute this silently; the dry-run rejects it rather than
-  letting pint's build-time auto-conversion of same-dimension operands mask it;
+  grouping levels** (`einkommen_m_hh − einkommen_m_bg`);
 - an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities, or of
   a quantity against a bare non-zero literal that silently carries the quantity's unit
   (so promote the bound to a parameter; only `0` is allowed inline). Equality (`==`,
@@ -744,54 +586,17 @@ dimensionless and falls back to the declaration, so the ubiquitous
   (`wealth & is_adult`, where `wealth` is a stock); a cross-level boolean combination is
   resolved by the {ref}`combine rule <gep-10-booleans>`, not rejected;
 - a missing unit, and malformed declarations: a non-canonical or repeated denominator, a
-  spelled person leaf (`_PER_PERSON`), a flow token without a period, a
-  currency-agnostic base on a parameter, a group column or boolean that fails to spell
-  its level, or a spelled level disagreeing with the name suffix.
-
-**What it cannot catch:**
-
-- **anything that reduces to dimensionless.** The check is *dimensional*, not
-  *semantic*: two genuine `DIMENSIONLESS` shares are interchangeable, and a body whose
-  result *infers* dimensionless (an early `return 0.0`, or arithmetic that cancels)
-  falls back to the declaration. So the engine guarantees *dimensional* soundness, not
-  that every quantity is the intended *kind*. (Working hours, now their own dimension,
-  are no longer in this blind spot — `HOURS_PER_WEEK` does not collapse.)
-- **grouping-level mixing among level-less quantities.** Two intensive non-aggregated
-  quantities at different group indices are both level-less and combine without
-  complaint. Level safety holds precisely for the leveled (currency, count, area,
-  boolean) quantities, which is where the high-stakes mixing happens; enforcing it on
-  level-less ones would require an index-level lint that would also flag the legitimate
-  broadcasts GETTSIM relies on.
-
-**A note on cross-level ratios.** A ratio of two extensive quantities at different
-levels comes out as a *level-conversion* dimension, not bare `DIMENSIONLESS`: a person's
-share of household income, `einkommen_m / einkommen_m_hh`, is
-`(CURRENCY/[person]) / (CURRENCY/[hh]) = [hh] / [person]` — dimensionally "one over
-persons-per-household", which is exactly what an equal-split share is. It multiplies
-back cleanly (`[hh]/[person] · CURRENCY/[hh] = CURRENCY/[person]`), but a body that
-declares such a share `DIMENSIONLESS` will be told its true unit; declare it for what it
-is, or form it as a `count / count` ratio that cancels to dimensionless.
-
-**A body the dry-run cannot evaluate must opt out explicitly.** The dry-run executes a
-*scalar* body symbolically, so a body it cannot trace must opt out: vectorized functions
-(`vectorization_strategy="not_required"`), piecewise polynomials and lookup tables,
-bodies calling `join` or a raw `xnp` op, bodies returning an opaque value, and the
-genuine cross-level bodies that the target-level rule no longer special-cases (comparing
-a group `MAX` back against a person value). Rather than silently trusting such a body,
-the check **rejects** it unless the author marks it `verify_units=False`. The opt-out is
-of body *inference only*: the declared output unit still stands, so every *consumer* of
-this node is still checked against it, and the units flowing *into* the body are
-themselves verified producer outputs.
+  flow function without a specified period unit, a currency-agnostic base on a
+  parameter, a group column or boolean that fails to spell its level, or a spelled level
+  disagreeing with the name suffix.
 
 ### Layer 2: the boundary check
 
 **Layer 2** compares each tagged leaf of the
 {ref}`unit-annotated input tree <gep-10-trees>` to the unit the environment resolves for
-that leaf. Three axes are verified elsewhere and so are divided out first: currency (by
-the strip path), a flow's reference period, and the grouping level (the latter two owned
-by the suffix guard). What remains is the physical dimension — so a same-dimension
-error, such as a `HECTARE` column tagged `m²` or a `YEARS` input tagged in months, is
-rejected rather than silently mis-scaled.
+that leaf. The check throws an error if dimensions are incompatible. Note that units
+don't need to be identical. Automatic time and group conversions (see GEP 1), and
+currency conversions (this GEP) are performed at the boundary.
 
 ## Backward Compatibility
 
@@ -802,18 +607,10 @@ rejected rather than silently mis-scaled.
   `reference_period`, and the level a per-group amount used to record in
   `reference_level`, are now **folded into the unit string** (`EUR_PER_YEAR_PER_FAM`),
   so there is a single source of truth and the two fields are gone.
-- **Head counts change dimension.** A `COUNT` aggregation now auto-assigns the count
-  dimension (`[person] / [group]`) rather than `DIMENSIONLESS`. This is invisible to
-  user code — counts are still integers at run time — but per-person parameters that
-  scale a count are now `[person]`-aware ({ref}`Grouping levels <gep-10-levels>`).
-- **Group-level booleans carry their level.** A `_fam` boolean is `1 / [fam]`, not a
-  bare number, and is declared `DIMENSIONLESS_PER_FAM`
-  ({ref}`Leveled booleans <gep-10-booleans>`). Run-time arrays are unaffected — a
-  boolean is still `{0, 1}`.
-- **No blanket opt-out.** As with the {ref}`GEP 9 <gep-9>` beartype claw, there is no
-  env-var escape hatch that switches the unit check off wholesale. Users can opt out for
-  specific functions (`verify_units=False`, {ref}`see <gep-10-checks>`) or by turning
-  off GETTSIM's fail-if nodes.
+- **No blanket opt-out.** There is no env-var escape hatch that switches the unit check
+  off wholesale. Users can opt out for specific functions (`verify_units=False`,
+  {ref}`see <gep-10-checks>`) or opt out of some checks by turning off GETTSIM's fail-if
+  nodes.
 
 ## Related Work
 
@@ -828,22 +625,17 @@ rejected rather than silently mis-scaled.
 
 ## Implementation
 
-Delivered as one infrastructure PR, with the framework proven on `mettsim` before any
+Delivered as one infrastructure PR, with the framework proven on `METTSIM` before any
 German annotation:
 
-- ttsim [#138](https://github.com/ttsim-dev/ttsim/pull/138) — the full GEP-10
+- TTSIM [#138](https://github.com/ttsim-dev/ttsim/pull/138) — the full GEP-10
   infrastructure in one final-form diff: the pint registry and dimension model (time,
   currency, the `[hours]` dimension, **grouping levels and the `[person]` count**), the
   compositional vocabulary, mandatory units, edge- and target-level aggregation
   consistency, the dry-run, the currency knob, and the Layer-2 boundary conversion.
   (This collapses an earlier three-way infra split, now closed: #139, #140.)
-- ttsim [#141](https://github.com/ttsim-dev/ttsim/pull/141) — annotate `mettsim`
+- TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141) — annotate `METTSIM`
   end-to-end (the worked example), switch the check on, CI test over all dates
-
-The gettsim rollout is tracked by issues
-[#1191](https://github.com/ttsim-dev/gettsim/issues/1191) (register EUR/DM currencies)
-and [#1192](https://github.com/ttsim-dev/gettsim/issues/1192) (annotate everything,
-switch the check on); the implementation PRs are not yet open.
 
 Each package's params schema validates the compositional spelling (a coarse
 `^[A-Z][A-Z0-9_]*$` pattern, with `parse_compositional_unit` enforcing the grammar at
@@ -851,7 +643,7 @@ load time) and enforces, per parameter `type:`, the `unit:` XOR
 `input_unit:`/`output_unit:` split, the shape of the declaration (a `type: scalar`
 `unit:` is a single token; the leaf-keys mapping form is admitted only for
 `type: dict`), and the concrete-currency rule for parameters. The schema shipped with
-ttsim (listing mettsim's `SILVER_PENNY`/`CASTAR` currencies and Middle-Earth levels) is
+TTSIM (listing METTSIM's `SILVER_PENNY`/`CASTAR` currencies and Middle-Earth levels) is
 the template; the copy at `docs/geps/params-schema.json` is migrated together with the
 YAML files in #1192.
 
@@ -878,21 +670,6 @@ non-interconvertible pint dimension and the `[person]` count its own dimension:
   algebra; a separate tag would re-implement it and could not make
   `(CURRENCY/[hh]) / ([person]/[hh])` cancel to `CURRENCY/[person]` for free.
 
-The line stops at **booleans, not shares**: not every dimensionless quantity gets a
-level. A share leaves a residual the algebra cannot reconcile —
-
-```text
-anteil_fam = einkommen_m_fam / einkommen_m_hh
-  = (CURRENCY / month / [fam]) / (CURRENCY / month / [hh])
-  = [hh] / [fam]      # currency and period cancel; the levels do not
-```
-
-— the name says `_fam`, the algebra says `[hh]/[fam]`, the truth is "no level, it is a
-ratio", so a plain `DIMENSIONLESS` share stays level-less. A **boolean** is a truth
-value *about an entity at a level*, combined not by pint's product but by the
-{ref}`combine rule <gep-10-booleans>`; that is why it carries a level, and the `-> bool`
-return type is what tells the two apart.
-
 ### Spelling the person leaf
 
 Rejected. The person leaf could be spelled (`CURRENCY_PER_MONTH_PER_PERSON`) for full
@@ -902,30 +679,11 @@ common case — a per-person amount — would carry the noisiest spelling. Imply
 and rejecting `_PER_PERSON` keeps one canonical spelling and the short form for the
 common case; only group levels, which genuinely vary, are spelled.
 
-### Why compositional spelling
-
-Two predecessors were rejected. **Opaque single-word tokens** — a fixed enum
-(`CURRENCY_FLOW`, `HEADCOUNT`, `DIMENSIONLESS_FLOW`, …) plus split `reference_period` /
-`reference_level` side-fields — made a reader memorise a table and kept the period and
-level in two places; the compositional grammar dissolves the tokens into spelling and
-folds the side-fields into the one unit string. **Flat tokens with a generated `.pyi`
-stub** — a flat surface identical in `.py` and YAML, with a generated stub for
-autocomplete — was rejected for the fluent builder, which needs no generated file and
-enforces the canonical order through its staged return types; the flat string remains
-the YAML and display form, and the two round-trip.
-
 ### Runtime pint Quantities flowing through the DAG
 
-Rejected. `Quantity` is not a JAX pytree, breaks tracing, contradicts the GEP-9 column
-vocabulary, and adds hot-path cost. Units in a tax-transfer model are static structural
-properties of nodes, not of data, so runtime wrapping buys nothing the build-time check
-does not already provide.
-
-### Keep hand-written time conversions; use pint only for checks
-
-Possible, but the stock/flow duality is exactly what a unit engine encodes for free.
-Sourcing the factors from pint removes a class of hand-maintained arithmetic without
-touching the naming.
+Rejected. `Quantity` is not a JAX pytree and breaks tracing. Units in a tax-transfer
+model are static structural properties of nodes, not of data, so runtime wrapping buys
+nothing the build-time check does not already provide.
 
 ### Make functions time-agnostic
 
