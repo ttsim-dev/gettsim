@@ -530,12 +530,48 @@ dated entry's *value* into the previous one).
 ## The unit-annotated input and output trees
 
 Tagging input data with units is **optional**, through a dedicated unit-annotated input
-tree — a sibling of the ordinary input tree in which every leaf is a pint `Quantity`.
-When the mode is used **every** leaf must be tagged, including identifiers and other
-dimensionless columns (tagged `dimensionless`). Symmetrically, the **unit-annotated
-result tree** relabels each output leaf with its precise run-currency unit
-(`euro/month`, not the agnostic `CURRENCY`). The check the input tree enables is
-{ref}`Layer 2 <gep-10-checks>` below.
+tree — a sibling of the ordinary input tree in which every leaf is a
+`UnitAnnotatedColumn(values=…, unit=…)`, its `unit` built off the same `Unit` vocabulary
+as the policy functions. When the mode is used **every** leaf must be tagged,
+identifiers and other dimensionless columns included (`unit=Unit.DIMENSIONLESS`). Two
+rules mirror the parameter side: a currency column names a **concrete** currency
+(`Unit.EUR`, `Unit.DM`) — the agnostic `Unit.CURRENCY` is rejected, exactly as for a
+parameter — and a group column **spells** its level (`Unit.EUR.PER_MONTH.PER_BG`),
+agreeing with the name suffix. The **result tree** is the *same shape*: each output leaf
+is a `UnitAnnotatedColumn` too, its `unit` the node's resolved unit in the concrete
+*run* currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). The check
+the input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
+
+```python
+from gettsim import InputData, MainTarget, TTTargets, main
+from gettsim.tt import Unit, UnitAnnotatedColumn
+
+# `transfer` here is an illustrative stand-in, not a real benefit.
+input_tree = {
+    "p_id": UnitAnnotatedColumn(values=[0, 1, 2], unit=Unit.DIMENSIONLESS),
+    "bg_id": UnitAnnotatedColumn(values=[0, 0, 0], unit=Unit.DIMENSIONLESS),
+    "geburtsjahr": UnitAnnotatedColumn(
+        values=[1980, 1982, 2015], unit=Unit.CALENDAR_YEAR
+    ),
+    "einkommen_m": UnitAnnotatedColumn(
+        values=[2000.0, 0.0, 0.0], unit=Unit.EUR.PER_MONTH
+    ),
+    "miete_m_bg": UnitAnnotatedColumn(
+        values=[1200.0, 1200.0, 1200.0], unit=Unit.EUR.PER_MONTH.PER_BG
+    ),
+}
+
+results = main(
+    main_target=MainTarget.results.tree_with_unit_annotations,
+    policy_date_str="2025-01-01",
+    input_data=InputData.tree_with_unit_annotations(input_tree),
+    tt_targets=TTTargets(tree={"transfer": {"betrag_m_bg": None}}),
+)
+
+# results ==
+# {"transfer": {"betrag_m_bg": UnitAnnotatedColumn(
+#     values=array([250.0, 0.0, 0.0]), unit=Unit.EUR.PER_MONTH.PER_BG)}}
+```
 
 (gep-10-checks)=
 
