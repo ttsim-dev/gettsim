@@ -88,7 +88,7 @@ with at most one denominator of each kind.
 base        := CURRENCY                       # agnostic, .py / functions only
              | EUR | DM | …                   # concrete currency, param-YAML only
              | DIMENSIONLESS
-             | PERSON                          # the [person] count
+             | PERSON_COUNT                    # the [person] count
              | HOURS                           # the isolated [hours] dimension
              | SQUARE_METER | HECTARE          # areas
              | YEARS | MONTHS | DAYS           # durations (stocks)
@@ -123,7 +123,7 @@ A few worked spellings:
 | `DIMENSIONLESS`                       | `dimensionless`                 | a share, a rate            |
 | `DIMENSIONLESS_PER_FAM`               | `1 / [fam]`                     | a fam-level boolean        |
 | `DIMENSIONLESS_PER_YEAR`              | `1 / year`                      | Zugangsfaktor per year     |
-| `PERSON_PER_BG`                       | `[person] / [bg]`               | a declared head count      |
+| `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`               | a declared head count      |
 | `HOURS_PER_WEEK`                      | `working_hour / week`           | working hours              |
 | `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter ** 2 / month` | a rent cap                 |
 | `YEARS` / `CALENDAR_YEAR`             | a duration / an affine point    | an age / a birth year      |
@@ -134,7 +134,7 @@ by the staged return types:
 ```python
 Unit.CURRENCY.PER_MONTH.PER_BG  # -> "CURRENCY_PER_MONTH_PER_BG"
 Unit.CURRENCY  # a stock, per person
-Unit.PERSON.PER_BG  # a declared head count
+Unit.PERSON_COUNT.PER_BG  # a declared head count
 Unit.DIMENSIONLESS  # a share, or a person-level boolean
 Unit.DIMENSIONLESS.PER_FAM  # a fam-level boolean
 Unit.HOURS.PER_WEEK
@@ -166,9 +166,7 @@ denominating something per person are the same `[person]`, which is what lets he
 counts and per-person amounts cancel cleanly (below).
 
 **A level is a denominator.** A leveled quantity carries its level as a denominator,
-exactly as a flow carries its period. For a column the level comes from the aggregation
-suffix (an unsuffixed name is at `[person]`, a `_hh` name at `[hh]`); for a parameter it
-is spelled in the unit string.
+exactly as a flow carries its period.
 
 **Head counts.** A head count is the count dimension over the group it counts within. A
 `COUNT` aggregation to the household yields `anzahl_personen_hh` with unit
@@ -191,32 +189,6 @@ einnahmen__kapitalerträge_y_sn − familie__anzahl_personen_sn * sparerfreibetr
 The head count is the conversion factor between levels, and these cross-level bodies —
 the per-capita divisions and the multiply-by-count splittings GETTSIM already performs —
 type-check on their own once counts carry `[person]`.
-
-(gep-10-cross-level-shares)=
-
-**Two axes: measurement and indexing.** Note the subtle difference between units that
-measure something (e.g. years, Euros, etc.) and units that serve as an index (e.g.
-`[hh]`, `[bg]`, etc.). While the former have fixed conversion factors, the latter are
-*base dimensions* that are not interconvertible. For TTSIM and GETTSIM it makes sense to
-mix them in the same algebra because almost every time we can treat them the same way.
-There is one exception though. Consider the following function:
-
-```python
-@policy_function(unit=Unit.DIMENSIONLESS)  # [hh] / [bg] cross-level result is a share
-def anteil_am_hh(betrag_m_bg: float, betrag_m_hh: float) -> float:
-    return betrag_m_bg / betrag_m_hh
-```
-
-Strictly speaking, its return unit would be `[hh] / [bg]`, which cannot be traced back
-to a measurable quantity. Here, the major advantage of using composite units bites us
-because it produces a unit that is unnameable. There is no reason to treat `[hh] / [bg]`
-differently than any other dimensionless share defined as a parameter. Hence, we
-override the return unit to be `DIMENSIONLESS`.
-
-We only drop the *level* part though: the physical content is still checked, so a
-cross-level result accidentally declared as e.g. `CURRENCY` is still caught. And this
-only kicks in for a *non-person* numerator level — a head count like `[person] / [hh]`
-is a proper, declarable unit and stays as is.
 
 (gep-10-booleans)=
 
@@ -289,22 +261,58 @@ duration. The build-time check enforces the algebra (the duration `D` of a point
 
 A *cyclic* ordinal — a month-of-year (`geburtsmonat` 1–12), a day-of-week, a quarter —
 is **not** a calendar point but `DIMENSIONLESS`: it is a recurring label, not a position
-on a running calendar.
+on a running calendar. The difference is the count: a `CALENDAR_MONTH` runs 0, 1, 2, …
+from its epoch without bound, so each value pins one absolute month (January 2019 =
+December 2018 + 1), whereas a month-of-year only runs 1–12 and wraps, so `3` is March in
+*any* year and pins nothing.
 
 (gep-10-leveled)=
 
 ### Which quantities carry a level
 
-A quantity carries a level in one of two cases:
+A quantity carries a group level **iff it is a property of the group as a whole**; a
+property of a *person* carries none, even when its value is equal across the group. What
+decides is whom the value is about — not its type, nor how it is computed. The
+household's rent is `CURRENCY/month/[hh]`; a person's share of it is
+`CURRENCY/month/[person]`.
 
-- **additive amounts** — currency, area, the `[person]` count — where summing an
-  entity's members is meaningful (a household income is the sum of its members'
-  incomes).
-- **booleans** — a truth value *about* an entity, whose level is tracked so the
-  {ref}`combine rule <gep-10-booleans>` and the suffix check apply.
+The level is therefore **stated, not read off the suffix**: the suffix says the column
+is constant within that group ({ref}`GEP 2 <gep-2>`), the level says whether the value
+is the group's or an individual's. A written group level must not contradict the suffix
+but may be left off at any suffix — `regelbedarf_pro_person_m_bg` is
+`CURRENCY/month/[person]`, no `[bg]`, despite its name.
 
-Everything else is **level-less**: `YEARS` / `MONTHS` / `DAYS`, `CALENDAR_*`, `HOURS`,
-and plain `DIMENSIONLESS` shares and rates.
+- **Group properties (a level attached).** Totals and counts (currency, area, hours, the
+  `[person]` count); an extreme (`alter_monate_jüngstes_mitglied_fg` → `MONTHS/[fg]`); a
+  group indicator (`bewohnt_eigentum_hh` → `1/[hh]`); a graded label (`mietstufe_hh` →
+  `DIMENSIONLESS_PER_HH`).
+- **Person properties (individual — no level attached).** A person's income, age, or
+  birth year; a per-person fraction (`anteil_wohnfläche_pro_person_bg`); an average
+  (per-head). No level is attached: the value stays at the individual grain, the person
+  leaf left implied for a base that scales and simply bare for an intensive one
+  (`MONTHS`).
+
+Note that the cost of such a substantive definition is that some things that are
+mathematically similar are treated differently. Take, for example,
+`alter_monate_jüngstes_mitglied_fg` and `alter_monate` — both are ages, but the former
+is a property of the family and carries the `[fg]` level, while the latter is a property
+of the individual and carries no level. When comparing the two with an age threshold
+parameter `altersgrenze`, a unit mismatch is inevitable.
+
+Another example is `wohnbedarf_anteil_eltern_bg` (the share parents make up of the
+Bedarfsgemeinschaft's Wohnbedarf). Because it is a property of the group, it carries the
+`[bg]` level. However, when multiplying the share with another quantity defined on the
+Bedarfsgemeinschaft level, the result is a unit with a squared [bg] denominator:
+
+```text
+wohnbedarf_anteil_eltern_bg * wohnbedarf_m_bg
+  = (1 / [bg]) * (CURRENCY / month / [bg])
+  = CURRENCY / month / [bg] ** 2
+```
+
+Developers need to judge on a case-by-case basis whether a unit mismatch is a bug or a
+legitimate cross-level comparison mandated by the policy. If the latter, they can opt
+out of the unit check with `verify_units=False` on the function.
 
 ## Declaring units on functions and parameters
 
@@ -396,25 +404,31 @@ Auto-generated nodes receive auto-assigned units. Time-conversion variants inher
 source's base and re-base the period off the variant's own suffix
 (`CURRENCY_PER_MONTH → CURRENCY_PER_YEAR`). Auto-aggregations derive their unit from the
 source and the aggregation type, paralleling how {ref}`GEP 4 <gep-4>` resolves their
-types — and, with grouping levels in the unit, the aggregation is where a level is
-created, swapped, or acquired:
+types. With grouping levels in the unit, the aggregation is where a level is created or
+swapped — and it turns on **what the aggregated value is about**. A sum, a count, an
+extreme (`MIN`/`MAX`), or an all/any indicator is a property of the group, so it takes
+the **target** level whatever the source's base — an age min'd to the family is
+`MONTHS/[fam]`, no longer level-less. A **mean** is the exception: an average per head
+belongs to the person, so it stays at the **individual** level.
 
-| aggregation                    | physical base   | level                                            |
-| ------------------------------ | --------------- | ------------------------------------------------ |
-| `SUM` / `MEAN` / `MIN` / `MAX` | preserved       | **target** level                                 |
-| `COUNT`, `SUM` over a boolean  | `[person]`      | **created** `[person] / [target]`                |
-| `ANY` / `ALL`                  | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`) |
+| aggregation                       | physical base   | level                                                                                                  |
+| --------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
+| `SUM` / `MIN` / `MAX`, any source | preserved       | source level **swapped for the target** (`CURRENCY/[person] → CURRENCY/[hh]`; `MONTHS → MONTHS/[fam]`) |
+| `MEAN`, any source                | preserved       | **individual** — an average per head is the person's (`CURRENCY/[hh]` mean → `CURRENCY/[person]`)      |
+| `COUNT`                           | `[person]`      | **minted** `[person] / [target]`                                                                       |
+| `ANY` / `ALL`                     | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                                                       |
 
 Sometimes, a policy may require a cross-level comparison, e.g. a group `MAX` against a
 person value. The unit check will reject that, since the two levels are not compatible.
 The author can opt out locally with `verify_units=False` on the function.
 
 A hand-written aggregation also carries an author-declared unit (one is required to pass
-the mandatory-units check), and that declaration is **checked against the derived
-unit**, the same declared-vs-produced contract a `@policy_function` body is held to: its
-physical *kind* — currency, the `[person]` count, area, a duration — must match what the
-aggregation produces, so a `SUM` over a boolean declared `DIMENSIONLESS` rather than
-`PERSON_PER_BG` is rejected.
+the mandatory-units check), and that declaration must **equal the derived unit exactly**
+— the same declared-vs-produced contract a `@policy_function` body is held to, but a
+*full* match, not merely the physical kind: the dimension, the flow period, **and** the
+grouping level must all agree. Only the person leaf is implied; a group level must be
+spelled. So a `SUM` of a per-person `CURRENCY_PER_MONTH` to the `bg` level must be
+declared `CURRENCY_PER_MONTH_PER_BG`.
 
 ### Literals
 
@@ -634,9 +648,7 @@ on one arm is caught while the others are clean.
 - a body whose inferred unit disagrees with its declaration, on any reachable branch — a
   `_m` flow returned where `_y` is declared, or a `…/[person]` result on a `_hh` name (a
   level-less result at a group suffix is exempt — its index-correctness is the
-  structural system's concern, not the unit check's; so is the level claim of a
-  {ref}`cross-level share <gep-10-cross-level-shares>` like `[bg]/[hh]`, which is the
-  dimensionless share it represents — though its physical content is still checked);
+  structural system's concern, not the unit check's);
 - an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
   yearly one (`betrag_m + freibetrag_y`), a stock plus a flow, **or two different
   grouping levels** (`einkommen_m_hh − einkommen_m_bg`);
