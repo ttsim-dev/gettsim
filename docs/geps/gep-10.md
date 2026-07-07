@@ -316,10 +316,14 @@ out of the unit check with `verify_units=False` on the function.
 
 ## Declaring units on functions and parameters
 
-Every active node carries a unit. If no unit was specified, the unit is marked
-`UNSET_UNIT` which throws an error at build time. Most nodes declare it directly;
-derived nodes get one auto-assigned ({ref}`below <gep-10-auto>`), and framework-injected
-date nodes get theirs from the framework (`policy_year` is a `CALENDAR_YEAR`).
+Every active node carries a unit. The declaration decorators (`@policy_function`,
+`@policy_input`, `@param_function`) take `unit=` as a required argument, so omitting it
+there is an immediate error; wherever a declaration cannot be forced at definition time
+— a parameter YAML, a hand-written aggregation — a missing unit is marked `UNSET_UNIT`
+and the mandatory-units check reports it at build time. Most nodes declare the unit
+directly; derived nodes get one auto-assigned ({ref}`below <gep-10-auto>`), and
+framework-injected date nodes get theirs from the framework (`policy_year` is a
+`CALENDAR_YEAR`).
 
 ### Policy functions
 
@@ -550,11 +554,13 @@ as the policy functions. When the mode is used **every** leaf must be tagged,
 identifiers and other dimensionless columns included (`unit=Unit.DIMENSIONLESS`). Two
 rules mirror the parameter side: a currency column names a **concrete** currency
 (`Unit.EUR`, `Unit.DM`) — the agnostic `Unit.CURRENCY` is rejected, exactly as for a
-parameter — and a group column **spells** its level (`Unit.EUR.PER_MONTH.PER_BG`),
-agreeing with the name suffix. The **result tree** is the *same shape*: each output leaf
-is a `UnitAnnotatedColumn` too, its `unit` the node's resolved unit in the concrete
-*run* currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). The check
-the input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
+parameter — and the tag's grouping level must equal the level the column's **declared**
+unit carries ({ref}`above <gep-10-leveled>`): a group-owned column spells its level
+(`Unit.EUR.PER_MONTH.PER_BG`), a person property is tagged without one, even at a group
+suffix. The **result tree** is the *same shape*: each output leaf is a
+`UnitAnnotatedColumn` too, its `unit` the node's resolved unit in the concrete *run*
+currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). The check the
+input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
 
 ```python
 from gettsim import InputData, MainTarget, TTTargets, main
@@ -606,11 +612,11 @@ The numeric runtime path stays pure arrays, single currency, and JAX-safe.
 
 The checks run in two layers, both at build time:
 
-|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                                                 |
-| ------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                            | where GEP-9 normalises user input into canonical arrays                                                                                |
-| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                                                   |
-| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; level vs. suffix; unknown spelling rejected; every tag equivalent to its resolved unit |
+|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                                                      |
+| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| when   | `fail_if` on the assembled environment                            | where GEP-9 normalises user input into canonical arrays                                                                                     |
+| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                                                        |
+| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; level vs. declaration; unknown spelling rejected; every tag equivalent to its resolved unit |
 
 ### Layer 1: the dry-run dimensionality check
 
@@ -646,9 +652,11 @@ on one arm is caught while the others are clean.
 **What the dry-run catches:**
 
 - a body whose inferred unit disagrees with its declaration, on any reachable branch — a
-  `_m` flow returned where `_y` is declared, or a `…/[person]` result on a `_hh` name (a
-  level-less result at a group suffix is exempt — its index-correctness is the
-  structural system's concern, not the unit check's);
+  `_m` flow returned where `_y` is declared, or a `…/[person]` result where the
+  declaration spells `…_PER_HH`. The inferred grouping level is checked against the
+  **declaration**, not the name suffix ({ref}`above <gep-10-leveled>`), so a
+  person-level result under a level-less declaration passes at any suffix, and an
+  inferred result carrying no level makes no level claim and is exempt;
 - an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
   yearly one (`betrag_m + freibetrag_y`), a stock plus a flow, **or two different
   grouping levels** (`einkommen_m_hh − einkommen_m_bg`);
@@ -670,9 +678,11 @@ on one arm is caught while the others are clean.
 
 **Layer 2** compares each tagged leaf of the
 {ref}`unit-annotated input tree <gep-10-trees>` to the unit the environment resolves for
-that leaf. The check throws an error if dimensions are incompatible. Note that units
-don't need to be identical. Automatic time and group conversions (see GEP 1), and
-currency conversions (this GEP) are performed at the boundary.
+that leaf. Tag and resolved unit need not be identical, but only the **currency** is
+converted: a tag in any registered currency is converted to the run currency at the
+boundary. Every other axis must already agree — a tag period that disagrees with the
+name's time suffix, a spelled grouping level that disagrees with the column's declared
+level, or any other dimensional mismatch is a build error.
 
 ## Backward Compatibility
 
