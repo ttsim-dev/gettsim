@@ -31,8 +31,8 @@ and (optionally) input data. The framework reads those units to do two things:
 
 The engine is [pint](https://pint.readthedocs.io), and it runs **only while the policy
 environment is built**: it checks dimensions and converts units, and plays no part at
-run time, as it is not JAX-compatible. Thus, runtime of the plain tax and transfer
-function is not affected by this GEP.
+run time, as it is not JAX-compatible. The computation of taxes and transfers itself is
+untouched, and its runtime unaffected.
 
 ## Motivation and Scope
 
@@ -61,16 +61,6 @@ Four long-standing problems motivate this GEP.
 
 **Scope.** The GEP covers `TTSIM` (the framework) and `GETTSIM` (the German currencies
 and the policy annotations).
-
-## Units as guards
-
-A quantity's unit already says which operations are meaningful: two monthly amounts may
-be added and an amount may be divided by a head count, but a monthly amount may not be
-added to a rent per square metre, nor a household total to a Bedarfsgemeinschaft total.
-Recording the unit on every parameter and function turns that into a check the framework
-runs when the policy environment is built — a meaningful operation passes, a meaningless
-one is a build error. The same units also drive automatic conversion, between time units
-and between currencies (Euro ↔ Deutsche Mark).
 
 (gep-10-vocabulary)=
 
@@ -112,21 +102,31 @@ Rules:
 - **The person leaf is implied, never spelled.** The individual level is the default for
   every leveled quantity, so it is never written: a per-person monthly amount is
   `CURRENCY_PER_MONTH`. Only *group* levels are spelled (`CURRENCY_PER_MONTH_PER_HH`).
+- **Whether a bare spelling carries the implied leaf is fixed by the vocabulary.** The
+  person leaf attaches iff the quantity is one a person can *own*: the base is extensive
+  — an amount a group can total: the currencies, `PERSON_COUNT`, the areas, `HOURS` —
+  and no area denominator is present (an area denominator makes the unit a price or a
+  density, which nobody owns: a rent cap is `CURRENCY / meter ** 2 / month`, no leaf).
+  The intensive bases — `DIMENSIONLESS`, the durations, the calendar points — are always
+  bare: an age is `month`, not `month / [person]`, because ages do not total across
+  persons (booleans are the exception — a boolean carries its level,
+  {ref}`below <gep-10-booleans>`). The *resolves to* column of the table below is
+  authoritative.
 
 A few worked spellings:
 
-| spelling                              | resolves to                     | typical use                |
-| ------------------------------------- | ------------------------------- | -------------------------- |
-| `CURRENCY_PER_MONTH`                  | `CURRENCY / month / [person]`   | a personal monthly amount  |
-| `CURRENCY_PER_MONTH_PER_BG`           | `CURRENCY / month / [bg]`       | a benefit at bg level      |
-| `CURRENCY`                            | `CURRENCY / [person]`           | wealth, an asset threshold |
-| `DIMENSIONLESS`                       | `dimensionless`                 | a share, a rate            |
-| `DIMENSIONLESS_PER_FAM`               | `1 / [fam]`                     | a fam-level boolean        |
-| `DIMENSIONLESS_PER_YEAR`              | `1 / year`                      | Zugangsfaktor per year     |
-| `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`               | a declared head count      |
-| `HOURS_PER_WEEK`                      | `working_hour / week`           | working hours              |
-| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter ** 2 / month` | a rent cap                 |
-| `YEARS` / `CALENDAR_YEAR`             | a duration / an affine point    | an age / a birth year      |
+| spelling                              | resolves to                      | typical use                |
+| ------------------------------------- | -------------------------------- | -------------------------- |
+| `CURRENCY_PER_MONTH`                  | `CURRENCY / month / [person]`    | a personal monthly amount  |
+| `CURRENCY_PER_MONTH_PER_BG`           | `CURRENCY / month / [bg]`        | a benefit at bg level      |
+| `CURRENCY`                            | `CURRENCY / [person]`            | wealth, an asset threshold |
+| `DIMENSIONLESS`                       | `dimensionless`                  | a share, a rate            |
+| `DIMENSIONLESS_PER_FG`                | `1 / [fg]`                       | an fg-level boolean        |
+| `DIMENSIONLESS_PER_YEAR`              | `1 / year`                       | Zugangsfaktor per year     |
+| `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`                | a declared head count      |
+| `HOURS_PER_WEEK`                      | `working_hour / week / [person]` | working hours              |
+| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter ** 2 / month`  | a rent cap                 |
+| `YEARS` / `CALENDAR_YEAR`             | a duration / an affine point     | an age / a birth year      |
 
 In `.py` modules, developers can work with autocomplete and the canonical order enforced
 by the staged return types:
@@ -136,7 +136,7 @@ Unit.CURRENCY.PER_MONTH.PER_BG  # -> "CURRENCY_PER_MONTH_PER_BG"
 Unit.CURRENCY  # a stock, per person
 Unit.PERSON_COUNT.PER_BG  # a declared head count
 Unit.DIMENSIONLESS  # a share, or a person-level boolean
-Unit.DIMENSIONLESS.PER_FAM  # a fam-level boolean
+Unit.DIMENSIONLESS.PER_FG  # an fg-level boolean
 Unit.HOURS.PER_WEEK
 ```
 
@@ -190,82 +190,6 @@ The head count is the conversion factor between levels, and these cross-level bo
 the per-capita divisions and the multiply-by-count splittings GETTSIM already performs —
 type-check on their own once counts carry `[person]`.
 
-(gep-10-booleans)=
-
-### Leveled booleans
-
-A boolean is a *leveled* quantity: a truth value about an entity at some level. A
-person-level indicator is `1 / [person]`, a family-level one `1 / [fam]`. Like any
-leveled quantity a person boolean is bare `DIMENSIONLESS` (the leaf implied), a group
-boolean spells its level, `DIMENSIONLESS_PER_FAM`. A node is recognised as a boolean by
-its `-> bool` return type (orthogonal to its declared unit), and that is what
-distinguishes a boolean from a plain dimensionless *share*: a share stays level-less, a
-boolean carries its level.
-
-This catches a class of wrong-level predicate bugs. The function below carries a `_fam`
-name, so it declares a family-level boolean (`1 / [fam]`); but its body compares two
-*person*-level quantities, so the unit check infers `1 / [person]`. That contradicts the
-`_fam` suffix, and the function throws an error:
-
-```python
-@policy_function(unit=Unit.DIMENSIONLESS.PER_FAM)  # claims 1 / [fam]
-def requirement_fulfilled_fam(einkommen_m: float, schwelle_m: float) -> bool:
-    return einkommen_m < schwelle_m  # but these are person-level → infers 1 / [person]
-```
-
-**Combine rule.** A logical operator (`&` / `|` / `^`) of two leveled booleans keeps the
-level if they are equal and **downcasts to the person leaf** on any mismatch. The
-downcast is sound and conservative: grouping levels do not nest, and a cross-level
-logical combination is evaluated per person (each person sees its groups' indicators),
-so the result is person-level. This is the operation a per-person gate actually needs —
-
-```text
-kind_in_anspruchsberechtigter_familie = child & requirement_fulfilled_fam
-  = (1 / [person]) & (1 / [fam]) = 1 / [person]   # the per-person conjunction
-```
-
-— and it is implemented in the build-time check's logical operators directly, rather
-than left to pint's multiplicative algebra (whose product never yields the lower of the
-two levels a per-person result needs). A comparison of a leveled quantity against a
-scalar yields a boolean at that level; `~` preserves the level.
-
-(gep-10-hours)=
-
-### Working hours are their own dimension
-
-Working hours are a genuine dimension `[hours]`, registered as `working_hour` and
-**isolated from pint's `[time]`**. This is deliberate: if working hours were based on
-the `[time]` `hour`, then `hours / week` would be `[time] / [time]` and collapse to a
-bare number — adding working hours to a share would not be caught, and an hours quantity
-could not be told from a dimensionless one. With its own dimension, `HOURS_PER_WEEK` is
-`[hours] / [time]`.
-
-`HOURS_PER_WEEK → HOURS_PER_MONTH` re-bases the **period** only (the existing
-time-conversion machinery), leaving the `[hours]` numerator untouched.
-
-### Calendar points are distinct from durations
-
-A year *on the calendar* — a birth year, the policy year — is an affine *point*, not a
-*duration*. The two do not share arithmetic: subtracting two calendar years gives a
-duration, and shifting a year by a duration gives a year, but two year cannot be added
-and a year cannot be scaled. The `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY`
-bases carry the calendar point; `YEARS` / `MONTHS` / `DAYS` carry the corresponding
-duration. The build-time check enforces the algebra (the duration `D` of a point `P`):
-
-| operation                 | result    | example                              |
-| ------------------------- | --------- | ------------------------------------ |
-| `P − P`                   | duration  | `policy_year − geburtsjahr` → an age |
-| `P ± D` (same axis)       | point     | `geburtsjahr + statutory_age`        |
-| `P + P`, `P × n`, `P / n` | **error** | two calendar years cannot be added   |
-| mixing calendar axes      | **error** | a year point plus a month duration   |
-
-A *cyclic* ordinal — a month-of-year (`geburtsmonat` 1–12), a day-of-week, a quarter —
-is **not** a calendar point but `DIMENSIONLESS`: it is a recurring label, not a position
-on a running calendar. The difference is the count: a `CALENDAR_MONTH` runs 0, 1, 2, …
-from its epoch without bound, so each value pins one absolute month (January 2019 =
-December 2018 + 1), whereas a month-of-year only runs 1–12 and wraps, so `3` is March in
-*any* year and pins nothing.
-
 (gep-10-leveled)=
 
 ### Which quantities carry a level
@@ -278,9 +202,10 @@ household's rent is `CURRENCY/month/[hh]`; a person's share of it is
 
 The level is therefore **stated, not read off the suffix**: the suffix says the column
 is constant within that group ({ref}`GEP 2 <gep-2>`), the level says whether the value
-is the group's or an individual's. A written group level must not contradict the suffix
-but may be left off at any suffix — `regelbedarf_pro_person_m_bg` is
-`CURRENCY/month/[person]`, no `[bg]`, despite its name.
+is the group's or an individual's. The suffix constrains the declaration but does not
+determine it: a group property spells its level, which must match the suffix; a person
+property is declared level-less *even when its name carries a group suffix* —
+`regelbedarf_pro_person_m_bg` is `CURRENCY/month/[person]`, no `[bg]`, despite its name.
 
 - **Group properties (a level attached).** Totals and counts (currency, area, hours, the
   `[person]` count); an extreme (`alter_monate_jüngstes_mitglied_fg` → `MONTHS/[fg]`); a
@@ -288,16 +213,24 @@ but may be left off at any suffix — `regelbedarf_pro_person_m_bg` is
   `DIMENSIONLESS_PER_HH`).
 - **Person properties (individual — no level attached).** A person's income, age, or
   birth year; a per-person fraction (`anteil_wohnfläche_pro_person_bg`); an average
-  (per-head). No level is attached: the value stays at the individual grain, the person
-  leaf left implied for a base that scales and simply bare for an intensive one
-  (`MONTHS`).
+  (per-head). No level is attached: the value stays at the individual grain, carrying
+  the implied person leaf or staying bare as its base dictates
+  ({ref}`above <gep-10-vocabulary>`).
 
 Note that the cost of such a substantive definition is that some things that are
 mathematically similar are treated differently. Take, for example,
 `alter_monate_jüngstes_mitglied_fg` and `alter_monate` — both are ages, but the former
 is a property of the family and carries the `[fg]` level, while the latter is a property
-of the individual and carries no level. When comparing the two with an age threshold
-parameter `altersgrenze`, a unit mismatch is inevitable.
+of the individual and carries no level. Against an age threshold parameter
+`altersgrenze` (`MONTHS`), the person-level age screens cleanly, but the group extreme
+mismatches (`MONTHS/[fg]` against `MONTHS`) — even where the law mandates exactly this
+test. The resolution is the expression-level cast `cast_unit`
+({ref}`below <gep-10-opt-out>`), which states the intended per-person reading at the
+site and keeps the rest of the body checked:
+
+```python
+cast_unit(alter_monate_jüngstes_mitglied_fg, Unit.MONTHS) <= altersgrenze
+```
 
 Another example is `wohnbedarf_anteil_eltern_bg` (the share parents make up of the
 Bedarfsgemeinschaft's Wohnbedarf). Because it is a property of the group, it carries the
@@ -311,8 +244,102 @@ wohnbedarf_anteil_eltern_bg * wohnbedarf_m_bg
 ```
 
 Developers need to judge on a case-by-case basis whether a unit mismatch is a bug or a
-legitimate cross-level comparison mandated by the policy. If the latter, they can opt
-out of the unit check with `verify_units=False` on the function.
+legitimate cross-level operation mandated by the policy. If the latter, the cast states
+the intended result:
+
+```python
+cast_unit(wohnbedarf_anteil_eltern_bg * wohnbedarf_m_bg, Unit.CURRENCY.PER_MONTH.PER_BG)
+```
+
+(gep-10-booleans)=
+
+### Leveled booleans
+
+A boolean is a *leveled* quantity: a truth value about an entity at some level. A
+person-level indicator is `1 / [person]`, a Familiengemeinschaft-level one `1 / [fg]`.
+Like any leveled quantity a person boolean is bare `DIMENSIONLESS` (the leaf implied), a
+group boolean spells its level, `DIMENSIONLESS_PER_FG`. A node is recognised as a
+boolean by its `-> bool` return type (orthogonal to its declared unit), and that is what
+distinguishes a boolean from a plain dimensionless *share*: a share stays level-less, a
+boolean carries its level.
+
+This catches a class of wrong-level predicate bugs. The function below carries a `_fg`
+name, so it declares a family-level boolean (`1 / [fg]`); but its body compares two
+*person*-level quantities, so the unit check infers `1 / [person]`. That contradicts the
+`_fg` suffix, and the function throws an error:
+
+```python
+@policy_function(unit=Unit.DIMENSIONLESS.PER_FG)  # claims 1 / [fg]
+def requirement_fulfilled_fg(einkommen_m: float, schwelle_m: float) -> bool:
+    return einkommen_m < schwelle_m  # but these are person-level → infers 1 / [person]
+```
+
+**Combine rule.** A logical operator (`&` / `|` / `^`) of two leveled booleans keeps the
+level if they are equal and **downcasts to the person leaf** on any mismatch. The
+downcast is sound and conservative: grouping levels do not nest, and a cross-level
+logical combination is evaluated per person (each person sees its groups' indicators),
+so the result is person-level. This is the operation a per-person gate actually needs —
+
+```text
+kind_in_anspruchsberechtigter_familie = child & requirement_fulfilled_fg
+  = (1 / [person]) & (1 / [fg]) = 1 / [person]   # the per-person conjunction
+```
+
+— and it is implemented in the build-time check's logical operators directly, rather
+than left to pint's multiplicative algebra (whose product never yields the lower of the
+two levels a per-person result needs). An ordering comparison requires equivalent units
+on both sides — the literal `0` excepted, which takes the other side's unit
+({ref}`below <gep-10-checks>`) — and yields a boolean at the operands' level; `~`
+preserves the level.
+
+(gep-10-hours)=
+
+### Working hours are their own dimension
+
+Working hours are a genuine dimension `[hours]`, registered as `working_hour` and
+**isolated from pint's `[time]`**. This is deliberate: if working hours were based on
+the `[time]` `hour`, then `hours / week` would be `[time] / [time]` and collapse to a
+bare number — adding working hours to a share would not be caught, and an hours quantity
+could not be told from a dimensionless one. With its own dimension, `HOURS_PER_WEEK` is
+`[hours] / [time] / [person]` (the person leaf implied as usual).
+
+`HOURS_PER_WEEK → HOURS_PER_MONTH` re-bases the **period** only (the existing
+time-conversion machinery), leaving the `[hours]` numerator untouched.
+
+### Calendar points are distinct from durations
+
+A year *on the calendar* — a birth year, the policy year — is an affine *point*, not a
+*duration*. The two do not share arithmetic: subtracting two calendar years gives a
+duration, and shifting a year by a duration gives a year, but two years cannot be added
+and a year cannot be scaled. The `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_DAY`
+bases carry the calendar point; `YEARS` / `MONTHS` / `DAYS` carry the corresponding
+duration. The build-time check enforces the algebra (`P` a point, `D` a duration):
+
+| operation                 | result    | example                              |
+| ------------------------- | --------- | ------------------------------------ |
+| `P − P`                   | duration  | `policy_year − geburtsjahr` → an age |
+| `P ± D` (same axis)       | point     | `geburtsjahr + statutory_age`        |
+| `P + P`, `P × n`, `P / n` | **error** | two calendar years cannot be added   |
+| mixing calendar axes      | **error** | a year point plus a month duration   |
+
+Granularities are separate axes, for durations as well as for points: `CALENDAR_YEAR`
+pairs with `YEARS`, `CALENDAR_MONTH` with `MONTHS`, `CALENDAR_DAY` with `DAYS`, and a
+duration adds neither to a point nor to a duration of another granularity. The
+conversion factor is fixed — a year is twelve months — but applying it silently is
+exactly the bug the split exists to catch: a month count folded into a year count
+without the division by twelve. Where the conversion is intended, it is made in the open
+and the result re-tagged ({ref}`below <gep-10-opt-out>`):
+
+```python
+geburtsjahr + cast_unit(alter_monate / 12, Unit.YEARS)  # CALENDAR_YEAR ± YEARS
+```
+
+A *cyclic* ordinal — a month-of-year (`geburtsmonat` 1–12), a day-of-week, a quarter —
+is **not** a calendar point but `DIMENSIONLESS`: it is a recurring label, not a position
+on a running calendar. The difference is the count: a `CALENDAR_MONTH` runs 0, 1, 2, …
+from its epoch without bound, so each value pins one absolute month (January 2019 =
+December 2018 + 1), whereas a month-of-year only runs 1–12 and wraps, so `3` is March in
+*any* year and pins nothing.
 
 ## Declaring units on functions and parameters
 
@@ -412,19 +439,22 @@ types. With grouping levels in the unit, the aggregation is where a level is cre
 swapped — and it turns on **what the aggregated value is about**. A sum, a count, an
 extreme (`MIN`/`MAX`), or an all/any indicator is a property of the group, so it takes
 the **target** level whatever the source's base — an age min'd to the family is
-`MONTHS/[fam]`, no longer level-less. A **mean** is the exception: an average per head
-belongs to the person, so it stays at the **individual** level.
+`MONTHS/[fg]`, no longer level-less. A **mean** is the exception: an average per head
+belongs to the person, so it stays at the **individual** level — which is just what the
+algebra yields, the group sum divided by the head count:
+`(CURRENCY/[hh]) / ([person]/[hh]) = CURRENCY/[person]`.
 
-| aggregation                       | physical base   | level                                                                                                  |
-| --------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| `SUM` / `MIN` / `MAX`, any source | preserved       | source level **swapped for the target** (`CURRENCY/[person] → CURRENCY/[hh]`; `MONTHS → MONTHS/[fam]`) |
-| `MEAN`, any source                | preserved       | **individual** — an average per head is the person's (`CURRENCY/[hh]` mean → `CURRENCY/[person]`)      |
-| `COUNT`                           | `[person]`      | **minted** `[person] / [target]`                                                                       |
-| `ANY` / `ALL`                     | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                                                       |
+| aggregation                       | physical base   | level                                                                                                        |
+| --------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
+| `SUM` / `MIN` / `MAX`, any source | preserved       | source level **swapped for the target** (`CURRENCY/[person] → CURRENCY/[hh]`; `MONTHS → MONTHS/[fg]`)        |
+| `MEAN`, any source                | preserved       | **individual** — the group sum over the head count (`(CURRENCY/[hh]) / ([person]/[hh]) → CURRENCY/[person]`) |
+| `COUNT`                           | `[person]`      | **minted** `[person] / [target]`                                                                             |
+| `ANY` / `ALL`                     | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                                                             |
 
 Sometimes, a policy may require a cross-level comparison, e.g. a group `MAX` against a
-person value. The unit check will reject that, since the two levels are not compatible.
-The author can opt out locally with `verify_units=False` on the function.
+person value. The unit check will reject that, since the two levels are not compatible;
+where the comparison is policy-mandated, the author states the intended reading at the
+site with `cast_unit` ({ref}`below <gep-10-opt-out>`).
 
 A hand-written aggregation also carries an author-declared unit (one is required to pass
 the mandatory-units check), and that declaration must **equal the derived unit exactly**
@@ -469,8 +499,9 @@ def anspruchsberechtigt(einkommen_m: float, einkommensgrenze_m: float) -> bool:
     return einkommen_m < einkommensgrenze_m
 ```
 
-If that doesn't work for some reason, the author can turn off unit checks for that
-function with `@policy_function(verify_units=False)`.
+For a genuine dimensioned constant that must stay inline, the cast tags it in place —
+`einkommen_m < cast_unit(1000.0, Unit.CURRENCY.PER_MONTH)`
+({ref}`below <gep-10-opt-out>`).
 
 The only exception is `0.0` which is a common literal for eligibility checks. The
 following is dimensionally sound and does not raise an error:
@@ -561,8 +592,9 @@ unit carries ({ref}`above <gep-10-leveled>`): a group-owned column spells its le
 (`Unit.EUR.PER_MONTH.PER_BG`), a person property is tagged without one, even at a group
 suffix. The **result tree** is the *same shape*: each output leaf is a
 `UnitAnnotatedColumn` too, its `unit` the node's resolved unit in the concrete *run*
-currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). The check the
-input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
+currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). Annotated input
+and annotated output are independent: either can be used without the other. The check
+the input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
 
 ```python
 from gettsim import InputData, MainTarget, TTTargets, main
@@ -614,17 +646,22 @@ The numeric runtime path stays pure arrays, single currency, and JAX-safe.
 
 The checks run in two layers, both at build time:
 
-|        | **Layer 1 — DAG validity**                                        | **Layer 2 — boundary**                                                                                                                      |
-| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                            | where GEP-9 normalises user input into canonical arrays                                                                                     |
-| input  | none — synthetic `Quantity`s                                      | the user's unit-annotated input tree                                                                                                        |
-| checks | inferred body unit vs. declaration; producer↔consumer edges agree | tag currency → run currency; period vs. suffix; level vs. declaration; unknown spelling rejected; every tag equivalent to its resolved unit |
+|        | **Layer 1 — DAG validity**                                                                                                  | **Layer 2 — boundary**                                                                                                                      |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| when   | `fail_if` on the assembled environment                                                                                      | where GEP-9 normalises user input into canonical arrays                                                                                     |
+| input  | none — synthetic `Quantity`s                                                                                                | the user's unit-annotated input tree                                                                                                        |
+| checks | inferred body unit vs. declaration; edges checked through the bodies (each argument enters at its producer's resolved unit) | tag currency → run currency; period vs. suffix; level vs. declaration; unknown spelling rejected; every tag equivalent to its resolved unit |
 
 ### Layer 1: the dry-run dimensionality check
 
 **Layer 1** runs each function body in NumPy+pint, infers the unit that falls out, and
-checks it against the declaration; an edge-consistency pass then confirms each
-producer's unit equals its consumer's declared expectation.
+checks it against the declaration. The DAG's edges need no pass of their own: every
+argument enters the consumer's dry-run carrying its *producer's* resolved unit — the
+producer's declaration is the edge contract — so a producer↔consumer disagreement
+surfaces inside the consumer, at the operation that combines the mismatched quantity or
+at the consumer's own return-vs-declaration check. The one edge with neither a body nor
+a spelled unit on both ends is the aggregation, which is checked declared-vs-derived
+instead ({ref}`above <gep-10-auto>`).
 
 **How the dry-run checks one body.** The check *runs the function body*, but with
 **units in place of numbers**. Each input becomes a stand-in carrying its resolved unit
@@ -643,13 +680,26 @@ def bruttokaltmiete_m(
 Here `wohnen__bruttokaltmiete_m_hh` enters as `EUR / month / [hh]` and
 `anzahl_personen_hh` as `[person] / [hh]`; the division cancels `[hh]` and yields
 `EUR / month / [person]` — matching the unit declaration *and* being consistent with the
-function name name.
+function name.
 
 **Every branch is covered, by re-running.** A unit stand-in has no value to compare, so
 it intercepts the *truth test* itself (Python's `__bool__`) and hands it to the **path
 explorer**, which re-runs the body and steers each open branch both ways until every
 reachable branch combination is driven. Each run is checked on its own, so a unit slip
 on one arm is caught while the others are clean.
+
+**A failure names the branch.** The error reports the declared and the inferred unit —
+compositional spelling and resolved form — and, where the body branches, the branch
+combination that produced the mismatch:
+
+```text
+Unit check failed for `transfer__betrag_m`:
+  declared  CURRENCY_PER_MONTH  =  CURRENCY / month / [person]
+  inferred  CURRENCY_PER_YEAR   =  CURRENCY / year / [person]
+  on the branch where `befreit` is False:
+      return einkommen_y
+  All other branches match the declaration.
+```
 
 **Vectorized bodies are checked at the same parity.** A body that computes on whole
 columns (`vectorization_strategy="not_required"`) — or a scalar body after the
@@ -661,8 +711,10 @@ one column), `xnp.clip` screens each bound, and reductions and shape ops preserv
 unit. The framework primitives are screened at their edges the same way: a
 `piecewise_polynomial(...)` call or a lookup table's `.look_up(...)` is checked against
 the schedule's declared `input_unit` and produces its `output_unit`; a `join(...)`
-gather hands on the target column's unit, grouping level included. An op the dry-run
-does not model is never waved through silently: the check fails and demands an explicit
+gather hands on the target column's unit, grouping level included. A
+`cast_unit(value, unit)` call is the identity at run time and re-tags the stand-in with
+the stated unit in the dry-run ({ref}`below <gep-10-opt-out>`). An op the dry-run does
+not model is never waved through silently: the check fails and demands an explicit
 opt-out.
 
 **What the dry-run catches:**
@@ -670,18 +722,22 @@ opt-out.
 - a body whose inferred unit disagrees with its declaration, on any reachable branch — a
   `_m` flow returned where `_y` is declared, or a `…/[person]` result where the
   declaration spells `…_PER_HH`. The inferred grouping level is checked against the
-  **declaration**, not the name suffix ({ref}`above <gep-10-leveled>`), so a
-  person-level result under a level-less declaration passes at any suffix, and an
-  inferred result carrying no level makes no level claim and is exempt;
+  **declaration**, not the name suffix ({ref}`above <gep-10-leveled>`), and the match is
+  exact: a body whose arithmetic cannot produce the declared group level — a graded
+  label computed from level-less shares, say — states it with `cast_unit` at the return;
 - an addition or subtraction of two non-equivalent quantities — a monthly flow plus a
   yearly one (`betrag_m + freibetrag_y`), a stock plus a flow, **or two different
-  grouping levels** (`einkommen_m_hh − einkommen_m_bg`);
+  grouping levels** (`einkommen_m_hh − einkommen_m_bg`) — or of a bare non-zero literal
+  (`einkommen_m + 100.0`), which silently carries the quantity's unit exactly as in an
+  ordering comparison; a bare non-zero literal *returned* under a dimensioned
+  declaration is rejected the same way (only `0` passes inline,
+  {ref}`Literals <gep-10-literals>`);
 - an ordering comparison (`<`, `<=`, `>`, `>=`) of two non-equivalent quantities, or of
   a quantity against a bare non-zero literal that silently carries the quantity's unit
-  (so promote the bound to a parameter; only `0` is allowed inline). Equality (`==`,
-  `!=`) is deliberately **not** screened: it is the operator for sentinel and
-  exact-marker tests (`p_id_empfänger == -1`, `kindersatz_m == 0.0`), where the literal
-  is a deliberate marker, not a hidden dimensioned bound;
+  (so promote the bound to a parameter or tag it with `cast_unit`; only `0` is allowed
+  inline). Equality (`==`, `!=`) is deliberately **not** screened: it is the operator
+  for sentinel and exact-marker tests (`p_id_empfänger == -1`, `kindersatz_m == 0.0`),
+  where the literal is a deliberate marker, not a hidden dimensioned bound;
 - a logical operator (`&`, `|`, `^`, `~`) applied to a non-boolean operand
   (`wealth & is_adult`, where `wealth` is a stock); a cross-level boolean combination is
   resolved by the {ref}`combine rule <gep-10-booleans>`, not rejected;
@@ -691,11 +747,31 @@ opt-out.
 
 (gep-10-opt-out)=
 
-### When to opt out (`verify_units=False`)
+### When to opt out (`cast_unit`, `verify_units=False`)
 
-The opt-out is local and per function: the declared unit still stands as the edge
-contract, so an opted-out function's consumers are checked as usual — only the body's
-own inference is skipped. It is needed in three situations:
+Two escapes exist, at two grains; the narrow one is preferred wherever it suffices.
+
+**The expression-level cast.** `cast_unit(value, unit)`, exported from the `tt`
+namespace, re-tags a single expression with the stated unit — dimension, period, and
+grouping level, wholesale. Like `typing.cast`, it does nothing at run time: it returns
+`value` unchanged, scalar or column, so the numeric path and JAX tracing are untouched;
+only the dry-run gives it meaning, re-tagging the stand-in that flows through it. The
+rest of the body stays checked, and every override is visible — and greppable — at the
+expression that needs it. Use it where a single operation is dimensionally irregular but
+deliberate:
+
+- **Policy-mandated cross-level arithmetic** ({ref}`above <gep-10-leveled>`): the law
+  compares a group extreme to a person-level threshold, or multiplies two group-level
+  quantities.
+- **A granularity conversion on the calendar axes**:
+  `cast_unit(alter_monate / 12, Unit.YEARS)`.
+- **A genuine dimensioned constant** that cannot be promoted to a parameter
+  ({ref}`Literals <gep-10-literals>`).
+
+**The function-level opt-out.** `verify_units=False` skips the body's inference
+entirely; the declared unit still stands as the edge contract, so an opted-out
+function's consumers are checked as usual. It remains for bodies the dry-run cannot run
+at all:
 
 - **Structured values.** A `@param_function` that *builds* a structured object — a
   dataclass of related parameters, a schedule assembled from a `require_converter` blob
@@ -706,14 +782,8 @@ own inference is skipped. It is needed in three situations:
   screened — the converter's output carries no `input_unit`/`output_unit` axes to check
   against. Schedules declared in YAML are covered; only converter-built ones need the
   opt-out.
-- **Policy-mandated cross-level arithmetic.** Where the law itself combines or compares
-  quantities at different grouping levels ({ref}`above <gep-10-leveled>`), the level
-  mismatch is deliberate, and the function states so by opting out.
-
-A genuine dimensioned constant that cannot be promoted to a parameter
-({ref}`Literals <gep-10-literals>`) and an `xnp` operation the dry-run does not model
-round out the list; both are rare, and in either case the check demands the opt-out
-rather than passing silently.
+- **An `xnp` operation the dry-run does not model** — rare, and never waved through
+  silently: the check fails and demands the opt-out.
 
 ### Layer 2: the boundary check
 
@@ -732,12 +802,12 @@ level, or any other dimensional mismatch is a build error.
 - **`unit` is repurposed; `reference_period` and `reference_level` are removed.** `unit`
   becomes a compositional spelling. The period a flow used to record in
   `reference_period`, and the level a per-group amount used to record in
-  `reference_level`, are now **folded into the unit string** (`EUR_PER_YEAR_PER_FAM`),
-  so there is a single source of truth and the two fields are gone.
+  `reference_level`, are now **folded into the unit string** (`EUR_PER_YEAR_PER_FG`), so
+  there is a single source of truth and the two fields are gone.
 - **No blanket opt-out.** There is no env-var escape hatch that switches the unit check
-  off wholesale. Users can opt out for specific functions (`verify_units=False`,
-  {ref}`see <gep-10-checks>`) or opt out of some checks by turning off GETTSIM's fail-if
-  nodes.
+  off wholesale. Users can opt out for single expressions (`cast_unit`) or specific
+  functions (`verify_units=False`, {ref}`see <gep-10-checks>`) or opt out of some checks
+  by turning off GETTSIM's fail-if nodes.
 
 ## Related Work
 
@@ -752,8 +822,9 @@ level, or any other dimensional mismatch is a build error.
 
 ## Implementation
 
-Delivered as one infrastructure PR, with the framework proven on `METTSIM` before any
-German annotation:
+Delivered as one infrastructure PR, with the framework proven on `METTSIM` — the
+stylised Middle-Earth tax-and-transfer system that serves as TTSIM's test bed and
+documentation example — before any German annotation:
 
 - TTSIM [#138](https://github.com/ttsim-dev/ttsim/pull/138) — the full GEP-10
   infrastructure in one final-form diff: the pint registry and dimension model (time,
