@@ -434,6 +434,8 @@ grouping level must all agree. Only the person leaf is implied; a group level mu
 spelled. So a `SUM` of a per-person `CURRENCY_PER_MONTH` to the `bg` level must be
 declared `CURRENCY_PER_MONTH_PER_BG`.
 
+(gep-10-literals)=
+
 ### Literals
 
 Adding dimensionless numbers to a non-dimensionless quantity is forbidden. A literal
@@ -620,7 +622,7 @@ The checks run in two layers, both at build time:
 
 ### Layer 1: the dry-run dimensionality check
 
-**Layer 1** runs each scalar body in NumPy+pint, infers the unit that falls out, and
+**Layer 1** runs each function body in NumPy+pint, infers the unit that falls out, and
 checks it against the declaration; an edge-consistency pass then confirms each
 producer's unit equals its consumer's declared expectation.
 
@@ -649,6 +651,20 @@ explorer**, which re-runs the body and steers each open branch both ways until e
 reachable branch combination is driven. Each run is checked on its own, so a unit slip
 on one arm is caught while the others are clean.
 
+**Vectorized bodies are checked at the same parity.** A body that computes on whole
+columns (`vectorization_strategy="not_required"`) — or a scalar body after the
+vectorizer's rewrite — calls `xnp` array ops instead of scalar operators. The dry-run
+hands such a body an `xnp` stand-in that routes every unit-bearing op through the same
+checking primitives the operators use: `xnp.maximum` / `xnp.minimum` screen like an
+ordering comparison, `xnp.where` requires equivalent units on its two arms (they become
+one column), `xnp.clip` screens each bound, and reductions and shape ops preserve the
+unit. The framework primitives are screened at their edges the same way: a
+`piecewise_polynomial(...)` call or a lookup table's `.look_up(...)` is checked against
+the schedule's declared `input_unit` and produces its `output_unit`; a `join(...)`
+gather hands on the target column's unit, grouping level included. An op the dry-run
+does not model is never waved through silently: the check fails and demands an explicit
+opt-out.
+
 **What the dry-run catches:**
 
 - a body whose inferred unit disagrees with its declaration, on any reachable branch — a
@@ -671,8 +687,33 @@ on one arm is caught while the others are clean.
   resolved by the {ref}`combine rule <gep-10-booleans>`, not rejected;
 - a missing unit, and malformed declarations: a non-canonical or repeated denominator, a
   flow function without a specified period unit, a currency-agnostic base on a
-  parameter, a group column or boolean that fails to spell its level, or a spelled level
-  disagreeing with the name suffix.
+  parameter, or a spelled group level disagreeing with the name suffix.
+
+(gep-10-opt-out)=
+
+### When to opt out (`verify_units=False`)
+
+The opt-out is local and per function: the declared unit still stands as the edge
+contract, so an opted-out function's consumers are checked as usual — only the body's
+own inference is skipped. It is needed in three situations:
+
+- **Structured values.** A `@param_function` that *builds* a structured object — a
+  dataclass of related parameters, a schedule assembled from a `require_converter` blob
+  — returns something that is not a quantity, so its body cannot be unit-checked; a body
+  that *consumes* such an object through attribute access opts out for the same reason.
+- **Converter-built schedules.** A body calling `piecewise_polynomial` on a schedule a
+  `@param_function` produced (rather than one declared as a parameter) cannot be
+  screened — the converter's output carries no `input_unit`/`output_unit` axes to check
+  against. Schedules declared in YAML are covered; only converter-built ones need the
+  opt-out.
+- **Policy-mandated cross-level arithmetic.** Where the law itself combines or compares
+  quantities at different grouping levels ({ref}`above <gep-10-leveled>`), the level
+  mismatch is deliberate, and the function states so by opting out.
+
+A genuine dimensioned constant that cannot be promoted to a parameter
+({ref}`Literals <gep-10-literals>`) and an `xnp` operation the dry-run does not model
+round out the list; both are rare, and in either case the check demands the opt-out
+rather than passing silently.
 
 ### Layer 2: the boundary check
 
