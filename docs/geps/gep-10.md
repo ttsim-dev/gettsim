@@ -427,6 +427,63 @@ tarif:
 A time suffix on the parameter's *name* describes what it yields, so it must coincide
 with a flow `output_unit`.
 
+**`require_converter` parameters.** A raw blob handed to a `@param_function` declares
+one of three shapes, following what its converter makes of it:
+
+- a **single token**, if the whole structure is homogeneously one unit — every numeric
+  leaf is scaled uniformly;
+- a **per-leaf mapping**, exactly as for a heterogeneous dict, if the structure mixes
+  units — each numeric leaf is scaled by its own token, so a table interleaving amounts
+  with age bounds keeps the shape of its legal source;
+- `input_unit:` / `output_unit:` **axes**, if the converter produces a function-like
+  value (a schedule, a lookup table). The blob is left raw and the conversion happens on
+  the converter's *typed output*, per axis — the only correct rescaling of polynomial
+  coefficients, where the order-*j* term scales by *f_out / f_in^j*, not by one uniform
+  factor. A leaf-scaled declaration with a currency token whose converter nonetheless
+  produces a schedule is rejected, pointing at the axes form.
+
+What the converter *returns* carries no unit declaration of its own — see
+{ref}`Structured values <gep-10-structured>`.
+
+(gep-10-structured)=
+
+### Structured values (`unit=UNSET_UNIT`)
+
+A `@param_function` that *builds* a structured object — a dataclass of related
+parameters, a schedule assembled from a `require_converter` blob — returns something
+that is not a quantity: there is no unit to declare and no scalar body to dry-run. It
+states exactly that with `unit=UNSET_UNIT`. The `unit=` argument remains required, so
+the sentinel is always an explicit statement, never an omission, and the mandatory-units
+check accepts it.
+
+A body that *consumes* such an object stays checked. The dry-run hands it an opaque
+stand-in that lets plucks through — attribute access, subscripting, a method call — and
+fails the build on any use of a pluck *as a quantity* (arithmetic, an ordering
+comparison, a branch decision, a bare return). The author states each number's unit at
+the pluck — the expression where the number leaves the structured world — with the
+{ref}`expression-level cast <gep-10-opt-out>`:
+
+```python
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+def regelsatz_m(alter: int, stufen: Regelbedarfsstufen) -> float:
+    satz = cast_unit(stufen.rbs_4.satz, Unit.CURRENCY.PER_MONTH)
+    min_alter = cast_unit(stufen.rbs_4.altersgrenzen.min_alter, Unit.YEARS)
+    return satz if alter >= min_alter else 0.0
+```
+
+The cast sits at the pluck, never on a sub-structure — a sub-object mixing a monthly
+amount with age bounds has no unit a cast could state. Casting too coarsely
+self-corrects loudly: the cast yields a plain quantity, so the next deeper pluck fails
+the build instead of silently tagging an age as money. A converter-built schedule
+follows the same rule at its call site: `piecewise_polynomial` on it stays opaque —
+there are no declared axes to screen against — so the author casts the call's result;
+schedules declared as parameters carry their axes and need no cast.
+
+The tags do not need to travel for the *numbers* to be right: the `require_converter`'s
+declaration restated the raw leaves in the run currency before the converter ran, so
+every number inside the structure is a plain run-currency magnitude. The casts carry the
+checking chain across the structured hop; the boundary conversion carries the numerics.
+
 (gep-10-auto)=
 
 ### Auto-generated nodes
@@ -741,6 +798,9 @@ opt-out.
 - a logical operator (`&`, `|`, `^`, `~`) applied to a non-boolean operand
   (`wealth & is_adult`, where `wealth` is a stock); a cross-level boolean combination is
   resolved by the {ref}`combine rule <gep-10-booleans>`, not rejected;
+- a value plucked off a {ref}`structured parameter <gep-10-structured>` and used as a
+  quantity — computed with, ordered, branched on, or returned — without a `cast_unit`
+  stating its unit at the pluck;
 - a missing unit, and malformed declarations: a non-canonical or repeated denominator, a
   flow function without a specified period unit, a currency-agnostic base on a
   parameter, or a spelled group level disagreeing with the name suffix.
@@ -760,6 +820,8 @@ rest of the body stays checked, and every override is visible — and greppable 
 expression that needs it. Use it where a single operation is dimensionally irregular but
 deliberate:
 
+- **A pluck off a structured value** ({ref}`above <gep-10-structured>`): the expression
+  where a number leaves a dataclass or a converter-built schedule.
 - **Policy-mandated cross-level arithmetic** ({ref}`above <gep-10-leveled>`): the law
   compares a group extreme to a person-level threshold, or multiplies two group-level
   quantities.
@@ -773,17 +835,11 @@ entirely; the declared unit still stands as the edge contract, so an opted-out
 function's consumers are checked as usual. It remains for bodies the dry-run cannot run
 at all:
 
-- **Structured values.** A `@param_function` that *builds* a structured object — a
-  dataclass of related parameters, a schedule assembled from a `require_converter` blob
-  — returns something that is not a quantity, so its body cannot be unit-checked; a body
-  that *consumes* such an object through attribute access opts out for the same reason.
-- **Converter-built schedules.** A body calling `piecewise_polynomial` on a schedule a
-  `@param_function` produced (rather than one declared as a parameter) cannot be
-  screened — the converter's output carries no `input_unit`/`output_unit` axes to check
-  against. Schedules declared in YAML are covered; only converter-built ones need the
-  opt-out.
 - **An `xnp` operation the dry-run does not model** — rare, and never waved through
   silently: the check fails and demands the opt-out.
+- **The fallback for a structured-value consumer** ({ref}`above <gep-10-structured>`)
+  whose plucks are too numerous to cast one by one; the narrow cast-at-the-pluck is
+  preferred.
 
 ### Layer 2: the boundary check
 
@@ -839,11 +895,11 @@ Each package's params schema validates the compositional spelling (a coarse
 `^[A-Z][A-Z0-9_]*$` pattern, with `parse_compositional_unit` enforcing the grammar at
 load time) and enforces, per parameter `type:`, the `unit:` XOR
 `input_unit:`/`output_unit:` split, the shape of the declaration (a `type: scalar`
-`unit:` is a single token; the leaf-keys mapping form is admitted only for
-`type: dict`), and the concrete-currency rule for parameters. The schema shipped with
-TTSIM (listing METTSIM's `SILVER_PENNY`/`CASTAR` currencies and Middle-Earth levels) is
-the template; the copy at `docs/geps/params-schema.json` is migrated together with the
-YAML files in #1192.
+`unit:` is a single token; the leaf-keys mapping form is admitted only for `type: dict`
+and `type: require_converter`), and the concrete-currency rule for parameters. The
+schema shipped with TTSIM (listing METTSIM's `SILVER_PENNY`/`CASTAR` currencies and
+Middle-Earth levels) is the template; the copy at `docs/geps/params-schema.json` is
+migrated together with the YAML files in #1192.
 
 ## Alternatives
 
