@@ -633,6 +633,46 @@ mapping it must therefore spell *every* leaf, so a changeover cannot silently le
 leaves in the old currency. This is independent of `updates_previous` (which merges a
 dated entry's *value* into the previous one).
 
+(gep-10-rounding)=
+
+### Rounding specs
+
+A rounding spec's magnitudes (`base` and `to_add_after_rounding`, see
+{ref}`GEP 5 <gep-5>`) are statutory numbers written in a concrete currency, exactly like
+a parameter's values: § 32a Abs. 2 EStG in its pre-2002 version rounds taxable income
+down to a multiple of 54 DM, plus 27 DM. The spec pins down the currency its magnitudes
+are written in — a fully-spelled composite that must equal the function's declared unit
+with the agnostic base swapped for the concrete currency:
+
+```python
+@policy_function(
+    end_date="2001-12-31",
+    leaf_name="zu_versteuerndes_einkommen_y_sn",
+    rounding_spec=RoundingSpec(
+        base=54,
+        direction="down",
+        to_add_after_rounding=27,
+        reference="§ 32a Abs. 2 EStG",
+        unit=Unit.DM.PER_YEAR.PER_SN,
+    ),
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+)
+def zu_versteuerndes_einkommen_y_sn(): ...
+```
+
+At environment build the magnitudes are restated in the run currency, exactly as a
+parameter's values are: in a Euro run, rounding down to multiples of 54 DM becomes
+rounding down to multiples of `54 / 1.95583` EUR — the statutory arithmetic, not a
+silent re-reading of the number 54 as Euros. Before this GEP, that restatement was done
+by hand (the code said `base=27.609762`), the same hand-conversion problem the
+{ref}`Motivation <gep-10>` describes for parameters.
+
+The declaration is **mandatory** on a function whose unit has a currency base and
+**rejected** on any other: a non-currency magnitude (rounding a duration, a
+dimensionless score) is written in the function's own unit and has nothing to convert.
+These are declaration-level rules enforced alongside the mandatory-units check; the
+dry-run never traces the rounding wrapper itself.
+
 (gep-10-trees)=
 
 ## The unit-annotated input and output trees
