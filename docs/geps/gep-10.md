@@ -315,12 +315,14 @@ and a year cannot be scaled. The `CALENDAR_YEAR` / `CALENDAR_MONTH` / `CALENDAR_
 bases carry the calendar point; `YEARS` / `MONTHS` / `DAYS` carry the corresponding
 duration. The build-time check enforces the algebra (`P` a point, `D` a duration):
 
-| operation                 | result    | example                              |
-| ------------------------- | --------- | ------------------------------------ |
-| `P − P`                   | duration  | `policy_year − geburtsjahr` → an age |
-| `P ± D` (same axis)       | point     | `geburtsjahr + statutory_age`        |
-| `P + P`, `P × n`, `P / n` | **error** | two calendar years cannot be added   |
-| mixing calendar axes      | **error** | a year point plus a month duration   |
+| operation                    | result    | example                              |
+| ---------------------------- | --------- | ------------------------------------ |
+| `P − P`                      | duration  | `policy_year − geburtsjahr` → an age |
+| `P ± D` (same axis)          | point     | `geburtsjahr + statutory_age`        |
+| `P < P` (same axis)          | boolean   | `geburtsjahr <= policy_year`         |
+| `P + P`, `P × n`, `P / n`    | **error** | two calendar years cannot be added   |
+| `P` ordered vs anything else | **error** | a year point against a duration      |
+| mixing calendar axes         | **error** | a year point plus a month duration   |
 
 Granularities are separate axes, for durations as well as for points: `CALENDAR_YEAR`
 pairs with `YEARS`, `CALENDAR_MONTH` with `MONTHS`, `CALENDAR_DAY` with `DAYS`, and a
@@ -349,8 +351,10 @@ there is an immediate error; wherever a declaration cannot be forced at definiti
 — a parameter YAML, a hand-written aggregation — a missing unit is marked `UNSET_UNIT`
 and the mandatory-units check reports it at build time. Most nodes declare the unit
 directly; derived nodes get one auto-assigned ({ref}`below <gep-10-auto>`), and
-framework-injected date nodes get theirs from the framework (`policy_year` is a
-`CALENDAR_YEAR`).
+framework-injected date nodes get theirs from the framework: `policy_year` is a
+`CALENDAR_YEAR` point, while `policy_month` and `policy_day` carry a month-of-year /
+day-of-month — cyclic ordinals that wrap and pin nothing on a running calendar, hence
+`DIMENSIONLESS`.
 
 ### Policy functions
 
@@ -501,12 +505,13 @@ belongs to the person, so it stays at the **individual** level — which is just
 algebra yields, the group sum divided by the head count:
 `(CURRENCY/[hh]) / ([person]/[hh]) = CURRENCY/[person]`.
 
-| aggregation                       | physical base   | level                                                                                                        |
-| --------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
-| `SUM` / `MIN` / `MAX`, any source | preserved       | source level **swapped for the target** (`CURRENCY/[person] → CURRENCY/[hh]`; `MONTHS → MONTHS/[fg]`)        |
-| `MEAN`, any source                | preserved       | **individual** — the group sum over the head count (`(CURRENCY/[hh]) / ([person]/[hh]) → CURRENCY/[person]`) |
-| `COUNT`                           | `[person]`      | **minted** `[person] / [target]`                                                                             |
-| `ANY` / `ALL`                     | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                                                             |
+| aggregation                       | physical base   | level                                                                                                                                                                                   |
+| --------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SUM` / `MIN` / `MAX`, any source | preserved       | source level **swapped for the target** (`CURRENCY/[person] → CURRENCY/[hh]`; `MONTHS → MONTHS/[fg]`)                                                                                   |
+| `SUM` over a *boolean* source     | `[person]`      | **minted** `[person] / [target]` — it counts the persons the indicator is true for, so it is a head count, exactly like `COUNT` (`anzahl_erwachsene_fg` declares `PERSON_COUNT_PER_FG`) |
+| `MEAN`, any source                | preserved       | **individual** — the group sum over the head count (`(CURRENCY/[hh]) / ([person]/[hh]) → CURRENCY/[person]`)                                                                            |
+| `COUNT`                           | `[person]`      | **minted** `[person] / [target]`                                                                                                                                                        |
+| `ANY` / `ALL`                     | `DIMENSIONLESS` | boolean **at the target level** (`1 / [target]`)                                                                                                                                        |
 
 Sometimes, a policy may require a cross-level comparison, e.g. a group `MAX` against a
 person value. The unit check will reject that, since the two levels are not compatible;
@@ -585,6 +590,12 @@ makes the upper-cased currency name a valid compositional **base** (`DM`,
 `DM_PER_MONTH`, `DM_PER_SQUARE_METER_PER_MONTH`, `EUR_*`, …), so parameters can pin down
 the concrete currency their numbers are written in.
 
+A registered currency belongs to a **family**: the base currency its definition chains
+to. Families from different packages coexist in one process (two test suites in one
+pytest run), and conversion is only possible *within* a family — no exchange rate
+connects GETTSIM's `EUR`/`DM` to another package's currencies, and a cross-family
+conversion is a loud error rather than a silent factor-1 pass-through.
+
 **Agnostic and concrete bases.** The **currency-agnostic** base `CURRENCY` is a
 placeholder for any registered currency: it declares the unit of a function or column
 for which it does not matter which currency GETTSIM runs in. A **concrete currency**
@@ -597,10 +608,13 @@ agnostic `CURRENCY` as base unit. A derived node — a time-conversion variant o
 aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart, as
 it computes on values already converted to the run currency.
 
-**The run currency.** The `currency` argument to `main()` defaults to the registered
-base currency; it is the currency the input data is taken to be in and that the outputs
-come out in. At environment build, every currency-denominated *parameter* is converted
-from its declared denomination to the run currency.
+**The run currency.** The `currency` argument to `main()` defaults to the base currency
+of the family the policy parameters are denominated in — read off their `unit:`
+declarations, so the default follows the policy objects in play even when several
+packages' families are registered in one process. It is the currency the input data is
+taken to be in and that the outputs come out in, and it must belong to the parameters'
+family. At environment build, every currency-denominated *parameter* is converted from
+its declared denomination to the run currency.
 
 **A changeover within one parameter's history.** Many parameters were written in
 Deutsche Mark before 2002 and in Euro afterward. Rather than repeating the currency on
@@ -785,17 +799,16 @@ explorer**, which re-runs the body and steers each open branch both ways until e
 reachable branch combination is driven. Each run is checked on its own, so a unit slip
 on one arm is caught while the others are clean.
 
-**A failure names the branch.** The error reports the declared and the inferred unit —
-compositional spelling and resolved form — and, where the body branches, the branch
-combination that produced the mismatch:
+**A failure names the branch.** The error reports the declared and the inferred unit in
+resolved form and, where the body branches, the branch combination that produced the
+mismatch — named in the body's own terms (an argument tested directly, a comparison of
+named operands) — plus whether the remaining branch combinations match:
 
 ```text
-Unit check failed for `transfer__betrag_m`:
-  declared  CURRENCY_PER_MONTH  =  CURRENCY / month / [person]
-  inferred  CURRENCY_PER_YEAR   =  CURRENCY / year / [person]
-  on the branch where `befreit` is False:
-      return einkommen_y
-  All other branches match the declaration.
+Environment unit-consistency check failed:
+  transfer__betrag_m: declares 'CURRENCY / month / [person]' but its body
+  infers 'CURRENCY / year / [person]' on the branch where `befreit` is False.
+  All other branch combinations match the declaration.
 ```
 
 **Vectorized bodies are checked at the same parity.** A body that computes on whole
