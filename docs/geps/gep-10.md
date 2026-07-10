@@ -446,6 +446,17 @@ one of three shapes, following what its converter makes of it:
   factor. A leaf-scaled declaration with a currency token whose converter nonetheless
   produces a schedule is rejected, pointing at the axes form.
 
+Declaring axes is a **checked promise**: every `@param_function` consuming the blob must
+declare `unit=UNSET_UNIT` and be annotated as returning a
+`PiecewisePolynomialParamValue` or a `ConsecutiveIntLookupTableParamValue`, and exactly
+one axes-declaring blob may feed a converter — anything else fails the build, whether or
+not a currency conversion is active in the run. In return, the declared axes travel to
+the typed output: a consumer's `piecewise_polynomial(...)` / `.look_up(...)` call
+screens against them exactly like a parameter-declared schedule, with no cast at the
+call. The axes are taken to *describe* the converter's output — the same assumption the
+per-axis conversion itself rests on; a converter that reshapes its blob into a
+differently-axed schedule must not declare axes on the blob.
+
 What the converter *returns* carries no unit declaration of its own — see
 {ref}`Structured values <gep-10-structured>`.
 
@@ -460,33 +471,66 @@ states exactly that with `unit=UNSET_UNIT`. The `unit=` argument remains require
 the sentinel is always an explicit statement, never an omission, and the mandatory-units
 check accepts it.
 
-A body that *consumes* such an object stays checked. The dry-run hands it an opaque
-stand-in that lets plucks through — attribute access, subscripting, a method call — and
-fails the build on any use of a pluck *as a quantity* (arithmetic, an ordering
-comparison, a branch decision, a bare return). The author states each number's unit at
-the pluck — the expression where the number leaves the structured world — with the
-{ref}`expression-level cast <gep-10-opt-out>`:
+**Units live on the dataclass fields.** A parameter dataclass states each scalar field's
+unit in its `Annotated` type — currency-agnostic, exactly like any code-side
+declaration; the concrete denomination stays in the parameter YAML, which keeps driving
+the numeric conversion:
+
+```python
+@dataclass(frozen=True)
+class SatzMitAltersgrenzen:
+    satz: Annotated[float, Unit.CURRENCY.PER_MONTH]
+    altersgrenzen: Altersgrenzen  # a nested dataclass: resolves recursively
+```
+
+A body that *consumes* the structure is then plain policy logic. A pluck off an
+annotated field carries the field's unit into the dry-run — screened, compared, branched
+on like any other operand, with a misuse (adding the age bound to money) failing the
+build like any other unit mix:
 
 ```python
 @policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def regelsatz_m(alter: int, stufen: Regelbedarfsstufen) -> float:
-    satz = cast_unit(stufen.rbs_4.satz, Unit.CURRENCY.PER_MONTH)
-    min_alter = cast_unit(stufen.rbs_4.altersgrenzen.min_alter, Unit.YEARS)
-    return satz if alter >= min_alter else 0.0
+    satz = stufen.rbs_4.satz
+    return satz if alter >= stufen.rbs_4.altersgrenzen.min_alter else 0.0
 ```
 
-The cast sits at the pluck, never on a sub-structure — a sub-object mixing a monthly
-amount with age bounds has no unit a cast could state. Casting too coarsely
-self-corrects loudly: the cast yields a plain quantity, so the next deeper pluck fails
-the build instead of silently tagging an age as money. A converter-built schedule
-follows the same rule at its call site: `piecewise_polynomial` on it stays opaque —
-there are no declared axes to screen against — so the author casts the call's result;
-schedules declared as parameters carry their axes and need no cast.
+A unit annotation sits on **scalar** fields (`int`/`float`/`bool`) and states exactly
+one unit; a container or sub-structure has no single unit an annotation could state, so
+annotating one is rejected. The class and `Unit` must be importable at runtime (not
+under `TYPE_CHECKING`), or the fields stay opaque and demand casts.
 
-The tags do not need to travel for the *numbers* to be right: the `require_converter`'s
-declaration restated the raw leaves in the run currency before the converter ran, so
-every number inside the structure is a plain run-currency magnitude. The casts carry the
-checking chain across the structured hop; the boundary conversion carries the numerics.
+**The drift check.** The per-leaf `unit:` mapping converts the raw numbers; the field
+annotations check their uses. These are two independent declarations of the same facts,
+so wherever a mapping leaf's path coincides with a field's path — the converter kept the
+name — the build cross-checks them: a YAML leaf declared `YEARS` under a field annotated
+`Unit.CURRENCY` is a build error, instead of a number that converts one way and checks
+another. A renamed or derived field has no matching leaf and is *not* cross-checked; its
+annotation is trusted, exactly as a cast would be.
+
+**The cast fallback.** A pluck the annotations do not cover — an un-annotated field, a
+raw dict a converter passes through, a container inside a dataclass — is opaque: the
+stand-in lets plucks through (attribute access, subscripting, a method call) and fails
+the build on any use of a pluck *as a quantity* (arithmetic, an ordering comparison, a
+branch decision, a bare return). The author states such a number's unit at the pluck —
+the expression where it leaves the structured world — with the
+{ref}`expression-level cast <gep-10-opt-out>`, e.g.
+`cast_unit(stufen.rbs_4.satz, Unit.CURRENCY.PER_MONTH)`. The cast sits at the pluck,
+never on a sub-structure — a sub-object mixing a monthly amount with age bounds has no
+unit a cast could state. Casting too coarsely self-corrects loudly: the cast yields a
+plain quantity, so the next deeper pluck fails the build instead of silently tagging an
+age as money.
+
+A converter-built **schedule** takes neither annotations nor casts when its blob
+declares axes: it screens at the call site like a parameter-declared schedule (the axes
+form above). Only an axis-less converter-built schedule stays opaque, and the author
+casts the call's result.
+
+The annotations and casts do not need to travel for the *numbers* to be right: the
+`require_converter`'s declaration restated the raw leaves in the run currency before the
+converter ran, so every number inside the structure is a plain run-currency magnitude.
+Annotations and casts carry the checking chain across the structured hop; the boundary
+conversion carries the numerics.
 
 (gep-10-auto)=
 
@@ -820,8 +864,9 @@ ordering comparison, `xnp.where` requires equivalent units on its two arms (they
 one column), `xnp.clip` screens each bound, and reductions and shape ops preserve the
 unit. The framework primitives are screened at their edges the same way: a
 `piecewise_polynomial(...)` call or a lookup table's `.look_up(...)` is checked against
-the schedule's declared `input_unit` and produces its `output_unit`; a `join(...)`
-gather hands on the target column's unit, grouping level included. A
+the schedule's declared `input_unit` and produces its `output_unit` — the axes declared
+on the parameter itself, or on the `require_converter` blob the schedule was built from;
+a `join(...)` gather hands on the target column's unit, grouping level included. A
 `cast_unit(value, unit)` call is the identity at run time and re-tags the stand-in with
 the stated unit in the dry-run ({ref}`below <gep-10-opt-out>`). An op the dry-run does
 not model is never waved through silently: the check fails and demands an explicit
@@ -852,8 +897,12 @@ opt-out.
   (`wealth & is_adult`, where `wealth` is a stock); a cross-level boolean combination is
   resolved by the {ref}`combine rule <gep-10-booleans>`, not rejected;
 - a value plucked off a {ref}`structured parameter <gep-10-structured>` and used as a
-  quantity — computed with, ordered, branched on, or returned — without a `cast_unit`
-  stating its unit at the pluck;
+  quantity — computed with, ordered, branched on, or returned — without an `Annotated`
+  field stating its unit at the structure or a `cast_unit` at the pluck; and a field
+  annotation that drifts from the per-leaf `unit:` mapping on the same leaf path;
+- a converter breaking the axes contract: consuming an axes-declaring
+  `require_converter` blob without the schedule return annotation, with a quantity
+  `unit=`, or alongside a second axes-declaring blob;
 - a missing unit, and malformed declarations: a non-canonical or repeated denominator, a
   flow function without a specified period unit, a currency-agnostic base on a
   parameter, or a spelled group level disagreeing with the name suffix.
@@ -873,8 +922,9 @@ rest of the body stays checked, and every override is visible — and greppable 
 expression that needs it. Use it where a single operation is dimensionally irregular but
 deliberate:
 
-- **A pluck off a structured value** ({ref}`above <gep-10-structured>`): the expression
-  where a number leaves a dataclass or a converter-built schedule.
+- **A pluck the field annotations do not cover** ({ref}`above <gep-10-structured>`): the
+  expression where a number leaves an un-annotated field, a raw dict, or an axis-less
+  converter-built schedule.
 - **Policy-mandated cross-level arithmetic** ({ref}`above <gep-10-leveled>`): the law
   compares a group extreme to a person-level threshold, or multiplies two group-level
   quantities.
@@ -891,8 +941,8 @@ at all:
 - **An `xnp` operation the dry-run does not model** — rare, and never waved through
   silently: the check fails and demands the opt-out.
 - **The fallback for a structured-value consumer** ({ref}`above <gep-10-structured>`)
-  whose plucks are too numerous to cast one by one; the narrow cast-at-the-pluck is
-  preferred.
+  whose plucks the field annotations cannot cover and are too numerous to cast one by
+  one; annotating the fields — or the narrow cast-at-the-pluck — is preferred.
 
 ### Layer 2: the boundary check
 
@@ -985,6 +1035,31 @@ and the `_PER_PERSON` form), violating the one-spelling-per-unit invariant, and 
 common case — a per-person amount — would carry the noisiest spelling. Implying the leaf
 and rejecting `_PER_PERSON` keeps one canonical spelling and the short form for the
 common case; only group levels, which genuinely vary, are spelled.
+
+### Per-pluck casts as the only structured-value mechanism
+
+An earlier revision carried the checking chain across the structured hop exclusively
+with `cast_unit` at every pluck. That roughly doubled consumer bodies with assertions
+repeated per consumer, and it left the per-leaf `unit:` mapping and the casts as two
+unchecked statements of the same facts — a drift converted the number one way and
+checked it another, silently. Units on the dataclass fields state each fact once at the
+structure, keep consumer bodies plain policy logic, and make the name-matched part of
+the drift checkable. Casts remain the fallback for whatever the annotations cannot
+cover.
+
+### Field annotations as the single source of structured units
+
+Field annotations could also drive the *conversion*: the parameter YAML would shrink to
+naming the concrete denomination per date, and the framework would rescale the
+currency-annotated fields of the built dataclass. Each unit would then be stated exactly
+once, closing the drift gap for renamed and derived fields too. Rejected for now: the
+converter body would compute on unconverted raw numbers — a literal threshold inside a
+converter would silently compare DM-era magnitudes, and converter bodies are exempt from
+the dry-run, so nothing could catch it — every numeric field would need an annotation at
+once, and a single `unit:` token on a `require_converter` would change meaning from
+"scale every leaf uniformly" to "the denomination". The field annotations this GEP
+introduces are exactly what that design would consume, so it remains open as an upgrade
+if the gettsim migration shows the double declaration to be a real source of errors.
 
 ### Runtime pint Quantities flowing through the DAG
 
