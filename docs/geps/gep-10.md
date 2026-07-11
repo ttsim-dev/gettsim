@@ -57,7 +57,11 @@ Four long-standing problems motivate this GEP.
 
 1. **Hand-written time arithmetic.** `ttsim/unit_converters.py` implements ~50
    conversion functions (`y_to_m`, `per_y_to_per_m`, …) and their stock/flow duals by
-   hand. The resulting arithmetic has itself been a source of bugs.
+   hand, and the resulting arithmetic has itself been a source of bugs. The GEP does not
+   remove them: it gives their conversion factors a single source of truth (pint's
+   period ratios) and makes their use in a body dimensionally checked — the dry-run
+   models each converter as a period rebase, so `betrag_y = per_m_to_per_y(betrag_m)` is
+   verified against the `_y` declaration.
 
 **Scope.** The GEP covers `TTSIM` (the framework) and `GETTSIM` (the German currencies
 and the policy annotations).
@@ -76,7 +80,7 @@ with at most one denominator of each kind.
 
 ```text
 base        := CURRENCY                       # agnostic, .py / functions only
-             | EUR | DM | …                   # concrete currency, param-YAML only
+             | EUR | DM | …                   # concrete: param YAML, rounding specs, input tags
              | DIMENSIONLESS
              | PERSON_COUNT                    # the [person] count
              | HOURS                           # the isolated [hours] dimension
@@ -98,19 +102,20 @@ Rules:
 - **Canonical order, one per kind.** Denominators appear in the order
   `area · period · level`, at most one of each; a non-canonical spelling
   (`..._PER_BG_PER_MONTH`) or a repeat is rejected, so there is **exactly one spelling
-  per unit**.
+  per unit**. The map is one-way: a *spelling* has one meaning, but a resolved *unit*
+  may have more than one spelling — `DIMENSIONLESS` resolves to `1 / [person]` on a
+  `-> bool` node and to bare `dimensionless` otherwise, and a bare `PERSON_COUNT` head
+  count at the person level collapses to `[person] / [person]` = `dimensionless`.
 - **The person leaf is implied, never spelled.** The individual level is the default for
   every leveled quantity, so it is never written: a per-person monthly amount is
   `CURRENCY_PER_MONTH`. Only *group* levels are spelled (`CURRENCY_PER_MONTH_PER_HH`).
-- **Whether a bare spelling carries the implied leaf is fixed by the vocabulary.** The
-  person leaf attaches iff the quantity is one a person can *own*: the base is extensive
-  — an amount a group can total: the currencies, `PERSON_COUNT`, the areas, `HOURS` —
-  and no area denominator is present (an area denominator makes the unit a price or a
-  density, which nobody owns: a rent cap is `CURRENCY / meter ** 2 / month`, no leaf).
-  The intensive bases — `DIMENSIONLESS`, the durations, the calendar points — are always
-  bare: an age is `month`, not `month / [person]`, because ages do not total across
-  persons (booleans are the exception — a boolean carries its level,
-  {ref}`below <gep-10-booleans>`). The *resolves to* column of the table below is
+- **Whether a bare spelling carries the implied leaf is fixed by the vocabulary, not the
+  speller.** The person leaf attaches iff the quantity is one a person can *own* — an
+  extensive base (a currency, `PERSON_COUNT`, an area, `HOURS`) with no area denominator
+  (an area denominator makes it a price or density that nobody owns). The intensive
+  bases (`DIMENSIONLESS`, durations, calendar points) stay bare, since ages and shares
+  do not total across persons — booleans excepted, which carry their level
+  ({ref}`below <gep-10-booleans>`). The *resolves to* column of the table below is
   authoritative.
 
 A few worked spellings:
@@ -360,8 +365,11 @@ day-of-month — cyclic ordinals that wrap and pin nothing on a running calendar
 
 The declaration on a policy function is a guard rail: GETTSIM checks that the unit that
 falls out of the function body — its physical dimension, its flow period, *and* its
-grouping level — matches the declaration and the name suffixes, so a mismatch is a loud
-error at definition time.
+grouping level — matches the declaration, so a mismatch is a loud error at definition
+time. The flow period must additionally agree with the name's time suffix (`_m` ⇒
+`/month`); the grouping level, though, is read off the *declaration*, never the suffix
+(GEP 10), so `regelbedarf_pro_person_m_bg` is legitimately a person-level amount at a
+`_bg` name.
 
 ```python
 @policy_function(unit=Unit.CURRENCY.PER_MONTH.PER_BG)  # -> CURRENCY / month / [bg]
@@ -446,16 +454,18 @@ one of three shapes, following what its converter makes of it:
   factor. A leaf-scaled declaration with a currency token whose converter nonetheless
   produces a schedule is rejected, pointing at the axes form.
 
-Declaring axes is a **checked promise**: every `@param_function` consuming the blob must
-declare `unit=UNSET_UNIT` and be annotated as returning a
-`PiecewisePolynomialParamValue` or a `ConsecutiveIntLookupTableParamValue`, and exactly
-one axes-declaring blob may feed a converter — anything else fails the build, whether or
-not a currency conversion is active in the run. In return, the declared axes travel to
-the typed output: a consumer's `piecewise_polynomial(...)` / `.look_up(...)` call
-screens against them exactly like a parameter-declared schedule, with no cast at the
-call. The axes are taken to *describe* the converter's output — the same assumption the
-per-axis conversion itself rests on; a converter that reshapes its blob into a
-differently-axed schedule must not declare axes on the blob.
+Declaring axes is a **checked promise**, enforced at build time whether or not a
+currency conversion is active in the run:
+
+- the consuming `@param_function` declares `unit=UNSET_UNIT` and is annotated as
+  returning a `PiecewisePolynomialParamValue` or a
+  `ConsecutiveIntLookupTableParamValue`;
+- exactly one axes-declaring blob feeds a converter.
+
+In return, the axes travel to the typed output: a consumer's `piecewise_polynomial(...)`
+/ `.look_up(...)` screens against them like a parameter-declared schedule, with no cast.
+They are taken to *describe* the output, so a converter that reshapes its blob into a
+differently-axed schedule must not declare axes on it.
 
 What the converter *returns* carries no unit declaration of its own — see
 {ref}`Structured values <gep-10-structured>`.
@@ -568,7 +578,18 @@ the mandatory-units check), and that declaration must **equal the derived unit e
 *full* match, not merely the physical kind: the dimension, the flow period, **and** the
 grouping level must all agree. Only the person leaf is implied; a group level must be
 spelled. So a `SUM` of a per-person `CURRENCY_PER_MONTH` to the `bg` level must be
-declared `CURRENCY_PER_MONTH_PER_BG`.
+declared `CURRENCY_PER_MONTH_PER_BG`. Where the derivation genuinely cannot express the
+intended reading — a `MEAN` the author wants to state as a group property `PER_KIN` —
+the aggregation opts out with `verify_units=False` ({ref}`below <gep-10-opt-out>`).
+
+Two related node kinds:
+
+- **`@agg_by_p_id_function`** aggregates to the *person* level, so the same table
+  applies with `target = [person]`. A person-level head count is then
+  `[person] / [person]` = `dimensionless`, indistinguishable from a share — the one
+  place the level algebra collapses at the person grain.
+- **`@group_creation_function`** produces group *ids* (fancy-indexing bodies), not
+  unit-carrying quantities, so it declares no unit and is exempt from the dry-run.
 
 (gep-10-literals)=
 
@@ -652,13 +673,14 @@ agnostic `CURRENCY` as base unit. A derived node — a time-conversion variant o
 aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart, as
 it computes on values already converted to the run currency.
 
-**The run currency.** The `currency` argument to `main()` defaults to the base currency
-of the family the policy parameters are denominated in — read off their `unit:`
-declarations, so the default follows the policy objects in play even when several
-packages' families are registered in one process. It is the currency the input data is
+**The run currency.** The `currency` argument to `main()` defaults to the single
+registered base currency (for GETTSIM, `EUR`). It is the currency the input data is
 taken to be in and that the outputs come out in, and it must belong to the parameters'
-family. At environment build, every currency-denominated *parameter* is converted from
-its declared denomination to the run currency.
+family. The default is deliberately *not* inferred from the policy objects: when base
+currencies of more than one family are registered in the process, there is no default
+and `currency=` must be passed explicitly. At environment build, every
+currency-denominated *parameter* is converted from its declared denomination to the run
+currency.
 
 **A changeover within one parameter's history.** Many parameters were written in
 Deutsche Mark before 2002 and in Euro afterward. Rather than repeating the currency on
@@ -943,6 +965,10 @@ at all:
 - **The fallback for a structured-value consumer** ({ref}`above <gep-10-structured>`)
   whose plucks the field annotations cannot cover and are too numerous to cast one by
   one; annotating the fields — or the narrow cast-at-the-pluck — is preferred.
+- **A group-property aggregation the derivation cannot express** — `verify_units=False`
+  on `@agg_by_group_function` lets the author state a level the derivation would not
+  derive (a `MEAN` declared `PER_KIN`, where the algebra derives a per-head average as
+  the person's); the declared unit then stands as the contract for consumers.
 
 ### Layer 2: the boundary check
 
@@ -1002,7 +1028,8 @@ load time) and enforces, per parameter `type:`, the `unit:` XOR
 and `type: require_converter`), and the concrete-currency rule for parameters. The
 schema shipped with TTSIM (listing METTSIM's `SILVER_PENNY`/`CASTAR` currencies and
 Middle-Earth levels) is the template; the copy at `docs/geps/params-schema.json` is
-migrated together with the YAML files in #1192.
+migrated together with the GETTSIM YAML files in the migration PR
+([gettsim#1192](https://github.com/ttsim-dev/gettsim/pull/1192)).
 
 ## Alternatives
 
@@ -1063,9 +1090,9 @@ if the gettsim migration shows the double declaration to be a real source of err
 
 ### Runtime pint Quantities flowing through the DAG
 
-Rejected. `Quantity` is not a JAX pytree and breaks tracing. Units in a tax-transfer
-model are static structural properties of nodes, not of data, so runtime wrapping buys
-nothing the build-time check does not already provide.
+Rejected: `Quantity` is not a JAX pytree and breaks tracing, and units are static
+properties of nodes, not of data — the build-time check already covers what runtime
+wrapping would.
 
 ### Make functions time-agnostic
 
