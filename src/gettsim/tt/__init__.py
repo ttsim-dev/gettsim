@@ -1,4 +1,5 @@
 from ttsim.tt import (
+    UNSET_UNIT,
     AggByGroupFunction,
     AggByPIDFunction,
     AggType,
@@ -20,6 +21,7 @@ from ttsim.tt import (
     RoundingSpec,
     ScalarParam,
     TimeConversionFunction,
+    Unit,
     agg_by_group_function,
     agg_by_p_id_function,
     convert_sparse_to_consecutive_int_lookup_table,
@@ -37,6 +39,7 @@ from ttsim.tt import (
 from ttsim.tt.interval_utils import intervals_to_thresholds, merge_piecewise_intervals
 
 __all__ = [
+    "UNSET_UNIT",
     "AggByGroupFunction",
     "AggByPIDFunction",
     "AggType",
@@ -58,6 +61,7 @@ __all__ = [
     "RoundingSpec",
     "ScalarParam",
     "TimeConversionFunction",
+    "Unit",
     "agg_by_group_function",
     "agg_by_p_id_function",
     "convert_sparse_to_consecutive_int_lookup_table",

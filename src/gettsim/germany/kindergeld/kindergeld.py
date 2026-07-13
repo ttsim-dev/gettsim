@@ -5,8 +5,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    Unit,
     agg_by_p_id_function,
     get_consecutive_int_lookup_table_param_value,
     join,
@@ -29,7 +31,9 @@ def anzahl_ansprüche(
     pass
 
 
-@policy_function(start_date="2023-01-01", leaf_name="betrag_m")
+@policy_function(
+    start_date="2023-01-01", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def betrag_ohne_staffelung_m(
     anzahl_ansprüche: int,
     satz: float,
@@ -43,7 +47,9 @@ def betrag_ohne_staffelung_m(
     return satz * anzahl_ansprüche
 
 
-@policy_function(end_date="2022-12-31", leaf_name="betrag_m")
+@policy_function(
+    end_date="2022-12-31", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def betrag_gestaffelt_m(
     anzahl_ansprüche: int,
     satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
@@ -61,6 +67,7 @@ def betrag_gestaffelt_m(
     end_date="1995-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
     fail_msg_if_included="Kindergeld eligibility is not implemented prior to 1996.",
+    unit=Unit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     pass
@@ -70,6 +77,7 @@ def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     start_date="1996-01-01",
     end_date="2011-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=Unit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
@@ -95,6 +103,7 @@ def leistungsbegründendes_kind_nach_lohn(
 @policy_function(
     start_date="2012-01-01",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=Unit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_stunden(
     alter: int,
@@ -116,7 +125,7 @@ def leistungsbegründendes_kind_nach_stunden(
     )
 
 
-@policy_function(end_date="2015-12-31")
+@policy_function(end_date="2015-12-31", unit=Unit.DIMENSIONLESS)
 def kind_bis_10_mit_kindergeld(
     alter: int,
     ist_leistungsbegründendes_kind: bool,
@@ -125,7 +134,7 @@ def kind_bis_10_mit_kindergeld(
     return ist_leistungsbegründendes_kind and (alter <= 10)  # noqa: PLR2004
 
 
-@policy_function(vectorization_strategy="not_required")
+@policy_function(vectorization_strategy="not_required", unit=Unit.DIMENSIONLESS)
 def gleiche_fg_wie_empfänger(
     p_id: IntColumn,
     p_id_empfänger: IntColumn,
@@ -144,7 +153,7 @@ def gleiche_fg_wie_empfänger(
     return fg_id_kindergeldempfänger == fg_id
 
 
-@param_function(end_date="2022-12-31")
+@param_function(end_date="2022-12-31", unit=UNSET_UNIT)
 def satz_nach_anzahl_kinder(
     satz_gestaffelt: dict[int, float],
     xnp: ModuleType,
