@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_input
+from gettsim.tt import Unit, policy_input
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_MONTH)
 def betriebliche_altersvorsorge_m() -> float:
     """Monthly payout from occupational pension schemes (Betriebsrente).
 
@@ -14,7 +14,7 @@ def betriebliche_altersvorsorge_m() -> float:
     """
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_MONTH)
 def aus_berufsständischen_versicherungen_m() -> float:
     """Monthly payout from a berufsständisches Versorgungswerk.
 
@@ -27,7 +27,7 @@ def aus_berufsständischen_versicherungen_m() -> float:
     """
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_MONTH)
 def geförderte_private_vorsorge_m() -> float:
     """Monthly payout from state-subsidised private pension plans.
 
@@ -41,7 +41,7 @@ def geförderte_private_vorsorge_m() -> float:
     """
 
 
-@policy_input(start_date="2005-01-01")
+@policy_input(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def basisrente_m() -> float:
     """Monthly payout from the Basisrente (colloquially Rürup-Rente).
 
@@ -56,7 +56,7 @@ def basisrente_m() -> float:
     """
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_MONTH)
 def sonstige_private_vorsorge_m() -> float:
     """Monthly payout from private pensions taxed via Ertragsanteil only.
 

@@ -1,9 +1,13 @@
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(end_date="2004-12-31", leaf_name="betrag_gesamt_m")
+@policy_function(
+    end_date="2004-12-31",
+    leaf_name="betrag_gesamt_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def betrag_gesamt_m_ohne_basisrente(
     gesetzliche_m: float,
     sonstige_private_vorsorge_m: float,
@@ -21,7 +25,11 @@ def betrag_gesamt_m_ohne_basisrente(
     )
 
 
-@policy_function(start_date="2005-01-01", leaf_name="betrag_gesamt_m")
+@policy_function(
+    start_date="2005-01-01",
+    leaf_name="betrag_gesamt_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def betrag_gesamt_m_mit_basisrente(
     gesetzliche_m: float,
     basisrente_m: float,
