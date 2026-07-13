@@ -14,8 +14,7 @@ raw_min_miete_m:
       Parameter is dependent on the number of household members. Keys in the parameter
       dicts refer to the number of household members. If there are more than 12 members,
       the value for 12 members is used.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
     1: 0
@@ -110,8 +109,7 @@ raw_max_miete_m_nach_baujahr:
       - maximales Baujahr des Hauses
       - Mietstufe
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: require_converter
   1981-01-01:
     1:
@@ -1014,8 +1012,8 @@ raw_max_miete_m:
       - Anzahl Personen
       - Mietstufe
     en: null
-  unit: Euros
-  reference_period: Month
+  input_unit: DIMENSIONLESS
+  output_unit: EUR_PER_MONTH
   type: require_converter
   2009-01-01:
     1:
@@ -1266,8 +1264,8 @@ raw_heizkostenentlastung_m:
     en: >-
       Amount of relief in heating costs due to CO2 pricing in Euro depending on
       household size
-  unit: Euros
-  reference_period: Month
+  input_unit: DIMENSIONLESS
+  output_unit: EUR_PER_MONTH
   type: require_converter
   2021-01-01:
     reference: §12 (6) WoGG, Art. 1 G. v. 15.05.2020, BGBl I S. 1015.
@@ -1288,8 +1286,8 @@ raw_dauerhafte_heizkostenkomponente_m:
     en: >-
       Permanent heating cost component depending on household size introduced with the
       housing subsidy reform 2023
-  unit: Euros
-  reference_period: Month
+  input_unit: DIMENSIONLESS
+  output_unit: EUR_PER_MONTH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
@@ -1312,8 +1310,8 @@ raw_klimakomponente_m:
       Surcharge to be taken into account as climate component in addition to the maximum
       amounts pursuant to § 12 (1) in Euro depending on the size of the household;
       introduced with the housing subsidy reform 2023
-  unit: Euros
-  reference_period: Month
+  input_unit: DIMENSIONLESS
+  output_unit: EUR_PER_MONTH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160

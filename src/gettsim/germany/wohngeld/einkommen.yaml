@@ -15,8 +15,7 @@ min_einkommen:
       Parameter Y is dependent on the number of household members (in the Wohngeld
       sense). Keys in the parameter dicts refer to the number of household members. If
       there are more than 12 members, the value for 12 members is used.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
     1: 0
@@ -125,8 +124,8 @@ abzugsbeträge_steuern_sozialversicherung:
       Kriterien sind entrichtete Steuern / entrichtete GKV- und GPV-Beiträge /
       entrichtete GRV-Beiträge
     en: null
-  unit: Share
-  reference_period: null
+  input_unit: DIMENSIONLESS
+  output_unit: DIMENSIONLESS
   type: consecutive_int_lookup_table
   1984-01-01:
     0: 0.06
@@ -151,8 +150,7 @@ freibetrag_kinder_m:
   description:
     de: § 17 (4/5) WoGG
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
     alleinerziehend: 51
@@ -181,8 +179,8 @@ freibetrag_bei_behinderung_gestaffelt_y:
       Achtung: Die Zahlen vor 1991 erscheinen falsch. Senkung in 1986 unwahrscheinlich,
       im Zweifel wurde dort eher die Stufe mit Behinderungsgrad 1-80% eingeführt.
     en: null
-  unit: Euros
-  reference_period: Year
+  input_unit: DIMENSIONLESS
+  output_unit: EUR_PER_YEAR
   type: piecewise_constant
   1984-01-01:
     intervals:
@@ -224,8 +222,7 @@ freibetrag_bei_behinderung_pauschal_y:
       gem. §14 SGB XI. und gleichzeitig Häusliche/teilstationäre/Kurzzeit-Pflege
       vorliegen. Dies ist aktuell nicht implementiert.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2016-01-01:
     reference: 2 Art. 1 G. v. 08.10.2015 BGBl Nr.38 S.1612
@@ -252,8 +249,8 @@ anrechnungsfreier_anteil_gesetzliche_rente:
       SGB VI with at least 33 years of Grundrentenzeiten: € 100 base plus 30 % of
       pension income above € 100, capped at 50 % of Regelbedarfsstufe 1 (Anlage zu
       § 28 SGB XII).
-  unit: Share
-  reference_period: null
+  input_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2021-01-01:
     intervals:

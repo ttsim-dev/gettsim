@@ -6,7 +6,9 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
+    Unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -28,6 +30,7 @@ class LookupTableBaujahr:
     start_date="1984-01-01",
     end_date="2008-12-31",
     leaf_name="max_miete_m_lookup",
+    unit=UNSET_UNIT,
 )
 def max_miete_m_lookup_mit_baujahr(
     raw_max_miete_m_nach_baujahr: dict[int | str, dict[int, dict[int, float]]],
@@ -60,7 +63,9 @@ def max_miete_m_lookup_mit_baujahr(
     )
 
 
-@param_function(start_date="2009-01-01", leaf_name="max_miete_m_lookup")
+@param_function(
+    start_date="2009-01-01", leaf_name="max_miete_m_lookup", unit=UNSET_UNIT
+)
 def max_miete_m_lookup_ohne_baujahr(
     raw_max_miete_m: dict[int | str, dict[int, float]],
     max_anzahl_personen: dict[str, int],
@@ -81,7 +86,7 @@ def max_miete_m_lookup_ohne_baujahr(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="1984-01-01")
+@param_function(start_date="1984-01-01", unit=UNSET_UNIT)
 def min_miete_lookup(
     raw_min_miete_m: dict[int, float],
     max_anzahl_personen: dict[str, int],
@@ -103,7 +108,7 @@ def min_miete_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
 
 
-@param_function(start_date="2021-01-01")
+@param_function(start_date="2021-01-01", unit=UNSET_UNIT)
 def heizkostenentlastung_m_lookup(
     raw_heizkostenentlastung_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
@@ -122,7 +127,7 @@ def heizkostenentlastung_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01")
+@param_function(start_date="2023-01-01", unit=UNSET_UNIT)
 def dauerhafte_heizkostenkomponente_m_lookup(
     raw_dauerhafte_heizkostenkomponente_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
@@ -141,7 +146,7 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01")
+@param_function(start_date="2023-01-01", unit=UNSET_UNIT)
 def klimakomponente_m_lookup(
     raw_klimakomponente_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
@@ -160,7 +165,7 @@ def klimakomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def miete_m_wthh(
     miete_m_hh: float,
     anzahl_personen_wthh: int,
@@ -172,7 +177,7 @@ def miete_m_wthh(
     return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def min_miete_m_hh(
     anzahl_personen_hh: int,
     min_miete_lookup: ConsecutiveIntLookupTableParamValue,
@@ -185,6 +190,7 @@ def min_miete_m_hh(
     start_date="1984-01-01",
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def miete_m_hh_mit_baujahr(
     mietstufe_hh: int,
@@ -211,6 +217,7 @@ def miete_m_hh_mit_baujahr(
     start_date="2009-01-01",
     end_date="2020-12-31",
     leaf_name="miete_m_hh",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     mietstufe_hh: int,
@@ -229,6 +236,7 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     start_date="2021-01-01",
     end_date="2022-12-31",
     leaf_name="miete_m_hh",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def miete_m_hh_mit_heizkostenentlastung(
     mietstufe_hh: int,
@@ -252,6 +260,7 @@ def miete_m_hh_mit_heizkostenentlastung(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="miete_m_hh",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakomponente(
     mietstufe_hh: int,

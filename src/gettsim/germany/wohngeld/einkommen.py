@@ -7,9 +7,11 @@ from typing import TYPE_CHECKING
 from ttsim.unit_converters import per_y_to_per_m
 
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
     PiecewisePolynomialParamValue,
+    Unit,
     agg_by_p_id_function,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -23,7 +25,9 @@ if TYPE_CHECKING:
     from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, end_date="2015-12-31")
+@agg_by_p_id_function(
+    agg_type=AggType.SUM, end_date="2015-12-31", unit=Unit.PERSON_COUNT
+)
 def alleinerziehendenbonus(
     kindergeld__kind_bis_10_mit_kindergeld: bool,
     kindergeld__p_id_empfänger: int,
@@ -32,7 +36,7 @@ def alleinerziehendenbonus(
     pass
 
 
-@param_function()
+@param_function(unit=UNSET_UNIT)
 def min_einkommen_lookup_table(
     min_einkommen: dict[int, float],
     xnp: ModuleType,
@@ -41,7 +45,7 @@ def min_einkommen_lookup_table(
     return get_consecutive_int_lookup_table_param_value(raw=min_einkommen, xnp=xnp)
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def einkommen_m_wthh(
     anzahl_personen_wthh: int,
     freibetrag_m_wthh: float,
@@ -64,7 +68,7 @@ def einkommen_m_wthh(
     return xnp.maximum(einkommen_ohne_freibetrag, mindesteinkommen)
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     einkommensteuer__betrag_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y: float,
@@ -88,7 +92,11 @@ def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     return abzugsbeträge_steuern_sozialversicherung.look_up(stufe)
 
 
-@policy_function(end_date="2006-12-31", leaf_name="einkommen_vor_freibetrag_m")
+@policy_function(
+    end_date="2006-12-31",
+    leaf_name="einkommen_vor_freibetrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
@@ -126,7 +134,11 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
-@policy_function(start_date="2007-01-01", leaf_name="einkommen_vor_freibetrag_m")
+@policy_function(
+    start_date="2007-01-01",
+    leaf_name="einkommen_vor_freibetrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
@@ -170,7 +182,9 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
-@policy_function(end_date="2015-12-31", leaf_name="freibetrag_m")
+@policy_function(
+    end_date="2015-12-31", leaf_name="freibetrag_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def freibetrag_m_bis_2015(
     einnahmen__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
@@ -210,6 +224,7 @@ def freibetrag_m_bis_2015(
     start_date="2016-01-01",
     end_date="2020-12-31",
     leaf_name="freibetrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def freibetrag_m_ab_2016_bis_2020(
     einnahmen__bruttolohn_m: float,
@@ -237,7 +252,9 @@ def freibetrag_m_ab_2016_bis_2020(
     return freibetrag_bei_behinderung + freibetrag_kinder
 
 
-@policy_function(start_date="2021-01-01", leaf_name="freibetrag_m")
+@policy_function(
+    start_date="2021-01-01", leaf_name="freibetrag_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def freibetrag_m_ab_2021(
     einnahmen__bruttolohn_m: float,
     einnahmen__renten__gesetzliche_m: float,
@@ -295,7 +312,7 @@ def freibetrag_m_ab_2021(
     return freibetrag_bei_behinderung + freibetrag_kinder + freibetrag_grundrente
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_mit_erwerbseinkommen(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

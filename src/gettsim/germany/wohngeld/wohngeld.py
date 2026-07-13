@@ -10,8 +10,10 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     RoundingSpec,
+    Unit,
     agg_by_group_function,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -29,7 +31,7 @@ def anzahl_personen_wthh(wthh_id: int) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def betrag_m_wthh(
     anspruchshöhe_m_wthh: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -41,7 +43,7 @@ def betrag_m_wthh(
         return 0.0
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def anspruchshöhe_m_wthh(
     basisbetrag_m_wthh: float,
     grundsätzlich_anspruchsberechtigt_wthh: bool,
@@ -57,10 +59,12 @@ def anspruchshöhe_m_wthh(
     leaf_name="basisbetrag_m_wthh",
     end_date="2000-12-31",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_m_wthh_bis_2000(
     anzahl_personen_wthh: int,
@@ -88,10 +92,12 @@ def basisbetrag_m_wthh_bis_2000(
     leaf_name="basisbetrag_m_wthh",
     start_date="2001-01-01",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_m_wthh_ab_2001(
     anzahl_personen_wthh: int,
@@ -128,7 +134,7 @@ class BasisformelParamValues:
     c: ConsecutiveIntLookupTableParamValue
 
 
-@param_function(end_date="2000-12-31", leaf_name="basisformel_params")
+@param_function(end_date="2000-12-31", leaf_name="basisformel_params", unit=UNSET_UNIT)
 def basisformel_params_bis_2000(
     skalierungsfaktor: float,
     koeffizienten_berechnungsformel: dict[int, dict[str, float]],
@@ -168,7 +174,9 @@ class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParam
     zusatzbetrag_nach_haushaltsgröße: ConsecutiveIntLookupTableParamValue
 
 
-@param_function(start_date="2001-01-01", leaf_name="basisformel_params")
+@param_function(
+    start_date="2001-01-01", leaf_name="basisformel_params", unit=UNSET_UNIT
+)
 def basisformel_params_ab_2001(
     skalierungsfaktor: float,
     koeffizienten_berechnungsformel: dict[int, dict[str, float]],
