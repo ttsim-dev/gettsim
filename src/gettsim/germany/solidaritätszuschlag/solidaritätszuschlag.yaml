@@ -8,8 +8,8 @@ parameter_solidaritätszuschlag:
       Ab 1995, der upper threshold im Intervall 1 ist nach der Formel
       transition_threshold in soli_st.py berechnet.
     en: null
-  unit: Euros
-  reference_period: Year
+  input_unit: EUR_PER_YEAR
+  output_unit: EUR_PER_YEAR
   type: piecewise_linear
   1991-01-01:
     reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
