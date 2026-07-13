@@ -10,7 +10,10 @@ raw_mindestunterhalt:
     en: >-
       Minimum Child Alimony depending on age of child (0 - 5 years, 6 - 11 years, 12 -
       17 years).
-  unit: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
+  unit:
+    kleinkind: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
+    schulkind: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
+    jugendliche: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
   type: require_converter
   2016-01-01:
     kleinkind:
