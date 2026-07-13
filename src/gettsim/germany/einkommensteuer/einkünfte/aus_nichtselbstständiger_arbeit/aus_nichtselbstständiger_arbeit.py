@@ -51,7 +51,7 @@ def werbungskosten_y(
     tatsächliche_werbungskosten_y: float,
     arbeitnehmerpauschbetrag: float,
     einnahmen__bruttolohn_y: float,
-    anteil_steuerfälliger_einnahmen_y: float,
+    anteil_steuerfälliger_einnahmen: float,
 ) -> float:
     """Werbungskosten nach Berücksichtung des Arbeitnehmer-Pauschbetrags.
 
@@ -61,7 +61,7 @@ def werbungskosten_y(
     """
     if einnahmen__bruttolohn_y > 0.0:
         anrechenbare_werbungskosten = (
-            tatsächliche_werbungskosten_y * anteil_steuerfälliger_einnahmen_y
+            tatsächliche_werbungskosten_y * anteil_steuerfälliger_einnahmen
         )
     else:
         anrechenbare_werbungskosten = 0.0
@@ -70,7 +70,7 @@ def werbungskosten_y(
 
 
 @policy_function(unit=Unit.DIMENSIONLESS)
-def anteil_steuerfälliger_einnahmen_y(
+def anteil_steuerfälliger_einnahmen(
     einnahmen__bruttolohn_y: float,
     steuerbefreite_einnahmen_y: float,
 ) -> float:
