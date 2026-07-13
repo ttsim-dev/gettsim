@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
-from gettsim.tt import param_function
+from gettsim.tt import UNSET_UNIT, param_function
 
 if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
@@ -20,7 +20,7 @@ class Regelbedarfsstufen:
     rbs_6: SatzMitAltersgrenzen
 
 
-@param_function(start_date="2011-01-01")
+@param_function(start_date="2011-01-01", unit=UNSET_UNIT)
 def regelbedarfsstufen(
     parameter_regelbedarfsstufen: RawParamValue,
 ) -> Regelbedarfsstufen:

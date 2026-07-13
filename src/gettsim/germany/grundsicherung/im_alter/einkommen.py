@@ -8,6 +8,7 @@ from ttsim.unit_converters import per_y_to_per_m
 
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
+    Unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -21,6 +22,7 @@ if TYPE_CHECKING:
 @policy_function(
     end_date="2006-12-31",
     leaf_name="einkommen_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def einkommen_m_bis_2006(
     erwerbseinkommen_m: float,
@@ -74,6 +76,7 @@ def einkommen_m_bis_2006(
     start_date="2007-01-01",
     end_date="2017-12-31",
     leaf_name="einkommen_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def einkommen_m_ab_2007_bis_2017(
     erwerbseinkommen_m: float,
@@ -124,7 +127,9 @@ def einkommen_m_ab_2007_bis_2017(
     return max(out, 0.0)
 
 
-@policy_function(start_date="2018-01-01", leaf_name="einkommen_m")
+@policy_function(
+    start_date="2018-01-01", leaf_name="einkommen_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def einkommen_m_ab_2018(
     erwerbseinkommen_m: float,
     einkommen_aus_zusätzlicher_altersvorsorge_m: float,
@@ -168,7 +173,7 @@ def einkommen_m_ab_2018(
     return max(out, 0.0)
 
 
-@policy_function(start_date="2011-01-01")
+@policy_function(start_date="2011-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def erwerbseinkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -192,7 +197,11 @@ def erwerbseinkommen_m(
     return max(earnings, earnings_after_max_deduction)
 
 
-@policy_function(end_date="2015-12-31", leaf_name="kapitaleinkommen_brutto_m")
+@policy_function(
+    end_date="2015-12-31",
+    leaf_name="kapitaleinkommen_brutto_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def kapitaleinkommen_brutto_m_ohne_freibetrag(
     einnahmen__kapitalerträge_m: float,
 ) -> float:
@@ -200,7 +209,11 @@ def kapitaleinkommen_brutto_m_ohne_freibetrag(
     return max(0.0, einnahmen__kapitalerträge_m)
 
 
-@policy_function(start_date="2016-01-01", leaf_name="kapitaleinkommen_brutto_m")
+@policy_function(
+    start_date="2016-01-01",
+    leaf_name="kapitaleinkommen_brutto_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def kapitaleinkommen_brutto_m_mit_freibetrag(
     einnahmen__kapitalerträge_y: float,
     freibetrag_kapitaleinkünfte: float,
@@ -214,7 +227,7 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
     return max(0.0, per_y_to_per_m(capital_income_y))
 
 
-@policy_function(start_date="2018-01-01")
+@policy_function(start_date="2018-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def einkommen_aus_zusätzlicher_altersvorsorge_m(
     einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
@@ -257,7 +270,11 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
     )
 
 
-@policy_function(end_date="2020-12-31", leaf_name="gesetzliche_rente_m")
+@policy_function(
+    end_date="2020-12-31",
+    leaf_name="gesetzliche_rente_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def gesetzliche_rente_m_bis_2020(
     einnahmen__renten__gesetzliche_m: float,
 ) -> float:
@@ -265,7 +282,11 @@ def gesetzliche_rente_m_bis_2020(
     return einnahmen__renten__gesetzliche_m
 
 
-@policy_function(start_date="2021-01-01", leaf_name="gesetzliche_rente_m")
+@policy_function(
+    start_date="2021-01-01",
+    leaf_name="gesetzliche_rente_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def gesetzliche_rente_m_ab_2021(
     einnahmen__renten__gesetzliche_m: float,
     sozialversicherung__rente__grundrente__grundsätzlich_anspruchsberechtigt: bool,

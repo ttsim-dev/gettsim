@@ -17,13 +17,14 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import AggType, agg_by_p_id_function, policy_function
+from gettsim.tt import AggType, Unit, agg_by_p_id_function, policy_function
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2019-12-31",
     leaf_name="betrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_m_mit_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
@@ -46,7 +47,9 @@ def betrag_m_mit_kindeseinkommensgrenze(
         return anspruchshöhe_m
 
 
-@policy_function(start_date="2020-01-01", leaf_name="betrag_m")
+@policy_function(
+    start_date="2020-01-01", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def betrag_m_ohne_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -80,7 +83,9 @@ def betrag_m_ohne_kindeseinkommensgrenze(
         return anspruchshöhe_m
 
 
-@policy_function(end_date="2022-12-31", leaf_name="anspruchshöhe_m")
+@policy_function(
+    end_date="2022-12-31", leaf_name="anspruchshöhe_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def anspruchshöhe_m_bis_2022(
     individueller_restbedarf_m: float,
     individueller_restbedarf_m_eg: float,
@@ -117,7 +122,9 @@ def anspruchshöhe_m_bis_2022(
         ) * anspruch_m_eg
 
 
-@policy_function(start_date="2023-01-01", leaf_name="anspruchshöhe_m")
+@policy_function(
+    start_date="2023-01-01", leaf_name="anspruchshöhe_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def anspruchshöhe_m_ab_2023(
     individueller_restbedarf_m: float,
     individueller_restbedarf_m_eg: float,
@@ -154,7 +161,7 @@ def anspruchshöhe_m_ab_2023(
         ) * anspruch_m_eg
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def individueller_restbedarf_m(
     bedarf_m: float,
     einkommen_zur_verteilung_m: float,
@@ -167,7 +174,9 @@ def individueller_restbedarf_m(
     return max(0.0, bedarf_m - einkommen_zur_verteilung_m)
 
 
-@policy_function(end_date="2022-12-31", leaf_name="bedarf_m")
+@policy_function(
+    end_date="2022-12-31", leaf_name="bedarf_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def bedarf_m_bis_2022(
     arbeitslosengeld_2__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
@@ -186,7 +195,9 @@ def bedarf_m_bis_2022(
         return arbeitslosengeld_2__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
 
 
-@policy_function(start_date="2023-01-01", leaf_name="bedarf_m")
+@policy_function(
+    start_date="2023-01-01", leaf_name="bedarf_m", unit=Unit.CURRENCY.PER_MONTH
+)
 def bedarf_m_ab_2023(
     bürgergeld__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
@@ -205,7 +216,7 @@ def bedarf_m_ab_2023(
         return bürgergeld__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def einkommen_zur_verteilung_m(
     einkommen_m: float,
     sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
@@ -220,7 +231,7 @@ def einkommen_zur_verteilung_m(
         return einkommen_m
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_EG)
 def überschusseinkommen_m_eg(
     einkommen_zur_verteilung_m_eg: float,
     bedarf_m_eg: float,
@@ -235,7 +246,11 @@ def überschusseinkommen_m_eg(
     return max(0.0, einkommen_zur_verteilung_m_eg - bedarf_m_eg)
 
 
-@policy_function(end_date="2010-12-31", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+@policy_function(
+    end_date="2010-12-31",
+    leaf_name="mehrbedarf_schwerbehinderung_g_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
@@ -260,7 +275,11 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     return out
 
 
-@policy_function(start_date="2011-01-01", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+@policy_function(
+    start_date="2011-01-01",
+    leaf_name="mehrbedarf_schwerbehinderung_g_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
@@ -289,7 +308,7 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     return out
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS.PER_EG)
 def vermögensgrenze_unterschritten_eg(
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
@@ -298,7 +317,7 @@ def vermögensgrenze_unterschritten_eg(
     return vermögen_eg < vermögensfreibetrag_eg
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_EG)
 def vermögensfreibetrag_eg(
     familie__anzahl_kinder_eg: int,
     familie__anzahl_erwachsene_eg: int,
@@ -311,7 +330,7 @@ def vermögensfreibetrag_eg(
     )
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     einkommensteuer__gesamteinkommen_y: float,
     einkommensgrenze_kinder: float,
@@ -341,7 +360,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze(
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,
