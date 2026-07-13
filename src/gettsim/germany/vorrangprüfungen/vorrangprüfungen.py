@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
 @policy_function(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     end_date="2022-12-31",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
+    unit=Unit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
@@ -37,6 +38,7 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     start_date="2023-01-01",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
+    unit=Unit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     bürgergeld__regelbedarf_m_bg: float,
