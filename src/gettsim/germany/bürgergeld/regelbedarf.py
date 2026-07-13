@@ -34,7 +34,7 @@ def regelbedarf_m(
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.DIMENSIONLESS)
-def mehrbedarf_alleinerziehend_m(
+def mehrbedarf_alleinerziehend(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
     familie__anzahl_kinder_bis_6_fg: int,
@@ -116,7 +116,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
-    mehrbedarf_alleinerziehend_m: float,
+    mehrbedarf_alleinerziehend: float,
     kindersatz_m: float,
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
@@ -131,7 +131,7 @@ def erwachsenensatz_m_ab_2011(
     else:
         out = 0.0
 
-    return out * (1 + mehrbedarf_alleinerziehend_m)
+    return out * (1 + mehrbedarf_alleinerziehend)
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
