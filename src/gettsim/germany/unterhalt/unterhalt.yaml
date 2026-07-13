@@ -17,8 +17,7 @@ abzugsrate_kindergeld:
       the child receives the child benefit for a minor child, the other parent liable
       for child alimony payments can deduct half of the child benefit when calculating
       alimony.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: dict
   2008-01-01:
     minderjährig: 0.5
