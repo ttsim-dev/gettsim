@@ -25,9 +25,11 @@ and (optionally) input data. The framework reads those units to do two things:
   so mixing incompatible kinds — a monthly amount and a per-square-meter rent, or a
   headcount per Bedarfsgemeinschaft with a monthly amount per household — becomes a loud
   error when the policy environment is built, not a silent wrong number far downstream.
-- **Automatic unit conversion.** It converts compatible quantities to a common unit, for
-  example Euros to Deutsche Mark. The existing `_y`/`_q`/`_m`/`_w`/`_d` and
-  aggregation-level (`_hh`, `_bg`, …) suffix conventions are preserved.
+- **Automatic unit conversion.** It converts user data at the column boundary between
+  the currency the data is in and the statutory currency the computation runs in — for
+  example Euros to Deutsche Mark for pre-2002 policy dates. The existing
+  `_y`/`_q`/`_m`/`_w`/`_d` and aggregation-level (`_hh`, `_bg`, …) suffix conventions
+  are preserved.
 
 The engine is [pint](https://pint.readthedocs.io), and it runs **only while the policy
 environment is built**: it checks dimensions and converts units, and plays no part at
@@ -87,20 +89,20 @@ base        := CURRENCY                       # agnostic, .py / functions only
              | SQUARE_METER | HECTARE          # areas
              | YEARS | MONTHS | DAYS           # durations (stocks)
              | CALENDAR_YEAR | CALENDAR_MONTH | CALENDAR_DAY   # affine points
-denominator := SQUARE_METER                          # area   (physical)
+denominator := SQUARE_METER | HOURS                   # physical (area, working hours)
              | MONTH | YEAR | QUARTER | WEEK | DAY    # period (⇒ flow)
              | HH | BG | FG | SN | …                  # grouping level
-canonical order := base _PER_ <area> _PER_ <period> _PER_ <level>
+canonical order := base _PER_ <physical> _PER_ <period> _PER_ <level>
 ```
 
 Rules:
 
-- **Each denominator is classified** — by a closed vocabulary for area and period, and
-  as a grouping level otherwise — into one of {area, period, level}. Having a *period*
-  denominator is exactly what makes a unit a **flow**; a quantity with no period is a
-  *stock*.
+- **Each denominator is classified** — by a closed vocabulary for the physical
+  denominators (areas, working hours) and the periods, and as a grouping level otherwise
+  — into one of {physical, period, level}. Having a *period* denominator is exactly what
+  makes a unit a **flow**; a quantity with no period is a *stock*.
 - **Canonical order, one per kind.** Denominators appear in the order
-  `area · period · level`, at most one of each; a non-canonical spelling
+  `physical · period · level`, at most one of each; a non-canonical spelling
   (`..._PER_BG_PER_MONTH`) or a repeat is rejected, so there is **exactly one spelling
   per unit**. The map is one-way: a *spelling* has one meaning, but a resolved *unit*
   may have more than one spelling — `DIMENSIONLESS` resolves to `1 / [person]` on a
@@ -111,10 +113,11 @@ Rules:
   `CURRENCY_PER_MONTH`. Only *group* levels are spelled (`CURRENCY_PER_MONTH_PER_HH`).
 - **Whether a bare spelling carries the implied leaf is fixed by the vocabulary, not the
   speller.** The person leaf attaches iff the quantity is one a person can *own* — an
-  extensive base (a currency, `PERSON_COUNT`, an area, `HOURS`) with no area denominator
-  (an area denominator makes it a price or density that nobody owns). The intensive
-  bases (`DIMENSIONLESS`, durations, calendar points) stay bare, since ages and shares
-  do not total across persons — booleans excepted, which carry their level
+  extensive base (a currency, `PERSON_COUNT`, an area, `HOURS`) with no physical
+  denominator (a physical denominator makes it a price or density that nobody owns — a
+  rent cap per square meter, a wage floor per working hour). The intensive bases
+  (`DIMENSIONLESS`, durations, calendar points) stay bare, since ages and shares do not
+  total across persons — booleans excepted, which carry their level
   ({ref}`below <gep-10-booleans>`). The *resolves to* column of the table below is
   authoritative.
 
@@ -130,6 +133,7 @@ A few worked spellings:
 | `DIMENSIONLESS_PER_YEAR`              | `1 / year`                       | Zugangsfaktor per year     |
 | `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`                | a declared head count      |
 | `HOURS_PER_WEEK`                      | `working_hour / week / [person]` | working hours              |
+| `CURRENCY_PER_HOURS`                  | `CURRENCY / working_hour`        | the Mindestlohn            |
 | `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter ** 2 / month`  | a rent cap                 |
 | `YEARS` / `CALENDAR_YEAR`             | a duration / an affine point     | an age / a birth year      |
 
@@ -442,20 +446,15 @@ with a flow `output_unit`.
 **`require_converter` parameters.** A raw blob handed to a `@param_function` declares
 one of three shapes, following what its converter makes of it:
 
-- a **single token**, if the whole structure is homogeneously one unit — every numeric
-  leaf is scaled uniformly;
+- a **single token**, if the whole structure is homogeneously one unit;
 - a **per-leaf mapping**, exactly as for a heterogeneous dict, if the structure mixes
-  units — each numeric leaf is scaled by its own token, so a table interleaving amounts
-  with age bounds keeps the shape of its legal source;
+  units — a table interleaving amounts with age bounds keeps the shape of its legal
+  source, each leaf's token held against the statutory currency by the guard;
 - `input_unit:` / `output_unit:` **axes**, if the converter produces a function-like
-  value (a schedule, a lookup table). The blob is left raw and the conversion happens on
-  the converter's *typed output*, per axis — the only correct rescaling of polynomial
-  coefficients, where the order-*j* term scales by *f_out / f_in^j*, not by one uniform
-  factor. A leaf-scaled declaration with a currency token whose converter nonetheless
-  produces a schedule is rejected, pointing at the axes form.
+  value (a schedule, a lookup table). The declared axes describe the converter's *typed
+  output*, and its call sites are screened against them.
 
-Declaring axes is a **checked promise**, enforced at build time whether or not a
-currency conversion is active in the run:
+Declaring axes is a **checked promise**, enforced at build time:
 
 - the consuming `@param_function` declares `unit=UNSET_UNIT` and is annotated as
   returning a `PiecewisePolynomialParamValue` or a
@@ -483,8 +482,8 @@ check accepts it.
 
 **Units live on the dataclass fields.** A parameter dataclass states each scalar field's
 unit in its `Annotated` type — currency-agnostic, exactly like any code-side
-declaration; the concrete denomination stays in the parameter YAML, which keeps driving
-the numeric conversion:
+declaration; the concrete denomination stays in the parameter YAML, where the statutory
+guard holds it against the policy date:
 
 ```python
 @dataclass(frozen=True)
@@ -536,11 +535,10 @@ declares axes: it screens at the call site like a parameter-declared schedule (t
 form above). Only an axis-less converter-built schedule stays opaque, and the author
 casts the call's result.
 
-The annotations and casts do not need to travel for the *numbers* to be right: the
-`require_converter`'s declaration restated the raw leaves in the run currency before the
-converter ran, so every number inside the structure is a plain run-currency magnitude.
-Annotations and casts carry the checking chain across the structured hop; the boundary
-conversion carries the numerics.
+The annotations and casts do not need to travel for the *numbers* to be right:
+parameters are never converted ({ref}`Currency <gep-10-currency>`), so every number
+inside the structure is exactly the statutory magnitude the YAML states. Annotations and
+casts carry the checking chain across the structured hop.
 
 (gep-10-auto)=
 
@@ -653,13 +651,9 @@ registered by downstream packages via
 **conversion factors**, with pint as the single source of truth for the rate; and it
 makes the upper-cased currency name a valid compositional **base** (`DM`,
 `DM_PER_MONTH`, `DM_PER_SQUARE_METER_PER_MONTH`, `EUR_*`, …), so parameters can pin down
-the concrete currency their numbers are written in.
-
-A registered currency belongs to a **family**: the base currency its definition chains
-to. Families from different packages coexist in one process (two test suites in one
-pytest run), and conversion is only possible *within* a family — no exchange rate
-connects GETTSIM's `EUR`/`DM` to another package's currencies, and a cross-family
-conversion is a loud error rather than a silent factor-1 pass-through.
+the concrete currency their numbers are written in. Exactly one registered currency is
+the **base**; every other one is defined relative to an already-registered currency, so
+all registered currencies are interconvertible.
 
 **Agnostic and concrete bases.** The **currency-agnostic** base `CURRENCY` is a
 placeholder for any registered currency: it declares the unit of a function or column
@@ -670,17 +664,54 @@ base (`DM`, `EUR`) names one specific currency.
 written in a concrete currency — the declaration must name the denomination
 (`EUR_PER_YEAR`, not `CURRENCY_PER_YEAR`). Columns and functions may *only* declare the
 agnostic `CURRENCY` as base unit. A derived node — a time-conversion variant or an
-aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart, as
-it computes on values already converted to the run currency.
+aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart:
+functions compute on whatever currency the computation runs in.
 
-**The run currency.** The `currency` argument to `main()` defaults to the single
-registered base currency (for GETTSIM, `EUR`). It is the currency the input data is
-taken to be in and that the outputs come out in, and it must belong to the parameters'
-family. The default is deliberately *not* inferred from the policy objects: when base
-currencies of more than one family are registered in the process, there is no default
-and `currency=` must be passed explicitly. At environment build, every
-currency-denominated *parameter* is converted from its declared denomination to the run
-currency.
+**The computation currency is the statutory currency.** Alongside its currencies, a
+package registers a dated **statutory-currency mapping** — for GETTSIM,
+`register_statutory_currencies({"1948-06-21": "DM", "2002-01-01": "EUR"})` — declaring
+which currency the statutes denominate their numbers in from each date on. The
+computation for a policy date runs in the statutory currency at that date: a 1999
+environment computes in Deutsche Mark, a 2002 one in Euro. The mapping is mandatory, and
+the computation currency is not a user knob.
+
+**Parameters are never converted.** Every parameter keeps exactly the value the statute
+states, in the statute's currency. A build-time guard enforces the fit: every concrete
+currency a parameter (or a rounding spec) declares must equal the statutory currency at
+the policy date. A Deutsche-Mark value surviving past 2001 therefore fails the build —
+which is precisely the check that forces the explicit, legally rounded restatements of
+the Euro-Einführungsgesetz into the YAML, instead of a mechanical division by `1.95583`.
+
+**Why parameters are never converted.** Scaling parameters into a run currency at build
+time looks harmless, but it is numerically wrong for any formula that is not homogeneous
+of degree one in its money inputs. The Wohngeld Basisformel is the concrete case: the
+benefit is `1.15 * (M - (a + b*M + c*Y) * Y)`, with rent `M` and income `Y` in currency
+per month and plain statutory coefficients `a`, `b`, `c`. The formula is quadratic in
+`(M, Y)`: rescaling `M` and `Y` by a factor `λ` (a currency change) rescales the result
+by `λ` only if `b` and `c` rescale by `1/λ`. Dimensionless coefficients never rescale,
+so a run in any currency other than the one the coefficients were legislated for would
+silently compute garbage. Making the scaling correct would force per-coefficient units
+(`b` and `c` in "months per Euro") — faithful to the algebra, but not to the law, which
+states plain numbers whose currency convention is implicit in the statute. Never
+converting parameters resolves this by construction: a formula only ever sees magnitudes
+in its fitted currency, statutory coefficients stay the plain `DIMENSIONLESS` numbers
+the law writes, and the result is exact for arbitrary formula shapes — first calculate
+in the parameter currency, then convert the result.
+
+**The data currency and the column boundary.** The `data_currency` argument to `main()`
+names the currency the user's data arrives in and results are returned in. It defaults
+to the registered base currency (for GETTSIM, `EUR`) and affects only the column
+boundary. On the way in, every input column whose *declared* unit carries a currency
+component is converted from the data currency to the computation currency; a tagged
+column of the {ref}`unit-annotated input tree <gep-10-trees>` may override the data
+currency per column, its tag naming the concrete currency it is actually in. On the way
+out, every computed column whose resolved unit carries the agnostic `CURRENCY` is
+converted back to the data currency. Requested *parameters* — and the policy environment
+itself — are exempt on the way out: they are statutory values, returned and labelled in
+their statutory currency; echoed input columns are returned as provided. So a
+present-day user simulating 1999 policy hands in Euro columns, the system converts them
+to Deutsche Mark at the boundary, computes § 32a and friends on statutory DM magnitudes,
+and converts the resulting columns back to Euro.
 
 **A changeover within one parameter's history.** Many parameters were written in
 Deutsche Mark before 2002 and in Euro afterward. Rather than repeating the currency on
@@ -740,18 +771,20 @@ with the agnostic base swapped for the concrete currency:
 def zu_versteuerndes_einkommen_y_sn(): ...
 ```
 
-At environment build the magnitudes are restated in the run currency, exactly as a
-parameter's values are: in a Euro run, rounding down to multiples of 54 DM becomes
-rounding down to multiples of `54 / 1.95583` EUR — the statutory arithmetic, not a
-silent re-reading of the number 54 as Euros. Before this GEP, that restatement was done
-by hand (the code said `base=27.609762`), the same hand-conversion problem the
-{ref}`Motivation <gep-10>` describes for parameters.
+The magnitudes are never converted, exactly like a parameter's values: a pre-2002
+computation runs in Deutsche Mark and rounds to multiples of 54 DM natively. The
+statutory guard holds the spec's currency against the policy date's statutory currency,
+so a spec surviving past a changeover fails the build; the author splits the function at
+the changeover and declares each era's restated spec. Before this GEP, the restatement
+was hand-converted (the code said `base=27.609762`, and applied it in Euro-era runs
+only), the same hand-conversion problem the {ref}`Motivation <gep-10>` describes for
+parameters.
 
 The declaration is **mandatory** on a function whose unit has a currency base and
 **rejected** on any other: a non-currency magnitude (rounding a duration, a
-dimensionless score) is written in the function's own unit and has nothing to convert.
-These are declaration-level rules enforced alongside the mandatory-units check; the
-dry-run never traces the rounding wrapper itself.
+dimensionless score) is written in the function's own unit and carries no currency
+convention to pin down. These are declaration-level rules enforced alongside the
+mandatory-units check; the dry-run never traces the rounding wrapper itself.
 
 (gep-10-trees)=
 
@@ -768,10 +801,11 @@ parameter — and the tag's grouping level must equal the level the column's **d
 unit carries ({ref}`above <gep-10-leveled>`): a group-owned column spells its level
 (`Unit.EUR.PER_MONTH.PER_BG`), a person property is tagged without one, even at a group
 suffix. The **result tree** is the *same shape*: each output leaf is a
-`UnitAnnotatedColumn` too, its `unit` the node's resolved unit in the concrete *run*
-currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`). Annotated input
-and annotated output are independent: either can be used without the other. The check
-the input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
+`UnitAnnotatedColumn` too, its `unit` the node's resolved unit — a column's in the
+concrete *data* currency (`Unit.EUR.PER_MONTH.PER_BG`, never the agnostic `CURRENCY`), a
+parameter's in its statutory currency, matching the untouched value. Annotated input and
+annotated output are independent: either can be used without the other. The check the
+input tree enables is {ref}`Layer 2 <gep-10-checks>` below.
 
 ```python
 from gettsim import InputData, MainTarget, TTTargets, main
@@ -815,19 +849,19 @@ not a JAX pytree and does not trace under `jit`; wrapping runtime columns would 
 both JAX and the GEP-9 `FloatColumn` vocabulary. Instead, pint is used in two build-time
 roles:
 
-- to compute conversion **factors** (time and currency), which are baked into the
-  compiled workers as plain numeric constants; and
+- to compute conversion **factors** (time factors baked into the compiled workers as
+  plain numeric constants; the currency factor applied at the column boundary only); and
 - to run the **dry-run** dimensionality check on representative `Quantity`s.
 
 The numeric runtime path stays pure arrays, single currency, and JAX-safe.
 
 The checks run in two layers, both at build time:
 
-|        | **Layer 1 — DAG validity**                                                                                                  | **Layer 2 — boundary**                                                                                                                      |
-| ------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| when   | `fail_if` on the assembled environment                                                                                      | where GEP-9 normalises user input into canonical arrays                                                                                     |
-| input  | none — synthetic `Quantity`s                                                                                                | the user's unit-annotated input tree                                                                                                        |
-| checks | inferred body unit vs. declaration; edges checked through the bodies (each argument enters at its producer's resolved unit) | tag currency → run currency; period vs. suffix; level vs. declaration; unknown spelling rejected; every tag equivalent to its resolved unit |
+|        | **Layer 1 — DAG validity**                                                                                                  | **Layer 2 — boundary**                                                                                                                       |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| when   | `fail_if` on the assembled environment                                                                                      | where GEP-9 normalises user input into canonical arrays                                                                                      |
+| input  | none — synthetic `Quantity`s                                                                                                | the user's unit-annotated input tree                                                                                                         |
+| checks | inferred body unit vs. declaration; edges checked through the bodies (each argument enters at its producer's resolved unit) | tag currency → data currency; period vs. suffix; level vs. declaration; unknown spelling rejected; every tag equivalent to its resolved unit |
 
 ### Layer 1: the dry-run dimensionality check
 
@@ -975,15 +1009,17 @@ at all:
 **Layer 2** compares each tagged leaf of the
 {ref}`unit-annotated input tree <gep-10-trees>` to the unit the environment resolves for
 that leaf. Tag and resolved unit need not be identical, but only the **currency** is
-converted: a tag in any registered currency is converted to the run currency at the
-boundary. Every other axis must already agree — a tag period that disagrees with the
-name's time suffix, a spelled grouping level that disagrees with the column's declared
-level, or any other dimensional mismatch is a build error.
+converted: a tag in any registered currency is converted to the data currency at the
+boundary (the crossing into the computation currency then happens for tagged and
+untagged columns alike, {ref}`Currency <gep-10-currency>`). Every other axis must
+already agree — a tag period that disagrees with the name's time suffix, a spelled
+grouping level that disagrees with the column's declared level, or any other dimensional
+mismatch is a build error.
 
 ## Backward Compatibility
 
 - **User code shape is unchanged.** Bare arrays and the DataFrame/mapper interface keep
-  working; `currency` defaults to `"EUR"` and output stays in Euros.
+  working; `data_currency` defaults to `"EUR"` and output stays in Euros.
 - **`unit` is repurposed; `reference_period` and `reference_level` are removed.** `unit`
   becomes a compositional spelling. The period a flow used to record in
   `reference_period`, and the level a per-group amount used to record in
@@ -1015,8 +1051,11 @@ documentation example — before any German annotation:
   infrastructure in one final-form diff: the pint registry and dimension model (time,
   currency, the `[hours]` dimension, **grouping levels and the `[person]` count**), the
   compositional vocabulary, mandatory units, edge- and target-level aggregation
-  consistency, the dry-run, the currency knob, and the Layer-2 boundary conversion.
-  (This collapses an earlier three-way infra split, now closed: #139, #140.)
+  consistency, the dry-run, and the Layer-2 boundary checks. (This collapses an earlier
+  three-way infra split, now closed: #139, #140.)
+- TTSIM [#144](https://github.com/ttsim-dev/ttsim/pull/144) — the statutory computation
+  currency and the boundary-only conversion (never scale parameters), plus the
+  working-hours denominator.
 - TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141) — annotate `METTSIM`
   end-to-end (the worked example), switch the check on, CI test over all dates
 
@@ -1074,17 +1113,26 @@ structure, keep consumer bodies plain policy logic, and make the name-matched pa
 the drift checkable. Casts remain the fallback for whatever the annotations cannot
 cover.
 
+### Scaling parameters to a run currency
+
+An earlier revision converted every currency-denominated parameter to a user-chosen run
+currency at environment build — leaf-scaling plain values, rescaling schedules per axis
+(the order-*j* polynomial coefficient by *f_out / f_in^j*), and restating rounding
+magnitudes. Rejected: build-time scaling breaks run-currency covariance for any formula
+that is not homogeneous of degree one in its money inputs — the Wohngeld Basisformel is
+quadratic, and its plain statutory coefficients would have needed per-coefficient units
+("months per Euro") to survive a currency change, faithful to the algebra but not to the
+law ({ref}`Currency <gep-10-currency>`). Never converting parameters is exact for
+arbitrary formula shapes, deletes the whole conversion apparatus, and honors the legally
+rounded Euro-Einführungsgesetz restatements where a mechanical division is subtly wrong.
+
 ### Field annotations as the single source of structured units
 
-Field annotations could also drive the *conversion*: the parameter YAML would shrink to
-naming the concrete denomination per date, and the framework would rescale the
-currency-annotated fields of the built dataclass. Each unit would then be stated exactly
-once, closing the drift gap for renamed and derived fields too. Rejected for now: the
-converter body would compute on unconverted raw numbers — a literal threshold inside a
-converter would silently compare DM-era magnitudes, and converter bodies are exempt from
-the dry-run, so nothing could catch it — every numeric field would need an annotation at
-once, and a single `unit:` token on a `require_converter` would change meaning from
-"scale every leaf uniformly" to "the denomination". The field annotations this GEP
+Field annotations could state each structured unit exactly once, closing the drift gap
+for renamed and derived fields too: the per-leaf YAML mapping would shrink to naming the
+concrete denomination. Rejected for now: every numeric field would need an annotation at
+once, and the per-leaf mapping is what the statutory guard reads — the YAML side names
+the concrete currency, the code side stays agnostic. The field annotations this GEP
 introduces are exactly what that design would consume, so it remains open as an upgrade
 if the gettsim migration shows the double declaration to be a real source of errors.
 
