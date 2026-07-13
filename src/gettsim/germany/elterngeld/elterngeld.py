@@ -5,13 +5,14 @@ from __future__ import annotations
 from gettsim.tt import (
     AggType,
     RoundingSpec,
+    Unit,
     agg_by_group_function,
     agg_by_p_id_function,
     policy_function,
 )
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.DIMENSIONLESS)
 def ist_leistungsbegründendes_kind(
     alter_monate: int,
     max_bezugsmonate: dict[str, int],
@@ -45,7 +46,7 @@ def leistungsbegründende_kinder_in_fg(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM)
+@agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_mehrlinge_jüngstes_kind_fg(
     jüngstes_kind_oder_mehrling: bool,
     fg_id: int,
@@ -53,13 +54,16 @@ def anzahl_mehrlinge_jüngstes_kind_fg(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM)
+@agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_anträge_fg(claimed: bool, fg_id: int) -> int:
     pass
 
 
 @agg_by_p_id_function(
-    leaf_name="bezugsmonate_partner", end_date="2022-12-31", agg_type=AggType.SUM
+    leaf_name="bezugsmonate_partner",
+    end_date="2022-12-31",
+    agg_type=AggType.SUM,
+    unit=Unit.MONTHS,
 )
 def bezugsmonate_partner_bis_2022(
     bisherige_bezugsmonate: int,
@@ -70,7 +74,10 @@ def bezugsmonate_partner_bis_2022(
 
 
 @agg_by_p_id_function(
-    leaf_name="bezugsmonate_partner", start_date="2023-01-01", agg_type=AggType.SUM
+    leaf_name="bezugsmonate_partner",
+    start_date="2023-01-01",
+    agg_type=AggType.SUM,
+    unit=Unit.MONTHS,
 )
 def bezugsmonate_partner_ab_2023(
     bisherige_bezugsmonate: int,
@@ -82,7 +89,8 @@ def bezugsmonate_partner_ab_2023(
 
 @policy_function(
     start_date="2011-01-01",
-    rounding_spec=RoundingSpec(base=0.01, direction="down"),
+    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="down"),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_m(
     grundsätzlich_anspruchsberechtigt: bool,
@@ -92,7 +100,7 @@ def betrag_m(
     return anspruchshöhe_m if grundsätzlich_anspruchsberechtigt else 0.0
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def basisbetrag_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     lohnersatzanteil: float,
@@ -117,14 +125,15 @@ def basisbetrag_m(
     start_date="2007-01-01",
     end_date="2010-12-31",
     leaf_name="betrag_m",
-    rounding_spec=RoundingSpec(base=0.01, direction="down"),
+    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="down"),
     fail_msg_if_included="Elterngeld is not implemented prior to 2011.",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def elterngeld_not_implemented() -> float:
     pass
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def anspruchshöhe_m(
     basisbetrag_m: float,
     geschwisterbonus_m: float,
@@ -151,6 +160,7 @@ def anspruchshöhe_m(
     start_date="2007-01-01",
     end_date="2010-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_ohne_maximales_vorjahreseinkommen(
     claimed: bool,
@@ -168,7 +178,11 @@ def grundsätzlich_anspruchsberechtigt_ohne_maximales_vorjahreseinkommen(
     )
 
 
-@policy_function(start_date="2011-01-01", leaf_name="grundsätzlich_anspruchsberechtigt")
+@policy_function(
+    start_date="2011-01-01",
+    leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
+)
 def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
     claimed: bool,
     arbeitsstunden_w: float,
@@ -190,7 +204,7 @@ def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
     )
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.DIMENSIONLESS)
 def bezugsmonate_unter_grenze_fg(
     bisherige_bezugsmonate_fg: int,
     bezugsmonate_partner: int,
@@ -220,7 +234,7 @@ def bezugsmonate_unter_grenze_fg(
     return out
 
 
-@policy_function(start_date="2011-01-01")
+@policy_function(start_date="2011-01-01", unit=Unit.DIMENSIONLESS)
 def lohnersatzanteil(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     lohnersatzanteil_einkommen_untere_grenze: float,
@@ -272,7 +286,7 @@ def lohnersatzanteil(
 # TODO(@MImmesberger): Elterngeld is considered as SGB II income since 2011. Also, there
 # is a 300€ Freibetrag under some conditions since 2011.
 # https://github.com/ttsim-dev/gettsim/issues/549
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def anrechenbarer_betrag_m(
     betrag_m: float,
     anzahl_mehrlinge_fg: int,
@@ -295,7 +309,7 @@ def anrechenbarer_betrag_m(
     )
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def jüngstes_kind_oder_mehrling(
     alter_monate: int,
     familie__alter_monate_jüngstes_mitglied_fg: int,

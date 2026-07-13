@@ -2,20 +2,20 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_input
+from gettsim.tt import Unit, policy_input
 
 
-@policy_input()
+@policy_input(unit=Unit.MONTHS)
 def bisherige_bezugsmonate() -> int:
     """Number of months the individual received Elterngeld for the current youngest child."""
 
 
-@policy_input()
+@policy_input(unit=Unit.DIMENSIONLESS)
 def claimed() -> bool:
     """Individual claims Elterngeld."""
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_MONTH)
 def mean_nettoeinkommen_in_12_monaten_vor_geburt_m() -> float:
     """Mean net wage in the 12 months before birth of youngest child.
 
@@ -25,7 +25,7 @@ def mean_nettoeinkommen_in_12_monaten_vor_geburt_m() -> float:
     """
 
 
-@policy_input()
+@policy_input(unit=Unit.CURRENCY.PER_YEAR)
 def zu_versteuerndes_einkommen_vorjahr_y_sn() -> float:
     """Taxable income in the calendar year prior to the youngest child's birth year.
 

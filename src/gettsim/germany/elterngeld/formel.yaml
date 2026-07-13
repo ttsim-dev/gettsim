@@ -8,8 +8,7 @@ satz:
       § 2 (1) BEEG
       Faktor bei der ElG-Berechung, 2. Stufe.
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
     value: 0.67
@@ -21,8 +20,7 @@ höchstbetrag:
   description:
     de: § 2 (1) BEEG
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
     value: 1800.0
@@ -34,8 +32,7 @@ mindestbetrag:
   description:
     de: § 2 (5) BEEG
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
     value: 300
@@ -47,8 +44,7 @@ max_zu_berücksichtigendes_einkommen:
   description:
     de: § 2 (3) BEEG
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
     value: 2700.0
@@ -65,8 +61,7 @@ nettoeinkommensstufen_für_lohnersatzrate:
       § 2 (2) BEEG. Maßgeblich ist das durchschnittlich erzielte monatliche Einkommen
       vor der Geburt
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   2007-01-01:
     lower_threshold: 1000.0
@@ -83,8 +78,7 @@ prozent_korrektur:
   description:
     de: § 2 (2) BEEG
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
     value: 0.001
@@ -96,8 +90,7 @@ prozent_minimum:
   description:
     de: § 2 (2) BEEG
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
     value: 0.67
@@ -112,8 +105,7 @@ einkommensschritte_korrektur:
   description:
     de: § 2 (2) BEEG
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
     value: 2
@@ -125,8 +117,7 @@ sozialversicherungspauschale:
   description:
     de: §2f BEEG. Vor 2012 waren es die eigentlichen Pflichtbeiträge.
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2012-09-18:
     value: 0.21

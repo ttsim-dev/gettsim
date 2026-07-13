@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import RoundingSpec, policy_function
+from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def anzurechnendes_nettoeinkommen_m(
     einnahmen__bruttolohn_m: float,
     lohnsteuer__betrag_m: float,
@@ -20,7 +20,10 @@ def anzurechnendes_nettoeinkommen_m(
 
 @policy_function(
     start_date="2007-01-01",
-    rounding_spec=RoundingSpec(base=2, direction="down", reference="§ 2 (2) BEEG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH, base=2, direction="down", reference="§ 2 (2) BEEG"
+    ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def lohnersatzanteil_einkommen_untere_grenze(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
@@ -35,7 +38,10 @@ def lohnersatzanteil_einkommen_untere_grenze(
 
 @policy_function(
     start_date="2007-01-01",
-    rounding_spec=RoundingSpec(base=2, direction="down", reference="§ 2 (2) BEEG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH, base=2, direction="down", reference="§ 2 (2) BEEG"
+    ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def lohnersatzanteil_einkommen_obere_grenze(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
@@ -52,6 +58,7 @@ def lohnersatzanteil_einkommen_obere_grenze(
     start_date="2011-01-01",
     end_date="2024-03-31",
     leaf_name="einkommen_vorjahr_unter_bezugsgrenze",
+    unit=Unit.DIMENSIONLESS,
 )
 def einkommen_vorjahr_unter_bezugsgrenze_mit_unterscheidung_single_paar(
     familie__alleinerziehend: bool,
@@ -82,6 +89,7 @@ def einkommen_vorjahr_unter_bezugsgrenze_mit_unterscheidung_single_paar(
 @policy_function(
     start_date="2024-04-01",
     leaf_name="einkommen_vorjahr_unter_bezugsgrenze",
+    unit=Unit.DIMENSIONLESS,
 )
 def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     zu_versteuerndes_einkommen_vorjahr_y_sn: float,
@@ -96,7 +104,8 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
 
 @policy_function(
     start_date="2012-09-18",
-    rounding_spec=RoundingSpec(base=0.01, direction="down"),
+    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="down"),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def mean_nettoeinkommen_für_bemessungsgrundlage_nach_geburt_m(
     einnahmen__bruttolohn_m: float,

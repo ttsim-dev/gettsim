@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def geschwisterbonus_m(
     basisbetrag_m: float,
     geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg: bool,
@@ -26,13 +26,13 @@ def geschwisterbonus_m(
     return out
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def mehrlingsbonus_m(anzahl_mehrlinge_fg: int, mehrlingsbonus_pro_kind: float) -> float:
     """Elterngeld bonus for multiples."""
     return anzahl_mehrlinge_fg * mehrlingsbonus_pro_kind
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.DIMENSIONLESS)
 def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
     familie__anzahl_kinder_bis_2_fg: int,
     familie__anzahl_kinder_bis_5_fg: int,
@@ -49,7 +49,7 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
     return geschwister_unter_3 or geschwister_unter_6
 
 
-@policy_function(start_date="2007-01-01")
+@policy_function(start_date="2007-01-01", unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_mehrlinge_fg(
     anzahl_mehrlinge_jüngstes_kind_fg: int,
 ) -> int:
