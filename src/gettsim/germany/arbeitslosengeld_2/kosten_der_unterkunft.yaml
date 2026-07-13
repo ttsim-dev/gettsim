@@ -18,8 +18,7 @@ mietobergrenze_pro_qm:
       rule of thumb used by the employment agencies.
       This is only an approximation. The regional parameters are unknown, see Issue
       https://github.com/ttsim-dev/gettsim/issues/782.
-  unit: Euros / Square Meter
-  reference_period: Month
+  unit: EUR_PER_SQUARE_METER_PER_MONTH
   type: scalar
   1984-01-01:
     value: 10
@@ -40,8 +39,7 @@ berechtigte_wohnfläche_miete:
       additional person).
       This is only an approximation. The regional parameters are unknown, see Issue
       https://github.com/ttsim-dev/gettsim/issues/782.
-  unit: Square Meters
-  reference_period: null
+  unit: SQUARE_METER
   type: dict
   2005-01-01:
     single: 45
@@ -59,8 +57,13 @@ parameter_berechtigte_wohnfläche_eigentum:
     en: >-
       After 2023, this upper limit only applies to owner-occupied homes. Condominiums
       may only be up to 130 square meters in size.
-  unit: Square Meters
-  reference_period: null
+  unit:
+    1: SQUARE_METER
+    2: SQUARE_METER
+    3: SQUARE_METER
+    4: SQUARE_METER
+    je_weitere_person: SQUARE_METER
+    max_anzahl_direkt: PERSON_COUNT
   type: require_converter
   1984-01-01:
     1: 80

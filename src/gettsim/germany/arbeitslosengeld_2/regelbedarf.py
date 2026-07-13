@@ -6,7 +6,9 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
+    Unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -19,7 +21,9 @@ if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def regelbedarf_m(
     regelsatz_m: float,
     kosten_der_unterkunft_m: float,
@@ -31,7 +35,9 @@ def regelbedarf_m(
     return regelsatz_m + kosten_der_unterkunft_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.DIMENSIONLESS
+)
 def mehrbedarf_alleinerziehend_m(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
@@ -74,6 +80,7 @@ def mehrbedarf_alleinerziehend_m(
     start_date="2005-01-01",
     end_date="2010-12-31",
     leaf_name="kindersatz_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_anteilsbasiert(
     alter: int,
@@ -116,6 +123,7 @@ def kindersatz_m_anteilsbasiert(
     start_date="2011-01-01",
     end_date="2022-06-30",
     leaf_name="kindersatz_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
     alter: int,
@@ -156,6 +164,7 @@ def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
     start_date="2022-07-01",
     end_date="2022-12-31",
     leaf_name="kindersatz_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     alter: int,
@@ -194,6 +203,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     start_date="2005-01-01",
     end_date="2010-12-31",
     leaf_name="erwachsenensatz_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_bis_2010(
     mehrbedarf_alleinerziehend_m: float,
@@ -220,6 +230,7 @@ def erwachsenensatz_m_bis_2010(
     start_date="2011-01-01",
     end_date="2022-12-31",
     leaf_name="erwachsenensatz_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
     mehrbedarf_alleinerziehend_m: float,
@@ -240,7 +251,9 @@ def erwachsenensatz_m_ab_2011(
     return out * (1 + mehrbedarf_alleinerziehend_m)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
@@ -253,6 +266,7 @@ def regelsatz_m(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="kosten_der_unterkunft_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def kosten_der_unterkunft_m_bis_2022(
     berechtigte_wohnfläche: float,
@@ -262,7 +276,11 @@ def kosten_der_unterkunft_m_bis_2022(
     return berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=Unit.CURRENCY.PER_SQUARE_METER.PER_MONTH,
+)
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
@@ -274,7 +292,7 @@ def anerkannte_warmmiete_je_qm_m(
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.SQUARE_METER)
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -294,7 +312,9 @@ def berechtigte_wohnfläche(
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -308,7 +328,9 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -322,7 +344,7 @@ def heizkosten_m(
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.SQUARE_METER)
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
@@ -358,7 +380,7 @@ class RegelsatzAnteilsbasiert:
     kind: RegelsatzAnteilKindNachAlter
 
 
-@param_function(start_date="2005-01-01", end_date="2010-12-31")
+@param_function(start_date="2005-01-01", end_date="2010-12-31", unit=UNSET_UNIT)
 def regelsatz_anteilsbasiert(
     parameter_regelsatz_anteilsbasiert: RawParamValue,
 ) -> RegelsatzAnteilsbasiert:
@@ -400,7 +422,7 @@ def regelsatz_anteilsbasiert(
     )
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(start_date="2005-01-01", end_date="2022-12-31", unit=UNSET_UNIT)
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],

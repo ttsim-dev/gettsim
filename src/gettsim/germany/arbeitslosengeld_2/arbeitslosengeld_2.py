@@ -9,10 +9,12 @@ des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang,
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def betrag_m(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -27,7 +29,9 @@ def betrag_m(
         return anspruchshöhe_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def anspruchshöhe_m(
     ungedeckter_bedarf_m: float,
     ungedeckter_bedarf_m_bg: float,
@@ -55,7 +59,9 @@ def anspruchshöhe_m(
         return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def ungedeckter_bedarf_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
@@ -79,7 +85,9 @@ def ungedeckter_bedarf_m(
         return regelbedarf_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def einkommen_zur_verteilung_m(
     regelbedarf_m: float,
     anzurechnendes_einkommen_m: float,
@@ -104,7 +112,9 @@ def einkommen_zur_verteilung_m(
         return anzurechnendes_einkommen_m
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31")
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def überschusseinkommen_m(
     einkommen_zur_verteilung_m_bg: float,
     ungedeckter_bedarf_m_bg: float,
