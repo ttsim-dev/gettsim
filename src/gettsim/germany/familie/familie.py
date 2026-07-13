@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     AggType,
+    Unit,
     agg_by_group_function,
     join,
     policy_function,
@@ -21,7 +22,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@policy_function(vectorization_strategy="not_required")
+@policy_function(vectorization_strategy="not_required", unit=Unit.DIMENSIONLESS)
 def ist_kind_in_familiengemeinschaft(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
@@ -51,12 +52,14 @@ def ist_kind_in_familiengemeinschaft(
     return in_gleicher_fg_wie_elternteil_1 | in_gleicher_fg_wie_elternteil_2
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG
+)
 def anzahl_kinder_fg(ist_kind_in_familiengemeinschaft: bool, fg_id: int) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_2_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -64,14 +67,14 @@ def ist_kind_bis_2_in_familiengemeinschaft(
     return ist_kind_in_familiengemeinschaft and (alter <= 2)
 
 
-@agg_by_group_function(agg_type=AggType.SUM)
+@agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_kinder_bis_2_fg(
     ist_kind_bis_2_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_5_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -79,14 +82,14 @@ def ist_kind_bis_5_in_familiengemeinschaft(
     return ist_kind_in_familiengemeinschaft and (alter <= 5)
 
 
-@agg_by_group_function(agg_type=AggType.SUM)
+@agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_kinder_bis_5_fg(
     ist_kind_bis_5_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_6_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -94,14 +97,16 @@ def ist_kind_bis_6_in_familiengemeinschaft(
     return ist_kind_in_familiengemeinschaft and (alter <= 6)
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG
+)
 def anzahl_kinder_bis_6_fg(
     ist_kind_bis_6_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_15_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -109,14 +114,16 @@ def ist_kind_bis_15_in_familiengemeinschaft(
     return ist_kind_in_familiengemeinschaft and (alter <= 15)
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG
+)
 def anzahl_kinder_bis_15_fg(
     ist_kind_bis_15_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_17_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -124,26 +131,32 @@ def ist_kind_bis_17_in_familiengemeinschaft(
     return ist_kind_in_familiengemeinschaft and (alter <= 17)
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG
+)
 def anzahl_kinder_bis_17_fg(
     ist_kind_bis_17_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM)
+@agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
 def anzahl_erwachsene_fg(
     ist_erwachsener_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
     pass
 
 
-@agg_by_group_function(agg_type=AggType.MIN)
+@agg_by_group_function(agg_type=AggType.MIN, unit=Unit.MONTHS.PER_FG)
 def alter_monate_jüngstes_mitglied_fg(alter_monate: int, fg_id: int) -> int:
     pass
 
 
-@policy_function(start_date="2005-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2005-01-01",
+    vectorization_strategy="not_required",
+    unit=Unit.DIMENSIONLESS,
+)
 def ist_kind_in_bedarfsgemeinschaft(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
@@ -171,7 +184,7 @@ def ist_kind_in_bedarfsgemeinschaft(
     return in_gleicher_fg_wie_elternteil_1 | in_gleicher_fg_wie_elternteil_2
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def ist_erwachsener_in_bedarfsgemeinschaft(
     ist_kind_in_bedarfsgemeinschaft: bool,
 ) -> bool:
@@ -184,7 +197,9 @@ def anzahl_personen_bg(bg_id: int) -> int:
     pass
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_BG
+)
 def anzahl_erwachsene_bg(
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
     bg_id: int,
@@ -192,12 +207,14 @@ def anzahl_erwachsene_bg(
     pass
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_BG
+)
 def anzahl_kinder_bg(ist_kind_in_bedarfsgemeinschaft: bool, bg_id: int) -> int:
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def ist_kind_bis_17_in_bedarfsgemeinschaft(
     alter: int, ist_kind_in_bedarfsgemeinschaft: bool
 ) -> bool:
@@ -205,7 +222,9 @@ def ist_kind_bis_17_in_bedarfsgemeinschaft(
     return ist_kind_in_bedarfsgemeinschaft and (alter <= 17)
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_BG
+)
 def anzahl_kinder_bis_17_bg(
     ist_kind_bis_17_in_bedarfsgemeinschaft: bool, bg_id: int
 ) -> int:
@@ -217,7 +236,7 @@ def alleinerziehend_bg(alleinerziehend: bool, bg_id: int) -> bool:
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def hat_kind_in_gleicher_bedarfsgemeinschaft(
     anzahl_kinder_bg: int,
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
@@ -236,7 +255,11 @@ def alleinerziehend_sn(familie__alleinerziehend: bool, sn_id: int) -> bool:
     pass
 
 
-@policy_function(start_date="2005-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2005-01-01",
+    vectorization_strategy="not_required",
+    unit=Unit.DIMENSIONLESS,
+)
 def ist_kind_in_einsatzgemeinschaft(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
@@ -264,7 +287,7 @@ def ist_kind_in_einsatzgemeinschaft(
     return in_gleicher_eg_wie_elternteil_1 | in_gleicher_eg_wie_elternteil_2
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def ist_erwachsener_in_einsatzgemeinschaft(
     ist_kind_in_einsatzgemeinschaft: bool,
 ) -> bool:
@@ -272,12 +295,16 @@ def ist_erwachsener_in_einsatzgemeinschaft(
     return not ist_kind_in_einsatzgemeinschaft
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_EG
+)
 def anzahl_kinder_eg(ist_kind_in_einsatzgemeinschaft: bool, eg_id: int) -> int:
     pass
 
 
-@agg_by_group_function(start_date="2005-01-01", agg_type=AggType.SUM)
+@agg_by_group_function(
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_EG
+)
 def anzahl_erwachsene_eg(
     ist_erwachsener_in_einsatzgemeinschaft: bool, eg_id: int
 ) -> int:
@@ -294,13 +321,13 @@ def anzahl_personen_ehe(ehe_id: int) -> int:
     pass
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def volljährig(alter: int) -> bool:
     """Person over the age of 18."""
     return alter >= 18
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ist_erwachsener_in_familiengemeinschaft(
     ist_kind_in_familiengemeinschaft: bool,
 ) -> bool:
