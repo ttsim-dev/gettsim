@@ -6,8 +6,10 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     RoundingSpec,
+    Unit,
     agg_by_group_function,
     agg_by_p_id_function,
     param_function,
@@ -28,6 +30,7 @@ class Einkommensgrenzen:
 @param_function(
     start_date="2004-02-09",
     end_date="2008-12-31",
+    unit=UNSET_UNIT,
 )
 def einkommensgrenzen(
     parameter_einkommensgrenze: dict[str, Any],
@@ -51,7 +54,9 @@ def leistungsbegründende_kinder_fg(
     pass
 
 
-@agg_by_p_id_function(end_date="2008-12-31", agg_type=AggType.SUM)
+@agg_by_p_id_function(
+    end_date="2008-12-31", agg_type=AggType.SUM, unit=Unit.CURRENCY.PER_MONTH
+)
 def anspruchshöhe_m(
     anspruchshöhe_kind_m: float,
     p_id_empfänger: int,
@@ -60,7 +65,9 @@ def anspruchshöhe_m(
     pass
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def betrag_m(
     anspruchshöhe_m: float,
     grundsätzlich_anspruchsberechtigt: bool,
@@ -75,9 +82,10 @@ def betrag_m(
 @policy_function(
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(base=0.01, direction="nearest"),
+    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="nearest"),
     fail_msg_if_included="""Erziehungsgeld is not implemented yet prior to 2004, see
 https://github.com/ttsim-dev/gettsim/issues/673""",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     pass
@@ -87,7 +95,8 @@ def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     start_date="2004-01-01",
     end_date="2008-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(base=0.01, direction="nearest"),
+    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="nearest"),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_mit_budgetsatz_m(
     ist_leistungsbegründendes_kind: bool,
@@ -107,7 +116,9 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
         return 0.0
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_MONTH
+)
 def basisbetrag_m(
     budgetsatz: bool,
     anzurechnendes_einkommen_y_fg: float,
@@ -130,7 +141,11 @@ def basisbetrag_m(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=Unit.CURRENCY.PER_MONTH.PER_FG,
+)
 def abzug_durch_einkommen_m_fg(
     anzurechnendes_einkommen_m_fg: float,
     einkommensgrenze_m_fg: float,
@@ -156,6 +171,7 @@ def abzug_durch_einkommen_m_fg(
     start_date="2004-01-01",
     end_date="2006-12-10",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=Unit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_vor_abschaffung(
     p_id_empfänger: int,
@@ -181,6 +197,7 @@ def _leistungsbegründendes_kind_vor_abschaffung(
     start_date="2006-12-11",
     end_date="2008-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=Unit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_nach_abschaffung(
     p_id_empfänger: int,
@@ -216,7 +233,9 @@ def _leistungsbegründendes_kind_nach_abschaffung(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.DIMENSIONLESS
+)
 def grundsätzlich_anspruchsberechtigt(
     arbeitsstunden_w: float,
     leistungsbegründende_kinder_fg: bool,
@@ -231,7 +250,11 @@ def grundsätzlich_anspruchsberechtigt(
     )
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=Unit.CURRENCY.PER_YEAR.PER_FG,
+)
 def anzurechnendes_einkommen_y_fg(
     bruttolohn_vorjahr_nach_abzug_werbungskosten_y_fg: float,
     ist_leistungsbegründendes_kind: bool,
@@ -254,7 +277,11 @@ def anzurechnendes_einkommen_y_fg(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=Unit.CURRENCY.PER_YEAR.PER_FG,
+)
 def einkommensgrenze_y_fg(
     einkommensgrenze_ohne_geschwisterbonus: float,
     familie__anzahl_kinder_fg: int,
@@ -274,7 +301,9 @@ def einkommensgrenze_y_fg(
         return 0.0
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+)
 def einkommensgrenze_ohne_geschwisterbonus(
     alter_monate: int,
     einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze: float,
@@ -292,7 +321,9 @@ def einkommensgrenze_ohne_geschwisterbonus(
         return einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+)
 def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
@@ -312,7 +343,9 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
         return einkommensgrenzen.regulär_paar["regelsatz"]
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+)
 def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,

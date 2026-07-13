@@ -6,8 +6,7 @@ satz:
   description:
     de: Höhe des Erziehungsgeldes abhängig vom beantragtem Satz
     en: Amount of the parental leave benefit depending on the rate applied for
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   2004-02-09:
     reference: § 5 G. v. 09.02.2004 BGBl. I S. 208
@@ -30,8 +29,7 @@ parameter_einkommensgrenze:
       Income threshold for the receipt of parental leave benefit for young children.
       For children under a certain age, parental leave benefit is not paid if the
       income of the parents exceeds the income threshold.
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: require_converter
   2004-02-09:
     reference: 09.02.2004 BGBl. I S. 209
@@ -59,8 +57,7 @@ aufschlag_einkommen:
   description:
     de: Erhöhung der Einkommensgrenze pro weiterem Kind
     en: Increase in the income threshold per additional child
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2004-02-09:
     reference: 09.02.2004 BGBl. I S. 209
@@ -84,8 +81,7 @@ abschlagsfaktor:
       exceeding the income threshold after the 7th month of life.
       The factor is multiplied by the relevant income and
       the product is deducted from the parental leave benefit entitlement accordingly.
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2004-02-09:
     reference: § 5 G. v. 09.02.2004 BGBl. I S. 207
@@ -105,8 +101,7 @@ pauschaler_abzug_vom_einkommen:
     en: >-
       Factor by which the income is reduced in a lump sum in order to calculate the
       relevant income
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2004-02-09:
     reference: § 5 G. v. 09.02.2004 BGBl. I S. 209
