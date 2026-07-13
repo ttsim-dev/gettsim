@@ -1,6 +1,25 @@
 {
   "$comment": "If you change this file, always change it in both locations:  1. ttsim/src/ttsim/params-schema.json  2. gettsim/docs/geps/params-schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "unitToken": {
+      "$comment": "A fully-spelled compositional unit (GEP 10): a base optionally divided by an area, a period, and a grouping level, joined by `_PER_` (e.g. DIMENSIONLESS, CURRENCY_PER_MONTH_PER_BG, SILVER_PENNY_PER_FAM, PERSON_COUNT_PER_HH). Bases and grouping levels are open (per-package currencies, per-build levels), so this is a coarse pattern; `parse_compositional_unit` validates the grammar at load time.",
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "unitDeclaration": {
+      "oneOf": [
+        { "$ref": "#/definitions/unitToken" },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/unitDeclaration" }
+        }
+      ]
+    },
+    "axisUnitDeclaration": {
+      "$ref": "#/definitions/unitToken"
+    }
+  },
   "type": "object",
   "patternProperties": {
     "^[a-zA-Z0-9äöüßÄÖÜ_]+$": {
@@ -25,19 +44,13 @@
           "additionalProperties": false
         },
         "unit": {
-          "type": ["string", "null"],
-          "enum": [
-            "Euros",
-            "DM",
-            "Share",
-            "Percent",
-            "Years",
-            "Months",
-            "Hours",
-            "Square Meters",
-            "Euros / Square Meter",
-            null
-          ]
+          "$ref": "#/definitions/unitDeclaration"
+        },
+        "input_unit": {
+          "$ref": "#/definitions/axisUnitDeclaration"
+        },
+        "output_unit": {
+          "$ref": "#/definitions/axisUnitDeclaration"
         },
         "type": {
           "type": "string",
@@ -55,10 +68,6 @@
             "require_converter"
           ]
         },
-        "reference_period": {
-          "type": ["string", "null"],
-          "enum": ["Year", "Quarter", "Month", "Week", "Day", "Hour", null]
-        },
         "add_jahresanfang": {"type": "boolean"}
       },
       "patternProperties": {
@@ -71,9 +80,30 @@
                 { "type": "string", "enum": ["inf", "-inf"] }
               ]
             },
+            "intervals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interval": { "type": "string" }
+                },
+                "required": ["interval"],
+                "additionalProperties": true
+              }
+            },
+            "unit": {
+              "$ref": "#/definitions/unitDeclaration"
+            },
+            "input_unit": {
+              "$ref": "#/definitions/axisUnitDeclaration"
+            },
+            "output_unit": {
+              "$ref": "#/definitions/axisUnitDeclaration"
+            },
             "reference": { "type": "string" },
             "note": { "type": "string" },
-            "deviation_from": { "type": "string" }
+            "deviation_from": { "type": "string" },
+            "updates_previous": { "type": "boolean" }
           },
           "additionalProperties": true
         }
@@ -83,11 +113,70 @@
         { "required": [
           "name",
           "description",
-          "unit",
-          "reference_period",
           "type"
         ]
       },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "piecewise_constant",
+                  "piecewise_linear",
+                  "piecewise_quadratic",
+                  "piecewise_cubic",
+                  "consecutive_int_lookup_table",
+                  "sparse_to_consecutive_int_lookup_table",
+                  "month_based_phase_inout_of_age_thresholds",
+                  "year_based_phase_inout_of_age_thresholds"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": ["input_unit", "output_unit"],
+            "not": { "required": ["unit"] }
+          },
+          "else": {
+            "if": {
+              "properties": { "type": { "const": "require_converter" } }
+            },
+            "then": {
+              "oneOf": [
+                {
+                  "required": ["unit"],
+                  "allOf": [
+                    { "not": { "required": ["input_unit"] } },
+                    { "not": { "required": ["output_unit"] } }
+                  ]
+                },
+                {
+                  "required": ["input_unit", "output_unit"],
+                  "not": { "required": ["unit"] }
+                }
+              ]
+            },
+            "else": {
+              "$comment": "Scalar/dict parameter: `unit:` may sit at the top level (shared by every date) or one level lower, inside each date-specific key, so a parameter re-denominated over time can spell its unit symmetrically per date. The schema therefore does not require `unit:` here; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) is the guarantee that every active leaf resolves to a unit (GEP 10).",
+              "allOf": [
+                { "not": { "required": ["input_unit"] } },
+                { "not": { "required": ["output_unit"] } }
+              ]
+            }
+          }
+        },
+        {
+          "$comment": "A scalar parameter takes its period from a time suffix on its name and declares a single fully-spelled `unit:` token, not a per-leaf mapping (which only a dict or require_converter parameter may use).",
+          "if": {
+            "properties": { "type": { "const": "scalar" } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "unit": { "$ref": "#/definitions/unitToken" }
+            }
+          }
+        },
         {
           "minProperties": 1,
           "patternProperties": {
