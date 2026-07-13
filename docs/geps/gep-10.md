@@ -25,11 +25,10 @@ and (optionally) input data. The framework reads those units to do two things:
   so mixing incompatible kinds — a monthly amount and a per-square-meter rent, or a
   headcount per Bedarfsgemeinschaft with a monthly amount per household — becomes a loud
   error when the policy environment is built, not a silent wrong number far downstream.
-- **Automatic unit conversion.** It converts user data at the column boundary between
-  the currency the data is in and the statutory currency the computation runs in — for
-  example Euros to Deutsche Mark for pre-2002 policy dates. The existing
-  `_y`/`_q`/`_m`/`_w`/`_d` and aggregation-level (`_hh`, `_bg`, …) suffix conventions
-  are preserved.
+- **Automatic unit conversion.** It converts input data and results between the currency
+  the data is in and the statutory currency the computation runs in — for example Euros
+  to Deutsche Mark for pre-2002 policy dates. The existing `_y`/`_q`/`_m`/`_w`/`_d` and
+  aggregation-level (`_hh`, `_bg`, …) suffix conventions are preserved.
 
 The engine is [pint](https://pint.readthedocs.io), and it runs **only while the policy
 environment is built**: it checks dimensions and converts units, and plays no part at
@@ -150,9 +149,11 @@ Unit.HOURS.PER_WEEK
 ```
 
 A special, but common, case is the currency dimension. GETTSIM supports two currencies:
-Euros (EUR) and Deutsche Mark (DM). Policy functions are written to be currency-agnostic
-— they run in either currency without change — so only parameters and input data carry a
-concrete currency base ({ref}`Currency <gep-10-currency>`).
+Euros (EUR) and Deutsche Mark (DM). A policy function's code does not care which
+currency it runs in, but its values are always denominated in the statutory currency of
+the policy date — set by the parameters feeding it. Function declarations therefore use
+the agnostic `CURRENCY`; only parameters and input data carry a concrete currency base
+({ref}`Currency <gep-10-currency>`).
 
 (gep-10-levels)=
 
@@ -663,9 +664,10 @@ base (`DM`, `EUR`) names one specific currency.
 **Parameters must be concrete; functions must be agnostic.** A parameter's numbers are
 written in a concrete currency — the declaration must name the denomination
 (`EUR_PER_YEAR`, not `CURRENCY_PER_YEAR`). Columns and functions may *only* declare the
-agnostic `CURRENCY` as base unit. A derived node — a time-conversion variant or an
-aggregation of a concrete-currency parameter — inherits the **agnostic** counterpart:
-functions compute on whatever currency the computation runs in.
+agnostic `CURRENCY` as base unit: they run in the statutory currency of the policy date,
+whichever that is, so pinning one down would be wrong for every other policy date. A
+derived node — a time-conversion variant or an aggregation of a concrete-currency
+parameter — inherits the **agnostic** counterpart for the same reason.
 
 **The computation currency is the statutory currency.** Alongside its currencies, a
 package registers a dated **statutory-currency mapping** — for GETTSIM,
@@ -698,20 +700,25 @@ in its fitted currency, statutory coefficients stay the plain `DIMENSIONLESS` nu
 the law writes, and the result is exact for arbitrary formula shapes — first calculate
 in the parameter currency, then convert the result.
 
-**The data currency and the column boundary.** The `data_currency` argument to `main()`
-names the currency the user's data arrives in and results are returned in. It defaults
-to the registered base currency (for GETTSIM, `EUR`) and affects only the column
-boundary. On the way in, every input column whose *declared* unit carries a currency
-component is converted from the data currency to the computation currency; a tagged
-column of the {ref}`unit-annotated input tree <gep-10-trees>` may override the data
-currency per column, its tag naming the concrete currency it is actually in. On the way
-out, every computed column whose resolved unit carries the agnostic `CURRENCY` is
-converted back to the data currency. Requested *parameters* — and the policy environment
-itself — are exempt on the way out: they are statutory values, returned and labelled in
-their statutory currency; echoed input columns are returned as provided. So a
-present-day user simulating 1999 policy hands in Euro columns, the system converts them
-to Deutsche Mark at the boundary, computes § 32a and friends on statutory DM magnitudes,
-and converts the resulting columns back to Euro.
+**The data currency.** The `data_currency` argument to `main()` names the currency the
+user's data arrives in and results are returned in. It defaults to the registered base
+currency (for GETTSIM, `EUR`) and affects only the conversion of input data and results.
+On the way in, every input column whose *declared* unit carries a currency component is
+converted from the data currency to the computation currency; a tagged column of the
+{ref}`unit-annotated input tree <gep-10-trees>` may override the data currency per
+column, its tag naming the concrete currency it is actually in. Data supplied at a
+derived name (`einkommen_y` for a declared `einkommen_m`, or `einkommen_m_hh`) gets its
+declaration minted from the derivation rules, so it converts like any declared column.
+On the way out, every computed column whose resolved unit carries the agnostic
+`CURRENCY` is converted back to the data currency. Requested *parameters* — and the
+policy environment itself — are exempt on the way out: they are statutory values,
+returned and labelled in their statutory currency; input columns requested as targets
+are returned as provided. So a present-day user simulating 1999 policy hands in Euro
+columns, the system converts them to Deutsche Mark, computes § 32a and friends on
+statutory DM magnitudes, and converts the resulting columns back to Euro. A run whose
+statutory currency differs from the base currency while `data_currency` sits at its
+default triggers a warning — the user may not have thought about the denomination of
+their data.
 
 **A changeover within one parameter's history.** Many parameters were written in
 Deutsche Mark before 2002 and in Euro afterward. Rather than repeating the currency on
@@ -850,7 +857,8 @@ both JAX and the GEP-9 `FloatColumn` vocabulary. Instead, pint is used in two bu
 roles:
 
 - to compute conversion **factors** (time factors baked into the compiled workers as
-  plain numeric constants; the currency factor applied at the column boundary only); and
+  plain numeric constants; the currency factor applied only to input data and results);
+  and
 - to run the **dry-run** dimensionality check on representative `Quantity`s.
 
 The numeric runtime path stays pure arrays, single currency, and JAX-safe.
