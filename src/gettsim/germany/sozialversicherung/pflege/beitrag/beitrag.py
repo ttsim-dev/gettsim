@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
 @policy_function(
     end_date="1999-03-31",
     leaf_name="betrag_versicherter_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
     betrag_versicherter_regulärer_beitragssatz: float,
@@ -20,6 +21,7 @@ def betrag_versicherter_m_bis_03_1999(
     start_date="1999-04-01",
     end_date="2003-03-31",
     leaf_name="betrag_versicherter_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_ohne_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
@@ -47,6 +49,7 @@ def betrag_versicherter_m_ohne_midijob(
 @policy_function(
     start_date="2003-04-01",
     leaf_name="betrag_versicherter_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_mit_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
@@ -74,6 +77,7 @@ def betrag_versicherter_m_mit_midijob(
 @policy_function(
     end_date="1999-03-31",
     leaf_name="betrag_arbeitgeber_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_bis_03_1999(
     betrag_arbeitgeber_regulärer_beitragssatz_m: float,
@@ -86,6 +90,7 @@ def betrag_arbeitgeber_m_bis_03_1999(
     start_date="1999-04-01",
     end_date="2003-03-31",
     leaf_name="betrag_arbeitgeber_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_ohne_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
@@ -110,6 +115,7 @@ def betrag_arbeitgeber_m_ohne_midijob(
 @policy_function(
     start_date="2003-04-01",
     leaf_name="betrag_arbeitgeber_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_mit_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
@@ -135,7 +141,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     return out
 
 
-@policy_function(start_date="1995-01-01")
+@policy_function(start_date="1995-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def betrag_selbstständig_m(
     sozialversicherung__kranken__beitrag__bemessungsgrundlage_selbstständig_m: float,
     beitragssatz_arbeitnehmer: float,
@@ -151,7 +157,7 @@ def betrag_selbstständig_m(
     )
 
 
-@policy_function(start_date="1995-01-01")
+@policy_function(start_date="1995-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def betrag_versicherter_regulärer_beitragssatz(
     sozialversicherung__kranken__beitrag__einkommen_m: float,
     beitragssatz_arbeitnehmer: float,
@@ -162,7 +168,7 @@ def betrag_versicherter_regulärer_beitragssatz(
     return sozialversicherung__kranken__beitrag__einkommen_m * beitragssatz_arbeitnehmer
 
 
-@policy_function(start_date="1995-01-01")
+@policy_function(start_date="1995-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def betrag_arbeitgeber_regulärer_beitragssatz_m(
     sozialversicherung__kranken__beitrag__einkommen_m: float,
     beitragssatz_arbeitgeber: float,
@@ -176,6 +182,7 @@ def betrag_arbeitgeber_regulärer_beitragssatz_m(
 @policy_function(
     start_date="2003-04-01",
     end_date="2022-09-30",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_gesamt_in_gleitzone_m(
     sozialversicherung__midijob_bemessungsentgelt_m: float,
@@ -192,6 +199,7 @@ def betrag_gesamt_in_gleitzone_m(
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_versicherter_in_gleitzone_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberbeitrag(
     betrag_arbeitgeber_in_gleitzone_m: float,
@@ -205,6 +213,7 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
     start_date="2022-10-01",
     end_date="2023-06-30",
     leaf_name="betrag_versicherter_in_gleitzone_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_in_gleitzone_m_direkt(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
@@ -220,6 +229,7 @@ def betrag_versicherter_in_gleitzone_m_direkt(
 @policy_function(
     start_date="2023-07-01",
     leaf_name="betrag_versicherter_in_gleitzone_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_midijob_m_mit_verringertem_beitrag_für_eltern_mit_mehreren_kindern(
     anzahl_kinder_bis_24: int,
@@ -256,6 +266,7 @@ def betrag_versicherter_midijob_m_mit_verringertem_beitrag_für_eltern_mit_mehre
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_in_gleitzone_m_als_anteil_des_bruttolohns(
     einnahmen__bruttolohn_m: float,
@@ -265,7 +276,11 @@ def betrag_arbeitgeber_in_gleitzone_m_als_anteil_des_bruttolohns(
     return einnahmen__bruttolohn_m * beitragssatz_arbeitgeber
 
 
-@policy_function(start_date="2022-10-01", leaf_name="betrag_arbeitgeber_in_gleitzone_m")
+@policy_function(
+    start_date="2022-10-01",
+    leaf_name="betrag_arbeitgeber_in_gleitzone_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def betrag_arbeitgeber_in_gleitzone_m_als_anteil_der_beitragspflichtigen_einnahmen(
     sozialversicherung__midijob_bemessungsentgelt_m: float,
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
@@ -285,6 +300,7 @@ def betrag_arbeitgeber_in_gleitzone_m_als_anteil_der_beitragspflichtigen_einnahm
     start_date="1995-01-01",
     end_date="2004-03-31",
     leaf_name="betrag_rentner_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_rentner_m_reduzierter_beitrag(
     sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m: float,
@@ -304,6 +320,7 @@ def betrag_rentner_m_reduzierter_beitrag(
     start_date="2004-04-01",
     end_date="2004-12-31",
     leaf_name="betrag_rentner_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_rentner_m_ohne_zusatz_für_kinderlose(
     sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m: float,
@@ -318,7 +335,11 @@ def betrag_rentner_m_ohne_zusatz_für_kinderlose(
     )
 
 
-@policy_function(start_date="2005-01-01", leaf_name="betrag_rentner_m")
+@policy_function(
+    start_date="2005-01-01",
+    leaf_name="betrag_rentner_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def betrag_rentner_m_mit_zusatz_für_kinderlose(
     sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m: float,
     beitragssatz_arbeitnehmer: float,

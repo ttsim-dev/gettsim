@@ -1,16 +1,18 @@
 from __future__ import annotations
 
-from gettsim.tt import RoundingSpec, policy_function
+from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
 @policy_function(
     end_date="2017-06-30",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     leaf_name="bruttorente_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def bruttorente_m_mit_harter_hinzuverdienstgrenze(
     alter: int,
@@ -40,10 +42,12 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze(
     end_date="2022-12-31",
     leaf_name="bruttorente_m",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def bruttorente_m_mit_hinzuverdienstdeckel(
     alter: int,
@@ -77,6 +81,7 @@ def bruttorente_m_mit_hinzuverdienstdeckel(
 @policy_function(
     start_date="2017-07-01",
     end_date="2022-12-31",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def zahlbetrag_ohne_deckel_m(
     einnahmen__bruttolohn_m: float,
@@ -110,6 +115,7 @@ def zahlbetrag_ohne_deckel_m(
 @policy_function(
     start_date="2017-07-01",
     end_date="2022-12-31",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def differenz_bruttolohn_hinzuverdienstgrenze_m(
     einnahmen__bruttolohn_m: float,
@@ -125,6 +131,7 @@ def differenz_bruttolohn_hinzuverdienstgrenze_m(
 @policy_function(
     start_date="2017-07-01",
     end_date="2022-12-31",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def differenz_bruttolohn_hinzuverdienstdeckel_m(
     einnahmen__bruttolohn_m: float,
@@ -144,10 +151,12 @@ def differenz_bruttolohn_hinzuverdienstdeckel_m(
     start_date="2023-01-01",
     leaf_name="bruttorente_m",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def bruttorente_m_ohne_einkommensanrechnung(
     bruttorente_basisbetrag_m: float,

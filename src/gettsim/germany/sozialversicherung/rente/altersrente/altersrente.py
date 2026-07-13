@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
-from gettsim.tt import RoundingSpec, policy_function
+from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
 @policy_function(
     end_date="2020-12-31",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     leaf_name="betrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_m(
     bruttorente_m: float,
@@ -24,11 +26,13 @@ def betrag_m(
 @policy_function(
     start_date="2021-01-01",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     leaf_name="betrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_m_mit_grundrente(
     bruttorente_m: float,
@@ -47,6 +51,7 @@ def betrag_m_mit_grundrente(
     start_date="1992-01-01",
     end_date="2023-06-30",
     leaf_name="bruttorente_basisbetrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def bruttorente_basisbetrag_m_nach_wohnort(
     zugangsfaktor: float,
@@ -78,7 +83,7 @@ def bruttorente_basisbetrag_m_nach_wohnort(
     return out
 
 
-@policy_function(start_date="2023-07-01")
+@policy_function(start_date="2023-07-01", unit=Unit.CURRENCY.PER_MONTH)
 def bruttorente_basisbetrag_m(
     zugangsfaktor: float,
     sozialversicherung__rente__entgeltpunkte: float,
@@ -107,7 +112,7 @@ def bruttorente_basisbetrag_m(
     return out
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def zugangsfaktor(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     regelaltersrente__altersgrenze: float,

@@ -11,8 +11,7 @@ beitragsbemessungsgrenze_m:
       The maximum amount of income subject to health insurance contributions is
       uniform throughout the Federal Republic of Germany. It also applies to
       long-term care insurance.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     value: 1994
@@ -104,8 +103,7 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     en: >-
       The maximum amount of income subject to health insurance contributions differs
       between West and East Germany. It also applies to long-term care insurance.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   1990-01-01:
     west: 2416

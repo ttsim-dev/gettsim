@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    Unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -15,11 +16,13 @@ if TYPE_CHECKING:
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
     """Additional monthly pensions payments (Grundrentenzuschlag)."""
@@ -27,7 +30,7 @@ def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
     return max(out, 0.0)
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def einkommen_m(
     gesamteinnahmen_aus_renten_vorjahr_m: float,
     bruttolohn_vorjahr_m: float,
@@ -78,11 +81,13 @@ def _anzurechnendes_einkommen_m(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
@@ -124,11 +129,13 @@ def anzurechnendes_einkommen_m(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_m(
     mean_entgeltpunkte_zuschlag: float,
@@ -160,7 +167,7 @@ def basisbetrag_m(
     )
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=Unit.DIMENSIONLESS.PER_MONTH)
 def mean_entgeltpunkte_pro_bewertungsmonat(
     mean_entgeltpunkte: float,
     bewertungszeiten_monate: int,
@@ -183,6 +190,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat(
         reference="§76g SGB VI Abs. 4 Nr. 4",
     ),
     start_date="2021-01-01",
+    unit=Unit.DIMENSIONLESS.PER_MONTH,
 )
 def höchstbetrag_m(
     grundrentenzeiten_monate: int,
@@ -211,6 +219,7 @@ def höchstbetrag_m(
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=Unit.DIMENSIONLESS.PER_MONTH,
 )
 def mean_entgeltpunkte_zuschlag(
     mean_entgeltpunkte_pro_bewertungsmonat: float,
@@ -248,7 +257,7 @@ def mean_entgeltpunkte_zuschlag(
     return out * bonusfaktor
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=Unit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -257,7 +266,7 @@ def grundsätzlich_anspruchsberechtigt(
     return grundrentenzeiten_monate >= berücksichtigte_wartezeit_monate["min"]
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
     einnahmen__renten__betrag_gesamt_m: float,
 ) -> float:

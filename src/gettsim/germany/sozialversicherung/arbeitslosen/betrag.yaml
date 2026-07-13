@@ -6,8 +6,7 @@ freibetrag_nebeneinkommen:
   description:
     de: § 155 SGB III, vorher § 141 (1) S. 1
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   1999-08-01:
     value: 161
@@ -24,8 +23,7 @@ sozialversicherungspauschale:
     de: >-
       § 153 (1) Nr. 1 SGB III. Wird angewendet auf das Bemessungsentgelt.
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   1984-01-01:
     value: 0.1727
@@ -97,8 +95,7 @@ satz:
       Verhältnis zum letzten Nettoentgelt. Unterscheidet sich für Personen mit/ohne
       Kinder im Sinne des EStG.
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: dict
   1998-08-01:
     allgemein: 0.6

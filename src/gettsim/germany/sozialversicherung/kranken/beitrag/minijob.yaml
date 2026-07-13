@@ -10,8 +10,7 @@ minijob_arbeitgeberpauschale:
       Pauschalbeitrag des Arbeitgebers zur Krankenversicherung (§ 249b SGB V) bei
       geringfügiger Beschäftigung
     en: Fixed health insurance contributions for marginal employment (§ 249b SGB V)
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   1999-04-01:
     value: 0.1

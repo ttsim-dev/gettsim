@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import ConsecutiveIntLookupTableParamValue, Unit, policy_function
 
 
 @policy_function(
     start_date="2014-06-23",
     end_date="2028-12-31",
+    unit=Unit.YEARS,
 )
 def altersgrenze(
     geburtsjahr: int,
@@ -26,7 +27,7 @@ def altersgrenze(
     return altersgrenze_gestaffelt.look_up(geburtsjahr)
 
 
-@policy_function(start_date="2012-01-01")
+@policy_function(start_date="2012-01-01", unit=Unit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     sozialversicherung__rente__wartezeit_45_jahre_erfüllt: bool,
 ) -> bool:

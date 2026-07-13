@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from ttsim.unit_converters import m_to_y
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function()
+@policy_function(unit=Unit.YEARS)
 def alter_bei_renteneintritt(
     jahr_renteneintritt: int,
     monat_renteneintritt: int,

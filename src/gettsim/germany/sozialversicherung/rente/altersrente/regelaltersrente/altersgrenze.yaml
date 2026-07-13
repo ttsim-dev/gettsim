@@ -14,8 +14,7 @@ altersgrenze:
       Normal retirement age from which pension can be received. If retirement benefits
       are claimed earlier or later, the Zugangsfaktor and thus the pension entitlement
       is higher or lower unless special regulations apply.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1957-02-26:
     reference: Rentenreformgesetz 1957 BGBl. I S. 88
@@ -42,8 +41,8 @@ altersgrenze_gestaffelt:
       Normal retirement age from which pension can be received. If retirement benefits
       are claimed earlier or later, the Zugangsfaktor and thus the pension entitlement
       is higher or lower unless special regulations apply.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: YEARS
   type: year_based_phase_inout_of_age_thresholds
   2007-04-20:
     reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554

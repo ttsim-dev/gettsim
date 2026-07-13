@@ -6,8 +6,7 @@ bezugsgröße_selbstständige_m:
   description:
     de: §18 SGB IV ynd https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
     en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     value: 1396
@@ -40,8 +39,7 @@ bezugsgröße_selbstständige_nach_wohnort:
   description:
     de: §18 SGB IV und https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
     en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   add_jahresanfang: true
   1990-01-01:
@@ -171,8 +169,7 @@ mindestanteil_bezugsgröße_selbstständige:
       §240 SGB V Abs. 4
       Health Insurance contributions have to be payed, at the minimum, on the ninetieth
       part of the monthly Bezugsgröße for each calender day
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   1990-01-01:
     note: Exact date of introduction of this parameter unclear (was in place in 2006)

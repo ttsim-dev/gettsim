@@ -13,8 +13,7 @@ berücksichtigte_wartezeit_monate:
       § 76g Abs. 4 S. 5,6 / Abs. 1 S. 1 SGB VI
       Minimal number of Grundrentenzeiten required to be entitled to Grundrente and
       maximum number of months that are considered for Grundrente.
-  unit: Months
-  reference_period: null
+  unit: MONTHS
   type: dict
   2021-01-01:
     min: 396

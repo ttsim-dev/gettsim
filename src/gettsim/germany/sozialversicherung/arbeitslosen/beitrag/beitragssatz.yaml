@@ -10,8 +10,7 @@ beitragssatz:
     en: >-
       Contribution rate to unemployment insurance, split into employee and
       employer contribution.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   add_jahresanfang: true
   1984-01-01:

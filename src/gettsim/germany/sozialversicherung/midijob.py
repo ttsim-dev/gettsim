@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import Unit, param_function, policy_function
 
 
-@policy_function(start_date="2003-04-01")
+@policy_function(start_date="2003-04-01", unit=Unit.DIMENSIONLESS)
 def in_gleitzone(
     einnahmen__bruttolohn_m: float,
     geringfügig_beschäftigt: bool,
@@ -22,7 +22,7 @@ def in_gleitzone(
     return (einnahmen__bruttolohn_m <= midijobgrenze) and (not geringfügig_beschäftigt)
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_MONTH)
 def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     einnahmen__bruttolohn_m: float,
     minijobgrenze: float,
@@ -43,6 +43,7 @@ def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     start_date="2003-04-01",
     end_date="2004-12-31",
     leaf_name="midijob_faktor_f",
+    unit=Unit.DIMENSIONLESS,
 )
 def midijob_faktor_f_mit_minijob_steuerpauschale_bis_2004(
     kranken__beitrag__beitragssatz_arbeitnehmer_midijob: float,
@@ -85,6 +86,7 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_bis_2004(
     start_date="2005-01-01",
     end_date="2022-09-30",
     leaf_name="midijob_faktor_f",
+    unit=Unit.DIMENSIONLESS,
 )
 def midijob_faktor_f_mit_minijob_steuerpauschale_ab_2005_bis_2022_09(
     kranken__beitrag__beitragssatz_arbeitnehmer_midijob: float,
@@ -126,6 +128,7 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_ab_2005_bis_2022_09(
 @param_function(
     start_date="2022-10-01",
     leaf_name="midijob_faktor_f",
+    unit=Unit.DIMENSIONLESS,
 )
 def midijob_faktor_f_ohne_minijob_steuerpauschale(
     kranken__beitrag__beitragssatz_arbeitnehmer_midijob: float,
@@ -171,6 +174,7 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="midijob_bemessungsentgelt_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def midijob_bemessungsentgelt_m_bis_09_2022(
     einnahmen__bruttolohn_m: float,
@@ -197,7 +201,11 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
     return minijob_anteil + lohn_über_mini * gewichtete_midijob_rate
 
 
-@policy_function(start_date="2022-10-01", leaf_name="midijob_bemessungsentgelt_m")
+@policy_function(
+    start_date="2022-10-01",
+    leaf_name="midijob_bemessungsentgelt_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def midijob_bemessungsentgelt_m_ab_10_2022(
     einnahmen__bruttolohn_m: float,
     midijob_faktor_f: float,

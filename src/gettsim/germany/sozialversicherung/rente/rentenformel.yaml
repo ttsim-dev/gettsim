@@ -14,8 +14,7 @@ zugangsfaktor_veränderung_pro_jahr:
       Factor with which the Zugangsfaktor / "access factor" for receiving the statutory
       pension is increased/decreased for each year of less/more work.
       Careful: There are many exceptions to this rule!
-  unit: null
-  reference_period: Year
+  unit: DIMENSIONLESS_PER_YEAR
   type: dict
   2001-01-01:
     vorzeitiger_renteneintritt: 0.036
@@ -33,8 +32,7 @@ parameter_rentenwert_nach_wohnort:
       statistik-rente.de/drv,  § 68 SGB VI
       The current pension value expresses the amount of monthly pension paid for one
       Entgeltpunkt.
-  unit: Euros
-  reference_period: null
+  unit: EUR_PER_MONTH
   type: dict
   1992-01-01:
     west: 21.19
@@ -147,8 +145,7 @@ rentenwert:
       statistik-rente.de/drv,  § 68 SGB VI
       The current pension value expresses the amount of monthly pension paid for one
       Entgeltpunkt.
-  unit: Euros
-  reference_period: null
+  unit: EUR_PER_MONTH
   type: scalar
   2023-07-01:
     value: 37.60

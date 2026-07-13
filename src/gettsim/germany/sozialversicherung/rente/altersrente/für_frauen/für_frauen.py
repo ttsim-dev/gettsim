@@ -7,13 +7,14 @@ from __future__ import annotations
 
 from ttsim.unit_converters import y_to_m
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import ConsecutiveIntLookupTableParamValue, Unit, policy_function
 
 
 @policy_function(
     start_date="1989-12-18",
     end_date="2017-12-31",
     leaf_name="altersgrenze",
+    unit=Unit.YEARS,
 )
 def altersgrenze_mit_staffelung(
     geburtsjahr: int,
@@ -34,6 +35,7 @@ def altersgrenze_mit_staffelung(
     start_date="1989-12-18",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_mit_staffelung(
     geburtsjahr: int,
@@ -50,7 +52,11 @@ def altersgrenze_vorzeitig_mit_staffelung(
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
 
-@policy_function(end_date="1997-12-15", leaf_name="grundsätzlich_anspruchsberechtigt")
+@policy_function(
+    end_date="1997-12-15",
+    leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
+)
 def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     weiblich: bool,
     sozialversicherung__rente__wartezeit_15_jahre_erfüllt: bool,
@@ -75,6 +81,7 @@ def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     start_date="1997-12-16",
     end_date="2017-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_mit_prüfung_geburtsjahr(
     weiblich: bool,

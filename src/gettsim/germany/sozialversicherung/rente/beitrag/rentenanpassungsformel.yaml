@@ -12,8 +12,7 @@ alpha:
       §68 Abs. 4 S. 6 SGB VI
       Part of the sustainability factor in the pension adjustment formula which modifies
       the ratio of pensioners to contributors
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2002-01-01:
     value: 0.25
@@ -24,8 +23,7 @@ altersvorsorgeanteil:
   description:
     de: §68 Abs. 5 SGB VI (Teil des Riesterfaktors in der Rentenanpassungsformel)
     en: §68 Abs. 5 SGB VI (Part of the Riesterfaktor in the pension adjustment formula)
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2002-01-01:
     value: 0.5
@@ -55,8 +53,7 @@ beitragsvolumen:
     en: >-
       Sum of contributions to the pension insurance of all employees subject to pension
       insurance, marginally employed and recipients of ALG.
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1991-01-01:
     value: 108688000
@@ -123,8 +120,7 @@ durchschnittslohn:
   description:
     de: Durchschnittsbruttolohn aller Arbeitnehmer:innen in einem Jahr
     en: Mean gross wage of all employees per year
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2005-01-01:
     value: 28468.23
@@ -157,8 +153,7 @@ gesamtes_rentenvolumen:
   description:
     de: Gesamtvolumen der ausgezahlten Renten
     en: Total amount of paid pensions
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1991-01-01:
     value: 117912000

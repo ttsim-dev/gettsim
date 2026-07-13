@@ -10,8 +10,7 @@ beitragssatz:
     en: >-
       Contribution rate to statutory pension insurance, which is shared equally by
       employees and employers.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   add_jahresanfang: true
   1984-01-01:
@@ -58,8 +57,7 @@ beitragssatz_knappschaftliche_rentenversicherung:
   description:
     de: Beitragssatz zur knappschaftlichen Rentenversicherung.
     en: Contribution rate to statutory pension insurance.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2015-01-01:
     value: 0.248

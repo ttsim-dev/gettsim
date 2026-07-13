@@ -6,8 +6,7 @@ minijobgrenze:
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     value: 199
@@ -43,8 +42,7 @@ parameter_minijobgrenze_ost_west_unterschied:
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   1990-01-01:
     west: 240
@@ -89,8 +87,9 @@ faktoren_minijobformel:
   description:
     de: §8 (1a) SGB IV
     en: §8 (1a) SGB IV
-  unit: null
-  reference_period: null
+  unit:
+    zähler: HOURS
+    nenner: MONTHS
   type: dict
   2022-10-01:
     zähler: 130

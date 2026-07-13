@@ -11,13 +11,14 @@ from __future__ import annotations
 
 from ttsim.unit_converters import y_to_m
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import ConsecutiveIntLookupTableParamValue, Unit, policy_function
 
 
 @policy_function(
     start_date="1989-12-18",
     end_date="1996-07-28",
     leaf_name="altersgrenze",
+    unit=Unit.YEARS,
 )
 def altersgrenze_bis_1996(
     geburtsjahr: int,
@@ -37,6 +38,7 @@ def altersgrenze_bis_1996(
     start_date="1996-07-29",
     end_date="2009-12-31",
     leaf_name="altersgrenze",
+    unit=Unit.YEARS,
 )
 def altersgrenze_mit_vertrauensschutzprüfung(
     vertrauensschutz_1997: bool,
@@ -60,6 +62,7 @@ def altersgrenze_mit_vertrauensschutzprüfung(
     start_date="2010-01-01",
     end_date="2017-12-31",
     leaf_name="altersgrenze",
+    unit=Unit.YEARS,
 )
 def altersgrenze_ab_2010(
     altersgrenze_ohne_vertrauensschutz: float,
@@ -78,6 +81,7 @@ def altersgrenze_ab_2010(
     start_date="1989-12-18",
     end_date="1996-07-28",
     leaf_name="altersgrenze_vorzeitig",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_bis_1996_07(
     geburtsjahr: int,
@@ -97,6 +101,7 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_bis_1996_07(
     start_date="1996-07-29",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_1996_bis_09_1996(
     vertrauensschutz_1997: bool,
@@ -119,6 +124,7 @@ def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_1996_bis_09_1996(
     start_date="2004-07-26",
     end_date="2017-12-31",
     leaf_name="altersgrenze_vorzeitig",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_2004(
     vertrauensschutz_2004: bool,
@@ -139,7 +145,7 @@ def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_2004(
         return altersgrenze_vorzeitig_ohne_vertrauensschutz
 
 
-@policy_function(start_date="1989-12-18", end_date="2017-12-31")
+@policy_function(start_date="1989-12-18", end_date="2017-12-31", unit=Unit.YEARS)
 def altersgrenze_ohne_vertrauensschutz(
     geburtsjahr: int,
     geburtsmonat: int,
@@ -156,7 +162,7 @@ def altersgrenze_ohne_vertrauensschutz(
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
 
-@policy_function(start_date="1996-07-29", end_date="2009-12-31")
+@policy_function(start_date="1996-07-29", end_date="2009-12-31", unit=Unit.YEARS)
 def altersgrenze_mit_vertrauensschutz(
     geburtsjahr: int,
     geburtsmonat: int,
@@ -172,6 +178,7 @@ def altersgrenze_mit_vertrauensschutz(
     start_date="1989-12-18",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig_ohne_vertrauensschutz",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
     geburtsjahr: int,
@@ -193,6 +200,7 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
     start_date="2004-07-26",
     end_date="2017-12-31",
     leaf_name="altersgrenze_vorzeitig_ohne_vertrauensschutz",
+    unit=Unit.YEARS,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_07_2004(
     geburtsjahr: int,
@@ -210,7 +218,11 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_07_2004(
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
 
-@policy_function(end_date="2007-04-29", leaf_name="grundsätzlich_anspruchsberechtigt")
+@policy_function(
+    end_date="2007-04-29",
+    leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
+)
 def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     arbeitslos_für_1_jahr_nach_alter_58_ein_halb: bool,
     sozialversicherung__rente__wartezeit_15_jahre_erfüllt: bool,
@@ -235,6 +247,7 @@ def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     start_date="2007-04-30",
     end_date="2017-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt",
+    unit=Unit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_mit_prüfung_geburtsjahr(
     arbeitslos_für_1_jahr_nach_alter_58_ein_halb: bool,

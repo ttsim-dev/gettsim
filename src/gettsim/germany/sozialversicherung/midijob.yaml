@@ -6,8 +6,7 @@ midijobgrenze:
   description:
     de: § 20 (2) SGB IV
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2003-04-01:
     value: 800

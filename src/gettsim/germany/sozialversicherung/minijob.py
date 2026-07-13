@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import RoundingSpec, policy_function
+from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def geringfügig_beschäftigt(
     einnahmen__bruttolohn_m: float,
     minijobgrenze: float,
@@ -22,10 +22,12 @@ def geringfügig_beschäftigt(
     end_date="1999-12-31",
     leaf_name="minijobgrenze",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=1,
         direction="up",
         reference="§ 8 Abs. 1a Satz 2 SGB IV",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def minijobgrenze_unterscheidung_ost_west(
     wohnort_ost_hh: bool,
@@ -46,10 +48,12 @@ def minijobgrenze_unterscheidung_ost_west(
     start_date="2022-10-01",
     leaf_name="minijobgrenze",
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_MONTH,
         base=1,
         direction="up",
         reference="§ 8 Abs. 1a Satz 2 SGB IV",
     ),
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def minijobgrenze_abgeleitet_von_mindestlohn(
     mindestlohn: float,

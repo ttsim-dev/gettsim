@@ -13,8 +13,7 @@ mindestlohn:
       §1 (2) Mindestlohngesetz
       The minimum wage is the lowest hourly wage that an employer must pay for a
       regular, not more than 45 hours weekly work.
-  unit: Euros
-  reference_period: Hour
+  unit: EUR_PER_HOURS
   type: scalar
   2015-01-01:
     value: 8.5
