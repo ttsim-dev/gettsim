@@ -14,8 +14,7 @@ altersgrenze:
       Underage children are entitled to child benefit without any conditions. Also adult
       children up to a specified age are entitled to child benefit under certain
       conditions.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: dict
   1984-01-01:
     mit_bedingungen: 27
@@ -34,8 +33,7 @@ satz_gestaffelt:
       Steuerpflichtige relevant (d.h. Ausländer mit Erwerbstätigkeit in Deutschland).
       Für Werte vor 2002, siehe 'BMF - Datensammlung zur Steuerpolitik'
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: require_converter
   1975-01-01:
     1: 26
@@ -169,8 +167,7 @@ satz:
       Steuerpflichtige relevant (d.h. Ausländer mit Erwerbstätigkeit in Deutschland).
       Für Werte vor 2002, siehe 'BMF - Datensammlung zur Steuerpolitik'
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2023-01-01:
     value: 250
@@ -193,8 +190,7 @@ maximales_einkommen_des_kindes:
       § 32 (4) EStG. Wurde 2012 durch eine Höchstgrenze der gearbeiteten Stunden
       ersetzt.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1996-01-01:
     value: 6136
@@ -226,8 +222,7 @@ maximale_arbeitsstunden_des_kindes:
       §32 (4) S. 3 EStG. Maximale Anzahl von erlaubten Wochenstunden des Kindes für den
       Bezug von Kindergeld
     en: null
-  unit: Hours
-  reference_period: Week
+  unit: HOURS_PER_WEEK
   type: scalar
   2012-01-01:
     value: 20
@@ -242,8 +237,7 @@ kinderbonus_pro_kind:
       2020 bzw. Mai 2021 ausgezahlt, aber ist hier auf das volle Kalenderjahr
       angerechnet.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2020-01-01:
     reference: Art. 1 Zweites Corona-Steuerhilfegesetz v. 29.06.2020 BGBl. I S. 1512
