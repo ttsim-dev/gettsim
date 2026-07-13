@@ -9,8 +9,7 @@ parameter_kinderfreibetrag:
       Betreuungs-, Erziehungs- oder Ausbildungsbedarf. Wird verdoppelt für gemeinsam
       veranlagte Paare. §32 (6) EStG.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: dict
   1983-01-01:
     sächliches_existenzminimum: 110

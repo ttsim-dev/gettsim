@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(end_date="2014-12-31", leaf_name="alleinerziehend_betrag_y")
+@policy_function(
+    end_date="2014-12-31",
+    leaf_name="alleinerziehend_betrag_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def alleinerziehend_betrag_y_pauschal(
     familie__alleinerziehend_sn: bool,
     alleinerziehendenfreibetrag_basis: float,
@@ -14,7 +18,11 @@ def alleinerziehend_betrag_y_pauschal(
     return alleinerziehendenfreibetrag_basis if familie__alleinerziehend_sn else 0.0
 
 
-@policy_function(start_date="2015-01-01", leaf_name="alleinerziehend_betrag_y")
+@policy_function(
+    start_date="2015-01-01",
+    leaf_name="alleinerziehend_betrag_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def alleinerziehend_betrag_y_nach_kinderzahl(
     familie__alleinerziehend_sn: bool,
     kindergeld__anzahl_ansprüche_sn: int,

@@ -9,8 +9,7 @@ steuerfreibetrag_aktivrente_y:
   description:
     de: § 3 Abs. 21 EStG
     en: § 3 Abs. 21 EStG
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2026-01-01:
     value: 24000

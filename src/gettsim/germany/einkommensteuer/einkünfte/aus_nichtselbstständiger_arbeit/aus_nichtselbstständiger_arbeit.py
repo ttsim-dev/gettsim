@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import Unit, param_function, policy_function
 
 
-@policy_function(end_date="1999-03-31", leaf_name="betrag_y")
+@policy_function(
+    end_date="1999-03-31", leaf_name="betrag_y", unit=Unit.CURRENCY.PER_YEAR
+)
 def betrag_y_bis_03_1999(
     einnahmen_nach_abzug_werbungskosten_y: float,
 ) -> float:
@@ -13,7 +15,9 @@ def betrag_y_bis_03_1999(
     return einnahmen_nach_abzug_werbungskosten_y
 
 
-@policy_function(start_date="1999-04-01", leaf_name="betrag_y")
+@policy_function(
+    start_date="1999-04-01", leaf_name="betrag_y", unit=Unit.CURRENCY.PER_YEAR
+)
 def betrag_y_ab_04_1999(
     sozialversicherung__geringfügig_beschäftigt: bool,
     steuerbefreite_einnahmen_y: float,
@@ -33,7 +37,7 @@ def betrag_y_ab_04_1999(
         )
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_YEAR)
 def einnahmen_nach_abzug_werbungskosten_y(
     einnahmen__bruttolohn_y: float,
     werbungskosten_y: float,
@@ -42,7 +46,7 @@ def einnahmen_nach_abzug_werbungskosten_y(
     return max(einnahmen__bruttolohn_y - werbungskosten_y, 0.0)
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_YEAR)
 def werbungskosten_y(
     tatsächliche_werbungskosten_y: float,
     arbeitnehmerpauschbetrag: float,
@@ -65,7 +69,7 @@ def werbungskosten_y(
     return max(anrechenbare_werbungskosten, arbeitnehmerpauschbetrag)
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def anteil_steuerfälliger_einnahmen_y(
     einnahmen__bruttolohn_y: float,
     steuerbefreite_einnahmen_y: float,
@@ -83,7 +87,11 @@ def anteil_steuerfälliger_einnahmen_y(
         return 0.0
 
 
-@param_function(end_date="2025-12-31", leaf_name="steuerbefreite_einnahmen_y")
+@param_function(
+    end_date="2025-12-31",
+    leaf_name="steuerbefreite_einnahmen_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def steuerbefreite_einnahmen_y_bis_2025() -> float:
     """Steuerbefreite Einnahmen aus abhängiger Beschäftigung.
 
@@ -93,7 +101,11 @@ def steuerbefreite_einnahmen_y_bis_2025() -> float:
     return 0.0
 
 
-@policy_function(start_date="2026-01-01", leaf_name="steuerbefreite_einnahmen_y")
+@policy_function(
+    start_date="2026-01-01",
+    leaf_name="steuerbefreite_einnahmen_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def steuerbefreite_einnahmen_y_ab_2026(
     anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
 ) -> float:
@@ -104,7 +116,7 @@ def steuerbefreite_einnahmen_y_ab_2026(
     return anspruchshöhe_steuerfreibetrag_aktivrente_y
 
 
-@policy_function(start_date="2026-01-01")
+@policy_function(start_date="2026-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
     steuerfreibetrag_aktivrente_m: float,

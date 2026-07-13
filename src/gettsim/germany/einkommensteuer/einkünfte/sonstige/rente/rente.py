@@ -9,10 +9,14 @@ if TYPE_CHECKING:
 
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(end_date="2004-12-31", leaf_name="steuerpflichtige_einnahmen_m")
+@policy_function(
+    end_date="2004-12-31",
+    leaf_name="steuerpflichtige_einnahmen_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def steuerpflichtige_einnahmen_m_nach_ertragsanteil(
     ertragsanteil_gesetzliche_rente: float,
     ertragsanteil_berufsständische_altersvorsorge: float,
@@ -37,7 +41,11 @@ def steuerpflichtige_einnahmen_m_nach_ertragsanteil(
     )
 
 
-@policy_function(start_date="2005-01-01", leaf_name="steuerpflichtige_einnahmen_m")
+@policy_function(
+    start_date="2005-01-01",
+    leaf_name="steuerpflichtige_einnahmen_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def steuerpflichtige_einnahmen_m_nach_besteuerungsanteil(
     besteuerungsanteil: float,
     ertragsanteil_sonstige_private_vorsorge: float,
@@ -66,7 +74,7 @@ def steuerpflichtige_einnahmen_m_nach_besteuerungsanteil(
     )
 
 
-@policy_function()
+@policy_function(unit=Unit.DIMENSIONLESS)
 def ertragsanteil_sonstige_private_vorsorge(
     alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
@@ -77,7 +85,7 @@ def ertragsanteil_sonstige_private_vorsorge(
     )
 
 
-@policy_function(end_date="2004-12-31")
+@policy_function(end_date="2004-12-31", unit=Unit.DIMENSIONLESS)
 def ertragsanteil_berufsständische_altersvorsorge(
     alter_beginn_leistungsbezug_berufsständische_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
@@ -88,7 +96,7 @@ def ertragsanteil_berufsständische_altersvorsorge(
     )
 
 
-@policy_function(end_date="2004-12-31")
+@policy_function(end_date="2004-12-31", unit=Unit.DIMENSIONLESS)
 def ertragsanteil_gesetzliche_rente(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
@@ -100,7 +108,7 @@ def ertragsanteil_gesetzliche_rente(
     )
 
 
-@policy_function(end_date="2004-12-31")
+@policy_function(end_date="2004-12-31", unit=Unit.DIMENSIONLESS)
 def ertragsanteil_betriebliche_altersvorsorge(
     alter_beginn_leistungsbezug_betriebliche_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
@@ -111,7 +119,7 @@ def ertragsanteil_betriebliche_altersvorsorge(
     )
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def besteuerungsanteil(
     sozialversicherung__rente__jahr_renteneintritt: int,
     parameter_besteuerungsanteil: ConsecutiveIntLookupTableParamValue,

@@ -6,8 +6,7 @@ satz:
   description:
     de: §32d (1) EStG
     en: §32d (1) EStG
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2009-01-01:
     value: 0.25

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    Unit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -17,7 +18,13 @@ if TYPE_CHECKING:
 @policy_function(
     end_date="2004-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_bis_2004(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -30,7 +37,13 @@ def vorsorgeaufwendungen_y_sn_bis_2004(
     start_date="2005-01-01",
     end_date="2009-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -51,7 +64,13 @@ def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
     start_date="2010-01-01",
     end_date="2019-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -71,7 +90,13 @@ def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
 @policy_function(
     start_date="2020-01-01",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2020(
     vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn: float,
@@ -84,7 +109,7 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
     return vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn
 
 
-@policy_function(end_date="2019-12-31")
+@policy_function(end_date="2019-12-31", unit=Unit.CURRENCY.PER_YEAR.PER_SN)
 def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     vorwegabzug_lohnsteuer_y_sn: float,
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
@@ -127,6 +152,7 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
 @policy_function(
     start_date="2005-01-01",
     end_date="2009-12-31",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_globale_kappung_y_sn(
     altersvorsorge_y_sn: float,
@@ -156,6 +182,7 @@ def vorsorgeaufwendungen_globale_kappung_y_sn(
 
 @policy_function(
     start_date="2010-01-01",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     altersvorsorge_y_sn: float,
@@ -195,7 +222,7 @@ def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     return sonst_vors + altersvorsorge_y_sn
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.DIMENSIONLESS)
 def rate_abzugsfähige_altersvorsorgeaufwendungen(
     parameter_einführungsfaktor_altersvorsorgeaufwendungen: PiecewisePolynomialParamValue,
     policy_year: int,
@@ -222,6 +249,7 @@ def rate_abzugsfähige_altersvorsorgeaufwendungen(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="altersvorsorge_y_sn",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def altersvorsorge_y_sn_phase_in(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
@@ -248,7 +276,11 @@ def altersvorsorge_y_sn_phase_in(
     return min(out, max_value)
 
 
-@policy_function(start_date="2023-01-01", leaf_name="altersvorsorge_y_sn")
+@policy_function(
+    start_date="2023-01-01",
+    leaf_name="altersvorsorge_y_sn",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+)
 def altersvorsorge_y_sn_volle_anrechnung(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
     beitrag_private_rentenversicherung_y_sn: float,
@@ -265,7 +297,7 @@ def altersvorsorge_y_sn_volle_anrechnung(
     return min(out, max_value)
 
 
-@policy_function(end_date="2019-12-31")
+@policy_function(end_date="2019-12-31", unit=Unit.CURRENCY.PER_YEAR.PER_SN)
 def vorwegabzug_lohnsteuer_y_sn(
     einnahmen__bruttolohn_y_sn: float,
     familie__anzahl_personen_sn: int,
@@ -284,7 +316,7 @@ def vorwegabzug_lohnsteuer_y_sn(
     return max(out, 0.0)
 
 
-@param_function(start_date="2015-01-01")
+@param_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def maximalbetrag_altersvorsorgeaufwendungen_y(
     sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung: float,
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y: float,

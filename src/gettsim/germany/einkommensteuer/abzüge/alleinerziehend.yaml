@@ -6,8 +6,7 @@ alleinerziehendenfreibetrag_basis:
   description:
     de: § 24b (1) EStG. vor 2004 "Haushaltsfreibetrag", § 32 (7) EStG
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1984-01-01:
     value: 2154
@@ -39,8 +38,7 @@ alleinerziehendenfreibetrag_zusatz_pro_kind:
       §24b (2) S. 2 EStG. Alleinerziehenden-Entlastungsbetrag, Zusatzbetrag pro Kind ab
       dem 2. Kind.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2015-01-01:
     value: 240

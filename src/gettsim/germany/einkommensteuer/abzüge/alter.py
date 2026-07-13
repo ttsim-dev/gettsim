@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    UNSET_UNIT,
+    Unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -16,7 +18,11 @@ if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
-@policy_function(end_date="2004-12-31", leaf_name="altersfreibetrag_y")
+@policy_function(
+    end_date="2004-12-31",
+    leaf_name="altersfreibetrag_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def altersfreibetrag_y_bis_2004(
     alter: int,
     einnahmen__bruttolohn_y: float,
@@ -46,7 +52,11 @@ def altersfreibetrag_y_bis_2004(
     return out
 
 
-@policy_function(start_date="2005-01-01", leaf_name="altersfreibetrag_y")
+@policy_function(
+    start_date="2005-01-01",
+    leaf_name="altersfreibetrag_y",
+    unit=Unit.CURRENCY.PER_YEAR,
+)
 def altersfreibetrag_y_ab_2005(
     alter: int,
     geburtsjahr: int,
@@ -87,7 +97,7 @@ def altersfreibetrag_y_ab_2005(
     return out
 
 
-@param_function(start_date="2005-01-01")
+@param_function(start_date="2005-01-01", unit=UNSET_UNIT)
 def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     raw_altersentlastungsquote_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,
@@ -112,7 +122,7 @@ def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     )
 
 
-@param_function(start_date="2005-01-01")
+@param_function(start_date="2005-01-01", unit=UNSET_UNIT)
 def maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr(
     raw_maximaler_altersentlastungsbetrag_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,

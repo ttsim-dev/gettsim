@@ -8,8 +8,7 @@ sparerfreibetrag:
       Früher § 20 (4) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
     value: 153
@@ -41,8 +40,7 @@ werbungskostenpauschbetrag:
   description:
     de: § 9a EStG
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
     value: 51
@@ -60,8 +58,7 @@ sparerpauschbetrag:
       § 20 (9) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2009-01-01:
     value: 801

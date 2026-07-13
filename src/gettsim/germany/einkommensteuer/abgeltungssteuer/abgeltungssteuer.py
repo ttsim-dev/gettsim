@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function(start_date="2009-01-01")
+@policy_function(start_date="2009-01-01", unit=Unit.CURRENCY.PER_YEAR.PER_SN)
 def betrag_y_sn(
     einkommensteuer__einkünfte__aus_kapitalvermögen__betrag_y_sn: float, satz: float
 ) -> float:

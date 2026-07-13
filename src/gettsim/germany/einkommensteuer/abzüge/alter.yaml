@@ -13,8 +13,7 @@ altersentlastungsbetrag_altersgrenze:
       § 24a Art. 3 EStG
       The old-age relief amount is granted to a taxpayer who, before the start of the
       calendar year in which he received his income, had reached the age of 64.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1984-01-01:
     value: 64
@@ -29,8 +28,7 @@ maximaler_altersentlastungsbetrag:
     en: >-
       If someone receives employment income above the age of 64, a share up to this
       amount is deducted.
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: require_converter
   1984-01-01:
     value: 1534
@@ -47,8 +45,8 @@ raw_maximaler_altersentlastungsbetrag_gestaffelt:
   description:
     de: 24a EStG S. 5. Tabelle legt die Werte bis 2040 fest.
     en: null
-  unit: Euros
-  reference_period: Year
+  input_unit: CALENDAR_YEAR
+  output_unit: EUR_PER_YEAR
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
@@ -161,8 +159,7 @@ altersentlastungsquote:
     en: >-
       If someone receives employment income above the age of 64, this share of income is
       deducted. Since 2005, this share additionally depends on the birth year.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: require_converter
   1984-01-01:
     value: 0.4
@@ -181,8 +178,8 @@ raw_altersentlastungsquote_gestaffelt:
     en: >-
       If someone receives employment income above the age of 64, this share of income is
       deducted. Since 2005, this share additionally depends on the birth year.
-  unit: Share
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: DIMENSIONLESS
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.

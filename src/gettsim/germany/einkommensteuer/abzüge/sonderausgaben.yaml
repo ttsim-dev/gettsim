@@ -6,8 +6,7 @@ sonderausgabenpauschbetrag:
   description:
     de: § 10c EStG
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1984-01-01:
     value: 138
@@ -25,8 +24,9 @@ parameter_absetzbare_kinderbetreuungskosten:
   description:
     de: §10 (1) Nr. 5 EStG
     en: null
-  unit: Share
-  reference_period: null
+  unit:
+    anteil: DIMENSIONLESS
+    maximum: EUR_PER_YEAR
   type: dict
   2012-01-01:
     anteil: 0.6666666

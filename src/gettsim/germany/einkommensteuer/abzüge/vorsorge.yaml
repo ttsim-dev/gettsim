@@ -16,8 +16,10 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
       gekürzt bei abhängig Beschäftigten (vereinfacht).
       Achtung: Heterogene Einträge im dict!
     en: null
-  unit: null
-  reference_period: Year
+  unit:
+    vorwegabzug: EUR_PER_YEAR
+    grundhöchstbetrag: EUR_PER_YEAR
+    kürzungsanteil_abhängig_beschäftigte: DIMENSIONLESS
   type: dict
   1985-01-01:
     vorwegabzug: 1534
@@ -90,8 +92,8 @@ parameter_einführungsfaktor_altersvorsorgeaufwendungen:
       percentage points each year from 60% in 2005 to 94% in 2022. It was planned that
       100% are reached in 2025. Deviating from this plan, the deductible contributions
       were set to 100% already in 2023.
-  unit: null
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: DIMENSIONLESS
   type: piecewise_linear
   2005-01-01:
     intervals:
@@ -113,8 +115,7 @@ maximalbetrag_sonstige_vorsorgeaufwendungen:
   description:
     de: §10 Abs. 4 S.1 EStG
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2005-01-01:
     value: 1500
@@ -129,8 +130,7 @@ maximalbetrag_altersvorsorgeaufwendungen_y:
   description:
     de: §10 (3) EStG, Anlage 2 SGB VI
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2005-01-01:
     value: 20000
@@ -148,8 +148,7 @@ minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge:
   description:
     de: §10 (3) a) S.4 EStG
     en: null
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2009-07-23:
     value: 0.04

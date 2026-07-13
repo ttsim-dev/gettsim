@@ -6,10 +6,10 @@ Belastungen and sonstige Abzüge.
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_YEAR)
 def gesamteinkommen_y(
     einkünfte__gesamtbetrag_der_einkünfte_y_sn: float,
     abzüge__betrag_y_sn: float,

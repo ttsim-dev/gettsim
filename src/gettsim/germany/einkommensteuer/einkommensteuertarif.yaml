@@ -13,8 +13,8 @@ raw_parameter_einkommensteuertarif:
       §32a EStG
       The quadratic rate is calculated by gettsim with the formula of the
       Progressionsfaktor. For details see the docstring of add_progressionsfaktor.
-  unit: Euros
-  reference_period: Year
+  input_unit: EUR_PER_YEAR
+  output_unit: EUR_PER_YEAR
   type: require_converter
   2002-01-01:
     intervals:

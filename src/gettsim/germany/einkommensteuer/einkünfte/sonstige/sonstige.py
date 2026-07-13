@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import Unit, policy_function
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_YEAR)
 def betrag_y(
     rente__steuerpflichtige_einnahmen_y: float,
     alle_weiteren_y: float,

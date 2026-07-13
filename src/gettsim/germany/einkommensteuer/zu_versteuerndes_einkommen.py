@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
-from gettsim.tt import RoundingSpec, policy_function
+from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.1 EStG",
     ),
     start_date="2004-01-01",
     leaf_name="zu_versteuerndes_einkommen_y_sn",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def zu_versteuerndes_einkommen_y_sn_mit_abrundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
@@ -30,6 +32,7 @@ def zu_versteuerndes_einkommen_y_sn_mit_abrundungsregel(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
         base=36,
         direction="down",
         to_add_after_rounding=18,
@@ -38,6 +41,7 @@ def zu_versteuerndes_einkommen_y_sn_mit_abrundungsregel(
     start_date="2002-01-01",
     end_date="2003-12-31",
     leaf_name="zu_versteuerndes_einkommen_y_sn",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
@@ -55,6 +59,7 @@ def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=Unit.EUR.PER_YEAR.PER_SN,
         base=27.609762,
         direction="down",
         to_add_after_rounding=13.804881,
@@ -62,6 +67,7 @@ def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
     ),
     end_date="2001-12-31",
     leaf_name="zu_versteuerndes_einkommen_y_sn",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def zu_versteuerndes_einkommen_y_sn_mit_dmark_rundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
@@ -77,7 +83,7 @@ def zu_versteuerndes_einkommen_y_sn_mit_dmark_rundungsregel(
     return out
 
 
-@policy_function()
+@policy_function(unit=Unit.CURRENCY.PER_YEAR.PER_SN)
 def zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn(
     gesamteinkommen_y: float,
     kinderfreibetrag_y_sn: float,
