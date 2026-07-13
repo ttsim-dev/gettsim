@@ -7,7 +7,9 @@ from typing import TYPE_CHECKING
 import numpy
 
 from gettsim.tt import (
+    UNSET_UNIT,
     PiecewisePolynomialParamValue,
+    Unit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -51,7 +53,7 @@ def basis_für_klassen_5_6(
     )
 
 
-@param_function(start_date="2015-01-01")
+@param_function(start_date="2015-01-01", unit=UNSET_UNIT)
 def parameter_max_lohnsteuer_klasse_5_6(
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     einkommensgrenzwerte_steuerklassen_5_6: dict[int, float],
@@ -92,7 +94,7 @@ def parameter_max_lohnsteuer_klasse_5_6(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def basistarif(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -106,7 +108,7 @@ def basistarif(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def splittingtarif(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -120,7 +122,7 @@ def splittingtarif(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def tarif_klassen_5_und_6(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -144,7 +146,7 @@ def tarif_klassen_5_und_6(
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def betrag_y(
     steuerklasse: int,
     basistarif: float,
@@ -161,7 +163,7 @@ def betrag_y(
     return max(out, 0.0)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def basistarif_mit_kinderfreibetrag(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -180,7 +182,7 @@ def basistarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def splittingtarif_mit_kinderfreibetrag(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -199,7 +201,7 @@ def splittingtarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
 def tarif_klassen_5_und_6_mit_kinderfreibetrag(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -230,7 +232,7 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def betrag_mit_kinderfreibetrag_y(
     steuerklasse: int,
     basistarif_mit_kinderfreibetrag: float,
@@ -252,7 +254,7 @@ def betrag_mit_kinderfreibetrag_y(
     return max(out, 0.0)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def betrag_soli_y(
     betrag_mit_kinderfreibetrag_y: float,
     solidaritätszuschlag__parameter_solidaritätszuschlag: PiecewisePolynomialParamValue,
@@ -266,7 +268,7 @@ def betrag_soli_y(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def kinderfreibetrag_soli_y(
     steuerklasse: int,
     einkommensteuer__kinderfreibetrag_y: float,
