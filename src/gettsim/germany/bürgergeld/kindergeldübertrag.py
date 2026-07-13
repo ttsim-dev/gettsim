@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     AggType,
+    Unit,
     agg_by_p_id_function,
     join,
     policy_function,
@@ -17,7 +18,9 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, FloatColumn, IntColumn
 
 
-@agg_by_p_id_function(start_date="2023-01-01", agg_type=AggType.SUM)
+@agg_by_p_id_function(
+    start_date="2023-01-01", agg_type=AggType.SUM, unit=Unit.CURRENCY.PER_MONTH
+)
 def kindergeldübertrag_m(
     differenz_kindergeld_kindbedarf_m: float,
     kindergeld__p_id_empfänger: int,
@@ -29,6 +32,7 @@ def kindergeldübertrag_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kindergeld_pro_kind_m",
+    unit=Unit.CURRENCY.PER_MONTH,
 )
 def _mean_kindergeld_per_child_ohne_staffelung_m(
     kindergeld__anzahl_ansprüche: int,
@@ -43,7 +47,11 @@ def _mean_kindergeld_per_child_ohne_staffelung_m(
     return kindergeld__satz if kindergeld__anzahl_ansprüche > 0 else 0.0
 
 
-@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2023-01-01",
+    vectorization_strategy="not_required",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
 def kindergeld_zur_bedarfsdeckung_m(
     kindergeld_pro_kind_m: FloatColumn,
     kindergeld__p_id_empfänger: IntColumn,
@@ -69,7 +77,7 @@ def kindergeld_zur_bedarfsdeckung_m(
     )
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def differenz_kindergeld_kindbedarf_m(
     regelbedarf_m_bg: float,
     nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -109,7 +117,11 @@ def differenz_kindergeld_kindbedarf_m(
     return out
 
 
-@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2023-01-01",
+    vectorization_strategy="not_required",
+    unit=Unit.DIMENSIONLESS,
+)
 def in_anderer_bg_als_kindergeldempfänger(
     p_id: IntColumn,
     kindergeld__p_id_empfänger: IntColumn,

@@ -10,8 +10,7 @@ vermögensfreibetrag_je_person_nach_karenzzeit:
     en: >-
       Wealth exemption per member of the Bedarfsgemeinschaft, which changes after the
       end of the Karenzzeit.
-  unit: Euros
-  reference_period: null
+  unit: EUR
   type: dict
   2023-01-01:
     während_karenzzeit: 40000
@@ -37,8 +36,8 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       defined by exemption in § 11 SGB II, see § 67 SGB II. Since 01.04.2011 § 11b (2)
       SGB II (amended by B. v. 13.05.2011 BGBl. I S. 850. Artikel 2 G. v. 24.03.2011
       BGBl. I S. 453).
-  unit: Euros
-  reference_period: Month
+  input_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2023-01-01:
     reference: Artikel 1 G. v. 20.12.2011 BGBl. I 2854.
@@ -94,8 +93,8 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
       24.03.2011 BGBl. I S. 453). Bezieht sich auf die Parameter in
       parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg.
     en: null
-  unit: Euros
-  reference_period: Month
+  input_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2023-01-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
