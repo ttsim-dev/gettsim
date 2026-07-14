@@ -14,24 +14,26 @@ beitragsbemessungsgrenze_m:
   unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
-    value: 1994
+    unit: DM_PER_MONTH
+    value: 3900
   1985-01-01:
-    value: 2071
+    value: 4050
   1986-01-01:
-    value: 2147
+    value: 4200
   1987-01-01:
-    value: 2186
+    value: 4275
   1988-01-01:
-    value: 2301
+    value: 4500
   1989-01-01:
-    value: 2339
+    value: 4575
   1990-01-01:
     note: >-
       The Bemessungsgrenze differs between West and East Germany. See
       ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
   2001-01-01:
-    value: 3336
+    value: 6525
   2002-01-01:
+    unit: EUR_PER_MONTH
     value: 3375
   2003-01-01:
     value: 3450
