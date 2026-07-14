@@ -217,21 +217,19 @@ def bezugsmonate_unter_grenze_fg(
     parent.
 
     """
+    bisherige_monate = cast_unit(bisherige_bezugsmonate_fg, Unit.MONTHS)
+    grenze_mit_partnermonaten = (
+        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
+    )
     if (
         familie__alleinerziehend
         or bezugsmonate_partner >= max_bezugsmonate["partnermonate"]
     ):
-        out = (
-            bisherige_bezugsmonate_fg
-            < max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
-        )
-    elif anzahl_anträge_fg > 1:
-        out = (
-            cast_unit(bisherige_bezugsmonate_fg, Unit.DIMENSIONLESS) + 1
-            < max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
-        )
+        out = bisherige_monate < grenze_mit_partnermonaten
+    elif cast_unit(anzahl_anträge_fg, Unit.DIMENSIONLESS) > 1:
+        out = bisherige_monate + cast_unit(1, Unit.MONTHS) < grenze_mit_partnermonaten
     else:
-        out = bisherige_bezugsmonate_fg < max_bezugsmonate["basismonate"]
+        out = bisherige_monate < max_bezugsmonate["basismonate"]
     return out
 
 

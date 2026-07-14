@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     UNSET_UNIT,
     Unit,
+    cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -43,8 +44,9 @@ def altersfreibetrag_y_bis_2004(
     )
     if alter > altersgrenze:
         out = min(
-            altersentlastungsquote * (einnahmen__bruttolohn_y + weiteres_einkommen),
-            maximaler_altersentlastungsbetrag,
+            cast_unit(altersentlastungsquote, Unit.DIMENSIONLESS)
+            * (einnahmen__bruttolohn_y + weiteres_einkommen),
+            cast_unit(maximaler_altersentlastungsbetrag, Unit.CURRENCY.PER_YEAR),
         )
     else:
         out = 0.0
