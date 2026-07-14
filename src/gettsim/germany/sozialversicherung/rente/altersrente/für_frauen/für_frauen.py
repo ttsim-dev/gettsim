@@ -33,7 +33,8 @@ def altersgrenze_mit_staffelung(
     Does not check for eligibility for this pathway into retirement.
     """
     birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        y_to_m(cast_unit(geburtsjahr, Unit.YEARS))
+        + cast_unit(geburtsmonat - 1, Unit.MONTHS),
         Unit.CALENDAR_MONTH,
     )
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
@@ -57,7 +58,8 @@ def altersgrenze_vorzeitig_mit_staffelung(
     Does not check for eligibility for this pathway into retirement.
     """
     birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        y_to_m(cast_unit(geburtsjahr, Unit.YEARS))
+        + cast_unit(geburtsmonat - 1, Unit.MONTHS),
         Unit.CALENDAR_MONTH,
     )
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)

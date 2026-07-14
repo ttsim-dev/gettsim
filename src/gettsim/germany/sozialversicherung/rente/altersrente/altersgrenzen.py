@@ -348,8 +348,7 @@ def älter_als_regelaltersgrenze(
     """
     # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
     # Hence, we add a number << 1 / 12 to the RHS.
-    return m_to_y(alter_monate) > cast_unit(
+    return m_to_y(alter_monate) > (
         sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        + 0.00001,
-        Unit.YEARS,
+        + cast_unit(0.00001, Unit.YEARS)
     )

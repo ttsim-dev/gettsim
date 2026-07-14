@@ -6,6 +6,7 @@ from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
     Unit,
+    cast_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -207,9 +208,13 @@ def höchstbetrag_m(
         - berücksichtigte_wartezeit_monate["min"]
     )
 
-    return (
+    # `increment` is a per-additional-month effect on the (monthly) Höchstwert, so the
+    # month count enters as a plain multiplier; the sum is the monthly Höchstwert.
+    return cast_unit(
         höchstwert_der_entgeltpunkte["base"]
-        + höchstwert_der_entgeltpunkte["increment"] * months_above_thresh
+        + höchstwert_der_entgeltpunkte["increment"]
+        * cast_unit(months_above_thresh, Unit.DIMENSIONLESS),
+        Unit.DIMENSIONLESS.PER_MONTH,
     )
 
 

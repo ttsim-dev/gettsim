@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from ttsim.unit_converters import m_to_y, y_to_m
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, cast_unit, policy_function
 
 if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
@@ -176,9 +176,10 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
-    claiming_month_since_ad = (
-        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
-        + sozialversicherung__rente__monat_renteneintritt
+    claiming_month_since_ad = cast_unit(
+        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
+        Unit.CALENDAR_MONTH,
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
@@ -233,9 +234,10 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
-    claiming_month_since_ad = (
-        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
-        + sozialversicherung__rente__monat_renteneintritt
+    claiming_month_since_ad = cast_unit(
+        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
+        Unit.CALENDAR_MONTH,
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
@@ -321,9 +323,10 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
     63 without deductions if they can prove 40 years of (Pflichtbeiträge,
     Berücksichtigungszeiten and certain Anrechnungszeiten or Ersatzzeiten).
     """
-    claiming_month_since_ad = (
-        y_to_m(sozialversicherung__rente__jahr_renteneintritt)
-        + sozialversicherung__rente__monat_renteneintritt
+    claiming_month_since_ad = cast_unit(
+        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
+        Unit.CALENDAR_MONTH,
     )
 
     if wartezeit_langjährig_versichert_erfüllt:
