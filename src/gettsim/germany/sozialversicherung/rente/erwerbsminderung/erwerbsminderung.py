@@ -162,7 +162,7 @@ def entgeltpunkte(
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_bis_06_2014(
-    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -185,9 +185,13 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
         claiming_month_since_ad
     )
     return (
-        altersgrenze_zurechnungszeit
-        - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
+        cast_unit(
+            altersgrenze_zurechnungszeit
+            - sozialversicherung__rente__alter_bei_renteneintritt,
+            Unit.DIMENSIONLESS,
+        )
+        * mean_entgeltpunkte_pro_bewertungsmonat
+    )
 
 
 @policy_function(
@@ -197,7 +201,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgrenze(
-    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     zurechnungszeitgrenze: float,
 ) -> float:
@@ -210,8 +214,12 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
     return (
-        zurechnungszeitgrenze - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
+        cast_unit(
+            zurechnungszeitgrenze - sozialversicherung__rente__alter_bei_renteneintritt,
+            Unit.DIMENSIONLESS,
+        )
+        * mean_entgeltpunkte_pro_bewertungsmonat
+    )
 
 
 @policy_function(
@@ -220,7 +228,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_ab_07_2017(
-    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -243,9 +251,13 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
         claiming_month_since_ad
     )
     return (
-        altersgrenze_zurechnungszeit
-        - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
+        cast_unit(
+            altersgrenze_zurechnungszeit
+            - sozialversicherung__rente__alter_bei_renteneintritt,
+            Unit.DIMENSIONLESS,
+        )
+        * mean_entgeltpunkte_pro_bewertungsmonat
+    )
 
 
 @policy_function(start_date="2001-01-01", unit=Unit.DIMENSIONLESS)
@@ -412,10 +424,9 @@ def anteil_entgeltpunkte_ost(
 
 
 @policy_function(
-    verify_units=False,
     end_date="2023-06-30",
-    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat_y",
-    unit=Unit.DIMENSIONLESS.PER_YEAR,
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    unit=Unit.DIMENSIONLESS,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     sozialversicherung__rente__entgeltpunkte_west: float,
@@ -430,9 +441,12 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
 
     Legal reference: SGB VI § 72: Grundbewertung
     """
-    belegungsfähiger_gesamtzeitraum = (
+    # The valuation span is a plain count of Bewertungseinheiten, so the average
+    # earning points come out dimensionless.
+    belegungsfähiger_gesamtzeitraum = cast_unit(
         sozialversicherung__rente__alter_bei_renteneintritt
-        - altersgrenze_grundbewertung
+        - altersgrenze_grundbewertung,
+        Unit.DIMENSIONLESS,
     )
 
     return (
@@ -442,10 +456,9 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
 
 
 @policy_function(
-    verify_units=False,
     start_date="2023-07-01",
-    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat_y",
-    unit=Unit.DIMENSIONLESS.PER_YEAR,
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    unit=Unit.DIMENSIONLESS,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
     sozialversicherung__rente__entgeltpunkte: float,
@@ -459,9 +472,12 @@ def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
 
     Legal reference: SGB VI § 72: Grundbewertung
     """
-    belegungsfähiger_gesamtzeitraum = (
+    # The valuation span is a plain count of Bewertungseinheiten, so the average
+    # earning points come out dimensionless.
+    belegungsfähiger_gesamtzeitraum = cast_unit(
         sozialversicherung__rente__alter_bei_renteneintritt
-        - altersgrenze_grundbewertung
+        - altersgrenze_grundbewertung,
+        Unit.DIMENSIONLESS,
     )
 
     return sozialversicherung__rente__entgeltpunkte / belegungsfähiger_gesamtzeitraum
