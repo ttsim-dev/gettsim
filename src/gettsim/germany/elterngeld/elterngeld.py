@@ -305,7 +305,8 @@ def anrechenbarer_betrag_m(
 
     """
     return max(
-        betrag_m - ((1 + anzahl_mehrlinge_fg) * mindestbetrag),
+        betrag_m
+        - ((1 + cast_unit(anzahl_mehrlinge_fg, Unit.DIMENSIONLESS)) * mindestbetrag),
         0,
     )
 
@@ -324,5 +325,9 @@ def jüngstes_kind_oder_mehrling(
 
     """
     return (
-        (alter_monate - familie__alter_monate_jüngstes_mitglied_fg) < 0.1  # noqa: PLR2004
+        (
+            alter_monate
+            - cast_unit(familie__alter_monate_jüngstes_mitglied_fg, Unit.MONTHS)
+        )
+        < cast_unit(0.1, Unit.MONTHS)
     ) and ist_leistungsbegründendes_kind

@@ -29,7 +29,7 @@ def geschwisterbonus_m(
 @policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
 def mehrlingsbonus_m(anzahl_mehrlinge_fg: int, mehrlingsbonus_pro_kind: float) -> float:
     """Elterngeld bonus for multiples."""
-    return anzahl_mehrlinge_fg * mehrlingsbonus_pro_kind
+    return cast_unit(anzahl_mehrlinge_fg, Unit.DIMENSIONLESS) * mehrlingsbonus_pro_kind
 
 
 @policy_function(start_date="2007-01-01", unit=Unit.DIMENSIONLESS)
@@ -40,10 +40,12 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
 ) -> bool:
     """Siblings that give rise to Elterngeld siblings bonus."""
     geschwister_unter_3 = (
-        familie__anzahl_kinder_bis_2_fg >= geschwisterbonus_altersgrenzen[3]
+        cast_unit(familie__anzahl_kinder_bis_2_fg, Unit.DIMENSIONLESS)
+        >= geschwisterbonus_altersgrenzen[3]
     )
     geschwister_unter_6 = (
-        familie__anzahl_kinder_bis_5_fg >= geschwisterbonus_altersgrenzen[6]
+        cast_unit(familie__anzahl_kinder_bis_5_fg, Unit.DIMENSIONLESS)
+        >= geschwisterbonus_altersgrenzen[6]
     )
 
     return geschwister_unter_3 or geschwister_unter_6
@@ -55,4 +57,4 @@ def anzahl_mehrlinge_fg(
 ) -> int:
     """Number of multiples of the youngest child."""
     out = cast_unit(anzahl_mehrlinge_jüngstes_kind_fg, Unit.DIMENSIONLESS) - 1
-    return max(out, 0)
+    return cast_unit(max(out, 0), Unit.PERSON_COUNT.PER_FG)

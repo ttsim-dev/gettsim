@@ -14,7 +14,7 @@ geschwisterbonus_altersgrenzen:
       § 2a BEEG
       If there are two children under the age of 3 or more than two under the age of 6
       living in the household, Elterngeld increases.
-  unit: YEARS
+  unit: DIMENSIONLESS
   type: dict
   2007-01-01:
     3: 2
