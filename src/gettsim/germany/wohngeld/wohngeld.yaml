@@ -569,8 +569,13 @@ zusatzbetrag_pro_person_in_großen_haushalten:
   unit: EUR_PER_MONTH
   type: scalar
   2001-01-01:
-    value: 40
+    unit: DM_PER_MONTH
+    value: 78.23
     reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+  2002-01-01:
+    unit: EUR_PER_MONTH
+    value: 40
+    reference: Art. 6 G. v. 22.12.1999 BGBl. I S. 2671
   2009-01-01:
     value: 43
     reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
