@@ -96,7 +96,13 @@ def ertragsanteil_berufsständische_altersvorsorge(
     )
 
 
-@policy_function(end_date="2004-12-31", unit=Unit.DIMENSIONLESS)
+@policy_function(
+    end_date="2004-12-31",
+    unit=Unit.DIMENSIONLESS,
+    # The look-up index is built with raw `xnp.floor(...).astype(int)`, which the
+    # dry-run cannot evaluate symbolically.
+    verify_units=False,
+)
 def ertragsanteil_gesetzliche_rente(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,

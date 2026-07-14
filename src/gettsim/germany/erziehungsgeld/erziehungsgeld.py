@@ -12,6 +12,7 @@ from gettsim.tt import (
     Unit,
     agg_by_group_function,
     agg_by_p_id_function,
+    cast_unit,
     param_function,
     policy_function,
 )
@@ -111,7 +112,11 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     Legal reference: BGBl I. v. 17.02.2004
     """
     if ist_leistungsbegründendes_kind:
-        return max(basisbetrag_m - abzug_durch_einkommen_m_fg, 0.0)
+        return max(
+            basisbetrag_m
+            - cast_unit(abzug_durch_einkommen_m_fg, Unit.CURRENCY.PER_MONTH),
+            0.0,
+        )
     else:
         return 0.0
 
@@ -293,9 +298,11 @@ def einkommensgrenze_y_fg(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if ist_leistungsbegründendes_kind:
-        return (
+        return cast_unit(
             einkommensgrenze_ohne_geschwisterbonus_y
-            + (familie__anzahl_kinder_fg - 1) * aufschlag_einkommen
+            + (cast_unit(familie__anzahl_kinder_fg, Unit.DIMENSIONLESS) - 1)
+            * aufschlag_einkommen,
+            Unit.CURRENCY.PER_YEAR.PER_FG,
         )
     else:
         return 0.0
@@ -326,7 +333,12 @@ def einkommensgrenze_ohne_geschwisterbonus_y(
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=Unit.CURRENCY.PER_YEAR,
+    # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
+    # follow through the subscript.
+    verify_units=False,
 )
 def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y(
     familie__alleinerziehend_fg: bool,
@@ -348,7 +360,12 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=Unit.CURRENCY.PER_YEAR,
+    # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
+    # follow through the subscript.
+    verify_units=False,
 )
 def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y(
     familie__alleinerziehend_fg: bool,

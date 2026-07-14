@@ -109,7 +109,13 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
     return vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn
 
 
-@policy_function(end_date="2019-12-31", unit=Unit.CURRENCY.PER_YEAR.PER_SN)
+@policy_function(
+    end_date="2019-12-31",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    # A per-capita Splitting formula (÷ then × anzahl_personen_sn) the dry-run's
+    # level model cannot follow; declared unit and edges stay checked.
+    verify_units=False,
+)
 def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     vorwegabzug_lohnsteuer_y_sn: float,
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
@@ -297,7 +303,13 @@ def altersvorsorge_y_sn_volle_anrechnung(
     return min(out, max_value)
 
 
-@policy_function(end_date="2019-12-31", unit=Unit.CURRENCY.PER_YEAR.PER_SN)
+@policy_function(
+    end_date="2019-12-31",
+    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    # A per-capita Splitting formula (÷ then × anzahl_personen_sn) the dry-run's
+    # level model cannot follow; declared unit and edges stay checked.
+    verify_units=False,
+)
 def vorwegabzug_lohnsteuer_y_sn(
     einnahmen__bruttolohn_y_sn: float,
     familie__anzahl_personen_sn: int,
