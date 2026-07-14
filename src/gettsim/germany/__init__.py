@@ -14,13 +14,13 @@ ROOT_PATH = Path(__file__).parent
 # concrete currencies before the policy environment is assembled (GEP 10). The
 # euro is the base currency; the Deutsche Mark is worth 1/1.95583 euro, the rate
 # fixed by the Euro-Einführungsgesetz. The statutory-currency mapping tells the
-# engine which currency each policy date computes in; it declares the euro for
-# all dates, matching how pre-2002 parameters are stored today (hand-converted
-# to euro). A follow-up flips it to DM through 2001 and re-transcribes those
-# parameters to their statutory DM values.
+# engine which currency each policy date computes in: the Deutsche Mark through
+# 2001 and the euro from 2002, when the euro became legal tender. Parameters are
+# never converted (GEP 10) — every pre-2002 currency value carries its statutory
+# DM amount, every value from 2002 its statutory euro amount.
 register_currency(name="EUR", base=True)
 register_currency(name="DM", definition="EUR / 1.95583")
-register_statutory_currencies({"0001-01-01": "EUR"})
+register_statutory_currencies({"0001-01-01": "DM", "2002-01-01": "EUR"})
 
 # Germany's grouping levels. Registered on import so the fluent unit builder
 # offers `Unit.X.PER_HH` / `per_bg` / … before the policy modules (whose
