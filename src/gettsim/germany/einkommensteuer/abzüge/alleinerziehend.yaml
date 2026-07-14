@@ -9,14 +9,17 @@ alleinerziehendenfreibetrag_basis:
   unit: EUR_PER_YEAR
   type: scalar
   1984-01-01:
-    value: 2154
+    unit: DM_PER_YEAR
+    value: 4212
+    reference: § 32 Abs. 3 EStG i. d. F. der Bekanntmachung v. 06.12.1981 BGBl. I S. 1249.
   1986-01-01:
-    value: 2319
+    value: 4536
+    reference: Art. 1 G. v. 26.06.1985 BGBl. I S. 1153.
   1989-01-01:
-    value: 2871
-  2001-01-01:
-    value: 2916
+    value: 5616
+    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 2340
   2004-01-01:
     value: 1308
