@@ -11,7 +11,12 @@ from __future__ import annotations
 
 from ttsim.unit_converters import y_to_m
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, Unit, policy_function
+from gettsim.tt import (
+    ConsecutiveIntLookupTableParamValue,
+    Unit,
+    policy_function,
+    cast_unit,
+)
 
 
 @policy_function(
@@ -29,7 +34,10 @@ def altersgrenze_bis_1996(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
@@ -92,7 +100,10 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_bis_1996_07(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
@@ -157,7 +168,10 @@ def altersgrenze_ohne_vertrauensschutz(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
@@ -169,7 +183,10 @@ def altersgrenze_mit_vertrauensschutz(
     altersgrenze_gestaffelt_vertrauensschutz: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Full retirement age for unemployed for individuals under Vertrauensschutz."""
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_gestaffelt_vertrauensschutz.look_up(birth_month_since_ad)
 
@@ -191,7 +208,10 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
@@ -213,7 +233,10 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_07_2004(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
 
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 

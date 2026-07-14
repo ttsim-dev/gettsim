@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from ttsim.unit_converters import y_to_m
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, Unit, policy_function
+from gettsim.tt import (
+    ConsecutiveIntLookupTableParamValue,
+    Unit,
+    policy_function,
+    cast_unit,
+)
 
 
 @policy_function(
@@ -27,7 +32,10 @@ def altersgrenze_gestaffelt_ab_1989(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
+    birth_month_since_ad = cast_unit(
+        y_to_m(cast_unit(geburtsjahr, Unit.DIMENSIONLESS)) + (geburtsmonat - 1),
+        Unit.CALENDAR_MONTH,
+    )
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
 
