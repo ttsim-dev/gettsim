@@ -67,19 +67,20 @@ def einkommen_m(
 
 def _anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
-    rentenwert: float,
+    rentenwert_m: float,
     parameter_anzurechnendes_einkommen: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
     """The isolated function for the relevant income for the Grundrentezuschlag."""
-    return rentenwert * piecewise_polynomial(
-        x=einkommen_m_ehe / rentenwert,
+    return rentenwert_m * piecewise_polynomial(
+        x=einkommen_m_ehe / rentenwert_m,
         parameters=parameter_anzurechnendes_einkommen,
         xnp=xnp,
     )
 
 
 @policy_function(
+    verify_units=False,
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
         base=0.01,
@@ -92,7 +93,7 @@ def _anzurechnendes_einkommen_m(
 def anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
     familie__anzahl_personen_ehe: int,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
     anzurechnendes_einkommen_ohne_partner: PiecewisePolynomialParamValue,
     anzurechnendes_einkommen_mit_partner: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -108,19 +109,19 @@ def anzurechnendes_einkommen_m(
     """
     # Calculate relevant income following the crediting rules using the values for
     # singles and those for married subjects
-    # Note: Thresholds are defined relativ to rentenwert which is implemented by
-    # dividing the income by rentenwert and multiply rentenwert to the result.
+    # Note: Thresholds are defined relativ to rentenwert_m which is implemented by
+    # dividing the income by rentenwert_m and multiply rentenwert_m to the result.
     if familie__anzahl_personen_ehe == 1:
         out = _anzurechnendes_einkommen_m(
             einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert=sozialversicherung__rente__rentenwert,
+            rentenwert_m=sozialversicherung__rente__rentenwert_m,
             parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_ohne_partner,
             xnp=xnp,
         )
     else:
         out = _anzurechnendes_einkommen_m(
             einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert=sozialversicherung__rente__rentenwert,
+            rentenwert_m=sozialversicherung__rente__rentenwert_m,
             parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_mit_partner,
             xnp=xnp,
         )
@@ -138,9 +139,9 @@ def anzurechnendes_einkommen_m(
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_m(
-    mean_entgeltpunkte_zuschlag: float,
+    mean_entgeltpunkte_zuschlag_m: float,
     bewertungszeiten_monate: int,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
     sozialversicherung__rente__altersrente__zugangsfaktor: float,
     maximaler_zugangsfaktor: float,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -160,15 +161,15 @@ def basisbetrag_m(
     )
 
     return (
-        mean_entgeltpunkte_zuschlag
+        mean_entgeltpunkte_zuschlag_m
         * bewertungszeiten
-        * sozialversicherung__rente__rentenwert
+        * sozialversicherung__rente__rentenwert_m
         * zugangsfaktor
     )
 
 
 @policy_function(start_date="2021-01-01", unit=Unit.DIMENSIONLESS.PER_MONTH)
-def mean_entgeltpunkte_pro_bewertungsmonat(
+def mean_entgeltpunkte_pro_bewertungsmonat_m(
     mean_entgeltpunkte: float,
     bewertungszeiten_monate: int,
 ) -> float:
@@ -221,8 +222,8 @@ def höchstbetrag_m(
     start_date="2021-01-01",
     unit=Unit.DIMENSIONLESS.PER_MONTH,
 )
-def mean_entgeltpunkte_zuschlag(
-    mean_entgeltpunkte_pro_bewertungsmonat: float,
+def mean_entgeltpunkte_zuschlag_m(
+    mean_entgeltpunkte_pro_bewertungsmonat_m: float,
     höchstbetrag_m: float,
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -242,15 +243,15 @@ def mean_entgeltpunkte_zuschlag(
         out = 0.0
     else:
         # Case 1: Entgeltpunkte less than half of Höchstwert
-        if mean_entgeltpunkte_pro_bewertungsmonat <= (0.5 * höchstbetrag_m):
-            out = mean_entgeltpunkte_pro_bewertungsmonat
+        if mean_entgeltpunkte_pro_bewertungsmonat_m <= (0.5 * höchstbetrag_m):
+            out = mean_entgeltpunkte_pro_bewertungsmonat_m
 
         # Case 2: Entgeltpunkte more than half of Höchstwert, but below Höchstwert
-        elif mean_entgeltpunkte_pro_bewertungsmonat < höchstbetrag_m:
-            out = höchstbetrag_m - mean_entgeltpunkte_pro_bewertungsmonat
+        elif mean_entgeltpunkte_pro_bewertungsmonat_m < höchstbetrag_m:
+            out = höchstbetrag_m - mean_entgeltpunkte_pro_bewertungsmonat_m
 
         # Case 3: Entgeltpunkte above Höchstwert
-        elif mean_entgeltpunkte_pro_bewertungsmonat > höchstbetrag_m:
+        elif mean_entgeltpunkte_pro_bewertungsmonat_m > höchstbetrag_m:
             out = 0.0
 
     # Multiply additional Engeltpunkte by factor

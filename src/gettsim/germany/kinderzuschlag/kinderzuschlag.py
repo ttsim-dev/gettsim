@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 @param_function(
     start_date="2021-01-01",
     end_date="2022-12-31",
-    leaf_name="satz",
+    leaf_name="satz_m",
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def satz_mit_gestaffeltem_kindergeld(
@@ -45,7 +45,9 @@ def satz_mit_gestaffeltem_kindergeld(
     )
 
 
-@param_function(leaf_name="satz", start_date="2024-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@param_function(
+    leaf_name="satz_m", start_date="2024-01-01", unit=Unit.CURRENCY.PER_MONTH
+)
 def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     kindergeld__satz: float,
@@ -248,12 +250,12 @@ def basisbetrag_kind_m_bis_2022(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
     arbeitslosengeld_2__anrechnungsfreies_einkommen_m: float,
-    satz: float,
+    satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
     out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz
+        satz_m
         - entzugsrate_kindeseinkommen
         * (
             einnahmen__bruttolohn_m
@@ -277,12 +279,12 @@ def basisbetrag_kind_m_ab_2023(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
     bürgergeld__anrechnungsfreies_einkommen_m: float,
-    satz: float,
+    satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
     out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz
+        satz_m
         - entzugsrate_kindeseinkommen
         * (
             einnahmen__bruttolohn_m

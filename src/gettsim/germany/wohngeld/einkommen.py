@@ -68,7 +68,7 @@ def einkommen_m_wthh(
     return xnp.maximum(einkommen_ohne_freibetrag, mindesteinkommen)
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(verify_units=False, unit=Unit.DIMENSIONLESS)
 def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     einkommensteuer__betrag_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y: float,

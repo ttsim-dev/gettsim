@@ -12,5 +12,5 @@ inputs:
       - 0
 outputs:
   sozialversicherung:
-    minijobgrenze:
+    minijobgrenze_m:
       - 450.0

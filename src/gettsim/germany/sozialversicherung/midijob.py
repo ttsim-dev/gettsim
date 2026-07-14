@@ -22,10 +22,10 @@ def in_gleitzone(
     return (einnahmen__bruttolohn_m <= midijobgrenze) and (not geringfügig_beschäftigt)
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(verify_units=False, unit=Unit.CURRENCY.PER_MONTH)
 def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     einnahmen__bruttolohn_m: float,
-    minijobgrenze: float,
+    minijobgrenze_m: float,
     midijobgrenze: float,
 ) -> float:
     """Income subject to employee social insurance contributions for Bruttolöhne in
@@ -33,13 +33,14 @@ def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
 
     Legal reference: § 20 SGB IV ("Gesonderte beitragspflichtige Einnahmen")
     """
-    quotient = midijobgrenze / (midijobgrenze - minijobgrenze)
-    einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze
+    quotient = midijobgrenze / (midijobgrenze - minijobgrenze_m)
+    einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze_m
 
     return quotient * einkommen_diff
 
 
 @param_function(
+    verify_units=False,
     start_date="2003-04-01",
     end_date="2004-12-31",
     leaf_name="midijob_faktor_f",
@@ -83,6 +84,7 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_bis_2004(
 
 
 @param_function(
+    verify_units=False,
     start_date="2005-01-01",
     end_date="2022-09-30",
     leaf_name="midijob_faktor_f",
@@ -126,6 +128,7 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_ab_2005_bis_2022_09(
 
 
 @param_function(
+    verify_units=False,
     start_date="2022-10-01",
     leaf_name="midijob_faktor_f",
     unit=Unit.DIMENSIONLESS,
@@ -171,6 +174,7 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
 
 
 @policy_function(
+    verify_units=False,
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="midijob_bemessungsentgelt_m",
@@ -179,7 +183,7 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
 def midijob_bemessungsentgelt_m_bis_09_2022(
     einnahmen__bruttolohn_m: float,
     midijob_faktor_f: float,
-    minijobgrenze: float,
+    minijobgrenze_m: float,
     midijobgrenze: float,
 ) -> float:
     """Income subject to social insurance contributions for midijob until September
@@ -192,16 +196,17 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
 
     """
     # Now use the factor to calculate the overall bemessungsentgelt
-    minijob_anteil = midijob_faktor_f * minijobgrenze
-    lohn_über_mini = einnahmen__bruttolohn_m - minijobgrenze
-    gewichtete_midijob_rate = (midijobgrenze / (midijobgrenze - minijobgrenze)) - (
-        minijobgrenze / (midijobgrenze - minijobgrenze) * midijob_faktor_f
+    minijob_anteil = midijob_faktor_f * minijobgrenze_m
+    lohn_über_mini = einnahmen__bruttolohn_m - minijobgrenze_m
+    gewichtete_midijob_rate = (midijobgrenze / (midijobgrenze - minijobgrenze_m)) - (
+        minijobgrenze_m / (midijobgrenze - minijobgrenze_m) * midijob_faktor_f
     )
 
     return minijob_anteil + lohn_über_mini * gewichtete_midijob_rate
 
 
 @policy_function(
+    verify_units=False,
     start_date="2022-10-01",
     leaf_name="midijob_bemessungsentgelt_m",
     unit=Unit.CURRENCY.PER_MONTH,
@@ -209,7 +214,7 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
 def midijob_bemessungsentgelt_m_ab_10_2022(
     einnahmen__bruttolohn_m: float,
     midijob_faktor_f: float,
-    minijobgrenze: float,
+    minijobgrenze_m: float,
     midijobgrenze: float,
 ) -> float:
     """Total income subject to social insurance contributions for midijobs since October
@@ -223,11 +228,11 @@ def midijob_bemessungsentgelt_m_ab_10_2022(
     Legal reference: Changes in § 20 SGB IV from 01.10.2022
 
     """
-    quotient1 = (midijobgrenze) / (midijobgrenze - minijobgrenze)
-    quotient2 = (minijobgrenze) / (midijobgrenze - minijobgrenze)
-    einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze
+    quotient1 = (midijobgrenze) / (midijobgrenze - minijobgrenze_m)
+    quotient2 = (minijobgrenze_m) / (midijobgrenze - minijobgrenze_m)
+    einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze_m
 
-    faktor1 = midijob_faktor_f * minijobgrenze
+    faktor1 = midijob_faktor_f * minijobgrenze_m
     faktor2 = (quotient1 - quotient2 * midijob_faktor_f) * einkommen_diff
 
     return faktor1 + faktor2

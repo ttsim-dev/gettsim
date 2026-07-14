@@ -122,7 +122,7 @@ def splittingtarif(
     )
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
+@policy_function(verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY)
 def tarif_klassen_5_und_6(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
@@ -201,7 +201,7 @@ def splittingtarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
+@policy_function(verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY)
 def tarif_klassen_5_und_6_mit_kinderfreibetrag(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,

@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.DIMENSIONLESS)
 def anzahl_ansprüche(
     ist_leistungsbegründendes_kind: bool,
     p_id_empfänger: int,

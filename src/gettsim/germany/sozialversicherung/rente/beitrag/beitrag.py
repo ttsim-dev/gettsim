@@ -11,10 +11,10 @@ from gettsim.tt import Unit, policy_function
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public pension insurance contributions paid by the insured person."""
-    return betrag_versicherter_regulärer_beitragssatz
+    return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -25,7 +25,7 @@ def betrag_versicherter_m_bis_03_1999(
 )
 def betrag_versicherter_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public pension insurance contributions paid by the insured person.
 
@@ -35,7 +35,7 @@ def betrag_versicherter_m_ohne_midijob(
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
@@ -48,7 +48,7 @@ def betrag_versicherter_m_ohne_midijob(
 def betrag_versicherter_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_in_gleitzone_arbeitnehmer_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     sozialversicherung__in_gleitzone: bool,
 ) -> float:
     """Public pension insurance contributions paid by the insured person.
@@ -63,13 +63,13 @@ def betrag_versicherter_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_in_gleitzone_arbeitnehmer_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
 
 @policy_function(unit=Unit.CURRENCY.PER_MONTH)
-def betrag_versicherter_regulärer_beitragssatz(
+def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz: float,
 ) -> float:
@@ -83,13 +83,13 @@ def betrag_versicherter_regulärer_beitragssatz(
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_ohne_arbeitgeberpauschale(
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Employer's public pension insurance contribution.
 
     Before Minijobs were subject to pension contributions.
     """
-    return betrag_versicherter_regulärer_beitragssatz
+    return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -100,7 +100,7 @@ def betrag_arbeitgeber_m_ohne_arbeitgeberpauschale(
 )
 def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     einnahmen__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
 ) -> float:
@@ -112,7 +112,7 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
@@ -125,7 +125,7 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
 def betrag_arbeitgeber_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_in_gleitzone_arbeitgeber_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     sozialversicherung__in_gleitzone: bool,
     einnahmen__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
@@ -139,7 +139,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_in_gleitzone_arbeitgeber_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 

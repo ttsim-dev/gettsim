@@ -57,7 +57,7 @@ def betrag_m_einheitlich(
     entgeltpunkte: float,
     rentenartfaktor: float,
     grundsätzlich_anspruchsberechtigt: bool,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
 ) -> float:
     """Erwerbsminderungsrente (public disability insurance).
 
@@ -67,7 +67,7 @@ def betrag_m_einheitlich(
         out = (
             entgeltpunkte
             * zugangsfaktor
-            * sozialversicherung__rente__rentenwert
+            * sozialversicherung__rente__rentenwert_m
             * rentenartfaktor
         )
     else:
@@ -162,7 +162,7 @@ def entgeltpunkte(
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_bis_06_2014(
-    mean_entgeltpunkte_pro_bewertungsmonat: float,
+    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -186,7 +186,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     return (
         altersgrenze_zurechnungszeit
         - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat
+    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
 
 
 @policy_function(
@@ -196,7 +196,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgrenze(
-    mean_entgeltpunkte_pro_bewertungsmonat: float,
+    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     zurechnungszeitgrenze: float,
 ) -> float:
@@ -210,7 +210,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     """
     return (
         zurechnungszeitgrenze - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat
+    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
 
 
 @policy_function(
@@ -219,7 +219,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     unit=Unit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_ab_07_2017(
-    mean_entgeltpunkte_pro_bewertungsmonat: float,
+    mean_entgeltpunkte_pro_bewertungsmonat_y: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -243,7 +243,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     return (
         altersgrenze_zurechnungszeit
         - (sozialversicherung__rente__alter_bei_renteneintritt)
-    ) * mean_entgeltpunkte_pro_bewertungsmonat
+    ) * mean_entgeltpunkte_pro_bewertungsmonat_y
 
 
 @policy_function(start_date="2001-01-01", unit=Unit.DIMENSIONLESS)
@@ -409,8 +409,9 @@ def anteil_entgeltpunkte_ost(
 
 
 @policy_function(
+    verify_units=False,
     end_date="2023-06-30",
-    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat_y",
     unit=Unit.DIMENSIONLESS.PER_YEAR,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
@@ -438,8 +439,9 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
 
 
 @policy_function(
+    verify_units=False,
     start_date="2023-07-01",
-    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat_y",
     unit=Unit.DIMENSIONLESS.PER_YEAR,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(

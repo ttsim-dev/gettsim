@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.DIMENSIONLESS.PER_BG
 )
 def anzahl_kinder_bg(kindergeld__anzahl_ansprüche: int, bg_id: int) -> int:
     pass
@@ -162,7 +162,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
 def maximales_nettoeinkommen_m_bg(
     erwachsenenbedarf_m_bg: float,
     anzahl_kinder_bg: int,
-    satz: float,
+    satz_m: float,
 ) -> float:
     """Calculate maximum income to be eligible for additional child benefit
     (Kinderzuschlag).
@@ -170,7 +170,7 @@ def maximales_nettoeinkommen_m_bg(
     There is a maximum income threshold, depending on the need, plus the potential kiz
     receipt (§6a (1) Nr. 3 BKGG).
     """
-    return erwachsenenbedarf_m_bg + satz * anzahl_kinder_bg
+    return erwachsenenbedarf_m_bg + satz_m * anzahl_kinder_bg
 
 
 @policy_function(start_date="2008-10-01", unit=Unit.CURRENCY.PER_MONTH)

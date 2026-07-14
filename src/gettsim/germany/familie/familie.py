@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     AggType,
     Unit,
+    cast_unit,
     agg_by_group_function,
     join,
     policy_function,
@@ -64,7 +65,9 @@ def ist_kind_bis_2_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
     """Child under the age of 3 in Familiengemeinschaft."""
-    return ist_kind_in_familiengemeinschaft and (alter <= 2)
+    return ist_kind_in_familiengemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 2
+    )
 
 
 @agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
@@ -79,7 +82,9 @@ def ist_kind_bis_5_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
     """Child under the age of 6 in Familiengemeinschaft."""
-    return ist_kind_in_familiengemeinschaft and (alter <= 5)
+    return ist_kind_in_familiengemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 5
+    )
 
 
 @agg_by_group_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT.PER_FG)
@@ -94,7 +99,9 @@ def ist_kind_bis_6_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
     """Child under the age of 7 in Familiengemeinschaft."""
-    return ist_kind_in_familiengemeinschaft and (alter <= 6)
+    return ist_kind_in_familiengemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 6
+    )
 
 
 @agg_by_group_function(
@@ -111,7 +118,9 @@ def ist_kind_bis_15_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
     """Child under the age of 16 in Familiengemeinschaft."""
-    return ist_kind_in_familiengemeinschaft and (alter <= 15)
+    return ist_kind_in_familiengemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 15
+    )
 
 
 @agg_by_group_function(
@@ -128,7 +137,9 @@ def ist_kind_bis_17_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
     """Child under the age of 18 in Familiengemeinschaft."""
-    return ist_kind_in_familiengemeinschaft and (alter <= 17)
+    return ist_kind_in_familiengemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 17
+    )
 
 
 @agg_by_group_function(
@@ -219,7 +230,9 @@ def ist_kind_bis_17_in_bedarfsgemeinschaft(
     alter: int, ist_kind_in_bedarfsgemeinschaft: bool
 ) -> bool:
     """Child under the age of 18 in Bedarfsgemeinschaft."""
-    return ist_kind_in_bedarfsgemeinschaft and (alter <= 17)
+    return ist_kind_in_bedarfsgemeinschaft and (
+        cast_unit(alter, Unit.DIMENSIONLESS) <= 17
+    )
 
 
 @agg_by_group_function(
@@ -242,7 +255,10 @@ def hat_kind_in_gleicher_bedarfsgemeinschaft(
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
 ) -> bool:
     """Has a child in the same Bedarfsgemeinschaft."""
-    return anzahl_kinder_bg >= 1 and ist_erwachsener_in_bedarfsgemeinschaft
+    return (
+        cast_unit(anzahl_kinder_bg, Unit.DIMENSIONLESS) >= 1
+        and ist_erwachsener_in_bedarfsgemeinschaft
+    )
 
 
 @agg_by_group_function(agg_type=AggType.COUNT)
@@ -324,7 +340,7 @@ def anzahl_personen_ehe(ehe_id: int) -> int:
 @policy_function(unit=Unit.DIMENSIONLESS)
 def volljährig(alter: int) -> bool:
     """Person over the age of 18."""
-    return alter >= 18
+    return cast_unit(alter, Unit.DIMENSIONLESS) >= 18
 
 
 @policy_function(unit=Unit.DIMENSIONLESS)

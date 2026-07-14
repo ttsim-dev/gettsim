@@ -8,19 +8,19 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
 @policy_function(unit=Unit.DIMENSIONLESS)
 def geringfügig_beschäftigt(
     einnahmen__bruttolohn_m: float,
-    minijobgrenze: float,
+    minijobgrenze_m: float,
 ) -> bool:
     """Individual earns less than marginal employment threshold.
 
     Legal reference: § 8 Abs. 1 Satz 1 and 2 SGB IV
     """
-    return einnahmen__bruttolohn_m <= minijobgrenze
+    return einnahmen__bruttolohn_m <= minijobgrenze_m
 
 
 @policy_function(
     start_date="1990-01-01",
     end_date="1999-12-31",
-    leaf_name="minijobgrenze",
+    leaf_name="minijobgrenze_m",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
         base=1,
@@ -46,7 +46,7 @@ def minijobgrenze_unterscheidung_ost_west(
 
 @policy_function(
     start_date="2022-10-01",
-    leaf_name="minijobgrenze",
+    leaf_name="minijobgrenze_m",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
         base=1,

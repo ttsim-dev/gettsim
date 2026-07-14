@@ -11,10 +11,10 @@ from gettsim.tt import Unit, policy_function
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public health insurance contributions paid by the insured person."""
-    return betrag_versicherter_regulärer_beitragssatz
+    return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -27,7 +27,7 @@ def betrag_versicherter_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_rentner_m: float,
     betrag_selbstständig_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
 ) -> float:
     """Public health insurance contributions paid by the insured person.
@@ -39,7 +39,7 @@ def betrag_versicherter_m_ohne_midijob(
     elif sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     # Add the health insurance contribution for pensions
     return out + betrag_rentner_m
@@ -56,7 +56,7 @@ def betrag_versicherter_m_mit_midijob(
     betrag_selbstständig_m: float,
     sozialversicherung__in_gleitzone: bool,
     betrag_versicherter_in_gleitzone_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
 ) -> float:
     """Public health insurance contributions paid by the insured person.
@@ -70,7 +70,7 @@ def betrag_versicherter_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_versicherter_in_gleitzone_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     # Add the health insurance contribution for pensions
     return out + betrag_rentner_m
@@ -156,7 +156,7 @@ def betrag_arbeitgeber_m_mit_midijob(
 
 
 @policy_function(unit=Unit.CURRENCY.PER_MONTH)
-def betrag_versicherter_regulärer_beitragssatz(
+def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz_arbeitnehmer: float,
 ) -> float:

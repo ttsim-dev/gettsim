@@ -11,10 +11,10 @@ from gettsim.tt import Unit, policy_function
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Long-term care insurance contributions paid by the insured person."""
-    return betrag_versicherter_regulärer_beitragssatz
+    return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -27,7 +27,7 @@ def betrag_versicherter_m_ohne_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
     betrag_selbstständig_m: float,
     sozialversicherung__geringfügig_beschäftigt: bool,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     betrag_rentner_m: float,
 ) -> float:
     """Long-term care insurance contributions paid by the insured person.
@@ -40,7 +40,7 @@ def betrag_versicherter_m_ohne_midijob(
     elif sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     # Add the care insurance contribution for pensions
     return out + betrag_rentner_m
@@ -57,7 +57,7 @@ def betrag_versicherter_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__in_gleitzone: bool,
     betrag_versicherter_in_gleitzone_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     betrag_rentner_m: float,
 ) -> float:
     """Long-term care insurance contributions paid by the insured person."""
@@ -68,7 +68,7 @@ def betrag_versicherter_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_versicherter_in_gleitzone_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     # Add the care insurance contribution for pensions
     return out + betrag_rentner_m
@@ -158,7 +158,7 @@ def betrag_selbstständig_m(
 
 
 @policy_function(start_date="1995-01-01", unit=Unit.CURRENCY.PER_MONTH)
-def betrag_versicherter_regulärer_beitragssatz(
+def betrag_versicherter_regulärer_beitragssatz_m(
     sozialversicherung__kranken__beitrag__einkommen_m: float,
     beitragssatz_arbeitnehmer: float,
 ) -> float:

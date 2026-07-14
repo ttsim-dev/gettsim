@@ -283,7 +283,7 @@ def anzurechnendes_einkommen_y_fg(
     unit=Unit.CURRENCY.PER_YEAR.PER_FG,
 )
 def einkommensgrenze_y_fg(
-    einkommensgrenze_ohne_geschwisterbonus: float,
+    einkommensgrenze_ohne_geschwisterbonus_y: float,
     familie__anzahl_kinder_fg: int,
     ist_leistungsbegründendes_kind: bool,
     aufschlag_einkommen: float,
@@ -294,7 +294,7 @@ def einkommensgrenze_y_fg(
     """
     if ist_leistungsbegründendes_kind:
         return (
-            einkommensgrenze_ohne_geschwisterbonus
+            einkommensgrenze_ohne_geschwisterbonus_y
             + (familie__anzahl_kinder_fg - 1) * aufschlag_einkommen
         )
     else:
@@ -304,10 +304,10 @@ def einkommensgrenze_y_fg(
 @policy_function(
     start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
 )
-def einkommensgrenze_ohne_geschwisterbonus(
+def einkommensgrenze_ohne_geschwisterbonus_y(
     alter_monate: int,
-    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze: float,
-    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y: float,
     altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld) before adding the
@@ -316,15 +316,19 @@ def einkommensgrenze_ohne_geschwisterbonus(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if alter_monate < altersgrenze_für_reduziertes_einkommenslimit_kind_monate:
-        return einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze
+        return (
+            einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
+        )
     else:
-        return einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze
+        return (
+            einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y
+        )
 
 
 @policy_function(
     start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
 )
-def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
+def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,
@@ -346,7 +350,7 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
 @policy_function(
     start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
 )
-def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze(
+def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,

@@ -12,12 +12,12 @@ from gettsim.tt import Unit, policy_function
 )
 def regulär_beschäftigt_vor_midijob(
     einnahmen__bruttolohn_m: float,
-    minijobgrenze: float,
+    minijobgrenze_m: float,
 ) -> bool:
     """Employee is in regular employment, earning more than the marginal employment
     threshold.
     """
-    return einnahmen__bruttolohn_m >= minijobgrenze
+    return einnahmen__bruttolohn_m >= minijobgrenze_m
 
 
 @policy_function(

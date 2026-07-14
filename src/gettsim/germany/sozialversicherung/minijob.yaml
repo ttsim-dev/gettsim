@@ -1,5 +1,5 @@
 ---
-minijobgrenze:
+minijobgrenze_m:
   name:
     de: Minijobgrenze
     en: Thresholds for marginal employment (minijobs)

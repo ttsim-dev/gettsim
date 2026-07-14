@@ -61,7 +61,7 @@ def neue_entgeltpunkte_einheitlich(
 @policy_function(
     start_date="1992-01-01",
     end_date="2023-06-30",
-    leaf_name="rentenwert",
+    leaf_name="rentenwert_m",
     unit=Unit.CURRENCY.PER_MONTH,
 )
 def rentenwert_nach_wohnort(

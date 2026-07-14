@@ -25,7 +25,7 @@ def anzurechnendes_nettoeinkommen_m(
     ),
     unit=Unit.CURRENCY.PER_MONTH,
 )
-def lohnersatzanteil_einkommen_untere_grenze(
+def lohnersatzanteil_einkommen_untere_grenze_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     nettoeinkommensstufen_für_lohnersatzrate: dict[str, float],
 ) -> float:
@@ -43,7 +43,7 @@ def lohnersatzanteil_einkommen_untere_grenze(
     ),
     unit=Unit.CURRENCY.PER_MONTH,
 )
-def lohnersatzanteil_einkommen_obere_grenze(
+def lohnersatzanteil_einkommen_obere_grenze_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     nettoeinkommensstufen_für_lohnersatzrate: dict[str, float],
 ) -> float:

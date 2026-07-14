@@ -237,8 +237,8 @@ def bezugsmonate_unter_grenze_fg(
 @policy_function(start_date="2011-01-01", unit=Unit.DIMENSIONLESS)
 def lohnersatzanteil(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
-    lohnersatzanteil_einkommen_untere_grenze: float,
-    lohnersatzanteil_einkommen_obere_grenze: float,
+    lohnersatzanteil_einkommen_untere_grenze_m: float,
+    lohnersatzanteil_einkommen_obere_grenze_m: float,
     einkommensschritte_korrektur: float,
     satz: float,
     prozent_korrektur: float,
@@ -258,7 +258,7 @@ def lohnersatzanteil(
         and mean_nettoeinkommen_in_12_monaten_vor_geburt_m > 0
     ):
         out = satz + (
-            lohnersatzanteil_einkommen_untere_grenze
+            lohnersatzanteil_einkommen_untere_grenze_m
             / einkommensschritte_korrektur
             * prozent_korrektur
         )
@@ -271,7 +271,7 @@ def lohnersatzanteil(
         out = max(
             satz
             - (
-                lohnersatzanteil_einkommen_obere_grenze
+                lohnersatzanteil_einkommen_obere_grenze_m
                 / einkommensschritte_korrektur
                 * prozent_korrektur
             ),

@@ -88,7 +88,7 @@ def bruttorente_basisbetrag_m(
     zugangsfaktor: float,
     sozialversicherung__rente__entgeltpunkte: float,
     sozialversicherung__rente__bezieht_rente: bool,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
 ) -> float:
     """Old-Age Pensions claim. The function follows the following equation:
 
@@ -103,7 +103,7 @@ def bruttorente_basisbetrag_m(
     if sozialversicherung__rente__bezieht_rente:
         out = (
             sozialversicherung__rente__entgeltpunkte
-            * sozialversicherung__rente__rentenwert
+            * sozialversicherung__rente__rentenwert_m
             * zugangsfaktor
         )
     else:
