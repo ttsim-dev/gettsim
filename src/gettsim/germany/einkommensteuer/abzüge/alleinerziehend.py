@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, policy_function, cast_unit
 
 
 @policy_function(
@@ -33,7 +33,7 @@ def alleinerziehend_betrag_y_nach_kinderzahl(
     if familie__alleinerziehend_sn:
         out = (
             alleinerziehendenfreibetrag_basis
-            + (kindergeld__anzahl_ansprüche_sn - 1)
+            + (cast_unit(kindergeld__anzahl_ansprüche_sn, Unit.DIMENSIONLESS) - 1)
             * alleinerziehendenfreibetrag_zusatz_pro_kind
         )
     else:

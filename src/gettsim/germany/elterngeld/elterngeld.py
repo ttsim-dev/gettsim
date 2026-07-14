@@ -9,6 +9,7 @@ from gettsim.tt import (
     agg_by_group_function,
     agg_by_p_id_function,
     policy_function,
+    cast_unit,
 )
 
 
@@ -226,7 +227,7 @@ def bezugsmonate_unter_grenze_fg(
         )
     elif anzahl_anträge_fg > 1:
         out = (
-            bisherige_bezugsmonate_fg + 1
+            cast_unit(bisherige_bezugsmonate_fg, Unit.DIMENSIONLESS) + 1
             < max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
         )
     else:

@@ -94,8 +94,8 @@ def parameter_max_lohnsteuer_klasse_5_6(
     )
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
-def basistarif(
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
+def basistarif_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -108,8 +108,8 @@ def basistarif(
     )
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
-def splittingtarif(
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
+def splittingtarif_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -122,8 +122,10 @@ def splittingtarif(
     )
 
 
-@policy_function(verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY)
-def tarif_klassen_5_und_6(
+@policy_function(
+    verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR
+)
+def tarif_klassen_5_und_6_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     parameter_max_lohnsteuer_klasse_5_6: PiecewisePolynomialParamValue,
@@ -149,22 +151,22 @@ def tarif_klassen_5_und_6(
 @policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def betrag_y(
     steuerklasse: int,
-    basistarif: float,
-    splittingtarif: float,
-    tarif_klassen_5_und_6: float,
+    basistarif_y: float,
+    splittingtarif_y: float,
+    tarif_klassen_5_und_6_y: float,
 ) -> float:
     """Withholding tax on earnings (Lohnsteuer)"""
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
-        out = basistarif
+        out = basistarif_y
     elif steuerklasse == 3:
-        out = splittingtarif
+        out = splittingtarif_y
     else:
-        out = tarif_klassen_5_und_6
+        out = tarif_klassen_5_und_6_y
     return max(out, 0.0)
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
-def basistarif_mit_kinderfreibetrag(
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
+def basistarif_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     kinderfreibetrag_soli_y: float,
@@ -182,8 +184,8 @@ def basistarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY)
-def splittingtarif_mit_kinderfreibetrag(
+@policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
+def splittingtarif_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     kinderfreibetrag_soli_y: float,
@@ -201,8 +203,10 @@ def splittingtarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY)
-def tarif_klassen_5_und_6_mit_kinderfreibetrag(
+@policy_function(
+    verify_units=False, start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR
+)
+def tarif_klassen_5_und_6_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     parameter_max_lohnsteuer_klasse_5_6: PiecewisePolynomialParamValue,
@@ -235,9 +239,9 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
 @policy_function(start_date="2015-01-01", unit=Unit.CURRENCY.PER_YEAR)
 def betrag_mit_kinderfreibetrag_y(
     steuerklasse: int,
-    basistarif_mit_kinderfreibetrag: float,
-    splittingtarif_mit_kinderfreibetrag: float,
-    tarif_klassen_5_und_6_mit_kinderfreibetrag: float,
+    basistarif_mit_kinderfreibetrag_y: float,
+    splittingtarif_mit_kinderfreibetrag_y: float,
+    tarif_klassen_5_und_6_mit_kinderfreibetrag_y: float,
 ) -> float:
     """Withholding tax taking child allowances into account.
 
@@ -246,11 +250,11 @@ def betrag_mit_kinderfreibetrag_y(
     of Solidaritätszuschlag on Lohnsteuer!
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
-        out = basistarif_mit_kinderfreibetrag
+        out = basistarif_mit_kinderfreibetrag_y
     elif steuerklasse == 3:
-        out = splittingtarif_mit_kinderfreibetrag
+        out = splittingtarif_mit_kinderfreibetrag_y
     else:
-        out = tarif_klassen_5_und_6_mit_kinderfreibetrag
+        out = tarif_klassen_5_und_6_mit_kinderfreibetrag_y
     return max(out, 0.0)
 
 

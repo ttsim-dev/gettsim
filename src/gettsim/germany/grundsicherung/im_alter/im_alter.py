@@ -17,7 +17,7 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import AggType, Unit, agg_by_p_id_function, policy_function
+from gettsim.tt import AggType, Unit, agg_by_p_id_function, policy_function, cast_unit
 
 
 @policy_function(
@@ -263,7 +263,9 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        cast_unit(familie__anzahl_erwachsene_eg, Unit.DIMENSIONLESS) > 1
+    ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * arbeitslosengeld_2__regelsatz_anteilsbasiert.erwachsen.je_erwachsener_ab_drei_erwachsene
@@ -300,7 +302,9 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
 
     if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
         out = mehrbedarf_single
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        cast_unit(familie__anzahl_erwachsene_eg, Unit.DIMENSIONLESS) > 1
+    ):
         out = mehrbedarf_in_couple
     else:
         out = 0.0

@@ -12,6 +12,7 @@ from gettsim.tt import (
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
+    cast_unit,
 )
 
 if TYPE_CHECKING:
@@ -195,7 +196,7 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(anzahl_personen_hh - 1, 0)
+            + max(cast_unit(anzahl_personen_hh, Unit.DIMENSIONLESS) - 1, 0)
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)

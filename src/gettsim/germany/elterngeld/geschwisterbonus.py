@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, policy_function, cast_unit
 
 
 @policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)
@@ -54,5 +54,5 @@ def anzahl_mehrlinge_fg(
     anzahl_mehrlinge_jüngstes_kind_fg: int,
 ) -> int:
     """Number of multiples of the youngest child."""
-    out = anzahl_mehrlinge_jüngstes_kind_fg - 1
+    out = cast_unit(anzahl_mehrlinge_jüngstes_kind_fg, Unit.DIMENSIONLESS) - 1
     return max(out, 0)

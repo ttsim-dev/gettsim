@@ -109,8 +109,10 @@ def einkommen_y_ab_2026(
     )
 
 
-@policy_function(start_date="2010-01-01", end_date="2025-12-31", unit=Unit.CURRENCY)
-def vorsorge_krankenversicherungsbeiträge_option_a(
+@policy_function(
+    start_date="2010-01-01", end_date="2025-12-31", unit=Unit.CURRENCY.PER_YEAR
+)
+def vorsorge_krankenversicherungsbeiträge_option_a_y(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
     steuerklasse: int,
     vorsorgepauschale_mindestanteil: float,
@@ -145,8 +147,8 @@ def vorsorge_krankenversicherungsbeiträge_option_a(
 @policy_function(
     start_date="2015-01-01",
     end_date="2018-12-31",
-    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
-    unit=Unit.CURRENCY,
+    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
+    unit=Unit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -173,8 +175,8 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
 @policy_function(
     start_date="2019-01-01",
     end_date="2025-12-31",
-    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
-    unit=Unit.CURRENCY,
+    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
+    unit=Unit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -221,8 +223,8 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
         )
 
 
-@policy_function(start_date="2026-01-01", unit=Unit.CURRENCY)
-def vorsorge_arbeitslosenversicherungsbeiträge(
+@policy_function(start_date="2026-01-01", unit=Unit.CURRENCY.PER_YEAR)
+def vorsorge_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
 ) -> float:
@@ -340,7 +342,7 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
 def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     vorsorge_rentenversicherungsbeiträge_y: float,
     vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
-    vorsorge_arbeitslosenversicherungsbeiträge: float,
+    vorsorge_arbeitslosenversicherungsbeiträge_y: float,
     vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
 ) -> float:
     """Vorsorgepauschale considering unemployment insurance contributions.
@@ -351,7 +353,7 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe e EStG.
     """
     summe_av_kv_pv = min(
-        vorsorge_arbeitslosenversicherungsbeiträge
+        vorsorge_arbeitslosenversicherungsbeiträge_y
         + vorsorge_gesetzliche_krankenversicherungsbeiträge_y,
         vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge,
     )
@@ -378,8 +380,8 @@ def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
 )
 def vorsorgepauschale_y_ab_2010_bis_2025(
     vorsorge_rentenversicherungsbeiträge_y: float,
-    vorsorge_krankenversicherungsbeiträge_option_a: float,
-    vorsorge_krankenversicherungsbeiträge_option_b: float,
+    vorsorge_krankenversicherungsbeiträge_option_a_y: float,
+    vorsorge_krankenversicherungsbeiträge_option_b_y: float,
 ) -> float:
     """Vorsorgepauschale for Lohnsteuer valid since 2010.
 
@@ -387,8 +389,8 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
     Vorsorgeaufwendungen used when calculating Einkommensteuer.
     """
     kranken = max(
-        vorsorge_krankenversicherungsbeiträge_option_a,
-        vorsorge_krankenversicherungsbeiträge_option_b,
+        vorsorge_krankenversicherungsbeiträge_option_a_y,
+        vorsorge_krankenversicherungsbeiträge_option_b_y,
     )
     return vorsorge_rentenversicherungsbeiträge_y + kranken
 
