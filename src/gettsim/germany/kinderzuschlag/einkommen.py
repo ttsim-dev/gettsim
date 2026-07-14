@@ -16,6 +16,7 @@ from gettsim.tt import (
     RoundingSpec,
     Unit,
     agg_by_group_function,
+    cast_unit,
     param_function,
     policy_function,
 )
@@ -191,7 +192,8 @@ def mindestbruttoeinkommen_m_bg(
     else:
         out = mindesteinkommen["paar"]
 
-    return out
+    # The statutory thresholds apply to the Bedarfsgemeinschaft as a whole.
+    return cast_unit(out, Unit.CURRENCY.PER_MONTH.PER_BG)
 
 
 @policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
@@ -339,7 +341,7 @@ def wohnbedarf_anteil_eltern_bg(
         )
 
     kinderbetrag = min(
-        anzahl_kinder_bg,
+        cast_unit(anzahl_kinder_bg, Unit.DIMENSIONLESS),
         wohnbedarf_anteil_berücksichtigte_kinder,
     ) * (existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind)
 

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from ttsim.unit_converters import per_y_to_per_m
 
-from gettsim.tt import Unit, param_function, policy_function
+from gettsim.tt import Unit, cast_unit, param_function, policy_function
 
 if TYPE_CHECKING:
     from gettsim.germany.param_types import (
@@ -157,12 +157,12 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (familie__anzahl_erwachsene_bg >= 1).
+    (cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1).
 
     """
     if (
         nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg
-    ) and familie__anzahl_erwachsene_bg >= 1:
+    ) and cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1:
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -193,13 +193,13 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (familie__anzahl_erwachsene_bg >= 1).
+    (cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1).
 
     """
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
-        and familie__anzahl_erwachsene_bg >= 1
+        and cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -227,12 +227,12 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     minimum income threshold.
 
     Kinderzuschlag is only paid out if parents are part of the BG
-    (familie__anzahl_erwachsene_bg >= 1).
+    (cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1).
 
     """
     if (
         bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg
-    ) and familie__anzahl_erwachsene_bg >= 1:
+    ) and cast_unit(familie__anzahl_erwachsene_bg, Unit.DIMENSIONLESS) >= 1:
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -256,7 +256,9 @@ def basisbetrag_kind_m_bis_2022(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
+    out = cast_unit(
+        kindergeld__ist_leistungsbegründendes_kind, Unit.DIMENSIONLESS
+    ) * (
         satz_m
         - entzugsrate_kindeseinkommen
         * (
@@ -285,7 +287,9 @@ def basisbetrag_kind_m_ab_2023(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
+    out = cast_unit(
+        kindergeld__ist_leistungsbegründendes_kind, Unit.DIMENSIONLESS
+    ) * (
         satz_m
         - entzugsrate_kindeseinkommen
         * (
