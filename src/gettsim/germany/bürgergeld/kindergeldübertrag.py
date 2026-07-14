@@ -8,6 +8,7 @@ from gettsim.tt import (
     AggType,
     Unit,
     agg_by_p_id_function,
+    cast_unit,
     join,
     policy_function,
 )
@@ -98,8 +99,11 @@ def differenz_kindergeld_kindbedarf_m(
     to the parental level.
     """
     fehlbetrag = max(
-        regelbedarf_m_bg
-        - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh
+        cast_unit(regelbedarf_m_bg, Unit.CURRENCY.PER_MONTH)
+        - cast_unit(
+            wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh,
+            Unit.CURRENCY.PER_MONTH,
+        )
         - nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m
         - unterhaltsvorschuss__betrag_m,

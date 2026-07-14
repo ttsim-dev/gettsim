@@ -14,10 +14,12 @@ def vermögensfreibetrag_in_karenzzeit_bg(
 
     This variable is also referred to as 'erhebliches Vermögen'.
     """
-    return (
+    # Per-person exemptions sum to the BG-level total wealth exemption.
+    return cast_unit(
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
         + (cast_unit(familie__anzahl_personen_bg, Unit.DIMENSIONLESS) - 1)
-        * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"]
+        * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"],
+        Unit.CURRENCY.PER_BG,
     )
 
 

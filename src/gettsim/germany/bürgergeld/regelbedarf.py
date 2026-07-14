@@ -50,10 +50,9 @@ def mehrbedarf_alleinerziehend(
 
     Reference: §21 SGB II
     """
-    basis_mehrbedarf = (
-        parameter_mehrbedarf_alleinerziehend["basis_je_kind_bis_17"]
-        * familie__anzahl_kinder_bis_17_fg
-    )
+    basis_mehrbedarf = parameter_mehrbedarf_alleinerziehend[
+        "basis_je_kind_bis_17"
+    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, Unit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -182,7 +181,13 @@ def anerkannte_warmmiete_je_qm_m(
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.SQUARE_METER)
+@policy_function(
+    start_date="2023-01-01",
+    unit=Unit.SQUARE_METER,
+    # The Eigentum branch looks up a dynamically built table whose axes the dry-run
+    # cannot model; the per-person division is covered by `wohnfläche` above.
+    verify_units=False,
+)
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -196,7 +201,7 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(cast_unit(anzahl_personen_hh, Unit.DIMENSIONLESS) - 1, 0)
+            + max(anzahl_personen_hh - 1, 0)
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)
@@ -213,7 +218,10 @@ def bruttokaltmiete_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh,
+        Unit.CURRENCY.PER_MONTH,
+    )
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
@@ -227,7 +235,10 @@ def heizkosten_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return wohnen__heizkosten_m_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__heizkosten_m_hh / anzahl_personen_hh,
+        Unit.CURRENCY.PER_MONTH,
+    )
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.SQUARE_METER)
@@ -236,7 +247,10 @@ def wohnfläche(
     anzahl_personen_hh: int,
 ) -> float:
     """Share of household's dwelling size attributed to a single person."""
-    return wohnen__wohnfläche_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__wohnfläche_hh / anzahl_personen_hh,
+        Unit.SQUARE_METER,
+    )
 
 
 @dataclass(frozen=True)

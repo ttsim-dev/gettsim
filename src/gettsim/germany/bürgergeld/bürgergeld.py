@@ -9,7 +9,7 @@ des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang,
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, cast_unit, policy_function
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
@@ -117,4 +117,9 @@ def überschusseinkommen_m(
 
     Reference: BSG B 14 AS 89/20 R
     """
-    return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)
+    # The BG-level surplus is attributed to each member; downstream code aggregates
+    # `_m_eg` for the mixed-BG partner's Grundsicherung.
+    return cast_unit(
+        max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg),
+        Unit.CURRENCY.PER_MONTH,
+    )
