@@ -22,7 +22,7 @@ def geringfügig_beschäftigt(
     end_date="1999-12-31",
     leaf_name="minijobgrenze_m",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH,
+        unit=Unit.DM.PER_MONTH,
         base=1,
         direction="up",
         reference="§ 8 Abs. 1a Satz 2 SGB IV",
