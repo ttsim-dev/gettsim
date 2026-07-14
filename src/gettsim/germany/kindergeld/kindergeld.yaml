@@ -195,16 +195,20 @@ maximales_einkommen_des_kindes:
   unit: EUR_PER_YEAR
   type: scalar
   1996-01-01:
-    value: 6136
+    unit: DM_PER_YEAR
+    value: 12000
     reference: Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
-    note: Originalwert 12000 DM.
   1999-01-01:
-    value: 6657
+    value: 13020
+    reference: Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    note: >-
+      § 32 Abs. 4 Satz 2 EStG ist ab dem Veranlagungszeitraum 1999 mit dem Betrag von
+      13 020 Deutsche Mark anzuwenden.
   2000-01-01:
-    value: 6902
-  2001-01-01:
-    value: 7179
+    value: 13500
+    reference: Art. 1 G. v. 28.12.1999 BGBl. I S. 2552.
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 7188
     reference: Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
   2004-01-01:
