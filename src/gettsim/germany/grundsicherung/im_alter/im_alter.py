@@ -17,7 +17,7 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import AggType, Unit, agg_by_p_id_function, policy_function, cast_unit
+from gettsim.tt import AggType, Unit, agg_by_p_id_function, cast_unit, policy_function
 
 
 @policy_function(

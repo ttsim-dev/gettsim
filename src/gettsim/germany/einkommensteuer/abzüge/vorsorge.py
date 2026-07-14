@@ -112,7 +112,7 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
 @policy_function(
     end_date="2019-12-31",
     unit=Unit.CURRENCY.PER_YEAR.PER_SN,
-    # A per-capita Splitting formula (÷ then × anzahl_personen_sn) the dry-run's
+    # A per-capita Splitting formula (divide then multiply by anzahl_personen_sn) the
     # level model cannot follow; declared unit and edges stay checked.
     verify_units=False,
 )
@@ -306,7 +306,7 @@ def altersvorsorge_y_sn_volle_anrechnung(
 @policy_function(
     end_date="2019-12-31",
     unit=Unit.CURRENCY.PER_YEAR.PER_SN,
-    # A per-capita Splitting formula (÷ then × anzahl_personen_sn) the dry-run's
+    # A per-capita Splitting formula (divide then multiply by anzahl_personen_sn) the
     # level model cannot follow; declared unit and edges stay checked.
     verify_units=False,
 )

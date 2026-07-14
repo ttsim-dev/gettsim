@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function, cast_unit
+from gettsim.tt import Unit, cast_unit, policy_function
 
 
 @policy_function(start_date="2007-01-01", unit=Unit.CURRENCY.PER_MONTH)

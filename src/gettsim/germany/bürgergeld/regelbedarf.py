@@ -9,10 +9,10 @@ from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     Unit,
+    cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
-    cast_unit,
 )
 
 if TYPE_CHECKING:

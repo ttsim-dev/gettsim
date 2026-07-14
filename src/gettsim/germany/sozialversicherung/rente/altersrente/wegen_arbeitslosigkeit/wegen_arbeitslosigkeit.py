@@ -14,8 +14,8 @@ from ttsim.unit_converters import y_to_m
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     Unit,
-    policy_function,
     cast_unit,
+    policy_function,
 )
 
 
