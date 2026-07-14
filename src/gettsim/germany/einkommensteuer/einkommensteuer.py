@@ -50,7 +50,7 @@ def anzahl_kindergeld_ansprüche_2(
     end_date="1996-12-31",
     leaf_name="betrag_y_sn",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_YEAR.PER_SN,
+        unit=Unit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S. 6 EStG",
@@ -110,7 +110,7 @@ def kinderfreibetrag_günstiger_sn(
     end_date="2001-12-31",
     leaf_name="betrag_mit_kinderfreibetrag_y_sn",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_YEAR.PER_SN,
+        unit=Unit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
