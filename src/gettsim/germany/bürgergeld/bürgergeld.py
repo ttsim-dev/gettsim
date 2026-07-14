@@ -43,16 +43,20 @@ def anspruchshöhe_m(
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    total_income_m_bg = (
-        einkommen_zur_verteilung_m_bg
-        + grundsicherung__im_alter__überschusseinkommen_m_eg
+    total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_unit(
+        grundsicherung__im_alter__überschusseinkommen_m_eg,
+        Unit.CURRENCY.PER_MONTH.PER_BG,
     )
     anspruch_m_bg = max(0.0, ungedeckter_bedarf_m_bg - total_income_m_bg)
 
     if ungedeckter_bedarf_m_bg == 0.0 or vermögen_bg > vermögensfreibetrag_bg:
         return 0.0
     else:
-        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
+        # Distribute the BG surplus by each member's share of the BG Bedarf.
+        return cast_unit(
+            (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg,
+            Unit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)

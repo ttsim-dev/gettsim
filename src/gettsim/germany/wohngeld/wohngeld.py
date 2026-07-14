@@ -65,6 +65,9 @@ def anspruchshöhe_m_wthh(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
     unit=Unit.CURRENCY.PER_MONTH,
+    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
+    # spellable in the unit grammar (GEP 10 D1).
+    verify_units=False,
 )
 def basisbetrag_m_wthh_bis_2000(
     anzahl_personen_wthh: int,
@@ -98,6 +101,9 @@ def basisbetrag_m_wthh_bis_2000(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
     unit=Unit.CURRENCY.PER_MONTH,
+    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
+    # spellable in the unit grammar (GEP 10 D1).
+    verify_units=False,
 )
 def basisbetrag_m_wthh_ab_2001(
     anzahl_personen_wthh: int,

@@ -103,8 +103,12 @@ def anspruchshöhe_m_bg(
 ) -> float:
     """Kinderzuschlag claim at the Bedarfsgemeinschaft level."""
     if vermögen_bg > vermögensfreibetrag_bg:
+        # Excess wealth reduces the monthly claim (a stock netted against a flow).
         out = max(
-            basisbetrag_m_bg - (vermögen_bg - vermögensfreibetrag_bg),
+            basisbetrag_m_bg
+            - cast_unit(
+                vermögen_bg - vermögensfreibetrag_bg, Unit.CURRENCY.PER_MONTH.PER_BG
+            ),
             0.0,
         )
     else:

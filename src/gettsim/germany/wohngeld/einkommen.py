@@ -45,7 +45,12 @@ def min_einkommen_lookup_table(
     return get_consecutive_int_lookup_table_param_value(raw=min_einkommen, xnp=xnp)
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(
+    unit=Unit.CURRENCY.PER_MONTH,
+    # Clamps the look-up index with a raw `xnp` op reading the table's `.shape`,
+    # which the dry-run cannot evaluate symbolically.
+    verify_units=False,
+)
 def einkommen_m_wthh(
     anzahl_personen_wthh: int,
     freibetrag_m_wthh: float,

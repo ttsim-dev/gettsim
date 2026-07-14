@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, cast_unit, policy_function
 
 
 @policy_function(
@@ -40,9 +40,11 @@ def vermögensgrenze_unterschritten_wthh(
     """Wealth is below the eligibility threshold for housing benefits."""
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
-    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (anzahl_personen_wthh - 1)
+    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
+        cast_unit(anzahl_personen_wthh, Unit.DIMENSIONLESS) - 1
+    )
 
-    return vermögen_wthh <= vermögensfreibetrag
+    return cast_unit(vermögen_wthh, Unit.CURRENCY) <= vermögensfreibetrag
 
 
 @policy_function(
@@ -67,8 +69,8 @@ def mindesteinkommen_erreicht_wthh_bis_2022(
     The allowance for discretionary judgment is ignored here.
 
     """
-    return (
-        einkommen_für_mindesteinkommen_m_wthh >= arbeitslosengeld_2__regelbedarf_m_wthh
+    return einkommen_für_mindesteinkommen_m_wthh >= cast_unit(
+        arbeitslosengeld_2__regelbedarf_m_wthh, Unit.CURRENCY.PER_MONTH
     )
 
 
@@ -93,7 +95,9 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
     The allowance for discretionary judgment is ignored here.
 
     """
-    return einkommen_für_mindesteinkommen_m_wthh >= bürgergeld__regelbedarf_m_wthh
+    return einkommen_für_mindesteinkommen_m_wthh >= cast_unit(
+        bürgergeld__regelbedarf_m_wthh, Unit.CURRENCY.PER_MONTH
+    )
 
 
 @policy_function(
@@ -120,13 +124,14 @@ def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
     Kindergeld count as income for this check.
 
     """
-    return (
+    return cast_unit(
         arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh
         + unterhalt__tatsächlich_erhaltener_betrag_m_wthh
         + unterhaltsvorschuss__betrag_m_wthh
         + kindergeld__betrag_m_wthh
         + kinderzuschlag__anspruchshöhe_m_wthh
-        + basisbetrag_m_wthh
+        + cast_unit(basisbetrag_m_wthh, Unit.CURRENCY.PER_MONTH.PER_WTHH),
+        Unit.CURRENCY.PER_MONTH,
     )
 
 
@@ -153,11 +158,12 @@ def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
     Kindergeld count as income for this check.
 
     """
-    return (
+    return cast_unit(
         bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh
         + unterhalt__tatsächlich_erhaltener_betrag_m_wthh
         + unterhaltsvorschuss__betrag_m_wthh
         + kindergeld__betrag_m_wthh
         + kinderzuschlag__anspruchshöhe_m_wthh
-        + basisbetrag_m_wthh
+        + cast_unit(basisbetrag_m_wthh, Unit.CURRENCY.PER_MONTH.PER_WTHH),
+        Unit.CURRENCY.PER_MONTH,
     )
