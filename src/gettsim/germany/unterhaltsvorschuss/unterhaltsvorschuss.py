@@ -14,6 +14,7 @@ from gettsim.tt import (
     RoundingSpec,
     Unit,
     agg_by_p_id_function,
+    cast_unit,
     join,
     param_function,
     policy_function,
@@ -131,7 +132,9 @@ def kindergeld_erstes_kind_gestaffelt_m(
     kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Kindergeld for first child when Kindergeld depends on number of children."""
-    return kindergeld__satz_nach_anzahl_kinder.look_up(1)
+    return cast_unit(
+        kindergeld__satz_nach_anzahl_kinder.look_up(1), Unit.CURRENCY.PER_MONTH
+    )
 
 
 @policy_function(
@@ -139,6 +142,8 @@ def kindergeld_erstes_kind_gestaffelt_m(
     end_date="2014-12-31",
     leaf_name="anspruchshöhe_m",
     unit=Unit.CURRENCY.PER_MONTH,
+    # Plucks age bounds off a dict-of-dataclass parameter the dry-run cannot follow.
+    verify_units=False,
 )
 def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     alter: int,
@@ -189,6 +194,8 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     end_date="2015-12-31",
     leaf_name="anspruchshöhe_m",
     unit=Unit.CURRENCY.PER_MONTH,
+    # Plucks age bounds off a dict-of-dataclass parameter the dry-run cannot follow.
+    verify_units=False,
 )
 def anspruchshöhe_m_anwendungsvors(
     alter: int,
@@ -222,6 +229,9 @@ def anspruchshöhe_m_anwendungsvors(
     end_date="2017-06-30",
     leaf_name="anspruchshöhe_m",
     unit=Unit.CURRENCY.PER_MONTH,
+    # Plucks age bounds and Satz off a dict-of-dataclass parameter the dry-run
+    # cannot follow through the dict subscript.
+    verify_units=False,
 )
 def anspruchshöhe_m_2016_bis_2017_06(
     alter: int,
@@ -256,6 +266,9 @@ def anspruchshöhe_m_2016_bis_2017_06(
     start_date="2017-07-01",
     leaf_name="anspruchshöhe_m",
     unit=Unit.CURRENCY.PER_MONTH,
+    # Plucks age bounds and Satz off a dict-of-dataclass parameter, which the
+    # dry-run cannot follow through the dict subscript.
+    verify_units=False,
 )
 def anspruchshöhe_m_ab_2017_07(
     alter: int,

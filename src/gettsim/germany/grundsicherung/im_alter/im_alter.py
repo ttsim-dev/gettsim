@@ -117,9 +117,12 @@ def anspruchshöhe_m_bis_2022(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
-        return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+        # Distribute the EG-level surplus by each member's share of the EG restbedarf.
+        return cast_unit(
+            (individueller_restbedarf_m / individueller_restbedarf_m_eg)
+            * anspruch_m_eg,
+            Unit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(
@@ -156,9 +159,12 @@ def anspruchshöhe_m_ab_2023(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
-        return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+        # Distribute the EG-level surplus by each member's share of the EG restbedarf.
+        return cast_unit(
+            (individueller_restbedarf_m / individueller_restbedarf_m_eg)
+            * anspruch_m_eg,
+            Unit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
@@ -343,7 +349,11 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    return einkommensteuer__gesamteinkommen_y_sn >= einkommensgrenze_kinder
+    # The child's Steuernummer-level Gesamteinkommen is read as their individual income.
+    return (
+        cast_unit(einkommensteuer__gesamteinkommen_y_sn, Unit.CURRENCY.PER_YEAR)
+        >= einkommensgrenze_kinder
+    )
 
 
 @agg_by_p_id_function(agg_type=AggType.ANY)
