@@ -171,7 +171,10 @@ def maximales_nettoeinkommen_m_bg(
     There is a maximum income threshold, depending on the need, plus the potential kiz
     receipt (§6a (1) Nr. 3 BKGG).
     """
-    return erwachsenenbedarf_m_bg + satz_m * anzahl_kinder_bg
+    # Per-child Satz times the number of children is the BG-level child total.
+    return erwachsenenbedarf_m_bg + cast_unit(
+        satz_m * anzahl_kinder_bg, Unit.CURRENCY.PER_MONTH.PER_BG
+    )
 
 
 @policy_function(start_date="2008-10-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
