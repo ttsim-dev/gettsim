@@ -22,9 +22,14 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     kürzungsanteil_abhängig_beschäftigte: DIMENSIONLESS
   type: dict
   1985-01-01:
-    vorwegabzug: 1534
-    grundhöchstbetrag: 1196
+    unit:
+      vorwegabzug: DM_PER_YEAR
+      grundhöchstbetrag: DM_PER_YEAR
+      kürzungsanteil_abhängig_beschäftigte: DIMENSIONLESS
+    vorwegabzug: 3000
+    grundhöchstbetrag: 2340
     kürzungsanteil_abhängig_beschäftigte: 0.0935
+    reference: § 10 Abs. 3 EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1986-01-01:
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.096
@@ -33,18 +38,28 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     kürzungsanteil_abhängig_beschäftigte: 0.0935
   1989-01-01:
     updates_previous: true
-    vorwegabzug: 2045
+    vorwegabzug: 4000
     kürzungsanteil_abhängig_beschäftigte: 0.12
+    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   1992-01-01:
     updates_previous: true
-    grundhöchstbetrag: 1334
+    grundhöchstbetrag: 2610
   1993-01-01:
     updates_previous: true
-    vorwegabzug: 3068
+    vorwegabzug: 6000
   1994-01-01:
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.16
     reference: Art. 1 G. v. 21.12.1993 BGBl. I S. 2310.
+  2002-01-01:
+    unit:
+      vorwegabzug: EUR_PER_YEAR
+      grundhöchstbetrag: EUR_PER_YEAR
+      kürzungsanteil_abhängig_beschäftigte: DIMENSIONLESS
+    vorwegabzug: 3068
+    grundhöchstbetrag: 1334
+    kürzungsanteil_abhängig_beschäftigte: 0.16
+    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
   2011-01-01:
     updates_previous: true
     vorwegabzug: 2700
