@@ -10,6 +10,7 @@ from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     Unit,
     agg_by_p_id_function,
+    cast_unit,
     get_consecutive_int_lookup_table_param_value,
     join,
     param_function,
@@ -60,7 +61,9 @@ def betrag_gestaffelt_m(
     being claimed for.
 
     """
-    return satz_nach_anzahl_kinder.look_up(anzahl_ansprüche)
+    return cast_unit(
+        satz_nach_anzahl_kinder.look_up(anzahl_ansprüche), Unit.CURRENCY.PER_MONTH
+    )
 
 
 @policy_function(
@@ -131,7 +134,9 @@ def kind_bis_10_mit_kindergeld(
     ist_leistungsbegründendes_kind: bool,
 ) -> bool:
     """Child under the age of 11 and eligible for Kindergeld."""
-    return ist_leistungsbegründendes_kind and (alter <= 10)  # noqa: PLR2004
+    return ist_leistungsbegründendes_kind and (
+        alter <= cast_unit(10, Unit.YEARS)  # noqa: PLR2004
+    )
 
 
 @policy_function(vectorization_strategy="not_required", unit=Unit.DIMENSIONLESS)

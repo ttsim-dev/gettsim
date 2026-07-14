@@ -40,7 +40,9 @@ def satz_mit_gestaffeltem_kindergeld(
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        - kindergeld__satz_nach_anzahl_kinder.look_up(1),
+        - cast_unit(
+            kindergeld__satz_nach_anzahl_kinder.look_up(1), Unit.CURRENCY.PER_MONTH
+        ),
         satz_vorjahr_ohne_kindersofortzuschlag,
     )
 

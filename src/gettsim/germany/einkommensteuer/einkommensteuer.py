@@ -14,6 +14,7 @@ from gettsim.tt import (
     RoundingSpec,
     Unit,
     agg_by_p_id_function,
+    cast_unit,
     get_piecewise_parameters,
     intervals_to_thresholds,
     param_function,
@@ -203,7 +204,13 @@ def relevantes_kindergeld_mit_staffelung_m(
     """
     kindergeld_ansprüche = anzahl_kindergeld_ansprüche_1 + anzahl_kindergeld_ansprüche_2
 
-    return kindergeld__satz_nach_anzahl_kinder.look_up(kindergeld_ansprüche) / 2
+    return (
+        cast_unit(
+            kindergeld__satz_nach_anzahl_kinder.look_up(kindergeld_ansprüche),
+            Unit.CURRENCY.PER_MONTH,
+        )
+        / 2
+    )
 
 
 @policy_function(
