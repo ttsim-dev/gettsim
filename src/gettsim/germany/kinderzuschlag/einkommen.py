@@ -157,7 +157,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
 @policy_function(
     start_date="2005-01-01",
     end_date="2019-06-30",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def maximales_nettoeinkommen_m_bg(
     erwachsenenbedarf_m_bg: float,
@@ -173,7 +173,7 @@ def maximales_nettoeinkommen_m_bg(
     return erwachsenenbedarf_m_bg + satz_m * anzahl_kinder_bg
 
 
-@policy_function(start_date="2008-10-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2008-10-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
 def mindestbruttoeinkommen_m_bg(
     anzahl_kinder_bg: int,
     familie__alleinerziehend_bg: bool,
@@ -194,7 +194,7 @@ def mindestbruttoeinkommen_m_bg(
     return out
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
 def anzurechnendes_einkommen_eltern_m_bg(
     nettoeinkommen_eltern_m_bg: float,
     erwachsenenbedarf_m_bg: float,
@@ -215,7 +215,7 @@ def anzurechnendes_einkommen_eltern_m_bg(
     leaf_name="kosten_der_unterkunft_m_bg",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def kosten_der_unterkunft_m_bg_bis_2022(
     wohnbedarf_anteil_eltern_bg: float,
@@ -236,7 +236,7 @@ def kosten_der_unterkunft_m_bg_bis_2022(
 @policy_function(
     leaf_name="kosten_der_unterkunft_m_bg",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def kosten_der_unterkunft_m_bg_ab_2023(
     wohnbedarf_anteil_eltern_bg: float,
@@ -350,7 +350,7 @@ def wohnbedarf_anteil_eltern_bg(
     leaf_name="erwachsenenbedarf_m_bg",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def erwachsenenbedarf_m_bg_bis_2022(
     arbeitslosengeld_2__erwachsenensatz_m_bg: float,
@@ -363,7 +363,7 @@ def erwachsenenbedarf_m_bg_bis_2022(
 @policy_function(
     leaf_name="erwachsenenbedarf_m_bg",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def erwachsenenbedarf_m_bg_ab_2023(
     bürgergeld__erwachsenensatz_m_bg: float,

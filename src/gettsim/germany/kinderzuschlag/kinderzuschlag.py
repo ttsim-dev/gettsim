@@ -74,7 +74,7 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     return satz_ohne_kindersofortzuschlag + bürgergeld__kindersofortzuschlag
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
 def betrag_m_bg(
     anspruchshöhe_m_bg: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -95,7 +95,7 @@ def anspruchshöhe_m(
     return anspruchshöhe_m_bg / familie__anzahl_personen_bg
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
 def anspruchshöhe_m_bg(
     basisbetrag_m_bg: float,
     vermögen_bg: float,
@@ -116,7 +116,7 @@ def anspruchshöhe_m_bg(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="vermögensfreibetrag_bg",
-    unit=Unit.CURRENCY,
+    unit=Unit.CURRENCY.PER_BG,
 )
 def vermögensfreibetrag_bg_bis_2022(
     arbeitslosengeld_2__vermögensfreibetrag_bg: float,
@@ -126,7 +126,9 @@ def vermögensfreibetrag_bg_bis_2022(
 
 
 @policy_function(
-    start_date="2023-01-01", leaf_name="vermögensfreibetrag_bg", unit=Unit.CURRENCY
+    start_date="2023-01-01",
+    leaf_name="vermögensfreibetrag_bg",
+    unit=Unit.CURRENCY.PER_BG,
 )
 def vermögensfreibetrag_bg_ab_2023(
     bürgergeld__vermögensfreibetrag_in_karenzzeit_bg: float,
@@ -139,7 +141,7 @@ def vermögensfreibetrag_bg_ab_2023(
     start_date="2005-01-01",
     end_date="2008-09-30",
     leaf_name="basisbetrag_m_bg",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def basisbetrag_m_bg_check_maximales_netteinkommen(
     nettoeinkommen_eltern_m_bg: float,
@@ -172,7 +174,7 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     start_date="2008-10-01",
     end_date="2019-06-30",
     leaf_name="basisbetrag_m_bg",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     bruttoeinkommen_eltern_m_bg: float,
@@ -209,7 +211,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
 @policy_function(
     start_date="2019-07-01",
     leaf_name="basisbetrag_m_bg",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
 )
 def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     bruttoeinkommen_eltern_m_bg: float,
