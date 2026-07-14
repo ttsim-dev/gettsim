@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     Unit,
+    cast_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -127,7 +128,7 @@ def nettoquote(
         0,
     )
 
-    return alg2_2005_bne / einnahmen__bruttolohn_m
+    return cast_unit(alg2_2005_bne / einnahmen__bruttolohn_m, Unit.DIMENSIONLESS)
 
 
 @policy_function(

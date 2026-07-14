@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     Unit,
+    cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -53,10 +54,9 @@ def mehrbedarf_alleinerziehend(
 
     Reference: §21 SGB II
     """
-    basis_mehrbedarf = (
-        parameter_mehrbedarf_alleinerziehend["basis_je_kind_bis_17"]
-        * familie__anzahl_kinder_bis_17_fg
-    )
+    basis_mehrbedarf = parameter_mehrbedarf_alleinerziehend[
+        "basis_je_kind_bis_17"
+    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, Unit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -292,7 +292,14 @@ def anerkannte_warmmiete_je_qm_m(
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.SQUARE_METER)
+@policy_function(
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=Unit.SQUARE_METER,
+    # The Eigentum branch looks up a dynamically built table whose axes the dry-run
+    # cannot model; the per-person division is covered by `wohnfläche` above.
+    verify_units=False,
+)
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -325,7 +332,10 @@ def bruttokaltmiete_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh,
+        Unit.CURRENCY.PER_MONTH,
+    )
 
 
 @policy_function(
@@ -341,7 +351,10 @@ def heizkosten_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return wohnen__heizkosten_m_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__heizkosten_m_hh / anzahl_personen_hh,
+        Unit.CURRENCY.PER_MONTH,
+    )
 
 
 @policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.SQUARE_METER)
@@ -350,20 +363,23 @@ def wohnfläche(
     anzahl_personen_hh: int,
 ) -> float:
     """Share of household's dwelling size attributed to a single person."""
-    return wohnen__wohnfläche_hh / anzahl_personen_hh
+    return cast_unit(
+        wohnen__wohnfläche_hh / anzahl_personen_hh,
+        Unit.SQUARE_METER,
+    )
 
 
 @dataclass(frozen=True)
 class RegelsatzAnteilErwachsen:
-    je_erwachsener_bei_zwei_erwachsenen: float
-    je_erwachsener_ab_drei_erwachsene: float
+    je_erwachsener_bei_zwei_erwachsenen: Annotated[float, Unit.DIMENSIONLESS]
+    je_erwachsener_ab_drei_erwachsene: Annotated[float, Unit.DIMENSIONLESS]
 
 
 @dataclass(frozen=True)
 class RegelsatzAnteilKind:
-    anteil: float
-    min_alter: int
-    max_alter: int
+    anteil: Annotated[float, Unit.DIMENSIONLESS]
+    min_alter: Annotated[int, Unit.YEARS]
+    max_alter: Annotated[int, Unit.YEARS]
 
 
 @dataclass(frozen=True)
@@ -375,7 +391,7 @@ class RegelsatzAnteilKindNachAlter:
 
 @dataclass(frozen=True)
 class RegelsatzAnteilsbasiert:
-    basissatz: float
+    basissatz: Annotated[float, Unit.CURRENCY.PER_MONTH]
     erwachsen: RegelsatzAnteilErwachsen
     kind: RegelsatzAnteilKindNachAlter
 

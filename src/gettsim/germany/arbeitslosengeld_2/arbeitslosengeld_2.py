@@ -9,7 +9,7 @@ des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang,
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import Unit, cast_unit, policy_function
 
 
 @policy_function(
@@ -47,16 +47,20 @@ def anspruchshöhe_m(
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
-    total_income_m_bg = (
-        einkommen_zur_verteilung_m_bg
-        + grundsicherung__im_alter__überschusseinkommen_m_eg
+    total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_unit(
+        grundsicherung__im_alter__überschusseinkommen_m_eg,
+        Unit.CURRENCY.PER_MONTH.PER_BG,
     )
     anspruch_m_bg = max(0.0, ungedeckter_bedarf_m_bg - total_income_m_bg)
 
     if ungedeckter_bedarf_m_bg == 0.0 or vermögen_bg > vermögensfreibetrag_bg:
         return 0.0
     else:
-        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
+        # Distribute the BG surplus by each member's share of the BG Bedarf.
+        return cast_unit(
+            (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg,
+            Unit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(
@@ -127,4 +131,9 @@ def überschusseinkommen_m(
 
     Reference: BSG B 14 AS 89/20 R
     """
-    return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)
+    # The BG-level surplus is attributed to each member; downstream code aggregates
+    # `_m_eg` for the mixed-BG partner's Grundsicherung.
+    return cast_unit(
+        max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg),
+        Unit.CURRENCY.PER_MONTH,
+    )
