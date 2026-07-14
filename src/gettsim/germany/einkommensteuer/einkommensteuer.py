@@ -164,7 +164,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_ohne_kinderfreibetrag_y_sn(
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -173,7 +173,7 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     "tarifliche ESt II".
 
     """
-    zu_verst_eink_per_indiv = gesamteinkommen_y / familie__anzahl_personen_sn
+    zu_verst_eink_per_indiv = gesamteinkommen_y_sn / familie__anzahl_personen_sn
     return familie__anzahl_personen_sn * piecewise_polynomial(
         x=zu_verst_eink_per_indiv,
         parameters=parameter_einkommensteuertarif,

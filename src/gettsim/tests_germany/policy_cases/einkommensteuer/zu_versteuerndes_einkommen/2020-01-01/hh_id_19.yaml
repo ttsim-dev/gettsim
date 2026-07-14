@@ -203,7 +203,7 @@ outputs:
         - 23000
         - 0
         - 0
-    gesamteinkommen_y:
+    gesamteinkommen_y_sn:
       - 52099.0
       - 52099.0
       - 0.0

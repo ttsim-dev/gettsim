@@ -18,14 +18,14 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
 )
 def zu_versteuerndes_einkommen_y_sn_mit_abrundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
 ) -> float:
     """Calculate taxable income on Steuernummer level."""
     if kinderfreibetrag_günstiger_sn:
         out = zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
     else:
-        out = gesamteinkommen_y
+        out = gesamteinkommen_y_sn
 
     return out
 
@@ -45,14 +45,14 @@ def zu_versteuerndes_einkommen_y_sn_mit_abrundungsregel(
 )
 def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
 ) -> float:
     """Calculate taxable income on Steuernummer level."""
     if kinderfreibetrag_günstiger_sn:
         out = zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
     else:
-        out = gesamteinkommen_y
+        out = gesamteinkommen_y_sn
 
     return out
 
@@ -71,23 +71,23 @@ def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
 )
 def zu_versteuerndes_einkommen_y_sn_mit_dmark_rundungsregel(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
 ) -> float:
     """Calculate taxable income on Steuernummer level."""
     if kinderfreibetrag_günstiger_sn:
         out = zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
     else:
-        out = gesamteinkommen_y
+        out = gesamteinkommen_y_sn
 
     return out
 
 
 @policy_function(unit=Unit.CURRENCY.PER_YEAR.PER_SN)
 def zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn(
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     kinderfreibetrag_y_sn: float,
 ) -> float:
     """Calculate taxable income with child allowance on Steuernummer level."""
-    out = gesamteinkommen_y - kinderfreibetrag_y_sn
+    out = gesamteinkommen_y_sn - kinderfreibetrag_y_sn
     return max(out, 0.0)

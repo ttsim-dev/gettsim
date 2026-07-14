@@ -98,7 +98,7 @@ outputs:
     einkünfte:
       gesamtbetrag_der_einkünfte_y:
         - 6280
-    gesamteinkommen_y:
+    gesamteinkommen_y_sn:
       - 4328.0
     kinderfreibetrag_y_sn:
       - 0

@@ -19,7 +19,7 @@ inputs:
       - 2.0
       - 0.0
     einkommensteuer:
-      gesamteinkommen_y:
+      gesamteinkommen_y_sn:
         - 3000.0
         - 3000.0
         - 3000.0

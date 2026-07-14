@@ -10,7 +10,7 @@ inputs:
       gemeinsam_veranlagt:
         - true
         - true
-      gesamteinkommen_y:
+      gesamteinkommen_y_sn:
         - 200000.0
         - 200000.0
       zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:

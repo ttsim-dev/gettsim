@@ -336,14 +336,14 @@ def vermögensfreibetrag_eg(
 
 @policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
-    einkommensteuer__gesamteinkommen_y: float,
+    einkommensteuer__gesamteinkommen_y_sn: float,
     einkommensgrenze_kinder: float,
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
+    return einkommensteuer__gesamteinkommen_y_sn >= einkommensgrenze_kinder
 
 
 @agg_by_p_id_function(agg_type=AggType.ANY)

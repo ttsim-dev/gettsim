@@ -16,7 +16,7 @@ inputs:
         - 5000.0
       gemeinsam_veranlagt:
         - false
-      gesamteinkommen_y:
+      gesamteinkommen_y_sn:
         - 5000.0
       relevantes_kindergeld_m:
         - 0.0

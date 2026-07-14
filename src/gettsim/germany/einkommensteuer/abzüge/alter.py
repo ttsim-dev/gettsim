@@ -56,6 +56,9 @@ def altersfreibetrag_y_bis_2004(
     start_date="2005-01-01",
     leaf_name="altersfreibetrag_y",
     unit=Unit.CURRENCY.PER_YEAR,
+    # Reads two geburtsjahr-keyed lookup tables the dry-run cannot evaluate
+    # symbolically; its declared unit and edges stay checked.
+    verify_units=False,
 )
 def altersfreibetrag_y_ab_2005(
     alter: int,
