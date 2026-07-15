@@ -52,7 +52,14 @@ parameter_minijobgrenze_ost_west_unterschied:
     ost: 200
   1991-01-01:
     west: 480
-    ost: 235
+    ost: 220
+  1991-07-01:
+    updates_previous: true
+    ost: 250
+    reference: § 1 V. v. 19.06.1991 BGBl. I S. 1300 (Zweite V. zur Anpassung der Renten).
+    note: >-
+      Die Bezugsgröße (Ost) steigt zum 1. Juli 1991 von 1 540 auf 1 750 Deutsche Mark;
+      die Grenze ist ein Siebtel davon (§ 8 Abs. 1 Nr. 1 SGB IV).
   1992-01-01:
     west: 500
     ost: 300

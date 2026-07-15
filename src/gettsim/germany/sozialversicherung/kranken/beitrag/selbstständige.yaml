@@ -51,6 +51,10 @@ bezugsgröße_selbstständige_nach_wohnort:
   1991-01-01:
     west: 3360
     ost: 1540
+  1991-07-01:
+    updates_previous: true
+    ost: 1750
+    reference: § 1 V. v. 19.06.1991 BGBl. I S. 1300 (Zweite V. zur Anpassung der Renten).
   1992-01-01:
     west: 3500
     ost: 2100
@@ -71,7 +75,7 @@ bezugsgröße_selbstständige_nach_wohnort:
     ost: 3640
   1998-01-01:
     west: 4340
-    ost: 3710
+    ost: 3640
   1999-01-01:
     west: 4410
     ost: 3710
