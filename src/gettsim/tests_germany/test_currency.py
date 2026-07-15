@@ -36,13 +36,13 @@ def test_euro_converts_to_deutsche_mark_at_the_statutory_rate():
 
 
 @pytest.mark.parametrize(
-    "policy_date",
+    ("policy_date", "expected"),
     [
-        datetime.date(1984, 1, 1),
-        datetime.date(2001, 12, 31),
-        datetime.date(2002, 1, 1),
-        datetime.date(2025, 1, 1),
+        (datetime.date(1984, 1, 1), "DM"),
+        (datetime.date(2001, 12, 31), "DM"),
+        (datetime.date(2002, 1, 1), "EUR"),
+        (datetime.date(2025, 1, 1), "EUR"),
     ],
 )
-def test_statutory_currency_is_euro_for_every_policy_date(policy_date):
-    assert statutory_currency_for_date(policy_date) == "EUR"
+def test_statutory_currency_changes_over_to_the_euro_in_2002(policy_date, expected):
+    assert statutory_currency_for_date(policy_date) == expected
