@@ -50,7 +50,7 @@ def anzahl_kindergeld_ansprüche_2(
     end_date="1996-12-31",
     leaf_name="betrag_y_sn",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_YEAR.PER_SN,
+        unit=Unit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S. 6 EStG",
@@ -67,7 +67,7 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
 
 
 @policy_function(
-    start_date="1997-01-01",
+    start_date="2002-01-01",
     leaf_name="betrag_y_sn",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_YEAR.PER_SN,
@@ -110,7 +110,7 @@ def kinderfreibetrag_günstiger_sn(
     end_date="2001-12-31",
     leaf_name="betrag_mit_kinderfreibetrag_y_sn",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_YEAR.PER_SN,
+        unit=Unit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
@@ -156,6 +156,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
 
 
 @policy_function(
+    start_date="2002-01-01",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_YEAR.PER_SN,
         base=1,

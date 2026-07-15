@@ -18,6 +18,7 @@ from gettsim.tt import (
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2025-12-31",
     rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="down"),
     leaf_name="einkommen_y",

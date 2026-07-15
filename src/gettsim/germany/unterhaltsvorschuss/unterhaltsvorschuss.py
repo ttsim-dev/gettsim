@@ -96,6 +96,7 @@ def elternteil_alleinerziehend(
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2008-12-31",
     leaf_name="betrag_m",
     rounding_spec=RoundingSpec(

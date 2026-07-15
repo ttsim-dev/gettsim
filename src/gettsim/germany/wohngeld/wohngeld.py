@@ -59,7 +59,7 @@ def anspruchshöhe_m_wthh(
     leaf_name="basisbetrag_m_wthh",
     end_date="2000-12-31",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH,
+        unit=Unit.DM.PER_MONTH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
@@ -94,6 +94,48 @@ def basisbetrag_m_wthh_bis_2000(
 @policy_function(
     leaf_name="basisbetrag_m_wthh",
     start_date="2001-01-01",
+    end_date="2001-12-31",
+    rounding_spec=RoundingSpec(
+        unit=Unit.DM.PER_MONTH,
+        base=1,
+        direction="nearest",
+        reference="§ 19 WoGG Abs.2 Anlage 3",
+    ),
+    unit=Unit.CURRENCY.PER_MONTH,
+    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
+    # spellable in the unit grammar (GEP 10 D1).
+    verify_units=False,
+)
+def basisbetrag_m_wthh_2001(
+    anzahl_personen_wthh: int,
+    einkommen_m_wthh: float,
+    miete_m_wthh: float,
+    basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
+    xnp: ModuleType,
+) -> float:
+    """Housing benefit from the basis formula."""
+    a = basisformel_params.a.look_up(anzahl_personen_wthh)
+    b = basisformel_params.b.look_up(anzahl_personen_wthh)
+    c = basisformel_params.c.look_up(anzahl_personen_wthh)
+    zusatzbetrag_nach_haushaltsgröße = (
+        basisformel_params.zusatzbetrag_nach_haushaltsgröße.look_up(
+            anzahl_personen_wthh
+        )
+    )
+    anspruch_laut_abc_formel = zusatzbetrag_nach_haushaltsgröße + xnp.maximum(
+        0.0,
+        basisformel_params.skalierungsfaktor
+        * (
+            miete_m_wthh
+            - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+        ),
+    )
+    return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
+
+
+@policy_function(
+    leaf_name="basisbetrag_m_wthh",
+    start_date="2002-01-01",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
         base=1,
@@ -105,7 +147,7 @@ def basisbetrag_m_wthh_bis_2000(
     # spellable in the unit grammar (GEP 10 D1).
     verify_units=False,
 )
-def basisbetrag_m_wthh_ab_2001(
+def basisbetrag_m_wthh_ab_2002(
     anzahl_personen_wthh: int,
     einkommen_m_wthh: float,
     miete_m_wthh: float,

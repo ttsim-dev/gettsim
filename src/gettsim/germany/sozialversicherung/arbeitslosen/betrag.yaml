@@ -9,10 +9,11 @@ freibetrag_nebeneinkommen:
   unit: EUR_PER_MONTH
   type: scalar
   1999-08-01:
-    value: 161
-    reference: Art. 1 G. v. 21.07.1999 BGBl. I S. 1648
-    note: Originalwert 315 DM.
+    unit: DM_PER_MONTH
+    value: 315
+    reference: Art. 1 Nr. 21 G. v. 21.07.1999 BGBl. I S. 1648
   2002-01-01:
+    unit: EUR_PER_MONTH
     value: 165
     reference: Art. 3 G. v. 21.12.2000 BGBl. I S. 1983
 sozialversicherungspauschale:

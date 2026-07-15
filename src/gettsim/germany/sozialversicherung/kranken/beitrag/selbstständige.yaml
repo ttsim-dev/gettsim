@@ -9,22 +9,24 @@ bezugsgröße_selbstständige_m:
   unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
-    value: 1396
+    unit: DM_PER_MONTH
+    value: 2730
   1985-01-01:
-    value: 1432
+    value: 2800
   1986-01-01:
-    value: 1467
+    value: 2870
   1987-01-01:
-    value: 1539
+    value: 3010
   1988-01-01:
-    value: 1575
+    value: 3080
   1989-01-01:
-    value: 1611
+    value: 3150
   1990-01-01:
     note: >-
       Die Bezugsgröße unterscheidet sich zwischen West und Ost. Siehe
       ``parameter_bezugsgröße_selbstständige_nach_wohnort``.
   2025-01-01:
+    unit: EUR_PER_MONTH
     value: 3745
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
   2026-01-01:
@@ -43,42 +45,48 @@ bezugsgröße_selbstständige_nach_wohnort:
   type: dict
   add_jahresanfang: true
   1990-01-01:
-    west: 1682
-    ost: 715.8086336747059
+    unit: DM_PER_MONTH
+    west: 3290
+    ost: 1400
   1991-01-01:
-    west: 1718
-    ost: 787.3894970421765
+    west: 3360
+    ost: 1540
+  1991-07-01:
+    updates_previous: true
+    ost: 1750
+    reference: § 1 V. v. 19.06.1991 BGBl. I S. 1300 (Zweite V. zur Anpassung der Renten).
   1992-01-01:
-    west: 1790
-    ost: 1073.712950512059
+    west: 3500
+    ost: 2100
   1993-01-01:
-    west: 1897
-    ost: 1395.826835665677
+    west: 3710
+    ost: 2730
   1994-01-01:
-    west: 2004
-    ost: 1574.778994084353
+    west: 3920
+    ost: 3080
   1995-01-01:
-    west: 2076
-    ost: 1682.150289135559
+    west: 4060
+    ost: 3290
   1996-01-01:
-    west: 2112
-    ost: 1789.521584186765
+    west: 4130
+    ost: 3500
   1997-01-01:
-    west: 2183
-    ost: 1861.102447554235
+    west: 4270
+    ost: 3640
   1998-01-01:
-    west: 2219
-    ost: 1896.892879237971
+    west: 4340
+    ost: 3640
   1999-01-01:
-    west: 2255
-    ost: 1896.892879237971
+    west: 4410
+    ost: 3710
   2000-01-01:
-    west: 2291
-    ost: 1861.102447554235
+    west: 4480
+    ost: 3640
   2001-01-01:
     updates_previous: true
-    ost: 1932.683310921706
+    ost: 3780
   2002-01-01:
+    unit: EUR_PER_MONTH
     west: 2345
     ost: 1960
   2003-01-01:

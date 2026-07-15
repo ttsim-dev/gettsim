@@ -6,6 +6,25 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
 @policy_function(
+    end_date="2001-12-31",
+    rounding_spec=RoundingSpec(
+        unit=Unit.DM.PER_MONTH,
+        base=0.01,
+        direction="nearest",
+        reference="§ 123 SGB VI Abs. 1",
+    ),
+    leaf_name="betrag_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
+def betrag_m_bis_2001(
+    bruttorente_m: float,
+    sozialversicherung__rente__bezieht_rente: bool,
+) -> float:
+    return bruttorente_m if sozialversicherung__rente__bezieht_rente else 0.0
+
+
+@policy_function(
+    start_date="2002-01-01",
     end_date="2020-12-31",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
@@ -16,7 +35,7 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
     leaf_name="betrag_m",
     unit=Unit.CURRENCY.PER_MONTH,
 )
-def betrag_m(
+def betrag_m_ab_2002(
     bruttorente_m: float,
     sozialversicherung__rente__bezieht_rente: bool,
 ) -> float:

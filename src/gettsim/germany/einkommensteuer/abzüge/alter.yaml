@@ -31,10 +31,14 @@ maximaler_altersentlastungsbetrag:
   unit: EUR_PER_YEAR
   type: require_converter
   1984-01-01:
-    value: 1534
+    unit: DM_PER_YEAR
+    value: 3000
+    reference: § 24a EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1989-01-01:
-    value: 1902
+    value: 3720
+    reference: Art. 1 Nr. 23 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 1908
   2005-01-01:
     note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_gestaffelt`

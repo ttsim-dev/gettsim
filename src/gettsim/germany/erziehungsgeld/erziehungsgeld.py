@@ -81,6 +81,7 @@ def betrag_m(
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
     rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="nearest"),

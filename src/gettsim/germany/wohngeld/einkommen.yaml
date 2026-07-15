@@ -18,6 +18,7 @@ min_einkommen:
   unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
+    unit: DM_PER_MONTH
     1: 0
     2: 0
     3: 0
@@ -31,6 +32,25 @@ min_einkommen:
     11: 0
     12: 0
   2001-01-01:
+    1: 234.70
+    2: 293.37
+    3: 391.17
+    4: 488.96
+    5: 557.41
+    6: 625.87
+    7: 694.32
+    8: 752.99
+    9: 1085.49
+    10: 1427.76
+    11: 1955.83
+    12: 2298.10
+    reference: Art. 5 G. v. 22.12.1999, BGBl I S. 2671 (Anlage 2 Nr. 3).
+    note: >-
+      Anlage 2 nennt die Mindestwerte für „Y“ in Euro und schreibt vor, ein in
+      Deutsche Mark ermitteltes Einkommen zuvor durch 1,95583 zu teilen; hier in
+      Deutsche Mark umgerechnet.
+  2002-01-01:
+    unit: EUR_PER_MONTH
     1: 120
     2: 150
     3: 200
@@ -43,6 +63,7 @@ min_einkommen:
     10: 730
     11: 1000
     12: 1175
+    reference: Art. 6 G. v. 22.12.1999, BGBl I S. 2671 (Anlage 2 Nr. 3).
   2009-01-01:
     1: 205
     2: 245
@@ -153,14 +174,22 @@ freibetrag_kinder_m:
   unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
-    alleinerziehend: 51
+    unit: DM_PER_MONTH
+    alleinerziehend: 100
     arbeitendes_kind: 0
+    reference: § 15 Abs. 2 WoGG, Neufassung v. 11.02.1993 BGBl I S. 183.
+    note: Das Gesetz nennt 1 200 Deutsche Mark im Jahr.
   2001-01-01:
     updates_previous: true
-    arbeitendes_kind: 51
+    arbeitendes_kind: 100
+    reference: § 15 Abs. 3 WoGG, Neufassung v. 11.02.1993 BGBl I S. 183.
+    note: Das Gesetz nennt 1 200 Deutsche Mark im Jahr.
   2002-01-01:
+    unit: EUR_PER_MONTH
     alleinerziehend: 50
     arbeitendes_kind: 50
+    reference: Art. 6 G. v. 22.12.1999 BGBl I S. 2671.
+    note: Das Gesetz nennt 600 Euro im Jahr.
   2016-01-01:
     note: >-
       neu §17 3. WoGG a) Alleinerziehend b) Kind unter 18 und neu §17 4. WoGG Kind noch
@@ -176,32 +205,32 @@ freibetrag_bei_behinderung_gestaffelt_y:
     de: >-
       § 17 (2) WoGG
       Der Betrag ist abhängig vom Behinderungsgrad der jeweiligen Person.
-      Achtung: Die Zahlen vor 1991 erscheinen falsch. Senkung in 1986 unwahrscheinlich,
-      im Zweifel wurde dort eher die Stufe mit Behinderungsgrad 1-80% eingeführt.
+      Bis 1990 gilt ein einheitlicher Freibetrag ab einem Grad der Behinderung von 80;
+      die gestaffelten Beträge kommen 1991 hinzu.
     en: null
   input_unit: DIMENSIONLESS
   output_unit: EUR_PER_YEAR
   type: piecewise_constant
   1984-01-01:
+    output_unit: DM_PER_YEAR
+    reference: § 16 Abs. 3 WoGG i. d. F. der Bekanntmachung v. 11.07.1985 BGBl I S. 1421.
     intervals:
       - interval: (-inf, 80)
         intercept: 0
       - interval: '[80, inf)'
-        intercept: 1224
-  1986-01-01:
-    updates_previous: true
-    intervals:
-      - interval: '[80, inf)'
-        intercept: 612
+        intercept: 2400
   1991-01-01:
+    reference: § 16 Abs. 2 WoGG, Neufassung v. 11.02.1993 BGBl I S. 183.
     intervals:
       - interval: (-inf, 1)
         intercept: 0
       - interval: '[1, 80)'
-        intercept: 1224
+        intercept: 2400
       - interval: '[80, inf)'
-        intercept: 1536
+        intercept: 3000
   2002-01-01:
+    output_unit: EUR_PER_YEAR
+    reference: Art. 6 G. v. 22.12.1999 BGBl I S. 2671.
     intervals:
       - interval: (-inf, 1)
         intercept: 0

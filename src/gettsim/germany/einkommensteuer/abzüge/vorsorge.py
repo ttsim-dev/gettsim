@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2004-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
     rounding_spec=RoundingSpec(

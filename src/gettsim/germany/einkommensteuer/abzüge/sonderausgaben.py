@@ -73,6 +73,7 @@ def gedeckelte_kinderbetreuungskosten_y(
 
 
 @policy_function(
+    start_date="2002-01-01",
     rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR.PER_SN, base=1, direction="up"),
     unit=Unit.CURRENCY.PER_YEAR.PER_SN,
 )

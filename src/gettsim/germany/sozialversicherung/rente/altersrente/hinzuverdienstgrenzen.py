@@ -4,6 +4,41 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
 
 
 @policy_function(
+    end_date="2001-12-31",
+    rounding_spec=RoundingSpec(
+        unit=Unit.DM.PER_MONTH,
+        base=0.01,
+        direction="nearest",
+        reference="§ 123 SGB VI Abs. 1",
+    ),
+    leaf_name="bruttorente_m",
+    unit=Unit.CURRENCY.PER_MONTH,
+)
+def bruttorente_m_mit_harter_hinzuverdienstgrenze_bis_2001(
+    alter: int,
+    regelaltersrente__altersgrenze: float,
+    einnahmen__bruttolohn_m: float,
+    bruttorente_basisbetrag_m: float,
+    hinzuverdienstgrenze_m: float,
+) -> float:
+    """Pension benefits after earnings test for early retirees.
+
+    If earnings are above an earnings limit, the pension is fully deducted.
+    """
+    # TODO (@MImmesberger): Use age with monthly precision.
+    # https://github.com/ttsim-dev/gettsim/issues/781
+    if (alter >= regelaltersrente__altersgrenze) or (
+        einnahmen__bruttolohn_m <= hinzuverdienstgrenze_m
+    ):
+        out = bruttorente_basisbetrag_m
+    else:
+        out = 0.0
+
+    return out
+
+
+@policy_function(
+    start_date="2002-01-01",
     end_date="2017-06-30",
     rounding_spec=RoundingSpec(
         unit=Unit.EUR.PER_MONTH,
@@ -14,7 +49,7 @@ from gettsim.tt import RoundingSpec, Unit, policy_function
     leaf_name="bruttorente_m",
     unit=Unit.CURRENCY.PER_MONTH,
 )
-def bruttorente_m_mit_harter_hinzuverdienstgrenze(
+def bruttorente_m_mit_harter_hinzuverdienstgrenze_ab_2002(
     alter: int,
     regelaltersrente__altersgrenze: float,
     einnahmen__bruttolohn_m: float,

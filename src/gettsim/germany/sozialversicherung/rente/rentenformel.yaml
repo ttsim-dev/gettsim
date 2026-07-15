@@ -35,53 +35,83 @@ parameter_rentenwert_nach_wohnort:
   unit: EUR_PER_MONTH
   type: dict
   1992-01-01:
-    west: 21.19
-    ost: 12.05
+    unit: DM_PER_MONTH
+    west: 41.44
+    ost: 23.57
+    reference: § 68 Abs. 1 SGB VI; Art. 1 V. v. 19.12.1991 BGBl. I S. 2344 (Ost).
+    note: >-
+      § 68 Abs. 1 SGB VI bestimmt den aktuellen Rentenwert bis zum 30. Juni 1992 nicht
+      als Betrag, sondern als die Rente für einen Entgeltpunkt im Dezember 1991; der
+      West-Wert ist daher nicht im Bundesgesetzblatt beziffert.
   1992-07-01:
-    west: 21.80
-    ost: 13.59
+    west: 42.63
+    ost: 26.57
+    reference: V. v. 05.06.1992 BGBl. I S. 1017.
   1993-01-01:
     updates_previous: true
-    ost: 14.41
+    ost: 28.19
+    reference: V. v. 08.12.1992 BGBl. I S. 1998.
   1993-07-01:
-    west: 22.75
-    ost: 16.45
+    west: 44.49
+    ost: 32.17
+    reference: V. v. 09.06.1993 BGBl. I S. 917.
   1994-01-01:
     updates_previous: true
-    ost: 17.05
+    ost: 33.34
+    reference: § 2 V. v. 01.12.1993 BGBl. I S. 1987.
   1994-07-01:
-    west: 23.52
-    ost: 17.63
+    west: 46.00
+    ost: 34.49
+    reference: V. v. 10.06.1994 BGBl. I S. 1224.
   1995-01-01:
     updates_previous: true
-    ost: 18.13
+    ost: 35.45
+    reference: V. v. 12.12.1994 BGBl. I S. 3805.
   1995-07-01:
-    west: 23.64
-    ost: 18.58
+    west: 46.23
+    ost: 36.33
+    reference: V. v. 01.06.1995 BGBl. I S. 772.
   1996-01-01:
     updates_previous: true
-    ost: 19.39
+    ost: 37.92
+    reference: V. v. 04.12.1995 BGBl. I S. 1582.
   1996-07-01:
-    west: 23.86
-    ost: 19.62
+    west: 46.67
+    ost: 38.38
+    reference: V. v. 10.06.1996 BGBl. I S. 813.
   1997-07-01:
-    west: 24.26
-    ost: 20.71
+    west: 47.44
+    ost: 40.51
+    reference: V. v. 10.06.1997 BGBl. I S. 1352.
   1998-07-01:
-    west: 24.36
-    ost: 20.90
+    west: 47.65
+    ost: 40.87
+    reference: V. v. 20.05.1998 BGBl. I S. 1166.
   1999-07-01:
-    west: 24.69
-    ost: 21.48
+    west: 48.29
+    ost: 42.01
+    reference: V. v. 27.05.1999 BGBl. I S. 1078.
   2000-07-01:
-    west: 24.84
-    ost: 21.61
+    west: 48.58
+    ost: 42.26
+    reference: V. v. 31.05.2000 BGBl. I S. 788.
   2001-07-01:
-    west: 25.31
-    ost: 22.06
+    west: 49.51
+    ost: 43.15
+    reference: V. v. 14.06.2001 BGBl. I S. 1040.
+  2002-01-01:
+    unit: EUR_PER_MONTH
+    west: 25.31406
+    ost: 22.06224
+    reference: § 1 V. v. 14.06.2001 BGBl. I S. 1040; § 255d SGB VI.
+    note: >-
+      § 255d SGB VI verlangt, den zum 1. Januar 2002 in Euro umgerechneten aktuellen
+      Rentenwert mit fünf Dezimalstellen in der Rentenanpassungsverordnung 2001
+      bekannt zu geben.
   2002-07-01:
     west: 25.86
     ost: 22.70
+    reference: V. v. 07.06.2002 BGBl. I S. 1799.
   2003-07-01:
     west: 26.13
     ost: 22.97

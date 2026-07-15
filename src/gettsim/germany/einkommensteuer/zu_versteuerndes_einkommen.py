@@ -59,10 +59,10 @@ def zu_versteuerndes_einkommen_y_sn_mit_grober_54er_rundungsregel(
 
 @policy_function(
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_YEAR.PER_SN,
-        base=27.609762,
+        unit=Unit.DM.PER_YEAR.PER_SN,
+        base=54,
         direction="down",
-        to_add_after_rounding=13.804881,
+        to_add_after_rounding=27,
         reference="§ 32a Abs. 2 EStG",
     ),
     end_date="2001-12-31",

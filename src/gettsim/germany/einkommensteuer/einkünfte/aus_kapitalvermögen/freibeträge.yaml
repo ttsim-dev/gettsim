@@ -11,18 +11,16 @@ sparerfreibetrag:
   unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
-    value: 153
-    note: 300 DM.
+    unit: DM_PER_YEAR
+    value: 300
   1990-01-01:
-    value: 307
-    note: 600 DM.
+    value: 600
   1993-01-01:
-    value: 3068
-    note: 6000 DM.
+    value: 6000
   2000-01-01:
-    value: 1534
-    note: 3000 DM
+    value: 3000
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 1550
     reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2004-01-01:
@@ -43,8 +41,12 @@ werbungskostenpauschbetrag:
   unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
+    unit: DM_PER_YEAR
+    value: 100
+  2002-01-01:
+    unit: EUR_PER_YEAR
     value: 51
-    note: 100 DM.
+    reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2009-01-01:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei

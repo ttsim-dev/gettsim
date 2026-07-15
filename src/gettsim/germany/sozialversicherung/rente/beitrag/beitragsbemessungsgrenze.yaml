@@ -179,44 +179,67 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
   unit: EUR_PER_MONTH
   type: dict
   1990-01-01:
-    west: 3221
-    ost: 1380
+    unit: DM_PER_MONTH
+    west: 6300
+    ost: 2700
+    reference: Anlage 2 SGB VI i. d. F. des § 3 V. v. 18.12.1991 BGBl. I S. 2331 (West).
+    note: >-
+      Die Werte für das Beitrittsgebiet 1990 und für das erste Halbjahr 1991 beruhen auf
+      dem Gesetz über die Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38 S. 486)
+      und stehen nicht im Bundesgesetzblatt.
   1991-01-01:
-    west: 3323
-    ost: 1534
+    west: 6500
+    ost: 3000
+    reference: Anlage 2 SGB VI i. d. F. des § 3 V. v. 18.12.1991 BGBl. I S. 2331 (West).
+  1991-07-01:
+    updates_previous: true
+    ost: 3400
+    reference: § 2 V. v. 19.06.1991 BGBl. I S. 1300.
   1992-01-01:
-    west: 3477
-    ost: 2454
+    west: 6800
+    ost: 4800
+    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331; § 2 V. v. 19.12.1991 BGBl. I S. 2344.
   1993-01-01:
-    west: 3681
-    ost: 2710
+    west: 7200
+    ost: 5300
+    reference: V. v. 22.12.1992 BGBl. I S. 2474.
   1994-01-01:
-    west: 3886
-    ost: 3017
+    west: 7600
+    ost: 5900
+    reference: V. v. 01.12.1993 BGBl. I S. 1987.
   1995-01-01:
-    west: 3988
-    ost: 3272
+    west: 7800
+    ost: 6400
+    reference: V. v. 12.12.1994 BGBl. I S. 3805.
   1996-01-01:
-    west: 4090
-    ost: 3477
+    west: 8000
+    ost: 6800
+    reference: V. v. 04.12.1995 BGBl. I S. 1577.
   1997-01-01:
-    west: 4193
-    ost: 3630
+    west: 8200
+    ost: 7100
+    reference: V. v. 11.12.1996 BGBl. I S. 1870.
   1998-01-01:
-    west: 4295
-    ost: 3579
+    west: 8400
+    ost: 7000
+    reference: V. v. 02.12.1997 BGBl. I S. 2782.
   1999-01-01:
-    west: 4339
-    ost: 3681
+    west: 8500
+    ost: 7200
+    reference: V. v. 18.12.1998 BGBl. I S. 3823.
   2000-01-01:
-    west: 4397
-    ost: 3630
+    west: 8600
+    ost: 7100
+    reference: V. v. 29.11.1999 BGBl. I S. 2375.
   2001-01-01:
-    west: 4448
-    ost: 3732
+    west: 8700
+    ost: 7300
+    reference: V. v. 13.12.2000 BGBl. I S. 1710.
   2002-01-01:
+    unit: EUR_PER_MONTH
     west: 4500
     ost: 3750
+    reference: V. v. 03.12.2001 BGBl. I S. 3302.
   2003-01-01:
     west: 5100
     ost: 4250

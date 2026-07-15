@@ -20,7 +20,7 @@ mietobergrenze_pro_qm:
       https://github.com/ttsim-dev/gettsim/issues/782.
   unit: EUR_PER_SQUARE_METER_PER_MONTH
   type: scalar
-  1984-01-01:
+  2005-01-01:
     value: 10
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.

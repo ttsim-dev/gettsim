@@ -12,6 +12,8 @@ parameter_solidaritätszuschlag:
   output_unit: EUR_PER_YEAR
   type: piecewise_linear
   1991-01-01:
+    input_unit: DM_PER_YEAR
+    output_unit: DM_PER_YEAR
     reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
     intervals:
       - interval: (-inf, 0)
@@ -26,25 +28,33 @@ parameter_solidaritätszuschlag:
         intercept: 0
   1995-01-01:
     reference: Artikel 31 G. v. 23.06.1993 BGBl. I S. 944.
+    note: >-
+      § 3 Abs. 3 Nr. 2 SolzG nennt die Freigrenze von 1 332 Deutsche Mark, § 4 den
+      Satz von 7,5 vom Hundert.
     intervals:
-      - interval: (-inf, 681)
+      - interval: (-inf, 1332)
         intercept: 0
         slope: 0
-      - interval: '[681, 1089.6)'
+      - interval: '[1332, 2131.2)'
         slope: 0.2
-      - interval: '[1089.6, inf)'
+      - interval: '[2131.2, inf)'
         slope: 0.075
   1998-01-01:
     reference: Artikel 1 G. v. 21.11.1997 BGBl. I S. 2743.
+    note: >-
+      Das Gesetz hebt die Freigrenze des § 3 Abs. 3 Nr. 2 SolzG auf 1 836 Deutsche
+      Mark und senkt den Satz des § 4 auf 5,5 vom Hundert.
     intervals:
-      - interval: (-inf, 939)
+      - interval: (-inf, 1836)
         slope: 0
         intercept: 0
-      - interval: '[939, 1295.17)'
+      - interval: '[1836, 2532.41)'
         slope: 0.2
-      - interval: '[1295.17, inf)'
+      - interval: '[2532.41, inf)'
         slope: 0.055
   2002-01-01:
+    input_unit: EUR_PER_YEAR
+    output_unit: EUR_PER_YEAR
     reference: G. v. 15.10.2002 BGBl. I S. 4131.
     intervals:
       - interval: (-inf, 972)
