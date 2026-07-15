@@ -116,6 +116,7 @@ def main(
     tt_targets: TTTargets | None = None,
     rounding: bool = True,
     backend: Literal["numpy", "jax"] = "numpy",
+    data_currency: str | None = None,
     evaluation_date_str: DashedISOString | None = None,
     include_fail_nodes: bool = True,
     include_warn_nodes: bool = True,
