@@ -55,28 +55,6 @@ beitragsvolumen:
       insurance, marginally employed and recipients of ALG.
   unit: EUR_PER_YEAR
   type: scalar
-  1991-01-01:
-    value: 108688000
-  1992-01-01:
-    value: 117359000
-  1993-01-01:
-    value: 120559000
-  1994-01-01:
-    value: 132938000
-  1995-01-01:
-    value: 139921000
-  1996-01-01:
-    value: 146160000
-  1997-01-01:
-    value: 153658000
-  1998-01-01:
-    value: 153763000
-  1999-01-01:
-    value: 160506000
-  2000-01-01:
-    value: 163367000
-  2001-01-01:
-    value: 164694000
   2002-01-01:
     value: 165481000
   2003-01-01:
@@ -155,28 +133,6 @@ gesamtes_rentenvolumen:
     en: Total amount of paid pensions
   unit: EUR_PER_YEAR
   type: scalar
-  1991-01-01:
-    value: 117912000
-  1992-01-01:
-    value: 130901000
-  1993-01-01:
-    value: 141180000
-  1994-01-01:
-    value: 152798000
-  1995-01-01:
-    value: 162625000
-  1996-01-01:
-    value: 168955000
-  1997-01-01:
-    value: 174479000
-  1998-01-01:
-    value: 180323800
-  1999-01-01:
-    value: 184139000
-  2000-01-01:
-    value: 190198000
-  2001-01-01:
-    value: 195776000
   2002-01-01:
     value: 202355000
   2003-01-01:
