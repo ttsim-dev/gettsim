@@ -11,8 +11,8 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     AggType,
     Unit,
-    cast_unit,
     agg_by_group_function,
+    cast_unit,
     join,
     policy_function,
 )
