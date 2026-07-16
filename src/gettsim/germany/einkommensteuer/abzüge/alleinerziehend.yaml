@@ -11,7 +11,8 @@ alleinerziehendenfreibetrag_basis:
   1984-01-01:
     unit: DM_PER_YEAR
     value: 4212
-    reference: § 32 Abs. 3 EStG i. d. F. der Bekanntmachung v. 06.12.1981 BGBl. I S. 1249.
+    reference: >-
+      § 32 Abs. 3 EStG i. d. F. der Bekanntmachung v. 06.12.1981 BGBl. I S. 1249.
   1986-01-01:
     value: 4536
     reference: Art. 1 G. v. 26.06.1985 BGBl. I S. 1153.

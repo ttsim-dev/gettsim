@@ -185,8 +185,8 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     reference: Anlage 2 SGB VI i. d. F. des § 3 V. v. 18.12.1991 BGBl. I S. 2331 (West).
     note: >-
       Die Werte für das Beitrittsgebiet 1990 und für das erste Halbjahr 1991 beruhen auf
-      dem Gesetz über die Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38 S. 486)
-      und stehen nicht im Bundesgesetzblatt.
+      dem Gesetz über die Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38
+      S. 486) und stehen nicht im Bundesgesetzblatt.
   1991-01-01:
     west: 6500
     ost: 3000
@@ -198,7 +198,8 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
   1992-01-01:
     west: 6800
     ost: 4800
-    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331; § 2 V. v. 19.12.1991 BGBl. I S. 2344.
+    reference: >-
+      § 3 V. v. 18.12.1991 BGBl. I S. 2331; § 2 V. v. 19.12.1991 BGBl. I S. 2344.
   1993-01-01:
     west: 7200
     ost: 5300

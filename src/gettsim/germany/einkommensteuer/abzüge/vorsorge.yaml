@@ -29,7 +29,8 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     vorwegabzug: 3000
     grundhöchstbetrag: 2340
     kürzungsanteil_abhängig_beschäftigte: 0.0935
-    reference: § 10 Abs. 3 EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
+    reference: >-
+      § 10 Abs. 3 EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1986-01-01:
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.096

@@ -213,7 +213,8 @@ freibetrag_bei_behinderung_gestaffelt_y:
   type: piecewise_constant
   1984-01-01:
     output_unit: DM_PER_YEAR
-    reference: § 16 Abs. 3 WoGG i. d. F. der Bekanntmachung v. 11.07.1985 BGBl I S. 1421.
+    reference: >-
+      § 16 Abs. 3 WoGG i. d. F. der Bekanntmachung v. 11.07.1985 BGBl I S. 1421.
     intervals:
       - interval: (-inf, 80)
         intercept: 0

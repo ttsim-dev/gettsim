@@ -55,7 +55,35 @@ beitragsvolumen:
       insurance, marginally employed and recipients of ALG.
   unit: EUR_PER_YEAR
   type: scalar
+  1991-01-01:
+    unit: DM_PER_YEAR
+    value: 212575251
+    note: >-
+      Statistik der Deutschen Rentenversicherung, kein gesetzlicher Betrag; sie steht
+      nicht im Bundesgesetzblatt. Die Statistik weist die Reihe durchgängig in Euro aus;
+      die Werte bis 2001 sind mit dem amtlichen Kurs umgerechnet.
+  1992-01-01:
+    value: 229534253
+  1993-01-01:
+    value: 235792909
+  1994-01-01:
+    value: 260004129
+  1995-01-01:
+    value: 273661689
+  1996-01-01:
+    value: 285864113
+  1997-01-01:
+    value: 300528926
+  1998-01-01:
+    value: 300734288
+  1999-01-01:
+    value: 313922450
+  2000-01-01:
+    value: 319518080
+  2001-01-01:
+    value: 322113466
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 165481000
   2003-01-01:
     value: 169425000
@@ -133,7 +161,35 @@ gesamtes_rentenvolumen:
     en: Total amount of paid pensions
   unit: EUR_PER_YEAR
   type: scalar
+  1991-01-01:
+    unit: DM_PER_YEAR
+    value: 230615827
+    note: >-
+      Statistik der Deutschen Rentenversicherung, kein gesetzlicher Betrag; sie steht
+      nicht im Bundesgesetzblatt. Die Statistik weist die Reihe durchgängig in Euro aus;
+      die Werte bis 2001 sind mit dem amtlichen Kurs umgerechnet.
+  1992-01-01:
+    value: 256020103
+  1993-01-01:
+    value: 276124079
+  1994-01-01:
+    value: 298846912
+  1995-01-01:
+    value: 318066854
+  1996-01-01:
+    value: 330447258
+  1997-01-01:
+    value: 341251263
+  1998-01-01:
+    value: 352682698
+  1999-01-01:
+    value: 360144580
+  2000-01-01:
+    value: 371994954
+  2001-01-01:
+    value: 382904574
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 202355000
   2003-01-01:
     value: 207749000

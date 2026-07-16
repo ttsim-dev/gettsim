@@ -13,6 +13,7 @@ arbeitnehmerpauschbetrag:
     value: 564
   1990-01-01:
     value: 2000
+    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 1044

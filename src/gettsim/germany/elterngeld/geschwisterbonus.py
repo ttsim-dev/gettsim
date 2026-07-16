@@ -40,11 +40,11 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
 ) -> bool:
     """Siblings that give rise to Elterngeld siblings bonus."""
     geschwister_unter_3 = (
-        cast_unit(familie__anzahl_kinder_bis_2_fg, Unit.DIMENSIONLESS)
+        cast_unit(familie__anzahl_kinder_bis_2_fg, Unit.PERSON_COUNT)
         >= geschwisterbonus_altersgrenzen[3]
     )
     geschwister_unter_6 = (
-        cast_unit(familie__anzahl_kinder_bis_5_fg, Unit.DIMENSIONLESS)
+        cast_unit(familie__anzahl_kinder_bis_5_fg, Unit.PERSON_COUNT)
         >= geschwisterbonus_altersgrenzen[6]
     )
 
