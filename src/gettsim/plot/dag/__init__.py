@@ -9,6 +9,7 @@ from ttsim.main_args import InputData, Labels, OrigPolicyObjects
 
 # Hoisted at runtime: beartype must resolve these on `@beartype`-decorated
 # `gettsim.plot.dag.*` boundaries that this module exposes.
+from ttsim.tt import UnitSystem
 from ttsim.typing import DashedISOString, PolicyEnvironment, QNameData
 
 from gettsim import germany
@@ -107,6 +108,7 @@ def tt(
     # Elements of main
     policy_date_str: DashedISOString | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
+    unit_system: UnitSystem | None = None,
     input_data: InputData | None = None,
     processed_data: QNameData | None = None,
     labels: Labels | None = None,
@@ -155,6 +157,8 @@ def tt(
             hierarchy.
         policy_date_str: The date for which to plot the DAG.
         orig_policy_objects: The orig policy objects.
+        unit_system: The policy system's currencies and grouping levels. Defaults
+            to Germany's.
         input_data: The input data.
         processed_data: The processed data.
         labels: The labels.
@@ -171,6 +175,7 @@ def tt(
     """
     return ttsim.plot.dag.tt(
         root=germany.ROOT_PATH,
+        unit_system=unit_system if unit_system is not None else germany.UNIT_SYSTEM,
         primary_nodes=primary_nodes,
         selection_type=selection_type,
         selection_depth=selection_depth,
