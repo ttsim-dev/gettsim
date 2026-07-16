@@ -72,7 +72,12 @@ def orig_gettsim_objects() -> dict[
     ids=POLICY_TEST_IDS_AND_CASES.keys(),
 )
 def test_policy_cases(test: PolicyTest, backend: Literal["numpy", "jax"]):
-    execute_test(test=test, root=germany.ROOT_PATH, backend=backend)
+    execute_test(
+        test=test,
+        root=germany.ROOT_PATH,
+        backend=backend,
+        unit_system=germany.UNIT_SYSTEM,
+    )
 
 
 @pytest.mark.skipif(
@@ -95,6 +100,7 @@ def test_gettsim_policy_environment_is_complete(orig_gettsim_objects, date):
         name="GETTSIM",
         policy_date=date,
         orig_policy_objects=orig_gettsim_objects,
+        unit_system=germany.UNIT_SYSTEM,
     )
 
 

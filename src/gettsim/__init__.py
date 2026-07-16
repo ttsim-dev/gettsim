@@ -65,6 +65,7 @@ from ttsim import (
 )
 from ttsim.main_args import MainArg
 from ttsim.main_args import OrigPolicyObjects as TTSimOrigPolicyObjects
+from ttsim.tt import UnitSystem
 
 from gettsim import germany
 
@@ -124,6 +125,7 @@ def main(
     policy_date: datetime.date | None = None,
     evaluation_date: datetime.date | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
+    unit_system: UnitSystem | None = None,
     policy_environment: PolicyEnvironment | None = None,
     processed_data: QNameData | None = None,
     labels: Labels | None = None,
@@ -138,6 +140,8 @@ def main(
         orig_policy_objects = cast(
             "OrigPolicyObjects", TTSimOrigPolicyObjects.root(germany.ROOT_PATH)
         )
+    if unit_system is None:
+        unit_system = germany.UNIT_SYSTEM
 
     return _ttsim.main(**locals())
 
