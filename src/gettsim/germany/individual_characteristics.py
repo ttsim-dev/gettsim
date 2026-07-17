@@ -9,4 +9,4 @@ def alter_bis_24(alter: int) -> bool:
 
     Trivial, but necessary in order to use the target for aggregation.
     """
-    return cast_unit(alter, TTSIMUnit.DIMENSIONLESS) <= 24  # noqa: PLR2004
+    return alter <= cast_unit(24, TTSIMUnit.YEARS)

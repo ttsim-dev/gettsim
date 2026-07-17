@@ -27,7 +27,7 @@ def regulär_beschäftigt_vor_midijob(
 )
 def regulär_beschäftigt_mit_midijob(
     einnahmen__bruttolohn_m: float,
-    midijobgrenze: float,
+    midijobgrenze_m: float,
 ) -> bool:
     """Employee is in regular employment, earning more than the midijob threshold."""
-    return einnahmen__bruttolohn_m >= midijobgrenze
+    return einnahmen__bruttolohn_m >= midijobgrenze_m

@@ -17,17 +17,17 @@ from gettsim.germany import UNIT_SYSTEM
 DM_PER_EUR = 1.95583
 
 
-def test_euro_is_the_base_currency():
+def test_euro_is_the_base_currency() -> None:
     assert UNIT_SYSTEM.base_currency == "EUR"
 
 
-def test_deutsche_mark_converts_to_euro_at_the_statutory_rate():
+def test_deutsche_mark_converts_to_euro_at_the_statutory_rate() -> None:
     assert UNIT_SYSTEM.currency_conversion_factor(
         source_currency="DM", target_currency="EUR"
     ) == pytest.approx(1 / DM_PER_EUR)
 
 
-def test_euro_converts_to_deutsche_mark_at_the_statutory_rate():
+def test_euro_converts_to_deutsche_mark_at_the_statutory_rate() -> None:
     assert UNIT_SYSTEM.currency_conversion_factor(
         source_currency="EUR", target_currency="DM"
     ) == pytest.approx(DM_PER_EUR)
@@ -42,5 +42,7 @@ def test_euro_converts_to_deutsche_mark_at_the_statutory_rate():
         (datetime.date(2025, 1, 1), "EUR"),
     ],
 )
-def test_statutory_currency_changes_over_to_the_euro_in_2002(policy_date, expected):
+def test_statutory_currency_changes_over_to_the_euro_in_2002(
+    policy_date: datetime.date, expected: str
+) -> None:
     assert UNIT_SYSTEM.statutory_currency_for_date(policy_date=policy_date) == expected

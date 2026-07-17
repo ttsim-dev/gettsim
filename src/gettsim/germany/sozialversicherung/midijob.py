@@ -9,7 +9,7 @@ from gettsim.tt import TTSIMUnit, param_function, policy_function
 def in_gleitzone(
     einnahmen__bruttolohn_m: float,
     geringfügig_beschäftigt: bool,
-    midijobgrenze: float,
+    midijobgrenze_m: float,
 ) -> bool:
     """Individual's income is in Midijob range.
 
@@ -19,21 +19,23 @@ def in_gleitzone(
     Legal reference: § 20 Abs. 2 SGB IV
 
     """
-    return (einnahmen__bruttolohn_m <= midijobgrenze) and (not geringfügig_beschäftigt)
+    return (einnahmen__bruttolohn_m <= midijobgrenze_m) and (
+        not geringfügig_beschäftigt
+    )
 
 
 @policy_function(verify_units=False, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     einnahmen__bruttolohn_m: float,
     minijobgrenze_m: float,
-    midijobgrenze: float,
+    midijobgrenze_m: float,
 ) -> float:
     """Income subject to employee social insurance contributions for Bruttolöhne in
     Gleitzone.
 
     Legal reference: § 20 SGB IV ("Gesonderte beitragspflichtige Einnahmen")
     """
-    quotient = midijobgrenze / (midijobgrenze - minijobgrenze_m)
+    quotient = midijobgrenze_m / (midijobgrenze_m - minijobgrenze_m)
     einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze_m
 
     return quotient * einkommen_diff
@@ -184,7 +186,7 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
     einnahmen__bruttolohn_m: float,
     midijob_faktor_f: float,
     minijobgrenze_m: float,
-    midijobgrenze: float,
+    midijobgrenze_m: float,
 ) -> float:
     """Income subject to social insurance contributions for midijob until September
     2022.
@@ -198,9 +200,9 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
     # Now use the factor to calculate the overall bemessungsentgelt
     minijob_anteil = midijob_faktor_f * minijobgrenze_m
     lohn_über_mini = einnahmen__bruttolohn_m - minijobgrenze_m
-    gewichtete_midijob_rate = (midijobgrenze / (midijobgrenze - minijobgrenze_m)) - (
-        minijobgrenze_m / (midijobgrenze - minijobgrenze_m) * midijob_faktor_f
-    )
+    gewichtete_midijob_rate = (
+        midijobgrenze_m / (midijobgrenze_m - minijobgrenze_m)
+    ) - (minijobgrenze_m / (midijobgrenze_m - minijobgrenze_m) * midijob_faktor_f)
 
     return minijob_anteil + lohn_über_mini * gewichtete_midijob_rate
 
@@ -215,7 +217,7 @@ def midijob_bemessungsentgelt_m_ab_10_2022(
     einnahmen__bruttolohn_m: float,
     midijob_faktor_f: float,
     minijobgrenze_m: float,
-    midijobgrenze: float,
+    midijobgrenze_m: float,
 ) -> float:
     """Total income subject to social insurance contributions for midijobs since October
     2022.
@@ -228,8 +230,8 @@ def midijob_bemessungsentgelt_m_ab_10_2022(
     Legal reference: Changes in § 20 SGB IV from 01.10.2022
 
     """
-    quotient1 = (midijobgrenze) / (midijobgrenze - minijobgrenze_m)
-    quotient2 = (minijobgrenze_m) / (midijobgrenze - minijobgrenze_m)
+    quotient1 = (midijobgrenze_m) / (midijobgrenze_m - minijobgrenze_m)
+    quotient2 = (minijobgrenze_m) / (midijobgrenze_m - minijobgrenze_m)
     einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze_m
 
     faktor1 = midijob_faktor_f * minijobgrenze_m
