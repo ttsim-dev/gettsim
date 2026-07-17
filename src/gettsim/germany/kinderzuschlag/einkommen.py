@@ -16,7 +16,6 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
-    cast_unit,
     param_function,
     policy_function,
 )
@@ -26,7 +25,7 @@ if TYPE_CHECKING:
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_BG
 )
 def anzahl_kinder_bg(kindergeld__anzahl_ansprüche: int, bg_id: int) -> int:
     pass
@@ -180,10 +179,7 @@ def maximales_nettoeinkommen_m_bg(
     There is a maximum income threshold, depending on the need, plus the potential kiz
     receipt (§6a (1) Nr. 3 BKGG).
     """
-    # Per-child Satz times the number of children is the BG-level child total.
-    return erwachsenenbedarf_m_bg + cast_unit(
-        satz_m * anzahl_kinder_bg, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
-    )
+    return erwachsenenbedarf_m_bg + satz_m * anzahl_kinder_bg
 
 
 @policy_function(start_date="2008-10-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
@@ -198,14 +194,11 @@ def mindestbruttoeinkommen_m_bg(
     BKGG).
     """
     if anzahl_kinder_bg == 0:
-        out = 0.0
+        return 0.0
     elif familie__alleinerziehend_bg:
-        out = mindesteinkommen["single"]
+        return mindesteinkommen["single"]
     else:
-        out = mindesteinkommen["paar"]
-
-    # The statutory thresholds apply to the Bedarfsgemeinschaft as a whole.
-    return cast_unit(out, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
+        return mindesteinkommen["paar"]
 
 
 @policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
@@ -353,7 +346,7 @@ def wohnbedarf_anteil_eltern_bg(
         )
 
     kinderbetrag = min(
-        cast_unit(anzahl_kinder_bg, TTSIMUnit.DIMENSIONLESS),
+        anzahl_kinder_bg,
         wohnbedarf_anteil_berücksichtigte_kinder,
     ) * (existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind)
 

@@ -53,15 +53,10 @@ beitragsvolumen:
     en: >-
       Sum of contributions to the pension insurance of all employees subject to pension
       insurance, marginally employed and recipients of ALG.
-  unit: EUR_PER_YEAR
   type: scalar
   1991-01-01:
     unit: DM_PER_YEAR
     value: 212575251
-    note: >-
-      Statistik der Deutschen Rentenversicherung, kein gesetzlicher Betrag; sie steht
-      nicht im Bundesgesetzblatt. Die Statistik weist die Reihe durchgängig in Euro aus;
-      die Werte bis 2001 sind mit dem amtlichen Kurs umgerechnet.
   1992-01-01:
     value: 229534253
   1993-01-01:
@@ -164,10 +159,6 @@ gesamtes_rentenvolumen:
   1991-01-01:
     unit: DM_PER_YEAR
     value: 230615827
-    note: >-
-      Statistik der Deutschen Rentenversicherung, kein gesetzlicher Betrag; sie steht
-      nicht im Bundesgesetzblatt. Die Statistik weist die Reihe durchgängig in Euro aus;
-      die Werte bis 2001 sind mit dem amtlichen Kurs umgerechnet.
   1992-01-01:
     value: 256020103
   1993-01-01:

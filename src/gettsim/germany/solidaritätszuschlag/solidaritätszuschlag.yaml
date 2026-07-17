@@ -8,8 +8,6 @@ parameter_solidaritätszuschlag:
       Ab 1995, der upper threshold im Intervall 1 ist nach der Formel
       transition_threshold in soli_st.py berechnet.
     en: null
-  input_unit: EUR_PER_YEAR
-  output_unit: EUR_PER_YEAR
   type: piecewise_linear
   1991-01-01:
     input_unit: DM_PER_YEAR
@@ -28,9 +26,6 @@ parameter_solidaritätszuschlag:
         intercept: 0
   1995-01-01:
     reference: Artikel 31 G. v. 23.06.1993 BGBl. I S. 944.
-    note: >-
-      § 3 Abs. 3 Nr. 2 SolzG nennt die Freigrenze von 1 332 Deutsche Mark, § 4 den
-      Satz von 7,5 vom Hundert.
     intervals:
       - interval: (-inf, 1332)
         intercept: 0
@@ -41,9 +36,6 @@ parameter_solidaritätszuschlag:
         slope: 0.075
   1998-01-01:
     reference: Artikel 1 G. v. 21.11.1997 BGBl. I S. 2743.
-    note: >-
-      Das Gesetz hebt die Freigrenze des § 3 Abs. 3 Nr. 2 SolzG auf 1 836 Deutsche
-      Mark und senkt den Satz des § 4 auf 5,5 vom Hundert.
     intervals:
       - interval: (-inf, 1836)
         slope: 0

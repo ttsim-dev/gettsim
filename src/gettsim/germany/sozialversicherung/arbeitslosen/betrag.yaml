@@ -1,12 +1,11 @@
 ---
-freibetrag_nebeneinkommen:
+freibetrag_nebeneinkommen_m:
   name:
     de: Freibetrag bei der Anrechnung von Nebeneinkommen
     en: Income which is not deducted from unemployment benefit.
   description:
     de: § 155 SGB III, vorher § 141 (1) S. 1
     en: null
-  unit: EUR_PER_MONTH
   type: scalar
   1999-08-01:
     unit: DM_PER_MONTH

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_BG)
@@ -14,12 +14,10 @@ def vermögensfreibetrag_in_karenzzeit_bg(
 
     This variable is also referred to as 'erhebliches Vermögen'.
     """
-    # Per-person exemptions sum to the BG-level total wealth exemption.
-    return cast_unit(
+    return (
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
-        + (cast_unit(familie__anzahl_personen_bg, TTSIMUnit.DIMENSIONLESS) - 1)
-        * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"],
-        TTSIMUnit.CURRENCY.PER_BG,
+        + (familie__anzahl_personen_bg - 1)
+        * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"]
     )
 
 

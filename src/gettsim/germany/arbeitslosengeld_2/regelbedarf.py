@@ -39,12 +39,12 @@ def regelbedarf_m(
 @policy_function(
     start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
-def mehrbedarf_alleinerziehend(
+def r(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
     familie__anzahl_kinder_bis_6_fg: int,
     familie__anzahl_kinder_bis_15_fg: int,
-    parameter_mehrbedarf_alleinerziehend: dict[str, float],
+    parameter_mehrbedarfsanteil_alleinerziehend: dict[str, float],
 ) -> float:
     """Mehrbedarf (additional need) for single parents as a share of the Regelsatz.
 
@@ -56,7 +56,7 @@ def mehrbedarf_alleinerziehend(
     """
     # A dimensionless share: the per-child share times the child count. The count
     # is a leveled `[person]/[fg]`, so cast it to a plain dimensionless multiplier.
-    basis_mehrbedarf = parameter_mehrbedarf_alleinerziehend[
+    basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
         "basis_je_kind_bis_17"
     ] * cast_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
 
@@ -66,14 +66,16 @@ def mehrbedarf_alleinerziehend(
         or familie__anzahl_kinder_bis_15_fg == 3  # noqa: PLR2004
     ):
         mehrbedarf = max(
-            parameter_mehrbedarf_alleinerziehend["kind_bis_6_oder_2_3_kinder_bis_15"],
+            parameter_mehrbedarfsanteil_alleinerziehend[
+                "kind_bis_6_oder_2_3_kinder_bis_15"
+            ],
             basis_mehrbedarf,
         )
     else:
         mehrbedarf = basis_mehrbedarf
 
     if familie__alleinerziehend:
-        return min(mehrbedarf, parameter_mehrbedarf_alleinerziehend["max"])
+        return min(mehrbedarf, parameter_mehrbedarfsanteil_alleinerziehend["max"])
     else:
         return 0.0
 
@@ -208,7 +210,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_bis_2010(
-    mehrbedarf_alleinerziehend: float,
+    mehrbedarfsanteil_alleinerziehend: float,
     kindersatz_m: float,
     p_id_einstandspartner: int,
     regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
@@ -225,7 +227,7 @@ def erwachsenensatz_m_bis_2010(
     else:
         out = 0.0
 
-    return out * (1 + mehrbedarf_alleinerziehend)
+    return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
 
 @policy_function(
@@ -235,7 +237,7 @@ def erwachsenensatz_m_bis_2010(
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
-    mehrbedarf_alleinerziehend: float,
+    mehrbedarfsanteil_alleinerziehend: float,
     kindersatz_m: float,
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
@@ -250,7 +252,7 @@ def erwachsenensatz_m_ab_2011(
     else:
         out = 0.0
 
-    return out * (1 + mehrbedarf_alleinerziehend)
+    return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
 
 @policy_function(

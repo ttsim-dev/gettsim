@@ -14,7 +14,6 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_p_id_function,
-    cast_unit,
     get_piecewise_parameters,
     intervals_to_thresholds,
     param_function,
@@ -28,7 +27,7 @@ if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kindergeld_ansprüche_1(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     familie__p_id_elternteil_1: int,
@@ -37,7 +36,7 @@ def anzahl_kindergeld_ansprüche_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kindergeld_ansprüche_2(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     familie__p_id_elternteil_2: int,
@@ -64,6 +63,33 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
     Kinderfreibetrag and receiving Kindergeld at the same time.
     """
     return betrag_mit_kinderfreibetrag_y_sn
+
+
+@policy_function(
+    start_date="1997-01-01",
+    end_date="2001-12-31",
+    leaf_name="betrag_y_sn",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S.6 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
+    betrag_ohne_kinderfreibetrag_y_sn: float,
+    betrag_mit_kinderfreibetrag_y_sn: float,
+    kinderfreibetrag_günstiger_sn: bool,
+    relevantes_kindergeld_y_sn: float,
+) -> float:
+    """Income tax calculation on Steuernummer level since 1997."""
+    if kinderfreibetrag_günstiger_sn:
+        out = betrag_mit_kinderfreibetrag_y_sn + relevantes_kindergeld_y_sn
+    else:
+        out = betrag_ohne_kinderfreibetrag_y_sn
+
+    return out
 
 
 @policy_function(
@@ -205,13 +231,7 @@ def relevantes_kindergeld_mit_staffelung_m(
     """
     kindergeld_ansprüche = anzahl_kindergeld_ansprüche_1 + anzahl_kindergeld_ansprüche_2
 
-    return (
-        cast_unit(
-            kindergeld__satz_nach_anzahl_kinder.look_up(kindergeld_ansprüche),
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
-        / 2
-    )
+    return kindergeld__satz_nach_anzahl_kinder.look_up(kindergeld_ansprüche) / 2
 
 
 @policy_function(

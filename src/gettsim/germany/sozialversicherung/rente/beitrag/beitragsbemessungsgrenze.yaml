@@ -10,146 +10,109 @@ beitragsbemessungsgrenze_y:
     en: >-
       Maximum amount of income subject to statutory pension insurance contributions
       (Anlage 2 SGB VI).
-  unit: EUR_PER_YEAR
   type: scalar
   1949-01-01:
     value: 3600
     unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-    note: Anlage 2 SGB VI, Zeitraum 1.3.1947-31.5.1949 (RM/DM).
   1949-06-01:
     value: 7200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-    note: Anlage 2 SGB VI, Zeitraum 1.6.1949-31.8.1952.
   1952-09-01:
     value: 9000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-    note: Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958.
   1959-01-01:
     value: 9600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1960-01-01:
     value: 10200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1961-01-01:
     value: 10800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1962-01-01:
     value: 11400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1963-01-01:
     value: 12000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1964-01-01:
     value: 13200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1965-01-01:
     value: 14400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1966-01-01:
     value: 15600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1967-01-01:
     value: 16800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1968-01-01:
     value: 19200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1969-01-01:
     value: 20400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1970-01-01:
     value: 21600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1971-01-01:
     value: 22800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1972-01-01:
     value: 25200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1973-01-01:
     value: 27600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1974-01-01:
     value: 30000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1975-01-01:
     value: 33600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1976-01-01:
     value: 37200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1977-01-01:
     value: 40800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1978-01-01:
     value: 44400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1979-01-01:
     value: 48000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1980-01-01:
     value: 50400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1981-01-01:
     value: 52800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1982-01-01:
     value: 56400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1983-01-01:
     value: 60000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1984-01-01:
     value: 62400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1985-01-01:
     value: 64800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1986-01-01:
     value: 67200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1987-01-01:
     value: 68400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1988-01-01:
     value: 72000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1989-01-01:
     value: 73200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1990-01-01:
     note: >-
@@ -161,7 +124,6 @@ beitragsbemessungsgrenze_y:
     reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
   2026-01-01:
     value: 101400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
       Nr. 278
@@ -176,7 +138,6 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     en: >-
       Maximum amount of income subject to statutory pension insurance contributions,
       with different values for West and East Germany.
-  unit: EUR_PER_MONTH
   type: dict
   1990-01-01:
     unit: DM_PER_MONTH
@@ -330,7 +291,6 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
     en: >-
       Maximum amount of income subject to statutory miners' pension insurance
       contributions (West).
-  unit: EUR_PER_YEAR
   type: scalar
   1949-01-01:
     value: 7200
@@ -339,132 +299,101 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
     note: Anlage 2 SGB VI, Zeitraum 1.3.1947-31.5.1949.
   1949-06-01:
     value: 8400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.6.1949-31.8.1952.
   1952-09-01:
     value: 12000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958. Der Wert bleibt laut Anlage 2 auch
       1959 und 1960 unverändert.
   1961-01-01:
     value: 13200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Der Wert bleibt laut Anlage 2 SGB VI auch 1962 unverändert.
   1963-01-01:
     value: 14400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1964-01-01:
     value: 16800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1965-01-01:
     value: 18000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1966-01-01:
     value: 19200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1967-01-01:
     value: 20400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1968-01-01:
     value: 22800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1969-01-01:
     value: 24000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1970-01-01:
     value: 25200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1971-01-01:
     value: 27600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1972-01-01:
     value: 30000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1973-01-01:
     value: 33600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1974-01-01:
     value: 37200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1975-01-01:
     value: 40800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1976-01-01:
     value: 45600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1977-01-01:
     value: 50400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1978-01-01:
     value: 55200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1979-01-01:
     value: 57600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1980-01-01:
     value: 61200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1981-01-01:
     value: 64800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1982-01-01:
     value: 69600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1983-01-01:
     value: 73200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1984-01-01:
     value: 76800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1985-01-01:
     value: 80400
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1986-01-01:
     value: 82800
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1987-01-01:
     value: 85200
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1988-01-01:
     value: 87600
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1989-01-01:
     value: 90000
-    unit: DM_PER_YEAR
     reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1990-01-01:
     value: 93600
-    unit: DM_PER_YEAR
     reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
     note: >-
       Die ursprüngliche Anlage 2 SGB VI (Art. 1 G. v. 18.12.1989 BGBl. I S. 2261) endet
@@ -472,47 +401,36 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
       Sozialversicherungs-Rechengrößenverordnung 1992 ergänzt.
   1991-01-01:
     value: 96000
-    unit: DM_PER_YEAR
     reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
   1992-01-01:
     value: 100800
-    unit: DM_PER_YEAR
     reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
   1993-01-01:
     value: 106800
-    unit: DM_PER_YEAR
     reference: V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     value: 112800
-    unit: DM_PER_YEAR
     reference: V. v. 01.12.1993 BGBl. I S. 1987
   1995-01-01:
     value: 115200
-    unit: DM_PER_YEAR
     reference: V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     value: 117600
-    unit: DM_PER_YEAR
     reference: V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     value: 121200
-    unit: DM_PER_YEAR
     reference: V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     value: 123600
-    unit: DM_PER_YEAR
     reference: V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 124800
-    unit: DM_PER_YEAR
     reference: V. v. 18.12.1998 BGBl. I S. 3823
   2000-01-01:
     value: 127200
-    unit: DM_PER_YEAR
     reference: V. v. 29.11.1999 BGBl. I S. 2375
   2001-01-01:
     value: 128400
-    unit: DM_PER_YEAR
     reference: V. v. 13.12.2000 BGBl. I S. 1710
   2002-01-01:
     value: 66600
@@ -520,115 +438,91 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
     reference: V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 75000
-    unit: EUR_PER_YEAR
     reference: V. v. 17.12.2002 BGBl. I S. 4561
   2004-01-01:
     value: 76200
-    unit: EUR_PER_YEAR
     reference: V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 76800
-    unit: EUR_PER_YEAR
     reference: V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 77400
-    unit: EUR_PER_YEAR
     reference: V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 77400
-    unit: EUR_PER_YEAR
     reference: G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 78600
-    unit: EUR_PER_YEAR
     reference: V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 79800
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 81600
-    unit: EUR_PER_YEAR
     reference: V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 81000
-    unit: EUR_PER_YEAR
     reference: V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 82800
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 85200
-    unit: EUR_PER_YEAR
     reference: V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 87600
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 89400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
       1957
   2016-01-01:
     value: 91800
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
       2137
   2017-01-01:
     value: 94200
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
       2665
   2018-01-01:
     value: 96000
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
       3778
   2019-01-01:
     value: 98400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
       2024
   2020-01-01:
     value: 101400
-    unit: EUR_PER_YEAR
     reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
   2021-01-01:
     value: 104400
-    unit: EUR_PER_YEAR
     reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
   2022-01-01:
     value: 103800
-    unit: EUR_PER_YEAR
     reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
   2023-01-01:
     value: 107400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
       2128
   2024-01-01:
     value: 111600
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
       Nr. 322
   2025-01-01:
     value: 118800
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2025 vom 25. November 2024 BGBl. 2024 I
       Nr. 365
   2026-01-01:
     value: 124800
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
       Nr. 278
@@ -645,62 +539,48 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
     en: >-
       Maximum amount of income subject to statutory miners' pension insurance
       contributions in the territory of the former GDR (Anlage 2a SGB VI).
-  unit: EUR_PER_YEAR
   type: scalar
   1990-01-01:
     value: 32400
-    unit: DM_PER_YEAR
     reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, eingefügt durch das Renten-Überleitungsgesetz.
   1991-01-01:
     value: 36000
-    unit: DM_PER_YEAR
     reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, Zeitraum 1.1.1991-30.6.1991.
   1991-07-01:
     value: 40800
-    unit: DM_PER_YEAR
     reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, Zeitraum 1.7.1991-31.12.1991.
   1992-01-01:
     value: 70800
-    unit: DM_PER_YEAR
     reference: § 2 V. v. 19.12.1991 BGBl. I S. 2344 (3. Rentenanpassungsverordnung)
   1993-01-01:
     value: 78000
-    unit: DM_PER_YEAR
     reference: V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     value: 87600
-    unit: DM_PER_YEAR
     reference: V. v. 01.12.1993 BGBl. I S. 1987
   1995-01-01:
     value: 93600
-    unit: DM_PER_YEAR
     reference: V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     value: 100800
-    unit: DM_PER_YEAR
     reference: V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     value: 104400
-    unit: DM_PER_YEAR
     reference: V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     value: 103200
-    unit: DM_PER_YEAR
     reference: V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 105600
-    unit: DM_PER_YEAR
     reference: V. v. 18.12.1998 BGBl. I S. 3823
   2000-01-01:
     value: 104400
-    unit: DM_PER_YEAR
     reference: V. v. 29.11.1999 BGBl. I S. 2375
   2001-01-01:
     value: 108000
-    unit: DM_PER_YEAR
     reference: V. v. 13.12.2000 BGBl. I S. 1710
   2002-01-01:
     value: 55800
@@ -708,103 +588,81 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
     reference: V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 63000
-    unit: EUR_PER_YEAR
     reference: V. v. 17.12.2002 BGBl. I S. 4561
   2004-01-01:
     value: 64200
-    unit: EUR_PER_YEAR
     reference: V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 64800
-    unit: EUR_PER_YEAR
     reference: V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 64800
-    unit: EUR_PER_YEAR
     reference: V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 66600
-    unit: EUR_PER_YEAR
     reference: G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 66600
-    unit: EUR_PER_YEAR
     reference: V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 67200
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 68400
-    unit: EUR_PER_YEAR
     reference: V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 70800
-    unit: EUR_PER_YEAR
     reference: V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 70800
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 72600
-    unit: EUR_PER_YEAR
     reference: V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 73800
-    unit: EUR_PER_YEAR
     reference: V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 76200
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
       1957
   2016-01-01:
     value: 79800
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
       2137
   2017-01-01:
     value: 84000
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
       2665
   2018-01-01:
     value: 85800
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
       3778
   2019-01-01:
     value: 91200
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
       2024
   2020-01-01:
     value: 94800
-    unit: EUR_PER_YEAR
     reference: V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     value: 99000
-    unit: EUR_PER_YEAR
     reference: V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     value: 100200
-    unit: EUR_PER_YEAR
     reference: V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 104400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
       2128
   2024-01-01:
     value: 110400
-    unit: EUR_PER_YEAR
     reference: >-
       Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
       Nr. 322

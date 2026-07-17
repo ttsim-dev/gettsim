@@ -117,7 +117,7 @@ kindersofortzuschlag:
     value: 20
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
-parameter_mehrbedarf_alleinerziehend:
+parameter_mehrbedarfsanteil_alleinerziehend:
   name:
     de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
     en: Parameter for calculating the additional need of single parents

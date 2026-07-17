@@ -6,7 +6,6 @@ arbeitnehmerpauschbetrag:
   description:
     de: § 9a Nr. 1a) EStG
     en: This is the minimum amount deducted from any employment income.
-  unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
     unit: DM_PER_YEAR

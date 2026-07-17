@@ -9,6 +9,7 @@ from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
+    agg_by_group_function,
     agg_by_p_id_function,
     cast_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -32,12 +33,24 @@ def anzahl_ansprüche(
     pass
 
 
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
+def anzahl_ansprüche_sn(
+    anzahl_ansprüche: int,
+    sn_id: int,
+) -> int:
+    """Number of Kindergeld claims per Steuernummer.
+
+    Dedicated function to pass the dimensionless unit instead of the inferred person
+    count.
+    """
+
+
 @policy_function(
     start_date="2023-01-01", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_ohne_staffelung_m(
     anzahl_ansprüche: int,
-    satz: float,
+    satz_m: float,
 ) -> float:
     """Sum of Kindergeld for eligible children.
 
@@ -45,7 +58,7 @@ def betrag_ohne_staffelung_m(
     of children.
 
     """
-    return satz * anzahl_ansprüche
+    return satz_m * anzahl_ansprüche
 
 
 @policy_function(
@@ -87,7 +100,7 @@ def leistungsbegründendes_kind_nach_lohn(
     in_ausbildung: bool,
     einnahmen__bruttolohn_y: float,
     altersgrenze: dict[str, int],
-    maximales_einkommen_des_kindes: float,
+    maximales_einkommen_des_kindes_y: float,
 ) -> bool:
     """Child gives rise to a Kindergeld claim.
 
@@ -99,7 +112,7 @@ def leistungsbegründendes_kind_nach_lohn(
     return (alter < altersgrenze["ohne_bedingungen"]) or (
         (alter < altersgrenze["mit_bedingungen"])
         and in_ausbildung
-        and (einnahmen__bruttolohn_y <= maximales_einkommen_des_kindes)
+        and (einnahmen__bruttolohn_y <= maximales_einkommen_des_kindes_y)
     )
 
 

@@ -18,7 +18,7 @@ SGB XII).
 GETTSIM sets `grundsicherung__im_alter__betrag_m` to zero for persons for whom
 `grundsicherung__im_alter__hat_kind_mit_einkommen_über_einkommensgrenze` is true. A
 child's income is compared against the threshold parameter
-`grundsicherung__im_alter__einkommensgrenze_kinder` (100,000 Euro per year). Children
+`grundsicherung__im_alter__einkommensgrenze_kinder_y` (100,000 Euro per year). Children
 are linked to their parents via `familie__p_id_elternteil_1` and
 `familie__p_id_elternteil_2`; the threshold applies to each child individually, not to
 the sum of all children's incomes.

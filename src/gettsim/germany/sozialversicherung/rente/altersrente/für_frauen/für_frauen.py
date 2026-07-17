@@ -10,7 +10,6 @@ from ttsim.unit_converters import y_to_m
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
-    cast_unit,
     policy_function,
 )
 
@@ -32,11 +31,7 @@ def altersgrenze_mit_staffelung(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, TTSIMUnit.YEARS))
-        + cast_unit(geburtsmonat - 1, TTSIMUnit.MONTHS),
-        TTSIMUnit.CALENDAR_MONTH,
-    )
+    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
 
@@ -57,11 +52,7 @@ def altersgrenze_vorzeitig_mit_staffelung(
 
     Does not check for eligibility for this pathway into retirement.
     """
-    birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, TTSIMUnit.YEARS))
-        + cast_unit(geburtsmonat - 1, TTSIMUnit.MONTHS),
-        TTSIMUnit.CALENDAR_MONTH,
-    )
+    birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
 

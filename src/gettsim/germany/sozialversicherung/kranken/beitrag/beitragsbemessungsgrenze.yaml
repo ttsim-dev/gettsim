@@ -11,7 +11,6 @@ beitragsbemessungsgrenze_m:
       The maximum amount of income subject to health insurance contributions is
       uniform throughout the Federal Republic of Germany. It also applies to
       long-term care insurance.
-  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     unit: DM_PER_MONTH
@@ -105,17 +104,12 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     en: >-
       The maximum amount of income subject to health insurance contributions differs
       between West and East Germany. It also applies to long-term care insurance.
-  unit: EUR_PER_MONTH
   type: dict
   1990-01-01:
     unit: DM_PER_MONTH
     west: 4725
     ost: 2025
     reference: § 6 Abs. 7 SGB V; Anlage 2 SGB VI.
-    note: >-
-      Die Grenze beträgt drei Viertel der Beitragsbemessungsgrenze der
-      Rentenversicherung; die Deutsche-Mark-Beträge folgen daher aus den
-      Rechengrößenverordnungen und nicht aus einer Umrechnung.
   1991-01-01:
     west: 4875
     ost: 2250

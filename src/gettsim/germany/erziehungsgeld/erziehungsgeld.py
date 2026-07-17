@@ -295,33 +295,33 @@ def anzurechnendes_einkommen_y_fg(
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
 def einkommensgrenze_y_fg(
-    einkommensgrenze_ohne_geschwisterbonus_y: float,
+    einkommensgrenze_ohne_geschwisterbonus_y_fg: float,
     familie__anzahl_kinder_fg: int,
     ist_leistungsbegründendes_kind: bool,
-    aufschlag_einkommen: float,
+    erhöhung_einkommensgrenze_pro_kind_y: float,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld).
 
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if ist_leistungsbegründendes_kind:
-        return cast_unit(
-            einkommensgrenze_ohne_geschwisterbonus_y
-            + (cast_unit(familie__anzahl_kinder_fg, TTSIMUnit.DIMENSIONLESS) - 1)
-            * aufschlag_einkommen,
-            TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+        return (
+            einkommensgrenze_ohne_geschwisterbonus_y_fg
+            + (familie__anzahl_kinder_fg - 1) * erhöhung_einkommensgrenze_pro_kind_y
         )
     else:
         return 0.0
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
-def einkommensgrenze_ohne_geschwisterbonus_y(
+def einkommensgrenze_ohne_geschwisterbonus_y_fg(
     alter_monate: int,
-    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y: float,
-    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg: float,
     altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld) before adding the
@@ -330,24 +330,17 @@ def einkommensgrenze_ohne_geschwisterbonus_y(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if alter_monate < altersgrenze_für_reduziertes_einkommenslimit_kind_monate:
-        return (
-            einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
-        )
+        return einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg
     else:
-        return (
-            einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y
-        )
+        return einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg
 
 
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR,
-    # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
-    # follow through the subscript.
-    verify_units=False,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
-def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y(
+def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,
@@ -369,12 +362,9 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR,
-    # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
-    # follow through the subscript.
-    verify_units=False,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
-def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y(
+def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,

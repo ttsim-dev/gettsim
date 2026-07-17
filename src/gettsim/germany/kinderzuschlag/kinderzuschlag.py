@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 )
 def satz_mit_gestaffeltem_kindergeld(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
-    kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
+    kindergeld__satz_gestaffelt: ConsecutiveIntLookupTableParamValue,
     satz_vorjahr_ohne_kindersofortzuschlag: float,
 ) -> float:
     """Prior to 2021, the maximum amount of the Kinderzuschlag was specified directly in
@@ -40,9 +40,7 @@ def satz_mit_gestaffeltem_kindergeld(
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        - cast_unit(
-            kindergeld__satz_nach_anzahl_kinder.look_up(1), TTSIMUnit.CURRENCY.PER_MONTH
-        ),
+        - kindergeld__satz_gestaffelt.look_up(1),
         satz_vorjahr_ohne_kindersofortzuschlag,
     )
 
@@ -167,9 +165,9 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     (familie__anzahl_erwachsene_bg >= 1).
 
     """
-    if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and cast_unit(
-        familie__anzahl_erwachsene_bg, TTSIMUnit.DIMENSIONLESS
-    ) >= 1:
+    if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and (
+        familie__anzahl_erwachsene_bg >= 1
+    ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -206,7 +204,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
-        and cast_unit(familie__anzahl_erwachsene_bg, TTSIMUnit.DIMENSIONLESS) >= 1
+        and (familie__anzahl_erwachsene_bg >= 1)
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -237,9 +235,9 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     (familie__anzahl_erwachsene_bg >= 1).
 
     """
-    if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and cast_unit(
-        familie__anzahl_erwachsene_bg, TTSIMUnit.DIMENSIONLESS
-    ) >= 1:
+    if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and (
+        familie__anzahl_erwachsene_bg >= 1
+    ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -263,9 +261,7 @@ def basisbetrag_kind_m_bis_2022(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = cast_unit(
-        kindergeld__ist_leistungsbegründendes_kind, TTSIMUnit.DIMENSIONLESS
-    ) * (
+    out = kindergeld__ist_leistungsbegründendes_kind * (
         satz_m
         - entzugsrate_kindeseinkommen
         * (
@@ -294,9 +290,7 @@ def basisbetrag_kind_m_ab_2023(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = cast_unit(
-        kindergeld__ist_leistungsbegründendes_kind, TTSIMUnit.DIMENSIONLESS
-    ) * (
+    out = kindergeld__ist_leistungsbegründendes_kind * (
         satz_m
         - entzugsrate_kindeseinkommen
         * (

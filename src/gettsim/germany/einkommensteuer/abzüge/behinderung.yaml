@@ -6,11 +6,10 @@ parameter_behindertenpauschbetrag:
   description:
     de: § 33b (3) EStG.
     en: null
-  input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_YEAR
   type: piecewise_constant
   1975-01-01:
     reference: G. v. 05.08.1974 BGBl. I S. 1769.
+    input_unit: DIMENSIONLESS
     output_unit: DM_PER_YEAR
     intervals:
       - interval: (-inf, 25)
@@ -33,6 +32,7 @@ parameter_behindertenpauschbetrag:
         intercept: 2760
   2002-01-01:
     reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790.
+    input_unit: DIMENSIONLESS
     output_unit: EUR_PER_YEAR
     intervals:
       - interval: (-inf, 25)

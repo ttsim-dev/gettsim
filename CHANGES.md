@@ -26,8 +26,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `mean_entgeltpunkte_zuschlag`, `minijobgrenze`, `rentenwert` and the Kinderzuschlag
   `satz` all gain `_m`. Two lose a suffix they should never have had, being shares
   rather than flows: `anteil_steuerfälliger_einnahmen_y` and
-  `mehrbedarf_alleinerziehend_m`. `gesamteinkommen_y` becomes `gesamteinkommen_y_sn`,
-  naming the level it is aggregated to. ({ghuser}`MImmesberger`)
+  `mehrbedarfsanteil_alleinerziehend_m`. `gesamteinkommen_y` becomes
+  `gesamteinkommen_y_sn`, naming the level it is aggregated to. ({ghuser}`MImmesberger`)
 - {gh}`1206` Update Rentenwert 2025, 2026. ({ghuser}`cmdr-majus`)
 - {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
   {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).

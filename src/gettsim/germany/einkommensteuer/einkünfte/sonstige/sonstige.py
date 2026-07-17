@@ -9,12 +9,12 @@ from gettsim.tt import TTSIMUnit, policy_function
 def betrag_y(
     rente__steuerpflichtige_einnahmen_y: float,
     alle_weiteren_y: float,
-    werbungskostenpauschbetrag: float,
+    werbungskostenpauschbetrag_y: float,
 ) -> float:
     """Sonstige Einkünfte nach Abzug der Werbungskosten."""
     return max(
         rente__steuerpflichtige_einnahmen_y
         + alle_weiteren_y
-        - werbungskostenpauschbetrag,
+        - werbungskostenpauschbetrag_y,
         0.0,
     )

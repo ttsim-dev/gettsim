@@ -25,7 +25,7 @@ def mean_nettoeinkommen_in_12_monaten_vor_geburt_m() -> float:
     """
 
 
-@policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR)
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 def zu_versteuerndes_einkommen_vorjahr_y_sn() -> float:
     """Taxable income in the calendar year prior to the youngest child's birth year.
 

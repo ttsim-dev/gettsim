@@ -4,16 +4,15 @@ info:
     Gemischte Bedarfsgemeinschaft where the SGB II partner's income creates a surplus.
     Person0 (age 55, erwerbsfähig) earns 1100€/month from employment. After Freibeträge,
     her anzurechnendes Einkommen exceeds her ungedeckter Bedarf. The surplus flows to
-    Person1's Grundsicherung im Alter calculation via bürgergeld__überschusseinkommen_m.
-    Regelsatz (RBS 2): 451. KdU: (500+100)/2 = 300. Regelbedarf: 751 each.
-    SGB II (Person0): bruttolohn 1100, anrechnungsfrei 338, anzurechnendes 762.
-    ungedeckter_bedarf = 751, einkommen_zur_verteilung = 762.
-    überschusseinkommen = max(0, 762 - 751) = 11 per person, _eg = 22.
-    GSiA surplus = 0 → anspruch_bg = max(0, 751 - 762) = 0 → betrag P0 = 0.
-    SGB XII (Person1): gesetzliche Rente 400 – Grundrentenfreibetrag 190
-    → einkommen = 210. bedarf = 751, individueller_restbedarf = 541.
-    total_income_eg = 210 + 22 (Bürgergeld surplus) = 232.
-    anspruch_eg = max(0, 751 - 232) = 519 → GSiA betrag P1 = 519.
+    Person1's Grundsicherung im Alter calculation via
+    bürgergeld__überschusseinkommen_m_bg. Regelsatz (RBS 2): 451. KdU: (500+100)/2 =
+    300. Regelbedarf: 751 each. SGB II (Person0): bruttolohn 1100, anrechnungsfrei 338,
+    anzurechnendes 762. ungedeckter_bedarf = 751, einkommen_zur_verteilung = 762.
+    überschusseinkommen = max(0, 762 - 751) = 11 per person, _eg = 22. GSiA surplus = 0
+    → anspruch_bg = max(0, 751 - 762) = 0 → betrag P0 = 0. SGB XII (Person1):
+    gesetzliche Rente 400 – Grundrentenfreibetrag 190 → einkommen = 210. bedarf = 751,
+    individueller_restbedarf = 541. total_income_eg = 210 + 22 (Bürgergeld surplus) =
+    232. anspruch_eg = max(0, 751 - 232) = 519 → GSiA betrag P1 = 519.
   precision_atol: 0.01
   source: Regression test.
 inputs:

@@ -13,7 +13,7 @@ satz:
   2007-01-01:
     value: 0.67
     reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
-höchstbetrag:
+höchstbetrag_m:
   name:
     de: Höchstbetrag des Elterngeldes
     en: Maximum Elterngeld
@@ -25,7 +25,7 @@ höchstbetrag:
   2007-01-01:
     value: 1800.0
     reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
-mindestbetrag:
+mindestbetrag_m:
   name:
     de: Mindestbetrag des Elterngeldes
     en: Minimum amount of parental benefit
@@ -37,7 +37,7 @@ mindestbetrag:
   2007-01-01:
     value: 300
     reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
-max_zu_berücksichtigendes_einkommen:
+max_zu_berücksichtigendes_einkommen_m:
   name:
     de: Maximal zu berücksichtigendes Einkommen vor Geburt.
     en: Maximum income to be considered before birth.
@@ -98,7 +98,7 @@ prozent_minimum:
   2011-01-01:
     value: 0.65
     reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
-einkommensschritte_korrektur:
+einkommensschritte_korrektur_m:
   name:
     de: Einkommensschritte für die Korrektur
     en: Income steps for percentage correction

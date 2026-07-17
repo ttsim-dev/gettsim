@@ -50,7 +50,7 @@ parameter_einkommensgrenze:
       budgetsatz: 16500
   2009-01-01:
     note: Erziehungsgeld revoked and replaced by Elterngeld.
-aufschlag_einkommen:
+erhöhung_einkommensgrenze_pro_kind_y:
   name:
     de: Erhöhung der Einkommensgrenze
     en: Increase in the income threshold

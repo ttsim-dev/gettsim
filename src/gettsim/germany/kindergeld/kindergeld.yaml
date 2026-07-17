@@ -33,7 +33,6 @@ satz_gestaffelt:
       Steuerpflichtige relevant (d.h. Ausländer mit Erwerbstätigkeit in Deutschland).
       Für Werte vor 2002, siehe 'BMF - Datensammlung zur Steuerpolitik'
     en: null
-  unit: EUR_PER_MONTH
   type: require_converter
   1975-01-01:
     unit: DM_PER_MONTH
@@ -159,7 +158,7 @@ satz_gestaffelt:
     4: 250
   2023-01-01:
     note: Superseded by satz
-satz:
+satz_m:
   name:
     de: Kindergeld pro Kind, identisch für alle Kinder.
     en: Child benefit amount, depending on succession of children.
@@ -183,7 +182,7 @@ satz:
     value: 259
     reference: Art. 6 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
     note: Steuerfortentwicklungsgesetz (SteFeG) 2024
-maximales_einkommen_des_kindes:
+maximales_einkommen_des_kindes_y:
   name:
     de: Einkommensgrenze der Kinder, ab welcher kein Kindergeldanspruch besteht
     en: Income ceiling for children in order to get child benefit.
@@ -192,7 +191,6 @@ maximales_einkommen_des_kindes:
       § 32 (4) EStG. Wurde 2012 durch eine Höchstgrenze der gearbeiteten Stunden
       ersetzt.
     en: null
-  unit: EUR_PER_YEAR
   type: scalar
   1996-01-01:
     unit: DM_PER_YEAR
@@ -233,7 +231,7 @@ maximale_arbeitsstunden_des_kindes:
   2012-01-01:
     value: 20
     reference: Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
-kinderbonus_pro_kind:
+kinderbonus_pro_kind_y:
   name:
     de: Kinderbonus pro Kind
     en: Child bonus (one-time payment)

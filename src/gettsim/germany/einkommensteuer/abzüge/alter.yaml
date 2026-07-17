@@ -17,7 +17,7 @@ altersentlastungsbetrag_altersgrenze:
   type: scalar
   1984-01-01:
     value: 64
-maximaler_altersentlastungsbetrag:
+maximaler_altersentlastungsbetrag_y:
   name:
     de: Höchstbetrag des Altersentlastungsbetrags
     en: Maximum Amount of Tax Credit for older employees.
@@ -28,7 +28,6 @@ maximaler_altersentlastungsbetrag:
     en: >-
       If someone receives employment income above the age of 64, a share up to this
       amount is deducted.
-  unit: EUR_PER_YEAR
   type: require_converter
   1984-01-01:
     unit: DM_PER_YEAR
@@ -41,8 +40,8 @@ maximaler_altersentlastungsbetrag:
     unit: EUR_PER_YEAR
     value: 1908
   2005-01-01:
-    note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_gestaffelt`
-raw_maximaler_altersentlastungsbetrag_gestaffelt:
+    note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_y_gestaffelt`
+raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
   name:
     de: Höchstbetrag des Altersentlastungsbetrags
     en: Maximum Amount of Tax Credit for older employees.

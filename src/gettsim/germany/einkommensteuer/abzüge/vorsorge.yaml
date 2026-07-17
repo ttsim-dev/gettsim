@@ -16,10 +16,6 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
       gekürzt bei abhängig Beschäftigten (vereinfacht).
       Achtung: Heterogene Einträge im dict!
     en: null
-  unit:
-    vorwegabzug: EUR_PER_YEAR
-    grundhöchstbetrag: EUR_PER_YEAR
-    kürzungsanteil_abhängig_beschäftigte: DIMENSIONLESS
   type: dict
   1985-01-01:
     unit:

@@ -6,7 +6,6 @@ sonderausgabenpauschbetrag:
   description:
     de: § 10c EStG
     en: null
-  unit: EUR_PER_YEAR
   type: scalar
   1984-01-01:
     unit: DM_PER_YEAR

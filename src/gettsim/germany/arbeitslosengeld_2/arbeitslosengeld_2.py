@@ -117,7 +117,7 @@ def einkommen_zur_verteilung_m(
 @policy_function(
     start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
-def überschusseinkommen_m(
+def überschusseinkommen_m_bg(
     einkommen_zur_verteilung_m_bg: float,
     ungedeckter_bedarf_m_bg: float,
 ) -> float:
@@ -129,7 +129,4 @@ def überschusseinkommen_m(
 
     Reference: BSG B 14 AS 89/20 R
     """
-    return cast_unit(
-        max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg),
-        TTSIMUnit.CURRENCY.PER_MONTH,
-    )
+    return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)

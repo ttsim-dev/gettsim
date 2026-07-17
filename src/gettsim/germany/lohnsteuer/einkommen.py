@@ -29,7 +29,7 @@ def einkommen_y_bis_2025(
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
-    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
+    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
 ) -> float:
     """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
@@ -45,7 +45,7 @@ def einkommen_y_bis_2025(
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
-            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis
+            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y
         )
     else:
         alleinerziehendenfreibetrag = 0.0
@@ -71,7 +71,7 @@ def einkommen_y_ab_2026(
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
-    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
+    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
 ) -> float:
@@ -94,7 +94,7 @@ def einkommen_y_ab_2026(
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
-            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis
+            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y
         )
     else:
         alleinerziehendenfreibetrag = 0.0
@@ -346,7 +346,7 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     vorsorge_rentenversicherungsbeiträge_y: float,
     vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
     vorsorge_arbeitslosenversicherungsbeiträge_y: float,
-    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
+    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y: float,
 ) -> float:
     """Vorsorgepauschale considering unemployment insurance contributions.
 
@@ -358,7 +358,7 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     summe_av_kv_pv = min(
         vorsorge_arbeitslosenversicherungsbeiträge_y
         + vorsorge_gesetzliche_krankenversicherungsbeiträge_y,
-        vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge,
+        vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y,
     )
     return vorsorge_rentenversicherungsbeiträge_y + summe_av_kv_pv
 

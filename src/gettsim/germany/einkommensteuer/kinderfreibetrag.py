@@ -25,7 +25,7 @@ def kinderfreibetrag_pro_kind_y(parameter_kinderfreibetrag: dict[str, float]) ->
     return sum(parameter_kinderfreibetrag.values())
 
 
-@policy_function(unit=TTSIMUnit.PERSON_COUNT)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kinderfreibeträge(
     anzahl_kinderfreibeträge_1: int,
     anzahl_kinderfreibeträge_2: int,
@@ -41,7 +41,7 @@ def anzahl_kinderfreibeträge(
     return anzahl_kinderfreibeträge_1 + anzahl_kinderfreibeträge_2
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kinderfreibeträge_1(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     p_id_kinderfreibetragsempfänger_1: int,
@@ -50,7 +50,7 @@ def anzahl_kinderfreibeträge_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kinderfreibeträge_2(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     p_id_kinderfreibetragsempfänger_2: int,

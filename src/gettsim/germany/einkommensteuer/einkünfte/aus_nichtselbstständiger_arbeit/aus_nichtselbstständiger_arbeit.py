@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, cast_unit, param_function, policy_function
+from gettsim.tt import TTSIMUnit, param_function, policy_function
 
 
 @policy_function(
@@ -76,13 +76,12 @@ def anteil_steuerfälliger_einnahmen(
 ) -> float:
     """Anteil steuerfälliger Einnahmen an Einnahmen aus nichtselbstständiger Arbeit."""
     if einnahmen__bruttolohn_y > 0.0:
-        return cast_unit(
+        return (
             max(
                 einnahmen__bruttolohn_y - steuerbefreite_einnahmen_y,
                 0.0,
             )
-            / einnahmen__bruttolohn_y,
-            TTSIMUnit.DIMENSIONLESS,
+            / einnahmen__bruttolohn_y
         )
     else:
         return 0.0

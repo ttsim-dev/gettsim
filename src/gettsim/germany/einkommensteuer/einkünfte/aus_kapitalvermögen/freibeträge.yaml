@@ -1,5 +1,5 @@
 ---
-sparerfreibetrag:
+sparerfreibetrag_y:
   name:
     de: Sparerfreibetrag
     en: Allowance for Capital Gains
@@ -8,7 +8,6 @@ sparerfreibetrag:
       Früher § 20 (4) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
     unit: DM_PER_YEAR
@@ -31,14 +30,13 @@ sparerfreibetrag:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
-werbungskostenpauschbetrag:
+werbungskostenpauschbetrag_y:
   name:
     de: Werbungskostenpauschbetrag bei Zinseinkünften
     en: null
   description:
     de: § 9a EStG
     en: null
-  unit: EUR_PER_YEAR
   type: scalar
   1975-01-01:
     unit: DM_PER_YEAR
@@ -51,7 +49,7 @@ werbungskostenpauschbetrag:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
-sparerpauschbetrag:
+sparerpauschbetrag_y:
   name:
     de: Sparerpauschbetrag
     en: Allowance for Capital Gains

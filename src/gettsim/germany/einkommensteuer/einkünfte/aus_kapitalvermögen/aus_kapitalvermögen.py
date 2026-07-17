@@ -13,13 +13,14 @@ from gettsim.tt import TTSIMUnit, policy_function
 def betrag_y_sn_mit_sparerfreibetrag_und_werbungskostenpauschbetrag(
     einnahmen__kapitalerträge_y_sn: float,
     familie__anzahl_personen_sn: int,
-    sparerfreibetrag: float,
-    werbungskostenpauschbetrag: float,
+    sparerfreibetrag_y: float,
+    werbungskostenpauschbetrag_y: float,
 ) -> float:
     """Taxable capital income on Steuernummer level."""
     return max(
         einnahmen__kapitalerträge_y_sn
-        - familie__anzahl_personen_sn * (sparerfreibetrag + werbungskostenpauschbetrag),
+        - familie__anzahl_personen_sn
+        * (sparerfreibetrag_y + werbungskostenpauschbetrag_y),
         0.0,
     )
 
@@ -32,11 +33,11 @@ def betrag_y_sn_mit_sparerfreibetrag_und_werbungskostenpauschbetrag(
 def betrag_y_sn_mit_sparerpauschbetrag(
     einnahmen__kapitalerträge_y_sn: float,
     familie__anzahl_personen_sn: int,
-    sparerpauschbetrag: float,
+    sparerpauschbetrag_y: float,
 ) -> float:
     """Taxable capital income on Steuernummer level."""
     return max(
         einnahmen__kapitalerträge_y_sn
-        - familie__anzahl_personen_sn * sparerpauschbetrag,
+        - familie__anzahl_personen_sn * sparerpauschbetrag_y,
         0.0,
     )

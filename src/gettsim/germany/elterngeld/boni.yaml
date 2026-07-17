@@ -14,7 +14,7 @@ geschwisterbonus_altersgrenzen:
       § 2a BEEG
       If there are two children under the age of 3 or more than two under the age of 6
       living in the household, Elterngeld increases.
-  unit: PERSON_COUNT
+  unit: PERSON_COUNT_PER_FG
   type: dict
   2007-01-01:
     3: 2
@@ -31,19 +31,19 @@ geschwisterbonus_aufschlag:
   2007-01-01:
     value: 0.1
     reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
-geschwisterbonus_minimum:
+geschwisterbonus_minimum_m_fg:
   name:
     de: Minimaler Geschwisterbonus als Euro-Betrag
     en: Sibling Bonus, minimal amount
   description:
     de: § 2a (1) BEEG. Früher §2 (4)  BEEG
     en: null
-  unit: EUR_PER_MONTH
+  unit: EUR_PER_MONTH_PER_FG
   type: scalar
   2007-01-01:
     value: 75.0
     reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
-mehrlingsbonus_pro_kind:
+mehrlingsbonus_pro_kind_m:
   name:
     de: Pauschale für jedes weitere Mehrlingskind
     en: Twin, triplet bonus per additional child

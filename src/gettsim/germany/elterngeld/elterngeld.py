@@ -108,7 +108,7 @@ def basisbetrag_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     lohnersatzanteil: float,
     anzurechnendes_nettoeinkommen_m: float,
-    max_zu_berücksichtigendes_einkommen: float,
+    max_zu_berücksichtigendes_einkommen_m: float,
 ) -> float:
     """Base parental leave benefit without accounting for floor and ceiling.
 
@@ -117,7 +117,7 @@ def basisbetrag_m(
     """
     berücksichtigtes_einkommen = min(
         mean_nettoeinkommen_in_12_monaten_vor_geburt_m,
-        max_zu_berücksichtigendes_einkommen,
+        max_zu_berücksichtigendes_einkommen_m,
     )
     return (
         berücksichtigtes_einkommen - anzurechnendes_nettoeinkommen_m
@@ -141,23 +141,25 @@ def elterngeld_not_implemented() -> float:
 @policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anspruchshöhe_m(
     basisbetrag_m: float,
-    geschwisterbonus_m: float,
-    mehrlingsbonus_m: float,
-    mindestbetrag: float,
-    höchstbetrag: float,
+    geschwisterbonus_m_fg: float,
+    mehrlingsbonus_m_fg: float,
+    mindestbetrag_m: float,
+    höchstbetrag_m: float,
 ) -> float:
     """Elterngeld before checking eligibility.
 
     Anspruchshöhe is calculated on the parental level.
 
     """
+    kinderboni_m = cast_unit(
+        geschwisterbonus_m_fg + mehrlingsbonus_m_fg, TTSIMUnit.CURRENCY.PER_MONTH
+    )
     return (
         min(
-            max(basisbetrag_m, mindestbetrag),
-            höchstbetrag,
+            max(basisbetrag_m, mindestbetrag_m),
+            höchstbetrag_m,
         )
-        + geschwisterbonus_m
-        + mehrlingsbonus_m
+        + kinderboni_m
     )
 
 
@@ -221,7 +223,6 @@ def bezugsmonate_unter_grenze_fg(
     parent.
 
     """
-    bisherige_monate = cast_unit(bisherige_bezugsmonate_fg, TTSIMUnit.MONTHS)
     grenze_mit_partnermonaten = (
         max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
     )
@@ -229,14 +230,11 @@ def bezugsmonate_unter_grenze_fg(
         familie__alleinerziehend
         or bezugsmonate_partner >= max_bezugsmonate["partnermonate"]
     ):
-        out = bisherige_monate < grenze_mit_partnermonaten
-    elif cast_unit(anzahl_anträge_fg, TTSIMUnit.DIMENSIONLESS) > 1:
-        out = (
-            bisherige_monate + cast_unit(1, TTSIMUnit.MONTHS)
-            < grenze_mit_partnermonaten
-        )
+        out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten
+    elif anzahl_anträge_fg > 1:
+        out = bisherige_bezugsmonate_fg + 1 < grenze_mit_partnermonaten
     else:
-        out = bisherige_monate < max_bezugsmonate["basismonate"]
+        out = bisherige_bezugsmonate_fg < max_bezugsmonate["basismonate"]
     return out
 
 
@@ -245,7 +243,7 @@ def lohnersatzanteil(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     lohnersatzanteil_einkommen_untere_grenze_m: float,
     lohnersatzanteil_einkommen_obere_grenze_m: float,
-    einkommensschritte_korrektur: float,
+    einkommensschritte_korrektur_m: float,
     satz: float,
     prozent_korrektur: float,
     prozent_minimum: float,
@@ -265,7 +263,7 @@ def lohnersatzanteil(
     ):
         out = satz + (
             lohnersatzanteil_einkommen_untere_grenze_m
-            / einkommensschritte_korrektur
+            / einkommensschritte_korrektur_m
             * prozent_korrektur
         )
     # Lower replacement rate if considered income is above a threshold
@@ -278,7 +276,7 @@ def lohnersatzanteil(
             satz
             - (
                 lohnersatzanteil_einkommen_obere_grenze_m
-                / einkommensschritte_korrektur
+                / einkommensschritte_korrektur_m
                 * prozent_korrektur
             ),
             prozent_minimum,
@@ -296,7 +294,7 @@ def lohnersatzanteil(
 def anrechenbarer_betrag_m(
     betrag_m: float,
     anzahl_mehrlinge_fg: int,
-    mindestbetrag: float,
+    mindestbetrag_m: float,
 ) -> float:
     """Elterngeld that can be considered as income for other transfers.
 
@@ -310,11 +308,7 @@ def anrechenbarer_betrag_m(
 
     """
     return max(
-        betrag_m
-        - (
-            (1 + cast_unit(anzahl_mehrlinge_fg, TTSIMUnit.DIMENSIONLESS))
-            * mindestbetrag
-        ),
+        betrag_m - ((1 + anzahl_mehrlinge_fg) * mindestbetrag_m),
         0,
     )
 
@@ -337,5 +331,5 @@ def jüngstes_kind_oder_mehrling(
             alter_monate
             - cast_unit(familie__alter_monate_jüngstes_mitglied_fg, TTSIMUnit.MONTHS)
         )
-        < cast_unit(0.1, TTSIMUnit.MONTHS)
+        < 0.1
     ) and ist_leistungsbegründendes_kind

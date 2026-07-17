@@ -117,7 +117,7 @@ anrechnungsfreier_anteil_zusätzliche_altersvorsorge:
         slope: 1
       - interval: '[100, inf)'
         slope: 0.3
-einkommensgrenze_kinder:
+einkommensgrenze_kinder_y:
   name:
     de: >-
       Gesamteinkommensgrenze der Kinder ersten Grades, ab der Grundsicherungsbezug der

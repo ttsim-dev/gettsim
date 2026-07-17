@@ -21,7 +21,6 @@ from gettsim.tt import (
     AggType,
     TTSIMUnit,
     agg_by_p_id_function,
-    cast_unit,
     policy_function,
 )
 
@@ -125,12 +124,9 @@ def anspruchshöhe_m_bis_2022(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
-        # Distribute the EG-level surplus by each member's share of the EG restbedarf.
-        return cast_unit(
-            (individueller_restbedarf_m / individueller_restbedarf_m_eg)
-            * anspruch_m_eg,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
+        return (
+            individueller_restbedarf_m / individueller_restbedarf_m_eg
+        ) * anspruch_m_eg
 
 
 @policy_function(
@@ -169,12 +165,9 @@ def anspruchshöhe_m_ab_2023(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
-        # Distribute the EG-level surplus by each member's share of the EG restbedarf.
-        return cast_unit(
-            (individueller_restbedarf_m / individueller_restbedarf_m_eg)
-            * anspruch_m_eg,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
+        return (
+            individueller_restbedarf_m / individueller_restbedarf_m_eg
+        ) * anspruch_m_eg
 
 
 @policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -279,9 +272,7 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
-    elif (schwerbehindert_grad_g) and (
-        cast_unit(familie__anzahl_erwachsene_eg, TTSIMUnit.DIMENSIONLESS) > 1
-    ):
+    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * arbeitslosengeld_2__regelsatz_anteilsbasiert.erwachsen.je_erwachsener_ab_drei_erwachsene
@@ -318,9 +309,7 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
 
     if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
         out = mehrbedarf_single
-    elif (schwerbehindert_grad_g) and (
-        cast_unit(familie__anzahl_erwachsene_eg, TTSIMUnit.DIMENSIONLESS) > 1
-    ):
+    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
         out = mehrbedarf_in_couple
     else:
         out = 0.0
@@ -352,18 +341,14 @@ def vermögensfreibetrag_eg(
 
 @policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
-    einkommensteuer__gesamteinkommen_y_sn: float,
-    einkommensgrenze_kinder: float,
+    einkünfte__gesamtbetrag_der_einkünfte_y: float,
+    einkommensgrenze_kinder_y: float,
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    # The child's Steuernummer-level Gesamteinkommen is read as their individual income.
-    return (
-        cast_unit(einkommensteuer__gesamteinkommen_y_sn, TTSIMUnit.CURRENCY.PER_YEAR)
-        >= einkommensgrenze_kinder
-    )
+    return einkünfte__gesamtbetrag_der_einkünfte_y >= einkommensgrenze_kinder_y
 
 
 @agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)

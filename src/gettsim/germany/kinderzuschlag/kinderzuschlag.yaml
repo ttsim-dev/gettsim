@@ -54,7 +54,7 @@ mindesteinkommen:
   description:
     de: § 6a (1) Nr. 2 BKGG.
     en: null
-  unit: EUR_PER_MONTH
+  unit: EUR_PER_MONTH.PER_BG
   type: dict
   2008-10-01:
     single: 600

@@ -9,7 +9,6 @@ parameter_kinderfreibetrag:
       Betreuungs-, Erziehungs- oder Ausbildungsbedarf. Wird verdoppelt für gemeinsam
       veranlagte Paare. §32 (6) EStG.
     en: null
-  unit: EUR_PER_YEAR
   type: dict
   1983-01-01:
     unit: DM_PER_YEAR
@@ -36,9 +35,6 @@ parameter_kinderfreibetrag:
     sächliches_existenzminimum: 3456
     betreuung_erziehung_ausbildung: 1512
     reference: Art. 1 G. v. 28.12.1999 BGBl. I. S. 2552.
-    note: >-
-      Ab hier nennt § 32 Abs. 6 EStG Jahresbeträge: 3 456 Deutsche Mark für das
-      sächliche Existenzminimum, 1 512 Deutsche Mark für die Betreuung.
   2002-01-01:
     unit: EUR_PER_YEAR
     sächliches_existenzminimum: 1824

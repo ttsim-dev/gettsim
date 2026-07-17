@@ -43,6 +43,8 @@ def anspruchshöhe_m(
 
     Reference: §9 Abs. 2 Satz 3 SGB II
     """
+    # Deliberate cross-level summation: the EG's Überschusseinkommen is transferred
+    # into the BG's income pool, so re-tag it from the EG to the BG level.
     total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_unit(
         grundsicherung__im_alter__überschusseinkommen_m_eg,
         TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
@@ -52,11 +54,7 @@ def anspruchshöhe_m(
     if ungedeckter_bedarf_m_bg == 0.0 or vermögen_bg > vermögensfreibetrag_bg:
         return 0.0
     else:
-        # Distribute the BG surplus by each member's share of the BG Bedarf.
-        return cast_unit(
-            (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
+        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -109,7 +107,7 @@ def einkommen_zur_verteilung_m(
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def überschusseinkommen_m(
+def überschusseinkommen_m_bg(
     einkommen_zur_verteilung_m_bg: float,
     ungedeckter_bedarf_m_bg: float,
 ) -> float:
@@ -121,9 +119,4 @@ def überschusseinkommen_m(
 
     Reference: BSG B 14 AS 89/20 R
     """
-    # The BG-level surplus is attributed to each member; downstream code aggregates
-    # `_m_eg` for the mixed-BG partner's Grundsicherung.
-    return cast_unit(
-        max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg),
-        TTSIMUnit.CURRENCY.PER_MONTH,
-    )
+    return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)

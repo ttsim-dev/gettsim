@@ -1,5 +1,5 @@
 ---
-werbungskostenpauschbetrag:
+werbungskostenpauschbetrag_y:
   name:
     de: Werbungskostenpauschbetrag für sonstige Einkünfte (vor allem Renten).
     en: Lump-sum deduction for miscellaneous income (pensions, most prominently).
@@ -11,7 +11,6 @@ werbungskostenpauschbetrag:
     en: >-
       § 9a Satz 1 Nr. 3 EStG. Lump-sum deducted from income within the meaning of § 22
       Nr. 1, 1a, and 5 EStG, capped at the income itself (§ 9a Satz 2 EStG).
-  unit: EUR_PER_YEAR
   type: scalar
   1984-01-01:
     value: 200

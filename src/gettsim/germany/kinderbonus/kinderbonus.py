@@ -8,10 +8,10 @@ from gettsim.tt import TTSIMUnit, policy_function
 @policy_function(
     start_date="2020-01-01", end_date="2021-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
 )
-def betrag_y(kindergeld__betrag_y: float, satz: float) -> float:
+def betrag_y(kindergeld__betrag_y: float, satz_y: float) -> float:
     """Calculate Kinderbonus for an individual child.
 
     (one-time payment, non-allowable against transfer payments)
 
     """
-    return satz if kindergeld__betrag_y > 0 else 0.0
+    return satz_y if kindergeld__betrag_y > 0 else 0.0
