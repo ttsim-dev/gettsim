@@ -476,9 +476,11 @@ What the converter *returns* carries no unit declaration of its own — see
 
 A `@param_function` that *builds* a structured object — a dataclass of related
 parameters, a schedule assembled from a `require_converter` blob — returns something
-that is not a quantity: there is no unit to declare and no scalar body to dry-run. It
-states exactly that with `unit=UNSET_UNIT`. The `unit=` argument remains required, so
-the sentinel is always an explicit statement, never an omission, and the mandatory-units
+that is not a quantity, so it has no scalar body to dry-run. A dataclass has no single
+unit to declare and states exactly that with `unit=UNSET_UNIT`; a schedule has one — its
+output axis — which it may name (see the schedule paragraph below), or leave to the
+blob's axes with `unit=UNSET_UNIT`. The `unit=` argument remains required, so the
+sentinel is always an explicit statement, never an omission, and the mandatory-units
 check accepts it.
 
 **Units live on the dataclass fields.** A parameter dataclass states each scalar field's
@@ -533,8 +535,25 @@ age as money.
 
 A converter-built **schedule** takes neither annotations nor casts when its blob
 declares axes: it screens at the call site like a parameter-declared schedule (the axes
-form above). Only an axis-less converter-built schedule stays opaque, and the author
-casts the call's result.
+form above). When the blob cannot collapse to a single axis — its entries carry
+genuinely different units (an area table that also holds a `PERSON_COUNT` cutoff), so
+the honest declaration is per-key units, not one `output_unit:` — the building
+`@param_function` states the **schedule's output unit as its own `unit=`** instead. That
+unit is read as the schedule's output axis (concrete currency allowed, no name-suffix
+rule — it is not a column), so `look_up`/`piecewise_polynomial` on it screens the
+consumer just like the axes form, with no cast:
+
+```python
+@param_function(unit=Unit.SQUARE_METER.PER_HH)
+def berechtigte_wohnfläche_eigentum(
+    parameter_berechtigte_wohnfläche_eigentum: RawParamValue,  # honest per-key units
+    max_anzahl_personen: dict[str, int],
+    xnp: ModuleType,
+) -> ConsecutiveIntLookupTableParamValue: ...
+```
+
+Only a schedule that declares neither — no axes, no `@param_function` output unit —
+stays opaque, and the author casts the call's result.
 
 The annotations and casts do not need to travel for the *numbers* to be right:
 parameters are never converted ({ref}`Currency <gep-10-currency>`), so every number
@@ -640,6 +659,22 @@ def betrag_m(einkommen_m: float, befreit: bool) -> float:
     else:
         return einkommen_m
 ```
+
+A `0.0` floor in `max`/`min` (and `xnp.maximum`/`xnp.minimum`/`xnp.clip`) is the same
+allowed sign test, and the clamp carries the quantity's unit on *every* branch — the one
+where the `0.0` wins included — so a clamped value stays usable downstream without a
+`cast_unit` on the floor:
+
+```python
+@policy_function(unit=Unit.DIMENSIONLESS)
+def nettoquote(bruttolohn_m: float, abzüge_m: float) -> float:
+    bereinigt_m = max(bruttolohn_m - abzüge_m, 0.0)  # CURRENCY/month on both branches
+    return bereinigt_m / bruttolohn_m  # a clean dimensionless ratio
+```
+
+A non-zero literal bound is still rejected (`max(einkommen_m, 1000.0)` hides a monthly
+amount), exactly as `einkommen_m + 1000.0` is — promote it to a parameter or tag it in
+place.
 
 (gep-10-currency)=
 
