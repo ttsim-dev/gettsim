@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
     end_date="1999-03-31",
     leaf_name="betrag_versicherter_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
     betrag_versicherter_regulärer_beitragssatz_m: float,
@@ -21,7 +21,7 @@ def betrag_versicherter_m_bis_03_1999(
     start_date="1999-04-01",
     end_date="2003-03-31",
     leaf_name="betrag_versicherter_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
@@ -48,7 +48,7 @@ def betrag_versicherter_m_ohne_midijob(
 @policy_function(
     start_date="2003-04-01",
     leaf_name="betrag_versicherter_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
@@ -79,7 +79,7 @@ def betrag_versicherter_m_mit_midijob(
 @policy_function(
     end_date="1999-03-31",
     leaf_name="betrag_arbeitgeber_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_bis_03_1999(
     einkommen_m: float,
@@ -99,7 +99,7 @@ def betrag_arbeitgeber_m_bis_03_1999(
     start_date="1999-04-01",
     end_date="2003-03-31",
     leaf_name="betrag_arbeitgeber_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
@@ -127,7 +127,7 @@ def betrag_arbeitgeber_m_ohne_midijob(
 @policy_function(
     start_date="2003-04-01",
     leaf_name="betrag_arbeitgeber_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
@@ -155,7 +155,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     return out
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz_arbeitnehmer: float,
@@ -167,7 +167,7 @@ def betrag_versicherter_regulärer_beitragssatz_m(
 @policy_function(
     end_date="2005-06-30",
     leaf_name="betrag_selbstständig_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_selbstständig_m_mit_einheitlichen_beitragssatz(
     bemessungsgrundlage_selbstständig_m: float,
@@ -183,7 +183,7 @@ def betrag_selbstständig_m_mit_einheitlichen_beitragssatz(
     start_date="2005-07-01",
     end_date="2008-12-31",
     leaf_name="betrag_selbstständig_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_selbstständig_m_ohne_ermäßigtem_beitragssatz(
     bemessungsgrundlage_selbstständig_m: float,
@@ -201,7 +201,7 @@ def betrag_selbstständig_m_ohne_ermäßigtem_beitragssatz(
     start_date="2009-01-01",
     end_date="2014-12-31",
     leaf_name="betrag_selbstständig_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_selbstständig_m_ohne_zusatzbeitrag(
     bemessungsgrundlage_selbstständig_m: float,
@@ -216,7 +216,7 @@ def betrag_selbstständig_m_ohne_zusatzbeitrag(
 @policy_function(
     start_date="2015-01-01",
     leaf_name="betrag_selbstständig_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_selbstständig_m_mit_zusatzbeitrag(
     bemessungsgrundlage_selbstständig_m: float,
@@ -233,7 +233,7 @@ def betrag_selbstständig_m_mit_zusatzbeitrag(
     return beitrag * bemessungsgrundlage_selbstständig_m
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_rentner_m(
     bemessungsgrundlage_rente_m: float,
     beitragssatz_arbeitnehmer: float,
@@ -242,7 +242,7 @@ def betrag_rentner_m(
     return beitragssatz_arbeitnehmer * bemessungsgrundlage_rente_m
 
 
-@policy_function(start_date="2003-04-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2003-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_gesamt_in_gleitzone_m(
     sozialversicherung__midijob_bemessungsentgelt_m: float,
     beitragssatz_arbeitnehmer: float,
@@ -261,7 +261,7 @@ def betrag_gesamt_in_gleitzone_m(
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_in_gleitzone_m_mit_festem_beitragssatz(
     einnahmen__bruttolohn_m: float,
@@ -283,7 +283,7 @@ def betrag_arbeitgeber_in_gleitzone_m_mit_festem_beitragssatz(
 @policy_function(
     start_date="2022-10-01",
     leaf_name="betrag_arbeitgeber_in_gleitzone_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_in_gleitzone_m_als_differenz_von_gesamt_und_versichertenbeitrag(
     betrag_gesamt_in_gleitzone_m: float,
@@ -305,7 +305,7 @@ def betrag_arbeitgeber_in_gleitzone_m_als_differenz_von_gesamt_und_versichertenb
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_versicherter_in_gleitzone_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberbeitrag(
     betrag_gesamt_in_gleitzone_m: float,
@@ -318,7 +318,7 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
 @policy_function(
     start_date="2022-10-01",
     leaf_name="betrag_versicherter_in_gleitzone_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_in_gleitzone_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,

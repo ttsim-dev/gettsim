@@ -1,11 +1,11 @@
 {
-  "$comment": "If you change this file, always change it in both locations:  1. ttsim/src/ttsim/params-schema.json  2. gettsim/docs/geps/params-schema.json",
+  "$comment": "Keep in sync with ttsim/src/ttsim/params-schema.json, except unitToken: this GETTSIM copy pins the grouping levels to Germany's, ttsim leaves them open.",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "unitToken": {
-      "$comment": "A fully-spelled compositional unit (GEP 10): a base optionally divided by an area, a period, and a grouping level, joined by `_PER_` (e.g. DIMENSIONLESS, CURRENCY_PER_MONTH_PER_BG, SILVER_PENNY_PER_FAM, PERSON_COUNT_PER_HH). Bases and grouping levels are open (per-package currencies, per-build levels), so this is a coarse pattern; `parse_compositional_unit` validates the grammar at load time.",
+      "$comment": "Bases stay open (currencies register per package); the grouping level, if present, must be one of Germany's.",
       "type": "string",
-      "pattern": "^[A-Z][A-Z0-9_]*$"
+      "pattern": "^[A-Z][A-Z0-9]*(?:_(?!PER_)[A-Z0-9]+)*(?:_PER_(?:SQUARE_METER|HOURS))?(?:_PER_(?:YEAR|QUARTER|MONTH|WEEK|DAY))?(?:_PER_(?:HH|EHE|FG|BG|EG|WTHH|SN))?$"
     },
     "unitDeclaration": {
       "oneOf": [
@@ -157,7 +157,6 @@
               ]
             },
             "else": {
-              "$comment": "Scalar/dict parameter: `unit:` may sit at the top level (shared by every date) or one level lower, inside each date-specific key, so a parameter re-denominated over time can spell its unit symmetrically per date. The schema therefore does not require `unit:` here; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) is the guarantee that every active leaf resolves to a unit (GEP 10).",
               "allOf": [
                 { "not": { "required": ["input_unit"] } },
                 { "not": { "required": ["output_unit"] } }
@@ -166,7 +165,6 @@
           }
         },
         {
-          "$comment": "A scalar parameter takes its period from a time suffix on its name and declares a single fully-spelled `unit:` token, not a per-leaf mapping (which only a dict or require_converter parameter may use).",
           "if": {
             "properties": { "type": { "const": "scalar" } },
             "required": ["type"]

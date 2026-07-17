@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     UNSET_UNIT,
-    Unit,
+    TTSIMUnit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 @policy_function(
     end_date="2004-12-31",
     leaf_name="altersfreibetrag_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Reads `maximaler_altersentlastungsbetrag` / `altersentlastungsquote`, declared
     # `type: require_converter` though consumed as scalars, which the dry-run cannot
     # follow; declared unit and edges stay checked.
@@ -59,7 +59,7 @@ def altersfreibetrag_y_bis_2004(
 @policy_function(
     start_date="2005-01-01",
     leaf_name="altersfreibetrag_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Reads two geburtsjahr-keyed lookup tables the dry-run cannot evaluate
     # symbolically; its declared unit and edges stay checked.
     verify_units=False,

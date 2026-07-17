@@ -9,7 +9,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     AggType,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
     cast_unit,
@@ -47,7 +47,9 @@ def einkommensgrenzen(
     )
 
 
-@agg_by_group_function(end_date="2008-12-31", agg_type=AggType.ANY)
+@agg_by_group_function(
+    end_date="2008-12-31", agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
+)
 def leistungsbegründende_kinder_fg(
     ist_leistungsbegründendes_kind: bool,
     fg_id: int,
@@ -56,7 +58,7 @@ def leistungsbegründende_kinder_fg(
 
 
 @agg_by_p_id_function(
-    end_date="2008-12-31", agg_type=AggType.SUM, unit=Unit.CURRENCY.PER_MONTH
+    end_date="2008-12-31", agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def anspruchshöhe_m(
     anspruchshöhe_kind_m: float,
@@ -67,7 +69,7 @@ def anspruchshöhe_m(
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_m(
     anspruchshöhe_m: float,
@@ -84,10 +86,12 @@ def betrag_m(
     start_date="2002-01-01",
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="nearest"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+    ),
     fail_msg_if_included="""Erziehungsgeld is not implemented yet prior to 2004, see
 https://github.com/ttsim-dev/gettsim/issues/673""",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     pass
@@ -97,8 +101,10 @@ def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     start_date="2004-01-01",
     end_date="2008-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_MONTH, base=0.01, direction="nearest"),
-    unit=Unit.CURRENCY.PER_MONTH,
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_mit_budgetsatz_m(
     ist_leistungsbegründendes_kind: bool,
@@ -115,7 +121,7 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     if ist_leistungsbegründendes_kind:
         return max(
             basisbetrag_m
-            - cast_unit(abzug_durch_einkommen_m_fg, Unit.CURRENCY.PER_MONTH),
+            - cast_unit(abzug_durch_einkommen_m_fg, TTSIMUnit.CURRENCY.PER_MONTH),
             0.0,
         )
     else:
@@ -123,7 +129,7 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def basisbetrag_m(
     budgetsatz: bool,
@@ -150,7 +156,7 @@ def basisbetrag_m(
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=Unit.CURRENCY.PER_MONTH.PER_FG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_FG,
 )
 def abzug_durch_einkommen_m_fg(
     anzurechnendes_einkommen_m_fg: float,
@@ -177,7 +183,7 @@ def abzug_durch_einkommen_m_fg(
     start_date="2004-01-01",
     end_date="2006-12-10",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_vor_abschaffung(
     p_id_empfänger: int,
@@ -203,7 +209,7 @@ def _leistungsbegründendes_kind_vor_abschaffung(
     start_date="2006-12-11",
     end_date="2008-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_nach_abschaffung(
     p_id_empfänger: int,
@@ -240,7 +246,7 @@ def _leistungsbegründendes_kind_nach_abschaffung(
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.DIMENSIONLESS
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
 def grundsätzlich_anspruchsberechtigt(
     arbeitsstunden_w: float,
@@ -259,7 +265,7 @@ def grundsätzlich_anspruchsberechtigt(
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=Unit.CURRENCY.PER_YEAR.PER_FG,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
 def anzurechnendes_einkommen_y_fg(
     bruttolohn_vorjahr_nach_abzug_werbungskosten_y_fg: float,
@@ -286,7 +292,7 @@ def anzurechnendes_einkommen_y_fg(
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=Unit.CURRENCY.PER_YEAR.PER_FG,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
 )
 def einkommensgrenze_y_fg(
     einkommensgrenze_ohne_geschwisterbonus_y: float,
@@ -301,16 +307,16 @@ def einkommensgrenze_y_fg(
     if ist_leistungsbegründendes_kind:
         return cast_unit(
             einkommensgrenze_ohne_geschwisterbonus_y
-            + (cast_unit(familie__anzahl_kinder_fg, Unit.DIMENSIONLESS) - 1)
+            + (cast_unit(familie__anzahl_kinder_fg, TTSIMUnit.DIMENSIONLESS) - 1)
             * aufschlag_einkommen,
-            Unit.CURRENCY.PER_YEAR.PER_FG,
+            TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
         )
     else:
         return 0.0
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=Unit.CURRENCY.PER_YEAR
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
 )
 def einkommensgrenze_ohne_geschwisterbonus_y(
     alter_monate: int,
@@ -336,7 +342,7 @@ def einkommensgrenze_ohne_geschwisterbonus_y(
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
     # follow through the subscript.
     verify_units=False,
@@ -363,7 +369,7 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
 @policy_function(
     start_date="2004-01-01",
     end_date="2008-12-31",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Plucks thresholds off dict-typed dataclass fields, which the dry-run cannot
     # follow through the subscript.
     verify_units=False,

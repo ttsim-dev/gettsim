@@ -9,7 +9,7 @@ from ttsim.unit_converters import y_to_m
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
-    Unit,
+    TTSIMUnit,
     cast_unit,
     policy_function,
 )
@@ -19,7 +19,7 @@ from gettsim.tt import (
     start_date="1989-12-18",
     end_date="2017-12-31",
     leaf_name="altersgrenze",
-    unit=Unit.YEARS,
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_mit_staffelung(
     geburtsjahr: int,
@@ -33,9 +33,9 @@ def altersgrenze_mit_staffelung(
     Does not check for eligibility for this pathway into retirement.
     """
     birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, Unit.YEARS))
-        + cast_unit(geburtsmonat - 1, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(cast_unit(geburtsjahr, TTSIMUnit.YEARS))
+        + cast_unit(geburtsmonat - 1, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
@@ -44,7 +44,7 @@ def altersgrenze_mit_staffelung(
     start_date="1989-12-18",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
-    unit=Unit.YEARS,
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_vorzeitig_mit_staffelung(
     geburtsjahr: int,
@@ -58,9 +58,9 @@ def altersgrenze_vorzeitig_mit_staffelung(
     Does not check for eligibility for this pathway into retirement.
     """
     birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, Unit.YEARS))
-        + cast_unit(geburtsmonat - 1, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(cast_unit(geburtsjahr, TTSIMUnit.YEARS))
+        + cast_unit(geburtsmonat - 1, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
 
@@ -68,7 +68,7 @@ def altersgrenze_vorzeitig_mit_staffelung(
 @policy_function(
     end_date="1997-12-15",
     leaf_name="grundsätzlich_anspruchsberechtigt",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     weiblich: bool,
@@ -94,7 +94,7 @@ def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     start_date="1997-12-16",
     end_date="2017-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_mit_prüfung_geburtsjahr(
     weiblich: bool,

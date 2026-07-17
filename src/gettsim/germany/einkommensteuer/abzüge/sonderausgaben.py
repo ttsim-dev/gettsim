@@ -5,13 +5,13 @@ from __future__ import annotations
 from gettsim.tt import (
     AggType,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     policy_function,
 )
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.CURRENCY.PER_MONTH)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def kinderbetreuungskosten_elternteil_m(
     kinderbetreuungskosten_m: float,
     p_id_kinderbetreuungskostenträger: int,
@@ -23,7 +23,7 @@ def kinderbetreuungskosten_elternteil_m(
 @policy_function(
     end_date="2011-12-31",
     leaf_name="sonderausgaben_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def sonderausgaben_y_sn_nur_pauschale(
     familie__anzahl_personen_sn: int,
@@ -41,7 +41,7 @@ def sonderausgaben_y_sn_nur_pauschale(
 @policy_function(
     start_date="2012-01-01",
     leaf_name="sonderausgaben_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def sonderausgaben_y_sn_mit_kinderbetreuung(
     absetzbare_kinderbetreuungskosten_y_sn: float,
@@ -60,7 +60,7 @@ def sonderausgaben_y_sn_mit_kinderbetreuung(
     )
 
 
-@policy_function(unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def gedeckelte_kinderbetreuungskosten_y(
     kinderbetreuungskosten_elternteil_y: float,
     parameter_absetzbare_kinderbetreuungskosten: dict[str, float],
@@ -74,8 +74,10 @@ def gedeckelte_kinderbetreuungskosten_y(
 
 @policy_function(
     start_date="2002-01-01",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR.PER_SN, base=1, direction="up"),
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN, base=1, direction="up"
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def absetzbare_kinderbetreuungskosten_y_sn(
     gedeckelte_kinderbetreuungskosten_y_sn: float,

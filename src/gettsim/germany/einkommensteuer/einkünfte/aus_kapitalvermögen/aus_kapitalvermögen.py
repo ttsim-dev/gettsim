@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
     end_date="2008-12-31",
     leaf_name="betrag_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_y_sn_mit_sparerfreibetrag_und_werbungskostenpauschbetrag(
     einnahmen__kapitalerträge_y_sn: float,
@@ -27,7 +27,7 @@ def betrag_y_sn_mit_sparerfreibetrag_und_werbungskostenpauschbetrag(
 @policy_function(
     start_date="2009-01-01",
     leaf_name="betrag_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_y_sn_mit_sparerpauschbetrag(
     einnahmen__kapitalerträge_y_sn: float,

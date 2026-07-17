@@ -6,8 +6,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
-    Unit,
-    cast_unit,
+    TTSIMUnit,
     piecewise_polynomial,
     policy_function,
 )
@@ -17,7 +16,7 @@ if TYPE_CHECKING:
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def anzurechnendes_einkommen_m(
     nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -45,7 +44,7 @@ def anzurechnendes_einkommen_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def nettoeinkommen_nach_abzug_freibetrag_m(
     nettoeinkommen_vor_abzug_freibetrag_m: float,
@@ -56,7 +55,7 @@ def nettoeinkommen_nach_abzug_freibetrag_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def nettoeinkommen_vor_abzug_freibetrag_m(
     bruttoeinkommen_m: float,
@@ -75,7 +74,7 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def bruttoeinkommen_m(
     einnahmen__bruttolohn_m: float,
@@ -101,7 +100,7 @@ def bruttoeinkommen_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2005-09-30", unit=Unit.DIMENSIONLESS
+    start_date="2005-01-01", end_date="2005-09-30", unit=TTSIMUnit.DIMENSIONLESS
 )
 def nettoquote(
     einnahmen__bruttolohn_m: float,
@@ -125,17 +124,17 @@ def nettoquote(
             - abzugsfähige_pauschalen["werbung"]
             - abzugsfähige_pauschalen["versicherung"]
         ),
-        0,
+        0.0,
     )
 
-    return cast_unit(alg2_2005_bne / einnahmen__bruttolohn_m, Unit.DIMENSIONLESS)
+    return alg2_2005_bne / einnahmen__bruttolohn_m
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2005-09-30",
     leaf_name="anrechnungsfreies_einkommen_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
     einnahmen__bruttolohn_m: float,
@@ -152,7 +151,7 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
 
 
 @policy_function(
-    start_date="2005-10-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-10-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,

@@ -1,31 +1,31 @@
 from dataclasses import dataclass
 from typing import Annotated
 
-from gettsim.tt import Unit
+from gettsim.tt import TTSIMUnit
 
 
 @dataclass(frozen=True)
 class Altersgrenzen:
-    min_alter: Annotated[int, Unit.YEARS]
-    max_alter: Annotated[int, Unit.YEARS]
+    min_alter: Annotated[int, TTSIMUnit.YEARS]
+    max_alter: Annotated[int, TTSIMUnit.YEARS]
 
 
 @dataclass(frozen=True)
 class SatzMitAltersgrenzen:
-    satz: Annotated[float, Unit.CURRENCY.PER_MONTH]
+    satz: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
     altersgrenzen: Altersgrenzen
 
 
 @dataclass(frozen=True)
 class ElementExistenzminimum:
-    single: Annotated[float, Unit.CURRENCY.PER_YEAR]
-    paar: Annotated[float, Unit.CURRENCY.PER_YEAR]
-    kind: Annotated[float, Unit.CURRENCY.PER_YEAR]
+    single: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
+    paar: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
+    kind: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
 
 
 @dataclass(frozen=True)
 class ElementExistenzminimumNurKind:
-    kind: Annotated[float, Unit.CURRENCY.PER_YEAR]
+    kind: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
 
 
 @dataclass(frozen=True)

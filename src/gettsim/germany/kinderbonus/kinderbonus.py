@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
-    start_date="2020-01-01", end_date="2021-12-31", unit=Unit.CURRENCY.PER_YEAR
+    start_date="2020-01-01", end_date="2021-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
 )
 def betrag_y(kindergeld__betrag_y: float, satz: float) -> float:
     """Calculate Kinderbonus for an individual child.

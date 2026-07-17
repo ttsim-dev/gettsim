@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def gesetzliche_m(
     sozialversicherung__rente__altersrente__betrag_m: float,
     sozialversicherung__rente__erwerbsminderung__betrag_m: float,

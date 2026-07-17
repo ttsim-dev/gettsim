@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
-    Unit,
+    TTSIMUnit,
     piecewise_polynomial,
     policy_function,
 )
@@ -33,7 +33,7 @@ def solidaritätszuschlagstarif(
     verify_units=False,
     end_date="2008-12-31",
     leaf_name="betrag_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_y_sn_ohne_abgelt_st(
     einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,
@@ -67,7 +67,7 @@ def betrag_y_sn_ohne_abgelt_st(
     verify_units=False,
     start_date="2009-01-01",
     leaf_name="betrag_y_sn",
-    unit=Unit.CURRENCY.PER_YEAR.PER_SN,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_y_sn_mit_abgelt_st(
     einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,

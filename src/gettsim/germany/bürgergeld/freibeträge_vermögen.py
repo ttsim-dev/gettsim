@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_unit, policy_function
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_BG)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_BG)
 def vermögensfreibetrag_in_karenzzeit_bg(
     familie__anzahl_personen_bg: int,
     vermögensfreibetrag_je_person_nach_karenzzeit: dict[str, float],
@@ -17,16 +17,16 @@ def vermögensfreibetrag_in_karenzzeit_bg(
     # Per-person exemptions sum to the BG-level total wealth exemption.
     return cast_unit(
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
-        + (cast_unit(familie__anzahl_personen_bg, Unit.DIMENSIONLESS) - 1)
+        + (cast_unit(familie__anzahl_personen_bg, TTSIMUnit.DIMENSIONLESS) - 1)
         * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"],
-        Unit.CURRENCY.PER_BG,
+        TTSIMUnit.CURRENCY.PER_BG,
     )
 
 
 @policy_function(
     start_date="2023-01-01",
     leaf_name="vermögensfreibetrag_bg",
-    unit=Unit.CURRENCY.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_BG,
 )
 def vermögensfreibetrag_bg_ab_2023(
     familie__anzahl_personen_bg: int,

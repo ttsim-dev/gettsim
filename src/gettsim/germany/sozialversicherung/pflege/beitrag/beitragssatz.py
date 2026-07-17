@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from gettsim.tt import (
     AggType,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     param_function,
     policy_function,
@@ -14,7 +14,7 @@ from gettsim.tt import (
 @param_function(
     start_date="1995-01-01",
     end_date="2004-12-31",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer(beitragssatz: float) -> float:
     """Employee's long-term care insurance contribution rate."""
@@ -25,7 +25,7 @@ def beitragssatz_arbeitnehmer(beitragssatz: float) -> float:
     start_date="2005-01-01",
     end_date="2023-06-30",
     leaf_name="beitragssatz_arbeitnehmer",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_zusatz_kinderlos_dummy(
     zahlt_zusatzbetrag_kinderlos: bool,
@@ -50,7 +50,7 @@ def beitragssatz_arbeitnehmer_zusatz_kinderlos_dummy(
 @policy_function(
     start_date="2023-07-01",
     leaf_name="beitragssatz_arbeitnehmer",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_mit_abschlag_nach_kinderzahl(
     anzahl_kinder_bis_24: int,
@@ -76,7 +76,7 @@ def beitragssatz_arbeitnehmer_mit_abschlag_nach_kinderzahl(
     return base + add
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def zahlt_zusatzbetrag_kinderlos(
     hat_kinder: bool,
     alter: int,
@@ -91,7 +91,7 @@ def zahlt_zusatzbetrag_kinderlos(
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, start_date="2005-01-01", unit=Unit.PERSON_COUNT
+    agg_type=AggType.SUM, start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT
 )
 def anzahl_kinder_bis_24_elternteil_1(
     alter_bis_24: bool,
@@ -102,7 +102,7 @@ def anzahl_kinder_bis_24_elternteil_1(
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, start_date="2005-01-01", unit=Unit.PERSON_COUNT
+    agg_type=AggType.SUM, start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT
 )
 def anzahl_kinder_bis_24_elternteil_2(
     alter_bis_24: bool,
@@ -112,7 +112,7 @@ def anzahl_kinder_bis_24_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.PERSON_COUNT)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT)
 def anzahl_kinder_bis_24(
     anzahl_kinder_bis_24_elternteil_1: int,
     anzahl_kinder_bis_24_elternteil_2: int,
@@ -125,7 +125,7 @@ def anzahl_kinder_bis_24(
     start_date="1995-01-01",
     end_date="2004-12-31",
     leaf_name="beitragssatz_arbeitgeber",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_einheitliche_basis(beitragssatz: float) -> float:
     """Employer's long-term care insurance contribution rate."""
@@ -135,7 +135,7 @@ def beitragssatz_arbeitgeber_einheitliche_basis(beitragssatz: float) -> float:
 @param_function(
     start_date="2005-01-01",
     leaf_name="beitragssatz_arbeitgeber",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_basis_nach_kinderzahl(
     beitragssatz_nach_kinderzahl: dict[str, float],

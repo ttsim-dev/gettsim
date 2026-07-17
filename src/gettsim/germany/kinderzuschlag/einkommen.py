@@ -14,7 +14,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     AggType,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     agg_by_group_function,
     cast_unit,
     param_function,
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=Unit.DIMENSIONLESS.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
 )
 def anzahl_kinder_bg(kindergeld__anzahl_ansprüche: int, bg_id: int) -> int:
     pass
@@ -36,7 +36,7 @@ def anzahl_kinder_bg(kindergeld__anzahl_ansprüche: int, bg_id: int) -> int:
     leaf_name="bruttoeinkommen_eltern_m",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def bruttoeinkommen_eltern_m_bis_2022(
     arbeitslosengeld_2__bruttoeinkommen_m: float,
@@ -60,7 +60,7 @@ def bruttoeinkommen_eltern_m_bis_2022(
 @policy_function(
     leaf_name="bruttoeinkommen_eltern_m",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def bruttoeinkommen_eltern_m_ab_2023(
     bürgergeld__bruttoeinkommen_m: float,
@@ -86,9 +86,12 @@ def bruttoeinkommen_eltern_m_ab_2023(
     start_date="2005-01-01",
     end_date="2019-06-30",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH, base=10, direction="down", reference="§ 6a Abs. 4 BKGG"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=10,
+        direction="down",
+        reference="§ 6a Abs. 4 BKGG",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def nettoeinkommen_eltern_m_mit_grober_rundung(
     arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -111,9 +114,12 @@ def nettoeinkommen_eltern_m_mit_grober_rundung(
     start_date="2019-07-01",
     end_date="2022-12-31",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH, base=1, direction="down", reference="§ 11 Abs. 2 BKGG"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=1,
+        direction="down",
+        reference="§ 11 Abs. 2 BKGG",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def nettoeinkommen_eltern_m_mit_genauer_rundung_bis_2022(
     arbeitslosengeld_2__nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -135,9 +141,12 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_bis_2022(
     leaf_name="nettoeinkommen_eltern_m",
     start_date="2023-01-01",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH, base=1, direction="down", reference="§ 11 Abs. 2 BKGG"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=1,
+        direction="down",
+        reference="§ 11 Abs. 2 BKGG",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
     bürgergeld__nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -158,7 +167,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
 @policy_function(
     start_date="2005-01-01",
     end_date="2019-06-30",
-    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def maximales_nettoeinkommen_m_bg(
     erwachsenenbedarf_m_bg: float,
@@ -173,11 +182,11 @@ def maximales_nettoeinkommen_m_bg(
     """
     # Per-child Satz times the number of children is the BG-level child total.
     return erwachsenenbedarf_m_bg + cast_unit(
-        satz_m * anzahl_kinder_bg, Unit.CURRENCY.PER_MONTH.PER_BG
+        satz_m * anzahl_kinder_bg, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
     )
 
 
-@policy_function(start_date="2008-10-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
+@policy_function(start_date="2008-10-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def mindestbruttoeinkommen_m_bg(
     anzahl_kinder_bg: int,
     familie__alleinerziehend_bg: bool,
@@ -196,10 +205,10 @@ def mindestbruttoeinkommen_m_bg(
         out = mindesteinkommen["paar"]
 
     # The statutory thresholds apply to the Bedarfsgemeinschaft as a whole.
-    return cast_unit(out, Unit.CURRENCY.PER_MONTH.PER_BG)
+    return cast_unit(out, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_BG)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def anzurechnendes_einkommen_eltern_m_bg(
     nettoeinkommen_eltern_m_bg: float,
     erwachsenenbedarf_m_bg: float,
@@ -220,7 +229,7 @@ def anzurechnendes_einkommen_eltern_m_bg(
     leaf_name="kosten_der_unterkunft_m_bg",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def kosten_der_unterkunft_m_bg_bis_2022(
     wohnbedarf_anteil_eltern_bg: float,
@@ -241,7 +250,7 @@ def kosten_der_unterkunft_m_bg_bis_2022(
 @policy_function(
     leaf_name="kosten_der_unterkunft_m_bg",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def kosten_der_unterkunft_m_bg_ab_2023(
     wohnbedarf_anteil_eltern_bg: float,
@@ -319,7 +328,7 @@ def existenzminimum_mit_bildung_und_teilhabe(
     )
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def wohnbedarf_anteil_eltern_bg(
     anzahl_kinder_bg: int,
     familie__alleinerziehend_bg: bool,
@@ -344,7 +353,7 @@ def wohnbedarf_anteil_eltern_bg(
         )
 
     kinderbetrag = min(
-        cast_unit(anzahl_kinder_bg, Unit.DIMENSIONLESS),
+        cast_unit(anzahl_kinder_bg, TTSIMUnit.DIMENSIONLESS),
         wohnbedarf_anteil_berücksichtigte_kinder,
     ) * (existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind)
 
@@ -355,7 +364,7 @@ def wohnbedarf_anteil_eltern_bg(
     leaf_name="erwachsenenbedarf_m_bg",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def erwachsenenbedarf_m_bg_bis_2022(
     arbeitslosengeld_2__erwachsenensatz_m_bg: float,
@@ -368,7 +377,7 @@ def erwachsenenbedarf_m_bg_bis_2022(
 @policy_function(
     leaf_name="erwachsenenbedarf_m_bg",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def erwachsenenbedarf_m_bg_ab_2023(
     bürgergeld__erwachsenensatz_m_bg: float,

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
     end_date="1999-03-31",
     leaf_name="einkommen_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_m_bis_03_1999(
     einkommen_bis_beitragsbemessungsgrenze_m: float,
@@ -20,7 +20,7 @@ def einkommen_m_bis_03_1999(
 @policy_function(
     start_date="1999-04-01",
     leaf_name="einkommen_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_m_ab_04_1999(
     einkommen_bis_beitragsbemessungsgrenze_m: float,
@@ -38,7 +38,7 @@ def einkommen_m_ab_04_1999(
     return out
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_bis_beitragsbemessungsgrenze_m(
     einnahmen__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
@@ -54,7 +54,7 @@ def einkommen_bis_beitragsbemessungsgrenze_m(
     )
 
 
-@policy_function(start_date="1990-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bemessungsgrundlage_selbstständig_m(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     bezugsgröße_selbstständige_m: float,
@@ -92,7 +92,7 @@ def bemessungsgrundlage_selbstständig_m(
     start_date="1990-01-01",
     end_date="2000-12-31",
     leaf_name="beitragsbemessungsgrenze_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def beitragsbemessungsgrenze_m_nach_wohnort(
     wohnort_ost_hh: bool,
@@ -109,7 +109,7 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
 @policy_function(
     start_date="1990-01-01",
     end_date="2024-12-31",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def bezugsgröße_selbstständige_m(
     wohnort_ost_hh: bool,
@@ -127,7 +127,7 @@ def bezugsgröße_selbstständige_m(
     )
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bemessungsgrundlage_rente_m(
     einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,

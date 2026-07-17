@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
-    Unit,
+    TTSIMUnit,
     piecewise_polynomial,
     policy_function,
 )
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from types import ModuleType
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anzurechnendes_einkommen_m(
     nettoeinkommen_nach_abzug_freibetrag_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -41,7 +41,7 @@ def anzurechnendes_einkommen_m(
     )
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def nettoeinkommen_nach_abzug_freibetrag_m(
     nettoeinkommen_vor_abzug_freibetrag_m: float,
     anrechnungsfreies_einkommen_m: float,
@@ -50,7 +50,7 @@ def nettoeinkommen_nach_abzug_freibetrag_m(
     return nettoeinkommen_vor_abzug_freibetrag_m - anrechnungsfreies_einkommen_m
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def nettoeinkommen_vor_abzug_freibetrag_m(
     bruttoeinkommen_m: float,
     einkommensteuer__betrag_m_sn: float,
@@ -67,7 +67,7 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     )
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bruttoeinkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -91,7 +91,7 @@ def bruttoeinkommen_m(
     )
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
-from gettsim.tt import Unit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_unit, policy_function
 
 
 @policy_function(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     end_date="2022-12-31",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
@@ -29,10 +29,10 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     # The check assumes WTHH = BG, so compare BG-level resources against the BG need.
     return cast_unit(
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
-        + cast_unit(wohngeld__anspruchshöhe_m_wthh, Unit.CURRENCY.PER_MONTH.PER_BG)
+        + cast_unit(wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
         + kinderzuschlag__anspruchshöhe_m_bg
         >= arbeitslosengeld_2__regelbedarf_m_bg,
-        Unit.DIMENSIONLESS,
+        TTSIMUnit.DIMENSIONLESS,
     )
 
 
@@ -40,7 +40,7 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     start_date="2023-01-01",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     bürgergeld__regelbedarf_m_bg: float,
@@ -59,8 +59,8 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     # The check assumes WTHH = BG, so compare BG-level resources against the BG need.
     return cast_unit(
         bürgergeld__anzurechnendes_einkommen_m_bg
-        + cast_unit(wohngeld__anspruchshöhe_m_wthh, Unit.CURRENCY.PER_MONTH.PER_BG)
+        + cast_unit(wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
         + kinderzuschlag__anspruchshöhe_m_bg
         >= bürgergeld__regelbedarf_m_bg,
-        Unit.DIMENSIONLESS,
+        TTSIMUnit.DIMENSIONLESS,
     )

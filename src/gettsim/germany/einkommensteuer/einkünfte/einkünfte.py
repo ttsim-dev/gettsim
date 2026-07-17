@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
     end_date="2008-12-31",
     leaf_name="gesamtbetrag_der_einkünfte_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def gesamtbetrag_der_einkünfte_y_mit_kapiteleinkünften(
     aus_forst_und_landwirtschaft__betrag_y: float,
@@ -40,7 +40,7 @@ def gesamtbetrag_der_einkünfte_y_mit_kapiteleinkünften(
 @policy_function(
     start_date="2009-01-01",
     leaf_name="gesamtbetrag_der_einkünfte_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def gesamtbetrag_der_einkünfte_y_ohne_kapitaleinkünfte(
     aus_forst_und_landwirtschaft__betrag_y: float,

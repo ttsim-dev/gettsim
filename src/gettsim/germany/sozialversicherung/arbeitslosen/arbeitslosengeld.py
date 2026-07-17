@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
-    Unit,
+    TTSIMUnit,
     policy_function,
 )
 
@@ -17,13 +17,13 @@ if TYPE_CHECKING:
     end_date="1998-07-31",
     leaf_name="betrag_m",
     fail_msg_if_included="Arbeitslosengeld before August 1998 is not implemented.",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_bis_1998_07() -> float:
     """Calculate individual unemployment benefit."""
 
 
-@policy_function(start_date="1998-08-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="1998-08-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_m(
     einkommensteuer__anzahl_kinderfreibeträge: int,
     grundsätzlich_anspruchsberechtigt: bool,
@@ -47,7 +47,7 @@ def betrag_m(
     return out
 
 
-@policy_function(unit=Unit.MONTHS)
+@policy_function(unit=TTSIMUnit.MONTHS)
 def monate_verbleibender_anspruchsdauer(
     alter: int,
     monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren: int,
@@ -76,7 +76,7 @@ def monate_verbleibender_anspruchsdauer(
     return out
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def mindestversicherungszeit_erreicht(
     monate_beitragspflichtig_versichert_in_letzten_30_monaten: int,
     mindestversicherungsmonate: int,
@@ -90,7 +90,7 @@ def mindestversicherungszeit_erreicht(
     )
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     arbeitssuchend: bool,
     monate_verbleibender_anspruchsdauer: int,
@@ -107,7 +107,7 @@ def grundsätzlich_anspruchsberechtigt(
     )
 
 
-@policy_function(unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y(
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y: float,
     einnahmen__bruttolohn_y: float,

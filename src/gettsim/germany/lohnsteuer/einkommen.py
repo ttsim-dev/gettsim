@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -20,9 +20,9 @@ from gettsim.tt import (
 @policy_function(
     start_date="2002-01-01",
     end_date="2025-12-31",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="down"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
     leaf_name="einkommen_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def einkommen_y_bis_2025(
     einnahmen__bruttolohn_y: float,
@@ -62,9 +62,9 @@ def einkommen_y_bis_2025(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="down"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
     leaf_name="einkommen_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def einkommen_y_ab_2026(
     einnahmen__bruttolohn_y: float,
@@ -111,7 +111,7 @@ def einkommen_y_ab_2026(
 
 
 @policy_function(
-    start_date="2010-01-01", end_date="2025-12-31", unit=Unit.CURRENCY.PER_YEAR
+    start_date="2010-01-01", end_date="2025-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
 )
 def vorsorge_krankenversicherungsbeiträge_option_a_y(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -149,7 +149,7 @@ def vorsorge_krankenversicherungsbeiträge_option_a_y(
     start_date="2015-01-01",
     end_date="2018-12-31",
     leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -177,7 +177,7 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
     start_date="2019-01-01",
     end_date="2025-12-31",
     leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -201,7 +201,7 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     )
 
 
-@policy_function(start_date="2026-01-01", unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -224,7 +224,7 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
         )
 
 
-@policy_function(start_date="2026-01-01", unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def vorsorge_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
@@ -240,7 +240,7 @@ def vorsorge_arbeitslosenversicherungsbeiträge_y(
 @policy_function(
     end_date="2022-12-31",
     leaf_name="vorsorge_rentenversicherungsbeiträge_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
@@ -263,7 +263,7 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="vorsorge_rentenversicherungsbeiträge_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
@@ -283,7 +283,9 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     )
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.DIMENSIONLESS)
+@param_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
+)
 def einführungsfaktor_rentenversicherungsaufwendungen(
     parameter_einführungsfaktor_rentenversicherungsaufwendungen: PiecewisePolynomialParamValue,
     policy_year: int,
@@ -308,8 +310,8 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="up"),
-    unit=Unit.CURRENCY.PER_YEAR,
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
@@ -337,8 +339,8 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="up"),
-    unit=Unit.CURRENCY.PER_YEAR,
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     vorsorge_rentenversicherungsbeiträge_y: float,
@@ -366,7 +368,7 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     end_date="2009-12-31",
     leaf_name="vorsorgepauschale_y",
     fail_msg_if_included="Vorsorgepauschale not implemented before 2010.",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
     pass
@@ -376,8 +378,8 @@ def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
     start_date="2010-01-01",
     end_date="2025-12-31",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="up"),
-    unit=Unit.CURRENCY.PER_YEAR,
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2010_bis_2025(
     vorsorge_rentenversicherungsbeiträge_y: float,
@@ -399,8 +401,8 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
 @policy_function(
     start_date="2026-01-01",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(unit=Unit.EUR.PER_YEAR, base=1, direction="up"),
-    unit=Unit.CURRENCY.PER_YEAR,
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2026(
     vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y: float,

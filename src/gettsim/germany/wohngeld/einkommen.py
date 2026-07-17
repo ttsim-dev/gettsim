@@ -11,7 +11,7 @@ from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     PiecewisePolynomialParamValue,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, end_date="2015-12-31", unit=Unit.PERSON_COUNT
+    agg_type=AggType.SUM, end_date="2015-12-31", unit=TTSIMUnit.PERSON_COUNT
 )
 def alleinerziehendenbonus(
     kindergeld__kind_bis_10_mit_kindergeld: bool,
@@ -46,7 +46,7 @@ def min_einkommen_lookup_table(
 
 
 @policy_function(
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # Clamps the look-up index with a raw `xnp` op reading the table's `.shape`,
     # which the dry-run cannot evaluate symbolically.
     verify_units=False,
@@ -73,7 +73,7 @@ def einkommen_m_wthh(
     return xnp.maximum(einkommen_ohne_freibetrag, mindesteinkommen)
 
 
-@policy_function(verify_units=False, unit=Unit.DIMENSIONLESS)
+@policy_function(verify_units=False, unit=TTSIMUnit.DIMENSIONLESS)
 def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     einkommensteuer__betrag_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y: float,
@@ -100,7 +100,7 @@ def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
 @policy_function(
     end_date="2006-12-31",
     leaf_name="einkommen_vor_freibetrag_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -142,7 +142,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
 @policy_function(
     start_date="2007-01-01",
     leaf_name="einkommen_vor_freibetrag_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -188,7 +188,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
 
 
 @policy_function(
-    end_date="2015-12-31", leaf_name="freibetrag_m", unit=Unit.CURRENCY.PER_MONTH
+    end_date="2015-12-31", leaf_name="freibetrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def freibetrag_m_bis_2015(
     einnahmen__bruttolohn_m: float,
@@ -229,7 +229,7 @@ def freibetrag_m_bis_2015(
     start_date="2016-01-01",
     end_date="2020-12-31",
     leaf_name="freibetrag_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def freibetrag_m_ab_2016_bis_2020(
     einnahmen__bruttolohn_m: float,
@@ -258,7 +258,7 @@ def freibetrag_m_ab_2016_bis_2020(
 
 
 @policy_function(
-    start_date="2021-01-01", leaf_name="freibetrag_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2021-01-01", leaf_name="freibetrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def freibetrag_m_ab_2021(
     einnahmen__bruttolohn_m: float,
@@ -317,7 +317,7 @@ def freibetrag_m_ab_2021(
     return freibetrag_bei_behinderung + freibetrag_kinder + freibetrag_grundrente
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def ist_kind_mit_erwerbseinkommen(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

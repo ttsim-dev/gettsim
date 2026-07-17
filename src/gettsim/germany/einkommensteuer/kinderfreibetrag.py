@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from gettsim.tt import (
     AggType,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     param_function,
     policy_function,
 )
 
 
-@policy_function(unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def kinderfreibetrag_y(
     anzahl_kinderfreibeträge: int,
     kinderfreibetrag_pro_kind_y: float,
@@ -20,12 +20,12 @@ def kinderfreibetrag_y(
     return kinderfreibetrag_pro_kind_y * anzahl_kinderfreibeträge
 
 
-@param_function(unit=Unit.CURRENCY.PER_YEAR)
+@param_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def kinderfreibetrag_pro_kind_y(parameter_kinderfreibetrag: dict[str, float]) -> float:
     return sum(parameter_kinderfreibetrag.values())
 
 
-@policy_function(unit=Unit.PERSON_COUNT)
+@policy_function(unit=TTSIMUnit.PERSON_COUNT)
 def anzahl_kinderfreibeträge(
     anzahl_kinderfreibeträge_1: int,
     anzahl_kinderfreibeträge_2: int,
@@ -41,7 +41,7 @@ def anzahl_kinderfreibeträge(
     return anzahl_kinderfreibeträge_1 + anzahl_kinderfreibeträge_2
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
 def anzahl_kinderfreibeträge_1(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     p_id_kinderfreibetragsempfänger_1: int,
@@ -50,7 +50,7 @@ def anzahl_kinderfreibeträge_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.PERSON_COUNT)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT)
 def anzahl_kinderfreibeträge_2(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     p_id_kinderfreibetragsempfänger_2: int,
@@ -59,7 +59,7 @@ def anzahl_kinderfreibeträge_2(
     pass
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def p_id_kinderfreibetragsempfänger_1(
     familie__p_id_elternteil_1: int,
 ) -> int:
@@ -67,7 +67,7 @@ def p_id_kinderfreibetragsempfänger_1(
     return familie__p_id_elternteil_1
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def p_id_kinderfreibetragsempfänger_2(
     familie__p_id_elternteil_2: int,
 ) -> int:

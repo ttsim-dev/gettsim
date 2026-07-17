@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_unit, policy_function
 
 
 @policy_function(
     end_date="2014-12-31",
     leaf_name="alleinerziehend_betrag_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def alleinerziehend_betrag_y_pauschal(
     familie__alleinerziehend_sn: bool,
@@ -21,7 +21,7 @@ def alleinerziehend_betrag_y_pauschal(
 @policy_function(
     start_date="2015-01-01",
     leaf_name="alleinerziehend_betrag_y",
-    unit=Unit.CURRENCY.PER_YEAR,
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def alleinerziehend_betrag_y_nach_kinderzahl(
     familie__alleinerziehend_sn: bool,
@@ -33,7 +33,7 @@ def alleinerziehend_betrag_y_nach_kinderzahl(
     if familie__alleinerziehend_sn:
         out = (
             alleinerziehendenfreibetrag_basis
-            + (cast_unit(kindergeld__anzahl_ansprüche_sn, Unit.DIMENSIONLESS) - 1)
+            + (cast_unit(kindergeld__anzahl_ansprüche_sn, TTSIMUnit.DIMENSIONLESS) - 1)
             * alleinerziehendenfreibetrag_zusatz_pro_kind
         )
     else:

@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function(unit=Unit.CURRENCY.PER_YEAR.PER_SN)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 def betrag_y_sn(
     sonderausgaben_y_sn: float,
     vorsorgeaufwendungen_y_sn: float,
@@ -15,7 +15,7 @@ def betrag_y_sn(
     return sonderausgaben_y_sn + vorsorgeaufwendungen_y_sn + betrag_ind_y_sn
 
 
-@policy_function(unit=Unit.CURRENCY.PER_YEAR)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def betrag_ind_y(
     pauschbetrag_behinderung_y: float,
     alleinerziehend_betrag_y: float,

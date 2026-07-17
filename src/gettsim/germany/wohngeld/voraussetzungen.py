@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from gettsim.tt import Unit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_unit, policy_function
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2008-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -21,7 +21,7 @@ def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
 @policy_function(
     start_date="2009-01-01",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -31,7 +31,7 @@ def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     return mindesteinkommen_erreicht_wthh and vermögensgrenze_unterschritten_wthh
 
 
-@policy_function(start_date="2009-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2009-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def vermögensgrenze_unterschritten_wthh(
     vermögen_wthh: float,
     anzahl_personen_wthh: int,
@@ -41,17 +41,17 @@ def vermögensgrenze_unterschritten_wthh(
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
     ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
-        cast_unit(anzahl_personen_wthh, Unit.DIMENSIONLESS) - 1
+        cast_unit(anzahl_personen_wthh, TTSIMUnit.DIMENSIONLESS) - 1
     )
 
-    return cast_unit(vermögen_wthh, Unit.CURRENCY) <= vermögensfreibetrag
+    return cast_unit(vermögen_wthh, TTSIMUnit.CURRENCY) <= vermögensfreibetrag
 
 
 @policy_function(
     leaf_name="mindesteinkommen_erreicht_wthh",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def mindesteinkommen_erreicht_wthh_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_wthh: float,
@@ -70,14 +70,14 @@ def mindesteinkommen_erreicht_wthh_bis_2022(
 
     """
     return einkommen_für_mindesteinkommen_m_wthh >= cast_unit(
-        arbeitslosengeld_2__regelbedarf_m_wthh, Unit.CURRENCY.PER_MONTH
+        arbeitslosengeld_2__regelbedarf_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH
     )
 
 
 @policy_function(
     leaf_name="mindesteinkommen_erreicht_wthh",
     start_date="2023-01-01",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def mindesteinkommen_erreicht_wthh_ab_2023(
     bürgergeld__regelbedarf_m_wthh: float,
@@ -96,7 +96,7 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
 
     """
     return einkommen_für_mindesteinkommen_m_wthh >= cast_unit(
-        bürgergeld__regelbedarf_m_wthh, Unit.CURRENCY.PER_MONTH
+        bürgergeld__regelbedarf_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH
     )
 
 
@@ -104,7 +104,7 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
     leaf_name="einkommen_für_mindesteinkommen_m_wthh",
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
     arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,
@@ -130,15 +130,15 @@ def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
         + unterhaltsvorschuss__betrag_m_wthh
         + kindergeld__betrag_m_wthh
         + kinderzuschlag__anspruchshöhe_m_wthh
-        + cast_unit(basisbetrag_m_wthh, Unit.CURRENCY.PER_MONTH.PER_WTHH),
-        Unit.CURRENCY.PER_MONTH,
+        + basisbetrag_m_wthh,
+        TTSIMUnit.CURRENCY.PER_MONTH,
     )
 
 
 @policy_function(
     leaf_name="einkommen_für_mindesteinkommen_m_wthh",
     start_date="2023-01-01",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
     bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,
@@ -164,6 +164,6 @@ def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
         + unterhaltsvorschuss__betrag_m_wthh
         + kindergeld__betrag_m_wthh
         + kinderzuschlag__anspruchshöhe_m_wthh
-        + cast_unit(basisbetrag_m_wthh, Unit.CURRENCY.PER_MONTH.PER_WTHH),
-        Unit.CURRENCY.PER_MONTH,
+        + basisbetrag_m_wthh,
+        TTSIMUnit.CURRENCY.PER_MONTH,
     )

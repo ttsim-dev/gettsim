@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gettsim.tt import Unit, policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
@@ -12,7 +12,9 @@ if TYPE_CHECKING:
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
 # https://github.com/ttsim-dev/gettsim/issues/1009
-@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY)
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY
+)
 def grundfreibetrag_vermögen(
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
     alter: int,
@@ -30,7 +32,9 @@ def grundfreibetrag_vermögen(
 
 # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
 # https://github.com/ttsim-dev/gettsim/issues/1009
-@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY)
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY
+)
 def maximaler_grundfreibetrag_vermögen(
     geburtsjahr: int,
     familie__ist_kind_in_bedarfsgemeinschaft: bool,
@@ -46,7 +50,7 @@ def maximaler_grundfreibetrag_vermögen(
 @policy_function(
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_BG,
+    unit=TTSIMUnit.CURRENCY.PER_BG,
 )
 def vermögensfreibetrag_bg(
     grundfreibetrag_vermögen_bg: float,

@@ -15,14 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1192` Annotate the taxes and transfers system with units and dimensions (GEP 10).
-  Every `@policy_function`, `@policy_input`, `@param_function` and
-  `@group_creation_function` declares a unit, as does every parameter in the YAML files.
-  The euro is registered as the base currency and the Deutsche Mark relative to it, so
-  that policy dates before 2002 compute in the currency of their day.
-  ({ghuser}`MImmesberger`)
-- {gh}`1192` Rename columns whose name did not match the quantity they carry. Most gain
-  the suffix of the period they are measured over: `basistarif`, `splittingtarif`,
+- {gh}`1212` GEP 10 Rollout and some related column renamings: Most gain the suffix of
+  the period they are measured over: `basistarif`, `splittingtarif`,
   `tarif_klassen_5_und_6` (and their `_mit_kinderfreibetrag` variants),
   `einkommensgrenze_ohne_geschwisterbonus` (and its two age variants),
   `vorsorge_arbeitslosenversicherungsbeiträge`,
@@ -33,8 +27,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `satz` all gain `_m`. Two lose a suffix they should never have had, being shares
   rather than flows: `anteil_steuerfälliger_einnahmen_y` and
   `mehrbedarf_alleinerziehend_m`. `gesamteinkommen_y` becomes `gesamteinkommen_y_sn`,
-  naming the level it is aggregated to. There are no aliases; the old names are gone.
-  ({ghuser}`MImmesberger`)
+  naming the level it is aggregated to. ({ghuser}`MImmesberger`)
 - {gh}`1206` Update Rentenwert 2025, 2026. ({ghuser}`cmdr-majus`)
 - {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
   {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).

@@ -6,7 +6,7 @@ import functools
 from typing import TYPE_CHECKING, Literal
 
 from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
-from gettsim.tt import Unit, group_creation_function, policy_input
+from gettsim.tt import TTSIMUnit, group_creation_function, policy_input
 
 if TYPE_CHECKING:
     from types import ModuleType
@@ -14,17 +14,17 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@policy_input(unit=Unit.DIMENSIONLESS)
+@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
 def p_id() -> int:
     """Unique identifier for each person. Always required, must be unique."""
 
 
-@policy_input(unit=Unit.DIMENSIONLESS)
+@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
 def hh_id() -> int:
     """Individuals living together in a household in the Wohngeld sense (§5 WoGG)."""
 
 
-@group_creation_function(unit=Unit.DIMENSIONLESS)
+@group_creation_function(unit=TTSIMUnit.DIMENSIONLESS)
 def ehe_id(
     p_id: IntColumn,
     familie__p_id_ehepartner: IntColumn,
@@ -44,7 +44,7 @@ def ehe_id(
 
 
 @group_creation_function(
-    leaf_name="fg_id", end_date="2022-12-31", unit=Unit.DIMENSIONLESS
+    leaf_name="fg_id", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
 def fg_id_arbeitslosengeld_2(
     arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
@@ -74,7 +74,7 @@ def fg_id_arbeitslosengeld_2(
 
 
 @group_creation_function(
-    leaf_name="fg_id", start_date="2023-01-01", unit=Unit.DIMENSIONLESS
+    leaf_name="fg_id", start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS
 )
 def fg_id_bürgergeld(
     bürgergeld__p_id_einstandspartner: IntColumn,
@@ -184,7 +184,7 @@ def _assign_parents_fg_id(
 
 @group_creation_function(
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def bg_id(
     fg_id: IntColumn,
@@ -209,7 +209,7 @@ def bg_id(
 
 
 @group_creation_function(
-    leaf_name="eg_id", end_date="2022-12-31", unit=Unit.DIMENSIONLESS
+    leaf_name="eg_id", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
 def eg_id_arbeitslosengeld_2(
     arbeitslosengeld_2__p_id_einstandspartner: IntColumn,
@@ -239,7 +239,7 @@ def eg_id_arbeitslosengeld_2(
 
 
 @group_creation_function(
-    leaf_name="eg_id", start_date="2023-01-01", unit=Unit.DIMENSIONLESS
+    leaf_name="eg_id", start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS
 )
 def eg_id_bürgergeld(
     bürgergeld__p_id_einstandspartner: IntColumn,
@@ -345,7 +345,7 @@ def _assign_parents_eg_id(
 
 @group_creation_function(
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def wthh_id(
     fg_id: IntColumn,
@@ -369,7 +369,7 @@ def wthh_id(
     return fg_id
 
 
-@group_creation_function(unit=Unit.DIMENSIONLESS)
+@group_creation_function(unit=TTSIMUnit.DIMENSIONLESS)
 def sn_id(
     p_id: IntColumn,
     familie__p_id_ehepartner: IntColumn,

@@ -1430,7 +1430,7 @@ raw_heizkostenentlastung_m:
       Amount of relief in heating costs due to CO2 pricing in Euro depending on
       household size
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2021-01-01:
     reference: §12 (6) WoGG, Art. 1 G. v. 15.05.2020, BGBl I S. 1015.
@@ -1452,7 +1452,7 @@ raw_dauerhafte_heizkostenkomponente_m:
       Permanent heating cost component depending on household size introduced with the
       housing subsidy reform 2023
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
@@ -1476,7 +1476,7 @@ raw_klimakomponente_m:
       amounts pursuant to § 12 (1) in Euro depending on the size of the household;
       introduced with the housing subsidy reform 2023
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160

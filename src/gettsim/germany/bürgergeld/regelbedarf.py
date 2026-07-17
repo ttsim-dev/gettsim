@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
-    Unit,
+    TTSIMUnit,
     cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def regelbedarf_m(
     regelsatz_m: float,
     kosten_der_unterkunft_m: float,
@@ -34,7 +34,7 @@ def regelbedarf_m(
     return regelsatz_m + kosten_der_unterkunft_m
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def mehrbedarf_alleinerziehend(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
@@ -52,7 +52,7 @@ def mehrbedarf_alleinerziehend(
     """
     basis_mehrbedarf = parameter_mehrbedarf_alleinerziehend[
         "basis_je_kind_bis_17"
-    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, Unit.DIMENSIONLESS)
+    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -75,7 +75,7 @@ def mehrbedarf_alleinerziehend(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kindersatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     alter: int,
@@ -113,7 +113,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="erwachsenensatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
     mehrbedarf_alleinerziehend: float,
@@ -134,7 +134,7 @@ def erwachsenensatz_m_ab_2011(
     return out * (1 + mehrbedarf_alleinerziehend)
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
@@ -146,7 +146,7 @@ def regelsatz_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kosten_der_unterkunft_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kosten_der_unterkunft_m_ab_2023(
     bruttokaltmiete_m: float,
@@ -169,7 +169,9 @@ def kosten_der_unterkunft_m_ab_2023(
     return out
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_SQUARE_METER.PER_MONTH)
+@policy_function(
+    start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_SQUARE_METER.PER_MONTH
+)
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
@@ -183,7 +185,7 @@ def anerkannte_warmmiete_je_qm_m(
 
 @policy_function(
     start_date="2023-01-01",
-    unit=Unit.SQUARE_METER,
+    unit=TTSIMUnit.SQUARE_METER,
     # The Eigentum branch looks up a dynamically built table whose axes the dry-run
     # cannot model; the per-person division is covered by `wohnfläche` above.
     verify_units=False,
@@ -207,7 +209,7 @@ def berechtigte_wohnfläche(
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -218,13 +220,10 @@ def bruttokaltmiete_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return cast_unit(
-        wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh,
-        Unit.CURRENCY.PER_MONTH,
-    )
+    return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -235,22 +234,16 @@ def heizkosten_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return cast_unit(
-        wohnen__heizkosten_m_hh / anzahl_personen_hh,
-        Unit.CURRENCY.PER_MONTH,
-    )
+    return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01", unit=Unit.SQUARE_METER)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
 ) -> float:
     """Share of household's dwelling size attributed to a single person."""
-    return cast_unit(
-        wohnen__wohnfläche_hh / anzahl_personen_hh,
-        Unit.SQUARE_METER,
-    )
+    return wohnen__wohnfläche_hh / anzahl_personen_hh
 
 
 @dataclass(frozen=True)

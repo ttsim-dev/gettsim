@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Annotated
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
-    Unit,
+    TTSIMUnit,
     cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def regelbedarf_m(
     regelsatz_m: float,
@@ -37,7 +37,7 @@ def regelbedarf_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.DIMENSIONLESS
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
 def mehrbedarf_alleinerziehend(
     familie__alleinerziehend: bool,
@@ -54,9 +54,11 @@ def mehrbedarf_alleinerziehend(
 
     Reference: §21 SGB II
     """
+    # A dimensionless share: the per-child share times the child count. The count
+    # is a leveled `[person]/[fg]`, so cast it to a plain dimensionless multiplier.
     basis_mehrbedarf = parameter_mehrbedarf_alleinerziehend[
         "basis_je_kind_bis_17"
-    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, Unit.DIMENSIONLESS)
+    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -80,7 +82,7 @@ def mehrbedarf_alleinerziehend(
     start_date="2005-01-01",
     end_date="2010-12-31",
     leaf_name="kindersatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_anteilsbasiert(
     alter: int,
@@ -123,7 +125,7 @@ def kindersatz_m_anteilsbasiert(
     start_date="2011-01-01",
     end_date="2022-06-30",
     leaf_name="kindersatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
     alter: int,
@@ -164,7 +166,7 @@ def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
     start_date="2022-07-01",
     end_date="2022-12-31",
     leaf_name="kindersatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     alter: int,
@@ -203,7 +205,7 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     start_date="2005-01-01",
     end_date="2010-12-31",
     leaf_name="erwachsenensatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_bis_2010(
     mehrbedarf_alleinerziehend: float,
@@ -230,7 +232,7 @@ def erwachsenensatz_m_bis_2010(
     start_date="2011-01-01",
     end_date="2022-12-31",
     leaf_name="erwachsenensatz_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
     mehrbedarf_alleinerziehend: float,
@@ -252,7 +254,7 @@ def erwachsenensatz_m_ab_2011(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def regelsatz_m(
     erwachsenensatz_m: float,
@@ -266,7 +268,7 @@ def regelsatz_m(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="kosten_der_unterkunft_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kosten_der_unterkunft_m_bis_2022(
     berechtigte_wohnfläche: float,
@@ -279,7 +281,7 @@ def kosten_der_unterkunft_m_bis_2022(
 @policy_function(
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.CURRENCY.PER_SQUARE_METER.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_SQUARE_METER.PER_MONTH,
 )
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
@@ -295,10 +297,7 @@ def anerkannte_warmmiete_je_qm_m(
 @policy_function(
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=Unit.SQUARE_METER,
-    # The Eigentum branch looks up a dynamically built table whose axes the dry-run
-    # cannot model; the per-person division is covered by `wohnfläche` above.
-    verify_units=False,
+    unit=TTSIMUnit.SQUARE_METER,
 )
 def berechtigte_wohnfläche(
     wohnfläche: float,
@@ -313,14 +312,14 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(anzahl_personen_hh - 1, 0)
+            + max(anzahl_personen_hh - cast_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH), 0)
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
@@ -332,14 +331,11 @@ def bruttokaltmiete_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return cast_unit(
-        wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh,
-        Unit.CURRENCY.PER_MONTH,
-    )
+    return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
@@ -351,35 +347,31 @@ def heizkosten_m(
     BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
     BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
     """
-    return cast_unit(
-        wohnen__heizkosten_m_hh / anzahl_personen_hh,
-        Unit.CURRENCY.PER_MONTH,
-    )
+    return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2005-01-01", end_date="2022-12-31", unit=Unit.SQUARE_METER)
+@policy_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.SQUARE_METER
+)
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
 ) -> float:
     """Share of household's dwelling size attributed to a single person."""
-    return cast_unit(
-        wohnen__wohnfläche_hh / anzahl_personen_hh,
-        Unit.SQUARE_METER,
-    )
+    return wohnen__wohnfläche_hh / anzahl_personen_hh
 
 
 @dataclass(frozen=True)
 class RegelsatzAnteilErwachsen:
-    je_erwachsener_bei_zwei_erwachsenen: Annotated[float, Unit.DIMENSIONLESS]
-    je_erwachsener_ab_drei_erwachsene: Annotated[float, Unit.DIMENSIONLESS]
+    je_erwachsener_bei_zwei_erwachsenen: Annotated[float, TTSIMUnit.DIMENSIONLESS]
+    je_erwachsener_ab_drei_erwachsene: Annotated[float, TTSIMUnit.DIMENSIONLESS]
 
 
 @dataclass(frozen=True)
 class RegelsatzAnteilKind:
-    anteil: Annotated[float, Unit.DIMENSIONLESS]
-    min_alter: Annotated[int, Unit.YEARS]
-    max_alter: Annotated[int, Unit.YEARS]
+    anteil: Annotated[float, TTSIMUnit.DIMENSIONLESS]
+    min_alter: Annotated[int, TTSIMUnit.YEARS]
+    max_alter: Annotated[int, TTSIMUnit.YEARS]
 
 
 @dataclass(frozen=True)
@@ -391,7 +383,7 @@ class RegelsatzAnteilKindNachAlter:
 
 @dataclass(frozen=True)
 class RegelsatzAnteilsbasiert:
-    basissatz: Annotated[float, Unit.CURRENCY.PER_MONTH]
+    basissatz: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
     erwachsen: RegelsatzAnteilErwachsen
     kind: RegelsatzAnteilKindNachAlter
 
@@ -438,7 +430,11 @@ def regelsatz_anteilsbasiert(
     )
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31", unit=UNSET_UNIT)
+@param_function(
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.SQUARE_METER.PER_HH,
+)
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],

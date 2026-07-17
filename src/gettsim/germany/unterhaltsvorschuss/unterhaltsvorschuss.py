@@ -12,7 +12,7 @@ from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     cast_unit,
     join,
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn, RawParamValue
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.CURRENCY.PER_MONTH)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def an_elternteil_auszuzahlender_betrag_m(
     betrag_m: float,
     kindergeld__p_id_empfänger: int,
@@ -38,12 +38,12 @@ def an_elternteil_auszuzahlender_betrag_m(
 @policy_function(
     start_date="2009-01-01",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH,
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="up",
         reference="§ 9 Abs. 3 UhVorschG",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -75,7 +75,7 @@ def betrag_m(
     return out
 
 
-@policy_function(vectorization_strategy="not_required", unit=Unit.DIMENSIONLESS)
+@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
 def elternteil_alleinerziehend(
     kindergeld__p_id_empfänger: IntColumn,
     p_id: IntColumn,
@@ -100,13 +100,13 @@ def elternteil_alleinerziehend(
     end_date="2008-12-31",
     leaf_name="betrag_m",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH,
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="down",
         reference="§ 9 Abs. 3 UhVorschG",
     ),
     fail_msg_if_included="Unterhaltsvorschuss is not implemented prior to 2009.",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_bis_2008() -> float:
     pass
@@ -115,7 +115,7 @@ def betrag_m_bis_2008() -> float:
 @param_function(
     start_date="2023-01-01",
     leaf_name="kindergeld_erstes_kind_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindergeld_erstes_kind_ohne_staffelung_m(
     kindergeld__satz: float,
@@ -127,14 +127,14 @@ def kindergeld_erstes_kind_ohne_staffelung_m(
 @param_function(
     end_date="2022-12-31",
     leaf_name="kindergeld_erstes_kind_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindergeld_erstes_kind_gestaffelt_m(
     kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Kindergeld for first child when Kindergeld depends on number of children."""
     return cast_unit(
-        kindergeld__satz_nach_anzahl_kinder.look_up(1), Unit.CURRENCY.PER_MONTH
+        kindergeld__satz_nach_anzahl_kinder.look_up(1), TTSIMUnit.CURRENCY.PER_MONTH
     )
 
 
@@ -142,7 +142,7 @@ def kindergeld_erstes_kind_gestaffelt_m(
     start_date="2009-01-01",
     end_date="2014-12-31",
     leaf_name="anspruchshöhe_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # Plucks age bounds off a dict-of-dataclass parameter the dry-run cannot follow.
     verify_units=False,
 )
@@ -194,7 +194,7 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     start_date="2015-01-01",
     end_date="2015-12-31",
     leaf_name="anspruchshöhe_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # Plucks age bounds off a dict-of-dataclass parameter the dry-run cannot follow.
     verify_units=False,
 )
@@ -229,7 +229,7 @@ def anspruchshöhe_m_anwendungsvors(
     start_date="2016-01-01",
     end_date="2017-06-30",
     leaf_name="anspruchshöhe_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # Plucks age bounds and Satz off a dict-of-dataclass parameter the dry-run
     # cannot follow through the dict subscript.
     verify_units=False,
@@ -266,7 +266,7 @@ def anspruchshöhe_m_2016_bis_2017_06(
 @policy_function(
     start_date="2017-07-01",
     leaf_name="anspruchshöhe_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # Plucks age bounds and Satz off a dict-of-dataclass parameter, which the
     # dry-run cannot follow through the dict subscript.
     verify_units=False,
@@ -307,7 +307,7 @@ def anspruchshöhe_m_ab_2017_07(
 @policy_function(
     start_date="2017-07-01",
     vectorization_strategy="not_required",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def elternteil_mindesteinkommen_erreicht(
     kindergeld__p_id_empfänger: IntColumn,
@@ -327,7 +327,7 @@ def elternteil_mindesteinkommen_erreicht(
     )
 
 
-@policy_function(start_date="2017-07-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS)
 def mindesteinkommen_erreicht(
     einkommen_m: float,
     mindesteinkommen: float,
@@ -336,7 +336,7 @@ def mindesteinkommen_erreicht(
     return einkommen_m >= mindesteinkommen
 
 
-@policy_function(start_date="2017-07-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

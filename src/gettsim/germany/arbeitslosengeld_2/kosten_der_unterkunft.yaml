@@ -39,7 +39,9 @@ berechtigte_wohnfläche_miete:
       additional person).
       This is only an approximation. The regional parameters are unknown, see Issue
       https://github.com/ttsim-dev/gettsim/issues/782.
-  unit: SQUARE_METER
+  unit:
+    single: SQUARE_METER_PER_HH
+    je_weitere_person: SQUARE_METER
   type: dict
   2005-01-01:
     single: 45

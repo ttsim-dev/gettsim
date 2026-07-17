@@ -13,7 +13,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     AggType,
     RoundingSpec,
-    Unit,
+    TTSIMUnit,
     agg_by_group_function,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -26,12 +26,12 @@ if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
-@agg_by_group_function(agg_type=AggType.COUNT)
+@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_WTHH)
 def anzahl_personen_wthh(wthh_id: int) -> int:
     pass
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def betrag_m_wthh(
     anspruchshöhe_m_wthh: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -43,7 +43,7 @@ def betrag_m_wthh(
         return 0.0
 
 
-@policy_function(unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def anspruchshöhe_m_wthh(
     basisbetrag_m_wthh: float,
     grundsätzlich_anspruchsberechtigt_wthh: bool,
@@ -59,12 +59,12 @@ def anspruchshöhe_m_wthh(
     leaf_name="basisbetrag_m_wthh",
     end_date="2000-12-31",
     rounding_spec=RoundingSpec(
-        unit=Unit.DM.PER_MONTH,
+        unit=TTSIMUnit.DM.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
     # spellable in the unit grammar (GEP 10 D1).
     verify_units=False,
@@ -96,12 +96,12 @@ def basisbetrag_m_wthh_bis_2000(
     start_date="2001-01-01",
     end_date="2001-12-31",
     rounding_spec=RoundingSpec(
-        unit=Unit.DM.PER_MONTH,
+        unit=TTSIMUnit.DM.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
     # spellable in the unit grammar (GEP 10 D1).
     verify_units=False,
@@ -137,12 +137,12 @@ def basisbetrag_m_wthh_2001(
     leaf_name="basisbetrag_m_wthh",
     start_date="2002-01-01",
     rounding_spec=RoundingSpec(
-        unit=Unit.EUR.PER_MONTH,
+        unit=TTSIMUnit.EUR.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
     # spellable in the unit grammar (GEP 10 D1).
     verify_units=False,

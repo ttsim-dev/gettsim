@@ -17,14 +17,20 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import AggType, Unit, agg_by_p_id_function, cast_unit, policy_function
+from gettsim.tt import (
+    AggType,
+    TTSIMUnit,
+    agg_by_p_id_function,
+    cast_unit,
+    policy_function,
+)
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2019-12-31",
     leaf_name="betrag_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_mit_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
@@ -48,7 +54,7 @@ def betrag_m_mit_kindeseinkommensgrenze(
 
 
 @policy_function(
-    start_date="2020-01-01", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2020-01-01", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_m_ohne_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
@@ -84,7 +90,9 @@ def betrag_m_ohne_kindeseinkommensgrenze(
 
 
 @policy_function(
-    end_date="2022-12-31", leaf_name="anspruchshöhe_m", unit=Unit.CURRENCY.PER_MONTH
+    end_date="2022-12-31",
+    leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_m_bis_2022(
     individueller_restbedarf_m: float,
@@ -121,12 +129,14 @@ def anspruchshöhe_m_bis_2022(
         return cast_unit(
             (individueller_restbedarf_m / individueller_restbedarf_m_eg)
             * anspruch_m_eg,
-            Unit.CURRENCY.PER_MONTH,
+            TTSIMUnit.CURRENCY.PER_MONTH,
         )
 
 
 @policy_function(
-    start_date="2023-01-01", leaf_name="anspruchshöhe_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2023-01-01",
+    leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_m_ab_2023(
     individueller_restbedarf_m: float,
@@ -163,11 +173,11 @@ def anspruchshöhe_m_ab_2023(
         return cast_unit(
             (individueller_restbedarf_m / individueller_restbedarf_m_eg)
             * anspruch_m_eg,
-            Unit.CURRENCY.PER_MONTH,
+            TTSIMUnit.CURRENCY.PER_MONTH,
         )
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def individueller_restbedarf_m(
     bedarf_m: float,
     einkommen_zur_verteilung_m: float,
@@ -181,7 +191,7 @@ def individueller_restbedarf_m(
 
 
 @policy_function(
-    end_date="2022-12-31", leaf_name="bedarf_m", unit=Unit.CURRENCY.PER_MONTH
+    end_date="2022-12-31", leaf_name="bedarf_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def bedarf_m_bis_2022(
     arbeitslosengeld_2__regelbedarf_m: float,
@@ -202,7 +212,7 @@ def bedarf_m_bis_2022(
 
 
 @policy_function(
-    start_date="2023-01-01", leaf_name="bedarf_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2023-01-01", leaf_name="bedarf_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def bedarf_m_ab_2023(
     bürgergeld__regelbedarf_m: float,
@@ -222,7 +232,7 @@ def bedarf_m_ab_2023(
         return bürgergeld__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_zur_verteilung_m(
     einkommen_m: float,
     sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
@@ -237,7 +247,7 @@ def einkommen_zur_verteilung_m(
         return einkommen_m
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_MONTH.PER_EG)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG)
 def überschusseinkommen_m_eg(
     einkommen_zur_verteilung_m_eg: float,
     bedarf_m_eg: float,
@@ -255,7 +265,7 @@ def überschusseinkommen_m_eg(
 @policy_function(
     end_date="2010-12-31",
     leaf_name="mehrbedarf_schwerbehinderung_g_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     schwerbehindert_grad_g: bool,
@@ -270,7 +280,7 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
     elif (schwerbehindert_grad_g) and (
-        cast_unit(familie__anzahl_erwachsene_eg, Unit.DIMENSIONLESS) > 1
+        cast_unit(familie__anzahl_erwachsene_eg, TTSIMUnit.DIMENSIONLESS) > 1
     ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
@@ -286,7 +296,7 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
 @policy_function(
     start_date="2011-01-01",
     leaf_name="mehrbedarf_schwerbehinderung_g_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     schwerbehindert_grad_g: bool,
@@ -309,7 +319,7 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
         out = mehrbedarf_single
     elif (schwerbehindert_grad_g) and (
-        cast_unit(familie__anzahl_erwachsene_eg, Unit.DIMENSIONLESS) > 1
+        cast_unit(familie__anzahl_erwachsene_eg, TTSIMUnit.DIMENSIONLESS) > 1
     ):
         out = mehrbedarf_in_couple
     else:
@@ -318,7 +328,7 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     return out
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS.PER_EG)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
 def vermögensgrenze_unterschritten_eg(
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
@@ -327,7 +337,7 @@ def vermögensgrenze_unterschritten_eg(
     return vermögen_eg < vermögensfreibetrag_eg
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.CURRENCY.PER_EG)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_EG)
 def vermögensfreibetrag_eg(
     familie__anzahl_kinder_eg: int,
     familie__anzahl_erwachsene_eg: int,
@@ -340,7 +350,7 @@ def vermögensfreibetrag_eg(
     )
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     einkommensteuer__gesamteinkommen_y_sn: float,
     einkommensgrenze_kinder: float,
@@ -351,12 +361,12 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     """
     # The child's Steuernummer-level Gesamteinkommen is read as their individual income.
     return (
-        cast_unit(einkommensteuer__gesamteinkommen_y_sn, Unit.CURRENCY.PER_YEAR)
+        cast_unit(einkommensteuer__gesamteinkommen_y_sn, TTSIMUnit.CURRENCY.PER_YEAR)
         >= einkommensgrenze_kinder
     )
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY)
+@agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
@@ -365,7 +375,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY)
+@agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
@@ -374,7 +384,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze(
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,

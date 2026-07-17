@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from ttsim.unit_converters import m_to_y, y_to_m
 
-from gettsim.tt import Unit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_unit, policy_function
 
 if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     start_date="2001-01-01",
     end_date="2023-06-30",
     leaf_name="betrag_m",
-    unit=Unit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_nach_wohnort(
     zugangsfaktor: float,
@@ -50,7 +50,7 @@ def betrag_m_nach_wohnort(
 
 
 @policy_function(
-    start_date="2023-07-01", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2023-07-01", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_m_einheitlich(
     zugangsfaktor: float,
@@ -75,7 +75,7 @@ def betrag_m_einheitlich(
     return out
 
 
-@policy_function(start_date="2001-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     voll_erwerbsgemindert: bool,
     teilweise_erwerbsgemindert: bool,
@@ -97,7 +97,7 @@ def grundsätzlich_anspruchsberechtigt(
 
 
 @policy_function(
-    start_date="2001-01-01", end_date="2023-06-30", unit=Unit.DIMENSIONLESS
+    start_date="2001-01-01", end_date="2023-06-30", unit=TTSIMUnit.DIMENSIONLESS
 )
 def entgeltpunkte_west(
     sozialversicherung__rente__entgeltpunkte_west: float,
@@ -116,7 +116,7 @@ def entgeltpunkte_west(
 
 
 @policy_function(
-    start_date="2001-01-01", end_date="2023-06-30", unit=Unit.DIMENSIONLESS
+    start_date="2001-01-01", end_date="2023-06-30", unit=TTSIMUnit.DIMENSIONLESS
 )
 def entgeltpunkte_ost(
     sozialversicherung__rente__entgeltpunkte_ost: float,
@@ -136,7 +136,7 @@ def entgeltpunkte_ost(
     )
 
 
-@policy_function(start_date="2023-07-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2023-07-01", unit=TTSIMUnit.DIMENSIONLESS)
 def entgeltpunkte(
     sozialversicherung__rente__entgeltpunkte: float,
     zusätzliche_entgeltpunkte_durch_zurechnungszeit: float,
@@ -159,7 +159,7 @@ def entgeltpunkte(
     start_date="2000-12-23",
     end_date="2014-06-30",
     leaf_name="zusätzliche_entgeltpunkte_durch_zurechnungszeit",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_bis_06_2014(
     mean_entgeltpunkte_pro_bewertungsmonat: float,
@@ -177,9 +177,11 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
     claiming_month_since_ad = cast_unit(
-        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
-        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(
+            cast_unit(sozialversicherung__rente__jahr_renteneintritt, TTSIMUnit.YEARS)
+        )
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
@@ -188,7 +190,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
         cast_unit(
             altersgrenze_zurechnungszeit
             - sozialversicherung__rente__alter_bei_renteneintritt,
-            Unit.DIMENSIONLESS,
+            TTSIMUnit.DIMENSIONLESS,
         )
         * mean_entgeltpunkte_pro_bewertungsmonat
     )
@@ -198,7 +200,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     start_date="2014-07-01",
     end_date="2017-07-16",
     leaf_name="zusätzliche_entgeltpunkte_durch_zurechnungszeit",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgrenze(
     mean_entgeltpunkte_pro_bewertungsmonat: float,
@@ -216,7 +218,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     return (
         cast_unit(
             zurechnungszeitgrenze - sozialversicherung__rente__alter_bei_renteneintritt,
-            Unit.DIMENSIONLESS,
+            TTSIMUnit.DIMENSIONLESS,
         )
         * mean_entgeltpunkte_pro_bewertungsmonat
     )
@@ -225,7 +227,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
 @policy_function(
     start_date="2017-07-17",
     leaf_name="zusätzliche_entgeltpunkte_durch_zurechnungszeit",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_ab_07_2017(
     mean_entgeltpunkte_pro_bewertungsmonat: float,
@@ -243,9 +245,11 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
     claiming_month_since_ad = cast_unit(
-        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
-        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(
+            cast_unit(sozialversicherung__rente__jahr_renteneintritt, TTSIMUnit.YEARS)
+        )
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
@@ -254,13 +258,13 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
         cast_unit(
             altersgrenze_zurechnungszeit
             - sozialversicherung__rente__alter_bei_renteneintritt,
-            Unit.DIMENSIONLESS,
+            TTSIMUnit.DIMENSIONLESS,
         )
         * mean_entgeltpunkte_pro_bewertungsmonat
     )
 
 
-@policy_function(start_date="2001-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def rentenartfaktor(
     teilweise_erwerbsgemindert: bool,
     parameter_rentenartfaktor: dict[str, float],
@@ -276,7 +280,7 @@ def rentenartfaktor(
 
 
 @policy_function(
-    end_date="2011-12-31", leaf_name="zugangsfaktor", unit=Unit.DIMENSIONLESS
+    end_date="2011-12-31", leaf_name="zugangsfaktor", unit=TTSIMUnit.DIMENSIONLESS
 )
 def zugangsfaktor_ohne_gestaffelte_altersgrenze(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
@@ -308,7 +312,7 @@ def zugangsfaktor_ohne_gestaffelte_altersgrenze(
 
 
 @policy_function(
-    start_date="2012-01-01", leaf_name="zugangsfaktor", unit=Unit.DIMENSIONLESS
+    start_date="2012-01-01", leaf_name="zugangsfaktor", unit=TTSIMUnit.DIMENSIONLESS
 )
 def zugangsfaktor_mit_gestaffelter_altersgrenze(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
@@ -336,9 +340,11 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
     Berücksichtigungszeiten and certain Anrechnungszeiten or Ersatzzeiten).
     """
     claiming_month_since_ad = cast_unit(
-        y_to_m(cast_unit(sozialversicherung__rente__jahr_renteneintritt, Unit.YEARS))
-        + cast_unit(sozialversicherung__rente__monat_renteneintritt, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(
+            cast_unit(sozialversicherung__rente__jahr_renteneintritt, TTSIMUnit.YEARS)
+        )
+        + cast_unit(sozialversicherung__rente__monat_renteneintritt, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
 
     if wartezeit_langjährig_versichert_erfüllt:
@@ -360,7 +366,7 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
 
 # TODO(@MImmesberger): Reuse Altersrente Wartezeiten for Erwerbsminderungsrente
 # https://github.com/ttsim-dev/gettsim/issues/838
-@policy_function(start_date="2001-01-01", unit=Unit.DIMENSIONLESS)
+@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def wartezeit_langjährig_versichert_erfüllt(
     sozialversicherung__rente__pflichtbeitragsmonate: float,
     sozialversicherung__rente__freiwillige_beitragsmonate: float,
@@ -403,7 +409,7 @@ def wartezeit_langjährig_versichert_erfüllt(
     )
 
 
-@policy_function(end_date="2023-06-30", unit=Unit.DIMENSIONLESS)
+@policy_function(end_date="2023-06-30", unit=TTSIMUnit.DIMENSIONLESS)
 def anteil_entgeltpunkte_ost(
     sozialversicherung__rente__entgeltpunkte_west: float,
     sozialversicherung__rente__entgeltpunkte_ost: float,
@@ -426,7 +432,7 @@ def anteil_entgeltpunkte_ost(
 @policy_function(
     end_date="2023-06-30",
     leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     sozialversicherung__rente__entgeltpunkte_west: float,
@@ -446,7 +452,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     belegungsfähiger_gesamtzeitraum = cast_unit(
         sozialversicherung__rente__alter_bei_renteneintritt
         - altersgrenze_grundbewertung,
-        Unit.DIMENSIONLESS,
+        TTSIMUnit.DIMENSIONLESS,
     )
 
     return (
@@ -458,7 +464,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
 @policy_function(
     start_date="2023-07-01",
     leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
     sozialversicherung__rente__entgeltpunkte: float,
@@ -477,7 +483,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
     belegungsfähiger_gesamtzeitraum = cast_unit(
         sozialversicherung__rente__alter_bei_renteneintritt
         - altersgrenze_grundbewertung,
-        Unit.DIMENSIONLESS,
+        TTSIMUnit.DIMENSIONLESS,
     )
 
     return sozialversicherung__rente__entgeltpunkte / belegungsfähiger_gesamtzeitraum

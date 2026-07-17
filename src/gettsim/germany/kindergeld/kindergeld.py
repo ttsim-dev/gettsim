@@ -8,7 +8,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
-    Unit,
+    TTSIMUnit,
     agg_by_p_id_function,
     cast_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, unit=Unit.DIMENSIONLESS)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_ansprüche(
     ist_leistungsbegründendes_kind: bool,
     p_id_empfänger: int,
@@ -33,7 +33,7 @@ def anzahl_ansprüche(
 
 
 @policy_function(
-    start_date="2023-01-01", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+    start_date="2023-01-01", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_ohne_staffelung_m(
     anzahl_ansprüche: int,
@@ -49,7 +49,7 @@ def betrag_ohne_staffelung_m(
 
 
 @policy_function(
-    end_date="2022-12-31", leaf_name="betrag_m", unit=Unit.CURRENCY.PER_MONTH
+    end_date="2022-12-31", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
 def betrag_gestaffelt_m(
     anzahl_ansprüche: int,
@@ -62,7 +62,7 @@ def betrag_gestaffelt_m(
 
     """
     return cast_unit(
-        satz_nach_anzahl_kinder.look_up(anzahl_ansprüche), Unit.CURRENCY.PER_MONTH
+        satz_nach_anzahl_kinder.look_up(anzahl_ansprüche), TTSIMUnit.CURRENCY.PER_MONTH
     )
 
 
@@ -70,7 +70,7 @@ def betrag_gestaffelt_m(
     end_date="1995-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
     fail_msg_if_included="Kindergeld eligibility is not implemented prior to 1996.",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     pass
@@ -80,7 +80,7 @@ def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     start_date="1996-01-01",
     end_date="2011-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
@@ -106,7 +106,7 @@ def leistungsbegründendes_kind_nach_lohn(
 @policy_function(
     start_date="2012-01-01",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=Unit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_stunden(
     alter: int,
@@ -128,16 +128,16 @@ def leistungsbegründendes_kind_nach_stunden(
     )
 
 
-@policy_function(end_date="2015-12-31", unit=Unit.DIMENSIONLESS)
+@policy_function(end_date="2015-12-31", unit=TTSIMUnit.DIMENSIONLESS)
 def kind_bis_10_mit_kindergeld(
     alter: int,
     ist_leistungsbegründendes_kind: bool,
 ) -> bool:
     """Child under the age of 11 and eligible for Kindergeld."""
-    return ist_leistungsbegründendes_kind and (alter <= cast_unit(10, Unit.YEARS))
+    return ist_leistungsbegründendes_kind and (alter <= cast_unit(10, TTSIMUnit.YEARS))
 
 
-@policy_function(vectorization_strategy="not_required", unit=Unit.DIMENSIONLESS)
+@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
 def gleiche_fg_wie_empfänger(
     p_id: IntColumn,
     p_id_empfänger: IntColumn,

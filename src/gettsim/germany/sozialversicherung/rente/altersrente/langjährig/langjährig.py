@@ -6,7 +6,7 @@ from ttsim.unit_converters import y_to_m
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
-    Unit,
+    TTSIMUnit,
     cast_unit,
     policy_function,
 )
@@ -15,7 +15,7 @@ from gettsim.tt import (
 @policy_function(
     start_date="1989-12-18",
     leaf_name="altersgrenze",
-    unit=Unit.YEARS,
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_gestaffelt_ab_1989(
     geburtsjahr: int,
@@ -33,9 +33,9 @@ def altersgrenze_gestaffelt_ab_1989(
     Does not check for eligibility for this pathway into retirement.
     """
     birth_month_since_ad = cast_unit(
-        y_to_m(cast_unit(geburtsjahr, Unit.YEARS))
-        + cast_unit(geburtsmonat - 1, Unit.MONTHS),
-        Unit.CALENDAR_MONTH,
+        y_to_m(cast_unit(geburtsjahr, TTSIMUnit.YEARS))
+        + cast_unit(geburtsmonat - 1, TTSIMUnit.MONTHS),
+        TTSIMUnit.CALENDAR_MONTH,
     )
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
@@ -44,7 +44,7 @@ def altersgrenze_gestaffelt_ab_1989(
     start_date="1989-12-18",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
-    unit=Unit.YEARS,
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     geburtsjahr: int,
@@ -57,7 +57,7 @@ def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     return altersgrenze_vorzeitig_gestaffelt.look_up(geburtsjahr)
 
 
-@policy_function(unit=Unit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     sozialversicherung__rente__wartezeit_35_jahre_erfüllt: bool,
 ) -> bool:
