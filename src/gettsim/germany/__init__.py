@@ -6,15 +6,7 @@ from ttsim.tt import UnitSystem
 
 ROOT_PATH = Path(__file__).parent
 
-# Germany's unit system, built on import so the [currency] dimension has concrete
-# currencies and the fluent builder offers `TTSIMUnit.X.PER_HH` / `per_bg` / … before
-# the policy modules (whose decorators use them) are loaded (GEP 10). The euro is
-# the base currency; the Deutsche Mark is worth 1/1.95583 euro, the rate fixed by
-# the Euro-Einführungsgesetz. The statutory-currency mapping tells the engine
-# which currency each policy date computes in: the Deutsche Mark through 2001 and
-# the euro from 2002, when the euro became legal tender. Parameters are never
-# converted (GEP 10) — every pre-2002 currency value carries its statutory DM
-# amount, every value from 2002 its statutory euro amount.
+
 UNIT_SYSTEM = UnitSystem(
     base_currency="EUR",
     other_currencies={"DM": "EUR / 1.95583"},

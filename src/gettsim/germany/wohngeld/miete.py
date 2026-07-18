@@ -9,7 +9,6 @@ from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
-    cast_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -166,7 +165,7 @@ def klimakomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def miete_m_wthh(
     miete_m_hh: float,
     anzahl_personen_wthh: int,
@@ -175,22 +174,16 @@ def miete_m_wthh(
     """Rent considered in housing benefit calculation on wohngeldrechtlicher
     Teilhaushalt level.
     """
-    return cast_unit(
-        miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh),
-        TTSIMUnit.CURRENCY.PER_MONTH,
-    )
+    return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
 
 
-@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def min_miete_m_hh(
     anzahl_personen_hh: int,
     min_miete_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Minimum rent considered in Wohngeld calculation."""
-    return cast_unit(
-        min_miete_lookup.look_up(anzahl_personen_hh),
-        TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    )
+    return min_miete_lookup.look_up(anzahl_personen_hh)
 
 
 @policy_function(
@@ -198,9 +191,6 @@ def min_miete_m_hh(
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Three input axes with different units resolved via `xnp.searchsorted`, which
-    # the dry-run cannot evaluate symbolically.
-    verify_units=False,
 )
 def miete_m_hh_mit_baujahr(
     mietstufe_hh: int,
@@ -237,11 +227,7 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     max_miete_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Rent considered in housing benefit since 2009."""
-    anzahl_personen = cast_unit(anzahl_personen_hh, TTSIMUnit.DIMENSIONLESS)
-    max_miete_m = cast_unit(
-        max_miete_m_lookup.look_up(anzahl_personen, mietstufe_hh),
-        TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    )
+    max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
     return max(min(wohnen__bruttokaltmiete_m_hh, max_miete_m), min_miete_m_hh)
 
@@ -261,13 +247,9 @@ def miete_m_hh_mit_heizkostenentlastung(
     heizkostenentlastung_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Rent considered in housing benefit since 2009."""
-    anzahl_personen = cast_unit(anzahl_personen_hh, TTSIMUnit.DIMENSIONLESS)
-    max_miete_m = cast_unit(
-        max_miete_m_lookup.look_up(anzahl_personen, mietstufe_hh),
-        TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    )
+    max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
-    heating_allowance_m = heizkostenentlastung_m_lookup.look_up(anzahl_personen)
+    heating_allowance_m = heizkostenentlastung_m_lookup.look_up(anzahl_personen_hh)
 
     return (
         max(min(wohnen__bruttokaltmiete_m_hh, max_miete_m), min_miete_m_hh)
@@ -291,17 +273,13 @@ def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakom
     klimakomponente_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Rent considered in housing benefit since 2009."""
-    anzahl_personen = cast_unit(anzahl_personen_hh, TTSIMUnit.DIMENSIONLESS)
-    max_miete_m = cast_unit(
-        max_miete_m_lookup.look_up(anzahl_personen, mietstufe_hh),
-        TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    )
+    max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
-    heizkostenentlastung = heizkostenentlastung_m_lookup.look_up(anzahl_personen)
+    heizkostenentlastung = heizkostenentlastung_m_lookup.look_up(anzahl_personen_hh)
     dauerhafte_heizkostenkomponente = dauerhafte_heizkostenkomponente_m_lookup.look_up(
-        anzahl_personen
+        anzahl_personen_hh
     )
-    klimakomponente = klimakomponente_m_lookup.look_up(anzahl_personen)
+    klimakomponente = klimakomponente_m_lookup.look_up(anzahl_personen_hh)
     return (
         max(
             min(wohnen__bruttokaltmiete_m_hh, max_miete_m + klimakomponente),

@@ -26,13 +26,11 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165
-    # The check assumes WTHH = BG, so compare BG-level resources against the BG need.
-    return cast_unit(
+    return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
         + cast_unit(wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        >= arbeitslosengeld_2__regelbedarf_m_bg
     )
 
 
@@ -56,11 +54,9 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165
-    # The check assumes WTHH = BG, so compare BG-level resources against the BG need.
-    return cast_unit(
+    return (
         bürgergeld__anzurechnendes_einkommen_m_bg
         + cast_unit(wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= bürgergeld__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        >= bürgergeld__regelbedarf_m_bg
     )

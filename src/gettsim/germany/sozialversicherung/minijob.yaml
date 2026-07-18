@@ -6,7 +6,6 @@ minijobgrenze_m:
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     unit: DM_PER_MONTH
@@ -44,10 +43,9 @@ parameter_minijobgrenze_ost_west_unterschied:
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: EUR_PER_MONTH
+  unit: DM_PER_MONTH
   type: dict
   1990-01-01:
-    unit: DM_PER_MONTH
     west: 470
     ost: 200
   1991-01-01:

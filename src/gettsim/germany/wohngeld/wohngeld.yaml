@@ -18,7 +18,7 @@ max_anzahl_personen:
         calculation of the housing allowance.
       - `indizierung` is not a policy parameter, but determines the size of the
         lookup tables.
-  unit: DIMENSIONLESS
+  unit: PERSON_COUNT_PER_HH
   type: dict
   1984-01-01:
     normale_berechnung: 12
@@ -547,7 +547,7 @@ koeffizienten_berechnungsformel:
     12:
       b: 1.107E-4
       c: 2.210E-5
-zusatzbetrag_pro_person_in_großen_haushalten:
+zusatzbetrag_pro_person_in_großen_haushalten_m:
   name:
     de: Zusätzlicher Betrag pro Person in sehr großen Haushalten
     en: Additional amount per member in very big households
@@ -566,7 +566,6 @@ zusatzbetrag_pro_person_in_großen_haushalten:
       The introduction date of the parameter is not entirely clear. It is contained in
       the re-enactment of the WoGG 2002, but not in the 1993 Novelle, see BGBl I 1993
       S. 183.
-  unit: EUR_PER_MONTH
   type: scalar
   2001-01-01:
     unit: DM_PER_MONTH

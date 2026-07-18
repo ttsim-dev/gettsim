@@ -11,9 +11,18 @@ raw_mindestunterhalt:
       Minimum Child Alimony depending on age of child (0 - 5 years, 6 - 11 years, 12 -
       17 years).
   unit:
-    kleinkind: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
-    schulkind: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
-    jugendliche: {satz: EUR_PER_MONTH, min_alter: YEARS, max_alter: YEARS}
+    kleinkind:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
+    schulkind:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
+    jugendliche:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
   type: require_converter
   2016-01-01:
     kleinkind:
@@ -119,7 +128,7 @@ raw_mindestunterhalt:
     jugendliche:
       satz: 653
     reference: Artikel 1 V. v. 21.11.2024 BGBl. 2024 I Nr. 359
-mindesteinkommen:
+mindesteinkommen_m:
   name:
     de: >-
       Monatliches Mindesteinkommen, um Unterhaltsvorschuss für Jugendliche (Kinder von

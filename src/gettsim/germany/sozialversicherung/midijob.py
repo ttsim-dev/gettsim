@@ -24,7 +24,7 @@ def in_gleitzone(
     )
 
 
-@policy_function(verify_units=False, unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     einnahmen__bruttolohn_m: float,
     minijobgrenze_m: float,
@@ -42,7 +42,6 @@ def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
 
 
 @param_function(
-    verify_units=False,
     start_date="2003-04-01",
     end_date="2004-12-31",
     leaf_name="midijob_faktor_f",
@@ -86,7 +85,6 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_bis_2004(
 
 
 @param_function(
-    verify_units=False,
     start_date="2005-01-01",
     end_date="2022-09-30",
     leaf_name="midijob_faktor_f",
@@ -130,7 +128,6 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_ab_2005_bis_2022_09(
 
 
 @param_function(
-    verify_units=False,
     start_date="2022-10-01",
     leaf_name="midijob_faktor_f",
     unit=TTSIMUnit.DIMENSIONLESS,
@@ -176,7 +173,6 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
 
 
 @policy_function(
-    verify_units=False,
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="midijob_bemessungsentgelt_m",
@@ -208,7 +204,6 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
 
 
 @policy_function(
-    verify_units=False,
     start_date="2022-10-01",
     leaf_name="midijob_bemessungsentgelt_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,

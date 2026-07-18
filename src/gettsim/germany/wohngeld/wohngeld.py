@@ -65,9 +65,6 @@ def anspruchshöhe_m_wthh(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
-    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
-    # spellable in the unit grammar (GEP 10 D1).
-    verify_units=False,
 )
 def basisbetrag_m_wthh_bis_2000(
     anzahl_personen_wthh: int,
@@ -102,9 +99,6 @@ def basisbetrag_m_wthh_bis_2000(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
-    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
-    # spellable in the unit grammar (GEP 10 D1).
-    verify_units=False,
 )
 def basisbetrag_m_wthh_2001(
     anzahl_personen_wthh: int,
@@ -143,9 +137,6 @@ def basisbetrag_m_wthh_2001(
         reference="§ 19 WoGG Abs.2 Anlage 3",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
-    # Quadratic in (Miete, Einkommen); its per-currency coefficients are not
-    # spellable in the unit grammar (GEP 10 D1).
-    verify_units=False,
 )
 def basisbetrag_m_wthh_ab_2002(
     anzahl_personen_wthh: int,
@@ -192,9 +183,9 @@ def basisformel_params_bis_2000(
     """Convert the parameters of the Wohngeld basis formula to a format that can be
     used by Numpy and Jax.
 
-    Note: Not entirely sure that 'zusatzbetrag_pro_person_in_großen_haushalten' was not
-    part of the pre-2001 parameters. At least it wasn't part of the 1993 novella, see
-    BGBl I 1993 S. 183.
+    Note: Not entirely sure that 'zusatzbetrag_pro_person_in_großen_haushalten_m' was
+    not part of the pre-2001 parameters. At least it wasn't part of the 1993 novella,
+    see BGBl I 1993 S. 183.
     """
     a = {i: v["a"] for i, v in koeffizienten_berechnungsformel.items()}
     b = {i: v["b"] for i, v in koeffizienten_berechnungsformel.items()}
@@ -229,7 +220,7 @@ def basisformel_params_ab_2001(
     skalierungsfaktor: float,
     koeffizienten_berechnungsformel: dict[int, dict[str, float]],
     max_anzahl_personen: dict[str, int],
-    zusatzbetrag_pro_person_in_großen_haushalten: float,
+    zusatzbetrag_pro_person_in_großen_haushalten_m: float,
     xnp: ModuleType,
 ) -> BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße:
     """Convert the parameters of the Wohngeld basis formula to a format that can be
@@ -252,7 +243,7 @@ def basisformel_params_ab_2001(
         for koeff in [a, b, c]:
             koeff[i] = koeff[max_normal]
         zusatzbetrag_nach_haushaltsgröße[i] = float(
-            (i - max_normal) * zusatzbetrag_pro_person_in_großen_haushalten
+            (i - max_normal) * zusatzbetrag_pro_person_in_großen_haushalten_m
         )
 
     return BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(

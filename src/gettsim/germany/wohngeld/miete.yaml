@@ -14,23 +14,9 @@ raw_min_miete_m:
       Parameter is dependent on the number of household members. Keys in the parameter
       dicts refer to the number of household members. If there are more than 12 members,
       the value for 12 members is used.
-  unit: EUR_PER_MONTH
   type: dict
-  1984-01-01:
-    unit: DM_PER_MONTH
-    1: 0
-    2: 0
-    3: 0
-    4: 0
-    5: 0
-    6: 0
-    7: 0
-    8: 0
-    9: 0
-    10: 0
-    11: 0
-    12: 0
   2001-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1: 44.01
     2: 44.01
     3: 53.79
@@ -46,7 +32,7 @@ raw_min_miete_m:
     reference: Art. 5 G. v. 22.12.1999, BGBl I S. 2671 (Anlage 2 Nr. 3).
     note: >-
       Anlage 2 nennt die Mindestwerte für „M“ in Euro und schreibt vor, eine in
-      Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; hier in
+      Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; daher hier in
       Deutsche Mark umgerechnet.
   2002-01-01:
     unit: EUR_PER_MONTH
@@ -130,7 +116,6 @@ raw_max_miete_m_nach_baujahr:
       - maximales Baujahr des Hauses
       - Mietstufe
     en: null
-  unit: EUR_PER_MONTH
   type: require_converter
   1981-01-01:
     unit: DM_PER_MONTH
@@ -241,7 +226,6 @@ raw_max_miete_m_nach_baujahr:
       Bis 1985 nur drei Mietstufen, streng abhängig von der Größe der Gemeinde. Es
       wird "Wohnung mit Sammelheizung und mit Bad oder Duschraum" angenommen.
   1985-01-01:
-    unit: DM_PER_MONTH
     1:
       1965:
         1: 285
@@ -397,7 +381,6 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1990-01-01:
-    unit: DM_PER_MONTH
     1:
       1965:
         1: 285
@@ -577,7 +560,6 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1990-10-01:
-    unit: DM_PER_MONTH
     1:
       1965:
         1: 310
@@ -715,7 +697,6 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1993-01-01:
-    unit: DM_PER_MONTH
     1:
       1965:
         1: 310
@@ -895,7 +876,6 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   2001-01-01:
-    unit: DM_PER_MONTH
     1:
       1965:
         1: 391.17
@@ -1030,7 +1010,7 @@ raw_max_miete_m_nach_baujahr:
         6: 176.02
     reference: Art. 5 G. v. 22.12.1999, BGBl I S. 2671.
   2002-01-01:
-    unit: EUR_PER_MONTH
+    unit: EUR_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 200
@@ -1430,7 +1410,7 @@ raw_heizkostenentlastung_m:
       Amount of relief in heating costs due to CO2 pricing in Euro depending on
       household size
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH_PER_HH
+  output_unit: EUR_PER_MONTH_PER_WTHH
   type: require_converter
   2021-01-01:
     reference: §12 (6) WoGG, Art. 1 G. v. 15.05.2020, BGBl I S. 1015.
@@ -1452,7 +1432,7 @@ raw_dauerhafte_heizkostenkomponente_m:
       Permanent heating cost component depending on household size introduced with the
       housing subsidy reform 2023
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH_PER_HH
+  output_unit: EUR_PER_MONTH_PER_WTHH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
@@ -1476,7 +1456,7 @@ raw_klimakomponente_m:
       amounts pursuant to § 12 (1) in Euro depending on the size of the household;
       introduced with the housing subsidy reform 2023
   input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH_PER_HH
+  output_unit: EUR_PER_MONTH_PER_WTHH
   type: require_converter
   2023-01-01:
     reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160

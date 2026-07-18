@@ -5,12 +5,12 @@ from __future__ import annotations
 from gettsim.tt import TTSIMUnit, policy_input
 
 
-@policy_input(end_date="2008-12-31", unit=TTSIMUnit.CALENDAR_YEAR)
+@policy_input(end_date="2008-12-31", unit=TTSIMUnit.CALENDAR_YEAR.PER_HH)
 def baujahr_immobilie_hh() -> int:
     """Year of construction of the household dwelling."""
 
 
-@policy_input(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_input(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_HH)
 def bewohnt_eigentum_hh() -> bool:
     """Owner-occupied housing."""
 

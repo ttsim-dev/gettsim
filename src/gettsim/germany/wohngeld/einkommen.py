@@ -37,25 +37,24 @@ def alleinerziehendenbonus(
 
 
 @param_function(unit=UNSET_UNIT)
-def min_einkommen_lookup_table(
-    min_einkommen: dict[int, float],
+def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
+    mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Create a LookupTable for the min income thresholds."""
-    return get_consecutive_int_lookup_table_param_value(raw=min_einkommen, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(
+        raw=mindesteinkommen_nach_haushaltsgröße_m_wthh, xnp=xnp
+    )
 
 
 @policy_function(
-    unit=TTSIMUnit.CURRENCY.PER_MONTH,
-    # Clamps the look-up index with a raw `xnp` op reading the table's `.shape`,
-    # which the dry-run cannot evaluate symbolically.
-    verify_units=False,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
 def einkommen_m_wthh(
     anzahl_personen_wthh: int,
     freibetrag_m_wthh: float,
     einkommen_vor_freibetrag_m_wthh: float,
-    min_einkommen_lookup_table: ConsecutiveIntLookupTableParamValue,
+    mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table: ConsecutiveIntLookupTableParamValue,
     xnp: ModuleType,
 ) -> float:
     """Income relevant for Wohngeld calculation.
@@ -63,10 +62,12 @@ def einkommen_m_wthh(
     Reference: § 13 WoGG
     """
     einkommen_ohne_freibetrag = einkommen_vor_freibetrag_m_wthh - freibetrag_m_wthh
-    mindesteinkommen = min_einkommen_lookup_table.look_up(
+    mindesteinkommen = mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.look_up(
         xnp.minimum(
             anzahl_personen_wthh,
-            min_einkommen_lookup_table.values_to_look_up.shape[0],
+            mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.values_to_look_up.shape[
+                0
+            ],
         )
     )
 

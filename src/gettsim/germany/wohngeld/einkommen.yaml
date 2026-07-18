@@ -1,5 +1,5 @@
 ---
-min_einkommen:
+mindesteinkommen_nach_haushaltsgröße_m_wthh:
   name:
     de: Minimalwert für Parameter Y
     en: null
@@ -15,10 +15,9 @@ min_einkommen:
       Parameter Y is dependent on the number of household members (in the Wohngeld
       sense). Keys in the parameter dicts refer to the number of household members. If
       there are more than 12 members, the value for 12 members is used.
-  unit: EUR_PER_MONTH
   type: dict
   1984-01-01:
-    unit: DM_PER_MONTH
+    unit: DM_PER_MONTH_PER_WTHH
     1: 0
     2: 0
     3: 0
@@ -50,7 +49,7 @@ min_einkommen:
       Deutsche Mark ermitteltes Einkommen zuvor durch 1,95583 zu teilen; hier in
       Deutsche Mark umgerechnet.
   2002-01-01:
-    unit: EUR_PER_MONTH
+    unit: EUR_PER_MONTH_PER_WTHH
     1: 120
     2: 150
     3: 200

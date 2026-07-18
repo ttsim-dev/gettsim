@@ -14,7 +14,9 @@ zugangsfaktor_veränderung_pro_jahr:
       Factor with which the Zugangsfaktor / "access factor" for receiving the statutory
       pension is increased/decreased for each year of less/more work.
       Careful: There are many exceptions to this rule!
-  unit: DIMENSIONLESS_PER_YEAR
+  unit:
+    vorzeitiger_renteneintritt: DIMENSIONLESS_PER_YEAR
+    späterer_renteneintritt: DIMENSIONLESS_PER_YEAR
   type: dict
   2001-01-01:
     vorzeitiger_renteneintritt: 0.036
@@ -32,17 +34,12 @@ parameter_rentenwert_nach_wohnort:
       statistik-rente.de/drv,  § 68 SGB VI
       The current pension value expresses the amount of monthly pension paid for one
       Entgeltpunkt.
-  unit: EUR_PER_MONTH
   type: dict
   1992-01-01:
     unit: DM_PER_MONTH
     west: 41.44
     ost: 23.57
     reference: § 68 Abs. 1 SGB VI; Art. 1 V. v. 19.12.1991 BGBl. I S. 2344 (Ost).
-    note: >-
-      § 68 Abs. 1 SGB VI bestimmt den aktuellen Rentenwert bis zum 30. Juni 1992 nicht
-      als Betrag, sondern als die Rente für einen Entgeltpunkt im Dezember 1991; der
-      West-Wert ist daher nicht im Bundesgesetzblatt beziffert.
   1992-07-01:
     west: 42.63
     ost: 26.57

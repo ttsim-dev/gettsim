@@ -12,7 +12,9 @@ höchstwert_der_entgeltpunkte:
       § 76g Abs. 4 S. 3, 4 SGB VI
       constant to determine Höchstwert of additional Entgeltpunkte and effect of an
       additional month of Grundrentenzeiten on Höchstwert.
-  unit: DIMENSIONLESS
+  unit:
+    base: DIMENSIONLESS
+    increment: DIMENSIONLESS_PER_MONTH
   type: dict
   2021-01-01:
     base: 0.0334

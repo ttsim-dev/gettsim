@@ -32,12 +32,12 @@ def geburtsjahr() -> int:
     """Birth year."""
 
 
-@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_input(unit=TTSIMUnit.CALENDAR_MONTH)
 def geburtsmonat() -> int:
     """Month of birth (within year)."""
 
 
-@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_input(unit=TTSIMUnit.CALENDAR_DAY)
 def geburtstag() -> int:
     """Day of birth (within month)."""
 
@@ -57,6 +57,6 @@ def weiblich() -> bool:
     """Female."""
 
 
-@policy_input(end_date="2024-12-31", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_input(end_date="2024-12-31", unit=TTSIMUnit.DIMENSIONLESS.PER_HH)
 def wohnort_ost_hh() -> bool:
     """Whether the household is located in the new Länder (Beitrittsgebiet)."""

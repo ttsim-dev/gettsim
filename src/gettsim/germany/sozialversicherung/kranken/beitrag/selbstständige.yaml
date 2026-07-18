@@ -6,7 +6,6 @@ bezugsgröße_selbstständige_m:
   description:
     de: §18 SGB IV ynd https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
     en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
-  unit: EUR_PER_MONTH
   type: scalar
   1984-01-01:
     unit: DM_PER_MONTH
@@ -41,7 +40,6 @@ bezugsgröße_selbstständige_nach_wohnort:
   description:
     de: §18 SGB IV und https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
     en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
-  unit: EUR_PER_MONTH
   type: dict
   add_jahresanfang: true
   1990-01-01:
