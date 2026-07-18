@@ -43,19 +43,19 @@ The existing time suffixes (`_y`, `_q`, `_m`, `_w`, `_d`) and grouping suffixes 
 
 ## Decision summary
 
-| Topic | Decision |
-| --- | --- |
-| Declaration | Every active quantity-producing node has a compositional unit. |
-| Function currency | Policy functions use the currency-agnostic base `CURRENCY`. |
-| Parameter currency | Currency-denominated parameters use a concrete currency such as `EUR` or `DM`. |
-| Computation currency | The statutory currency at the policy date. It is not user-configurable. |
-| Parameter conversion | Parameters and rounding specifications are not converted. |
-| Data conversion | Currency-denominated input and computed results are converted at the interface boundary. |
-| Runtime representation | The tax and transfer computation uses ordinary NumPy or JAX arrays, not `pint.Quantity`. |
-| Grouping levels | Each grouping level is represented as a separate, non-interconvertible dimension. |
-| Individual level | The person level is implied and is not written as `_PER_PERSON`. |
-| Validation | Function bodies, declarations, parameter metadata, aggregations, and optional input tags are validated. |
-| Exceptions | `cast_unit` changes the inferred unit of one expression; `verify_units=False` disables validation of one body. |
+| Topic                  | Decision                                                                                                       |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Declaration            | Every active quantity-producing node has a compositional unit.                                                 |
+| Function currency      | Policy functions use the currency-agnostic base `CURRENCY`.                                                    |
+| Parameter currency     | Currency-denominated parameters use a concrete currency such as `EUR` or `DM`.                                 |
+| Computation currency   | The statutory currency at the policy date. It is not user-configurable.                                        |
+| Parameter conversion   | Parameters and rounding specifications are not converted.                                                      |
+| Data conversion        | Currency-denominated input and computed results are converted at the interface boundary.                       |
+| Runtime representation | The tax and transfer computation uses ordinary NumPy or JAX arrays, not `pint.Quantity`.                       |
+| Grouping levels        | Each grouping level is represented as a separate, non-interconvertible dimension.                              |
+| Individual level       | The person level is implied and is not written as `_PER_PERSON`.                                               |
+| Validation             | Function bodies, declarations, parameter metadata, aggregations, and optional input tags are validated.        |
+| Exceptions             | `cast_unit` changes the inferred unit of one expression; `verify_units=False` disables validation of one body. |
 
 This GEP does not:
 
@@ -66,33 +66,34 @@ This GEP does not:
 
 ## Terminology and audiences
 
-| Term | Meaning |
-| --- | --- |
-| quantity | A value with a declared unit, such as an income, age, share, or head count. |
-| base | The numerator of a compositional unit, such as `CURRENCY`, `PERSON_COUNT`, or `YEARS`. |
-| period | The denominator that distinguishes a flow from a stock, such as `MONTH` or `YEAR`. |
-| grouping level | The entity to which a group property belongs, such as a household (`hh`) or Bedarfsgemeinschaft (`bg`). |
-| stock | A quantity without a period denominator, such as wealth or an age. |
-| flow | A quantity with a period denominator, such as income per month. |
-| statutory currency | The currency in which the applicable statute specifies monetary amounts at a policy date. |
-| data currency | The currency of user-provided monetary columns and returned computed results. |
-| body validation | Evaluation of a policy-function body with unit-carrying test values instead of data values. |
+| Term               | Meaning                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------------- |
+| quantity           | A value with a declared unit, such as an income, age, share, or head count.                             |
+| base               | The numerator of a compositional unit, such as `CURRENCY`, `PERSON_COUNT`, or `YEARS`.                  |
+| period             | The denominator that distinguishes a flow from a stock, such as `MONTH` or `YEAR`.                      |
+| grouping level     | The entity to which a group property belongs, such as a household (`hh`) or Bedarfsgemeinschaft (`bg`). |
+| stock              | A quantity without a period denominator, such as wealth or an age.                                      |
+| flow               | A quantity with a period denominator, such as income per month.                                         |
+| statutory currency | The currency in which the applicable statute specifies monetary amounts at a policy date.               |
+| data currency      | The currency of user-provided monetary columns and returned computed results.                           |
+| body validation    | Evaluation of a policy-function body with unit-carrying test values instead of data values.             |
 
-Policy experts can start with {ref}`Usage and impact <gep-10-usage>`, {ref}`Grouping
-levels <gep-10-levels>`, and {ref}`Currency <gep-10-currency>`. Contributors who declare
-functions and parameters should also read {ref}`Declaration rules
-<gep-10-declarations>` and {ref}`Validation and limitations <gep-10-checks>`.
+Policy experts can start with {ref}`Usage and impact <gep-10-usage>`,
+{ref}`Grouping levels <gep-10-levels>`, and {ref}`Currency <gep-10-currency>`.
+Contributors who declare functions and parameters should also read
+{ref}`Declaration rules <gep-10-declarations>` and
+{ref}`Validation and limitations <gep-10-checks>`.
 
 ## Motivation and scope
 
 Four problems motivate this GEP.
 
-1. **Arithmetic is not dimensionally validated.** A function can currently add a
-   monthly amount to rent per square meter. Both values are numerical arrays, so this
-   error may remain undetected until a result is inspected.
+1. **Arithmetic is not dimensionally validated.** A function can currently add a monthly
+   amount to rent per square meter. Both values are numerical arrays, so this error may
+   remain undetected until a result is inspected.
 1. **Grouping levels are not part of arithmetic validation.** A household total and a
-   Bedarfsgemeinschaft total can currently be combined without an explicit conversion.
-   A missing division by a head count is also not detected.
+   Bedarfsgemeinschaft total can currently be combined without an explicit conversion. A
+   missing division by a head count is also not detected.
 1. **Historical currency values are converted manually.** Deutsche-Mark values are
    currently divided by `1.95583` before they are entered in parameter files. The
    statutory value is retained only in free-text metadata, which does not permit
@@ -177,20 +178,20 @@ columns are not converted on output.
 
 ### Declaration matrix
 
-| Object | Declaration | Currency base | Validation |
-| --- | --- | --- | --- |
-| `@policy_function` | required `unit=` | `CURRENCY` for monetary values | body result, time suffix, and grouping level |
-| `@policy_input` | required `unit=` | `CURRENCY` for monetary values | time suffix and grouping level |
-| scalar or dictionary parameter | `unit:` | concrete currency for monetary values | schema, time suffix, and statutory currency |
-| mapping parameter | `input_unit:` and `output_unit:` | concrete currency where applicable | schema, axes, suffix of the output |
-| structured `@param_function` | `unit=UNSET_UNIT` | units on fields or source parameter | field use and matching parameter leaves |
-| schedule-producing `@param_function` | output `unit=` or source axes | concrete currency permitted | schedule call sites |
-| generated time conversion | assigned automatically | inherited agnostic base | period derived from target suffix |
-| generated aggregation | assigned automatically | inherited agnostic base | aggregation rule and target level |
-| hand-written aggregation | required `unit=` | `CURRENCY` for monetary values | exact match with derived unit unless disabled |
-| group-creation function | none | not applicable | exempt because it produces identifiers |
-| rounding specification | unit required when attached to a monetary function | concrete currency | function unit and statutory currency |
-| unit-annotated input column | required on every leaf in that input mode | concrete currency | declared node unit and data currency |
+| Object                               | Declaration                                        | Currency base                         | Validation                                    |
+| ------------------------------------ | -------------------------------------------------- | ------------------------------------- | --------------------------------------------- |
+| `@policy_function`                   | required `unit=`                                   | `CURRENCY` for monetary values        | body result, time suffix, and grouping level  |
+| `@policy_input`                      | required `unit=`                                   | `CURRENCY` for monetary values        | time suffix and grouping level                |
+| scalar or dictionary parameter       | `unit:`                                            | concrete currency for monetary values | schema, time suffix, and statutory currency   |
+| mapping parameter                    | `input_unit:` and `output_unit:`                   | concrete currency where applicable    | schema, axes, suffix of the output            |
+| structured `@param_function`         | `unit=UNSET_UNIT`                                  | units on fields or source parameter   | field use and matching parameter leaves       |
+| schedule-producing `@param_function` | output `unit=` or source axes                      | concrete currency permitted           | schedule call sites                           |
+| generated time conversion            | assigned automatically                             | inherited agnostic base               | period derived from target suffix             |
+| generated aggregation                | assigned automatically                             | inherited agnostic base               | aggregation rule and target level             |
+| hand-written aggregation             | required `unit=`                                   | `CURRENCY` for monetary values        | exact match with derived unit unless disabled |
+| group-creation function              | none                                               | not applicable                        | exempt because it produces identifiers        |
+| rounding specification               | unit required when attached to a monetary function | concrete currency                     | function unit and statutory currency          |
+| unit-annotated input column          | required on every leaf in that input mode          | concrete currency                     | declared node unit and data currency          |
 
 `UNSET_UNIT` has two uses that are distinguished by context:
 
@@ -249,20 +250,20 @@ declaration. For example, `Unit.CURRENCY.PER_MONTH.PER_BG` corresponds to
 
 ### Common declarations
 
-| Declaration | Resolved dimensionality | Example |
-| --- | --- | --- |
-| `CURRENCY_PER_MONTH` | `CURRENCY / month / [person]` | personal monthly income |
-| `CURRENCY_PER_MONTH_PER_BG` | `CURRENCY / month / [bg]` | benefit assigned to a Bedarfsgemeinschaft |
-| `CURRENCY` | `CURRENCY / [person]` | personal wealth |
-| `DIMENSIONLESS` | dimensionless, or `1 / [person]` for a boolean | share or personal indicator |
-| `DIMENSIONLESS_PER_FG` | `1 / [fg]` | Familiengemeinschaft indicator |
-| `DIMENSIONLESS_PER_YEAR` | `1 / year` | annual rate applied to a stock |
-| `PERSON_COUNT_PER_BG` | `[person] / [bg]` | persons in a Bedarfsgemeinschaft |
-| `HOURS_PER_WEEK` | `[hours] / week / [person]` | personal weekly working hours |
-| `CURRENCY_PER_HOURS` | `CURRENCY / [hours]` | hourly wage |
-| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter**2 / month` | monthly rent ceiling per square meter |
-| `YEARS` | calendar-year duration | age in years |
-| `CALENDAR_YEAR` | point on the calendar-year axis | birth year |
+| Declaration                           | Resolved dimensionality                        | Example                                   |
+| ------------------------------------- | ---------------------------------------------- | ----------------------------------------- |
+| `CURRENCY_PER_MONTH`                  | `CURRENCY / month / [person]`                  | personal monthly income                   |
+| `CURRENCY_PER_MONTH_PER_BG`           | `CURRENCY / month / [bg]`                      | benefit assigned to a Bedarfsgemeinschaft |
+| `CURRENCY`                            | `CURRENCY / [person]`                          | personal wealth                           |
+| `DIMENSIONLESS`                       | dimensionless, or `1 / [person]` for a boolean | share or personal indicator               |
+| `DIMENSIONLESS_PER_FG`                | `1 / [fg]`                                     | Familiengemeinschaft indicator            |
+| `DIMENSIONLESS_PER_YEAR`              | `1 / year`                                     | annual rate applied to a stock            |
+| `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`                              | persons in a Bedarfsgemeinschaft          |
+| `HOURS_PER_WEEK`                      | `[hours] / week / [person]`                    | personal weekly working hours             |
+| `CURRENCY_PER_HOURS`                  | `CURRENCY / [hours]`                           | hourly wage                               |
+| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter**2 / month`                  | monthly rent ceiling per square meter     |
+| `YEARS`                               | calendar-year duration                         | age in years                              |
+| `CALENDAR_YEAR`                       | point on the calendar-year axis                | birth year                                |
 
 `CURRENCY` is valid only in code-side declarations whose concrete currency depends on
 the policy date. Parameter YAML, rounding specifications, and input tags use a concrete
@@ -294,15 +295,15 @@ A quantity carries a group-level denominator if it describes the group as a whol
 quantity that describes a person does not carry a group denominator, even if its column
 is constant within a group.
 
-| Property | Declaration principle | Examples |
-| --- | --- | --- |
-| group total | attach the group level | household rent, Bedarfsgemeinschaft benefit |
-| group count | attach the group level | persons per household |
-| group extreme | attach the group level | age of the youngest family member |
-| group indicator or label | attach the group level | owner-occupied household, rent category |
-| personal amount | implied person level | income, personal benefit share |
-| personal age or date | no group level | age, birth year |
-| personal share or mean | no group level | average income per person |
+| Property                 | Declaration principle  | Examples                                    |
+| ------------------------ | ---------------------- | ------------------------------------------- |
+| group total              | attach the group level | household rent, Bedarfsgemeinschaft benefit |
+| group count              | attach the group level | persons per household                       |
+| group extreme            | attach the group level | age of the youngest family member           |
+| group indicator or label | attach the group level | owner-occupied household, rent category     |
+| personal amount          | implied person level   | income, personal benefit share              |
+| personal age or date     | no group level         | age, birth year                             |
+| personal share or mean   | no group level         | average income per person                   |
 
 The name suffix and unit declaration provide different information:
 
@@ -332,8 +333,8 @@ familie__anzahl_personen_sn * sparerfreibetrag_y
 ```
 
 Some policy expressions intentionally interpret a group property at another level. Such
-an expression requires `cast_unit`, as described in {ref}`Explicit exceptions
-<gep-10-opt-out>`.
+an expression requires `cast_unit`, as described in
+{ref}`Explicit exceptions <gep-10-opt-out>`.
 
 (gep-10-booleans)=
 
@@ -342,11 +343,11 @@ an expression requires `cast_unit`, as described in {ref}`Explicit exceptions
 A boolean describes an entity at a level. A function's `-> bool` return annotation
 distinguishes a boolean from a numerical dimensionless share.
 
-| Boolean | Declaration | Resolved dimensionality |
-| --- | --- | --- |
-| person indicator | `DIMENSIONLESS` | `1 / [person]` |
-| family indicator | `DIMENSIONLESS_PER_FG` | `1 / [fg]` |
-| household indicator | `DIMENSIONLESS_PER_HH` | `1 / [hh]` |
+| Boolean             | Declaration            | Resolved dimensionality |
+| ------------------- | ---------------------- | ----------------------- |
+| person indicator    | `DIMENSIONLESS`        | `1 / [person]`          |
+| family indicator    | `DIMENSIONLESS_PER_FG` | `1 / [fg]`              |
+| household indicator | `DIMENSIONLESS_PER_HH` | `1 / [hh]`              |
 
 The logical operators `&`, `|`, and `^` preserve the level when both operands have the
 same level. When their levels differ, the result is assigned to the person level because
@@ -371,9 +372,9 @@ comparisons are not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
 
 ### Working hours
 
-Working hours use a dedicated `[hours]` dimension rather than Pint's `[time]`
-dimension. Otherwise, hours per week would reduce to a dimensionless ratio and could not
-be distinguished from a share.
+Working hours use a dedicated `[hours]` dimension rather than Pint's `[time]` dimension.
+Otherwise, hours per week would reduce to a dimensionless ratio and could not be
+distinguished from a share.
 
 `HOURS_PER_WEEK` therefore resolves to `[hours] / [time] / [person]`. A reference-period
 conversion changes only the period denominator; it does not change the `[hours]`
@@ -385,15 +386,15 @@ A calendar point and a duration are different kinds of quantities. The following
 defines their supported algebra, where `P` is a point and `D` a duration on the same
 calendar axis.
 
-| Operation | Result | Example |
-| --- | --- | --- |
-| `P - P` | duration | `policy_year - geburtsjahr` |
-| `P + D`, `P - D` | point | `geburtsjahr + statutory_age` |
-| `P < P` | boolean | `geburtsjahr <= policy_year` |
-| `P + P` | error | addition of two birth years |
-| `P * n`, `P / n` | error | scaling a calendar point |
-| point ordered against duration | error | birth year compared with age |
-| operation across calendar axes | error | year point plus month duration |
+| Operation                      | Result   | Example                        |
+| ------------------------------ | -------- | ------------------------------ |
+| `P - P`                        | duration | `policy_year - geburtsjahr`    |
+| `P + D`, `P - D`               | point    | `geburtsjahr + statutory_age`  |
+| `P < P`                        | boolean  | `geburtsjahr <= policy_year`   |
+| `P + P`                        | error    | addition of two birth years    |
+| `P * n`, `P / n`               | error    | scaling a calendar point       |
+| point ordered against duration | error    | birth year compared with age   |
+| operation across calendar axes | error    | year point plus month duration |
 
 `CALENDAR_YEAR`, `CALENDAR_MONTH`, and `CALENDAR_DAY` are separate axes, paired with
 `YEARS`, `MONTHS`, and `DAYS`, respectively. Conversion between granularities must be
@@ -505,19 +506,19 @@ explicit cast.
 ### Reference-period conversions
 
 A generated time-conversion node preserves its source base and grouping level and
-changes the period according to its target suffix. For example,
-`CURRENCY_PER_MONTH` becomes `CURRENCY_PER_YEAR` for a generated `_y` node. Pint supplies
-the period ratios used by the numerical converter functions.
+changes the period according to its target suffix. For example, `CURRENCY_PER_MONTH`
+becomes `CURRENCY_PER_YEAR` for a generated `_y` node. Pint supplies the period ratios
+used by the numerical converter functions.
 
 ### Aggregations
 
-| Aggregation | Base | Result level |
-| --- | --- | --- |
-| `SUM`, `MIN`, `MAX` | preserved | target group |
-| `SUM` of a boolean | `PERSON_COUNT` | target group |
-| `MEAN` | preserved | person |
-| `COUNT` | `PERSON_COUNT` | target group |
-| `ANY`, `ALL` | boolean `DIMENSIONLESS` | target group |
+| Aggregation         | Base                    | Result level |
+| ------------------- | ----------------------- | ------------ |
+| `SUM`, `MIN`, `MAX` | preserved               | target group |
+| `SUM` of a boolean  | `PERSON_COUNT`          | target group |
+| `MEAN`              | preserved               | person       |
+| `COUNT`             | `PERSON_COUNT`          | target group |
+| `ANY`, `ALL`        | boolean `DIMENSIONLESS` | target group |
 
 A mean remains at the person level because it is equivalent to a group sum divided by a
 head count.
@@ -579,8 +580,8 @@ A downstream package registers currencies with
 `register_currency(name, *, base=False, definition=None)`. GETTSIM registers Euro as the
 base currency and Deutsche Mark using `DM = EUR / 1.95583`.
 
-Exactly one registered currency is the base. Every other currency is defined relative
-to a registered currency. A package also registers a dated statutory-currency mapping.
+Exactly one registered currency is the base. Every other currency is defined relative to
+a registered currency. A package also registers a dated statutory-currency mapping.
 
 ```python
 register_statutory_currencies(
@@ -596,16 +597,16 @@ computation currency is not a user option.
 
 ### Parameter and data currencies
 
-| Value | Currency used |
-| --- | --- |
-| parameter | statutory currency declared in the parameter file |
-| rounding magnitude | statutory currency declared in the rounding specification |
-| policy function input and output | statutory currency during tax and transfer computation |
-| untagged user input | `data_currency` |
-| tagged user input | concrete currency in the tag, converted first to `data_currency` |
-| computed result | converted from statutory currency to `data_currency` |
-| requested parameter | statutory currency; not converted |
-| requested input column | returned as provided |
+| Value                            | Currency used                                                    |
+| -------------------------------- | ---------------------------------------------------------------- |
+| parameter                        | statutory currency declared in the parameter file                |
+| rounding magnitude               | statutory currency declared in the rounding specification        |
+| policy function input and output | statutory currency during tax and transfer computation           |
+| untagged user input              | `data_currency`                                                  |
+| tagged user input                | concrete currency in the tag, converted first to `data_currency` |
+| computed result                  | converted from statutory currency to `data_currency`             |
+| requested parameter              | statutory currency; not converted                                |
+| requested input column           | returned as provided                                             |
 
 Parameters are not converted. Validation instead requires each parameter's concrete
 currency to equal the statutory currency at its policy date. This preserves the values
@@ -639,8 +640,8 @@ Resolution uses only declarations at or before the policy date. If neither a top
 declaration nor an earlier dated declaration exists, the unit is missing.
 
 A dated per-leaf mapping replaces the previous mapping completely and must declare every
-leaf present at that date. This rule is independent of `updates_previous`, which controls
-merging of parameter values.
+leaf present at that date. This rule is independent of `updates_previous`, which
+controls merging of parameter values.
 
 (gep-10-rounding)=
 
@@ -706,9 +707,9 @@ results = main(
 )
 ```
 
-A monetary input tag uses a concrete currency. The tag's physical dimension, period,
-and grouping level must agree with the node declaration. Only the currency may differ,
-in which case the value is converted.
+A monetary input tag uses a concrete currency. The tag's physical dimension, period, and
+grouping level must agree with the node declaration. Only the currency may differ, in
+which case the value is converted.
 
 The annotated result tree has the same structure. Computed currency values are tagged
 with the concrete data currency, while requested parameters retain their statutory
@@ -720,18 +721,18 @@ currency. Annotated input and annotated output can be selected independently.
 
 ### Validation stages
 
-| Stage | When | Input | Validates |
-| --- | --- | --- | --- |
-| declaration validation | decoration or parameter loading | declarations | required fields, grammar, suffixes, allowed currency bases |
-| environment validation | policy-environment assembly | unit-carrying test values | function bodies, returns, branches, aggregations, statutory currency |
-| input-boundary validation | processing unit-annotated input in `main()` | user tags and node declarations | physical dimension, period, level, and source currency |
-| numerical boundary conversion | before and after TT computation | ordinary arrays and conversion factor | input to statutory currency; computed results to data currency |
+| Stage                         | When                                        | Input                                 | Validates                                                            |
+| ----------------------------- | ------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------- |
+| declaration validation        | decoration or parameter loading             | declarations                          | required fields, grammar, suffixes, allowed currency bases           |
+| environment validation        | policy-environment assembly                 | unit-carrying test values             | function bodies, returns, branches, aggregations, statutory currency |
+| input-boundary validation     | processing unit-annotated input in `main()` | user tags and node declarations       | physical dimension, period, level, and source currency               |
+| numerical boundary conversion | before and after TT computation             | ordinary arrays and conversion factor | input to statutory currency; computed results to data currency       |
 
 ### Function-body validation
 
-For each function argument, TTSIM creates a test value with magnitude one and the unit of
-the argument's producer. It evaluates the function body with these values and compares
-the result with the function's declared unit.
+For each function argument, TTSIM creates a test value with magnitude one and the unit
+of the argument's producer. It evaluates the function body with these values and
+compares the result with the function's declared unit.
 
 ```python
 @policy_function(unit=Unit.CURRENCY.PER_MONTH)
@@ -742,8 +743,8 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 ```
 
-The arguments resolve to `CURRENCY / month / [hh]` and `[person] / [hh]`. Their
-division resolves to `CURRENCY / month / [person]`, which matches the declaration.
+The arguments resolve to `CURRENCY / month / [hh]` and `[person] / [hh]`. Their division
+resolves to `CURRENCY / month / [person]`, which matches the declaration.
 
 Conditional branches are explored by re-evaluating the body with different branch
 decisions. Each explored return path is checked separately. Vectorized `xnp` operations
@@ -764,14 +765,14 @@ Body validation rejects:
 
 ### Limitations
 
-| Limitation | Consequence | Required action |
-| --- | --- | --- |
-| Equality operators (`==`, `!=`) do not compare units. | Sentinel comparisons such as `p_id_empfänger == -1` remain possible, but an incompatible equality comparison is not detected. | Use ordering or an explicit policy condition where dimensional equivalence matters. |
-| Branch exploration is limited to 1,024 paths and 64 decisions per run. | A body above either limit is not validated automatically. | Simplify the body or use `verify_units=False`. |
-| Not every NumPy/JAX or Python operation has a validation implementation. | The environment check rejects an unsupported body. | Add validator support, use a local `cast_unit`, or use `verify_units=False`. |
-| Group nesting and membership are not represented in the unit registry. | No automatic conversion exists between group levels. | Use a head count, an explicit aggregation, or `cast_unit` where substantively justified. |
-| A cast is an assertion, not a conversion or proof. | An incorrect cast can hide a unit error in that expression. | Keep casts local and review them as policy assumptions. |
-| `verify_units=False` skips the complete function body. | Consumers still use the declared return unit, but the producer body is not validated. | Restrict the opt-out to functions that cannot be represented by the validator. |
+| Limitation                                                               | Consequence                                                                                                                   | Required action                                                                          |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Equality operators (`==`, `!=`) do not compare units.                    | Sentinel comparisons such as `p_id_empfänger == -1` remain possible, but an incompatible equality comparison is not detected. | Use ordering or an explicit policy condition where dimensional equivalence matters.      |
+| Branch exploration is limited to 1,024 paths and 64 decisions per run.   | A body above either limit is not validated automatically.                                                                     | Simplify the body or use `verify_units=False`.                                           |
+| Not every NumPy/JAX or Python operation has a validation implementation. | The environment check rejects an unsupported body.                                                                            | Add validator support, use a local `cast_unit`, or use `verify_units=False`.             |
+| Group nesting and membership are not represented in the unit registry.   | No automatic conversion exists between group levels.                                                                          | Use a head count, an explicit aggregation, or `cast_unit` where substantively justified. |
+| A cast is an assertion, not a conversion or proof.                       | An incorrect cast can hide a unit error in that expression.                                                                   | Keep casts local and review them as policy assumptions.                                  |
+| `verify_units=False` skips the complete function body.                   | Consumers still use the declared return unit, but the producer body is not validated.                                         | Restrict the opt-out to functions that cannot be represented by the validator.           |
 
 There is no general fallback from an inferred dimensionless quantity to a dimensioned
 declaration. Only the literal zero receives the special treatment described in
@@ -804,8 +805,7 @@ cannot express its policy interpretation using the standard aggregation rules.
 - `data_currency` defaults to Euro in GETTSIM, so current-policy Euro inputs and outputs
   retain their existing denomination.
 - The former `reference_period` and `reference_level` fields are removed. Their
-  information becomes part of the compositional unit, for example
-  `EUR_PER_YEAR_PER_FG`.
+  information becomes part of the compositional unit, for example `EUR_PER_YEAR_PER_FG`.
 - Existing policy functions, policy inputs, parameter files, and hand-written
   aggregations require unit declarations during migration.
 - There is no environment variable that disables all unit validation. Exceptions are
@@ -817,8 +817,10 @@ cannot express its policy interpretation using the standard aggregation rules.
 - {ref}`GEP 2 <gep-2>` defines the `*_id` columns from which grouping levels are found.
 - {ref}`GEP 4 <gep-4>` defines the DAG, aggregations, and reference-period conversions.
 - {ref}`GEP 5 <gep-5>` defines rounding specifications.
-- {ref}`GEP 9 <gep-9>` defines runtime type validation and the user/canonical data split.
-- [pint](https://pint.readthedocs.io) supplies the unit registry and dimensional algebra.
+- {ref}`GEP 9 <gep-9>` defines runtime type validation and the user/canonical data
+  split.
+- [pint](https://pint.readthedocs.io) supplies the unit registry and dimensional
+  algebra.
 
 ## Implementation
 
@@ -830,8 +832,8 @@ annotations.
   validation, and input-boundary validation.
 - TTSIM [#144](https://github.com/ttsim-dev/ttsim/pull/144): statutory computation
   currency, boundary conversion, and working-hours dimension.
-- TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141): complete METTSIM annotations
-  and validation across policy dates.
+- TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141): complete METTSIM
+  annotations and validation across policy dates.
 - GETTSIM [#1192](https://github.com/ttsim-dev/gettsim/pull/1192): GETTSIM declarations,
   currency registration, schema migration, and parameter migration.
 
@@ -912,9 +914,9 @@ reusable units once; casts remain available for fields that cannot be annotated.
 ### Pass Pint quantities through the DAG
 
 Rejected. `pint.Quantity` is not a JAX pytree and cannot be used in the compiled JAX
-calculation. Units are static properties of nodes, so environment and boundary validation
-provide the required checks without changing the numerical representation inside the TT
-function.
+calculation. Units are static properties of nodes, so environment and boundary
+validation provide the required checks without changing the numerical representation
+inside the TT function.
 
 ### Make functions independent of reference periods
 
