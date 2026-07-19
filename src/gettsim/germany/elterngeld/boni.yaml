@@ -50,7 +50,7 @@ mehrlingsbonus_pro_kind_m:
   description:
     de: § 2a (4) BEEG, früher §2 (6) BEEG.
     en: null
-  unit: EUR_PER_MONTH
+  unit: EUR_PER_MONTH_PER_PERSON
   type: scalar
   2007-01-01:
     value: 300.0

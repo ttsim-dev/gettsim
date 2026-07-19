@@ -195,7 +195,7 @@ def altersgrenze_vorzeitig_ohne_arbeitslosigkeit_frauen(
 @policy_function(
     end_date="2017-12-31",
     leaf_name="vorzeitig_grundsätzlich_anspruchsberechtigt",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def vorzeitig_grundsätzlich_anspruchsberechtigt_mit_arbeitslosigkeit_frauen(
     für_frauen__grundsätzlich_anspruchsberechtigt: bool,
@@ -219,7 +219,7 @@ def vorzeitig_grundsätzlich_anspruchsberechtigt_mit_arbeitslosigkeit_frauen(
 @policy_function(
     start_date="2018-01-01",
     leaf_name="vorzeitig_grundsätzlich_anspruchsberechtigt",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def vorzeitig_grundsätzlich_anspruchsberechtigt_vorzeitig_ohne_arbeitslosigkeit_frauen(
     langjährig__grundsätzlich_anspruchsberechtigt: bool,
@@ -322,7 +322,7 @@ def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
     return out
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def hat_regelaltersgrenze_erreicht(
     alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
@@ -337,7 +337,7 @@ def hat_regelaltersgrenze_erreicht(
     )
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def älter_als_regelaltersgrenze(
     alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,

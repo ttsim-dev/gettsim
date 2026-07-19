@@ -37,7 +37,7 @@ def kindergeldübertrag_m(
 )
 def _mean_kindergeld_per_child_ohne_staffelung_m(
     kindergeld__anzahl_ansprüche: int,
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
 ) -> float:
     """Kindergeld per child.
 
@@ -45,7 +45,7 @@ def _mean_kindergeld_per_child_ohne_staffelung_m(
     `kindergeld_zur_bedarfsdeckung_m`.
 
     """
-    return kindergeld__satz if kindergeld__anzahl_ansprüche > 0 else 0.0
+    return kindergeld__satz_m if kindergeld__anzahl_ansprüche > 0 else 0.0
 
 
 @policy_function(
@@ -100,7 +100,10 @@ def differenz_kindergeld_kindbedarf_m(
     """
     fehlbetrag = max(
         cast_ttsim_unit(regelbedarf_m_bg, TTSIMUnit.CURRENCY.PER_MONTH)
-        - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh
+        - cast_ttsim_unit(
+            wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
         - nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m
         - unterhaltsvorschuss__betrag_m,
@@ -121,7 +124,7 @@ def differenz_kindergeld_kindbedarf_m(
 @policy_function(
     start_date="2023-01-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def in_anderer_bg_als_kindergeldempfänger(
     p_id: IntColumn,

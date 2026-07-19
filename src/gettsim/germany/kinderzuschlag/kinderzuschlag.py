@@ -50,7 +50,7 @@ def satz_mit_gestaffeltem_kindergeld(
 )
 def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
     bürgergeld__kindersofortzuschlag: float,
     satz_vorjahr_ohne_kindersofortzuschlag: float,
 ) -> float:
@@ -64,7 +64,7 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        - kindergeld__satz
+        - kindergeld__satz_m
     )
 
     satz_ohne_kindersofortzuschlag = max(
@@ -86,7 +86,7 @@ def betrag_m_bg(
         return 0.0
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_PERSON)
 def anspruchshöhe_m(
     anspruchshöhe_m_bg: float,
     familie__anzahl_personen_bg: int,

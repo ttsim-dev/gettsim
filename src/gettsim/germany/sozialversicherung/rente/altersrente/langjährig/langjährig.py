@@ -56,7 +56,7 @@ def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     return altersgrenze_vorzeitig_gestaffelt.look_up(geburtsjahr)
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def grundsätzlich_anspruchsberechtigt(
     sozialversicherung__rente__wartezeit_35_jahre_erfüllt: bool,
 ) -> bool:

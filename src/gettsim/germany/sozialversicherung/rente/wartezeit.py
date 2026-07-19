@@ -7,7 +7,7 @@ from ttsim.unit_converters import m_to_y
 from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def mindestwartezeit_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -35,7 +35,7 @@ def wartezeit_15_jahre_erfüllt(
     )
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def wartezeit_35_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -62,7 +62,7 @@ def wartezeit_35_jahre_erfüllt(
     )
 
 
-@policy_function(start_date="2012-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2012-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def wartezeit_45_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,

@@ -12,7 +12,7 @@ parameter_vermögensfreibetrag:
     en: Since 2009, wealth might be a reason not to grand housing benefit.
   unit:
     grundfreibetrag: EUR_PER_WTHH
-    je_weitere_person: EUR
+    je_weitere_person: EUR_PER_PERSON
   type: dict
   2009-01-01:
     grundfreibetrag: 60000

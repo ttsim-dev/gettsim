@@ -9,6 +9,7 @@ from ttsim.unit_converters import per_y_to_per_m
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     TTSIMUnit,
+    cast_ttsim_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -64,8 +65,14 @@ def einkommen_m_bis_2006(
 
     out = (
         total_income
-        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
+        - cast_ttsim_unit(
+            einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
+        - cast_ttsim_unit(
+            solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
         - sozialversicherung__beiträge_versicherter_m
     )
 
@@ -119,8 +126,14 @@ def einkommen_m_ab_2007_bis_2017(
 
     out = (
         total_income
-        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
+        - cast_ttsim_unit(
+            einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
+        - cast_ttsim_unit(
+            solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
         - sozialversicherung__beiträge_versicherter_m
     )
 
@@ -165,8 +178,14 @@ def einkommen_m_ab_2018(
 
     out = (
         total_income
-        - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
-        - (solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn)
+        - cast_ttsim_unit(
+            einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
+        - cast_ttsim_unit(
+            solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
+            TTSIMUnit.CURRENCY.PER_MONTH,
+        )
         - sozialversicherung__beiträge_versicherter_m
     )
 

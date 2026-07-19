@@ -76,7 +76,7 @@ def beitragssatz_arbeitnehmer_mit_abschlag_nach_kinderzahl(
     return base + add
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def zahlt_zusatzbetrag_kinderlos(
     hat_kinder: bool,
     alter: int,
@@ -91,7 +91,9 @@ def zahlt_zusatzbetrag_kinderlos(
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT
+    agg_type=AggType.SUM,
+    start_date="2005-01-01",
+    unit=TTSIMUnit.PERSON_COUNT.PER_PERSON,
 )
 def anzahl_kinder_bis_24_elternteil_1(
     alter_bis_24: bool,
@@ -102,7 +104,9 @@ def anzahl_kinder_bis_24_elternteil_1(
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT
+    agg_type=AggType.SUM,
+    start_date="2005-01-01",
+    unit=TTSIMUnit.PERSON_COUNT.PER_PERSON,
 )
 def anzahl_kinder_bis_24_elternteil_2(
     alter_bis_24: bool,
@@ -112,7 +116,7 @@ def anzahl_kinder_bis_24_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.PERSON_COUNT.PER_PERSON)
 def anzahl_kinder_bis_24(
     anzahl_kinder_bis_24_elternteil_1: int,
     anzahl_kinder_bis_24_elternteil_2: int,

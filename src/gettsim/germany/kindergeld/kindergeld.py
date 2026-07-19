@@ -81,7 +81,7 @@ def betrag_gestaffelt_m(
     end_date="1995-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
     fail_msg_if_included="Kindergeld eligibility is not implemented prior to 1996.",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     pass
@@ -91,7 +91,7 @@ def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     start_date="1996-01-01",
     end_date="2011-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
@@ -117,7 +117,7 @@ def leistungsbegründendes_kind_nach_lohn(
 @policy_function(
     start_date="2012-01-01",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def leistungsbegründendes_kind_nach_stunden(
     alter: int,
@@ -150,7 +150,9 @@ def kind_bis_10_mit_kindergeld(
     )
 
 
-@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(
+    vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON
+)
 def gleiche_fg_wie_empfänger(
     p_id: IntColumn,
     p_id_empfänger: IntColumn,

@@ -127,7 +127,7 @@ maximalbetrag_sonstige_vorsorgeaufwendungen:
   description:
     de: §10 Abs. 4 S.1 EStG
     en: null
-  unit: EUR_PER_YEAR
+  unit: EUR_PER_YEAR_PER_PERSON
   type: scalar
   2005-01-01:
     value: 1500
@@ -142,7 +142,7 @@ maximalbetrag_altersvorsorgeaufwendungen_y:
   description:
     de: §10 (3) EStG, Anlage 2 SGB VI
     en: null
-  unit: EUR_PER_YEAR
+  unit: EUR_PER_YEAR_PER_PERSON
   type: scalar
   2005-01-01:
     value: 20000

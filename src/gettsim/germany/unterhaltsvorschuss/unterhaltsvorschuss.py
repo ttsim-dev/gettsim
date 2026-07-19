@@ -117,10 +117,10 @@ def betrag_m_bis_2008() -> float:
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindergeld_erstes_kind_ohne_staffelung_m(
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
 ) -> float:
     """Kindergeld for first child when Kindergeld does not depend on number of children."""
-    return kindergeld__satz
+    return kindergeld__satz_m
 
 
 @param_function(
@@ -294,7 +294,7 @@ def anspruchshöhe_m_ab_2017_07(
 @policy_function(
     start_date="2017-07-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def elternteil_mindesteinkommen_erreicht(
     kindergeld__p_id_empfänger: IntColumn,
@@ -314,7 +314,7 @@ def elternteil_mindesteinkommen_erreicht(
     )
 
 
-@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def mindesteinkommen_erreicht(
     einkommen_m: float,
     mindesteinkommen_m: float,

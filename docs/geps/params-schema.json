@@ -5,7 +5,7 @@
     "unitToken": {
       "$comment": "Bases stay open (currencies register per package); the grouping level, if present, must be one of Germany's.",
       "type": "string",
-      "pattern": "^[A-Z][A-Z0-9]*(?:_(?!PER_)[A-Z0-9]+)*(?:_PER_(?:SQUARE_METER|HOURS))?(?:_PER_(?:YEAR|QUARTER|MONTH|WEEK|DAY))?(?:_PER_(?:HH|EHE|FG|BG|EG|WTHH|SN))?$"
+      "pattern": "^[A-Z][A-Z0-9]*(?:_(?!PER_)[A-Z0-9]+)*(?:_PER_(?:SQUARE_METER|HOURS))?(?:_PER_(?:YEAR|QUARTER|MONTH|WEEK|DAY))?(?:_PER_(?:HH|EHE|FG|BG|EG|WTHH|SN|PERSON))?$"
     },
     "unitDeclaration": {
       "oneOf": [

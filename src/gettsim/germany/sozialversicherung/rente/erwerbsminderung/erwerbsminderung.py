@@ -75,7 +75,7 @@ def betrag_m_einheitlich(
     return out
 
 
-@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def grundsätzlich_anspruchsberechtigt(
     voll_erwerbsgemindert: bool,
     teilweise_erwerbsgemindert: bool,
@@ -362,7 +362,7 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
 
 # TODO(@MImmesberger): Reuse Altersrente Wartezeiten for Erwerbsminderungsrente
 # https://github.com/ttsim-dev/gettsim/issues/838
-@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def wartezeit_langjährig_versichert_erfüllt(
     sozialversicherung__rente__pflichtbeitragsmonate: float,
     sozialversicherung__rente__freiwillige_beitragsmonate: float,

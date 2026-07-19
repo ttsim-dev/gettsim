@@ -6,6 +6,7 @@ from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
+    cast_ttsim_unit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -325,14 +326,17 @@ def vorwegabzug_lohnsteuer_y_sn(
     return max(out, 0.0)
 
 
-@param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+@param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_PERSON)
 def maximalbetrag_altersvorsorgeaufwendungen_y(
     sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung: float,
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y: float,
     xnp: ModuleType,
 ) -> float:
     """Maximalbetrag der Altersvorsorgeaufwendungen."""
-    return xnp.ceil(
-        sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
-        * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
+    return cast_ttsim_unit(
+        xnp.ceil(
+            sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
+            * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
+        ),
+        TTSIMUnit.CURRENCY.PER_YEAR.PER_PERSON,
     )

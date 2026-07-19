@@ -30,7 +30,9 @@ def regelbedarf_m(
 
     This includes cost of dwelling.
     """
-    return regelsatz_m + kosten_der_unterkunft_m
+    return regelsatz_m + cast_ttsim_unit(
+        kosten_der_unterkunft_m, TTSIMUnit.CURRENCY.PER_MONTH
+    )
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS)
@@ -147,7 +149,7 @@ def regelsatz_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kosten_der_unterkunft_m",
-    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_PERSON,
 )
 def kosten_der_unterkunft_m_ab_2023(
     bruttokaltmiete_m: float,
@@ -184,7 +186,7 @@ def anerkannte_warmmiete_je_qm_m(
     return min(out, mietobergrenze_pro_qm)
 
 
-@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER.PER_PERSON)
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -207,7 +209,7 @@ def berechtigte_wohnfläche(
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_PERSON)
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -221,7 +223,7 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_PERSON)
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -235,7 +237,7 @@ def heizkosten_m(
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER.PER_PERSON)
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,

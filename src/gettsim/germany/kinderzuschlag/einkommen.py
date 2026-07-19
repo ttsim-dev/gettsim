@@ -357,10 +357,16 @@ def wohnbedarf_anteil_eltern_bg(
             TTSIMUnit.CURRENCY.PER_YEAR.PER_BG,
         )
 
-    kinderbetrag = min(
-        anzahl_kinder_bg,
-        wohnbedarf_anteil_berücksichtigte_kinder,
-    ) * (existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind)
+    kinderbetrag = cast_ttsim_unit(
+        min(
+            anzahl_kinder_bg,
+            wohnbedarf_anteil_berücksichtigte_kinder,
+        )
+        * (
+            existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind
+        ),
+        TTSIMUnit.CURRENCY.PER_YEAR.PER_BG,
+    )
 
     return elternbetrag / (elternbetrag + kinderbetrag)
 

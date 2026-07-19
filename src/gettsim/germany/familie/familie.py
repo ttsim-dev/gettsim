@@ -23,7 +23,9 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn
 
 
-@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(
+    vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON
+)
 def ist_kind_in_familiengemeinschaft(
     p_id_elternteil_1: IntColumn,
     p_id_elternteil_2: IntColumn,
@@ -60,7 +62,7 @@ def anzahl_kinder_fg(ist_kind_in_familiengemeinschaft: bool, fg_id: int) -> int:
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_2_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -77,7 +79,7 @@ def anzahl_kinder_bis_2_fg(
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_5_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -94,7 +96,7 @@ def anzahl_kinder_bis_5_fg(
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_6_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -113,7 +115,7 @@ def anzahl_kinder_bis_6_fg(
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_15_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -132,7 +134,7 @@ def anzahl_kinder_bis_15_fg(
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_17_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
@@ -166,7 +168,7 @@ def alter_monate_jüngstes_mitglied_fg(alter_monate: int, fg_id: int) -> int:
 @policy_function(
     start_date="2005-01-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def ist_kind_in_bedarfsgemeinschaft(
     p_id_elternteil_1: IntColumn,
@@ -195,7 +197,7 @@ def ist_kind_in_bedarfsgemeinschaft(
     return in_gleicher_fg_wie_elternteil_1 | in_gleicher_fg_wie_elternteil_2
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_erwachsener_in_bedarfsgemeinschaft(
     ist_kind_in_bedarfsgemeinschaft: bool,
 ) -> bool:
@@ -227,7 +229,7 @@ def anzahl_kinder_bg(ist_kind_in_bedarfsgemeinschaft: bool, bg_id: int) -> int:
     pass
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_kind_bis_17_in_bedarfsgemeinschaft(
     alter: int, ist_kind_in_bedarfsgemeinschaft: bool
 ) -> bool:
@@ -253,7 +255,7 @@ def alleinerziehend_bg(alleinerziehend: bool, bg_id: int) -> bool:
     pass
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def hat_kind_in_gleicher_bedarfsgemeinschaft(
     anzahl_kinder_bg: int,
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
@@ -278,7 +280,7 @@ def alleinerziehend_sn(familie__alleinerziehend: bool, sn_id: int) -> bool:
 @policy_function(
     start_date="2005-01-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
 )
 def ist_kind_in_einsatzgemeinschaft(
     p_id_elternteil_1: IntColumn,
@@ -307,7 +309,7 @@ def ist_kind_in_einsatzgemeinschaft(
     return in_gleicher_eg_wie_elternteil_1 | in_gleicher_eg_wie_elternteil_2
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_erwachsener_in_einsatzgemeinschaft(
     ist_kind_in_einsatzgemeinschaft: bool,
 ) -> bool:
@@ -343,13 +345,13 @@ def anzahl_personen_ehe(ehe_id: int) -> int:
     pass
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def volljährig(alter: int) -> bool:
     """Person aged 18 years or older."""
     return alter >= cast_ttsim_unit(18, TTSIMUnit.YEARS)
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
 def ist_erwachsener_in_familiengemeinschaft(
     ist_kind_in_familiengemeinschaft: bool,
 ) -> bool:
