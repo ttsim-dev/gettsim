@@ -33,6 +33,9 @@ def solidaritätszuschlagstarif(
     end_date="2008-12-31",
     leaf_name="betrag_y_sn",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    # Body delegates to the plain `solidaritätszuschlagstarif` helper, which the
+    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    verify_units=False,
 )
 def betrag_y_sn_ohne_abgelt_st(
     einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,
@@ -66,6 +69,9 @@ def betrag_y_sn_ohne_abgelt_st(
     start_date="2009-01-01",
     leaf_name="betrag_y_sn",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    # Body delegates to the plain `solidaritätszuschlagstarif` helper, which the
+    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    verify_units=False,
 )
 def betrag_y_sn_mit_abgelt_st(
     einkommensteuer__betrag_mit_kinderfreibetrag_y_sn: float,

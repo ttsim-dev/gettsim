@@ -10,7 +10,9 @@ vermögensfreibetrag_je_person_nach_karenzzeit:
     en: >-
       Wealth exemption per member of the Bedarfsgemeinschaft, which changes after the
       end of the Karenzzeit.
-  unit: EUR
+  unit:
+    während_karenzzeit: EUR_PER_BG
+    normaler_satz: EUR
   type: dict
   2023-01-01:
     während_karenzzeit: 40000

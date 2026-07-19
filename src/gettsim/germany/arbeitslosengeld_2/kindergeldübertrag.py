@@ -8,7 +8,7 @@ from gettsim.tt import (
     AggType,
     TTSIMUnit,
     agg_by_p_id_function,
-    cast_unit,
+    cast_ttsim_unit,
     join,
     policy_function,
 )
@@ -110,7 +110,7 @@ def differenz_kindergeld_kindbedarf_m(
     to the parental level.
     """
     fehlbetrag = max(
-        cast_unit(regelbedarf_m_bg, TTSIMUnit.CURRENCY.PER_MONTH)
+        cast_ttsim_unit(regelbedarf_m_bg, TTSIMUnit.CURRENCY.PER_MONTH)
         - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh
         - nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m

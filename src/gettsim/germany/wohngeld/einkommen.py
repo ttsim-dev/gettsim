@@ -7,12 +7,12 @@ from typing import TYPE_CHECKING
 from ttsim.unit_converters import per_y_to_per_m
 
 from gettsim.tt import (
-    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
     PiecewisePolynomialParamValue,
     TTSIMUnit,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     piecewise_polynomial,
@@ -36,7 +36,7 @@ def alleinerziehendenbonus(
     pass
 
 
-@param_function(unit=UNSET_UNIT)
+@param_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
     mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
     xnp: ModuleType,
@@ -44,6 +44,21 @@ def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
     """Create a LookupTable for the min income thresholds."""
     return get_consecutive_int_lookup_table_param_value(
         raw=mindesteinkommen_nach_haushaltsgröße_m_wthh, xnp=xnp
+    )
+
+
+@param_function(unit=TTSIMUnit.PERSON_COUNT.PER_WTHH)
+def maximale_haushaltsgröße_mindesteinkommen_wthh(
+    mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
+) -> int:
+    """Largest household size the minimum-income table distinguishes.
+
+    The household size is clamped to this before the look-up; beyond it the table
+    repeats its last row (§ 19 (2) WoGG, Anlage 3).
+    """
+    return cast_ttsim_unit(
+        len(mindesteinkommen_nach_haushaltsgröße_m_wthh),
+        TTSIMUnit.PERSON_COUNT.PER_WTHH,
     )
 
 
@@ -55,6 +70,7 @@ def einkommen_m_wthh(
     freibetrag_m_wthh: float,
     einkommen_vor_freibetrag_m_wthh: float,
     mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table: ConsecutiveIntLookupTableParamValue,
+    maximale_haushaltsgröße_mindesteinkommen_wthh: int,
     xnp: ModuleType,
 ) -> float:
     """Income relevant for Wohngeld calculation.
@@ -65,16 +81,14 @@ def einkommen_m_wthh(
     mindesteinkommen = mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.look_up(
         xnp.minimum(
             anzahl_personen_wthh,
-            mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.values_to_look_up.shape[
-                0
-            ],
+            maximale_haushaltsgröße_mindesteinkommen_wthh,
         )
     )
 
     return xnp.maximum(einkommen_ohne_freibetrag, mindesteinkommen)
 
 
-@policy_function(verify_units=False, unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     einkommensteuer__betrag_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y: float,

@@ -6,10 +6,9 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
-    UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
-    cast_unit,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -52,8 +51,7 @@ def mehrbedarfsanteil_alleinerziehend(
     """
     basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
         "basis_je_kind_bis_17"
-    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
-
+    ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
     if (
         familie__anzahl_kinder_bis_6_fg == 1
         or familie__anzahl_kinder_bis_15_fg == 2  # noqa: PLR2004
@@ -130,8 +128,9 @@ def erwachsenensatz_m_ab_2011(
     # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
         out = grundsicherung__regelbedarfsstufen.rbs_1
+    # This observation is a child, so it carries no adult Regelsatz.
     else:
-        out = 0.0
+        out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
@@ -199,7 +198,10 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(anzahl_personen_hh - 1, 0)
+            + max(
+                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH),
+                0,
+            )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)
@@ -269,7 +271,7 @@ class RegelsatzAnteilsbasiert:
     kind: RegelsatzAnteilKindNachAlter
 
 
-@param_function(start_date="2023-01-01", unit=UNSET_UNIT)
+@param_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER.PER_HH)
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],

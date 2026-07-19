@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from ttsim.unit_converters import per_y_to_per_m
 
-from gettsim.tt import TTSIMUnit, cast_unit, param_function, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, param_function, policy_function
 
 if TYPE_CHECKING:
     from gettsim.germany.param_types import (
@@ -106,7 +106,7 @@ def anspruchshöhe_m_bg(
         # Excess wealth reduces the monthly claim (a stock netted against a flow).
         out = max(
             basisbetrag_m_bg
-            - cast_unit(
+            - cast_ttsim_unit(
                 vermögen_bg - vermögensfreibetrag_bg,
                 TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
             ),
@@ -166,7 +166,8 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
 
     """
     if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and (
-        familie__anzahl_erwachsene_bg >= 1
+        familie__anzahl_erwachsene_bg
+        >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -204,7 +205,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
-        and (familie__anzahl_erwachsene_bg >= 1)
+        and (
+            familie__anzahl_erwachsene_bg
+            >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+        )
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -236,7 +240,8 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
 
     """
     if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and (
-        familie__anzahl_erwachsene_bg >= 1
+        familie__anzahl_erwachsene_bg
+        >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -261,16 +266,15 @@ def basisbetrag_kind_m_bis_2022(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz_m
-        - entzugsrate_kindeseinkommen
-        * (
+    if kindergeld__ist_leistungsbegründendes_kind:
+        out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - arbeitslosengeld_2__anrechnungsfreies_einkommen_m
         )
-    )
+    else:
+        out = 0.0
 
     return max(out, 0.0)
 
@@ -290,15 +294,14 @@ def basisbetrag_kind_m_ab_2023(
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz_m
-        - entzugsrate_kindeseinkommen
-        * (
+    if kindergeld__ist_leistungsbegründendes_kind:
+        out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - bürgergeld__anrechnungsfreies_einkommen_m
         )
-    )
+    else:
+        out = 0.0
 
     return max(out, 0.0)

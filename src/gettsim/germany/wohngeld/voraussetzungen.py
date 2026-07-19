@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2008-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -21,7 +21,7 @@ def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
 @policy_function(
     start_date="2009-01-01",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -40,7 +40,9 @@ def vermögensgrenze_unterschritten_wthh(
     """Wealth is below the eligibility threshold for housing benefits."""
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
-    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (anzahl_personen_wthh - 1)
+    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
+        anzahl_personen_wthh - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_WTHH)
+    )
 
     return vermögen_wthh <= vermögensfreibetrag
 

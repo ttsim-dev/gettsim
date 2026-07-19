@@ -9,7 +9,7 @@ max_bezugsmonate:
       § 4 (3) BEEG
       Basismonate plus "Partnermonate" bei gleichzeitiger Inanspruchnahme von Elterngeld
       bei Paaren. Basismonate bei Alleinerziehenden.
-  unit: MONTHS_PER_FG
+  unit: MONTHS
   type: dict
   2007-01-01:
     basismonate: 12
@@ -27,7 +27,7 @@ max_zu_versteuerndes_einkommen_vorjahr_nach_alleinerziehendenstatus:
     en: >-
       Maximum taxable income in the year before the birth of the child. Income above
       this threshold disqualifies the parent from receiving Elterngeld.
-  unit: EUR_PER_YEAR
+  unit: EUR_PER_YEAR_PER_SN
   type: dict
   2011-01-01:
     alleinerziehend: 250000.0
@@ -51,7 +51,7 @@ max_zu_versteuerndes_einkommen_vorjahr_pauschal:
     en: >-
       Maximum taxable income in the year before the birth of the child. Income above
       this threshold disqualifies the parent from receiving Elterngeld.
-  unit: EUR_PER_YEAR
+  unit: EUR_PER_YEAR_PER_SN
   type: scalar
   2024-04-01:
     value: 200000.0

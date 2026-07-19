@@ -8,7 +8,7 @@ from gettsim.tt import (
     TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
-    cast_unit,
+    cast_ttsim_unit,
     policy_function,
 )
 
@@ -151,7 +151,7 @@ def anspruchshöhe_m(
     Anspruchshöhe is calculated on the parental level.
 
     """
-    kinderboni_m = cast_unit(
+    kinderboni_m = cast_ttsim_unit(
         geschwisterbonus_m_fg + mehrlingsbonus_m_fg, TTSIMUnit.CURRENCY.PER_MONTH
     )
     return (
@@ -194,7 +194,7 @@ def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
     claimed: bool,
     arbeitsstunden_w: float,
     leistungsbegründende_kinder_in_fg: bool,
-    einkommen_vorjahr_unter_bezugsgrenze: bool,
+    einkommen_vorjahr_unter_bezugsgrenze_sn: bool,
     bezugsmonate_unter_grenze_fg: bool,
     max_arbeitsstunden_w: int,
 ) -> bool:
@@ -205,13 +205,13 @@ def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
     return (
         claimed
         and arbeitsstunden_w <= max_arbeitsstunden_w
-        and einkommen_vorjahr_unter_bezugsgrenze
+        and einkommen_vorjahr_unter_bezugsgrenze_sn
         and leistungsbegründende_kinder_in_fg
         and bezugsmonate_unter_grenze_fg
     )
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def bezugsmonate_unter_grenze_fg(
     bisherige_bezugsmonate_fg: int,
     bezugsmonate_partner: int,
@@ -223,18 +223,25 @@ def bezugsmonate_unter_grenze_fg(
     parent.
 
     """
-    grenze_mit_partnermonaten = (
-        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
+    # Sum of individual-level months constitute FG-level threshold
+    grenze_mit_partnermonaten_fg = cast_ttsim_unit(
+        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"],
+        TTSIMUnit.MONTHS.PER_FG,
     )
     if (
         familie__alleinerziehend
         or bezugsmonate_partner >= max_bezugsmonate["partnermonate"]
     ):
-        out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten
-    elif anzahl_anträge_fg > 1:
-        out = bisherige_bezugsmonate_fg + 1 < grenze_mit_partnermonaten
+        out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten_fg
+    elif anzahl_anträge_fg > cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_FG):
+        out = (
+            bisherige_bezugsmonate_fg + cast_ttsim_unit(1, TTSIMUnit.MONTHS.PER_FG)
+            < grenze_mit_partnermonaten_fg
+        )
     else:
-        out = bisherige_bezugsmonate_fg < max_bezugsmonate["basismonate"]
+        out = bisherige_bezugsmonate_fg < cast_ttsim_unit(
+            max_bezugsmonate["basismonate"], TTSIMUnit.MONTHS.PER_FG
+        )
     return out
 
 
@@ -308,7 +315,11 @@ def anrechenbarer_betrag_m(
 
     """
     return max(
-        betrag_m - ((1 + anzahl_mehrlinge_fg) * mindestbetrag_m),
+        betrag_m
+        - (
+            (1 + cast_ttsim_unit(anzahl_mehrlinge_fg, TTSIMUnit.DIMENSIONLESS))
+            * mindestbetrag_m
+        ),
         0,
     )
 
@@ -329,7 +340,9 @@ def jüngstes_kind_oder_mehrling(
     return (
         (
             alter_monate
-            - cast_unit(familie__alter_monate_jüngstes_mitglied_fg, TTSIMUnit.MONTHS)
+            - cast_ttsim_unit(
+                familie__alter_monate_jüngstes_mitglied_fg, TTSIMUnit.MONTHS
+            )
         )
-        < 0.1
+        < cast_ttsim_unit(0.1, TTSIMUnit.MONTHS)
     ) and ist_leistungsbegründendes_kind

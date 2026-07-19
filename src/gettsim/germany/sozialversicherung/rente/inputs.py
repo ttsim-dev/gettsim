@@ -42,7 +42,7 @@ def jahr_renteneintritt() -> int:
     """Year of pension claiming."""
 
 
-@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
+@policy_input(unit=TTSIMUnit.CALENDAR_MONTH)
 def monat_renteneintritt() -> int:
     """Month of retirement."""
 

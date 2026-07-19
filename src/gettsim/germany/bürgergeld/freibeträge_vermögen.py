@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_BG)
@@ -16,7 +16,10 @@ def vermögensfreibetrag_in_karenzzeit_bg(
     """
     return (
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
-        + (familie__anzahl_personen_bg - 1)
+        + (
+            familie__anzahl_personen_bg
+            - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+        )
         * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"]
     )
 

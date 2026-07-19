@@ -57,8 +57,8 @@ def lohnersatzanteil_einkommen_obere_grenze_m(
 @policy_function(
     start_date="2011-01-01",
     end_date="2024-03-31",
-    leaf_name="einkommen_vorjahr_unter_bezugsgrenze",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    leaf_name="einkommen_vorjahr_unter_bezugsgrenze_sn",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_SN,
 )
 def einkommen_vorjahr_unter_bezugsgrenze_mit_unterscheidung_single_paar(
     familie__alleinerziehend: bool,
@@ -88,8 +88,8 @@ def einkommen_vorjahr_unter_bezugsgrenze_mit_unterscheidung_single_paar(
 
 @policy_function(
     start_date="2024-04-01",
-    leaf_name="einkommen_vorjahr_unter_bezugsgrenze",
-    unit=TTSIMUnit.DIMENSIONLESS,
+    leaf_name="einkommen_vorjahr_unter_bezugsgrenze_sn",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_SN,
 )
 def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     zu_versteuerndes_einkommen_vorjahr_y_sn: float,

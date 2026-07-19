@@ -9,7 +9,7 @@ des SGB II und des SGB XII", in: Deutsche Verwaltungspraxis (DVP), 63. Jahrgang,
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
@@ -49,7 +49,7 @@ def anspruchshöhe_m(
     """
     # Deliberate cross-level summation: the EG's Überschusseinkommen is transferred
     # into the BG's income pool, so re-tag it from the EG to the BG level.
-    total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_unit(
+    total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_ttsim_unit(
         grundsicherung__im_alter__überschusseinkommen_m_eg,
         TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
     )

@@ -6,6 +6,7 @@ from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
+    cast_ttsim_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -80,7 +81,6 @@ def _anzurechnendes_einkommen_m(
 
 
 @policy_function(
-    verify_units=False,
     rounding_spec=RoundingSpec(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
@@ -89,6 +89,9 @@ def _anzurechnendes_einkommen_m(
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    # `piecewise_polynomial` runs inside the `_anzurechnendes_einkommen_m` helper, which
+    # the dry-run's shim cannot reach, so the body cannot be symbolically unit-checked.
+    verify_units=False,
 )
 def anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
@@ -199,12 +202,15 @@ def höchstbetrag_m(
     höchstwert_der_entgeltpunkte: dict[str, float],
 ) -> float:
     """Maximum allowed number of average Entgeltpunkte."""
-    months_above_thresh = (
+    # The number of increment-steps above the threshold — a plain count multiplying
+    # the per-month increment (`1/month²` cannot be expressed, GEP 10).
+    months_above_thresh = cast_ttsim_unit(
         min(
             grundrentenzeiten_monate,
             berücksichtigte_wartezeit_monate["max"],
         )
-        - berücksichtigte_wartezeit_monate["min"]
+        - berücksichtigte_wartezeit_monate["min"],
+        TTSIMUnit.DIMENSIONLESS,
     )
 
     return (
@@ -237,10 +243,14 @@ def mean_entgeltpunkte_zuschlag_m(
 
     Legal reference: § 76g SGB VI
     """
-    out = 0.0
+    # A per-month zero for the "no additional Entgeltpunkte" branches, so every branch
+    # yields the declared `1 / month` (a bare 0.0 would infer dimensionless here).
+    kein_zuschlag_m = cast_ttsim_unit(0.0, TTSIMUnit.DIMENSIONLESS.PER_MONTH)
+
+    out = kein_zuschlag_m
     # Return 0 if Grundrentenzeiten below minimum
     if grundrentenzeiten_monate < berücksichtigte_wartezeit_monate["min"]:
-        out = 0.0
+        out = kein_zuschlag_m
     else:
         # Case 1: Entgeltpunkte less than half of Höchstwert
         if mean_entgeltpunkte_pro_bewertungsmonat_m <= (0.5 * höchstbetrag_m):
@@ -252,7 +262,7 @@ def mean_entgeltpunkte_zuschlag_m(
 
         # Case 3: Entgeltpunkte above Höchstwert
         elif mean_entgeltpunkte_pro_bewertungsmonat_m > höchstbetrag_m:
-            out = 0.0
+            out = kein_zuschlag_m
 
     # Multiply additional Engeltpunkte by factor
     return out * bonusfaktor

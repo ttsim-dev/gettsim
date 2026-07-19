@@ -12,7 +12,7 @@ from gettsim.tt import (
     TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
-    cast_unit,
+    cast_ttsim_unit,
     param_function,
     policy_function,
 )
@@ -121,7 +121,7 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     if ist_leistungsbegründendes_kind:
         return max(
             basisbetrag_m
-            - cast_unit(abzug_durch_einkommen_m_fg, TTSIMUnit.CURRENCY.PER_MONTH),
+            - cast_ttsim_unit(abzug_durch_einkommen_m_fg, TTSIMUnit.CURRENCY.PER_MONTH),
             0.0,
         )
     else:

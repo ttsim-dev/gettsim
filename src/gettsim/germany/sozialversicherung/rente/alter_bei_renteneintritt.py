@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from ttsim.unit_converters import m_to_y
 
-from gettsim.tt import TTSIMUnit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(unit=TTSIMUnit.YEARS)
@@ -25,5 +25,7 @@ def alter_bei_renteneintritt(
     return (
         jahr_renteneintritt
         - geburtsjahr
-        + m_to_y(monat_renteneintritt - geburtsmonat - 1)
+        + m_to_y(
+            monat_renteneintritt - geburtsmonat - cast_ttsim_unit(1, TTSIMUnit.MONTHS)
+        )
     )

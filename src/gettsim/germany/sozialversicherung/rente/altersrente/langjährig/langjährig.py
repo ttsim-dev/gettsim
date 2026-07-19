@@ -15,6 +15,10 @@ from gettsim.tt import (
     start_date="1989-12-18",
     leaf_name="altersgrenze",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_gestaffelt_ab_1989(
     geburtsjahr: int,

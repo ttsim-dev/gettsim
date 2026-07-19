@@ -10,7 +10,9 @@ parameter_vermögensfreibetrag:
       Wohngeld sein kann. Die genauen Werte regelt die Verwaltungsvorschrift vom April
       2009. Vorher war hohes Vermögen laut WoGG kein Ausschlussgrund.
     en: Since 2009, wealth might be a reason not to grand housing benefit.
-  unit: EUR
+  unit:
+    grundfreibetrag: EUR_PER_WTHH
+    je_weitere_person: EUR
   type: dict
   2009-01-01:
     grundfreibetrag: 60000

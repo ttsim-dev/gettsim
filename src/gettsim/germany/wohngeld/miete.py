@@ -86,7 +86,7 @@ def max_miete_m_lookup_ohne_baujahr(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="1984-01-01", unit=UNSET_UNIT)
+@param_function(start_date="1984-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
 def min_miete_lookup(
     raw_min_miete_m: dict[int, float],
     max_anzahl_personen: dict[str, int],
@@ -177,7 +177,7 @@ def miete_m_wthh(
     return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
 
 
-@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
 def min_miete_m_hh(
     anzahl_personen_hh: int,
     min_miete_lookup: ConsecutiveIntLookupTableParamValue,
@@ -191,6 +191,8 @@ def min_miete_m_hh(
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    verify_units=False,
 )
 def miete_m_hh_mit_baujahr(
     mietstufe_hh: int,
@@ -218,6 +220,8 @@ def miete_m_hh_mit_baujahr(
     end_date="2020-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    verify_units=False,
 )
 def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     mietstufe_hh: int,
@@ -237,6 +241,8 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     end_date="2022-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung(
     mietstufe_hh: int,
@@ -261,6 +267,8 @@ def miete_m_hh_mit_heizkostenentlastung(
     start_date="2023-01-01",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakomponente(
     mietstufe_hh: int,

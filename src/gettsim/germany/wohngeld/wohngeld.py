@@ -7,14 +7,16 @@ SGB II when receiving Wohngeld.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 
 from gettsim.tt import (
     UNSET_UNIT,
     AggType,
+    ConsecutiveIntLookupTableParamValue,
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -22,8 +24,6 @@ from gettsim.tt import (
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-    from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
 @agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_WTHH)
@@ -82,7 +82,14 @@ def basisbetrag_m_wthh_bis_2000(
         basisformel_params.skalierungsfaktor
         * (
             miete_m_wthh
-            - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+            - (
+                (
+                    a
+                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                )
+                * einkommen_m_wthh
+            )
         ),
     )
     return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
@@ -121,7 +128,14 @@ def basisbetrag_m_wthh_2001(
         basisformel_params.skalierungsfaktor
         * (
             miete_m_wthh
-            - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+            - (
+                (
+                    a
+                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                )
+                * einkommen_m_wthh
+            )
         ),
     )
     return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
@@ -159,7 +173,14 @@ def basisbetrag_m_wthh_ab_2002(
         basisformel_params.skalierungsfaktor
         * (
             miete_m_wthh
-            - ((a + (b * miete_m_wthh) + (c * einkommen_m_wthh)) * einkommen_m_wthh)
+            - (
+                (
+                    a
+                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                )
+                * einkommen_m_wthh
+            )
         ),
     )
     return xnp.minimum(miete_m_wthh, anspruch_laut_abc_formel)
@@ -167,10 +188,10 @@ def basisbetrag_m_wthh_ab_2002(
 
 @dataclass(frozen=True)
 class BasisformelParamValues:
-    skalierungsfaktor: float
-    a: ConsecutiveIntLookupTableParamValue
-    b: ConsecutiveIntLookupTableParamValue
-    c: ConsecutiveIntLookupTableParamValue
+    skalierungsfaktor: Annotated[float, TTSIMUnit.DIMENSIONLESS]
+    a: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
+    b: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
+    c: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
 
 
 @param_function(end_date="2000-12-31", leaf_name="basisformel_params", unit=UNSET_UNIT)
@@ -210,7 +231,9 @@ def basisformel_params_bis_2000(
 
 @dataclass(frozen=True)
 class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParamValues):
-    zusatzbetrag_nach_haushaltsgröße: ConsecutiveIntLookupTableParamValue
+    zusatzbetrag_nach_haushaltsgröße: Annotated[
+        ConsecutiveIntLookupTableParamValue, TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH
+    ]
 
 
 @param_function(

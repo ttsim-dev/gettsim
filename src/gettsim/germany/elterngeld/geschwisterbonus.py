@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_FG)
 def geschwisterbonus_m_fg(
     basisbetrag_m: float,
     geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg: bool,
@@ -19,7 +19,7 @@ def geschwisterbonus_m_fg(
     if geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
         out = max(
             geschwisterbonus_aufschlag
-            * cast_unit(basisbetrag_m, TTSIMUnit.CURRENCY.PER_MONTH.PER_FG),
+            * cast_ttsim_unit(basisbetrag_m, TTSIMUnit.CURRENCY.PER_MONTH.PER_FG),
             geschwisterbonus_minimum_m_fg,
         )
     else:
@@ -27,7 +27,7 @@ def geschwisterbonus_m_fg(
     return out
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_FG)
 def mehrlingsbonus_m_fg(
     anzahl_mehrlinge_fg: int, mehrlingsbonus_pro_kind_m: float
 ) -> float:
@@ -35,7 +35,7 @@ def mehrlingsbonus_m_fg(
     return anzahl_mehrlinge_fg * mehrlingsbonus_pro_kind_m
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
     familie__anzahl_kinder_bis_2_fg: int,
     familie__anzahl_kinder_bis_5_fg: int,
@@ -57,5 +57,7 @@ def anzahl_mehrlinge_fg(
     anzahl_mehrlinge_jüngstes_kind_fg: int,
 ) -> int:
     """Number of multiples of the youngest child."""
-    out = anzahl_mehrlinge_jüngstes_kind_fg - 1
+    out = anzahl_mehrlinge_jüngstes_kind_fg - cast_ttsim_unit(
+        1, TTSIMUnit.PERSON_COUNT.PER_FG
+    )
     return max(out, 0)

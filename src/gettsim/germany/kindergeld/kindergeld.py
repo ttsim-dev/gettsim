@@ -11,7 +11,7 @@ from gettsim.tt import (
     TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
-    cast_unit,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     join,
     param_function,
@@ -33,7 +33,7 @@ def anzahl_ansprüche(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_SN)
 def anzahl_ansprüche_sn(
     anzahl_ansprüche: int,
     sn_id: int,
@@ -74,9 +74,7 @@ def betrag_gestaffelt_m(
     being claimed for.
 
     """
-    return cast_unit(
-        satz_nach_anzahl_kinder.look_up(anzahl_ansprüche), TTSIMUnit.CURRENCY.PER_MONTH
-    )
+    return satz_nach_anzahl_kinder.look_up(anzahl_ansprüche)
 
 
 @policy_function(
@@ -147,7 +145,9 @@ def kind_bis_10_mit_kindergeld(
     ist_leistungsbegründendes_kind: bool,
 ) -> bool:
     """Child under the age of 11 and eligible for Kindergeld."""
-    return ist_leistungsbegründendes_kind and (alter <= cast_unit(10, TTSIMUnit.YEARS))
+    return ist_leistungsbegründendes_kind and (
+        alter <= cast_ttsim_unit(10, TTSIMUnit.YEARS)
+    )
 
 
 @policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)

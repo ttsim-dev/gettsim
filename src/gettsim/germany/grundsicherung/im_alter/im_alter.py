@@ -21,6 +21,7 @@ from gettsim.tt import (
     AggType,
     TTSIMUnit,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     policy_function,
 )
 
@@ -267,12 +268,18 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     mehrbedarf_bei_schwerbehinderungsgrad_g: float,
 ) -> float:
     """Additional allowance for individuals with disabled person's pass G."""
-    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+    if (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg
+        == cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_EG)
+    ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg
+        > cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_EG)
+    ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * arbeitslosengeld_2__regelsatz_anteilsbasiert.erwachsen.je_erwachsener_ab_drei_erwachsene
@@ -307,9 +314,15 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
         grundsicherung__regelbedarfsstufen.rbs_2
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g
 
-    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+    if (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg
+        == cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_EG)
+    ):
         out = mehrbedarf_single
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg
+        > cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_EG)
+    ):
         out = mehrbedarf_in_couple
     else:
         out = 0.0

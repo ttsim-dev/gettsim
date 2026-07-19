@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from ttsim.unit_converters import m_to_y
 
-from gettsim.tt import TTSIMUnit, cast_unit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 if TYPE_CHECKING:
     from types import ModuleType
@@ -350,5 +350,5 @@ def älter_als_regelaltersgrenze(
     # Hence, we add a number << 1 / 12 to the RHS.
     return m_to_y(alter_monate) > (
         sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        + cast_unit(0.00001, TTSIMUnit.YEARS)
+        + cast_ttsim_unit(0.00001, TTSIMUnit.YEARS)
     )

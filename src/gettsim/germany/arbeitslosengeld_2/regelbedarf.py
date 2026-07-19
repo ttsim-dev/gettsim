@@ -9,7 +9,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
-    cast_unit,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -58,7 +58,7 @@ def r(
     # is a leveled `[person]/[fg]`, so cast it to a plain dimensionless multiplier.
     basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
         "basis_je_kind_bis_17"
-    ] * cast_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
+    ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -314,7 +314,10 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(anzahl_personen_hh - cast_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH), 0)
+            + max(
+                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH),
+                0,
+            )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)
