@@ -134,7 +134,7 @@ raw_max_miete_m_nach_baujahr:
     en: null
   type: require_converter
   1981-01-01:
-    unit: DM_PER_MONTH
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 255
@@ -242,6 +242,7 @@ raw_max_miete_m_nach_baujahr:
       Bis 1985 nur drei Mietstufen, streng abhängig von der Größe der Gemeinde. Es
       wird "Wohnung mit Sammelheizung und mit Bad oder Duschraum" angenommen.
   1985-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 285
@@ -397,6 +398,7 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1990-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 285
@@ -576,6 +578,7 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1990-10-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 310
@@ -713,6 +716,7 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   1993-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 310
@@ -892,6 +896,7 @@ raw_max_miete_m_nach_baujahr:
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
   2001-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
     1:
       1965:
         1: 391.17

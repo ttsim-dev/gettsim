@@ -142,6 +142,7 @@
               "properties": { "type": { "const": "require_converter" } }
             },
             "then": {
+              "$comment": "A require_converter parameter declares its unit(s) in one of three ways: a single top-level `unit:`; a top-level `input_unit:`/`output_unit:` pair; or, for a parameter re-denominated over time, one `unit:` inside each date-specific key (GEP 10). The third case carries no top-level unit declaration; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) guarantees every active leaf still resolves to a unit.",
               "oneOf": [
                 {
                   "required": ["unit"],
@@ -153,6 +154,13 @@
                 {
                   "required": ["input_unit", "output_unit"],
                   "not": { "required": ["unit"] }
+                },
+                {
+                  "allOf": [
+                    { "not": { "required": ["unit"] } },
+                    { "not": { "required": ["input_unit"] } },
+                    { "not": { "required": ["output_unit"] } }
+                  ]
                 }
               ]
             },
