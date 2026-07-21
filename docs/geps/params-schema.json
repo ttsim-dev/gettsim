@@ -134,8 +134,20 @@
             }
           },
           "then": {
-            "required": ["input_unit", "output_unit"],
-            "not": { "required": ["unit"] }
+            "$comment": "A piecewise / lookup / phase-inout parameter declares its input and output units either as a top-level `input_unit:`/`output_unit:` pair, or — for a parameter re-denominated over time (e.g. DM before the 2002 euro reform, EUR after) — as one `input_unit:`/`output_unit:` pair inside each date-specific key (GEP 10). The latter carries no top-level unit declaration; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) guarantees every active leaf still resolves to a unit.",
+            "oneOf": [
+              {
+                "required": ["input_unit", "output_unit"],
+                "not": { "required": ["unit"] }
+              },
+              {
+                "allOf": [
+                  { "not": { "required": ["unit"] } },
+                  { "not": { "required": ["input_unit"] } },
+                  { "not": { "required": ["output_unit"] } }
+                ]
+              }
+            ]
           },
           "else": {
             "if": {
