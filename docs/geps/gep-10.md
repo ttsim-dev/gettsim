@@ -282,13 +282,13 @@ Teilhaushalte (`wthh`). See {ref}`GEP 2 <gep-2>`.
 
 The framework discovers grouping levels from the policy environment. TTSIM does not
 define a fixed list. Each discovered level becomes a separate Pint base dimension. There
-is no individual dimension: a quantity that is a property of a person carries no grouping
-level at all and is simply bare.
+is no individual dimension: a quantity that is a property of a person carries no
+grouping level at all and is simply bare.
 
 The domain model contains subset and membership relationships between some groups. The
 unit system does not encode these relationships. It treats `[hh]`, `[bg]`, and other
-levels as non-interconvertible dimensions because group sizes and memberships vary across
-observations.
+levels as non-interconvertible dimensions because group sizes and memberships vary
+across observations.
 
 (gep-10-leveled)=
 
@@ -345,8 +345,8 @@ an expression requires `cast_unit`, as described in
 ### Booleans
 
 A boolean describes an entity. At the individual grain it is bare; at a group level it
-carries that level. A function's `-> bool` return annotation distinguishes a boolean from
-a numerical dimensionless share (which is also bare at the individual grain).
+carries that level. A function's `-> bool` return annotation distinguishes a boolean
+from a numerical dimensionless share (which is also bare at the individual grain).
 
 | Boolean             | Declaration            | Resolved dimensionality |
 | ------------------- | ---------------------- | ----------------------- |
@@ -355,10 +355,10 @@ a numerical dimensionless share (which is also bare at the individual grain).
 | household indicator | `DIMENSIONLESS_PER_HH` | `1 / [hh]`              |
 
 The logical operators `&`, `|`, and `^` preserve the level when both operands have the
-same level. When their levels differ, the result is bare — the individual grain — because
-the expression is evaluated once per person. This rule does not assert that the domain's
-groups lack nesting; it states only how TTSIM classifies the result of a cross-level
-logical expression.
+same level. When their levels differ, the result is bare — the individual grain —
+because the expression is evaluated once per person. This rule does not assert that the
+domain's groups lack nesting; it states only how TTSIM classifies the result of a
+cross-level logical expression.
 
 ```text
 child & requirement_fulfilled_fg
@@ -368,8 +368,8 @@ child & requirement_fulfilled_fg
 
 `~` preserves its operand's level. Ordering comparisons require equivalent operand units
 and produce a boolean at the operands' level. A comparison of two bare quantities
-produces a bare boolean because it is evaluated once per person. Equality comparisons are
-not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
+produces a bare boolean because it is evaluated once per person. Equality comparisons
+are not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
 
 (gep-10-hours)=
 
@@ -381,9 +381,9 @@ Working hours use a dedicated `[hours]` dimension rather than Pint's `[time]` di
 Otherwise, hours per week would reduce to a dimensionless ratio and could not be
 distinguished from a share.
 
-`HOURS_PER_WEEK` therefore resolves to `[hours] / [time]` (bare, an individual quantity).
-A reference-period conversion changes only the period denominator; it does not change the
-`[hours]` numerator.
+`HOURS_PER_WEEK` therefore resolves to `[hours] / [time]` (bare, an individual
+quantity). A reference-period conversion changes only the period denominator; it does
+not change the `[hours]` numerator.
 
 ### Calendar points and durations
 
@@ -540,9 +540,10 @@ match the unit derived from the source, aggregation type, and target level. An
 aggregation whose policy interpretation cannot be represented by these rules may set
 `verify_units=False`.
 
-`@agg_by_p_id_function` aggregates to the individual grain, which is bare, so its results
-carry no level: a summed or counted `agg_by_p_id` head count is a bare `dimensionless`.
-`@group_creation_function` produces identifiers and has no unit declaration.
+`@agg_by_p_id_function` aggregates to the individual grain, which is bare, so its
+results carry no level: a summed or counted `agg_by_p_id` head count is a bare
+`dimensionless`. `@group_creation_function` produces identifiers and has no unit
+declaration.
 
 (gep-10-literals)=
 
@@ -751,8 +752,8 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 ```
 
-The arguments resolve to `CURRENCY / month / [hh]` and `1 / [hh]`. Their division resolves
-to `CURRENCY / month` (bare), which matches the declaration.
+The arguments resolve to `CURRENCY / month / [hh]` and `1 / [hh]`. Their division
+resolves to `CURRENCY / month` (bare), which matches the declaration.
 
 Conditional branches are explored by re-evaluating the body with different branch
 decisions. Each explored return path is checked separately. Vectorized `xnp` operations
@@ -891,12 +892,12 @@ bare, and a head count is dimensionless (`1 / [group]` at a group level). This i
 deliberate simplification with a real tradeoff. A person level bought two things: a
 level-neutral rate or share (bare `dimensionless`) could be told apart from a per-person
 amount (`.../[person]`), and per-capita divisions produced a typed per-person residue
-rather than cancelling to bare. Its cost was a more complex model — an implied leaf whose
-attachment depended on an extensive-vs-intensive classification of every base, the
+rather than cancelling to bare. Its cost was a more complex model — an implied leaf
+whose attachment depended on an extensive-vs-intensive classification of every base, the
 `PER_PERSON` spelling duplicating a bare form, and booleans carrying `1 / [person]` at
 the individual grain. Collapsing the individual grain to bare gives up the
-neutral-vs-individual distinction — a rate and a per-person amount are now both bare — in
-exchange for a single representation, no implied leaf, and per-capita divisions that
+neutral-vs-individual distinction — a rate and a per-person amount are now both bare —
+in exchange for a single representation, no implied leaf, and per-capita divisions that
 cancel cleanly to the group level with no residue.
 
 ### Convert all parameters to a selected run currency
