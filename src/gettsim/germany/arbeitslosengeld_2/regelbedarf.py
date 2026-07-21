@@ -324,7 +324,9 @@ def berechtigte_wohnfläche(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
@@ -340,7 +342,9 @@ def bruttokaltmiete_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
@@ -356,7 +360,9 @@ def heizkosten_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.SQUARE_METER
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.SQUARE_METER,
 )
 def wohnfläche(
     wohnen__wohnfläche_hh: float,

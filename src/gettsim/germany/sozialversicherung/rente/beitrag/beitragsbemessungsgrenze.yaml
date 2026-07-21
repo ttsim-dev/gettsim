@@ -542,6 +542,7 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   type: scalar
   1990-01-01:
     value: 32400
+    unit: DM_PER_YEAR
     reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, eingefügt durch das Renten-Überleitungsgesetz.
   1991-01-01:

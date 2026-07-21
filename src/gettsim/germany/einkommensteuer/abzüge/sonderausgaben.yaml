@@ -8,7 +8,7 @@ sonderausgabenpauschbetrag:
     en: null
   type: scalar
   1984-01-01:
-    unit: DM_PER_YEAR_PER_PERSON
+    unit: DM_PER_YEAR
     value: 270
     reference: § 10c EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1988-01-01:
@@ -16,7 +16,7 @@ sonderausgabenpauschbetrag:
     reference: Art. 1 Nr. 15 G. v. 25.07.1988, BGBl. I S. 1093
     note: Rückdatiert auf das gesamte Jahr.
   2002-01-01:
-    unit: EUR_PER_YEAR_PER_PERSON
+    unit: EUR_PER_YEAR
     value: 36
     note: Art. 1 G. v. 19.12.2000, BGBl. I S. 1790
 parameter_absetzbare_kinderbetreuungskosten:

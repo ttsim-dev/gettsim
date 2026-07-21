@@ -76,7 +76,7 @@ def monate_verbleibender_anspruchsdauer(
     return out
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def mindestversicherungszeit_erreicht(
     monate_beitragspflichtig_versichert_in_letzten_30_monaten: int,
     mindestversicherungsmonate: int,
@@ -90,7 +90,7 @@ def mindestversicherungszeit_erreicht(
     )
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     arbeitssuchend: bool,
     monate_verbleibender_anspruchsdauer: int,

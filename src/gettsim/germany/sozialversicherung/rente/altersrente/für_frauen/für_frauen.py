@@ -19,6 +19,10 @@ from gettsim.tt import (
     end_date="2017-12-31",
     leaf_name="altersgrenze",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_mit_staffelung(
     geburtsjahr: int,
@@ -40,6 +44,10 @@ def altersgrenze_mit_staffelung(
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_vorzeitig_mit_staffelung(
     geburtsjahr: int,

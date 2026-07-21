@@ -294,7 +294,7 @@ def anspruchshöhe_m_ab_2017_07(
 @policy_function(
     start_date="2017-07-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def elternteil_mindesteinkommen_erreicht(
     kindergeld__p_id_empfänger: IntColumn,
@@ -314,7 +314,7 @@ def elternteil_mindesteinkommen_erreicht(
     )
 
 
-@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS)
 def mindesteinkommen_erreicht(
     einkommen_m: float,
     mindesteinkommen_m: float,

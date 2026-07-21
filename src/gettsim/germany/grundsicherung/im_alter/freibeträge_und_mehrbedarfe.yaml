@@ -14,7 +14,7 @@ parameter_vermögensfreibetrag:
       assets exceed this threshold.
       § 1 Verordnung zur Durchführung des § 90 Abs. 2 Nr. 9 des Zwölften Buches
       Sozialgesetzbuch
-  unit: EUR_PER_PERSON
+  unit: EUR
   type: dict
   2003-01-01:
     erwachsene: 2600

@@ -39,7 +39,7 @@ berechtigte_wohnfläche_miete:
       https://github.com/ttsim-dev/gettsim/issues/782.
   unit:
     single: SQUARE_METER_PER_HH
-    je_weitere_person: SQUARE_METER_PER_PERSON
+    je_weitere_person: SQUARE_METER
   type: dict
   2023-01-01:
     single: 45

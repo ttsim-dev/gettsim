@@ -13,7 +13,7 @@ from gettsim.tt import (
 )
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def ist_leistungsbegründendes_kind(
     alter_monate: int,
     max_bezugsmonate: dict[str, int],
@@ -167,7 +167,7 @@ def anspruchshöhe_m(
     start_date="2007-01-01",
     end_date="2010-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_ohne_maximales_vorjahreseinkommen(
     claimed: bool,
@@ -188,7 +188,7 @@ def grundsätzlich_anspruchsberechtigt_ohne_maximales_vorjahreseinkommen(
 @policy_function(
     start_date="2011-01-01",
     leaf_name="grundsätzlich_anspruchsberechtigt",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
     claimed: bool,
@@ -324,7 +324,7 @@ def anrechenbarer_betrag_m(
     )
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def jüngstes_kind_oder_mehrling(
     alter_monate: int,
     familie__alter_monate_jüngstes_mitglied_fg: int,

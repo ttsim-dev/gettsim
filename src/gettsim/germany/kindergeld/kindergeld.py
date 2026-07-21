@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
-    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
     TTSIMUnit,
@@ -81,7 +80,7 @@ def betrag_gestaffelt_m(
     end_date="1995-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
     fail_msg_if_included="Kindergeld eligibility is not implemented prior to 1996.",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     pass
@@ -91,7 +90,7 @@ def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
     start_date="1996-01-01",
     end_date="2011-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn(
     alter: int,
@@ -117,7 +116,7 @@ def leistungsbegründendes_kind_nach_lohn(
 @policy_function(
     start_date="2012-01-01",
     leaf_name="ist_leistungsbegründendes_kind",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_stunden(
     alter: int,
@@ -150,9 +149,7 @@ def kind_bis_10_mit_kindergeld(
     )
 
 
-@policy_function(
-    vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON
-)
+@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
 def gleiche_fg_wie_empfänger(
     p_id: IntColumn,
     p_id_empfänger: IntColumn,
@@ -171,7 +168,7 @@ def gleiche_fg_wie_empfänger(
     return fg_id_kindergeldempfänger == fg_id
 
 
-@param_function(end_date="2022-12-31", unit=UNSET_UNIT)
+@param_function(end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def satz_nach_anzahl_kinder(
     satz_gestaffelt: dict[int, float],
     xnp: ModuleType,

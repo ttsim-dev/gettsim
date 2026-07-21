@@ -5,7 +5,7 @@ from __future__ import annotations
 from gettsim.tt import RoundingSpec, TTSIMUnit, policy_function
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def geringfügig_beschäftigt(
     einnahmen__bruttolohn_m: float,
     minijobgrenze_m: float,

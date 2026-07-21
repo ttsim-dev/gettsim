@@ -20,6 +20,9 @@ if TYPE_CHECKING:
     end_date="2022-12-31",
     leaf_name="satz_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    # Combines a structured-parameter pluck, a lookup, and `per_y_to_per_m`, none
+    # of which the dry-run can evaluate symbolically.
+    verify_units=False,
 )
 def satz_mit_gestaffeltem_kindergeld(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
@@ -86,7 +89,7 @@ def betrag_m_bg(
         return 0.0
 
 
-@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_PERSON)
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anspruchshöhe_m(
     anspruchshöhe_m_bg: float,
     familie__anzahl_personen_bg: int,

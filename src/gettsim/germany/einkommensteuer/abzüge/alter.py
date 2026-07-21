@@ -22,6 +22,9 @@ if TYPE_CHECKING:
     end_date="2004-12-31",
     leaf_name="altersfreibetrag_y",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    # The age-gated `min` over the quote-weighted income is not symbolically
+    # traceable by the dry-run; the declared unit and edges stay checked.
+    verify_units=False,
 )
 def altersfreibetrag_y_bis_2004(
     alter: int,

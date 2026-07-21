@@ -115,7 +115,9 @@ def einkommen_zur_verteilung_m(
 
 
 @policy_function(
-    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def überschusseinkommen_m_bg(
     einkommen_zur_verteilung_m_bg: float,

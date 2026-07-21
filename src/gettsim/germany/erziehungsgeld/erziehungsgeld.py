@@ -246,7 +246,9 @@ def _leistungsbegründendes_kind_nach_abschaffung(
 
 
 @policy_function(
-    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.DIMENSIONLESS
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def grundsätzlich_anspruchsberechtigt(
     arbeitsstunden_w: float,
@@ -307,7 +309,11 @@ def einkommensgrenze_y_fg(
     if ist_leistungsbegründendes_kind:
         return (
             einkommensgrenze_ohne_geschwisterbonus_y_fg
-            + (familie__anzahl_kinder_fg - 1) * erhöhung_einkommensgrenze_pro_kind_y
+            + (
+                familie__anzahl_kinder_fg
+                - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_FG)
+            )
+            * erhöhung_einkommensgrenze_pro_kind_y
         )
     else:
         return 0.0
@@ -350,13 +356,14 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_alleinerziehend["budgetsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend["budgetsatz"]
     elif budgetsatz and not familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_paar["budgetsatz"]
+        satz = einkommensgrenzen.regulär_paar["budgetsatz"]
     elif not budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_alleinerziehend["regelsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend["regelsatz"]
     else:
-        return einkommensgrenzen.regulär_paar["regelsatz"]
+        satz = einkommensgrenzen.regulär_paar["regelsatz"]
+    return cast_ttsim_unit(satz, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG)
 
 
 @policy_function(
@@ -374,10 +381,11 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
+        satz = einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
     elif budgetsatz and not familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_paar["budgetsatz"]
+        satz = einkommensgrenzen.reduziert_paar["budgetsatz"]
     elif not budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
+        satz = einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
     else:
-        return einkommensgrenzen.reduziert_paar["regelsatz"]
+        satz = einkommensgrenzen.reduziert_paar["regelsatz"]
+    return cast_ttsim_unit(satz, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG)

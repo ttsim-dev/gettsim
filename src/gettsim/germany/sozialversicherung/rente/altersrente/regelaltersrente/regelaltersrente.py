@@ -23,7 +23,7 @@ def altersgrenze(
     return altersgrenze_gestaffelt.look_up(geburtsjahr)
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     sozialversicherung__rente__mindestwartezeit_erfüllt: bool,
 ) -> bool:

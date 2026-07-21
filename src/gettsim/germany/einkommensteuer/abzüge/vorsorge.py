@@ -114,6 +114,10 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
 @policy_function(
     end_date="2019-12-31",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    # The split-half method repeatedly divides Steuernummer totals by head count and
+    # recombines them with level-neutral caps, so intermediate terms live at mixed
+    # levels that no single unit can describe. The declared unit and edges stay checked.
+    verify_units=False,
 )
 def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     vorwegabzug_lohnsteuer_y_sn: float,
@@ -323,10 +327,13 @@ def vorwegabzug_lohnsteuer_y_sn(
         * einnahmen__bruttolohn_y_sn
     )
 
-    return max(out, 0.0)
+    # Dividing the Steuernummer total by its head count cancels the group level in
+    # the algebra, but the Vorwegabzug is a per-Steuernummer amount consumed at that
+    # level; tag it accordingly.
+    return cast_ttsim_unit(max(out, 0.0), TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 
 
-@param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_PERSON)
+@param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def maximalbetrag_altersvorsorgeaufwendungen_y(
     sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung: float,
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y: float,
@@ -338,5 +345,5 @@ def maximalbetrag_altersvorsorgeaufwendungen_y(
             sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
             * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
         ),
-        TTSIMUnit.CURRENCY.PER_YEAR.PER_PERSON,
+        TTSIMUnit.CURRENCY.PER_YEAR,
     )

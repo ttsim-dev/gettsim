@@ -10,7 +10,7 @@ sparerfreibetrag_y:
     en: null
   type: scalar
   1975-01-01:
-    unit: DM_PER_YEAR_PER_PERSON
+    unit: DM_PER_YEAR
     value: 300
   1990-01-01:
     value: 600
@@ -19,7 +19,7 @@ sparerfreibetrag_y:
   2000-01-01:
     value: 3000
   2002-01-01:
-    unit: EUR_PER_YEAR_PER_PERSON
+    unit: EUR_PER_YEAR
     value: 1550
     reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2004-01-01:
@@ -39,10 +39,10 @@ werbungskostenpauschbetrag_y:
     en: null
   type: scalar
   1975-01-01:
-    unit: DM_PER_YEAR_PER_PERSON
+    unit: DM_PER_YEAR
     value: 100
   2002-01-01:
-    unit: EUR_PER_YEAR_PER_PERSON
+    unit: EUR_PER_YEAR
     value: 51
     reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2009-01-01:
@@ -58,7 +58,7 @@ sparerpauschbetrag_y:
       § 20 (9) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: EUR_PER_YEAR_PER_PERSON
+  unit: EUR_PER_YEAR
   type: scalar
   2009-01-01:
     value: 801

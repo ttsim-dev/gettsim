@@ -332,7 +332,7 @@ def freibetrag_m_ab_2021(
     return freibetrag_bei_behinderung + freibetrag_kinder + freibetrag_grundrente
 
 
-@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def ist_kind_mit_erwerbseinkommen(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

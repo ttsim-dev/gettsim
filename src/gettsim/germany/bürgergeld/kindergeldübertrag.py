@@ -124,7 +124,7 @@ def differenz_kindergeld_kindbedarf_m(
 @policy_function(
     start_date="2023-01-01",
     vectorization_strategy="not_required",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def in_anderer_bg_als_kindergeldempfänger(
     p_id: IntColumn,

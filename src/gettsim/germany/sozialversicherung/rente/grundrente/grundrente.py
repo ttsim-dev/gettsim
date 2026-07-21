@@ -268,7 +268,7 @@ def mean_entgeltpunkte_zuschlag_m(
     return out * bonusfaktor
 
 
-@policy_function(start_date="2021-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],

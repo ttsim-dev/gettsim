@@ -12,7 +12,7 @@ vermögensfreibetrag_je_person_nach_karenzzeit:
       end of the Karenzzeit.
   unit:
     während_karenzzeit: EUR_PER_BG
-    normaler_satz: EUR_PER_PERSON
+    normaler_satz: EUR
   type: dict
   2023-01-01:
     während_karenzzeit: 40000

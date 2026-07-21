@@ -5,7 +5,7 @@ from __future__ import annotations
 from gettsim.tt import TTSIMUnit, param_function, policy_function
 
 
-@policy_function(start_date="2003-04-01", unit=TTSIMUnit.DIMENSIONLESS.PER_PERSON)
+@policy_function(start_date="2003-04-01", unit=TTSIMUnit.DIMENSIONLESS)
 def in_gleitzone(
     einnahmen__bruttolohn_m: float,
     geringfügig_beschäftigt: bool,

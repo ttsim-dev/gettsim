@@ -23,6 +23,10 @@ from gettsim.tt import (
     end_date="1996-07-28",
     leaf_name="altersgrenze",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_bis_1996(
     geburtsjahr: int,
@@ -86,6 +90,10 @@ def altersgrenze_ab_2010(
     end_date="1996-07-28",
     leaf_name="altersgrenze_vorzeitig",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_bis_1996_07(
     geburtsjahr: int,
@@ -149,7 +157,15 @@ def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_2004(
         return altersgrenze_vorzeitig_ohne_vertrauensschutz
 
 
-@policy_function(start_date="1989-12-18", end_date="2017-12-31", unit=TTSIMUnit.YEARS)
+@policy_function(
+    start_date="1989-12-18",
+    end_date="2017-12-31",
+    unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
+)
 def altersgrenze_ohne_vertrauensschutz(
     geburtsjahr: int,
     geburtsmonat: int,
@@ -166,7 +182,15 @@ def altersgrenze_ohne_vertrauensschutz(
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
 
 
-@policy_function(start_date="1996-07-29", end_date="2009-12-31", unit=TTSIMUnit.YEARS)
+@policy_function(
+    start_date="1996-07-29",
+    end_date="2009-12-31",
+    unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
+)
 def altersgrenze_mit_vertrauensschutz(
     geburtsjahr: int,
     geburtsmonat: int,
@@ -183,6 +207,10 @@ def altersgrenze_mit_vertrauensschutz(
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig_ohne_vertrauensschutz",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
     geburtsjahr: int,
@@ -205,6 +233,10 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
     end_date="2017-12-31",
     leaf_name="altersgrenze_vorzeitig_ohne_vertrauensschutz",
     unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_07_2004(
     geburtsjahr: int,

@@ -99,6 +99,9 @@ def ertragsanteil_berufsständische_altersvorsorge(
 @policy_function(
     end_date="2004-12-31",
     unit=TTSIMUnit.DIMENSIONLESS,
+    # Indexes a lookup table with a computed `xnp.floor(...)` index, which the
+    # dry-run cannot evaluate symbolically.
+    verify_units=False,
 )
 def ertragsanteil_gesetzliche_rente(
     sozialversicherung__rente__alter_bei_renteneintritt: float,
