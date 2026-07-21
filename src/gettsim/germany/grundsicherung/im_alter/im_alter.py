@@ -99,7 +99,7 @@ def anspruchshöhe_m_bis_2022(
     individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
-    arbeitslosengeld_2__überschusseinkommen_m_eg: float,
+    arbeitslosengeld_2__überschusseinkommen_m_bg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
     vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
@@ -117,7 +117,13 @@ def anspruchshöhe_m_bis_2022(
     # https://github.com/ttsim-dev/gettsim/issues/1145
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
-        + arbeitslosengeld_2__überschusseinkommen_m_eg
+        # Deliberate cross-level transfer of the Überschusseinkommen amount: the SGB II
+        # Bedarfsgemeinschaft and the Einsatzgemeinschaft coincide, so the BG total is
+        # the EG total.
+        + cast_ttsim_unit(
+            arbeitslosengeld_2__überschusseinkommen_m_bg,
+            TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+        )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
@@ -140,7 +146,7 @@ def anspruchshöhe_m_ab_2023(
     individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
-    bürgergeld__überschusseinkommen_m_eg: float,
+    bürgergeld__überschusseinkommen_m_bg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
     vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
@@ -158,7 +164,13 @@ def anspruchshöhe_m_ab_2023(
     # https://github.com/ttsim-dev/gettsim/issues/1145
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
-        + bürgergeld__überschusseinkommen_m_eg
+        # Deliberate cross-level transfer of the Überschusseinkommen amount: the SGB II
+        # Bedarfsgemeinschaft and the Einsatzgemeinschaft coincide, so the BG total is
+        # the EG total.
+        + cast_ttsim_unit(
+            bürgergeld__überschusseinkommen_m_bg,
+            TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+        )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
