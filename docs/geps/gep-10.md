@@ -623,6 +623,19 @@ specified by the statute, including legally rounded values introduced at a curre
 changeover. The rejected alternative of converting parameters is discussed in
 {ref}`Alternatives <gep-10-alternatives>`.
 
+The concrete currency is an authoring checksum on a fixed literal. A value such as `690`
+does not reveal whether it denotes Deutsche Mark or Euro. The declaration supplies an
+independent assertion that the build checks against the statutory currency at the
+entry's date, detecting a stale label when an entry is copied across a currency
+changeover. This redundancy with the date is deliberate: the token is a validation
+anchor and does not drive conversion or computation.
+
+Fixed literals in parameter YAML and rounding specifications therefore declare a
+concrete currency. Computed currency values from policy functions and `@param_function`s
+use `CURRENCY`: their magnitudes derive from concrete-currency inputs, so there is no
+fixed literal to mislabel. A currency-valued `@param_function` remains currency-agnostic
+even without a date restriction or when it spans a currency changeover.
+
 `data_currency` defaults to the registered base currency, which is Euro in GETTSIM. If
 the statutory currency differs from the base currency while the default remains in use,
 GETTSIM issues a warning.
