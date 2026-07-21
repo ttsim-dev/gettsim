@@ -122,19 +122,20 @@ def überschusseinkommen_m_bg(
     return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)
 
 
-@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def überschusseinkommen_m(
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG)
+def überschusseinkommen_m_eg(
     überschusseinkommen_m_bg: float,
-    familie__anzahl_personen_bg: int,
 ) -> float:
-    """Per-person share of the Bedarfsgemeinschaft surplus.
+    """SGB II surplus transferred to the Einsatzgemeinschaft.
 
-    Splitting the BG total evenly across its members lets the Einsatzgemeinschaft
-    aggregate (formed by summing over the EG downstream) count each BG's surplus once.
+    In a gemischten Bedarfsgemeinschaft the Bedarfsgemeinschaft and the
+    Einsatzgemeinschaft coincide, so the BG-level surplus is the EG-level surplus.
 
     Reference: BSG B 14 AS 89/20 R
     """
+    # Deliberate cross-level transfer of the Überschusseinkommen amount: BG and EG
+    # coincide for the gemischte Bedarfsgemeinschaft, so the BG total is the EG total.
     return cast_ttsim_unit(
-        überschusseinkommen_m_bg / familie__anzahl_personen_bg,
-        TTSIMUnit.CURRENCY.PER_MONTH,
+        überschusseinkommen_m_bg,
+        TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
     )
