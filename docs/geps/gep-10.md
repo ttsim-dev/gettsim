@@ -53,7 +53,7 @@ The existing time suffixes (`_y`, `_q`, `_m`, `_w`, `_d`) and grouping suffixes 
 | Data conversion        | Currency-denominated input and computed results are converted at the interface boundary.                       |
 | Runtime representation | The tax and transfer computation uses ordinary NumPy or JAX arrays, not `pint.Quantity`.                       |
 | Grouping levels        | Each grouping level is represented as a separate, non-interconvertible dimension.                              |
-| Individual level       | The person level is implied and is not written as `_PER_PERSON`.                                               |
+| Individual level       | An individual quantity carries no grouping level; it is simply bare.                                           |
 | Validation             | Function bodies, declarations, parameter metadata, aggregations, and optional input tags are validated.        |
 | Exceptions             | `cast_unit` changes the inferred unit of one expression; `verify_units=False` disables validation of one body. |
 
@@ -250,20 +250,21 @@ declaration. For example, `Unit.CURRENCY.PER_MONTH.PER_BG` corresponds to
 
 ### Common declarations
 
-| Declaration                           | Resolved dimensionality                        | Example                                   |
-| ------------------------------------- | ---------------------------------------------- | ----------------------------------------- |
-| `CURRENCY_PER_MONTH`                  | `CURRENCY / month / [person]`                  | personal monthly income                   |
-| `CURRENCY_PER_MONTH_PER_BG`           | `CURRENCY / month / [bg]`                      | benefit assigned to a Bedarfsgemeinschaft |
-| `CURRENCY`                            | `CURRENCY / [person]`                          | personal wealth                           |
-| `DIMENSIONLESS`                       | dimensionless, or `1 / [person]` for a boolean | share or personal indicator               |
-| `DIMENSIONLESS_PER_FG`                | `1 / [fg]`                                     | Familiengemeinschaft indicator            |
-| `DIMENSIONLESS_PER_YEAR`              | `1 / year`                                     | annual rate applied to a stock            |
-| `PERSON_COUNT_PER_BG`                 | `[person] / [bg]`                              | persons in a Bedarfsgemeinschaft          |
-| `HOURS_PER_WEEK`                      | `[hours] / week / [person]`                    | personal weekly working hours             |
-| `CURRENCY_PER_HOURS`                  | `CURRENCY / [hours]`                           | hourly wage                               |
-| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter**2 / month`                  | monthly rent ceiling per square meter     |
-| `YEARS`                               | calendar-year duration                         | age in years                              |
-| `CALENDAR_YEAR`                       | point on the calendar-year axis                | birth year                                |
+| Declaration                           | Resolved dimensionality         | Example                                   |
+| ------------------------------------- | ------------------------------- | ----------------------------------------- |
+| `CURRENCY_PER_MONTH`                  | `CURRENCY / month` (bare)       | personal monthly income                   |
+| `CURRENCY_PER_MONTH_PER_BG`           | `CURRENCY / month / [bg]`       | benefit assigned to a Bedarfsgemeinschaft |
+| `CURRENCY`                            | `CURRENCY` (bare)               | personal wealth                           |
+| `DIMENSIONLESS`                       | `dimensionless`                 | share, rate, or personal indicator        |
+| `DIMENSIONLESS_PER_FG`                | `1 / [fg]`                      | Familiengemeinschaft indicator            |
+| `DIMENSIONLESS_PER_YEAR`              | `1 / year`                      | annual rate applied to a stock            |
+| `PERSON_COUNT`                        | `dimensionless`                 | head count                                |
+| `PERSON_COUNT_PER_BG`                 | `1 / [bg]`                      | persons in a Bedarfsgemeinschaft          |
+| `HOURS_PER_WEEK`                      | `[hours] / week` (bare)         | personal weekly working hours             |
+| `CURRENCY_PER_HOURS`                  | `CURRENCY / [hours]`            | hourly wage                               |
+| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | `CURRENCY / meter**2 / month`   | monthly rent ceiling per square meter     |
+| `YEARS`                               | calendar-year duration          | age in years                              |
+| `CALENDAR_YEAR`                       | point on the calendar-year axis | birth year                                |
 
 `CURRENCY` is valid only in code-side declarations whose concrete currency depends on
 the policy date. Parameter YAML, rounding specifications, and input tags use a concrete
@@ -280,12 +281,14 @@ Einsatzgemeinschaften (`eg`), Ehegemeinschaften (`ehe`), and wohngeldrechtliche
 Teilhaushalte (`wthh`). See {ref}`GEP 2 <gep-2>`.
 
 The framework discovers grouping levels from the policy environment. TTSIM does not
-define a fixed list. Each discovered level becomes a separate Pint base dimension.
+define a fixed list. Each discovered level becomes a separate Pint base dimension. There
+is no individual dimension: a quantity that is a property of a person carries no grouping
+level at all and is simply bare.
 
 The domain model contains subset and membership relationships between some groups. The
-unit system does not encode these relationships. It treats `[person]`, `[hh]`, `[bg]`,
-and other levels as non-interconvertible dimensions because group sizes and memberships
-vary across observations.
+unit system does not encode these relationships. It treats `[hh]`, `[bg]`, and other
+levels as non-interconvertible dimensions because group sizes and memberships vary across
+observations.
 
 (gep-10-leveled)=
 
@@ -301,7 +304,7 @@ is constant within a group.
 | group count              | attach the group level | persons per household                       |
 | group extreme            | attach the group level | age of the youngest family member           |
 | group indicator or label | attach the group level | owner-occupied household, rent category     |
-| personal amount          | implied person level   | income, personal benefit share              |
+| personal amount          | no level (bare)        | income, personal benefit share              |
 | personal age or date     | no group level         | age, birth year                             |
 | personal share or mean   | no group level         | average income per person                   |
 
@@ -315,20 +318,21 @@ has unit `CURRENCY_PER_MONTH`, because it describes an amount per person.
 
 ### Head counts as level conversions
 
-The person dimension is also the numerator of a head count. This makes explicit
-per-capita calculations dimensionally valid.
+A head count is dimensionless; at a group level it is a count per group, `1 / [group]`.
+This makes explicit per-capita calculations dimensionally valid: dividing a group total
+by its head count cancels the group level and lands at a bare per-person amount.
 
 ```text
 wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
-  = (CURRENCY / month / [hh]) / ([person] / [hh])
-  = CURRENCY / month / [person]
+  = (CURRENCY / month / [hh]) / (1 / [hh])
+  = CURRENCY / month
 ```
 
-Multiplication by a head count converts a per-person amount to a group total.
+Multiplication by a head count converts a bare per-person amount to a group total.
 
 ```text
 familie__anzahl_personen_sn * sparerfreibetrag_y
-  = ([person] / [sn]) * (CURRENCY / year / [person])
+  = (1 / [sn]) * (CURRENCY / year)
   = CURRENCY / year / [sn]
 ```
 
@@ -340,31 +344,32 @@ an expression requires `cast_unit`, as described in
 
 ### Booleans
 
-A boolean describes an entity at a level. A function's `-> bool` return annotation
-distinguishes a boolean from a numerical dimensionless share.
+A boolean describes an entity. At the individual grain it is bare; at a group level it
+carries that level. A function's `-> bool` return annotation distinguishes a boolean from
+a numerical dimensionless share (which is also bare at the individual grain).
 
 | Boolean             | Declaration            | Resolved dimensionality |
 | ------------------- | ---------------------- | ----------------------- |
-| person indicator    | `DIMENSIONLESS`        | `1 / [person]`          |
+| person indicator    | `DIMENSIONLESS`        | `dimensionless` (bare)  |
 | family indicator    | `DIMENSIONLESS_PER_FG` | `1 / [fg]`              |
 | household indicator | `DIMENSIONLESS_PER_HH` | `1 / [hh]`              |
 
 The logical operators `&`, `|`, and `^` preserve the level when both operands have the
-same level. When their levels differ, the result is assigned to the person level because
+same level. When their levels differ, the result is bare — the individual grain — because
 the expression is evaluated once per person. This rule does not assert that the domain's
 groups lack nesting; it states only how TTSIM classifies the result of a cross-level
 logical expression.
 
 ```text
 child & requirement_fulfilled_fg
-  = (1 / [person]) & (1 / [fg])
-  = 1 / [person]
+  = dimensionless & (1 / [fg])
+  = dimensionless
 ```
 
 `~` preserves its operand's level. Ordering comparisons require equivalent operand units
-and produce a boolean at the operands' level. A comparison of two level-less quantities
-produces a person-level boolean because it is evaluated once per person. Equality
-comparisons are not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
+and produce a boolean at the operands' level. A comparison of two bare quantities
+produces a bare boolean because it is evaluated once per person. Equality comparisons are
+not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
 
 (gep-10-hours)=
 
@@ -376,9 +381,9 @@ Working hours use a dedicated `[hours]` dimension rather than Pint's `[time]` di
 Otherwise, hours per week would reduce to a dimensionless ratio and could not be
 distinguished from a share.
 
-`HOURS_PER_WEEK` therefore resolves to `[hours] / [time] / [person]`. A reference-period
-conversion changes only the period denominator; it does not change the `[hours]`
-numerator.
+`HOURS_PER_WEEK` therefore resolves to `[hours] / [time]` (bare, an individual quantity).
+A reference-period conversion changes only the period denominator; it does not change the
+`[hours]` numerator.
 
 ### Calendar points and durations
 
@@ -512,20 +517,22 @@ used by the numerical converter functions.
 
 ### Aggregations
 
-| Aggregation         | Base                    | Result level |
-| ------------------- | ----------------------- | ------------ |
-| `SUM`, `MIN`, `MAX` | preserved               | target group |
-| `SUM` of a boolean  | `PERSON_COUNT`          | target group |
-| `MEAN`              | preserved               | person       |
-| `COUNT`             | `PERSON_COUNT`          | target group |
-| `ANY`, `ALL`        | boolean `DIMENSIONLESS` | target group |
+| Aggregation         | Base                    | Result level                             |
+| ------------------- | ----------------------- | ---------------------------------------- |
+| `SUM`, `MIN`, `MAX` | preserved               | target group (a bare source acquires it) |
+| `SUM` of a boolean  | `dimensionless`         | target group (mints `1 / [target]`)      |
+| `MEAN`              | preserved               | bare                                     |
+| `COUNT`             | `dimensionless`         | target group (mints `1 / [target]`)      |
+| `ANY`, `ALL`        | boolean `DIMENSIONLESS` | target group                             |
 
-A mean remains at the person level because it is equivalent to a group sum divided by a
-head count.
+`COUNT` and a `SUM` over a boolean mint a dimensionless count at the target group level
+(`1 / [target]`), and are bare at an individual target. `SUM`, `MIN`, and `MAX` over a
+non-boolean resolve to the target group level, so a bare source acquires it. A mean is
+bare because it is equivalent to a group sum divided by a head count.
 
 ```text
-(CURRENCY / [hh]) / ([person] / [hh])
-  = CURRENCY / [person]
+(CURRENCY / [hh]) / (1 / [hh])
+  = CURRENCY
 ```
 
 A hand-written aggregation declares its unit. By default, that declaration must exactly
@@ -533,7 +540,8 @@ match the unit derived from the source, aggregation type, and target level. An
 aggregation whose policy interpretation cannot be represented by these rules may set
 `verify_units=False`.
 
-`@agg_by_p_id_function` uses the same rules with the person level as its target.
+`@agg_by_p_id_function` aggregates to the individual grain, which is bare, so its results
+carry no level: a summed or counted `agg_by_p_id` head count is a bare `dimensionless`.
 `@group_creation_function` produces identifiers and has no unit declaration.
 
 (gep-10-literals)=
@@ -743,8 +751,8 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 ```
 
-The arguments resolve to `CURRENCY / month / [hh]` and `[person] / [hh]`. Their division
-resolves to `CURRENCY / month / [person]`, which matches the declaration.
+The arguments resolve to `CURRENCY / month / [hh]` and `1 / [hh]`. Their division resolves
+to `CURRENCY / month` (bare), which matches the declaration.
 
 Conditional branches are explored by re-evaluating the body with different branch
 decisions. Each explored return path is checked separately. Vectorized `xnp` operations
@@ -853,25 +861,43 @@ duplicate dimensional algebra. Representing levels as dimensions allows head cou
 perform explicit conversions:
 
 ```text
-(CURRENCY / [hh]) / ([person] / [hh]) = CURRENCY / [person]
+(CURRENCY / [hh]) / (1 / [hh]) = CURRENCY
 ```
 
-### Treat counts as dimensionless
+### Give group counts no level
 
-Rejected. A dimensionless count cannot be distinguished from a share and cannot connect
-a per-person quantity with a group total. It also cannot distinguish persons per
-household from persons per Bedarfsgemeinschaft.
+Rejected. A bare count is indeed dimensionless, but a group head count must still carry
+its group level (`1 / [hh]`). Without the group level a household total cannot be told
+from a Bedarfsgemeinschaft total, and a per-capita division could not cancel the group
+level to land at a clean bare per-person amount.
 
 ### Use one generic count dimension
 
 Rejected. A generic count does not identify the group within which persons were counted.
-`[person] / [hh]` and `[person] / [bg]` must remain distinct.
+`1 / [hh]` and `1 / [bg]` must remain distinct.
 
-### Spell the person level
+### A person level, implied or spelled
 
-Rejected. `CURRENCY_PER_MONTH_PER_PERSON` would make the most common declaration longer
-and would duplicate the existing person-default convention in GEP 1. The person level is
-therefore implied, while group levels are written explicitly.
+Rejected. Earlier drafts kept a distinct individual level `[person]`: an implied leaf on
+every individual quantity, so a per-person monthly amount resolved to
+`CURRENCY / month / [person]`, head counts were `[person] / [group]`, and the `[person]`
+dimension doubled as the count dimension. A spelled variant
+(`CURRENCY_PER_MONTH_PER_PERSON`) was considered too, for full symmetry with the group
+levels, but two spellings — the bare form and the `_PER_PERSON` form — would then denote
+the same unit, violating the one-spelling-per-unit invariant.
+
+The adopted model removes the person level entirely: an individual quantity is simply
+bare, and a head count is dimensionless (`1 / [group]` at a group level). This is a
+deliberate simplification with a real tradeoff. A person level bought two things: a
+level-neutral rate or share (bare `dimensionless`) could be told apart from a per-person
+amount (`.../[person]`), and per-capita divisions produced a typed per-person residue
+rather than cancelling to bare. Its cost was a more complex model — an implied leaf whose
+attachment depended on an extensive-vs-intensive classification of every base, the
+`PER_PERSON` spelling duplicating a bare form, and booleans carrying `1 / [person]` at
+the individual grain. Collapsing the individual grain to bare gives up the
+neutral-vs-individual distinction — a rate and a per-person amount are now both bare — in
+exchange for a single representation, no implied leaf, and per-capita divisions that
+cancel cleanly to the group level with no residue.
 
 ### Convert all parameters to a selected run currency
 
