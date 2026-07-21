@@ -78,7 +78,7 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
-def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
+def betrag_y_sn_kindergeld_oder_kinderfreibetrag_bis_2001(
     betrag_ohne_kinderfreibetrag_y_sn: float,
     betrag_mit_kinderfreibetrag_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
@@ -104,7 +104,7 @@ def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
-def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
+def betrag_y_sn_kindergeld_oder_kinderfreibetrag_ab_2002(
     betrag_ohne_kinderfreibetrag_y_sn: float,
     betrag_mit_kinderfreibetrag_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
