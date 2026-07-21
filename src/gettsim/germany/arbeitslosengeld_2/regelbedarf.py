@@ -39,7 +39,7 @@ def regelbedarf_m(
 @policy_function(
     start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
-def r(
+def mehrbedarfsanteil_alleinerziehend(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
     familie__anzahl_kinder_bis_6_fg: int,
@@ -224,8 +224,9 @@ def erwachsenensatz_m_bis_2010(
     # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
         out = regelsatz_anteilsbasiert.basissatz
+    # This observation is a child, so it carries no adult Regelsatz.
     else:
-        out = 0.0
+        out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
@@ -249,8 +250,9 @@ def erwachsenensatz_m_ab_2011(
     # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
         out = grundsicherung__regelbedarfsstufen.rbs_1
+    # This observation is a child, so it carries no adult Regelsatz.
     else:
-        out = 0.0
+        out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
 

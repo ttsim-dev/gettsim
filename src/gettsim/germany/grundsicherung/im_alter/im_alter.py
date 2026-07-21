@@ -354,14 +354,21 @@ def vermögensfreibetrag_eg(
 
 @policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
-    einkünfte__gesamtbetrag_der_einkünfte_y: float,
+    einkommensteuer__gesamteinkommen_y_sn: float,
     einkommensgrenze_kinder_y: float,
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    return einkünfte__gesamtbetrag_der_einkünfte_y >= einkommensgrenze_kinder_y
+    # The Gesamteinkommen is a Steuernummer-level total; compare it per person against
+    # the children's income threshold.
+    return (
+        cast_ttsim_unit(
+            einkommensteuer__gesamteinkommen_y_sn, TTSIMUnit.CURRENCY.PER_YEAR
+        )
+        >= einkommensgrenze_kinder_y
+    )
 
 
 @agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)

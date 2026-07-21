@@ -15,6 +15,22 @@ raw_min_miete_m:
       dicts refer to the number of household members. If there are more than 12 members,
       the value for 12 members is used.
   type: dict
+  1984-01-01:
+    unit: DM_PER_MONTH_PER_WTHH
+    1: 0
+    2: 0
+    3: 0
+    4: 0
+    5: 0
+    6: 0
+    7: 0
+    8: 0
+    9: 0
+    10: 0
+    11: 0
+    12: 0
+    note: >-
+      Vor der Wohngeldreform 2001 wird kein Mindestwert für Parameter M angesetzt.
   2001-01-01:
     unit: DM_PER_MONTH_PER_WTHH
     1: 44.01

@@ -22,7 +22,7 @@ inputs:
         ersatzzeiten_monate:
           - 0.0
         erwerbsminderung:
-          mean_entgeltpunkte_pro_bewertungszeit_y:
+          mean_entgeltpunkte_pro_bewertungsmonat_y:
             - 0.45
           teilweise_erwerbsgemindert:
             - false

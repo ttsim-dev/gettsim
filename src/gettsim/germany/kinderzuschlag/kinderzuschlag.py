@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 )
 def satz_mit_gestaffeltem_kindergeld(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
-    kindergeld__satz_gestaffelt: ConsecutiveIntLookupTableParamValue,
+    kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
     satz_vorjahr_ohne_kindersofortzuschlag: float,
 ) -> float:
     """Prior to 2021, the maximum amount of the Kinderzuschlag was specified directly in
@@ -43,7 +43,7 @@ def satz_mit_gestaffeltem_kindergeld(
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        - kindergeld__satz_gestaffelt.look_up(1),
+        - kindergeld__satz_nach_anzahl_kinder.look_up(1),
         satz_vorjahr_ohne_kindersofortzuschlag,
     )
 

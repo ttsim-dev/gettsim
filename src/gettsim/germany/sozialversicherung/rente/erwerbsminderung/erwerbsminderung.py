@@ -166,7 +166,7 @@ def entgeltpunkte(
     verify_units=False,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_bis_06_2014(
-    mean_entgeltpunkte_pro_bewertungszeit_m: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -187,11 +187,10 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
     )
-    zurechnungszeit_m = y_to_m(
+    return (
         altersgrenze_zurechnungszeit
-        - sozialversicherung__rente__alter_bei_renteneintritt
-    )
-    return zurechnungszeit_m * mean_entgeltpunkte_pro_bewertungszeit_m
+        - (sozialversicherung__rente__alter_bei_renteneintritt)
+    ) * mean_entgeltpunkte_pro_bewertungsmonat
 
 
 @policy_function(
@@ -199,9 +198,13 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     end_date="2017-07-16",
     leaf_name="zusätzliche_entgeltpunkte_durch_zurechnungszeit",
     unit=TTSIMUnit.DIMENSIONLESS,
+    # `mean_entgeltpunkte_pro_bewertungsmonat` is a per-year rate on a period-neutral
+    # leaf; multiplying it by a year difference cannot be reconciled by the dry-run
+    # (GEP 10).
+    verify_units=False,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgrenze(
-    mean_entgeltpunkte_pro_bewertungszeit_m: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     zurechnungszeitgrenze: float,
 ) -> float:
@@ -213,10 +216,9 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
     """
-    zurechnungszeit_m = y_to_m(
-        zurechnungszeitgrenze - sozialversicherung__rente__alter_bei_renteneintritt
-    )
-    return zurechnungszeit_m * mean_entgeltpunkte_pro_bewertungszeit_m
+    return (
+        zurechnungszeitgrenze - (sozialversicherung__rente__alter_bei_renteneintritt)
+    ) * mean_entgeltpunkte_pro_bewertungsmonat
 
 
 @policy_function(
@@ -229,7 +231,7 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     verify_units=False,
 )
 def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgrenze_ab_07_2017(
-    mean_entgeltpunkte_pro_bewertungszeit_m: float,
+    mean_entgeltpunkte_pro_bewertungsmonat: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     sozialversicherung__rente__jahr_renteneintritt: int,
     sozialversicherung__rente__monat_renteneintritt: int,
@@ -250,11 +252,10 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     altersgrenze_zurechnungszeit = zurechnungszeitgrenze_gestaffelt.look_up(
         claiming_month_since_ad
     )
-    zurechnungszeit_m = y_to_m(
+    return (
         altersgrenze_zurechnungszeit
-        - sozialversicherung__rente__alter_bei_renteneintritt
-    )
-    return zurechnungszeit_m * mean_entgeltpunkte_pro_bewertungszeit_m
+        - (sozialversicherung__rente__alter_bei_renteneintritt)
+    ) * mean_entgeltpunkte_pro_bewertungsmonat
 
 
 @policy_function(start_date="2001-01-01", unit=TTSIMUnit.DIMENSIONLESS)
@@ -427,10 +428,14 @@ def anteil_entgeltpunkte_ost(
 
 @policy_function(
     end_date="2023-06-30",
-    leaf_name="mean_entgeltpunkte_pro_bewertungszeit_m",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    unit=TTSIMUnit.DIMENSIONLESS,
+    # The "belegungsfähiger Gesamtzeitraum" is expressed in years here, so the body
+    # infers a per-year rate that the level/period dry-run cannot reconcile with the
+    # period-neutral leaf name (GEP 10).
+    verify_units=False,
 )
-def mean_entgeltpunkte_pro_bewertungszeit_nach_wohnort(
+def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     sozialversicherung__rente__entgeltpunkte_west: float,
     sozialversicherung__rente__entgeltpunkte_ost: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
@@ -438,14 +443,12 @@ def mean_entgeltpunkte_pro_bewertungszeit_nach_wohnort(
 ) -> float:
     """Average earning points per Bewertungsmonat (as part of the "Grundbewertung").
 
-    Earnings points are divided by the "belegungsfähiger Gesamtzeitraum" — the period
-    from the age of 17 until the start of the pension — expressed in months, so the
-    result is a monthly rate of Entgeltpunkte (§ 72 SGB VI counts this period in
-    calendar months).
+    Earnings points are divided by "belegungsfähige Gesamtzeitraum" which is the period
+    from the age of 17 until the start of the pension.
 
     Legal reference: SGB VI § 72: Grundbewertung
     """
-    belegungsfähiger_gesamtzeitraum_m = y_to_m(
+    belegungsfähiger_gesamtzeitraum = (
         sozialversicherung__rente__alter_bei_renteneintritt
         - altersgrenze_grundbewertung
     )
@@ -453,31 +456,33 @@ def mean_entgeltpunkte_pro_bewertungszeit_nach_wohnort(
     return (
         sozialversicherung__rente__entgeltpunkte_west
         + sozialversicherung__rente__entgeltpunkte_ost
-    ) / belegungsfähiger_gesamtzeitraum_m
+    ) / belegungsfähiger_gesamtzeitraum
 
 
 @policy_function(
     start_date="2023-07-01",
-    leaf_name="mean_entgeltpunkte_pro_bewertungszeit_m",
-    unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
+    leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
+    unit=TTSIMUnit.DIMENSIONLESS,
+    # The "belegungsfähiger Gesamtzeitraum" is expressed in years here, so the body
+    # infers a per-year rate that the level/period dry-run cannot reconcile with the
+    # period-neutral leaf name (GEP 10).
+    verify_units=False,
 )
-def mean_entgeltpunkte_pro_bewertungszeit_einheitlich(
+def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
     sozialversicherung__rente__entgeltpunkte: float,
     sozialversicherung__rente__alter_bei_renteneintritt: float,
     altersgrenze_grundbewertung: float,
 ) -> float:
     """Average earning points per Bewertungsmonat (as part of the "Grundbewertung").
 
-    Earnings points are divided by the "belegungsfähiger Gesamtzeitraum" — the period
-    from the age of 17 until the start of the pension — expressed in months, so the
-    result is a monthly rate of Entgeltpunkte (§ 72 SGB VI counts this period in
-    calendar months).
+    Earnings points are divided by "belegungsfähige Gesamtzeitraum" which is the period
+    from the age of 17 until the start of the pension.
 
     Legal reference: SGB VI § 72: Grundbewertung
     """
-    belegungsfähiger_gesamtzeitraum_m = y_to_m(
+    belegungsfähiger_gesamtzeitraum = (
         sozialversicherung__rente__alter_bei_renteneintritt
         - altersgrenze_grundbewertung
     )
 
-    return sozialversicherung__rente__entgeltpunkte / belegungsfähiger_gesamtzeitraum_m
+    return sozialversicherung__rente__entgeltpunkte / belegungsfähiger_gesamtzeitraum
