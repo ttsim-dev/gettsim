@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     TTSIMUnit,
-    cast_ttsim_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -62,15 +61,9 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     """Net income for calculation of basic subsistence."""
     return (
         bruttoeinkommen_m
-        - cast_ttsim_unit(
-            einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
-        - cast_ttsim_unit(
-            solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
-        - sozialversicherung__beiträge_versicherter_m
+        - einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn
+        - solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
+        -sozialversicherung__beiträge_versicherter_m,
     )
 
 

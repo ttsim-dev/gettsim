@@ -20,14 +20,11 @@ if TYPE_CHECKING:
     end_date="2022-12-31",
     leaf_name="satz_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
-    # Combines a structured-parameter pluck, a lookup, and `per_y_to_per_m`, none
-    # of which the dry-run can evaluate symbolically.
-    verify_units=False,
 )
 def satz_mit_gestaffeltem_kindergeld(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
-    satz_vorjahr_ohne_kindersofortzuschlag: float,
+    satz_vorjahr_ohne_kindersofortzuschlag_m: float,
 ) -> float:
     """Prior to 2021, the maximum amount of the Kinderzuschlag was specified directly in
     the laws and directives.
@@ -44,7 +41,7 @@ def satz_mit_gestaffeltem_kindergeld(
             + existenzminimum.heizkosten.kind
         )
         - kindergeld__satz_nach_anzahl_kinder.look_up(1),
-        satz_vorjahr_ohne_kindersofortzuschlag,
+        satz_vorjahr_ohne_kindersofortzuschlag_m,
     )
 
 
@@ -55,7 +52,7 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     kindergeld__satz_m: float,
     bürgergeld__kindersofortzuschlag: float,
-    satz_vorjahr_ohne_kindersofortzuschlag: float,
+    satz_vorjahr_ohne_kindersofortzuschlag_m: float,
 ) -> float:
     """Kinderzuschlag pro Kind.
 
@@ -72,7 +69,7 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
 
     satz_ohne_kindersofortzuschlag = max(
         current_formula,
-        satz_vorjahr_ohne_kindersofortzuschlag,
+        satz_vorjahr_ohne_kindersofortzuschlag_m,
     )
     return satz_ohne_kindersofortzuschlag + bürgergeld__kindersofortzuschlag
 

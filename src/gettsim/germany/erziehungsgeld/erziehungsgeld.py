@@ -119,6 +119,8 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     Legal reference: BGBl I. v. 17.02.2004
     """
     if ist_leistungsbegründendes_kind:
+        # Deliberate cross-level subtraction: The FG level income deduction is
+        # subtracted from the individual level base amount
         return max(
             basisbetrag_m
             - cast_ttsim_unit(abzug_durch_einkommen_m_fg, TTSIMUnit.CURRENCY.PER_MONTH),
@@ -381,11 +383,10 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
     elif budgetsatz and not familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.reduziert_paar["budgetsatz"]
+        return einkommensgrenzen.reduziert_paar["budgetsatz"]
     elif not budgetsatz and familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
     else:
-        satz = einkommensgrenzen.reduziert_paar["regelsatz"]
-    return cast_ttsim_unit(satz, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG)
+        return einkommensgrenzen.reduziert_paar["regelsatz"]

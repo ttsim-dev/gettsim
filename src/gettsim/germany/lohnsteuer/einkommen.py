@@ -11,7 +11,6 @@ from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
-    cast_ttsim_unit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -42,10 +41,7 @@ def einkommen_y_bis_2025(
     if steuerklasse == 6:
         sonderausgaben = 0.0
     else:
-        sonderausgaben = cast_ttsim_unit(
-            einkommensteuer__abzüge__sonderausgabenpauschbetrag,
-            TTSIMUnit.CURRENCY.PER_YEAR,
-        )
+        sonderausgaben = einkommensteuer__abzüge__sonderausgabenpauschbetrag
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
@@ -88,10 +84,7 @@ def einkommen_y_ab_2026(
     if steuerklasse == 6:
         sonderausgaben = 0.0
     else:
-        sonderausgaben = cast_ttsim_unit(
-            einkommensteuer__abzüge__sonderausgabenpauschbetrag,
-            TTSIMUnit.CURRENCY.PER_YEAR,
-        )
+        sonderausgaben = einkommensteuer__abzüge__sonderausgabenpauschbetrag
 
     if steuerklasse == 6:
         steuerfreibetrag_aktivrente = 0.0

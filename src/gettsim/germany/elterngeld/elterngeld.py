@@ -151,6 +151,8 @@ def anspruchshöhe_m(
     Anspruchshöhe is calculated on the parental level.
 
     """
+    # Deliberate cross-level summation: FG-level bonuses are added to the
+    # individual-level base amount
     kinderboni_m = cast_ttsim_unit(
         geschwisterbonus_m_fg + mehrlingsbonus_m_fg, TTSIMUnit.CURRENCY.PER_MONTH
     )
@@ -239,9 +241,7 @@ def bezugsmonate_unter_grenze_fg(
             < grenze_mit_partnermonaten_fg
         )
     else:
-        out = bisherige_bezugsmonate_fg < cast_ttsim_unit(
-            max_bezugsmonate["basismonate"], TTSIMUnit.MONTHS.PER_FG
-        )
+        out = bisherige_bezugsmonate_fg < max_bezugsmonate["basismonate"]
     return out
 
 

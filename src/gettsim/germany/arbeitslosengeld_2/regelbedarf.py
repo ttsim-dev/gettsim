@@ -216,16 +216,16 @@ def erwachsenensatz_m_bis_2010(
     regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling."""
-    # BG has 2 adults
     if p_id_einstandspartner >= 0:
+        # BG has 2 adults
         out = regelsatz_anteilsbasiert.basissatz * (
             regelsatz_anteilsbasiert.erwachsen.je_erwachsener_bei_zwei_erwachsenen
         )
-    # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
+        # This observation is not a child, so BG has 1 adult
         out = regelsatz_anteilsbasiert.basissatz
-    # This observation is a child, so it carries no adult Regelsatz.
     else:
+        # This observation is a child, so it carries no adult Regelsatz.
         out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
@@ -244,14 +244,14 @@ def erwachsenensatz_m_ab_2011(
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011."""
-    # BG has 2 adults
     if p_id_einstandspartner >= 0:
+        # BG has 2 adults
         out = grundsicherung__regelbedarfsstufen.rbs_2
-    # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
+        # This observation is not a child, so BG has 1 adult
         out = grundsicherung__regelbedarfsstufen.rbs_1
-    # This observation is a child, so it carries no adult Regelsatz.
     else:
+        # This observation is a child, so it carries no adult Regelsatz.
         out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
@@ -291,11 +291,11 @@ def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
     wohnfläche: float,
-    mietobergrenze_pro_qm: float,
+    mietobergrenze_pro_qm_m: float,
 ) -> float:
     """Rent per square meter."""
     out = (bruttokaltmiete_m + heizkosten_m) / wohnfläche
-    return min(out, mietobergrenze_pro_qm)
+    return min(out, mietobergrenze_pro_qm_m)
 
 
 @policy_function(

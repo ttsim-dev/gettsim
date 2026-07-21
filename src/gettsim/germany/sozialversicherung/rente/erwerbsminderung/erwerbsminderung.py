@@ -430,10 +430,6 @@ def anteil_entgeltpunkte_ost(
     end_date="2023-06-30",
     leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
     unit=TTSIMUnit.DIMENSIONLESS,
-    # The "belegungsfähiger Gesamtzeitraum" is expressed in years here, so the body
-    # infers a per-year rate that the level/period dry-run cannot reconcile with the
-    # period-neutral leaf name (GEP 10).
-    verify_units=False,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     sozialversicherung__rente__entgeltpunkte_west: float,
@@ -463,10 +459,6 @@ def mean_entgeltpunkte_pro_bewertungsmonat_nach_wohnort(
     start_date="2023-07-01",
     leaf_name="mean_entgeltpunkte_pro_bewertungsmonat",
     unit=TTSIMUnit.DIMENSIONLESS,
-    # The "belegungsfähiger Gesamtzeitraum" is expressed in years here, so the body
-    # infers a per-year rate that the level/period dry-run cannot reconcile with the
-    # period-neutral leaf name (GEP 10).
-    verify_units=False,
 )
 def mean_entgeltpunkte_pro_bewertungsmonat_einheitlich(
     sozialversicherung__rente__entgeltpunkte: float,

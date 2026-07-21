@@ -100,11 +100,8 @@ def differenz_kindergeld_kindbedarf_m(
     """
     fehlbetrag = max(
         cast_ttsim_unit(regelbedarf_m_bg, TTSIMUnit.CURRENCY.PER_MONTH)
-        - cast_ttsim_unit(
-            wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh,
-            TTSIMUnit.CURRENCY.PER_MONTH,
-        )
-        - nettoeinkommen_nach_abzug_freibetrag_m
+        - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh,
+        -nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m
         - unterhaltsvorschuss__betrag_m,
         0.0,

@@ -26,7 +26,7 @@ satz_m:
     note: Regelung für das Kalenderjahr 2023, abweichend von § 6a Absatz 2.
   2024-01-01:
     note: Back to formula.
-satz_vorjahr_ohne_kindersofortzuschlag:
+satz_vorjahr_ohne_kindersofortzuschlag_m:
   name:
     de: Kinderzuschlagsatz pro Kind im Vorjahr
     en: Maximum amount of Kinderzuschlag per child in the previous year

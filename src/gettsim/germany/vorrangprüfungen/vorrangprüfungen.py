@@ -28,14 +28,13 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     # https://github.com/ttsim-dev/gettsim/issues/1165
     # Deliberate cross-level comparison: the check assumes WTHH=BG, so this
     # bg-level comparison is ascribed to the individual level.
-    return cast_ttsim_unit(
+    return (
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
         + cast_ttsim_unit(
             wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
         )
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        >= arbeitslosengeld_2__regelbedarf_m_bg
     )
 
 
@@ -61,12 +60,11 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     # https://github.com/ttsim-dev/gettsim/issues/1165
     # Deliberate cross-level comparison: the check assumes WTHH=BG, so this
     # bg-level comparison is ascribed to the individual level.
-    return cast_ttsim_unit(
+    return (
         bürgergeld__anzurechnendes_einkommen_m_bg
         + cast_ttsim_unit(
             wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
         )
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= bürgergeld__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        >= bürgergeld__regelbedarf_m_bg
     )

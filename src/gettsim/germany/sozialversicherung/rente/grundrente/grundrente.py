@@ -203,7 +203,7 @@ def höchstbetrag_m(
 ) -> float:
     """Maximum allowed number of average Entgeltpunkte."""
     # The number of increment-steps above the threshold — a plain count multiplying
-    # the per-month increment (`1/month²` cannot be expressed, GEP 10).
+    # the per-month increment.
     months_above_thresh = cast_ttsim_unit(
         min(
             grundrentenzeiten_monate,

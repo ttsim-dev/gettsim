@@ -14,7 +14,6 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_p_id_function,
-    cast_ttsim_unit,
     get_piecewise_parameters,
     intervals_to_thresholds,
     param_function,
@@ -171,19 +170,14 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     Also referred to as "tarifliche ESt I".
 
     """
-    zu_verst_eink_per_indiv = cast_ttsim_unit(
+    zu_verst_eink_per_indiv = (
         zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
-        / familie__anzahl_personen_sn,
-        TTSIMUnit.CURRENCY.PER_YEAR,
+        / familie__anzahl_personen_sn
     )
-    return cast_ttsim_unit(
-        familie__anzahl_personen_sn
-        * piecewise_polynomial(
-            x=zu_verst_eink_per_indiv,
-            parameters=parameter_einkommensteuertarif,
-            xnp=xnp,
-        ),
-        TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    return familie__anzahl_personen_sn * piecewise_polynomial(
+        x=zu_verst_eink_per_indiv,
+        parameters=parameter_einkommensteuertarif,
+        xnp=xnp,
     )
 
 
@@ -207,18 +201,11 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     "tarifliche ESt II".
 
     """
-    zu_verst_eink_per_indiv = cast_ttsim_unit(
-        gesamteinkommen_y_sn / familie__anzahl_personen_sn,
-        TTSIMUnit.CURRENCY.PER_YEAR,
-    )
-    return cast_ttsim_unit(
-        familie__anzahl_personen_sn
-        * piecewise_polynomial(
-            x=zu_verst_eink_per_indiv,
-            parameters=parameter_einkommensteuertarif,
-            xnp=xnp,
-        ),
-        TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    zu_verst_eink_per_indiv = gesamteinkommen_y_sn / familie__anzahl_personen_sn
+    return familie__anzahl_personen_sn * piecewise_polynomial(
+        x=zu_verst_eink_per_indiv,
+        parameters=parameter_einkommensteuertarif,
+        xnp=xnp,
     )
 
 

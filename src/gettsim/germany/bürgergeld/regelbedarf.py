@@ -30,9 +30,7 @@ def regelbedarf_m(
 
     This includes cost of dwelling.
     """
-    return regelsatz_m + cast_ttsim_unit(
-        kosten_der_unterkunft_m, TTSIMUnit.CURRENCY.PER_MONTH
-    )
+    return regelsatz_m + kosten_der_unterkunft_m
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS)
@@ -124,14 +122,14 @@ def erwachsenensatz_m_ab_2011(
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling."""
-    # BG has 2 adults
     if p_id_einstandspartner >= 0:
+        # BG has 2 adults
         out = grundsicherung__regelbedarfsstufen.rbs_2
-    # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
+        # This observation is not a child, so BG has 1 adult
         out = grundsicherung__regelbedarfsstufen.rbs_1
-    # This observation is a child, so it carries no adult Regelsatz.
     else:
+        # This observation is a child, so it carries no adult Regelsatz.
         out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
@@ -179,11 +177,11 @@ def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
     wohnfläche: float,
-    mietobergrenze_pro_qm: float,
+    mietobergrenze_pro_qm_m: float,
 ) -> float:
     """Rent per square meter."""
     out = (bruttokaltmiete_m + heizkosten_m) / wohnfläche
-    return min(out, mietobergrenze_pro_qm)
+    return min(out, mietobergrenze_pro_qm_m)
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
