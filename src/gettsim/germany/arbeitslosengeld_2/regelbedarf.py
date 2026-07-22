@@ -55,7 +55,7 @@ def mehrbedarfsanteil_alleinerziehend(
     Reference: §21 SGB II
     """
     # A dimensionless share: the per-child share times the child count. The count
-    # is a leveled `[person]/[fg]`, so cast it to a plain dimensionless multiplier.
+    # belongs to the FG (`1/[fg]`), so cast it to a plain dimensionless multiplier.
     basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
         "basis_je_kind_bis_17"
     ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
@@ -317,7 +317,7 @@ def berechtigte_wohnfläche(
         maximum = (
             berechtigte_wohnfläche_miete["single"]
             + max(
-                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH),
+                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_HH),
                 0,
             )
             * berechtigte_wohnfläche_miete["je_weitere_person"]

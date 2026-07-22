@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 @agg_by_p_id_function(
-    agg_type=AggType.SUM, end_date="2015-12-31", unit=TTSIMUnit.PERSON_COUNT
+    agg_type=AggType.SUM, end_date="2015-12-31", unit=TTSIMUnit.DIMENSIONLESS
 )
 def alleinerziehendenbonus(
     kindergeld__kind_bis_10_mit_kindergeld: bool,
@@ -47,7 +47,7 @@ def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
     )
 
 
-@param_function(unit=TTSIMUnit.PERSON_COUNT.PER_WTHH)
+@param_function(unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH)
 def maximale_haushaltsgröße_mindesteinkommen_wthh(
     mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
 ) -> int:
@@ -58,7 +58,7 @@ def maximale_haushaltsgröße_mindesteinkommen_wthh(
     """
     return cast_ttsim_unit(
         len(mindesteinkommen_nach_haushaltsgröße_m_wthh),
-        TTSIMUnit.PERSON_COUNT.PER_WTHH,
+        TTSIMUnit.DIMENSIONLESS.PER_WTHH,
     )
 
 

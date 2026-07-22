@@ -61,7 +61,7 @@ parameter_berechtigte_wohnfläche_eigentum:
     3: SQUARE_METER
     4: SQUARE_METER
     je_weitere_person: SQUARE_METER
-    max_anzahl_direkt: PERSON_COUNT
+    max_anzahl_direkt: DIMENSIONLESS
   type: require_converter
   2023-01-01:
     reference: Art. 1 Nr.12 Abschnitt 5, G. v. 20.12.2022 BGBl. I S. 2328

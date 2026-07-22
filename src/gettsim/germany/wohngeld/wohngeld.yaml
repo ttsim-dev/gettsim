@@ -18,7 +18,7 @@ max_anzahl_personen:
         calculation of the housing allowance.
       - `indizierung` is not a policy parameter, but determines the size of the
         lookup tables.
-  unit: PERSON_COUNT_PER_HH
+  unit: DIMENSIONLESS_PER_HH
   type: dict
   1984-01-01:
     normale_berechnung: 12

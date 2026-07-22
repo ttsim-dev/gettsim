@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from types import ModuleType
 
 
-@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_WTHH)
+@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH)
 def anzahl_personen_wthh(wthh_id: int) -> int:
     pass
 

@@ -54,7 +54,7 @@ def ist_kind_in_familiengemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
 )
 def anzahl_kinder_fg(ist_kind_in_familiengemeinschaft: bool, fg_id: int) -> int:
     pass
@@ -70,7 +70,7 @@ def ist_kind_bis_2_in_familiengemeinschaft(
     )
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def anzahl_kinder_bis_2_fg(
     ist_kind_bis_2_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
@@ -87,7 +87,7 @@ def ist_kind_bis_5_in_familiengemeinschaft(
     )
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def anzahl_kinder_bis_5_fg(
     ist_kind_bis_5_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
@@ -105,7 +105,7 @@ def ist_kind_bis_6_in_familiengemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
 )
 def anzahl_kinder_bis_6_fg(
     ist_kind_bis_6_in_familiengemeinschaft: bool, fg_id: int
@@ -124,7 +124,7 @@ def ist_kind_bis_15_in_familiengemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
 )
 def anzahl_kinder_bis_15_fg(
     ist_kind_bis_15_in_familiengemeinschaft: bool, fg_id: int
@@ -143,7 +143,7 @@ def ist_kind_bis_17_in_familiengemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
 )
 def anzahl_kinder_bis_17_fg(
     ist_kind_bis_17_in_familiengemeinschaft: bool, fg_id: int
@@ -151,7 +151,7 @@ def anzahl_kinder_bis_17_fg(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def anzahl_erwachsene_fg(
     ist_erwachsener_in_familiengemeinschaft: bool, fg_id: int
 ) -> int:
@@ -204,14 +204,14 @@ def ist_erwachsener_in_bedarfsgemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_BG
+    start_date="2005-01-01", agg_type=AggType.COUNT, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
 )
 def anzahl_personen_bg(bg_id: int) -> int:
     pass
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
 )
 def anzahl_erwachsene_bg(
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
@@ -221,7 +221,7 @@ def anzahl_erwachsene_bg(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
 )
 def anzahl_kinder_bg(ist_kind_in_bedarfsgemeinschaft: bool, bg_id: int) -> int:
     pass
@@ -238,7 +238,7 @@ def ist_kind_bis_17_in_bedarfsgemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_BG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_BG
 )
 def anzahl_kinder_bis_17_bg(
     ist_kind_bis_17_in_bedarfsgemeinschaft: bool, bg_id: int
@@ -260,12 +260,12 @@ def hat_kind_in_gleicher_bedarfsgemeinschaft(
 ) -> bool:
     """Has a child in the same Bedarfsgemeinschaft."""
     return (
-        anzahl_kinder_bg >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+        anzahl_kinder_bg >= cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_BG)
         and ist_erwachsener_in_bedarfsgemeinschaft
     )
 
 
-@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_SN)
+@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.DIMENSIONLESS.PER_SN)
 def anzahl_personen_sn(sn_id: int) -> int:
     pass
 
@@ -316,14 +316,14 @@ def ist_erwachsener_in_einsatzgemeinschaft(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_EG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_EG
 )
 def anzahl_kinder_eg(ist_kind_in_einsatzgemeinschaft: bool, eg_id: int) -> int:
     pass
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_EG
+    start_date="2005-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_EG
 )
 def anzahl_erwachsene_eg(
     ist_erwachsener_in_einsatzgemeinschaft: bool, eg_id: int
@@ -332,13 +332,13 @@ def anzahl_erwachsene_eg(
 
 
 @agg_by_group_function(
-    start_date="2005-01-01", agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_EG
+    start_date="2005-01-01", agg_type=AggType.COUNT, unit=TTSIMUnit.DIMENSIONLESS.PER_EG
 )
 def anzahl_personen_eg(eg_id: int) -> int:
     pass
 
 
-@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.PERSON_COUNT.PER_EHE)
+@agg_by_group_function(agg_type=AggType.COUNT, unit=TTSIMUnit.DIMENSIONLESS.PER_EHE)
 def anzahl_personen_ehe(ehe_id: int) -> int:
     pass
 

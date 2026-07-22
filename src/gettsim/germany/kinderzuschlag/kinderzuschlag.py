@@ -167,7 +167,7 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     """
     if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and (
         familie__anzahl_erwachsene_bg
-        >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+        >= cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_BG)
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -207,7 +207,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
         and (
             familie__anzahl_erwachsene_bg
-            >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+            >= cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_BG)
         )
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
@@ -241,7 +241,7 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     """
     if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and (
         familie__anzahl_erwachsene_bg
-        >= cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_BG)
+        >= cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_BG)
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:

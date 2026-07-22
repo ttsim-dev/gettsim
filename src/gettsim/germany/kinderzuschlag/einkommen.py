@@ -16,7 +16,6 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
-    cast_ttsim_unit,
     param_function,
     policy_function,
 )
@@ -28,10 +27,7 @@ if TYPE_CHECKING:
 @agg_by_group_function(
     start_date="2005-01-01",
     agg_type=AggType.SUM,
-    unit=TTSIMUnit.PERSON_COUNT.PER_BG,
-    # `kindergeld__anzahl_ansprüche` is dimensionless (a claim count), so the SUM
-    # derives `1/bg` rather than the per-BG head count declared here
-    verify_units=False,
+    unit=TTSIMUnit.DIMENSIONLESS.PER_BG,
 )
 def anzahl_kinder_bg(kindergeld__anzahl_ansprüche: int, bg_id: int) -> int:
     pass
@@ -342,13 +338,9 @@ def wohnbedarf_anteil_eltern_bg(
     Reference: § 6a Abs. 5 S. 3 BKGG
     """
     if familie__alleinerziehend_bg:
-        # The individual-level subsistence amounts (single/paar) are the housing need of
-        # the BG's adults as a whole, so their sum constitutes the per-BG parents'
-        # betrag.
-        elternbetrag = cast_ttsim_unit(
+        elternbetrag = (
             existenzminimum.kosten_der_unterkunft.single
-            + existenzminimum.heizkosten.single,
-            TTSIMUnit.CURRENCY.PER_YEAR.PER_BG,
+            + existenzminimum.heizkosten.single
         )
     else:
         elternbetrag = (

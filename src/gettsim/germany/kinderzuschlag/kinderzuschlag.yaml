@@ -388,7 +388,7 @@ wohnbedarf_anteil_berücksichtigte_kinder:
   description:
     de: § 6a Abs. 5 S. 3 BKGG
     en: § 6a Abs. 5 S. 3 BKGG
-  unit: PERSON_COUNT_PER_BG
+  unit: DIMENSIONLESS_PER_BG
   type: scalar
   2005-01-01:
     value: 10

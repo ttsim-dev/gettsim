@@ -199,7 +199,7 @@ def berechtigte_wohnfläche(
         maximum = (
             berechtigte_wohnfläche_miete["single"]
             + max(
-                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_HH),
+                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_HH),
                 0,
             )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
