@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Annotated, Any
 
 from gettsim.tt import (
     UNSET_UNIT,
@@ -17,15 +17,29 @@ from gettsim.tt import (
     policy_function,
 )
 
-ErziehungsgeldSätze = Literal["regelsatz", "budgetsatz"]
+
+@dataclass(frozen=True)
+class EinkommensgrenzeNachSatz:
+    """The Familiengemeinschaft's annual income thresholds, one per Satz."""
+
+    regelsatz: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG]
+    """Threshold applying to the Regelsatz."""
+    budgetsatz: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG]
+    """Threshold applying to the Budgetsatz."""
 
 
 @dataclass(frozen=True)
 class Einkommensgrenzen:
-    regulär_alleinerziehend: dict[ErziehungsgeldSätze, float]
-    regulär_paar: dict[ErziehungsgeldSätze, float]
-    reduziert_alleinerziehend: dict[ErziehungsgeldSätze, float]
-    reduziert_paar: dict[ErziehungsgeldSätze, float]
+    """The income thresholds by household type and by the child's age bracket."""
+
+    regulär_alleinerziehend: EinkommensgrenzeNachSatz
+    """Single parent, child below the Reduzierungsgrenze."""
+    regulär_paar: EinkommensgrenzeNachSatz
+    """Couple, child below the Reduzierungsgrenze."""
+    reduziert_alleinerziehend: EinkommensgrenzeNachSatz
+    """Single parent, child at or above the Reduzierungsgrenze."""
+    reduziert_paar: EinkommensgrenzeNachSatz
+    """Couple, child at or above the Reduzierungsgrenze."""
 
 
 @param_function(
@@ -38,12 +52,18 @@ def einkommensgrenzen(
 ) -> Einkommensgrenzen:
     """Parameter der Einkommensgrenze des Erziehungsgelds."""
     return Einkommensgrenzen(
-        regulär_alleinerziehend=parameter_einkommensgrenze["regulär_alleinerziehend"],
-        regulär_paar=parameter_einkommensgrenze["regulär_paar"],
-        reduziert_alleinerziehend=parameter_einkommensgrenze[
-            "reduziert_alleinerziehend"
-        ],
-        reduziert_paar=parameter_einkommensgrenze["reduziert_paar"],
+        regulär_alleinerziehend=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["regulär_alleinerziehend"]
+        ),
+        regulär_paar=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["regulär_paar"]
+        ),
+        reduziert_alleinerziehend=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["reduziert_alleinerziehend"]
+        ),
+        reduziert_paar=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["reduziert_paar"]
+        ),
     )
 
 
@@ -313,7 +333,7 @@ def einkommensgrenze_y_fg(
             einkommensgrenze_ohne_geschwisterbonus_y_fg
             + (
                 familie__anzahl_kinder_fg
-                - cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_FG)
+                - cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_FG)
             )
             * erhöhung_einkommensgrenze_pro_kind_y
         )
@@ -358,14 +378,14 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.regulär_alleinerziehend["budgetsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend.budgetsatz
     elif budgetsatz and not familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.regulär_paar["budgetsatz"]
+        satz = einkommensgrenzen.regulär_paar.budgetsatz
     elif not budgetsatz and familie__alleinerziehend_fg:
-        satz = einkommensgrenzen.regulär_alleinerziehend["regelsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend.regelsatz
     else:
-        satz = einkommensgrenzen.regulär_paar["regelsatz"]
-    return cast_ttsim_unit(satz, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG)
+        satz = einkommensgrenzen.regulär_paar.regelsatz
+    return satz
 
 
 @policy_function(
@@ -383,10 +403,10 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend.budgetsatz
     elif budgetsatz and not familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_paar["budgetsatz"]
+        return einkommensgrenzen.reduziert_paar.budgetsatz
     elif not budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend.regelsatz
     else:
-        return einkommensgrenzen.reduziert_paar["regelsatz"]
+        return einkommensgrenzen.reduziert_paar.regelsatz
