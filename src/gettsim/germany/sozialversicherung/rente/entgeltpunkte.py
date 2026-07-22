@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from gettsim.tt import TTSIMUnit, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
@@ -30,9 +30,11 @@ def neue_entgeltpunkte_nach_wohnort(
     else:
         versicherungspflichtiger_bruttolohn_y = umgerechneter_bruttolohn
 
-    return (
+    # Both operands are annual rates, so the ratio counts points per year of work.
+    return cast_ttsim_unit(
         versicherungspflichtiger_bruttolohn_y
-        / beitragspflichtiges_durchschnittsentgelt_y
+        / beitragspflichtiges_durchschnittsentgelt_y,
+        TTSIMUnit.DIMENSIONLESS.PER_YEAR,
     )
 
 
@@ -52,9 +54,11 @@ def neue_entgeltpunkte_einheitlich(
     else:
         versicherungspflichtiger_bruttolohn_y = einnahmen__bruttolohn_y
 
-    return (
+    # Both operands are annual rates, so the ratio counts points per year of work.
+    return cast_ttsim_unit(
         versicherungspflichtiger_bruttolohn_y
-        / beitragspflichtiges_durchschnittsentgelt_y
+        / beitragspflichtiges_durchschnittsentgelt_y,
+        TTSIMUnit.DIMENSIONLESS.PER_YEAR,
     )
 
 
