@@ -112,51 +112,95 @@ parameter_rentenwert_nach_wohnort:
   2003-07-01:
     west: 26.13
     ost: 22.97
+    reference: >-
+      § 1 V. v. 04.06.2003 BGBl. I S. 784 (Rentenanpassungsverordnung 2003).
   2007-07-01:
     west: 26.27
     ost: 23.09
+    reference: >-
+      § 1 V. v. 14.06.2007 BGBl. I S. 1113
+      (Rentenwertbestimmungsverordnung 2007).
   2008-07-01:
     west: 26.56
     ost: 23.34
+    reference: >-
+      Art. 2 § 1 G. v. 26.06.2008 BGBl. I S. 1076 (Gesetz zur Rentenanpassung 2008,
+      Rentenwertbestimmungsgesetz 2008).
   2009-07-01:
     west: 27.2
     ost: 24.13
+    reference: >-
+      § 1 V. v. 17.06.2009 BGBl. I S. 1335
+      (Rentenwertbestimmungsverordnung 2009).
   2011-07-01:
     west: 27.47
     ost: 24.37
+    reference: >-
+      § 1 V. v. 06.06.2011 BGBl. I S. 1039
+      (Rentenwertbestimmungsverordnung 2011).
   2012-07-01:
     west: 28.07
     ost: 24.92
+    reference: >-
+      § 1 V. v. 21.06.2012 BGBl. I S. 1389
+      (Rentenwertbestimmungsverordnung 2012).
   2013-07-01:
     west: 28.14
     ost: 25.74
+    reference: >-
+      § 1 V. v. 12.06.2013 BGBl. I S. 1574
+      (Rentenwertbestimmungsverordnung 2013).
   2014-07-01:
     west: 28.61
     ost: 26.39
+    reference: >-
+      § 1 V. v. 16.06.2014 BGBl. I S. 746 (Rentenwertbestimmungsverordnung 2014).
   2015-07-01:
     west: 29.21
     ost: 27.05
+    reference: >-
+      § 1 V. v. 12.06.2015 BGBl. I S. 965 (Rentenwertbestimmungsverordnung 2015).
   2016-07-01:
     west: 30.45
     ost: 28.66
+    reference: >-
+      § 1 V. v. 20.06.2016 BGBl. I S. 1360
+      (Rentenwertbestimmungsverordnung 2016).
   2017-07-01:
     west: 31.03
     ost: 29.69
+    reference: >-
+      § 1 V. v. 08.06.2017 BGBl. I S. 1522
+      (Rentenwertbestimmungsverordnung 2017).
   2018-07-01:
     west: 32.03
     ost: 30.69
+    reference: >-
+      § 1 V. v. 12.06.2018 BGBl. I S. 838 (Rentenwertbestimmungsverordnung 2018).
   2019-07-01:
     west: 33.05
     ost: 31.89
+    reference: >-
+      § 1 V. v. 13.06.2019 BGBl. I S. 791 (Rentenwertbestimmungsverordnung 2019).
   2020-07-01:
     west: 34.19
     ost: 33.23
+    reference: >-
+      § 1 V. v. 08.06.2020 BGBl. I S. 1220
+      (Rentenwertbestimmungsverordnung 2020).
   2021-07-01:
     updates_previous: true
     ost: 33.47
+    reference: >-
+      § 1 V. v. 31.05.2021 BGBl. I S. 1254
+      (Rentenwertbestimmungsverordnung 2021).
   2022-07-01:
     west: 36.02
     ost: 35.52
+    reference: >-
+      Art. 3 § 1 G. v. 28.06.2022 BGBl. I S. 975 (Rentenanpassungs- und
+      Erwerbsminderungsrenten-Bestandsverbesserungsgesetz,
+      Rentenwertbestimmungsgesetz 2022).
   2023-07-01:
     note: Rentenwert einheitlich. Siehe `rentenwert_m`.
 rentenwert_m:

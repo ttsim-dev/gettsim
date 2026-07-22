@@ -10,14 +10,20 @@ arbeitnehmerpauschbetrag:
   1975-01-01:
     unit: DM_PER_YEAR
     value: 564
+    reference: >-
+      § 9a Nr. 1 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
   1990-01-01:
     value: 2000
     reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 1044
+    reference: >-
+      Art. 1 Nr. 11 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
   2004-01-01:
     value: 920
+    reference: >-
+      Art. 9 Nr. 12 G. v. 29.12.2003 BGBl. I S. 3076 (Haushaltsbegleitgesetz 2004).
   2012-01-01:
     value: 1000
     reference: Art. 1 G. v. 01.11.2011 BGBl. I S. 2131.

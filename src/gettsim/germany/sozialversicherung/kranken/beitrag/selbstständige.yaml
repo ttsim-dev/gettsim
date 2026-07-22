@@ -12,14 +12,29 @@ bezugsgröße_selbstständige_m:
     value: 2730
   1985-01-01:
     value: 2800
+    reference: >-
+      § 4 V. v. 20.12.1984 BGBl. I S. 1650
+      (Sozialversicherungs-Bezugsgrößenverordnung 1985).
   1986-01-01:
     value: 2870
+    reference: >-
+      § 2 V. v. 20.12.1985 BGBl. I S. 2557
+      (Sozialversicherungs-Bezugsgrößenverordnung 1986).
   1987-01-01:
     value: 3010
+    reference: >-
+      § 2 V. v. 09.12.1986 BGBl. I S. 2451
+      (Sozialversicherungs-Bezugsgrößenverordnung 1987).
   1988-01-01:
     value: 3080
+    reference: >-
+      § 2 V. v. 07.12.1987 BGBl. I S. 2530
+      (Sozialversicherungs-Bezugsgrößenverordnung 1988).
   1989-01-01:
     value: 3150
+    reference: >-
+      § 2 V. v. 07.12.1988 BGBl. I S. 2222
+      (Sozialversicherungs-Bezugsgrößenverordnung 1989).
   1990-01-01:
     note: >-
       Die Bezugsgröße unterscheidet sich zwischen West und Ost. Siehe
@@ -49,6 +64,11 @@ bezugsgröße_selbstständige_nach_wohnort:
   1991-01-01:
     west: 3360
     ost: 1540
+    reference: >-
+      § 2 V. v. 18.12.1990 BGBl. I S. 2940
+      (Sozialversicherungs-Bezugsgrößenverordnung 1991, West); § 1 V. v. 18.12.1990
+      BGBl. I S. 2941 (Erste V. über maßgebende Rechengrößen im Beitrittsgebiet,
+      Ost).
   1991-07-01:
     updates_previous: true
     ost: 1750
@@ -57,21 +77,38 @@ bezugsgröße_selbstständige_nach_wohnort:
   1992-01-01:
     west: 3500
     ost: 2100
+    reference: >-
+      § 2 V. v. 18.12.1991 BGBl. I S. 2331
+      (Sozialversicherungs-Rechengrößenverordnung 1992, West); § 1 V. v. 19.12.1991
+      BGBl. I S. 2344 (3. Rentenanpassungsverordnung, Ost).
   1993-01-01:
     west: 3710
     ost: 2730
+    reference: >-
+      § 2 V. v. 22.12.1992 BGBl. I S. 2474
+      (Sozialversicherungs-Rechengrößenverordnung 1993).
   1994-01-01:
     west: 3920
     ost: 3080
+    reference: § 6 V. v. 01.12.1993 BGBl. I S. 1987 (Beitragssatzverordnung 1994).
   1995-01-01:
     west: 4060
     ost: 3290
+    reference: >-
+      § 2 V. v. 12.12.1994 BGBl. I S. 3806
+      (Sozialversicherungs-Rechengrößenverordnung 1995).
   1996-01-01:
     west: 4130
     ost: 3500
+    reference: >-
+      § 2 V. v. 04.12.1995 BGBl. I S. 1577
+      (Sozialversicherungs-Rechengrößenverordnung 1996).
   1997-01-01:
     west: 4270
     ost: 3640
+    reference: >-
+      § 2 V. v. 11.12.1996 BGBl. I S. 1870
+      (Sozialversicherungs-Rechengrößenverordnung 1997).
   1998-01-01:
     west: 4340
     ost: 3640
@@ -79,68 +116,128 @@ bezugsgröße_selbstständige_nach_wohnort:
   1999-01-01:
     west: 4410
     ost: 3710
+    reference: >-
+      § 2 V. v. 18.12.1998 BGBl. I S. 3823
+      (Sozialversicherungs-Rechengrößenverordnung 1999).
   2000-01-01:
     west: 4480
     ost: 3640
+    reference: >-
+      § 2 V. v. 29.11.1999 BGBl. I S. 2375
+      (Sozialversicherungs-Rechengrößenverordnung 2000).
   2001-01-01:
     updates_previous: true
     ost: 3780
+    reference: >-
+      § 2 V. v. 13.12.2000 BGBl. I S. 1710
+      (Sozialversicherungs-Rechengrößenverordnung 2001).
   2002-01-01:
     unit: EUR_PER_MONTH
     west: 2345
     ost: 1960
+    reference: >-
+      § 2 V. v. 03.12.2001 BGBl. I S. 3302
+      (Sozialversicherungs-Rechengrößenverordnung 2002).
   2003-01-01:
     west: 2380
     ost: 1995
+    reference: >-
+      § 2 V. v. 17.12.2002 BGBl. I S. 4561
+      (Sozialversicherungs-Rechengrößenverordnung 2003).
   2004-01-01:
     west: 2415
     ost: 2030
+    reference: >-
+      § 2 V. v. 09.12.2003 BGBl. I S. 2497
+      (Sozialversicherungs-Rechengrößenverordnung 2004).
   2006-01-01:
     west: 2450
     ost: 2065
+    reference: >-
+      § 2 V. v. 21.12.2005 BGBl. I S. 3627
+      (Sozialversicherungs-Rechengrößenverordnung 2006).
   2007-01-01:
     updates_previous: true
     ost: 2100
+    reference: >-
+      Art. 12 § 2 G. v. 02.12.2006 BGBl. I S. 2742
+      (Sozialversicherungs-Rechengrößengesetz 2007).
   2008-01-01:
     updates_previous: true
     west: 2485
+    reference: >-
+      § 2 V. v. 05.12.2007 BGBl. I S. 2797
+      (Sozialversicherungs-Rechengrößenverordnung 2008).
   2009-01-01:
     west: 2520
     ost: 2135
+    reference: >-
+      § 2 V. v. 02.12.2008 BGBl. I S. 2336
+      (Sozialversicherungs-Rechengrößenverordnung 2009).
   2010-01-01:
     west: 2555
     ost: 2170
+    reference: >-
+      § 2 V. v. 07.12.2009 BGBl. I S. 3846
+      (Sozialversicherungs-Rechengrößenverordnung 2010).
   2011-01-01:
     updates_previous: true
     ost: 2240
+    reference: >-
+      § 2 V. v. 03.12.2010 BGBl. I S. 1761
+      (Sozialversicherungs-Rechengrößenverordnung 2011).
   2012-01-01:
     updates_previous: true
     west: 2625
+    reference: >-
+      § 2 V. v. 02.12.2011 BGBl. I S. 2421
+      (Sozialversicherungs-Rechengrößenverordnung 2012).
   2013-01-01:
     west: 2695
     ost: 2275
+    reference: >-
+      § 2 V. v. 26.11.2012 BGBl. I S. 2361
+      (Sozialversicherungs-Rechengrößenverordnung 2013).
   2014-01-01:
     note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
     west: 2765
     ost: 2345
+    reference: >-
+      § 2 V. v. 02.12.2013 BGBl. I S. 4038
+      (Sozialversicherungs-Rechengrößenverordnung 2014).
   2015-01-01:
     west: 2835
     ost: 2415
+    reference: >-
+      § 2 V. v. 01.12.2014 BGBl. I S. 1957
+      (Sozialversicherungs-Rechengrößenverordnung 2015).
   2016-01-01:
     note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
     west: 2905
     ost: 2520
+    reference: >-
+      § 2 V. v. 30.11.2015 BGBl. I S. 2137
+      (Sozialversicherungs-Rechengrößenverordnung 2016).
   2017-01-01:
     note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
     west: 2975
     ost: 2660
+    reference: >-
+      § 2 V. v. 28.11.2016 BGBl. I S. 2665
+      (Sozialversicherungs-Rechengrößenverordnung 2017).
   2018-01-01:
     west: 3045
     ost: 2695
+    reference: >-
+      § 2 V. v. 16.11.2017 BGBl. I S. 3778
+      (Sozialversicherungs-Rechengrößenverordnung 2018).
   2019-01-01:
     note: Sozialversicherungs-Rechengrößenverordnung 2019, BGBl I S. 2024, 27.11.2018
     west: 3115
     ost: 2870
+    reference: >-
+      § 2 V. v. 27.11.2018 BGBl. I S. 2024
+      (Sozialversicherungs-Rechengrößenverordnung 2019).
   2020-01-01:
     reference: §2 V. v. 17.12.2019 BGBl. I S. 2848
     west: 3185

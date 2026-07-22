@@ -12,20 +12,30 @@ sparerfreibetrag_y:
   1975-01-01:
     unit: DM_PER_YEAR
     value: 300
+    reference: >-
+      § 20 Abs. 4 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
   1990-01-01:
     value: 600
   1993-01-01:
     value: 6000
+    reference: Art. 1 Nr. 4 G. v. 09.11.1992 BGBl. I S. 1853 (Zinsabschlaggesetz).
   2000-01-01:
     value: 3000
+    reference: >-
+      Art. 1 Nr. 29 G. v. 24.03.1999 BGBl. I S. 402
+      (Steuerentlastungsgesetz 1999/2000/2002).
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 1550
     reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2004-01-01:
     value: 1370
+    reference: >-
+      Art. 9 Nr. 19 G. v. 29.12.2003 BGBl. I S. 3076 (Haushaltsbegleitgesetz 2004).
   2007-01-01:
     value: 750
+    reference: >-
+      Art. 1 Nr. 10 G. v. 19.07.2006 BGBl. I S. 1652 (Steueränderungsgesetz 2007).
   2009-01-01:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei

@@ -17,39 +17,62 @@ beitragssatz:
     value: 0.185
   1985-01-01:
     value: 0.187
+    reference: >-
+      Art. 2 G. v. 20.12.1984 BGBl. I S. 1713 (Arbeitsförderungs- und
+      Rentenversicherungs-Änderungsgesetz).
   1986-01-01:
     value: 0.192
+    reference: Art. 5 G. v. 16.05.1985 BGBl. I S. 766 (RVFinanzG).
   1987-01-01:
     value: 0.187
+    reference: Art. 5 G. v. 16.05.1985 BGBl. I S. 766 (RVFinanzG).
   1992-01-01:
     value: 0.177
+    reference: >-
+      § 287 Abs. 1 SGB VI (Fortgeltung des am 31.12.1991 geltenden Beitragssatzes);
+      Satz festgesetzt durch Art. 2 G. v. 22.03.1991 BGBl. I S. 790.
   1993-01-01:
     value: 0.175
+    reference: § 25 Abs. 2 G. v. 21.12.1992 BGBl. I S. 2229 (Haushaltsgesetz 1993).
   1994-01-01:
     value: 0.192
+    reference: § 1 V. v. 01.12.1993 BGBl. I S. 1987 (Beitragssatzverordnung 1994).
   1995-01-01:
     value: 0.186
+    reference: § 1 V. v. 14.11.1994 BGBl. I S. 3438 (Beitragssatzverordnung 1995).
   1996-01-01:
     value: 0.192
+    reference: § 1 V. v. 04.12.1995 BGBl. I S. 1584 (Beitragssatzverordnung 1996).
   1997-01-01:
     value: 0.203
+    reference: § 1 V. v. 19.12.1996 BGBl. I S. 2085 (Beitragssatzverordnung 1997).
   2000-01-01:
     value: 0.193
+    reference: >-
+      Art. 26 § 1 G. v. 22.12.1999 BGBl. I S. 2534 (Haushaltssanierungsgesetz).
   2001-01-01:
     value: 0.191
+    reference: § 1 V. v. 21.12.2000 BGBl. I S. 1877 (Beitragssatzverordnung 2001).
   2003-01-01:
     value: 0.195
+    reference: >-
+      Art. 8 § 1 G. v. 23.12.2002 BGBl. I S. 4637 (Beitragssatzsicherungsgesetz).
   2007-01-01:
     value: 0.199
+    reference: Art. 1 G. v. 21.12.2006 BGBl. I S. 3286 (Beitragssatzgesetz 2007).
   2012-01-01:
     value: 0.196
+    reference: § 1 V. v. 19.12.2011 BGBl. I S. 2795 (Beitragssatzverordnung 2012).
     note: http://www.bmas.de/DE/Service/Presse/Pressemitteilungen/rentenbericht-16-11-2011.html
   2013-01-01:
     value: 0.189
+    reference: § 1 G. v. 05.12.2012 BGBl. I S. 2446 (Beitragssatzgesetz 2013).
   2015-01-01:
     value: 0.187
+    reference: § 1 V. v. 22.12.2014 BGBl. I S. 2396 (Beitragssatzverordnung 2015).
   2018-01-01:
     value: 0.186
+    reference: § 1 V. v. 18.12.2017 BGBl. I S. 3976 (Beitragssatzverordnung 2018).
 beitragssatz_knappschaftliche_rentenversicherung:
   name:
     de: Beitragssatz zur knappschaftlichen Rentenversicherung
