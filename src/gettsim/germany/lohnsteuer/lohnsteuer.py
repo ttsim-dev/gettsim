@@ -126,7 +126,7 @@ def splittingtarif_y(
     start_date="2015-01-01",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Body delegates to the plain `basis_für_klassen_5_6` helper, which the
-    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
     verify_units=False,
 )
 def tarif_klassen_5_und_6_y(
@@ -211,7 +211,7 @@ def splittingtarif_mit_kinderfreibetrag_y(
     start_date="2015-01-01",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
     # Body delegates to the plain `basis_für_klassen_5_6` helper, which the
-    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
     verify_units=False,
 )
 def tarif_klassen_5_und_6_mit_kinderfreibetrag_y(

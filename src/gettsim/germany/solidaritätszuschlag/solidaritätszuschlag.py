@@ -34,7 +34,7 @@ def solidaritätszuschlagstarif(
     leaf_name="betrag_y_sn",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
     # Body delegates to the plain `solidaritätszuschlagstarif` helper, which the
-    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
     verify_units=False,
 )
 def betrag_y_sn_ohne_abgelt_st(
@@ -70,7 +70,7 @@ def betrag_y_sn_ohne_abgelt_st(
     leaf_name="betrag_y_sn",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
     # Body delegates to the plain `solidaritätszuschlagstarif` helper, which the
-    # dry-run cannot trace; its declared unit and edges stay checked (GEP 10).
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
     verify_units=False,
 )
 def betrag_y_sn_mit_abgelt_st(

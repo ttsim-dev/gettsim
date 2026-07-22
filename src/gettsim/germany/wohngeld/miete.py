@@ -191,7 +191,7 @@ def min_miete_m_hh(
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
     verify_units=False,
 )
 def miete_m_hh_mit_baujahr(
@@ -220,7 +220,7 @@ def miete_m_hh_mit_baujahr(
     end_date="2020-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
     verify_units=False,
 )
 def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
@@ -241,7 +241,7 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     end_date="2022-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
     verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung(
@@ -267,7 +267,7 @@ def miete_m_hh_mit_heizkostenentlastung(
     start_date="2023-01-01",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the dry-run cannot infer its units (GEP 10).
+    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
     verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakomponente(

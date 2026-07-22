@@ -90,7 +90,7 @@ def _anzurechnendes_einkommen_m(
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
     # `piecewise_polynomial` runs inside the `_anzurechnendes_einkommen_m` helper, which
-    # the dry-run's shim cannot reach, so the body cannot be symbolically unit-checked.
+    # the unit check's stand-in cannot reach, so the body cannot be unit-checked.
     verify_units=False,
 )
 def anzurechnendes_einkommen_m(
