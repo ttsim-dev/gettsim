@@ -36,9 +36,16 @@ bezugsgröße_selbstständige_m:
       § 2 V. v. 07.12.1988 BGBl. I S. 2222
       (Sozialversicherungs-Bezugsgrößenverordnung 1989).
   1990-01-01:
+    value: 3290
+    reference: >-
+      § 2 V. v. 07.12.1989 BGBl. I S. 2168
+      (Sozialversicherungs-Bezugsgrößenverordnung 1990).
+  1991-01-01:
     note: >-
-      Die Bezugsgröße unterscheidet sich zwischen West und Ost. Siehe
-      ``parameter_bezugsgröße_selbstständige_nach_wohnort``.
+      Ab 1991 unterscheidet sich die Bezugsgröße zwischen West und Ost. Siehe
+      ``bezugsgröße_selbstständige_nach_wohnort``. Das SGB IV galt im
+      Beitrittsgebiet erst ab dem 01.01.1991, eine Bezugsgröße (Ost) gibt es
+      daher für 1990 noch nicht.
   2025-01-01:
     unit: EUR_PER_MONTH
     value: 3745
@@ -57,11 +64,8 @@ bezugsgröße_selbstständige_nach_wohnort:
     en: §18 SGB IV and https://de.wikipedia.org/wiki/Bezugsgr%C3%B6%C3%9Fe
   type: dict
   add_jahresanfang: true
-  1990-01-01:
-    unit: DM_PER_MONTH
-    west: 3290
-    ost: 1400
   1991-01-01:
+    unit: DM_PER_MONTH
     west: 3360
     ost: 1540
     reference: >-

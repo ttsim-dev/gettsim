@@ -14,8 +14,17 @@ sparerfreibetrag_y:
     value: 300
     reference: >-
       § 20 Abs. 4 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
-  1990-01-01:
+  1989-01-01:
     value: 600
+    reference: >-
+      Art. 1 Nr. 6 c) G. v. 30.06.1989 BGBl. I S. 1267 (G. zur Änderung des
+      Steuerreformgesetzes 1990 sowie zur Förderung des Mietwohnungsbaus und von
+      Arbeitsplätzen in Privathaushalten).
+    note: >-
+      Art. 1 Nr. 6 c) ersetzt in § 20 Abs. 4 EStG „300" durch „600" (und „600"
+      durch „1 200"). Die Anwendungsvorschrift in Art. 1 Nr. 25 b) (§ 52 Abs. 20
+      EStG) bestimmt: „§ 20 Abs. 4 ist erstmals für den Veranlagungszeitraum 1989
+      anzuwenden."
   1993-01-01:
     value: 6000
     reference: Art. 1 Nr. 4 G. v. 09.11.1992 BGBl. I S. 1853 (Zinsabschlaggesetz).

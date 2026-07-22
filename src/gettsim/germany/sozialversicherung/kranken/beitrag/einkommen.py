@@ -107,7 +107,7 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
 
 
 @policy_function(
-    start_date="1990-01-01",
+    start_date="1991-01-01",
     end_date="2024-12-31",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
