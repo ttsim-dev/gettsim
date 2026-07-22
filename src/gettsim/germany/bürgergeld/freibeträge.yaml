@@ -5,13 +5,17 @@ vermögensfreibetrag_je_person_nach_karenzzeit:
     en: Protected wealth for the citizen's income
   description:
     de: >-
-      Vermögensfreibetrag pro Mitglied der Bedarfsgemeinschaft, der sich nach Ablauf
-      einer Karenzzeit verändert.
+      Schonvermögen beim Bürgergeld (§ 12 SGB II). `während_karenzzeit` gilt einmal je
+      Bedarfsgemeinschaft, nämlich für die erste Person; `normaler_satz` gilt während
+      der Karenzzeit für jede weitere Person und nach deren Ablauf für jedes Mitglied
+      der Bedarfsgemeinschaft.
     en: >-
-      Wealth exemption per member of the Bedarfsgemeinschaft, which changes after the
-      end of the Karenzzeit.
+      Protected wealth under Bürgergeld (§ 12 SGB II). `während_karenzzeit` applies once
+      per Bedarfsgemeinschaft, to its first person; `normaler_satz` applies to each
+      further person during the Karenzzeit and to every member of the
+      Bedarfsgemeinschaft once it has elapsed.
   unit:
-    während_karenzzeit: EUR
+    während_karenzzeit: EUR_PER_BG
     normaler_satz: EUR
   type: dict
   2023-01-01:

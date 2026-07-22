@@ -33,9 +33,10 @@ def ist_leistungsbegründendes_kind(
     # TODO(@MImmesberger): This age threshold is not correct once we account for
     # Elterngeld plus (currently not implemented).
     # https://github.com/ttsim-dev/gettsim/issues/151
-    return (
-        alter_monate
-        <= max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
+    # The month budget belongs to the FG; here it bounds one child's age.
+    return alter_monate <= cast_ttsim_unit(
+        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"],
+        TTSIMUnit.MONTHS,
     )
 
 
@@ -47,7 +48,7 @@ def leistungsbegründende_kinder_in_fg(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def anzahl_mehrlinge_jüngstes_kind_fg(
     jüngstes_kind_oder_mehrling: bool,
     fg_id: int,
@@ -55,7 +56,7 @@ def anzahl_mehrlinge_jüngstes_kind_fg(
     pass
 
 
-@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.PERSON_COUNT.PER_FG)
+@agg_by_group_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
 def anzahl_anträge_fg(claimed: bool, fg_id: int) -> int:
     pass
 
@@ -225,17 +226,16 @@ def bezugsmonate_unter_grenze_fg(
     parent.
 
     """
-    # Sum of individual-level months constitute FG-level threshold
-    grenze_mit_partnermonaten_fg = cast_ttsim_unit(
-        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"],
-        TTSIMUnit.MONTHS.PER_FG,
+    grenze_mit_partnermonaten_fg = (
+        max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
     )
-    if (
-        familie__alleinerziehend
-        or bezugsmonate_partner >= max_bezugsmonate["partnermonate"]
+    # The Partnermonate are part of the FG's budget; here they are the months one
+    # parent must have claimed for the FG to reach it.
+    if familie__alleinerziehend or bezugsmonate_partner >= cast_ttsim_unit(
+        max_bezugsmonate["partnermonate"], TTSIMUnit.MONTHS
     ):
         out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten_fg
-    elif anzahl_anträge_fg > cast_ttsim_unit(1, TTSIMUnit.PERSON_COUNT.PER_FG):
+    elif anzahl_anträge_fg > cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_FG):
         out = (
             bisherige_bezugsmonate_fg + cast_ttsim_unit(1, TTSIMUnit.MONTHS.PER_FG)
             < grenze_mit_partnermonaten_fg

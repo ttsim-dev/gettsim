@@ -9,7 +9,9 @@ max_bezugsmonate:
       § 4 (3) BEEG
       Basismonate plus "Partnermonate" bei gleichzeitiger Inanspruchnahme von Elterngeld
       bei Paaren. Basismonate bei Alleinerziehenden.
-  unit: MONTHS
+  unit:
+    basismonate: MONTHS_PER_FG
+    partnermonate: MONTHS_PER_FG
   type: dict
   2007-01-01:
     basismonate: 12

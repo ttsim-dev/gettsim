@@ -18,9 +18,12 @@ class SatzMitAltersgrenzen:
 
 @dataclass(frozen=True)
 class ElementExistenzminimum:
-    single: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
-    paar: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
+    single: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_BG]
+    """Annual combined amount for the sole adult of a Bedarfsgemeinschaft."""
+    paar: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_BG]
+    """Annual amount for a Bedarfsgemeinschaft's two adults together."""
     kind: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
+    """Annual amount per child."""
 
 
 @dataclass(frozen=True)
