@@ -62,8 +62,8 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     return (
         bruttoeinkommen_m
         - einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn
-        - solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn,
-        -sozialversicherung__beiträge_versicherter_m,
+        - solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn
+        - sozialversicherung__beiträge_versicherter_m
     )
 
 
