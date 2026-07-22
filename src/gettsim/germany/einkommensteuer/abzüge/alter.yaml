@@ -28,7 +28,7 @@ maximaler_altersentlastungsbetrag_y:
     en: >-
       If someone receives employment income above the age of 64, a share up to this
       amount is deducted.
-  type: require_converter
+  type: scalar
   1984-01-01:
     unit: DM_PER_YEAR
     value: 3000
@@ -163,7 +163,7 @@ altersentlastungsquote:
       If someone receives employment income above the age of 64, this share of income is
       deducted. Since 2005, this share additionally depends on the birth year.
   unit: DIMENSIONLESS
-  type: require_converter
+  type: scalar
   1984-01-01:
     value: 0.4
   2005-01-01:
