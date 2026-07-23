@@ -114,9 +114,11 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
 @policy_function(
     end_date="2019-12-31",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
-    # The split-half method repeatedly divides Steuernummer totals by head count and
-    # recombines them with level-neutral caps, so intermediate terms live at mixed
-    # levels that no single unit can describe. The declared unit and edges stay checked.
+    # All arguments are Steuernummer totals, while the caps of this regime are written
+    # per taxpayer. The body switches between the two views several times — dividing by
+    # and multiplying with the head count — and compares per-taxpayer amounts with
+    # Steuernummer totals, so no single unit describes its intermediate terms. The
+    # declaration above and the units of all arguments are still checked.
     verify_units=False,
 )
 def vorsorgeaufwendungen_regime_bis_2004_y_sn(
@@ -327,9 +329,11 @@ def vorwegabzug_lohnsteuer_y_sn(
         * einnahmen__bruttolohn_y_sn
     )
 
-    # Dividing the Steuernummer total by its head count cancels the group level in
-    # the algebra, but the Vorwegabzug is a per-Steuernummer amount consumed at that
-    # level; tag it accordingly.
+    # The parenthesised term is a Steuernummer total; dividing it by the head count
+    # makes it a per-taxpayer amount. It still enters
+    # `vorsorgeaufwendungen_regime_bis_2004_y_sn` as a Steuernummer amount, so tag it as
+    # one. The level is lost in this one spot only, so a cast is enough here and the
+    # rest of the body stays checked.
     return cast_ttsim_unit(max(out, 0.0), TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 
 
@@ -340,10 +344,7 @@ def maximalbetrag_altersvorsorgeaufwendungen_y(
     xnp: ModuleType,
 ) -> float:
     """Maximalbetrag der Altersvorsorgeaufwendungen."""
-    return cast_ttsim_unit(
-        xnp.ceil(
-            sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
-            * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
-        ),
-        TTSIMUnit.CURRENCY.PER_YEAR,
+    return xnp.ceil(
+        sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung
+        * sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y
     )
