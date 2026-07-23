@@ -17,23 +17,20 @@
 
 ## Abstract
 
-This GEP proposes that quantities used in GETTSIM carry explicit units. A unit records
-what a value measures, its reference period, and, where relevant, the group to which it
-belongs. Examples include Euros per month for a person and Euros per month for a
-household.
+This GEP introduces explicit units for all nodes in GETTSIM. A unit records what a value
+measures, its reference period, and, where relevant, the group to which it belongs.
+Examples are Euros per month or square meters per household.
 
-These declarations allow GETTSIM to detect inconsistent calculations before a simulation
-is run. Examples include adding a monthly amount to an amount per square meter or
-combining totals that belong to different types of groups.
+These declarations allow GETTSIM to detect whether a policy function actually computes
+the quantity it claims to compute and helps to detect inconsistent calculations before a
+simulation is run. For example, GETTSIM will reject operations that add a monthly euro
+amount to a yearly euro amount or adding a household total to a Bedarfsgemeinschaft
+total without an explicit conversion.
 
 Unit declarations also make historical currency handling explicit. GETTSIM calculates a
 policy using the currency in which the applicable law specifies its parameters. Users
-may supply monetary data and request computed results in either Deutsche Mark or Euro,
-while statutory parameter values remain unchanged.
-
-Units are used to validate a policy before the numerical calculation and to convert data
-as they enter and leave it. The tax and transfer calculation itself continues to operate
-on ordinary numerical values.
+supply monetary data and request computed results in either Deutsche Mark or Euro, while
+statutory parameter values remain unchanged.
 
 ## Motivation and scope
 
@@ -48,7 +45,8 @@ Four problems motivate this GEP.
 1. **Historical currencies are represented inconsistently.** Some historical monetary
    parameters retain their statutory Deutsche-Mark values, while others are stored as
    mechanically converted Euro values with the original amount recorded only in
-   free-text metadata. This prevents systematic validation.
+   free-text metadata. However, storing DM values in their converted Euro form violates
+   GETTSIM's law-to-code principle.
 1. **Reference-period conversion factors are maintained separately.** GETTSIM already
    converts between annual, quarterly, monthly, weekly, and daily values. The numerical
    ratios for those conversions should come from the same unit system that validates
@@ -58,12 +56,9 @@ The GEP covers the unit infrastructure in TTSIM and the currency and policy decl
 in GETTSIM. It treats Deutsche Mark as the earliest statutory currency modeled by this
 proposal.
 
-This GEP does not:
-
-- remove the naming conventions defined in {ref}`GEP 1 <gep-1>`;
-- automatically merge monthly, quarterly, or annual quantities into a single value;
-- attach unit-carrying objects to arrays inside the tax and transfer calculation; or
-- treat a grouping suffix as proof that a quantity belongs to that group.
+Notably, the naming conventions defined in {ref}`GEP 1 <gep-1>` (group and time
+suffixes) and their automatic conversion are not superseded by this GEP, they remain in
+effect.
 
 (gep-10-usage)=
 
@@ -71,12 +66,10 @@ This GEP does not:
 
 ### Model users
 
-Most users continue to call `main()` with ordinary arrays or a DataFrame. For policies
-whose statutory currency is Euro, the default denomination of monetary input and
-computed results remains Euro.
-
-For a historical policy, `data_currency` states the currency of the monetary input and
-the desired currency of computed results:
+Most users continue to call `main()` with ordinary arrays or a DataFrame. Users may
+provide a `data_currency` argument to specify the currency of their monetary input and
+the desired currency of computed results. The default is Euro. Data currency may take up
+one of two registered currencies: `EUR` or `DM`.
 
 ```python
 results = main(
@@ -89,14 +82,11 @@ results = main(
 For this run, GETTSIM:
 
 1. converts currency-denominated input columns from Euro to Deutsche Mark;
-1. evaluates the 1999 policy in Deutsche Mark using unconverted statutory parameters;
-   and
+1. evaluates the 1999 policy in Deutsche Mark using the statutory parameters; and
 1. converts computed currency-denominated results back to Euro.
 
-The Euro existed as book money from 1999, but GETTSIM uses Deutsche Mark as the
-computation currency through 2001 because the relevant statutory amounts were still
-specified in Deutsche Mark. Input columns without a currency component, requested
-parameters, and requested input columns are not converted on output.
+Input columns without a currency component, requested parameters, and requested input
+columns are not converted on output.
 
 (gep-10-trees)=
 
@@ -132,13 +122,13 @@ results = main(
 )
 ```
 
-A monetary input tag uses a concrete currency. The tag's physical dimension, period, and
-grouping level must agree with the declaration of the corresponding input. Only the
-currency may differ, in which case the value is converted.
+The unit tag's physical dimension, period, and grouping level must agree with the
+declaration of the corresponding input in GETTSIM's DAG. Only the currency may differ,
+in which case the value is converted.
 
 The annotated result tree has the same structure. Computed currency values are tagged
 with the concrete data currency, while requested parameters retain their statutory
-currency. Annotated input and annotated output can be selected independently.
+currency.
 
 ### Contributors
 
@@ -150,26 +140,74 @@ specifications, and hand-written aggregations.
 A policy function declares the unit of its return value. TTSIM validates the function
 body against that declaration when the policy environment is checked.
 
+The following function declares the unit `CURRENCY_PER_MONTH_PER_BG`, which means
+currency per month and per Bedarfsgemeinschaft. Policy functions are currency agnostic,
+i.e. they do not declare the concrete currency they are evaluted in. Only parameters
+(and input data) need to declare a concrete currency. This way, functions do not need to
+be redefined when the statutory currency changes.
+
 ```python
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
+def regelsatz_m_bg(...) -> float: ...
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
+def mehrbedarf_m_bg(...) -> float: ...
+
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def betrag_m_bg(regelsatz_m_bg: float, mehrbedarf_m_bg: float) -> float:
     return regelsatz_m_bg + mehrbedarf_m_bg
 ```
 
 The declaration means currency per month and Bedarfsgemeinschaft. The `_m` suffix must
-agree with `PER_MONTH`. The `_bg` suffix states that the column is constant within the
-Bedarfsgemeinschaft; whether the value belongs to the group or to a person is determined
-by the unit declaration.
+agree with `PER_MONTH`. The operation is valid because both operands have the same unit.
+The result is also `CURRENCY_PER_MONTH_PER_BG`.
 
 The following function is rejected because its operands have different physical units:
 
 ```python
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def amount_m(...) -> float: ...
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_SQUARE_METER_PER_MONTH)
+def rent_per_square_meter_m(...) -> float: ...
+
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def incorrect_amount_m(
     amount_m: float,
     rent_per_square_meter_m: float,
 ) -> float:
     return amount_m + rent_per_square_meter_m
+```
+
+**Opting out of unit validation.**
+
+Sometimes, policy function perform correct operations that also violate unit arithmetic,
+e.g. cross-level operations (sum a HH and BG amount). In these cases, users can either
+
+1. opt-out of unit validation for the entire policy function by setting
+   `verify_units=False` in the decorator, or
+1. use `cast_ttsim_unit` to explicitly convert the unit of an operand to the expected
+   unit.
+
+For example, the following function is valid because it explicitly converts the unit of
+`bg_amount_m` to `CURRENCY_PER_MONTH_PER_HH` before adding it to `hh_amount_m`.
+
+```python
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
+def hh_amount_m(...) -> float: ...
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
+def bg_amount_m(...) -> float: ...
+
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH_PER_HH)
+def correct_amount_m(
+    hh_amount_m: float,
+    bg_amount_m: float,
+) -> float:
+    return hh_amount_m + cast_ttsim_unit(
+        bg_amount_m,
+        TTSIMUnit.CURRENCY.PER_MONTH.PER_HH
+    )
 ```
 
 #### Parameters
@@ -195,9 +233,10 @@ requires that currency to equal the statutory currency at the parameter's policy
 - The former `reference_period` and `reference_level` fields are removed. Their
   information becomes part of the compositional unit, for example `EUR_PER_YEAR_PER_FG`.
 - Existing policy functions, policy inputs, parameter files, and hand-written
-  aggregations require unit declarations during migration.
+  aggregations require unit declarations.
 - There is no environment variable that disables all unit validation. Exceptions are
-  local to an expression or function.
+  local to an expression or function. As always, users can turn off **all** validation
+  by passing `include_fail_nodes=False` to `main()` (but this is not recommended).
 
 ## Detailed description
 
@@ -262,11 +301,6 @@ The Python representation and the YAML representation are two syntaxes for the s
 declaration. For example, `TTSIMUnit.CURRENCY.PER_MONTH.PER_BG` corresponds to
 `CURRENCY_PER_MONTH_PER_BG`.
 
-`PER_PERSON` is a deprecated Python-builder alias that normalizes to the bare unit. It
-exists only to ease migration of early implementations of this GEP. The YAML grammar
-does not accept `_PER_PERSON`, serialization never emits it, and new code must use the
-bare declaration.
-
 #### Common declarations
 
 | Declaration                           | Resolved dimensionality         | Example                                   |
@@ -300,40 +334,14 @@ Teilhaushalte (`wthh`). See {ref}`GEP 2 <gep-2>`.
 
 A policy package registers the grouping levels used in declarations when it constructs
 its unit system. The framework also discovers levels from `*_id` columns in the policy
-environment. TTSIM does not define one fixed list for all policy packages. Each level
-becomes a separate Pint base dimension. There is no individual dimension: a quantity
-that is a property of a person carries no grouping level at all and is simply bare.
+environment. Each level becomes a separate Pint base dimension. There is no individual
+dimension: a quantity that is a property of a person carries no grouping level at all
+and is simply bare.
 
 The domain model contains subset and membership relationships between some groups. The
 unit system does not encode these relationships. It treats `[hh]`, `[bg]`, and other
 levels as non-interconvertible dimensions because group sizes and memberships vary
 across observations.
-
-(gep-10-leveled)=
-
-#### Group properties and person properties
-
-A quantity carries a group-level denominator if it describes the group as a whole. A
-quantity that describes a person does not carry a group denominator, even if its column
-is constant within a group.
-
-| Property                 | Declaration principle  | Examples                                    |
-| ------------------------ | ---------------------- | ------------------------------------------- |
-| group total              | attach the group level | household rent, Bedarfsgemeinschaft benefit |
-| group count              | attach the group level | persons per household                       |
-| group extreme            | attach the group level | age of the youngest family member           |
-| group indicator or label | attach the group level | owner-occupied household, rent category     |
-| personal amount          | no level (bare)        | income, personal benefit share              |
-| personal age or date     | no group level         | age, birth year                             |
-| personal share or mean   | no group level         | average income per person                   |
-
-The name suffix and unit declaration provide different information:
-
-- A `_bg` suffix states that the column is constant within a Bedarfsgemeinschaft.
-- `PER_BG` states that the quantity belongs to the Bedarfsgemeinschaft.
-
-Consequently, `regelbedarf_pro_person_m_bg` is constant within a Bedarfsgemeinschaft but
-has unit `CURRENCY_PER_MONTH`, because it describes an amount per person.
 
 #### Head counts as level conversions
 
@@ -364,8 +372,7 @@ an expression requires `cast_ttsim_unit`, as described in
 #### Booleans
 
 A boolean describes an entity. At the individual grain it is bare; at a group level it
-carries that level. A function's `-> bool` return annotation distinguishes a boolean
-from a numerical dimensionless share (which is also bare at the individual grain).
+carries that level.
 
 | Boolean             | Declaration            | Resolved dimensionality |
 | ------------------- | ---------------------- | ----------------------- |
@@ -374,10 +381,8 @@ from a numerical dimensionless share (which is also bare at the individual grain
 | household indicator | `DIMENSIONLESS_PER_HH` | `1 / [hh]`              |
 
 The logical operators `&`, `|`, and `^` preserve the level when both operands have the
-same level. When their levels differ, the result is bare — the individual grain —
-because the expression is evaluated once per person. This rule does not assert that the
-domain's groups lack nesting; it states only how TTSIM classifies the result of a
-cross-level logical expression.
+same level. When their levels differ, the result is bare — the individual "level" —
+because the expression is evaluated once per person.
 
 ```text
 child & requirement_fulfilled_fg
@@ -386,9 +391,8 @@ child & requirement_fulfilled_fg
 ```
 
 `~` preserves its operand's level. Ordering comparisons require equivalent operand units
-and produce a boolean at the operands' level. A comparison of two bare quantities
-produces a bare boolean because it is evaluated once per person. Equality comparisons
-are not unit-checked; see {ref}`Limitations <gep-10-limitations>`.
+and produce a boolean at the operands' level. Equality comparisons are not unit-checked;
+see {ref}`Limitations <gep-10-limitations>`.
 
 (gep-10-hours)=
 
@@ -400,15 +404,17 @@ Working hours use a dedicated `[hours]` dimension rather than Pint's `[time]` di
 Otherwise, hours per week would reduce to a dimensionless ratio and could not be
 distinguished from a share.
 
-`HOURS_PER_WEEK` therefore resolves to `[hours] / [time]` (bare, an individual
-quantity). A reference-period conversion changes only the period denominator; it does
-not change the `[hours]` numerator.
+`HOURS_PER_WEEK` therefore resolves to `[hours] / [time]`.
 
 #### Calendar points and durations
 
-A calendar point and a duration are different kinds of quantities. The following table
-defines their supported algebra, where `P` is a point and `D` a duration on the same
-calendar axis.
+A calendar point and a duration are different kinds of quantities. In TTSIM we denote
+points in time with `CALENDAR_YEAR`, `CALENDAR_MONTH`, and `CALENDAR_DAY`. Durations are
+denoted with `YEARS`, `MONTHS`, and `DAYS`. For example, a birth year would be
+`CALENDAR_YEAR`, while an age in years would be `YEARS`.
+
+The following table defines their supported algebra, where `P` is a point and `D` a
+duration on the same calendar axis.
 
 | Operation                      | Result   | Example                        |
 | ------------------------------ | -------- | ------------------------------ |
@@ -419,14 +425,6 @@ calendar axis.
 | `P * n`, `P / n`               | error    | scaling a calendar point       |
 | point ordered against duration | error    | birth year compared with age   |
 | operation across calendar axes | error    | year point plus month duration |
-
-`CALENDAR_YEAR`, `CALENDAR_MONTH`, and `CALENDAR_DAY` are separate axes, paired with
-`YEARS`, `MONTHS`, and `DAYS`, respectively. Conversion between granularities must be
-explicit.
-
-```python
-geburtsjahr + cast_ttsim_unit(alter_monate / 12, TTSIMUnit.YEARS)
-```
 
 A month-of-year, day-of-week, or quarter is a cyclic ordinal rather than an absolute
 calendar point and therefore uses `DIMENSIONLESS`.
@@ -440,6 +438,13 @@ calendar point and therefore uses `DIMENSIONLESS`.
 A scalar parameter and a dictionary with homogeneous leaves use one unit declaration.
 
 ```yaml
+satz:
+  unit: EUR_PER_MONTH
+  type: scalar
+  2023-01-01:
+    value: 250.0
+  2024-01-01:
+    note: Depends on the number of children since 2024.
 satz_nach_kindanzahl:
   unit: EUR_PER_MONTH
   type: dict
@@ -488,17 +493,16 @@ agree with `output_unit`.
 - a per-leaf `unit:` mapping for heterogeneous content; or
 - `input_unit:` and `output_unit:` when the blob encodes a mapping between quantities.
 
-The raw parameter and its converter are distinct objects, each declaring the units of
-its own data. A converter's axes are never inherited from the raw parameter's
-`input_unit:`/`output_unit:`; the `@param_function` declares them itself via
-`unit=InputOutputUnit(...)`, and only that declaration screens the schedule's call
-sites.
+Units of `require_converter` parameters can be declared independently from the units of
+the corresponding `@param_function` as they may differ depending on the conversions in
+the param function.
 
 (gep-10-structured)=
 
 #### Structured parameter values
 
-A structured object has no single scalar unit. Its `@param_function` therefore declares
+Some param functions expose structured objects by returning dataclasses. A structured
+object has no single scalar unit. Its `@param_function` therefore declares
 `unit=UNSET_UNIT`. Scalar dataclass fields declare their units with `Annotated`; a
 schedule-typed field (a lookup table or piecewise polynomial) declares its two axes with
 exactly one `InputOutputUnit` — a bare unit token there is a validation error.
@@ -515,6 +519,9 @@ class SatzMitAltersgrenzen:
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH,
         ),
     ]
+
+@param_function(unit=UNSET_UNIT)
+def satz_mit_altersgrenzen(...) -> SatzMitAltersgrenzen: ...
 ```
 
 When a policy function accesses an annotated scalar field, the field's unit is used in
