@@ -51,7 +51,7 @@ raw_min_miete_m_hh:
       Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; daher hier in
       Deutsche Mark umgerechnet.
   2002-01-01:
-    unit: EUR_PER_MONTH
+    unit: EUR_PER_MONTH_PER_HH
     1: 22.5
     2: 22.5
     3: 27.5
