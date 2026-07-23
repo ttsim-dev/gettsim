@@ -17,20 +17,20 @@
 
 ## Abstract
 
-This GEP introduces explicit units for quantities in GETTSIM and TTSIM. Units describe
-the physical quantity, reference period, and, where applicable, grouping level of a
-value. Examples are Euros per month, Euros per square meter and month, and persons per
-Bedarfsgemeinschaft.
+This GEP introduces explicit units for all functions, parameters, and input columns in
+GETTSIM. Units describe the physical quantity, reference period, and, where applicable,
+grouping level of a value. Examples are Euros per month or square meter per household.
 
 The unit declarations serve two purposes:
 
 1. **Dimensional validation.** When a policy environment is assembled, TTSIM evaluates
    policy-function bodies with unit-carrying test values. It rejects incompatible
-   arithmetic and return values that do not match their declarations.
-1. **Currency conversion at the data boundary.** Input columns are converted from their
-   data currency to the statutory currency of the policy date. Computed results are
-   converted back to the data currency. Parameters remain in the statutory currency in
-   which they are specified.
+   arithmetic and return values that do not match their declarations. Optionally, users
+   can enable unit checking of the input data they provide.
+1. **Currency conversion at the data boundary.** Users can pass input data and request
+   results in either DM or Euro. TTSIM converts currency-denominated input and output at
+   the interface boundary, while the tax and transfer computation uses the statutory
+   currency at the policy date.
 
 The implementation uses [pint](https://pint.readthedocs.io) for dimensional analysis and
 conversion factors. Pint is used while assembling and validating the policy environment
