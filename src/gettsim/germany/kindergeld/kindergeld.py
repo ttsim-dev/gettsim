@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
@@ -168,7 +169,14 @@ def gleiche_fg_wie_empfänger(
     return fg_id_kindergeldempfänger == fg_id
 
 
-@param_function(end_date="2022-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+@param_function(
+    end_date="2022-12-31",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    ),
+    verify_units=False,
+)
 def satz_nach_anzahl_kinder(
     satz_gestaffelt: dict[int, float],
     xnp: ModuleType,

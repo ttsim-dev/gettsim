@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -271,7 +272,14 @@ class RegelsatzAnteilsbasiert:
     kind: RegelsatzAnteilKindNachAlter
 
 
-@param_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER.PER_HH)
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
+    ),
+    verify_units=False,
+)
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],
