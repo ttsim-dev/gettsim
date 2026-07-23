@@ -184,8 +184,8 @@ columns are not converted on output.
 | `@policy_input`                      | required `unit=`                                   | `CURRENCY` for monetary values        | time suffix and grouping level                |
 | scalar or dictionary parameter       | `unit:`                                            | concrete currency for monetary values | schema, time suffix, and statutory currency   |
 | mapping parameter                    | `input_unit:` and `output_unit:`                   | concrete currency where applicable    | schema, axes, suffix of the output            |
-| structured `@param_function`         | `unit=UNSET_UNIT`                                  | units on fields or source parameter   | field use and matching parameter leaves       |
-| schedule-producing `@param_function` | output `unit=` or source axes                      | concrete currency permitted           | schedule call sites                           |
+| structured `@param_function`         | `unit=UNSET_UNIT`                                  | units on fields                       | field use and matching parameter leaves       |
+| schedule-producing `@param_function` | required `unit=InputOutputUnit(...)`               | agnostic `CURRENCY` only              | schedule call sites screened against axes     |
 | generated time conversion            | assigned automatically                             | inherited agnostic base               | period derived from target suffix             |
 | generated aggregation                | assigned automatically                             | inherited agnostic base               | aggregation rule and target level             |
 | hand-written aggregation             | required `unit=`                                   | `CURRENCY` for monetary values        | exact match with derived unit unless disabled |
@@ -198,7 +198,16 @@ columns are not converted on output.
 - On a parameter or aggregation for which a unit is required, it denotes a missing
   declaration and causes validation to fail.
 - On a structured `@param_function`, it explicitly states that the returned object has
-  no single scalar unit. Units are then declared on scalar fields or at use sites.
+  no single scalar unit. Units are then declared on the return type's fields or at use
+  sites.
+
+The division of labor between the two declaration sites: the decorator answers "what is
+this node?", the type annotation answers "what is inside this value?"; `UNSET_UNIT` is
+the decorator delegating to the type. A schedule-producing `@param_function` never
+declares `UNSET_UNIT` — a schedule's unit *is* its pair of axes, stated as
+`unit=InputOutputUnit(input_unit=..., output_unit=...)`. Because a schedule builder's
+body performs raw restructuring that unit validation cannot follow, every such function
+also states `verify_units=False` explicitly; leaving the default is a validation error.
 
 (gep-10-vocabulary)=
 
@@ -467,21 +476,35 @@ agree with `output_unit`.
 
 - one `unit:` token for homogeneous content;
 - a per-leaf `unit:` mapping for heterogeneous content; or
-- `input_unit:` and `output_unit:` when the converter produces a schedule or lookup
-  table.
+- `input_unit:` and `output_unit:` when the blob encodes a mapping between quantities.
+
+The raw parameter and its converter are distinct objects, each declaring the units of
+its own data. A converter's axes are never inherited from the raw parameter's
+`input_unit:`/`output_unit:`; the `@param_function` declares them itself via
+`unit=InputOutputUnit(...)`, and only that declaration screens the schedule's call
+sites.
 
 (gep-10-structured)=
 
 ### Structured parameter values
 
 A structured object has no single scalar unit. Its `@param_function` therefore declares
-`unit=UNSET_UNIT`. Scalar dataclass fields declare their units with `Annotated`.
+`unit=UNSET_UNIT`. Scalar dataclass fields declare their units with `Annotated`; a
+schedule-typed field (a lookup table or piecewise polynomial) declares its two axes with
+exactly one `InputOutputUnit` — a bare unit token there is a validation error.
 
 ```python
 @dataclass(frozen=True)
 class SatzMitAltersgrenzen:
     satz: Annotated[float, Unit.CURRENCY.PER_MONTH]
     altersgrenzen: Altersgrenzen
+    nach_anzahl_kinder: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=Unit.DIMENSIONLESS,
+            output_unit=Unit.CURRENCY.PER_MONTH,
+        ),
+    ]
 ```
 
 When a policy function accesses an annotated scalar field, the field's unit is used in
@@ -499,10 +522,10 @@ is used:
 cast_unit(stufen.rbs_4.satz, Unit.CURRENCY.PER_MONTH)
 ```
 
-A converter-produced schedule can obtain its output axis from the converter source's
-declared axes or from the producing `@param_function`'s `unit=`. If neither is present,
-the result remains untyped for unit validation and each numerical use requires an
-explicit cast.
+A converter-produced schedule carries the axes declared by its producing
+`@param_function`'s `unit=InputOutputUnit(...)`. Every `look_up` or
+`piecewise_polynomial` call on it screens each domain argument against the declared
+input axis and yields the declared output axis; no cast is needed at the call.
 
 (gep-10-auto)=
 
