@@ -28,7 +28,7 @@ class LookupTableBaujahr:
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnit(
             input_unit=TTSIMUnit.DIMENSIONLESS,
-            output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+            output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
         ),
     ]
 
@@ -75,7 +75,7 @@ def max_miete_m_lookup_mit_baujahr(
     leaf_name="max_miete_m_lookup",
     unit=InputOutputUnit(
         input_unit=TTSIMUnit.DIMENSIONLESS,
-        output_unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
 )
@@ -131,8 +131,8 @@ def min_miete_lookup(
 @param_function(
     start_date="2021-01-01",
     unit=InputOutputUnit(
-        input_unit=TTSIMUnit.DIMENSIONLESS,
-        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
 )
@@ -157,8 +157,8 @@ def heizkostenentlastung_m_lookup(
 @param_function(
     start_date="2023-01-01",
     unit=InputOutputUnit(
-        input_unit=TTSIMUnit.DIMENSIONLESS,
-        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
 )
@@ -183,8 +183,8 @@ def dauerhafte_heizkostenkomponente_m_lookup(
 @param_function(
     start_date="2023-01-01",
     unit=InputOutputUnit(
-        input_unit=TTSIMUnit.DIMENSIONLESS,
-        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
 )
