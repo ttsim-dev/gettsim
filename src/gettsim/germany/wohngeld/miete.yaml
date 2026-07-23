@@ -1,5 +1,5 @@
 ---
-raw_min_miete_m:
+raw_min_miete_m_hh:
   name:
     de: Minimalwert für Parameter M der Wohngeldformel
     en: Minimum value for parameter M of the Wohngeld formula
@@ -120,7 +120,7 @@ raw_min_miete_m:
     10: 152
     11: 187
     12: 298
-raw_max_miete_m_nach_baujahr:
+raw_max_miete_m_nach_baujahr_hh:
   name:
     de: Höchstbeträge für Miete und Belastung, nach Baujahr der Immobilie
     en: Maximum values for rent and burden, by year of construction of the property
@@ -1166,8 +1166,8 @@ raw_max_miete_m_nach_baujahr:
         6: 90
     reference: Art. 6 G. v. 22.12.1999, BGBl I S. 2671.
   2009-01-01:
-    note: Keine Differenzierung nach Baujahr, siehe `raw_max_miete_m`.
-raw_max_miete_m:
+    note: Keine Differenzierung nach Baujahr, siehe `raw_max_miete_m_hh`.
+raw_max_miete_m_hh:
   name:
     de: Höchstbeträge für Miete und Belastung
     en: Maximum values for rent and burden
@@ -1419,7 +1419,7 @@ raw_max_miete_m:
       5: 129
       6: 149
       7: 163
-raw_heizkostenentlastung_m:
+raw_heizkostenentlastung_m_hh:
   name:
     de: Heizkostenentlastung aufgrund der CO2-Bepreisung
     en: Reduction in heating costs due to CO2 pricing
@@ -1441,7 +1441,7 @@ raw_heizkostenentlastung_m:
     4: 25.8
     5: 29.4
     jede_weitere_person: 3.6
-raw_dauerhafte_heizkostenkomponente_m:
+raw_dauerhafte_heizkostenkomponente_m_hh:
   name:
     de: Dauerhafte Heizkostenkomponente
     en: Permanent heating cost component
@@ -1463,7 +1463,7 @@ raw_dauerhafte_heizkostenkomponente_m:
     4: 172
     5: 196
     jede_weitere_person: 24
-raw_klimakomponente_m:
+raw_klimakomponente_m_hh:
   name:
     de: Klimakomponente
     en: Climate component

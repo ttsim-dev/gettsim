@@ -44,12 +44,12 @@ class LookupTableBaujahr:
     unit=UNSET_UNIT,
 )
 def max_miete_m_lookup_mit_baujahr(
-    raw_max_miete_m_nach_baujahr: dict[int | str, dict[int, dict[int, float]]],
+    raw_max_miete_m_nach_baujahr_hh: dict[int | str, dict[int, dict[int, float]]],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> LookupTableBaujahr:
     """Maximum rent considered in Wohngeld calculation."""
-    tmp = raw_max_miete_m_nach_baujahr.copy()
+    tmp = raw_max_miete_m_nach_baujahr_hh.copy()
     per_additional_person = tmp.pop("jede_weitere_person")
     max_n_p_defined = max(tmp.keys())
     if not all(isinstance(i, int) for i in tmp):  # pragma: no cover
@@ -84,12 +84,12 @@ def max_miete_m_lookup_mit_baujahr(
     verify_units=False,
 )
 def max_miete_m_lookup_ohne_baujahr(
-    raw_max_miete_m: dict[int | str, dict[int, float]],
+    raw_max_miete_m_hh: dict[int | str, dict[int, float]],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Maximum rent considered in Wohngeld calculation."""
-    expanded = raw_max_miete_m.copy()
+    expanded = raw_max_miete_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -112,23 +112,23 @@ def max_miete_m_lookup_ohne_baujahr(
     verify_units=False,
 )
 def min_miete_lookup(
-    raw_min_miete_m: dict[int, float],
+    raw_min_miete_m_hh: dict[int, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Minimum rent considered in Wohngeld calculation."""
     max_n_p_normal = max_anzahl_personen["normale_berechnung"]
-    if max(raw_min_miete_m.keys()) != max_n_p_normal:  # pragma: no cover
+    if max(raw_min_miete_m_hh.keys()) != max_n_p_normal:  # pragma: no cover
         raise ValueError(
             "The maximum number of persons for the normal calculation of the basic"
             "Wohngeld formula `max_anzahl_personen['normale_berechnung'] "
             f"(got: {max_n_p_normal}) must be the same as the maximum number of household "
             "members in `koeffizienten_berechnungsformel` "
-            f"(got: {max(raw_min_miete_m.keys())})"
+            f"(got: {max(raw_min_miete_m_hh.keys())})"
         )
-    expanded = raw_min_miete_m.copy()
+    expanded = raw_min_miete_m_hh.copy()
     for n_p in range(max_n_p_normal + 1, max_anzahl_personen["indizierung"] + 1):
-        expanded[n_p] = raw_min_miete_m[max_n_p_normal]
+        expanded[n_p] = raw_min_miete_m_hh[max_n_p_normal]
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
 
 
@@ -141,12 +141,12 @@ def min_miete_lookup(
     verify_units=False,
 )
 def heizkostenentlastung_m_lookup(
-    raw_heizkostenentlastung_m: dict[int | str, float],
+    raw_heizkostenentlastung_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Heizkostenentlastung as a lookup table."""
-    expanded = raw_heizkostenentlastung_m.copy()
+    expanded = raw_heizkostenentlastung_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -167,12 +167,12 @@ def heizkostenentlastung_m_lookup(
     verify_units=False,
 )
 def dauerhafte_heizkostenkomponente_m_lookup(
-    raw_dauerhafte_heizkostenkomponente_m: dict[int | str, float],
+    raw_dauerhafte_heizkostenkomponente_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Dauerhafte Heizkostenenkomponente as a lookup table."""
-    expanded = raw_dauerhafte_heizkostenkomponente_m.copy()
+    expanded = raw_dauerhafte_heizkostenkomponente_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -193,12 +193,12 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     verify_units=False,
 )
 def klimakomponente_m_lookup(
-    raw_klimakomponente_m: dict[int | str, float],
+    raw_klimakomponente_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Klimakomponente as a lookup table."""
-    expanded = raw_klimakomponente_m.copy()
+    expanded = raw_klimakomponente_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
