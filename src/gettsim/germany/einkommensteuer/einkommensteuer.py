@@ -7,9 +7,9 @@ from typing import TYPE_CHECKING
 import portion
 
 from gettsim.tt import (
-    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
@@ -258,7 +258,14 @@ def relevantes_kindergeld_ohne_staffelung_m(
     return kindergeld__satz_m * kindergeld_ansprüche / 2
 
 
-@param_function(start_date="2002-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2002-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    verify_units=False,
+)
 def parameter_einkommensteuertarif(
     raw_parameter_einkommensteuertarif: RawParamValue,
     xnp: ModuleType,

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
-    UNSET_UNIT,
+    InputOutputUnit,
     TTSIMUnit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -97,7 +97,14 @@ def altersfreibetrag_y_ab_2005(
     return out
 
 
-@param_function(start_date="2005-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2005-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.CALENDAR_YEAR,
+        output_unit=TTSIMUnit.DIMENSIONLESS,
+    ),
+    verify_units=False,
+)
 def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     raw_altersentlastungsquote_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,
@@ -122,7 +129,14 @@ def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     )
 
 
-@param_function(start_date="2005-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2005-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.CALENDAR_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    verify_units=False,
+)
 def maximaler_altersentlastungsbetrag_y_gestaffelt_nach_geburtsjahr(
     raw_maximaler_altersentlastungsbetrag_y_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,

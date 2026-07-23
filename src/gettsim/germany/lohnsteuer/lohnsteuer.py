@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import numpy
 
 from gettsim.tt import (
-    UNSET_UNIT,
+    InputOutputUnit,
     PiecewisePolynomialParamValue,
     TTSIMUnit,
     param_function,
@@ -53,7 +53,14 @@ def basis_für_klassen_5_6(
     )
 
 
-@param_function(start_date="2015-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2015-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    verify_units=False,
+)
 def parameter_max_lohnsteuer_klasse_5_6(
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     einkommensgrenzwerte_steuerklassen_5_6: dict[int, float],
