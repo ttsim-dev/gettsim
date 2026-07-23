@@ -261,7 +261,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.15-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -500,7 +500,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -739,7 +739,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -983,7 +983,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1278,7 +1278,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -1530,7 +1530,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -1782,7 +1782,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -2039,7 +2039,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -2320,7 +2320,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/09/b9/f668bc51129c0fec7728ae8b43180417fe1c1fe99f71d302739f6cc50944/optree-0.19.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2562,7 +2562,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/51/3fb9e65ae76ee97bd611869a503fa3fc0a6e81dd8b737cf3003f682df7ff/orjson-3.11.9-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2804,7 +2804,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/51/3fb9e65ae76ee97bd611869a503fa3fc0a6e81dd8b737cf3003f682df7ff/orjson-3.11.9-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3051,7 +3051,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/22/64/3cc7b08cb1c0f1949895f9490217ca8db6ced7f3bf75c65a5bf31c07bf1e/optree-0.19.1-cp311-cp311-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3341,7 +3341,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/06/c2/05b8c890097c61a7f4406b35396b997a635200ded0339eda83dfbe526c5f/coverage-7.14.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0c/b6/156a8de1e1b47694f0e7de6675866936608d45dc68388fd017d36f8693be/simplejson-4.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0e/a4/82b7a2fe5d8a67a59ed831b24d59a3d46ea7d207b66e1602d376541d94a6/orjson-3.11.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
@@ -3586,7 +3586,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/16/6d/11867a3ffa3a3608d84a4de51ef4dd0896d6b5cc9132fbe1daf593e677bc/orjson-3.11.9-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3831,7 +3831,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/16/6d/11867a3ffa3a3608d84a4de51ef4dd0896d6b5cc9132fbe1daf593e677bc/orjson-3.11.9-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4081,7 +4081,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4370,7 +4370,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4616,7 +4616,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4862,7 +4862,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -5113,7 +5113,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -5402,7 +5402,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/ca/59ea35fb99743549ec8b37eff141ece4431fea590c89e536ed8032ef45cf/coverage-7.14.3-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
@@ -5648,7 +5648,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5894,7 +5894,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/12/1d/db378b5cca433b90b893f26dab728b280ddd89f272a1fdfed4aeaa05c686/coverage-7.14.3-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -6145,7 +6145,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -6434,7 +6434,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/01/8a/f767031dcd0d24c2bbab4b696dbcf004da4f3284e5e4649fc47bc0e2bb78/nvidia_nvvm-13.3.33-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0a/a7/b63e19b0cfb1ef4d2a6053aad1b1cc7344d1f14548c4dffd28b8416fc178/nvidia_cusparse-12.8.1.7-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/13/4a/02a64ee1f4708ad28f49ffa92735cb1a8325f617cb59f33951a07a8c4cca/nvidia_cusolver-12.2.2.18-py3-none-manylinux_2_27_x86_64.whl
@@ -6744,7 +6744,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -6995,7 +6995,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/12/1d/db378b5cca433b90b893f26dab728b280ddd89f272a1fdfed4aeaa05c686/coverage-7.14.3-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7251,7 +7251,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/0d/7d/c592d1fa69c210be0d2743fffc598dfc2f54efa9671c5f6f5d1e151c6f4a/jaxlib-0.10.2-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -7509,7 +7509,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#6d8d9e9966b4fa8f8a5923c78fb31323c60980d9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
       - pypi: https://files.pythonhosted.org/packages/09/dc/6d8fbfc29d902251cf333414cf7dcfaf4b252a9920c881354584ed36270d/jax_metal-0.1.1-py3-none-macosx_13_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/12/1d/db378b5cca433b90b893f26dab728b280ddd89f272a1fdfed4aeaa05c686/coverage-7.14.3-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -19821,9 +19821,9 @@ packages:
   - dags>=0.6
   - gettsim>=1.1
   requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#3ac66da6781e1170ce93e8a202257f0a11508a8f
+- pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-annotate-mettsim#5b50f15ea44d18a3130496967a9a375165bd516c
   name: ttsim-backend
-  version: 1.2.2.dev61+g3ac66da67
+  version: 1.2.2.dev63+g5b50f15ea
   requires_dist:
   - beartype>=0.18
   - dags>=0.6
