@@ -1178,8 +1178,8 @@ raw_max_miete_m:
       - Anzahl Personen
       - Mietstufe
     en: null
-  input_unit: DIMENSIONLESS
-  output_unit: EUR_PER_MONTH
+  input_unit: DIMENSIONLESS_PER_HH
+  output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2009-01-01:
     1:
@@ -1430,7 +1430,7 @@ raw_heizkostenentlastung_m:
     en: >-
       Amount of relief in heating costs due to CO2 pricing in Euro depending on
       household size
-  input_unit: DIMENSIONLESS
+  input_unit: DIMENSIONLESS_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2021-01-01:
@@ -1452,7 +1452,7 @@ raw_dauerhafte_heizkostenkomponente_m:
     en: >-
       Permanent heating cost component depending on household size introduced with the
       housing subsidy reform 2023
-  input_unit: DIMENSIONLESS
+  input_unit: DIMENSIONLESS_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
@@ -1476,7 +1476,7 @@ raw_klimakomponente_m:
       Surcharge to be taken into account as climate component in addition to the maximum
       amounts pursuant to § 12 (1) in Euro depending on the size of the household;
       introduced with the housing subsidy reform 2023
-  input_unit: DIMENSIONLESS
+  input_unit: DIMENSIONLESS_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:

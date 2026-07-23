@@ -74,7 +74,7 @@ def max_miete_m_lookup_mit_baujahr(
     start_date="2009-01-01",
     leaf_name="max_miete_m_lookup",
     unit=InputOutputUnit(
-        input_unit=TTSIMUnit.DIMENSIONLESS,
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
