@@ -42,6 +42,8 @@ def alleinerziehendenbonus(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(

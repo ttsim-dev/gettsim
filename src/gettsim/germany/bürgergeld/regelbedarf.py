@@ -278,6 +278,8 @@ class RegelsatzAnteilsbasiert:
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def berechtigte_wohnfläche_eigentum(

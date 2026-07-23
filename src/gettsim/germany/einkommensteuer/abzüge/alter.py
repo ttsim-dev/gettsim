@@ -103,6 +103,8 @@ def altersfreibetrag_y_ab_2005(
         input_unit=TTSIMUnit.CALENDAR_YEAR,
         output_unit=TTSIMUnit.DIMENSIONLESS,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
@@ -135,6 +137,8 @@ def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
         input_unit=TTSIMUnit.CALENDAR_YEAR,
         output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def maximaler_altersentlastungsbetrag_y_gestaffelt_nach_geburtsjahr(

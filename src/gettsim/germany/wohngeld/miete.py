@@ -81,6 +81,8 @@ def max_miete_m_lookup_mit_baujahr(
         input_unit=(TTSIMUnit.DIMENSIONLESS.PER_HH, TTSIMUnit.DIMENSIONLESS.PER_HH),
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def max_miete_m_lookup_ohne_baujahr(
@@ -109,6 +111,8 @@ def max_miete_m_lookup_ohne_baujahr(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def min_miete_lookup(
@@ -138,6 +142,8 @@ def min_miete_lookup(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def heizkostenentlastung_m_lookup(
@@ -164,6 +170,8 @@ def heizkostenentlastung_m_lookup(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def dauerhafte_heizkostenkomponente_m_lookup(
@@ -190,6 +198,8 @@ def dauerhafte_heizkostenkomponente_m_lookup(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def klimakomponente_m_lookup(

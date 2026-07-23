@@ -59,6 +59,8 @@ def basis_für_klassen_5_6(
         input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
         output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
     ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
     verify_units=False,
 )
 def parameter_max_lohnsteuer_klasse_5_6(
