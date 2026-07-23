@@ -27,7 +27,11 @@ class LookupTableBaujahr:
     lookup_table: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnit(
-            input_unit=TTSIMUnit.DIMENSIONLESS,
+            input_unit=(
+                TTSIMUnit.DIMENSIONLESS,
+                TTSIMUnit.DIMENSIONLESS.PER_HH,
+                TTSIMUnit.DIMENSIONLESS.PER_HH,
+            ),
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
         ),
     ]
@@ -74,7 +78,7 @@ def max_miete_m_lookup_mit_baujahr(
     start_date="2009-01-01",
     leaf_name="max_miete_m_lookup",
     unit=InputOutputUnit(
-        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        input_unit=(TTSIMUnit.DIMENSIONLESS.PER_HH, TTSIMUnit.DIMENSIONLESS.PER_HH),
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
     verify_units=False,
@@ -232,7 +236,8 @@ def min_miete_m_hh(
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
+    # `searchsorted` reads the unannotated `baujahre` array as a quantity, which
+    # carries no unit; a `[length]`-typed array field cannot state one either.
     verify_units=False,
 )
 def miete_m_hh_mit_baujahr(
@@ -261,8 +266,6 @@ def miete_m_hh_mit_baujahr(
     end_date="2020-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
-    verify_units=False,
 )
 def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     mietstufe_hh: int,
@@ -282,8 +285,6 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     end_date="2022-12-31",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
-    verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung(
     mietstufe_hh: int,
@@ -308,8 +309,6 @@ def miete_m_hh_mit_heizkostenentlastung(
     start_date="2023-01-01",
     leaf_name="miete_m_hh",
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-    # Multi-dimensional look-up; the unit check cannot infer its units (GEP 10).
-    verify_units=False,
 )
 def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakomponente(
     mietstufe_hh: int,
