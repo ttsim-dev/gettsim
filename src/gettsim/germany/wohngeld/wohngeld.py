@@ -13,6 +13,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
@@ -189,9 +190,27 @@ def basisbetrag_m_wthh_ab_2002(
 @dataclass(frozen=True)
 class BasisformelParamValues:
     skalierungsfaktor: Annotated[float, TTSIMUnit.DIMENSIONLESS]
-    a: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
-    b: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
-    c: Annotated[ConsecutiveIntLookupTableParamValue, TTSIMUnit.DIMENSIONLESS]
+    a: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            output_unit=TTSIMUnit.DIMENSIONLESS,
+        ),
+    ]
+    b: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            output_unit=TTSIMUnit.DIMENSIONLESS,
+        ),
+    ]
+    c: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            output_unit=TTSIMUnit.DIMENSIONLESS,
+        ),
+    ]
 
 
 @param_function(end_date="2000-12-31", leaf_name="basisformel_params", unit=UNSET_UNIT)
@@ -232,7 +251,11 @@ def basisformel_params_bis_2000(
 @dataclass(frozen=True)
 class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParamValues):
     zusatzbetrag_nach_haushaltsgröße: Annotated[
-        ConsecutiveIntLookupTableParamValue, TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        ),
     ]
 
 

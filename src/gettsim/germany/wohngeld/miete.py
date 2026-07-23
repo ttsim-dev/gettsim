@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     TTSIMUnit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -23,7 +24,13 @@ if TYPE_CHECKING:
 @dataclass(frozen=True)
 class LookupTableBaujahr:
     baujahre: Int[Array, " n_baujahr_categories"]
-    lookup_table: ConsecutiveIntLookupTableParamValue
+    lookup_table: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnit(
+            input_unit=TTSIMUnit.DIMENSIONLESS,
+            output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        ),
+    ]
 
 
 @param_function(
@@ -64,7 +71,13 @@ def max_miete_m_lookup_mit_baujahr(
 
 
 @param_function(
-    start_date="2009-01-01", leaf_name="max_miete_m_lookup", unit=UNSET_UNIT
+    start_date="2009-01-01",
+    leaf_name="max_miete_m_lookup",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    ),
+    verify_units=False,
 )
 def max_miete_m_lookup_ohne_baujahr(
     raw_max_miete_m: dict[int | str, dict[int, float]],
@@ -86,7 +99,14 @@ def max_miete_m_lookup_ohne_baujahr(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="1984-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
+@param_function(
+    start_date="1984-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    verify_units=False,
+)
 def min_miete_lookup(
     raw_min_miete_m: dict[int, float],
     max_anzahl_personen: dict[str, int],
@@ -108,7 +128,14 @@ def min_miete_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
 
 
-@param_function(start_date="2021-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2021-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    ),
+    verify_units=False,
+)
 def heizkostenentlastung_m_lookup(
     raw_heizkostenentlastung_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
@@ -127,7 +154,14 @@ def heizkostenentlastung_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    ),
+    verify_units=False,
+)
 def dauerhafte_heizkostenkomponente_m_lookup(
     raw_dauerhafte_heizkostenkomponente_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
@@ -146,7 +180,14 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01", unit=UNSET_UNIT)
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    ),
+    verify_units=False,
+)
 def klimakomponente_m_lookup(
     raw_klimakomponente_m: dict[int | str, float],
     max_anzahl_personen: dict[str, int],

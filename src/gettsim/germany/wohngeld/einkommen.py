@@ -9,6 +9,7 @@ from ttsim.unit_converters import per_y_to_per_m
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnit,
     PiecewisePolynomialParamValue,
     TTSIMUnit,
     agg_by_p_id_function,
@@ -36,7 +37,13 @@ def alleinerziehendenbonus(
     pass
 
 
-@param_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
+@param_function(
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    ),
+    verify_units=False,
+)
 def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
     mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
     xnp: ModuleType,
