@@ -127,6 +127,10 @@ The unit tag's physical dimension, period, and grouping level must agree with th
 declaration of the corresponding input in GETTSIM's DAG. Only the currency may differ,
 in which case the value is converted.
 
+For unit-annotated input, each leaf's concrete currency tag determines its source
+currency. `data_currency` determines the currency assumed for unannotated monetary input
+and the currency of computed results.
+
 The annotated result tree has the same structure. Computed currency values are tagged
 with the concrete data currency, while requested parameters retain their statutory
 currency.
@@ -182,10 +186,11 @@ def incorrect_amount_m(
 
 **Opting out of unit validation.**
 
-Sometimes, policy function perform correct operations that also violate unit arithmetic,
-e.g. cross-level operations (sum a HH and BG amount). In these cases, users can either
+Sometimes, policy functions perform correct operations that also violate unit
+arithmetic, e.g. cross-level operations (sum a HH and BG amount). In these cases, users
+can either
 
-1. opt-out of unit validation for the entire policy function by setting
+1. opt out of unit validation for the entire policy function by setting
    `verify_units=False` in the decorator, or
 1. use `cast_ttsim_unit` to explicitly convert the unit of an operand to the expected
    unit.
@@ -200,7 +205,7 @@ def hh_amount_m(...) -> float: ...
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def bg_amount_m(...) -> float: ...
 
-@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH_PER_HH)
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
 def correct_amount_m(
     hh_amount_m: float,
     bg_amount_m: float,
@@ -829,7 +834,7 @@ Body validation rejects:
 | Limitation                                                               | Consequence                                                                                                                   | Required action                                                                                |
 | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Equality operators (`==`, `!=`) do not compare units.                    | Sentinel comparisons such as `p_id_empfänger == -1` remain possible, but an incompatible equality comparison is not detected. | Use ordering or an explicit policy condition where dimensional equivalence matters.            |
-| Branch exploration is limited to 1,024 paths and 64 decisions per run.   | A body above either limit is not validated automatically.                                                                     | Simplify the body or use `verify_units=False`.                                                 |
+| Branch exploration is limited to 1,024 paths and 64 decisions per run.   | Environment assembly fails when either limit is exceeded.                                                                     | Simplify the body or use `verify_units=False`.                                                 |
 | Not every NumPy/JAX or Python operation has a validation implementation. | The environment check rejects an unsupported body.                                                                            | Add validator support, use a local `cast_ttsim_unit`, or use `verify_units=False`.             |
 | Group nesting and membership are not represented in the unit registry.   | No automatic conversion exists between group levels.                                                                          | Use a head count, an explicit aggregation, or `cast_ttsim_unit` where substantively justified. |
 | A cast is an assertion, not a conversion or proof.                       | An incorrect cast can hide a unit error in that expression.                                                                   | Keep casts local and review them as policy assumptions.                                        |
