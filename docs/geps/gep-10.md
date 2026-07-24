@@ -433,6 +433,9 @@ calendar point and therefore uses `DIMENSIONLESS`.
 
 ### Parameter declarations
 
+Units are declared at the time of parameter definition. Given the various parameter
+types, the declaration rules differ slightly.
+
 #### Scalars and dictionaries
 
 A scalar parameter and a dictionary with homogeneous leaves use one unit declaration.
@@ -497,15 +500,40 @@ Units of `require_converter` parameters can be declared independently from the u
 the corresponding `@param_function` as they may differ depending on the conversions in
 the param function.
 
-(gep-10-structured)=
+#### Parameter functions
 
-#### Structured parameter values
+**Mapping parameters.**
 
-Some param functions expose structured objects by returning dataclasses. A structured
-object has no single scalar unit. Its `@param_function` therefore declares
-`unit=UNSET_UNIT`. Scalar dataclass fields declare their units with `Annotated`; a
-schedule-typed field (a lookup table or piecewise polynomial) declares its two axes with
-exactly one `InputOutputUnit` — a bare unit token there is a validation error.
+Parameter functions exposing mapping parameters (of type `PiecewisePolynomialParamValue`
+or `ConsecutiveIntLookupTableParamValue`) declare their input and output unit via
+`unit=InputOutputUnit(...)`:
+
+```python
+@param_function(
+    unit=InputOutputUnit(
+        input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+)
+def tarif(...) -> PiecewisePolynomialParamValue: ...
+```
+
+A converter-produced schedule carries the axes declared by its producing
+`@param_function`'s `unit=InputOutputUnit(...)`. Every `look_up` or
+`piecewise_polynomial` call on it screens each domain argument against the declared
+input axis and yields the declared output axis; no cast is needed at the call.
+
+For a multidimensional lookup table, `InputOutputUnit.input_unit` may be a tuple. Each
+tuple element declares the unit of the corresponding positional argument to `look_up`,
+and the number of declared axes must match the number of arguments. A
+`piecewise_polynomial` has exactly one input axis and therefore does not accept a tuple.
+Raw YAML mapping parameters use one `input_unit` token; a tuple is available only on a
+converter-produced schedule or an annotated schedule field.
+
+**Structured parameters.**
+
+Parameter functiuons exposing structured parameters in the form of generated dataclasses
+declare `unit=UNSET_UNIT` and annotate the fields of the dataclass with units:
 
 ```python
 @dataclass(frozen=True)
@@ -525,31 +553,12 @@ def satz_mit_altersgrenzen(...) -> SatzMitAltersgrenzen: ...
 ```
 
 When a policy function accesses an annotated scalar field, the field's unit is used in
-body validation. Container fields and nested structures do not receive a single unit.
+body validation.
 
 If a YAML leaf path matches an annotated field path, validation compares the two
 declarations. This detects, for example, a YAML leaf declared as `YEARS` whose matching
 field is declared as `TTSIMUnit.CURRENCY`. Renamed or derived fields have no matching
 source path and cannot be compared automatically.
-
-An unannotated scalar obtained from a structured value must be assigned a unit where it
-is used:
-
-```python
-cast_ttsim_unit(stufen.rbs_4.satz, TTSIMUnit.CURRENCY.PER_MONTH)
-```
-
-A converter-produced schedule carries the axes declared by its producing
-`@param_function`'s `unit=InputOutputUnit(...)`. Every `look_up` or
-`piecewise_polynomial` call on it screens each domain argument against the declared
-input axis and yields the declared output axis; no cast is needed at the call.
-
-For a multidimensional lookup table, `InputOutputUnit.input_unit` may be a tuple. Each
-tuple element declares the unit of the corresponding positional argument to `look_up`,
-and the number of declared axes must match the number of arguments. A
-`piecewise_polynomial` has exactly one input axis and therefore does not accept a tuple.
-Raw YAML mapping parameters use one `input_unit` token; a tuple is available only on a
-converter-produced schedule or an annotated schedule field.
 
 (gep-10-auto)=
 
@@ -567,9 +576,9 @@ used by the numerical converter functions.
 | Aggregation         | Base                    | Result level                             |
 | ------------------- | ----------------------- | ---------------------------------------- |
 | `SUM`, `MIN`, `MAX` | preserved               | target group (a bare source acquires it) |
-| `SUM` of a boolean  | `dimensionless`         | target group (mints `1 / [target]`)      |
-| `MEAN`              | preserved               | bare                                     |
-| `COUNT`             | `dimensionless`         | target group (mints `1 / [target]`)      |
+| `SUM` of a boolean  | `dimensionless`         | target group (`1 / [target]`)            |
+| `MEAN`              | preserved               | bare (individual level)                  |
+| `COUNT`             | `dimensionless`         | target group (`1 / [target]`)            |
 | `ANY`, `ALL`        | boolean `DIMENSIONLESS` | target group                             |
 
 `COUNT` and a `SUM` over a boolean mint a dimensionless count at the target group level
@@ -621,15 +630,6 @@ declaration.
   no single scalar unit. Units are then declared on the return type's fields or at use
   sites.
 
-The division of labor between the two declaration sites is that the decorator answers
-"what is this node?", while the type annotation answers "what is inside this value?"
-`UNSET_UNIT` delegates from the decorator to the type. A schedule-producing
-`@param_function` never declares `UNSET_UNIT`: a schedule's unit is its pair of axes,
-stated as `unit=InputOutputUnit(input_unit=..., output_unit=...)`. Because a schedule
-builder's body performs raw restructuring that unit validation cannot follow, every such
-function also states `verify_units=False` explicitly; leaving the default is a
-validation error.
-
 (gep-10-literals)=
 
 ### Numerical literals
@@ -660,10 +660,6 @@ def betrag_m(einkommen_m: float, befreit: bool) -> float:
     return 0.0 if befreit else einkommen_m
 ```
 
-A non-zero literal return under a dimensioned declaration is rejected. An inferred
-dimensionless quantity also cannot satisfy a dimensioned declaration. For example, a
-body returning `p_id * 2.0` does not satisfy `unit=TTSIMUnit.CURRENCY`.
-
 (gep-10-currency)=
 
 ### Currency
@@ -693,44 +689,15 @@ UNIT_SYSTEM = UnitSystem(
 The first entry treats Deutsche Mark as the earliest statutory currency modeled by this
 GEP; it does not attempt to model earlier German currencies.
 
-The policy date determines the computation currency. The mapping is mandatory, and the
-computation currency is not a user option.
+The policy date determines the computation currency.
 
 #### Parameter and data currencies
-
-| Value                            | Currency used                                                    |
-| -------------------------------- | ---------------------------------------------------------------- |
-| parameter                        | statutory currency declared in the parameter file                |
-| rounding magnitude               | statutory currency declared in the rounding specification        |
-| policy function input and output | statutory currency during tax and transfer computation           |
-| untagged user input              | `data_currency`                                                  |
-| tagged user input                | concrete currency in the tag, converted first to `data_currency` |
-| computed result                  | converted from statutory currency to `data_currency`             |
-| requested parameter              | statutory currency; not converted                                |
-| requested input column           | returned as provided                                             |
 
 Parameters are not converted. Validation instead requires each parameter's concrete
 currency to equal the statutory currency at its policy date. This preserves the values
 specified by the statute, including legally rounded values introduced at a currency
 changeover. The rejected alternative of converting parameters is discussed in
 {ref}`Alternatives <gep-10-alternatives>`.
-
-The concrete currency is an authoring checksum on a fixed literal. A value such as `690`
-does not reveal whether it denotes Deutsche Mark or Euro. The declaration supplies an
-independent assertion that the build checks against the statutory currency at the
-entry's date, detecting a stale label when an entry is copied across a currency
-changeover. This redundancy with the date is deliberate: the token is a validation
-anchor and does not drive conversion or computation.
-
-Fixed literals in parameter YAML and rounding specifications therefore declare a
-concrete currency. Computed currency values from policy functions and `@param_function`s
-use `CURRENCY`: their magnitudes derive from concrete-currency inputs, so there is no
-fixed literal to mislabel. A currency-valued `@param_function` remains currency-agnostic
-even without a date restriction or when it spans a currency changeover.
-
-`data_currency` defaults to the registered base currency, which is Euro in GETTSIM. If
-the statutory currency differs from the base currency while the default remains in use,
-GETTSIM issues a warning.
 
 #### Currency changes in parameter histories
 
@@ -781,12 +748,8 @@ def zu_versteuerndes_einkommen_y_sn(): ...
 ```
 
 The rounding unit must equal the function unit after replacing `CURRENCY` with the
-concrete statutory currency. The rounding magnitudes are not converted. A function that
-remains active across a statutory-currency change must be split and receive separate
-rounding specifications.
-
-A monetary function with a rounding specification must declare the rounding unit. A
-non-monetary rounding specification does not declare a concrete currency.
+concrete statutory currency. A function that remains active across a statutory-currency
+change must be split and receive separate rounding specifications.
 
 (gep-10-checks)=
 
@@ -814,12 +777,18 @@ of the argument's producer. It evaluates the function body with these values and
 compares the result with the function's declared unit.
 
 ```python
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
+def bruttokaltmiete_m_hh(...) -> float: ...
+
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS_PER_HH)
+def anzahl_personen_hh(...) -> int: ...
+
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bruttokaltmiete_m(
-    wohnen__bruttokaltmiete_m_hh: float,
+    bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
 ) -> float:
-    return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
+    return bruttokaltmiete_m_hh / anzahl_personen_hh
 ```
 
 The arguments resolve to `CURRENCY / month / [hh]` and `1 / [hh]`. Their division
@@ -853,10 +822,6 @@ Body validation rejects:
 | A cast is an assertion, not a conversion or proof.                       | An incorrect cast can hide a unit error in that expression.                                                                   | Keep casts local and review them as policy assumptions.                                        |
 | `verify_units=False` skips the complete function body.                   | Consumers still use the declared return unit, but the producer body is not validated.                                         | Restrict the opt-out to functions that cannot be represented by the validator.                 |
 
-There is no general fallback from an inferred dimensionless quantity to a dimensioned
-declaration. Only the literal zero receives the special treatment described in
-{ref}`Numerical literals <gep-10-literals>`.
-
 (gep-10-opt-out)=
 
 #### Explicit exceptions
@@ -864,7 +829,6 @@ declaration. Only the literal zero receives the special treatment described in
 `cast_ttsim_unit(value, unit)` changes the inferred unit of one expression during body
 validation. At numerical execution it returns `value` unchanged. It is appropriate for:
 
-- a scalar obtained from an unannotated structured parameter field;
 - policy-defined arithmetic whose grouping interpretation differs from the general
   aggregation rules;
 - an explicit calendar-granularity conversion; or
@@ -877,23 +841,6 @@ should apply to the smallest expression that requires it.
 Its declared output unit remains the contract used by consumers. It is appropriate only
 when the body uses an unsupported operation, exceeds branch-exploration limits, or
 cannot express its policy interpretation using the standard aggregation rules.
-
-### Specification recap
-
-| Topic                  | Decision                                                                                                              |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Declaration            | Every active node that produces a quantity has a compositional unit.                                                  |
-| Function currency      | Policy functions use the currency-agnostic base `CURRENCY`.                                                           |
-| Parameter currency     | Currency-denominated parameters use a concrete currency such as `EUR` or `DM`.                                        |
-| Computation currency   | The policy date determines the statutory computation currency; users cannot override it.                              |
-| Parameter conversion   | Parameters and rounding specifications are not converted.                                                             |
-| Data conversion        | Currency-denominated input and computed results are converted at the interface boundary.                              |
-| Runtime representation | The tax and transfer calculation uses ordinary NumPy or JAX arrays, not `pint.Quantity`.                              |
-| Grouping levels        | Each grouping level is a separate, non-interconvertible dimension.                                                    |
-| Individual level       | A personal quantity carries no grouping-level denominator and is bare.                                                |
-| Head counts            | A personal count is `DIMENSIONLESS`; a group count is `DIMENSIONLESS_PER_<GROUP>`.                                    |
-| Validation             | Function bodies, declarations, parameter metadata, aggregations, and optional input tags are validated.               |
-| Exceptions             | `cast_ttsim_unit` replaces the inferred unit of one expression; `verify_units=False` disables validation of one body. |
 
 ## Related work
 
@@ -915,20 +862,13 @@ annotations.
   PR. It contains the registry, compositional vocabulary, dimensions, mandatory
   declarations, aggregation validation, function-body validation, and input-boundary
   validation.
-- TTSIM [#144](https://github.com/ttsim-dev/ttsim/pull/144) added statutory computation
-  currency, boundary conversion, and the working-hours dimension. It has been merged
-  into the feature branch of TTSIM #138, not into TTSIM's `main` branch.
 - TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141) is the open worked-example
-  PR. It annotates the bundled fictional `mettsim` policy system and validates it across
+  PR. It annotates the bundled fictional `METTSIM` policy system and validates it across
   policy dates.
 - GETTSIM [#1193](https://github.com/ttsim-dev/gettsim/pull/1193) contains this draft
-  GEP. The separate GETTSIM implementation PR for policy declarations, the `UnitSystem`,
-  schema migration, and parameter migration has not yet been opened.
-
-The parameter schema validates the declaration shape for each parameter type. The
-regular expression in the schema performs a preliminary syntax check;
-`parse_compositional_unit` performs complete grammar and vocabulary validation during
-loading.
+  GEP.
+- GETTSIM [#1212](https://github.com/ttsim-dev/gettsim/pull/1212) contains the GETTISM
+  rollout.
 
 (gep-10-alternatives)=
 
@@ -943,18 +883,6 @@ perform explicit conversions:
 ```text
 (CURRENCY / [hh]) / (1 / [hh]) = CURRENCY
 ```
-
-### Give group counts no level
-
-Rejected. A bare count is indeed dimensionless, but a group head count must still carry
-its group level (`1 / [hh]`). Without the group level a household total cannot be told
-from a Bedarfsgemeinschaft total, and a per-capita division could not cancel the group
-level to land at a clean bare per-person amount.
-
-### Use one generic count dimension
-
-Rejected. A generic count does not identify the group within which persons were counted.
-`1 / [hh]` and `1 / [bg]` must remain distinct.
 
 ### A person level, implied or spelled
 
@@ -974,10 +902,7 @@ amount (`.../[person]`), and per-capita divisions produced a typed per-person re
 rather than cancelling to bare. Its cost was a more complex model — an implied leaf
 whose attachment depended on an extensive-vs-intensive classification of every base, the
 `PER_PERSON` spelling duplicating a bare form, and booleans carrying `1 / [person]` at
-the individual grain. Collapsing the individual grain to bare gives up the
-neutral-vs-individual distinction — a rate and a per-person amount are now both bare —
-in exchange for a single representation, no implied leaf, and per-capita divisions that
-cancel cleanly to the group level with no residue.
+the individual grain.
 
 ### Convert all parameters to a selected run currency
 
@@ -1004,19 +929,6 @@ The adopted design instead evaluates every formula in its statutory currency. Pa
 and coefficients retain their statutory numerical values. Only input data and computed
 results cross the currency boundary.
 
-### Use field annotations as the only source of structured units
-
-Rejected for this GEP. Field annotations would identify the units of derived structured
-values but would not by themselves record the concrete statutory currency of YAML
-leaves. The adopted design keeps concrete units in YAML and currency-agnostic field
-annotations in Python, with validation where their paths match.
-
-### Require a cast for every structured field access
-
-Rejected. Repeating casts in every consumer would duplicate declarations and would not
-automatically detect disagreement with matching YAML leaves. Field annotations state
-reusable units once; casts remain available for fields that cannot be annotated.
-
 ### Pass Pint quantities through the DAG
 
 Rejected. `pint.Quantity` is not a JAX pytree and cannot be used in the compiled JAX
@@ -1024,11 +936,15 @@ calculation. Units are static properties of nodes, so environment and boundary
 validation provide the required checks without changing the numerical representation
 inside the TT function.
 
-### Make functions independent of reference periods
+### Remove currency labels for parameters
 
-Rejected. Combining monthly and annual nodes would remove the naming and law-to-code
-correspondence established by GEP 1. This GEP validates reference periods but does not
-remove them from node names.
+Rejected. Concrete currency labels in parameter YAMLs seem redundant because we don't
+allow for any other currency than the statutory one at a given policy date (i.e. you
+can't pass a EUR parameter to a DM policy date). However, the labels are useful for
+validation and for human readers. During implementation it proved to be helpful to
+receive automatic validation errors when a parameter is declared in the wrong currency.
+Adding concrete currency tags does not demand much work from developers and helps to
+prevent painful conversion bugs.
 
 ## Discussion
 
