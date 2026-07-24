@@ -81,7 +81,8 @@ results = main(
 
 For this run, GETTSIM:
 
-1. converts currency-denominated input columns from Euro to Deutsche Mark;
+1. converts currency-denominated input columns and scalar input values from Euro to
+   Deutsche Mark;
 1. evaluates the 1999 policy in Deutsche Mark using the statutory parameters; and
 1. converts computed currency-denominated results back to Euro.
 
@@ -235,8 +236,9 @@ requires that currency to equal the statutory currency at the parameter's policy
 - Existing policy functions, policy inputs, parameter files, and hand-written
   aggregations require unit declarations.
 - There is no environment variable that disables all unit validation. Exceptions are
-  local to an expression or function. As always, users can turn off **all** validation
-  by passing `include_fail_nodes=False` to `main()` (but this is not recommended).
+  local to an expression or function. Passing `include_fail_nodes=False` to `main()`
+  disables validation implemented as fail nodes in the interface DAG. Declaration checks
+  performed during decoration or parameter loading remain active.
 
 ## Detailed description
 
@@ -591,6 +593,13 @@ bare because it is equivalent to a group sum divided by a head count.
   = CURRENCY
 ```
 
+A group suffix does not necessarily imply a grouping-level denominator. For a mean, the
+suffix identifies the group over which the mean is calculated, while division by the
+group's head count cancels the grouping dimension. Thus
+`durchschnittliches_einkommen_m_hh` has the bare unit `CURRENCY_PER_MONTH`, just like
+`einkommen_m_hh / anzahl_personen_hh`. It is a per-person amount whose value is
+calculated and repeated within each household.
+
 A hand-written aggregation declares its unit. By default, that declaration must exactly
 match the unit derived from the source, aggregation type, and target level. An
 aggregation whose policy interpretation cannot be represented by these rules may set
@@ -621,6 +630,10 @@ declaration.
 | group-creation function              | none                                               | not applicable                        | exempt because it produces identifiers        |
 | rounding specification               | unit required when attached to a monetary function | concrete currency                     | function unit and statutory currency          |
 | unit-annotated input column          | required on every leaf in that input mode          | concrete currency                     | declared node unit and data currency          |
+
+For generated and hand-written `MEAN` aggregations, the group suffix identifies the
+group over which the mean is calculated, but the declared unit is bare because the group
+dimension is canceled by the implicit division by the head count.
 
 `UNSET_UNIT` has two uses that are distinguished by context:
 
@@ -757,18 +770,18 @@ change must be split and receive separate rounding specifications.
 
 #### Validation stages
 
-| Stage                         | When                                        | Input                                 | Validates                                                            |
-| ----------------------------- | ------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------- |
-| declaration validation        | decoration or parameter loading             | declarations                          | required fields, grammar, suffixes, allowed currency bases           |
-| environment validation        | policy-environment assembly                 | unit-carrying test values             | function bodies, returns, branches, aggregations, statutory currency |
-| input-boundary validation     | processing unit-annotated input in `main()` | user tags and node declarations       | physical dimension, period, level, and source currency               |
-| numerical boundary conversion | before and after TT computation             | ordinary arrays and conversion factor | input to statutory currency; computed results to data currency       |
+| Stage                         | When                                        | Input                                  | Validates                                                            |
+| ----------------------------- | ------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- |
+| declaration validation        | decoration or parameter loading             | declarations                           | required fields, grammar, suffixes, allowed currency bases           |
+| environment validation        | policy-environment assembly                 | unit-carrying test values              | function bodies, returns, branches, aggregations, statutory currency |
+| input-boundary validation     | processing unit-annotated input in `main()` | user tags and node declarations        | physical dimension, period, level, and source currency               |
+| numerical boundary conversion | before and after TT computation             | arrays, scalars, and conversion factor | input to statutory currency; computed results to data currency       |
 
 The implementation uses Pint while declarations and policy environments are validated,
 while explicitly annotated input is processed, and while numerical conversion factors
 are derived. Pint quantities do not enter the compiled tax and transfer function or a
-JAX trace. Currency conversion of input and result arrays is ordinary numerical
-multiplication at the interface boundary.
+JAX trace. Currency conversion of input arrays, scalar input values, and result arrays
+is ordinary numerical multiplication at the interface boundary.
 
 #### Function-body validation
 
