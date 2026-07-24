@@ -10,7 +10,7 @@
 - * Type
   * Standards Track
 - * Created
-  * 2026-06-03
+  * 2026-07-24
 - * Resolution
   * (none yet)
 ```
