@@ -15,6 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1206` Update Rentenwert 2025, 2026. ({ghuser}`cmdr-majus`)
 - {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
   {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).
   ({ghuser}`MImmesberger`)
