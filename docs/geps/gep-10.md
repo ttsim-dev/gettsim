@@ -598,13 +598,6 @@ bare because it is equivalent to a group sum divided by a head count.
   = CURRENCY
 ```
 
-A group suffix does not necessarily imply a grouping-level denominator. For a mean, the
-suffix identifies the group over which the mean is calculated, while division by the
-group's head count cancels the grouping dimension. Thus
-`durchschnittliches_einkommen_m_hh` has the bare unit `CURRENCY_PER_MONTH`, just like
-`einkommen_m_hh / anzahl_personen_hh`. It is a per-person amount whose value is
-calculated and repeated within each household.
-
 A hand-written aggregation declares its unit. By default, that declaration must exactly
 match the unit derived from the source, aggregation type, and target level. An
 aggregation whose policy interpretation cannot be represented by these rules may set
@@ -635,10 +628,6 @@ declaration.
 | group-creation function              | none                                               | not applicable                        | exempt because it produces identifiers        |
 | rounding specification               | unit required when attached to a monetary function | concrete currency                     | function unit and statutory currency          |
 | unit-annotated input column          | required on every leaf in that input mode          | concrete currency                     | declared node unit and data currency          |
-
-For generated and hand-written `MEAN` aggregations, the group suffix identifies the
-group over which the mean is calculated, but the declared unit is bare because the group
-dimension is canceled by the implicit division by the head count.
 
 `UNSET_UNIT` has two uses that are distinguished by context:
 
