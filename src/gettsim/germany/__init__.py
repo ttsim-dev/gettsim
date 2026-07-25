@@ -7,11 +7,6 @@ from ttsim.tt import UnitSystem, register_unit_builder_levels
 ROOT_PATH = Path(__file__).parent
 
 
-# Spelling vocabulary for the fluent unit DSL: registered at import so the
-# builder offers `TTSIMUnit.X.PER_HH` and its siblings before the policy modules
-# (whose decorators use them) are loaded (GEP 10). The grouping-level *set* is
-# not declared anywhere: it is derived per build from the policy environment's
-# `*_id` columns and registered in the system's registry then.
 register_unit_builder_levels(["hh", "ehe", "fg", "bg", "eg", "wthh", "sn"])
 
 UNIT_SYSTEM = UnitSystem(
