@@ -9,7 +9,7 @@ import portion
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
-    InputOutputUnit,
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
@@ -260,7 +260,7 @@ def relevantes_kindergeld_ohne_staffelung_m(
 
 @param_function(
     start_date="2002-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
         output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
     ),

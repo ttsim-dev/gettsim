@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import m_to_y
+from ttsim.time_converters import m_to_y
 
 from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 

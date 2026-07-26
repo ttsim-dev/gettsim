@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
-    InputOutputUnit,
+    InputOutputUnits,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -274,7 +274,7 @@ class RegelsatzAnteilsbasiert:
 
 @param_function(
     start_date="2023-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
     ),

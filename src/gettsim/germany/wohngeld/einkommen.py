@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import per_y_to_per_m
+from ttsim.time_converters import per_y_to_per_m
 
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
-    InputOutputUnit,
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
     TTSIMUnit,
     agg_by_p_id_function,
@@ -38,7 +38,7 @@ def alleinerziehendenbonus(
 
 
 @param_function(
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     ),

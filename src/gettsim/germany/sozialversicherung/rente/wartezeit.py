@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ttsim.unit_converters import m_to_y
+from ttsim.time_converters import m_to_y
 
 from gettsim.tt import TTSIMUnit, policy_function
 

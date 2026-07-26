@@ -5,7 +5,7 @@ Revoked for birth cohorts after 1951.
 
 from __future__ import annotations
 
-from ttsim.unit_converters import y_to_m
+from ttsim.time_converters import y_to_m
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,

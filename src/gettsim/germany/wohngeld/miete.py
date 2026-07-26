@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Annotated
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
-    InputOutputUnit,
+    InputOutputUnits,
     TTSIMUnit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
@@ -26,7 +26,7 @@ class LookupTableBaujahr:
     baujahre: Int[Array, " n_baujahr_categories"]
     lookup_table: Annotated[
         ConsecutiveIntLookupTableParamValue,
-        InputOutputUnit(
+        InputOutputUnits(
             input_unit=(
                 TTSIMUnit.DIMENSIONLESS,
                 TTSIMUnit.DIMENSIONLESS.PER_HH,
@@ -77,7 +77,7 @@ def max_miete_m_lookup_mit_baujahr(
 @param_function(
     start_date="2009-01-01",
     leaf_name="max_miete_m_lookup",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=(TTSIMUnit.DIMENSIONLESS.PER_HH, TTSIMUnit.DIMENSIONLESS.PER_HH),
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
@@ -107,7 +107,7 @@ def max_miete_m_lookup_ohne_baujahr(
 
 @param_function(
     start_date="1984-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
@@ -138,7 +138,7 @@ def min_miete_lookup(
 
 @param_function(
     start_date="2021-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
@@ -166,7 +166,7 @@ def heizkostenentlastung_m_lookup(
 
 @param_function(
     start_date="2023-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),
@@ -194,7 +194,7 @@ def dauerhafte_heizkostenkomponente_m_lookup(
 
 @param_function(
     start_date="2023-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     ),

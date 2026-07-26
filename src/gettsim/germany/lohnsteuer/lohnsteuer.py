@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import numpy
 
 from gettsim.tt import (
-    InputOutputUnit,
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
     TTSIMUnit,
     param_function,
@@ -55,7 +55,7 @@ def basis_für_klassen_5_6(
 
 @param_function(
     start_date="2015-01-01",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
         output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
     ),

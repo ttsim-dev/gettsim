@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Annotated
 from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
-    InputOutputUnit,
+    InputOutputUnits,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -447,7 +447,7 @@ def regelsatz_anteilsbasiert(
 @param_function(
     start_date="2005-01-01",
     end_date="2022-12-31",
-    unit=InputOutputUnit(
+    unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
     ),

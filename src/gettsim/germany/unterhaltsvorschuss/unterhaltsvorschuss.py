@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import per_y_to_per_m
+from ttsim.time_converters import per_y_to_per_m
 
 from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from gettsim.tt import (
