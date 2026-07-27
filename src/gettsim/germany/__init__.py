@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from ttsim.tt import UnitSystem, register_unit_builder_levels
+from ttsim.tt import Currency, UnitSystem, register_unit_builder_levels
 
 ROOT_PATH = Path(__file__).parent
 
@@ -10,9 +10,10 @@ ROOT_PATH = Path(__file__).parent
 register_unit_builder_levels(["hh", "ehe", "fg", "bg", "eg", "wthh", "sn"])
 
 UNIT_SYSTEM = UnitSystem(
-    base_currency="EUR",
-    other_currencies={"DM": "EUR / 1.95583"},
-    statutory_currencies={"0001-01-01": "DM", "2002-01-01": "EUR"},
+    currencies={
+        "EUR": Currency(statutory_from="2002-01-01"),
+        "DM": Currency(value="EUR / 1.95583", statutory_from="0001-01-01"),
+    },
 )
 
 
