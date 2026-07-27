@@ -339,11 +339,11 @@ Familiengemeinschaften (`fg`), Bedarfsgemeinschaften (`bg`), tax units (`sn`),
 Einsatzgemeinschaften (`eg`), Ehegemeinschaften (`ehe`), and wohngeldrechtliche
 Teilhaushalte (`wthh`). See {ref}`GEP 2 <gep-2>`.
 
-A policy package registers the grouping levels used in declarations when it constructs
-its unit system. The framework also discovers levels from `*_id` columns in the policy
-environment. Each level becomes a separate Pint base dimension. There is no individual
-dimension: a quantity that is a property of a person carries no grouping level at all
-and is simply bare.
+A policy package declares its grouping levels explicitly, by calling
+`register_unit_builder_levels` alongside its unit system. Each declared level gains a
+`PER_<LEVEL>` step on the unit builder and becomes a separate Pint base dimension. There
+is no individual dimension: a quantity that is a property of a person carries no
+grouping level at all and is simply bare.
 
 The domain model contains subset and membership relationships between some groups. The
 unit system does not encode these relationships. It treats `[hh]`, `[bg]`, and other
@@ -605,8 +605,9 @@ aggregation whose policy interpretation cannot be represented by these rules may
 
 `@agg_by_p_id_function` aggregates to the individual grain, which is bare, so its
 results carry no level: a summed or counted `agg_by_p_id` head count is a bare
-`dimensionless`. `@group_creation_function` produces identifiers and has no unit
-declaration.
+`dimensionless`. `@group_creation_function` declares a unit like any other column
+function: every column-producing node declares one, without exception. A group
+identifier declares `TTSIMUnit.DIMENSIONLESS`.
 
 (gep-10-declarations)=
 
@@ -625,7 +626,7 @@ declaration.
 | generated time conversion            | assigned automatically                             | inherited agnostic base               | period derived from target suffix             |
 | generated aggregation                | assigned automatically                             | inherited agnostic base               | aggregation rule and target level             |
 | hand-written aggregation             | required `unit=`                                   | `CURRENCY` for monetary values        | exact match with derived unit unless disabled |
-| group-creation function              | none                                               | not applicable                        | exempt because it produces identifiers        |
+| group-creation function              | required `unit=`                                   | agnostic `CURRENCY` only              | resolved like any other column                |
 | rounding specification               | unit required when attached to a monetary function | concrete currency                     | function unit and statutory currency          |
 | unit-annotated input column          | required on every leaf in that input mode          | concrete currency                     | declared node unit and data currency          |
 
@@ -673,28 +674,25 @@ def betrag_m(einkommen_m: float, befreit: bool) -> float:
 
 #### Registration and statutory currency
 
-A policy package constructs one `UnitSystem` containing its currencies, statutory
-currency history, and grouping levels. GETTSIM uses Euro as the base currency and
-defines Deutsche Mark as `EUR / 1.95583`.
+A policy package constructs one `UnitSystem` containing its currencies and their
+statutory history. GETTSIM uses Euro as the base currency and defines Deutsche Mark as
+`EUR / 1.95583`.
 
-Exactly one currency in a unit system is the base. Every other currency is defined
-relative to a currency already present in that system. The statutory-currency mapping is
-mandatory.
+A system declares its currencies in one ordered mapping, naming each currency exactly
+once. Exactly one of them is the base: it states no `value` and is defined as factor 1
+against the abstract `[currency]` reference. Every other currency states a `value`
+relative to a currency named before it. A currency's `statutory_from` is the date from
+which statutes denominate their numbers in it, until the next currency's date; at least
+one currency must become statutory.
 
 ```python
 UNIT_SYSTEM = UnitSystem(
-    base_currency="EUR",
-    other_currencies={"DM": "EUR / 1.95583"},
-    statutory_currencies={
-        "0001-01-01": "DM",
-        "2002-01-01": "EUR",
+    currencies={
+        "EUR": Currency(statutory_from="2002-01-01"),
+        "DM": Currency(value="EUR / 1.95583", statutory_from="0001-01-01"),
     },
-    grouping_levels=("hh", "bg", "fg", "sn", "eg", "ehe", "wthh"),
 )
 ```
-
-The first entry treats Deutsche Mark as the earliest statutory currency modeled by this
-GEP; it does not attempt to model earlier German currencies.
 
 The policy date determines the computation currency.
 
