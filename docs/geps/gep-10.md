@@ -37,8 +37,8 @@ statutory parameter values remain unchanged.
 Four problems motivate this GEP.
 
 1. **Arithmetic is not dimensionally validated.** GETTSIM currently treats values with
-   different meanings as ordinary numbers. A calculation can therefore add a monthly
-   amount to rent per square meter without failing immediately.
+   different meanings as ordinary numbers. A calculation can therefore add a total
+   amount of rent to rent per square meter without failing immediately.
 1. **Grouping levels are not part of arithmetic validation.** A household total and a
    Bedarfsgemeinschaft total can be combined without an explicit conversion. A missing
    division by the number of people in a group is also not detected.
@@ -53,18 +53,16 @@ Four problems motivate this GEP.
    policy calculations.
 
 The GEP covers the unit infrastructure in TTSIM and the currency and policy declarations
-in GETTSIM. It treats Deutsche Mark as the earliest statutory currency modeled by this
-proposal.
+in GETTSIM. It treats Deutsche Mark and Euros as the currency space.
 
 Notably, the naming conventions defined in {ref}`GEP 1 <gep-1>` (group and time
-suffixes) and their automatic conversion are not superseded by this GEP, they remain in
-effect.
+suffixes) and their automatic conversion remain in effect.
 
 (gep-10-usage)=
 
 ## Usage and impact
 
-### Model users
+### Users of existing policy environments
 
 Most users continue to call `main()` with ordinary arrays or a DataFrame. Users may
 provide a `data_currency` argument to specify the currency of their monetary input and
@@ -234,8 +232,8 @@ requires that currency to equal the statutory currency at the parameter's policy
 ## Backward compatibility
 
 - Bare arrays and the DataFrame/mapper input interface remain supported.
-- `data_currency` defaults to Euro in GETTSIM, so current-policy Euro inputs and outputs
-  retain their existing denomination.
+- `data_currency` defaults to `EUR` in GETTSIM, so current-policy Euro inputs and
+  outputs retain their existing denomination.
 - The former `reference_period` and `reference_level` fields are removed. Their
   information becomes part of the compositional unit, for example `EUR_PER_YEAR_PER_FG`.
 - Existing policy functions, policy inputs, parameter files, and hand-written
@@ -271,7 +269,7 @@ categories have a fixed order.
 
 ```text
 base        := CURRENCY
-             | EUR | DM | ...
+             | EUR | DM
              | DIMENSIONLESS
              | HOURS
              | SQUARE_METER | HECTARE
@@ -305,7 +303,8 @@ TTSIMUnit.HOURS.PER_WEEK
 ```
 
 The Python representation and the YAML representation are two syntaxes for the same
-declaration. For example, `TTSIMUnit.CURRENCY.PER_MONTH.PER_BG` corresponds to
+declaration. They only differ by single `_` replacing single `.` as separators. For
+example, `TTSIMUnit.CURRENCY.PER_MONTH.PER_BG` corresponds to
 `CURRENCY_PER_MONTH_PER_BG`.
 
 #### Common declarations
@@ -389,7 +388,7 @@ carries that level.
 
 The logical operators `&`, `|`, and `^` preserve the level when both operands have the
 same level. When their levels differ, the result is bare — the individual "level" —
-because the expression is evaluated once per person.
+because the expression is evaluated bit-wise, i.e., per individual row.
 
 ```text
 child & requirement_fulfilled_fg
@@ -513,7 +512,7 @@ the param function.
 
 Parameter functions exposing mapping parameters (of type `PiecewisePolynomialParamValue`
 or `ConsecutiveIntLookupTableParamValue`) declare their input and output unit via
-`unit=InputOutputUnit(...)`:
+`unit=InputOutputUnits(...)`:
 
 ```python
 @param_function(
@@ -539,7 +538,7 @@ converter-produced schedule or an annotated schedule field.
 
 **Structured parameters.**
 
-Parameter functiuons exposing structured parameters in the form of generated dataclasses
+Parameter functions exposing structured parameters in the form of generated dataclasses
 declare `unit=UNSET_UNIT` and annotate the fields of the dataclass with units:
 
 ```python
@@ -689,7 +688,7 @@ one currency must become statutory.
 UNIT_SYSTEM = UnitSystem(
     currencies={
         "EUR": Currency(statutory_from="2002-01-01"),
-        "DM": Currency(value="EUR / 1.95583", statutory_from="0001-01-01"),
+        "DM": Currency(value="EUR / 1.95583", statutory_from="1948-06-20"),
     },
 )
 ```
@@ -821,7 +820,7 @@ Body validation rejects:
 | Limitation                                                               | Consequence                                                                                                                   | Required action                                                                                |
 | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Equality operators (`==`, `!=`) do not compare units.                    | Sentinel comparisons such as `p_id_empfänger == -1` remain possible, but an incompatible equality comparison is not detected. | Use ordering or an explicit policy condition where dimensional equivalence matters.            |
-| Branch exploration is limited to 1,024 paths and 64 decisions per run.   | Environment assembly fails when either limit is exceeded.                                                                     | Simplify the body or use `verify_units=False`.                                                 |
+| Branch exploration is limited to 1,024 paths and 64 decisions per run.   | Environment assembly fails when either limit is exceeded.                                                                     | Simplify the body.                                                                             |
 | Not every NumPy/JAX or Python operation has a validation implementation. | The environment check rejects an unsupported body.                                                                            | Add validator support, use a local `cast_ttsim_unit`, or use `verify_units=False`.             |
 | Group nesting and membership are not represented in the unit registry.   | No automatic conversion exists between group levels.                                                                          | Use a head count, an explicit aggregation, or `cast_ttsim_unit` where substantively justified. |
 | A cast is an assertion, not a conversion or proof.                       | An incorrect cast can hide a unit error in that expression.                                                                   | Keep casts local and review them as policy assumptions.                                        |
@@ -879,16 +878,6 @@ annotations.
 
 ## Alternatives
 
-### Keep grouping levels outside Pint
-
-Rejected. A separate grouping tag could reject some incompatible operations but would
-duplicate dimensional algebra. Representing levels as dimensions allows head counts to
-perform explicit conversions:
-
-```text
-(CURRENCY / [hh]) / (1 / [hh]) = CURRENCY
-```
-
 ### A person level, implied or spelled
 
 Rejected. Earlier drafts kept a distinct individual level `[person]`: an implied leaf on
@@ -920,7 +909,7 @@ basic formula is an example:
 ```
 
 If `M` and `Y` have unit currency per month, then `a` is dimensionless and `b` and `c`
-have the implicit unit month per currency. Their numerical values must change when the
+have the implicit unit "month per currency". Their numerical values must change when the
 currency unit changes. Treating `b` and `c` as dimensionless would be dimensionally
 incorrect; converting only `M` and `Y` would change the formula's result.
 
