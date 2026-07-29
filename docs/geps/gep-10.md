@@ -198,22 +198,22 @@ can either
 1. use `cast_ttsim_unit` to explicitly assign the expected unit to one expression.
 
 For example, the following function is valid because it explicitly asserts that
-`bg_amount_m` has unit `CURRENCY_PER_MONTH_PER_HH` before adding it to `hh_amount_m`.
+`amount_m_bg` has unit `CURRENCY_PER_MONTH_PER_HH` before adding it to `amount_m_hh`.
 
 ```python
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
-def hh_amount_m(...) -> float: ...
+def amount_m_hh(...) -> float: ...
 
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
-def bg_amount_m(...) -> float: ...
+def amount_m_bg(...) -> float: ...
 
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
 def correct_amount_m(
-    hh_amount_m: float,
-    bg_amount_m: float,
+    amount_m_hh: float,
+    amount_m_bg: float,
 ) -> float:
-    return hh_amount_m + cast_ttsim_unit(
-        value=bg_amount_m,
+    return amount_m_hh + cast_ttsim_unit(
+        value=amount_m_bg,
         unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
     )
 ```
@@ -294,9 +294,9 @@ unit        := base
 ```
 
 Each denominator category may appear at most once and must follow the order shown above.
-`EUR_PER_MONTH_PER_YEAR` is invalid; use either `EUR_PER_MONTH` or `EUR_PER_YEAR`.
-`EUR_PER_BG_PER_MONTH` is also invalid; the correctly ordered declaration is
-`EUR_PER_MONTH_PER_BG`.
+For example, `EUR_PER_MONTH_PER_YEAR` is invalid; use either `EUR_PER_MONTH` or
+`EUR_PER_YEAR`. `EUR_PER_BG_PER_MONTH` is also invalid; the correctly ordered
+declaration is `EUR_PER_MONTH_PER_BG`.
 
 In Python code, units are constructed by chaining attributes, for example
 `TTSIMUnit.CURRENCY.PER_MONTH.PER_BG`. The builder rejects repeated components and
@@ -858,30 +858,20 @@ Body validation rejects:
 #### Trade-offs and limitations
 
 **Equality is unchecked.** Equality operators do not compare units, so a monthly income
-can be compared with an annual income without detection. This permits sentinel
-comparisons such as `p_id_empfänger == -1`. Use ordering or an explicit policy condition
-where dimensional equivalence matters.
+can be compared with an annual income without detection. This permits comparisons such
+as `p_id_empfänger == -1`. Use ordering or an explicit policy condition where
+dimensional equivalence matters.
 
-**Branch exploration is bounded.** Eleven independent binary decisions can already
-produce more than the limit of 1,024 paths. Environment assembly fails when a function
-exceeds 1,024 paths or 64 decisions; simplify its body.
+**Branch exploration is bounded.** Environment assembly fails when a function exceeds
+1,024 paths or 64 decisions; simplify its body.
 
 **Some operations are unsupported.** For example, a function body using `join` is
 rejected if the validator has no implementation for that operation. Add validator
 support, use a local `cast_ttsim_unit`, or use `verify_units=False`.
 
-**Group relationships are not modeled.** For example, treating a wohngeldrechtlicher
-Teilhaushalt amount as a Bedarfsgemeinschaft amount requires an explicit operation. Use
-a head count, an aggregation, or `cast_ttsim_unit` where substantively justified.
-
 **A cast is an assertion.** An incorrect cast from a Bedarfsgemeinschaft amount to a
 household amount can hide an error. Keep casts local and review them as policy
 assumptions.
-
-**A function-level opt-out skips its complete body.** With `verify_units=False`, an
-invalid operation inside that function is not detected, although consumers still use its
-declared return unit. Restrict the opt-out to functions that cannot be represented by
-the validator.
 
 (gep-10-opt-out)=
 
