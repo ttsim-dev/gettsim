@@ -36,7 +36,7 @@ def ist_leistungsbegründendes_kind(
     # The month budget belongs to the FG; here it bounds one child's age.
     return alter_monate <= cast_ttsim_unit(
         max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"],
-        TTSIMUnit.MONTHS,
+        unit=TTSIMUnit.MONTHS,
     )
 
 
@@ -155,7 +155,7 @@ def anspruchshöhe_m(
     # Deliberate cross-level summation: FG-level bonuses are added to the
     # individual-level base amount
     kinderboni_m = cast_ttsim_unit(
-        geschwisterbonus_m_fg + mehrlingsbonus_m_fg, TTSIMUnit.CURRENCY.PER_MONTH
+        geschwisterbonus_m_fg + mehrlingsbonus_m_fg, unit=TTSIMUnit.CURRENCY.PER_MONTH
     )
     return (
         min(
@@ -232,12 +232,12 @@ def bezugsmonate_unter_grenze_fg(
     # The Partnermonate are part of the FG's budget; here they are the months one
     # parent must have claimed for the FG to reach it.
     if familie__alleinerziehend or bezugsmonate_partner >= cast_ttsim_unit(
-        max_bezugsmonate["partnermonate"], TTSIMUnit.MONTHS
+        max_bezugsmonate["partnermonate"], unit=TTSIMUnit.MONTHS
     ):
         out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten_fg
-    elif anzahl_anträge_fg > cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_FG):
+    elif anzahl_anträge_fg > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG):
         out = (
-            bisherige_bezugsmonate_fg + cast_ttsim_unit(1, TTSIMUnit.MONTHS.PER_FG)
+            bisherige_bezugsmonate_fg + cast_ttsim_unit(1, unit=TTSIMUnit.MONTHS.PER_FG)
             < grenze_mit_partnermonaten_fg
         )
     else:
@@ -317,7 +317,7 @@ def anrechenbarer_betrag_m(
     return max(
         betrag_m
         - (
-            (1 + cast_ttsim_unit(anzahl_mehrlinge_fg, TTSIMUnit.DIMENSIONLESS))
+            (1 + cast_ttsim_unit(anzahl_mehrlinge_fg, unit=TTSIMUnit.DIMENSIONLESS))
             * mindestbetrag_m
         ),
         0,
@@ -341,8 +341,8 @@ def jüngstes_kind_oder_mehrling(
         (
             alter_monate
             - cast_ttsim_unit(
-                familie__alter_monate_jüngstes_mitglied_fg, TTSIMUnit.MONTHS
+                familie__alter_monate_jüngstes_mitglied_fg, unit=TTSIMUnit.MONTHS
             )
         )
-        < cast_ttsim_unit(0.1, TTSIMUnit.MONTHS)
+        < cast_ttsim_unit(0.1, unit=TTSIMUnit.MONTHS)
     ) and ist_leistungsbegründendes_kind

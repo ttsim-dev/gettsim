@@ -143,7 +143,9 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
         # subtracted from the individual level base amount
         return max(
             basisbetrag_m
-            - cast_ttsim_unit(abzug_durch_einkommen_m_fg, TTSIMUnit.CURRENCY.PER_MONTH),
+            - cast_ttsim_unit(
+                abzug_durch_einkommen_m_fg, unit=TTSIMUnit.CURRENCY.PER_MONTH
+            ),
             0.0,
         )
     else:
@@ -333,7 +335,7 @@ def einkommensgrenze_y_fg(
             einkommensgrenze_ohne_geschwisterbonus_y_fg
             + (
                 familie__anzahl_kinder_fg
-                - cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_FG)
+                - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
             )
             * erhöhung_einkommensgrenze_pro_kind_y
         )

@@ -19,7 +19,7 @@ def geschwisterbonus_m_fg(
     if geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
         out = max(
             geschwisterbonus_aufschlag
-            * cast_ttsim_unit(basisbetrag_m, TTSIMUnit.CURRENCY.PER_MONTH.PER_FG),
+            * cast_ttsim_unit(basisbetrag_m, unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_FG),
             geschwisterbonus_minimum_m_fg,
         )
     else:
@@ -58,6 +58,6 @@ def anzahl_mehrlinge_fg(
 ) -> int:
     """Number of multiples of the youngest child."""
     out = anzahl_mehrlinge_jüngstes_kind_fg - cast_ttsim_unit(
-        1, TTSIMUnit.DIMENSIONLESS.PER_FG
+        1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
     )
     return max(out, 0)

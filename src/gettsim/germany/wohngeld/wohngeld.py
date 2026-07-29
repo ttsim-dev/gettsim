@@ -86,8 +86,10 @@ def basisbetrag_m_wthh_bis_2000(
             - (
                 (
                     a
-                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
-                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(b * miete_m_wthh, unit=TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(
+                        c * einkommen_m_wthh, unit=TTSIMUnit.DIMENSIONLESS
+                    )
                 )
                 * einkommen_m_wthh
             )
@@ -132,8 +134,10 @@ def basisbetrag_m_wthh_2001(
             - (
                 (
                     a
-                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
-                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(b * miete_m_wthh, unit=TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(
+                        c * einkommen_m_wthh, unit=TTSIMUnit.DIMENSIONLESS
+                    )
                 )
                 * einkommen_m_wthh
             )
@@ -177,8 +181,10 @@ def basisbetrag_m_wthh_ab_2002(
             - (
                 (
                     a
-                    + cast_ttsim_unit(b * miete_m_wthh, TTSIMUnit.DIMENSIONLESS)
-                    + cast_ttsim_unit(c * einkommen_m_wthh, TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(b * miete_m_wthh, unit=TTSIMUnit.DIMENSIONLESS)
+                    + cast_ttsim_unit(
+                        c * einkommen_m_wthh, unit=TTSIMUnit.DIMENSIONLESS
+                    )
                 )
                 * einkommen_m_wthh
             )

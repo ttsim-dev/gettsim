@@ -146,7 +146,7 @@ def kind_bis_10_mit_kindergeld(
 ) -> bool:
     """Child under the age of 11 and eligible for Kindergeld."""
     return ist_leistungsbegründendes_kind and (
-        alter <= cast_ttsim_unit(10, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(10, unit=TTSIMUnit.YEARS)
     )
 
 

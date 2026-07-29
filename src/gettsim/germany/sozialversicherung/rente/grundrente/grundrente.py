@@ -210,7 +210,7 @@ def höchstbetrag_m(
             berücksichtigte_wartezeit_monate["max"],
         )
         - berücksichtigte_wartezeit_monate["min"],
-        TTSIMUnit.DIMENSIONLESS,
+        unit=TTSIMUnit.DIMENSIONLESS,
     )
 
     return (
@@ -245,7 +245,7 @@ def mean_entgeltpunkte_zuschlag_m(
     """
     # A per-month zero for the "no additional Entgeltpunkte" branches, so every branch
     # yields the declared `1 / month` (a bare 0.0 would infer dimensionless here).
-    kein_zuschlag_m = cast_ttsim_unit(0.0, TTSIMUnit.DIMENSIONLESS.PER_MONTH)
+    kein_zuschlag_m = cast_ttsim_unit(0.0, unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH)
 
     out = kein_zuschlag_m
     # Return 0 if Grundrentenzeiten below minimum

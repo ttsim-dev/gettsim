@@ -34,7 +34,7 @@ def neue_entgeltpunkte_nach_wohnort(
     return cast_ttsim_unit(
         versicherungspflichtiger_bruttolohn_y
         / beitragspflichtiges_durchschnittsentgelt_y,
-        TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+        unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
     )
 
 
@@ -58,7 +58,7 @@ def neue_entgeltpunkte_einheitlich(
     return cast_ttsim_unit(
         versicherungspflichtiger_bruttolohn_y
         / beitragspflichtiges_durchschnittsentgelt_y,
-        TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+        unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
     )
 
 

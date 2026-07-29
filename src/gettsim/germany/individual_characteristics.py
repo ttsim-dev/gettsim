@@ -9,4 +9,4 @@ def alter_bis_24(alter: int) -> bool:
 
     Trivial, but necessary in order to use the target for aggregation.
     """
-    return alter <= cast_ttsim_unit(24, TTSIMUnit.YEARS)
+    return alter <= cast_ttsim_unit(24, unit=TTSIMUnit.YEARS)

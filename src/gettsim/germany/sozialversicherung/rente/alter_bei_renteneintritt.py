@@ -26,6 +26,8 @@ def alter_bei_renteneintritt(
         jahr_renteneintritt
         - geburtsjahr
         + m_to_y(
-            monat_renteneintritt - geburtsmonat - cast_ttsim_unit(1, TTSIMUnit.MONTHS)
+            monat_renteneintritt
+            - geburtsmonat
+            - cast_ttsim_unit(1, unit=TTSIMUnit.MONTHS)
         )
     )

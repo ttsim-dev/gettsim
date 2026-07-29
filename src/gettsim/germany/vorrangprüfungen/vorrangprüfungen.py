@@ -32,11 +32,11 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     return cast_ttsim_unit(
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
         + cast_ttsim_unit(
-            wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
+            wohngeld__anspruchshöhe_m_wthh, unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
         )
         + kinderzuschlag__anspruchshöhe_m_bg
         >= arbeitslosengeld_2__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        unit=TTSIMUnit.DIMENSIONLESS,
     )
 
 
@@ -66,9 +66,9 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     return cast_ttsim_unit(
         bürgergeld__anzurechnendes_einkommen_m_bg
         + cast_ttsim_unit(
-            wohngeld__anspruchshöhe_m_wthh, TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
+            wohngeld__anspruchshöhe_m_wthh, unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
         )
         + kinderzuschlag__anspruchshöhe_m_bg
         >= bürgergeld__regelbedarf_m_bg,
-        TTSIMUnit.DIMENSIONLESS,
+        unit=TTSIMUnit.DIMENSIONLESS,
     )

@@ -35,7 +35,7 @@ def alleinerziehend_betrag_y_nach_kinderzahl(
             alleinerziehendenfreibetrag_basis_y
             + (
                 cast_ttsim_unit(
-                    kindergeld__anzahl_ansprüche_sn, TTSIMUnit.DIMENSIONLESS
+                    kindergeld__anzahl_ansprüche_sn, unit=TTSIMUnit.DIMENSIONLESS
                 )
                 - 1
             )

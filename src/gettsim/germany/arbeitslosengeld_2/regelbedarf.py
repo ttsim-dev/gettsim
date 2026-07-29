@@ -59,7 +59,7 @@ def mehrbedarfsanteil_alleinerziehend(
     # belongs to the FG (`1/[fg]`), so cast it to a plain dimensionless multiplier.
     basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
         "basis_je_kind_bis_17"
-    ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, TTSIMUnit.DIMENSIONLESS)
+    ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, unit=TTSIMUnit.DIMENSIONLESS)
 
     if (
         familie__anzahl_kinder_bis_6_fg == 1
@@ -227,7 +227,7 @@ def erwachsenensatz_m_bis_2010(
         out = regelsatz_anteilsbasiert.basissatz
     else:
         # This observation is a child, so it carries no adult Regelsatz.
-        out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
+        out = cast_ttsim_unit(0.0, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
@@ -253,7 +253,7 @@ def erwachsenensatz_m_ab_2011(
         out = grundsicherung__regelbedarfsstufen.rbs_1
     else:
         # This observation is a child, so it carries no adult Regelsatz.
-        out = cast_ttsim_unit(0.0, TTSIMUnit.CURRENCY.PER_MONTH)
+        out = cast_ttsim_unit(0.0, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 
     return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
@@ -318,7 +318,8 @@ def berechtigte_wohnfläche(
         maximum = (
             berechtigte_wohnfläche_miete["single"]
             + max(
-                anzahl_personen_hh - cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_HH),
+                anzahl_personen_hh
+                - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_HH),
                 0,
             )
             * berechtigte_wohnfläche_miete["je_weitere_person"]

@@ -51,7 +51,7 @@ def anspruchshöhe_m(
     # into the BG's income pool, so re-tag it from the EG to the BG level.
     total_income_m_bg = einkommen_zur_verteilung_m_bg + cast_ttsim_unit(
         grundsicherung__im_alter__überschusseinkommen_m_eg,
-        TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
+        unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
     )
     anspruch_m_bg = max(0.0, ungedeckter_bedarf_m_bg - total_income_m_bg)
 

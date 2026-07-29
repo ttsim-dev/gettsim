@@ -334,7 +334,7 @@ def vorwegabzug_lohnsteuer_y_sn(
     # `vorsorgeaufwendungen_regime_bis_2004_y_sn` as a Steuernummer amount, so tag it as
     # one. The level is lost in this one spot only, so a cast is enough here and the
     # rest of the body stays checked.
-    return cast_ttsim_unit(max(out, 0.0), TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+    return cast_ttsim_unit(max(out, 0.0), unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 
 
 @param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)

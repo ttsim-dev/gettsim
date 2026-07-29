@@ -67,7 +67,7 @@ def maximale_haushaltsgröße_mindesteinkommen_wthh(
     """
     return cast_ttsim_unit(
         len(mindesteinkommen_nach_haushaltsgröße_m_wthh),
-        TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+        unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
     )
 
 

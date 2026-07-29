@@ -350,5 +350,5 @@ def älter_als_regelaltersgrenze(
     # Hence, we add a number << 1 / 12 to the RHS.
     return m_to_y(alter_monate) > (
         sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
-        + cast_ttsim_unit(0.00001, TTSIMUnit.YEARS)
+        + cast_ttsim_unit(0.00001, unit=TTSIMUnit.YEARS)
     )

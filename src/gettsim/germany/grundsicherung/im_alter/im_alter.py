@@ -122,7 +122,7 @@ def anspruchshöhe_m_bis_2022(
         # the EG total.
         + cast_ttsim_unit(
             arbeitslosengeld_2__überschusseinkommen_m_bg,
-            TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
         )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
@@ -169,7 +169,7 @@ def anspruchshöhe_m_ab_2023(
         # the EG total.
         + cast_ttsim_unit(
             bürgergeld__überschusseinkommen_m_bg,
-            TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
         )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
@@ -282,7 +282,7 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     """Additional allowance for individuals with disabled person's pass G."""
     if (schwerbehindert_grad_g) and (
         familie__anzahl_erwachsene_eg
-        == cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_EG)
+        == cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
     ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
@@ -290,7 +290,7 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
         )
     elif (schwerbehindert_grad_g) and (
         familie__anzahl_erwachsene_eg
-        > cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_EG)
+        > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
     ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
@@ -328,12 +328,12 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
 
     if (schwerbehindert_grad_g) and (
         familie__anzahl_erwachsene_eg
-        == cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_EG)
+        == cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
     ):
         out = mehrbedarf_single
     elif (schwerbehindert_grad_g) and (
         familie__anzahl_erwachsene_eg
-        > cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_EG)
+        > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
     ):
         out = mehrbedarf_in_couple
     else:
@@ -377,7 +377,7 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
     # the children's income threshold.
     return (
         cast_ttsim_unit(
-            einkommensteuer__gesamteinkommen_y_sn, TTSIMUnit.CURRENCY.PER_YEAR
+            einkommensteuer__gesamteinkommen_y_sn, unit=TTSIMUnit.CURRENCY.PER_YEAR
         )
         >= einkommensgrenze_kinder_y
     )

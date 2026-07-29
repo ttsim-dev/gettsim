@@ -66,7 +66,7 @@ def ist_kind_bis_2_in_familiengemeinschaft(
 ) -> bool:
     """Child under the age of 3 in Familiengemeinschaft."""
     return ist_kind_in_familiengemeinschaft and (
-        alter <= cast_ttsim_unit(2, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(2, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -83,7 +83,7 @@ def ist_kind_bis_5_in_familiengemeinschaft(
 ) -> bool:
     """Child under the age of 6 in Familiengemeinschaft."""
     return ist_kind_in_familiengemeinschaft and (
-        alter <= cast_ttsim_unit(5, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(5, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -100,7 +100,7 @@ def ist_kind_bis_6_in_familiengemeinschaft(
 ) -> bool:
     """Child under the age of 7 in Familiengemeinschaft."""
     return ist_kind_in_familiengemeinschaft and (
-        alter <= cast_ttsim_unit(6, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(6, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -119,7 +119,7 @@ def ist_kind_bis_15_in_familiengemeinschaft(
 ) -> bool:
     """Child under the age of 16 in Familiengemeinschaft."""
     return ist_kind_in_familiengemeinschaft and (
-        alter <= cast_ttsim_unit(15, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(15, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -138,7 +138,7 @@ def ist_kind_bis_17_in_familiengemeinschaft(
 ) -> bool:
     """Child under the age of 18 in Familiengemeinschaft."""
     return ist_kind_in_familiengemeinschaft and (
-        alter <= cast_ttsim_unit(17, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(17, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -233,7 +233,7 @@ def ist_kind_bis_17_in_bedarfsgemeinschaft(
 ) -> bool:
     """Child under the age of 18 in Bedarfsgemeinschaft."""
     return ist_kind_in_bedarfsgemeinschaft and (
-        alter <= cast_ttsim_unit(17, TTSIMUnit.YEARS)
+        alter <= cast_ttsim_unit(17, unit=TTSIMUnit.YEARS)
     )
 
 
@@ -260,7 +260,7 @@ def hat_kind_in_gleicher_bedarfsgemeinschaft(
 ) -> bool:
     """Has a child in the same Bedarfsgemeinschaft."""
     return (
-        anzahl_kinder_bg >= cast_ttsim_unit(1, TTSIMUnit.DIMENSIONLESS.PER_BG)
+        anzahl_kinder_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_BG)
         and ist_erwachsener_in_bedarfsgemeinschaft
     )
 
@@ -346,7 +346,7 @@ def anzahl_personen_ehe(ehe_id: int) -> int:
 @policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def volljährig(alter: int) -> bool:
     """Person aged 18 years or older."""
-    return alter >= cast_ttsim_unit(18, TTSIMUnit.YEARS)
+    return alter >= cast_ttsim_unit(18, unit=TTSIMUnit.YEARS)
 
 
 @policy_function(unit=TTSIMUnit.DIMENSIONLESS)
