@@ -34,14 +34,17 @@ dynamic = [ "version" ]
 # dependencies = [ "ttsim-backend>=1.2" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
+
 [[project.authors]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"
+
 [[project.authors]]
 name = "Marvin Immesberger"
 [[project.maintainers]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"
+
 [[project.maintainers]]
 name = "Marvin Immesberger"
 [project.urls]
@@ -136,7 +139,6 @@ python = "~=3.12.0"
 python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
-
 # Run internal tests with the package-wide beartype claws on. Both
 # gettsim's and ttsim's claws fire — gettsim transitively exercises
 # ttsim code paths and we want violations on either side to surface.
@@ -248,7 +250,6 @@ pydocstyle.convention = "google"
 column_width = 88
 max_supported_python = "3.14"
 table_format = "long"
-collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 expand_tables = [
   "tool.pixi.dependencies",
   "tool.pixi.environments",
@@ -283,6 +284,7 @@ expand_tables = [
   "tool.pixi.tasks",
   "tool.pixi.workspace",
 ]
+collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 
 [tool.ty]
 # ty resolves third-party imports from this pixi env (the ty-pre-commit hook runs
