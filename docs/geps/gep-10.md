@@ -12,7 +12,7 @@
 - * Created
   * 2026-07-24
 - * Resolution
-  * (none yet)
+  * [Accepted](https://gettsim.zulipchat.com/#narrow/channel/309998-GEPs/topic/GEP.2010/with/612909474)
 ```
 
 ## Abstract
