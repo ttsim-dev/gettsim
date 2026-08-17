@@ -54,7 +54,18 @@ def anspruchshöhe_m(
     if ungedeckter_bedarf_m_bg == 0.0 or vermögen_bg > vermögensfreibetrag_bg:
         return 0.0
     else:
-        return (ungedeckter_bedarf_m / ungedeckter_bedarf_m_bg) * anspruch_m_bg
+        # The Bedarfsanteil deliberately relates a person's need to the BG total.
+        # GEP 10 cannot infer that person-to-group allocation from group markers.
+        return (
+            ungedeckter_bedarf_m
+            / cast_ttsim_unit(
+                ungedeckter_bedarf_m_bg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH,
+            )
+        ) * cast_ttsim_unit(
+            anspruch_m_bg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
