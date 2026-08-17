@@ -9,6 +9,7 @@ from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
+    QuantityKind,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -34,6 +35,11 @@ class LookupTableBaujahr:
                 TTSIMUnit.DIMENSIONLESS,
             ),
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+            input_kind=(
+                QuantityKind.GENERIC,
+                QuantityKind.COUNT,
+                QuantityKind.GENERIC,
+            ),
         ),
     ]
 
@@ -81,6 +87,7 @@ def max_miete_m_lookup_mit_baujahr(
     unit=InputOutputUnits(
         input_unit=(TTSIMUnit.DIMENSIONLESS.PER_HH, TTSIMUnit.DIMENSIONLESS),
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        input_kind=(QuantityKind.COUNT, QuantityKind.GENERIC),
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).
@@ -111,6 +118,7 @@ def max_miete_m_lookup_ohne_baujahr(
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).
@@ -142,6 +150,7 @@ def min_miete_lookup(
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).
@@ -170,6 +179,7 @@ def heizkostenentlastung_m_lookup(
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).
@@ -198,6 +208,7 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).

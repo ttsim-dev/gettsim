@@ -11,6 +11,7 @@ from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
     PiecewisePolynomialParamValue,
+    QuantityKind,
     TTSIMUnit,
     agg_by_p_id_function,
     cast_ttsim_unit,
@@ -41,6 +42,7 @@ def alleinerziehendenbonus(
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).
