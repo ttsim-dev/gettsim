@@ -14,6 +14,7 @@ from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
+    QuantityKind,
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
@@ -201,6 +202,7 @@ class BasisformelParamValues:
         InputOutputUnits(
             input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
+            input_kind=QuantityKind.COUNT,
         ),
     ]
     b: Annotated[
@@ -208,6 +210,7 @@ class BasisformelParamValues:
         InputOutputUnits(
             input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
+            input_kind=QuantityKind.COUNT,
         ),
     ]
     c: Annotated[
@@ -215,6 +218,7 @@ class BasisformelParamValues:
         InputOutputUnits(
             input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
+            input_kind=QuantityKind.COUNT,
         ),
     ]
 
@@ -261,6 +265,7 @@ class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParam
         InputOutputUnits(
             input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+            input_kind=QuantityKind.COUNT,
         ),
     ]
 

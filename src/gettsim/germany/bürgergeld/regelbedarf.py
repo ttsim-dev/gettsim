@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
+    QuantityKind,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -278,6 +279,7 @@ class RegelsatzAnteilsbasiert:
     unit=InputOutputUnits(
         input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
+        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).

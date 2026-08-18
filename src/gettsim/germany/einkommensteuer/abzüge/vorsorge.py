@@ -320,14 +320,14 @@ def vorwegabzug_lohnsteuer_y_sn(
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
     """Vorwegabzug for Vorsorgeaufwendungen via Lohnsteuer."""
-    out = (1 / familie__anzahl_personen_sn) * (
+    out = (
         familie__anzahl_personen_sn
         * parameter_altersvorsorgeaufwendungen_regime_bis_2004["vorwegabzug"]
         - parameter_altersvorsorgeaufwendungen_regime_bis_2004[
             "kürzungsanteil_abhängig_beschäftigte"
         ]
         * einnahmen__bruttolohn_y_sn
-    )
+    ) / familie__anzahl_personen_sn
 
     # The parenthesised term is a Steuernummer total; dividing it by the head count
     # makes it a per-taxpayer amount. It still enters

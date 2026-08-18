@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 import os
 from datetime import timedelta
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, cast
 
 import dags.tree as dt
 import numpy
@@ -13,14 +13,18 @@ from ttsim.interface_dag_elements.backend import xnp as get_xnp
 from ttsim.testing_utils import (
     PolicyTest,
     check_env_completeness,
+    check_policy_environment_unit_history,
     execute_test,
+    get_policy_date_partition,
     load_policy_cases,
 )
 
 from gettsim import InputData, MainTarget, TTTargets, germany, main
 
 if TYPE_CHECKING:
-    from typing import Any
+    from ttsim.typing import FlatColumnObjectsParamFunctions, FlatOrigParamSpecs
+
+    OrigPolicyObjects = dict[str, FlatColumnObjectsParamFunctions | FlatOrigParamSpecs]
 
 ON_CI_WITHOUT_COVERAGE = (
     os.environ.get("GITHUB_ACTIONS") == "true"
@@ -34,9 +38,7 @@ POLICY_TEST_IDS_AND_CASES = load_policy_cases(
 )
 
 
-def get_orig_gettsim_objects() -> dict[
-    Literal["column_objects_and_param_functions", "param_specs"], Any
-]:
+def get_orig_gettsim_objects() -> OrigPolicyObjects:
     return main(
         main_targets=[
             MainTarget.orig_policy_objects.column_objects_and_param_functions,
@@ -47,22 +49,26 @@ def get_orig_gettsim_objects() -> dict[
 
 def dates_in_orig_gettsim_objects() -> list[datetime.date]:
     orig_objects = get_orig_gettsim_objects()
-    start_dates = {
-        v.start_date
-        for v in orig_objects["column_objects_and_param_functions"].values()
-    }
-    end_dates = {
-        v.end_date + timedelta(days=1)
-        for v in orig_objects["column_objects_and_param_functions"].values()
-    }
+    column_objects = cast(
+        "FlatColumnObjectsParamFunctions",
+        orig_objects["column_objects_and_param_functions"],
+    )
+    start_dates = {v.start_date for v in column_objects.values()}
+    end_dates = {v.end_date + timedelta(days=1) for v in column_objects.values()}
     # Skip first date (1900-01-01), which is just used to initialize many functions.
     return sorted(start_dates | end_dates)[1:]
 
 
+def unit_check_dates_in_orig_gettsim_objects() -> list[datetime.date]:
+    """Every function, parameter, rounding, and currency regime (GEP 10)."""
+    return get_policy_date_partition(
+        orig_policy_objects=get_orig_gettsim_objects(),
+        unit_system=germany.UNIT_SYSTEM,
+    )
+
+
 @pytest.fixture
-def orig_gettsim_objects() -> dict[
-    Literal["column_objects_and_param_functions", "param_specs"], Any
-]:
+def orig_gettsim_objects() -> OrigPolicyObjects:
     return get_orig_gettsim_objects()
 
 
@@ -101,6 +107,17 @@ def test_gettsim_policy_environment_is_complete(orig_gettsim_objects, date):
         policy_date=date,
         orig_policy_objects=orig_gettsim_objects,
         unit_system=germany.UNIT_SYSTEM,
+    )
+
+
+def test_gettsim_units_are_complete_and_consistent(orig_gettsim_objects):
+    """Validate declarations and body coverage in every GEP 10 date regime."""
+    report = check_policy_environment_unit_history(
+        orig_policy_objects=orig_gettsim_objects,
+        unit_system=germany.UNIT_SYSTEM,
+    )
+    assert report.policy_date_regimes == tuple(
+        unit_check_dates_in_orig_gettsim_objects()
     )
 
 

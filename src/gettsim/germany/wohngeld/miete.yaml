@@ -1178,7 +1178,10 @@ raw_max_miete_m_hh:
       - Anzahl Personen
       - Mietstufe
     en: null
-  input_unit: DIMENSIONLESS_PER_HH
+  # This raw table has two different integer key axes: household size and rent
+  # class. The converter input therefore stays bare; the converted lookup declares
+  # the exact `(count per HH, category)` axes in `miete.py`.
+  input_unit: DIMENSIONLESS
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2009-01-01:
