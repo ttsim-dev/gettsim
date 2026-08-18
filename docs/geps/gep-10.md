@@ -167,7 +167,7 @@ For this example, GETTSIM:
 
 1. recognizes Deutsche Mark as the currency of the law on 1999-01-01;
 1. converts monetary input from Euro to Deutsche Mark;
-1. calculates the policy with the Deutsche-Mark parameters and rounding rules stated in
+1. calculates the policy with the Deutsche Mark parameters and rounding rules stated in
    the law;
 1. performs statutory rounding in Deutsche Mark; and
 1. converts the calculated monetary results back to Euro.
@@ -332,12 +332,6 @@ The unit calculation is:
 ```text
 CURRENCY * (1 / year) = CURRENCY / year.
 ```
-
-Units do not determine how a financial rate compounds. A linear annual rate can use the
-automatically generated conversion to a monthly flow. An effective annual rate that
-requires `(1 + r_y) ** (1 / 12) - 1`, a continuously compounded rate, or a legal
-proration rule MUST use an explicit conversion function. The unit tells us that the rate
-is annual; it does not tell us which financial convention applies.
 
 #### Parameters
 
@@ -1317,8 +1311,6 @@ default the first. The policy package's automated tests MUST assemble and check 
 environment at every returned date. A parameter-only or currency-only change must start
 a new interval even when no policy function changes.
 
-(gep-10-evidence)=
-
 (gep-10-coverage)=
 
 #### Validation report
@@ -1606,7 +1598,7 @@ formula. The adopted design calculates each regime entirely in its statutory cur
 keeps parameter and coefficient values as written, and converts only input and
 calculated output at the boundary.
 
-### Pass Pint quantities through the calculation graph
+### Pass Pint quantities through the DAG
 
 Rejected. `pint.Quantity` is not part of the intended NumPy/JAX numerical data. Units
 are checked while a policy environment is assembled and at its input and output
