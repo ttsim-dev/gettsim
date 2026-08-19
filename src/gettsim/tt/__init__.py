@@ -1,4 +1,5 @@
 from ttsim.tt import (
+    UNSET_UNIT,
     AggByGroupFunction,
     AggByPIDFunction,
     AggType,
@@ -9,6 +10,7 @@ from ttsim.tt import (
     DictParam,
     FKType,
     GroupCreationFunction,
+    InputOutputUnits,
     ParamFunction,
     ParamObject,
     PiecewisePolynomialInterval,
@@ -20,8 +22,10 @@ from ttsim.tt import (
     RoundingSpec,
     ScalarParam,
     TimeConversionFunction,
+    TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     convert_sparse_to_consecutive_int_lookup_table,
     get_consecutive_int_lookup_table_param_value,
     get_month_based_phase_inout_of_age_thresholds_param_value,
@@ -37,6 +41,7 @@ from ttsim.tt import (
 from ttsim.tt.interval_utils import intervals_to_thresholds, merge_piecewise_intervals
 
 __all__ = [
+    "UNSET_UNIT",
     "AggByGroupFunction",
     "AggByPIDFunction",
     "AggType",
@@ -47,6 +52,7 @@ __all__ = [
     "DictParam",
     "FKType",
     "GroupCreationFunction",
+    "InputOutputUnits",
     "ParamFunction",
     "ParamObject",
     "PiecewisePolynomialInterval",
@@ -57,9 +63,11 @@ __all__ = [
     "RawParam",
     "RoundingSpec",
     "ScalarParam",
+    "TTSIMUnit",
     "TimeConversionFunction",
     "agg_by_group_function",
     "agg_by_p_id_function",
+    "cast_ttsim_unit",
     "convert_sparse_to_consecutive_int_lookup_table",
     "get_consecutive_int_lookup_table_param_value",
     "get_month_based_phase_inout_of_age_thresholds_param_value",

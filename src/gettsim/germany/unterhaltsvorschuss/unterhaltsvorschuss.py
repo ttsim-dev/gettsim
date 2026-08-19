@@ -4,13 +4,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import per_y_to_per_m
+from ttsim.time_converters import per_y_to_per_m
 
 from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     ConsecutiveIntLookupTableParamValue,
     RoundingSpec,
+    TTSIMUnit,
     agg_by_p_id_function,
     join,
     param_function,
@@ -23,7 +25,7 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, IntColumn, RawParamValue
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def an_elternteil_auszuzahlender_betrag_m(
     betrag_m: float,
     kindergeld__p_id_empfänger: int,
@@ -35,10 +37,12 @@ def an_elternteil_auszuzahlender_betrag_m(
 @policy_function(
     start_date="2009-01-01",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="up",
         reference="§ 9 Abs. 3 UhVorschG",
     ),
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -70,7 +74,7 @@ def betrag_m(
     return out
 
 
-@policy_function(vectorization_strategy="not_required")
+@policy_function(vectorization_strategy="not_required", unit=TTSIMUnit.DIMENSIONLESS)
 def elternteil_alleinerziehend(
     kindergeld__p_id_empfänger: IntColumn,
     p_id: IntColumn,
@@ -91,28 +95,39 @@ def elternteil_alleinerziehend(
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2008-12-31",
     leaf_name="betrag_m",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="down",
         reference="§ 9 Abs. 3 UhVorschG",
     ),
     fail_msg_if_included="Unterhaltsvorschuss is not implemented prior to 2009.",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_bis_2008() -> float:
     pass
 
 
-@param_function(start_date="2023-01-01", leaf_name="kindergeld_erstes_kind_m")
+@param_function(
+    start_date="2023-01-01",
+    leaf_name="kindergeld_erstes_kind_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def kindergeld_erstes_kind_ohne_staffelung_m(
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
 ) -> float:
     """Kindergeld for first child when Kindergeld does not depend on number of children."""
-    return kindergeld__satz
+    return kindergeld__satz_m
 
 
-@param_function(end_date="2022-12-31", leaf_name="kindergeld_erstes_kind_m")
+@param_function(
+    end_date="2022-12-31",
+    leaf_name="kindergeld_erstes_kind_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def kindergeld_erstes_kind_gestaffelt_m(
     kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
 ) -> float:
@@ -124,6 +139,7 @@ def kindergeld_erstes_kind_gestaffelt_m(
     start_date="2009-01-01",
     end_date="2014-12-31",
     leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     alter: int,
@@ -173,6 +189,7 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     start_date="2015-01-01",
     end_date="2015-12-31",
     leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_m_anwendungsvors(
     alter: int,
@@ -205,6 +222,7 @@ def anspruchshöhe_m_anwendungsvors(
     start_date="2016-01-01",
     end_date="2017-06-30",
     leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_m_2016_bis_2017_06(
     alter: int,
@@ -235,7 +253,11 @@ def anspruchshöhe_m_2016_bis_2017_06(
     return out
 
 
-@policy_function(start_date="2017-07-01", leaf_name="anspruchshöhe_m")
+@policy_function(
+    start_date="2017-07-01",
+    leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def anspruchshöhe_m_ab_2017_07(
     alter: int,
     elternteil_mindesteinkommen_erreicht: bool,
@@ -269,7 +291,11 @@ def anspruchshöhe_m_ab_2017_07(
     return out
 
 
-@policy_function(start_date="2017-07-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2017-07-01",
+    vectorization_strategy="not_required",
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
 def elternteil_mindesteinkommen_erreicht(
     kindergeld__p_id_empfänger: IntColumn,
     p_id: IntColumn,
@@ -288,16 +314,16 @@ def elternteil_mindesteinkommen_erreicht(
     )
 
 
-@policy_function(start_date="2017-07-01")
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.DIMENSIONLESS)
 def mindesteinkommen_erreicht(
     einkommen_m: float,
-    mindesteinkommen: float,
+    mindesteinkommen_m: float,
 ) -> bool:
     """Check if income is above the threshold for advance alimony payments."""
-    return einkommen_m >= mindesteinkommen
+    return einkommen_m >= mindesteinkommen_m
 
 
-@policy_function(start_date="2017-07-01")
+@policy_function(start_date="2017-07-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
@@ -319,7 +345,7 @@ def einkommen_m(
     )
 
 
-@param_function(start_date="2008-01-01", end_date="2017-06-30")
+@param_function(start_date="2008-01-01", end_date="2017-06-30", unit=UNSET_UNIT)
 def berechtigte_altersgruppen(
     raw_berechtigte_altersgruppen: RawParamValue,
 ) -> dict[str, Altersgrenzen]:
@@ -335,7 +361,7 @@ def berechtigte_altersgruppen(
     }
 
 
-@param_function(start_date="2016-01-01")
+@param_function(start_date="2016-01-01", unit=UNSET_UNIT)
 def mindestunterhalt_nach_alter(
     raw_mindestunterhalt: RawParamValue,
 ) -> dict[str, SatzMitAltersgrenzen]:

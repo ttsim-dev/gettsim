@@ -4,13 +4,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import per_y_to_per_m
+from ttsim.time_converters import per_y_to_per_m
 
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
+    TTSIMUnit,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     piecewise_polynomial,
@@ -23,7 +26,9 @@ if TYPE_CHECKING:
     from gettsim.germany.grundsicherung.bedarfe import Regelbedarfsstufen
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM, end_date="2015-12-31")
+@agg_by_p_id_function(
+    agg_type=AggType.SUM, end_date="2015-12-31", unit=TTSIMUnit.DIMENSIONLESS
+)
 def alleinerziehendenbonus(
     kindergeld__kind_bis_10_mit_kindergeld: bool,
     kindergeld__p_id_empfänger: int,
@@ -32,21 +37,49 @@ def alleinerziehendenbonus(
     pass
 
 
-@param_function()
-def min_einkommen_lookup_table(
-    min_einkommen: dict[int, float],
+@param_function(
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_WTHH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
+def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
+    mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Create a LookupTable for the min income thresholds."""
-    return get_consecutive_int_lookup_table_param_value(raw=min_einkommen, xnp=xnp)
+    return get_consecutive_int_lookup_table_param_value(
+        raw=mindesteinkommen_nach_haushaltsgröße_m_wthh, xnp=xnp
+    )
 
 
-@policy_function()
+@param_function(unit=TTSIMUnit.COUNT.PER_WTHH)
+def maximale_haushaltsgröße_mindesteinkommen_wthh(
+    mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
+) -> int:
+    """Largest household size the minimum-income table distinguishes.
+
+    The household size is clamped to this before the look-up; beyond it the table
+    repeats its last row (§ 19 (2) WoGG, Anlage 3).
+    """
+    return cast_ttsim_unit(
+        len(mindesteinkommen_nach_haushaltsgröße_m_wthh),
+        unit=TTSIMUnit.COUNT.PER_WTHH,
+    )
+
+
+@policy_function(
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+)
 def einkommen_m_wthh(
     anzahl_personen_wthh: int,
     freibetrag_m_wthh: float,
     einkommen_vor_freibetrag_m_wthh: float,
-    min_einkommen_lookup_table: ConsecutiveIntLookupTableParamValue,
+    mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table: ConsecutiveIntLookupTableParamValue,
+    maximale_haushaltsgröße_mindesteinkommen_wthh: int,
     xnp: ModuleType,
 ) -> float:
     """Income relevant for Wohngeld calculation.
@@ -54,17 +87,17 @@ def einkommen_m_wthh(
     Reference: § 13 WoGG
     """
     einkommen_ohne_freibetrag = einkommen_vor_freibetrag_m_wthh - freibetrag_m_wthh
-    mindesteinkommen = min_einkommen_lookup_table.look_up(
+    mindesteinkommen = mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.look_up(
         xnp.minimum(
             anzahl_personen_wthh,
-            min_einkommen_lookup_table.values_to_look_up.shape[0],
+            maximale_haushaltsgröße_mindesteinkommen_wthh,
         )
     )
 
     return xnp.maximum(einkommen_ohne_freibetrag, mindesteinkommen)
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     einkommensteuer__betrag_y_sn: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_y: float,
@@ -88,7 +121,11 @@ def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     return abzugsbeträge_steuern_sozialversicherung.look_up(stufe)
 
 
-@policy_function(end_date="2006-12-31", leaf_name="einkommen_vor_freibetrag_m")
+@policy_function(
+    end_date="2006-12-31",
+    leaf_name="einkommen_vor_freibetrag_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
@@ -126,7 +163,11 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
-@policy_function(start_date="2007-01-01", leaf_name="einkommen_vor_freibetrag_m")
+@policy_function(
+    start_date="2007-01-01",
+    leaf_name="einkommen_vor_freibetrag_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
@@ -170,7 +211,9 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     return (1 - abzugsanteil_vom_einkommen_für_steuern_sozialversicherung) * eink_ind
 
 
-@policy_function(end_date="2015-12-31", leaf_name="freibetrag_m")
+@policy_function(
+    end_date="2015-12-31", leaf_name="freibetrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def freibetrag_m_bis_2015(
     einnahmen__bruttolohn_m: float,
     ist_kind_mit_erwerbseinkommen: bool,
@@ -210,6 +253,7 @@ def freibetrag_m_bis_2015(
     start_date="2016-01-01",
     end_date="2020-12-31",
     leaf_name="freibetrag_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def freibetrag_m_ab_2016_bis_2020(
     einnahmen__bruttolohn_m: float,
@@ -237,7 +281,9 @@ def freibetrag_m_ab_2016_bis_2020(
     return freibetrag_bei_behinderung + freibetrag_kinder
 
 
-@policy_function(start_date="2021-01-01", leaf_name="freibetrag_m")
+@policy_function(
+    start_date="2021-01-01", leaf_name="freibetrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def freibetrag_m_ab_2021(
     einnahmen__bruttolohn_m: float,
     einnahmen__renten__gesetzliche_m: float,
@@ -295,7 +341,7 @@ def freibetrag_m_ab_2021(
     return freibetrag_bei_behinderung + freibetrag_kinder + freibetrag_grundrente
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def ist_kind_mit_erwerbseinkommen(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,

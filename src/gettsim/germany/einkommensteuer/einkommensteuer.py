@@ -9,8 +9,10 @@ import portion
 from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    TTSIMUnit,
     agg_by_p_id_function,
     get_piecewise_parameters,
     intervals_to_thresholds,
@@ -25,7 +27,7 @@ if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kindergeld_ansprüche_1(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     familie__p_id_elternteil_1: int,
@@ -34,7 +36,7 @@ def anzahl_kindergeld_ansprüche_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.DIMENSIONLESS)
 def anzahl_kindergeld_ansprüche_2(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     familie__p_id_elternteil_2: int,
@@ -47,10 +49,12 @@ def anzahl_kindergeld_ansprüche_2(
     end_date="1996-12-31",
     leaf_name="betrag_y_sn",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S. 6 EStG",
     ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
     betrag_mit_kinderfreibetrag_y_sn: float,
@@ -63,14 +67,17 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
 
 @policy_function(
     start_date="1997-01-01",
+    end_date="2001-12-31",
     leaf_name="betrag_y_sn",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
     ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
-def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
+def betrag_y_sn_kindergeld_oder_kinderfreibetrag_bis_2001(
     betrag_ohne_kinderfreibetrag_y_sn: float,
     betrag_mit_kinderfreibetrag_y_sn: float,
     kinderfreibetrag_günstiger_sn: bool,
@@ -85,7 +92,33 @@ def betrag_y_sn_kindergeld_oder_kinderfreibetrag(
     return out
 
 
-@policy_function()
+@policy_function(
+    start_date="2002-01-01",
+    leaf_name="betrag_y_sn",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S.6 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def betrag_y_sn_kindergeld_oder_kinderfreibetrag_ab_2002(
+    betrag_ohne_kinderfreibetrag_y_sn: float,
+    betrag_mit_kinderfreibetrag_y_sn: float,
+    kinderfreibetrag_günstiger_sn: bool,
+    relevantes_kindergeld_y_sn: float,
+) -> float:
+    """Income tax calculation on Steuernummer level since 1997."""
+    if kinderfreibetrag_günstiger_sn:
+        out = betrag_mit_kinderfreibetrag_y_sn + relevantes_kindergeld_y_sn
+    else:
+        out = betrag_ohne_kinderfreibetrag_y_sn
+
+    return out
+
+
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS.PER_SN)
 def kinderfreibetrag_günstiger_sn(
     betrag_ohne_kinderfreibetrag_y_sn: float,
     betrag_mit_kinderfreibetrag_y_sn: float,
@@ -103,11 +136,13 @@ def kinderfreibetrag_günstiger_sn(
     end_date="2001-12-31",
     leaf_name="betrag_mit_kinderfreibetrag_y_sn",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
     ),
     fail_msg_if_included="Tax system before 2002 is not implemented yet.",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
     pass
@@ -117,10 +152,12 @@ def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
     start_date="2002-01-01",
     leaf_name="betrag_mit_kinderfreibetrag_y_sn",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
     ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
@@ -145,14 +182,17 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
 
 
 @policy_function(
+    start_date="2002-01-01",
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
         reference="§ 32a Abs. 1 S.6 EStG",
     ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_ohne_kinderfreibetrag_y_sn(
-    gesamteinkommen_y: float,
+    gesamteinkommen_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -161,7 +201,7 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     "tarifliche ESt II".
 
     """
-    zu_verst_eink_per_indiv = gesamteinkommen_y / familie__anzahl_personen_sn
+    zu_verst_eink_per_indiv = gesamteinkommen_y_sn / familie__anzahl_personen_sn
     return familie__anzahl_personen_sn * piecewise_polynomial(
         x=zu_verst_eink_per_indiv,
         parameters=parameter_einkommensteuertarif,
@@ -169,7 +209,11 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     )
 
 
-@policy_function(end_date="2022-12-31", leaf_name="relevantes_kindergeld_m")
+@policy_function(
+    end_date="2022-12-31",
+    leaf_name="relevantes_kindergeld_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def relevantes_kindergeld_mit_staffelung_m(
     anzahl_kindergeld_ansprüche_1: int,
     anzahl_kindergeld_ansprüche_2: int,
@@ -193,11 +237,12 @@ def relevantes_kindergeld_mit_staffelung_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="relevantes_kindergeld_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def relevantes_kindergeld_ohne_staffelung_m(
     anzahl_kindergeld_ansprüche_1: int,
     anzahl_kindergeld_ansprüche_2: int,
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
 ) -> float:
     """Kindergeld relevant for income tax. For each parent, half of the actual
     Kindergeld claim is considered.
@@ -210,10 +255,19 @@ def relevantes_kindergeld_ohne_staffelung_m(
 
     """
     kindergeld_ansprüche = anzahl_kindergeld_ansprüche_1 + anzahl_kindergeld_ansprüche_2
-    return kindergeld__satz * kindergeld_ansprüche / 2
+    return kindergeld__satz_m * kindergeld_ansprüche / 2
 
 
-@param_function(start_date="2002-01-01")
+@param_function(
+    start_date="2002-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def parameter_einkommensteuertarif(
     raw_parameter_einkommensteuertarif: RawParamValue,
     xnp: ModuleType,

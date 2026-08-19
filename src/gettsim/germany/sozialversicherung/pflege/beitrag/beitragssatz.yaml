@@ -8,8 +8,7 @@ beitragssatz:
       Beitragssatz ist unabhängig von der Anzahl der Kinder.
     en: >-
       Contribution rate is independent of the number of children.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   add_jahresanfang: true
   1995-01-01:
@@ -29,8 +28,7 @@ beitragssatz_nach_kinderzahl:
       Beitragssatz ist abhängig von der Anzahl der Kinder.
     en: >-
       Contribution rate is dependent on the number of children.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: dict
   add_jahresanfang: true
   2005-01-01:
@@ -82,8 +80,7 @@ zusatz_kinderlos_mindestalter:
       § 55 Abs. 3 SGB XI, KiBG Art. 1
       Childless members of the social care insurance, who have reached the age of 23,
       have to pay a higher contribution rate since January 1, 2005.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2005-01-01:
     value: 23

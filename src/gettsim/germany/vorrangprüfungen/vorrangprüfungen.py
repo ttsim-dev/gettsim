@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from gettsim.germany import WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     end_date="2022-12-31",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_bg: float,
@@ -25,11 +26,17 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165
-    return (
+    # The outcome is a property of the person, not of the BG or the WTHH. GETTSIM
+    # simplifies the check to a bg-level comparison under the WTHH=BG assumption
+    # (see the docstring), so its truth value is stated back as level-neutral.
+    return cast_ttsim_unit(
         arbeitslosengeld_2__anzurechnendes_einkommen_m_bg
-        + wohngeld__anspruchshöhe_m_wthh
+        + cast_ttsim_unit(
+            wohngeld__anspruchshöhe_m_wthh, unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
+        )
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= arbeitslosengeld_2__regelbedarf_m_bg
+        >= arbeitslosengeld_2__regelbedarf_m_bg,
+        unit=TTSIMUnit.DIMENSIONLESS,
     )
 
 
@@ -37,6 +44,7 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     leaf_name="wohngeld_kinderzuschlag_vorrangig_oder_günstiger",
     start_date="2023-01-01",
     warn_msg_if_included=WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC,
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     bürgergeld__regelbedarf_m_bg: float,
@@ -52,9 +60,15 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165
-    return (
+    # The outcome is a property of the person, not of the BG or the WTHH. GETTSIM
+    # simplifies the check to a bg-level comparison under the WTHH=BG assumption
+    # (see the docstring), so its truth value is stated back as level-neutral.
+    return cast_ttsim_unit(
         bürgergeld__anzurechnendes_einkommen_m_bg
-        + wohngeld__anspruchshöhe_m_wthh
+        + cast_ttsim_unit(
+            wohngeld__anspruchshöhe_m_wthh, unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
+        )
         + kinderzuschlag__anspruchshöhe_m_bg
-        >= bürgergeld__regelbedarf_m_bg
+        >= bürgergeld__regelbedarf_m_bg,
+        unit=TTSIMUnit.DIMENSIONLESS,
     )

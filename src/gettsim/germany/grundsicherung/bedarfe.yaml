@@ -21,8 +21,22 @@ parameter_regelbedarfsstufen:
       4: Adolescents
       5: Older children
       6: Youngest children
-  unit: Euros
-  reference_period: Month
+  unit:
+    1: EUR_PER_MONTH
+    2: EUR_PER_MONTH
+    3: EUR_PER_MONTH
+    4:
+      min_alter: YEARS
+      max_alter: YEARS
+      betrag: EUR_PER_MONTH
+    5:
+      min_alter: YEARS
+      max_alter: YEARS
+      betrag: EUR_PER_MONTH
+    6:
+      min_alter: YEARS
+      max_alter: YEARS
+      betrag: EUR_PER_MONTH
   type: require_converter
   2011-01-01:
     1: 364

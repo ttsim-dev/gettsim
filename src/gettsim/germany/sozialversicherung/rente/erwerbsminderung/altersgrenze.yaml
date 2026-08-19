@@ -12,8 +12,7 @@ altersgrenze:
       § 77 SGB VI
       Age limit up to which one can claim the public disability insurance without
       deductions.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2001-01-01:
     value: 63
@@ -35,8 +34,8 @@ altersgrenze_gestaffelt:
       Age limit up to which one can claim the public disability insurance without
       deductions. Up to 2012, the standard retirement age was 63.
       From then on gradual increase until 65.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   2012-01-01:
     reference: Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
@@ -129,8 +128,7 @@ altersgrenze_langjährig_versichert:
       § 77 Abs. 4 SGB VI
       Age limit up to which one can claim public disability insurance without deductions
       under certain time conditions. These conditions are defined in § 77 4 SGB VI.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2001-01-01:
     value: 63

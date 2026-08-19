@@ -12,8 +12,7 @@ altersgrenze:
       Entry age for long term insured (35 insurance years) without deductions (FRA)
       § 236 SGB VI
       https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 63.0
@@ -33,8 +32,8 @@ altersgrenze_gestaffelt:
       Entry age for long term insured (35 insurance years) without deductions (FRA)
       § 236 SGB VI
       https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/242-altersrente-fuer-langjaehrig-versicherte-altersgrenzen.html
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
@@ -301,8 +300,7 @@ altersgrenze_vorzeitig:
       Earliest possible age to receive pension for long term insured (with deductions).
       § 236 SGB VI
       https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 63.0
@@ -339,8 +337,8 @@ altersgrenze_vorzeitig_gestaffelt:
       Earliest possible age to receive pension for long term insured (with deductions).
       § 236 SGB VI
       https://www.sozialgesetzbuch-sgb.de/sgbvi/236.html
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: YEARS
   type: year_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41

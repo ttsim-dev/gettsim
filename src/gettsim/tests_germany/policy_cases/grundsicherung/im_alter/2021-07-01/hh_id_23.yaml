@@ -19,7 +19,7 @@ inputs:
       p_id_einstandspartner:
         - 31
         - 30
-      überschusseinkommen_m_eg:
+      überschusseinkommen_m_bg:
         - 0.0
         - 0.0
     einkommensteuer:

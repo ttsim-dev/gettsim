@@ -12,8 +12,7 @@ einkommensgrenzwerte_steuerklassen_5_6:
       § 39b Absatz 2 Satz 7 EStG
       Thresholds for withholding tax classes 5 and 6, where minimum and maximum tax
       rates apply.
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: dict
   2002-01-01:
     1: 8946

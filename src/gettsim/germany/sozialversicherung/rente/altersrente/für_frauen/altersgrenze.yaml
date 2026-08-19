@@ -20,8 +20,7 @@ altersgrenze:
       waiting period of 15 years and 10 years of contributions after age 40). The age
       threshold was increase by one month for each birthmonth up to age 65 for cohort
       1945.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 60
@@ -51,8 +50,8 @@ altersgrenze_gestaffelt:
       waiting period of 15 years and 10 years of contributions after age 40). The age
       threshold was increase by one month for each birthmonth up to age 65 for cohort
       1945.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
@@ -465,8 +464,7 @@ altersgrenze_vorzeitig:
       § 237a SGB VI
       Earliest possible age to receive pension for women (with deductions).
       https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 60.0
@@ -495,8 +493,8 @@ altersgrenze_vorzeitig_gestaffelt:
       § 237a SGB VI
       Earliest possible age to receive pension for women (with deductions).
       https://www.sozialgesetzbuch-sgb.de/sgbvi/237a.html
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41

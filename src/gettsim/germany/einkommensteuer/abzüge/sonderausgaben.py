@@ -5,12 +5,13 @@ from __future__ import annotations
 from gettsim.tt import (
     AggType,
     RoundingSpec,
+    TTSIMUnit,
     agg_by_p_id_function,
     policy_function,
 )
 
 
-@agg_by_p_id_function(agg_type=AggType.SUM)
+@agg_by_p_id_function(agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def kinderbetreuungskosten_elternteil_m(
     kinderbetreuungskosten_m: float,
     p_id_kinderbetreuungskostenträger: int,
@@ -19,7 +20,11 @@ def kinderbetreuungskosten_elternteil_m(
     pass
 
 
-@policy_function(end_date="2011-12-31", leaf_name="sonderausgaben_y_sn")
+@policy_function(
+    end_date="2011-12-31",
+    leaf_name="sonderausgaben_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
 def sonderausgaben_y_sn_nur_pauschale(
     familie__anzahl_personen_sn: int,
     sonderausgabenpauschbetrag: float,
@@ -33,7 +38,11 @@ def sonderausgaben_y_sn_nur_pauschale(
     return sonderausgabenpauschbetrag * familie__anzahl_personen_sn
 
 
-@policy_function(start_date="2012-01-01", leaf_name="sonderausgaben_y_sn")
+@policy_function(
+    start_date="2012-01-01",
+    leaf_name="sonderausgaben_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
 def sonderausgaben_y_sn_mit_kinderbetreuung(
     absetzbare_kinderbetreuungskosten_y_sn: float,
     familie__anzahl_personen_sn: int,
@@ -51,7 +60,7 @@ def sonderausgaben_y_sn_mit_kinderbetreuung(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def gedeckelte_kinderbetreuungskosten_y(
     kinderbetreuungskosten_elternteil_y: float,
     parameter_absetzbare_kinderbetreuungskosten: dict[str, float],
@@ -63,7 +72,13 @@ def gedeckelte_kinderbetreuungskosten_y(
     )
 
 
-@policy_function(rounding_spec=RoundingSpec(base=1, direction="up"))
+@policy_function(
+    start_date="2002-01-01",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN, base=1, direction="up"
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
 def absetzbare_kinderbetreuungskosten_y_sn(
     gedeckelte_kinderbetreuungskosten_y_sn: float,
     parameter_absetzbare_kinderbetreuungskosten: dict[str, float],

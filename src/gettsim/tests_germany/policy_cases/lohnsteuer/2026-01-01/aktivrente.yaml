@@ -53,7 +53,7 @@ inputs:
             - 0.0
             - 0.0
       abzüge:
-        alleinerziehendenfreibetrag_basis:
+        alleinerziehendenfreibetrag_basis_y:
           - 0.0
           - 0.0
           - 0.0

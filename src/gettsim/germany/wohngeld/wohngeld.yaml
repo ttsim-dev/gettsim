@@ -18,8 +18,7 @@ max_anzahl_personen:
         calculation of the housing allowance.
       - `indizierung` is not a policy parameter, but determines the size of the
         lookup tables.
-  unit: null
-  reference_period: null
+  unit: COUNT_PER_HH
   type: dict
   1984-01-01:
     normale_berechnung: 12
@@ -31,8 +30,7 @@ skalierungsfaktor:
   description:
     de: Anlage 2 WoGG zu §19 Abs. 2 WoGG
     en: null
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   1984-01-01:
     value: 1
@@ -52,8 +50,7 @@ koeffizienten_berechnungsformel:
       Wohngeldverordnung (WoGV).
       Die Schlüssel von 1 to 12 beziehen sich auf die Haushaltsgröße.
     en: The keys from 1 to 12 below refer to the household size.
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: require_converter
   1984-01-01:
     note: Parameter aus Regressionsanalyse der Wohngeldtabellen
@@ -550,7 +547,7 @@ koeffizienten_berechnungsformel:
     12:
       b: 1.107E-4
       c: 2.210E-5
-zusatzbetrag_pro_person_in_großen_haushalten:
+zusatzbetrag_pro_person_in_großen_haushalten_m:
   name:
     de: Zusätzlicher Betrag pro Person in sehr großen Haushalten
     en: Additional amount per member in very big households
@@ -569,12 +566,15 @@ zusatzbetrag_pro_person_in_großen_haushalten:
       The introduction date of the parameter is not entirely clear. It is contained in
       the re-enactment of the WoGG 2002, but not in the 1993 Novelle, see BGBl I 1993
       S. 183.
-  unit: Euros
-  reference_period: Month
   type: scalar
   2001-01-01:
-    value: 40
+    unit: DM_PER_MONTH
+    value: 78.23
     reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+  2002-01-01:
+    unit: EUR_PER_MONTH
+    value: 40
+    reference: Art. 6 G. v. 22.12.1999 BGBl. I S. 2671
   2009-01-01:
     value: 43
     reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856

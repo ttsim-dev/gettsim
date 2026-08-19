@@ -6,7 +6,7 @@ import dags.tree as dt
 from ttsim.interface_dag_elements.shared import (
     get_re_pattern_for_all_time_units_and_groupings,
 )
-from ttsim.unit_converters import (
+from ttsim.time_converters import (
     TIME_UNIT_IDS_TO_LABELS,
 )
 

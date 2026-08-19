@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import FKType, policy_input
+from gettsim.tt import FKType, TTSIMUnit, policy_input
 
 
-@policy_input(end_date="2008-12-31")
+@policy_input(end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def bruttolohn_vorjahr_nach_abzug_werbungskosten_y() -> float:
     """Gross earnings of the previous calendar year minus Werbungskosten.
 
@@ -16,11 +16,15 @@ def bruttolohn_vorjahr_nach_abzug_werbungskosten_y() -> float:
     """
 
 
-@policy_input(end_date="2008-12-31")
+@policy_input(end_date="2008-12-31", unit=TTSIMUnit.DIMENSIONLESS)
 def budgetsatz() -> bool:
     """Applied for "Budgetsatz" of parental leave benefit."""
 
 
-@policy_input(end_date="2008-12-31", foreign_key_type=FKType.MUST_NOT_POINT_TO_SELF)
+@policy_input(
+    end_date="2008-12-31",
+    foreign_key_type=FKType.MUST_NOT_POINT_TO_SELF,
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
 def p_id_empfänger() -> int:
     pass

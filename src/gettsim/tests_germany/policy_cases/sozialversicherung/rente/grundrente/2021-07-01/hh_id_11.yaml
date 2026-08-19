@@ -1,7 +1,7 @@
 ---
 info:
   note: |-
-    adjusted sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag
+    adjusted sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag_m
     since test case uses 0.8 as maximum instead of 0.8004. Beispiel Alexander
     Langkowski / Hatice Yilmaz.
   precision_atol: 1
@@ -69,5 +69,5 @@ outputs:
           - 279.0
         betrag_m:
           - 279.0
-        mean_entgeltpunkte_zuschlag:
+        mean_entgeltpunkte_zuschlag_m:
           - 0.021875

@@ -8,8 +8,8 @@ obergrenze_vermögensgrundfreibetrag:
       § 12 (2) Satz 1 Nr. 1 SGB II. Ausnahmeregelung für Personen, die vor 1948 geboren
       wurden.
     en: Differs by birth year.
-  unit: Euros
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: EUR
   type: sparse_to_consecutive_int_lookup_table
   2005-01-01:
     1947: 33800
@@ -43,8 +43,8 @@ vermögensgrundfreibetrag_je_lebensjahr:
   description:
     de: § 12 (2) Satz 1 Nr. 1 SGB II.  Gestaffelt nach Geburtsjahr
     en: Differs by year of birth.
-  unit: Euros
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: EUR_PER_YEAR
   type: sparse_to_consecutive_int_lookup_table
   2005-01-01:
     1947: 520
@@ -67,8 +67,7 @@ vermögensfreibetrag_austattung:
   description:
     de: § 12 (2) Satz 1 Nr. 4 SGB II.
     en: null
-  unit: Euros
-  reference_period: null
+  unit: EUR
   type: scalar
   2005-01-01:
     value: 750
@@ -83,8 +82,7 @@ vermögensgrundfreibetrag_je_kind:
   description:
     de: § 12 (2) Satz 1 Nr. 1 SGB II.
     en: null
-  unit: Euros
-  reference_period: null
+  unit: EUR
   type: scalar
   2005-01-01:
     value: 4100
@@ -105,8 +103,7 @@ abzugsfähige_pauschalen:
       .2016 BGBl. I S. 1858 entfallen. Wie entfallen?
       § 3 Alg II-V. Seit 01.01.2008 in § 6 Alg II-V.
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   2005-01-01:
     versicherung: 30
@@ -134,8 +131,8 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       defined by exemption in § 11 SGB II, see § 67 SGB II. Since 01.04.2011 § 11b (2)
       SGB II (amended by B. v. 13.05.2011 BGBl. I S. 850. Artikel 2 G. v. 24.03.2011
       BGBl. I S. 453).
-  unit: Euros
-  reference_period: Month
+  input_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2005-01-01:
     reference: Artikel 1. G. v. 24.12.2003 BGBl. I S. 2954.
@@ -204,8 +201,8 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
       24.03.2011 BGBl. I S. 453). Bezieht sich auf die Parameter in
       parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg.
     en: null
-  unit: Euros
-  reference_period: Month
+  input_unit: EUR_PER_MONTH
+  output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2005-10-01:
     reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.

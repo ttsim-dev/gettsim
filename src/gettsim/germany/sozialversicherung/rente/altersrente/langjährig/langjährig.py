@@ -2,14 +2,23 @@
 
 from __future__ import annotations
 
-from ttsim.unit_converters import y_to_m
+from ttsim.time_converters import y_to_m
 
-from gettsim.tt import ConsecutiveIntLookupTableParamValue, policy_function
+from gettsim.tt import (
+    ConsecutiveIntLookupTableParamValue,
+    TTSIMUnit,
+    policy_function,
+)
 
 
 @policy_function(
     start_date="1989-12-18",
     leaf_name="altersgrenze",
+    unit=TTSIMUnit.YEARS,
+    # `birth_month_since_ad` adds two CALENDAR_MONTH points
+    # (`y_to_m(geburtsjahr) + geburtsmonat`), which pint's affine algebra forbids
+    # (point + point).
+    verify_units=False,
 )
 def altersgrenze_gestaffelt_ab_1989(
     geburtsjahr: int,
@@ -34,6 +43,7 @@ def altersgrenze_gestaffelt_ab_1989(
     start_date="1989-12-18",
     end_date="1996-09-26",
     leaf_name="altersgrenze_vorzeitig",
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     geburtsjahr: int,
@@ -46,7 +56,7 @@ def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     return altersgrenze_vorzeitig_gestaffelt.look_up(geburtsjahr)
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     sozialversicherung__rente__wartezeit_35_jahre_erfüllt: bool,
 ) -> bool:

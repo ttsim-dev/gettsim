@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def kind_festgelegter_zahlbetrag_m(
     anspruch_m: float,
     kindergeld__betrag_m: float,

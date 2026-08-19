@@ -24,7 +24,7 @@ inputs:
         - true
         - true
         - false
-      gesamteinkommen_y:
+      gesamteinkommen_y_sn:
         - 120000.0
         - 120000.0
         - 0.0

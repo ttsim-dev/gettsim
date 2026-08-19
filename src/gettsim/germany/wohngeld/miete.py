@@ -3,10 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 
 from gettsim.tt import (
+    UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnits,
+    TTSIMUnit,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -21,21 +25,32 @@ if TYPE_CHECKING:
 @dataclass(frozen=True)
 class LookupTableBaujahr:
     baujahre: Int[Array, " n_baujahr_categories"]
-    lookup_table: ConsecutiveIntLookupTableParamValue
+    lookup_table: Annotated[
+        ConsecutiveIntLookupTableParamValue,
+        InputOutputUnits(
+            input_unit=(
+                TTSIMUnit.DIMENSIONLESS,
+                TTSIMUnit.COUNT.PER_HH,
+                TTSIMUnit.DIMENSIONLESS,
+            ),
+            output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+        ),
+    ]
 
 
 @param_function(
     start_date="1984-01-01",
     end_date="2008-12-31",
     leaf_name="max_miete_m_lookup",
+    unit=UNSET_UNIT,
 )
 def max_miete_m_lookup_mit_baujahr(
-    raw_max_miete_m_nach_baujahr: dict[int | str, dict[int, dict[int, float]]],
+    raw_max_miete_m_nach_baujahr_hh: dict[int | str, dict[int, dict[int, float]]],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> LookupTableBaujahr:
     """Maximum rent considered in Wohngeld calculation."""
-    tmp = raw_max_miete_m_nach_baujahr.copy()
+    tmp = raw_max_miete_m_nach_baujahr_hh.copy()
     per_additional_person = tmp.pop("jede_weitere_person")
     max_n_p_defined = max(tmp.keys())
     if not all(isinstance(i, int) for i in tmp):  # pragma: no cover
@@ -60,14 +75,24 @@ def max_miete_m_lookup_mit_baujahr(
     )
 
 
-@param_function(start_date="2009-01-01", leaf_name="max_miete_m_lookup")
+@param_function(
+    start_date="2009-01-01",
+    leaf_name="max_miete_m_lookup",
+    unit=InputOutputUnits(
+        input_unit=(TTSIMUnit.COUNT.PER_HH, TTSIMUnit.DIMENSIONLESS),
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def max_miete_m_lookup_ohne_baujahr(
-    raw_max_miete_m: dict[int | str, dict[int, float]],
+    raw_max_miete_m_hh: dict[int | str, dict[int, float]],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Maximum rent considered in Wohngeld calculation."""
-    expanded = raw_max_miete_m.copy()
+    expanded = raw_max_miete_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -81,36 +106,54 @@ def max_miete_m_lookup_ohne_baujahr(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="1984-01-01")
+@param_function(
+    start_date="1984-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def min_miete_lookup(
-    raw_min_miete_m: dict[int, float],
+    raw_min_miete_m_hh: dict[int, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Minimum rent considered in Wohngeld calculation."""
     max_n_p_normal = max_anzahl_personen["normale_berechnung"]
-    if max(raw_min_miete_m.keys()) != max_n_p_normal:  # pragma: no cover
+    if max(raw_min_miete_m_hh.keys()) != max_n_p_normal:  # pragma: no cover
         raise ValueError(
             "The maximum number of persons for the normal calculation of the basic"
             "Wohngeld formula `max_anzahl_personen['normale_berechnung'] "
             f"(got: {max_n_p_normal}) must be the same as the maximum number of household "
             "members in `koeffizienten_berechnungsformel` "
-            f"(got: {max(raw_min_miete_m.keys())})"
+            f"(got: {max(raw_min_miete_m_hh.keys())})"
         )
-    expanded = raw_min_miete_m.copy()
+    expanded = raw_min_miete_m_hh.copy()
     for n_p in range(max_n_p_normal + 1, max_anzahl_personen["indizierung"] + 1):
-        expanded[n_p] = raw_min_miete_m[max_n_p_normal]
+        expanded[n_p] = raw_min_miete_m_hh[max_n_p_normal]
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)
 
 
-@param_function(start_date="2021-01-01")
+@param_function(
+    start_date="2021-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def heizkostenentlastung_m_lookup(
-    raw_heizkostenentlastung_m: dict[int | str, float],
+    raw_heizkostenentlastung_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Heizkostenentlastung as a lookup table."""
-    expanded = raw_heizkostenentlastung_m.copy()
+    expanded = raw_heizkostenentlastung_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -122,14 +165,23 @@ def heizkostenentlastung_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01")
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def dauerhafte_heizkostenkomponente_m_lookup(
-    raw_dauerhafte_heizkostenkomponente_m: dict[int | str, float],
+    raw_dauerhafte_heizkostenkomponente_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Dauerhafte Heizkostenenkomponente as a lookup table."""
-    expanded = raw_dauerhafte_heizkostenkomponente_m.copy()
+    expanded = raw_dauerhafte_heizkostenkomponente_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -141,14 +193,23 @@ def dauerhafte_heizkostenkomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@param_function(start_date="2023-01-01")
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_HH,
+        output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def klimakomponente_m_lookup(
-    raw_klimakomponente_m: dict[int | str, float],
+    raw_klimakomponente_m_hh: dict[int | str, float],
     max_anzahl_personen: dict[str, int],
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Klimakomponente as a lookup table."""
-    expanded = raw_klimakomponente_m.copy()
+    expanded = raw_klimakomponente_m_hh.copy()
     per_additional_person = expanded.pop("jede_weitere_person")
     max_n_p_defined = max(expanded.keys())
     if not all(isinstance(i, int) for i in expanded):  # pragma: no cover
@@ -160,7 +221,7 @@ def klimakomponente_m_lookup(
     return get_consecutive_int_lookup_table_param_value(raw=expanded, xnp=xnp)  # ty: ignore[invalid-argument-type]
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH)
 def miete_m_wthh(
     miete_m_hh: float,
     anzahl_personen_wthh: int,
@@ -169,10 +230,16 @@ def miete_m_wthh(
     """Rent considered in housing benefit calculation on wohngeldrechtlicher
     Teilhaushalt level.
     """
-    return miete_m_hh * (anzahl_personen_wthh / anzahl_personen_hh)
+    household_share = cast_ttsim_unit(
+        anzahl_personen_wthh, unit=TTSIMUnit.DIMENSIONLESS
+    ) / cast_ttsim_unit(anzahl_personen_hh, unit=TTSIMUnit.DIMENSIONLESS)
+    return cast_ttsim_unit(
+        miete_m_hh * household_share,
+        unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
+    )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH)
 def min_miete_m_hh(
     anzahl_personen_hh: int,
     min_miete_lookup: ConsecutiveIntLookupTableParamValue,
@@ -185,6 +252,10 @@ def min_miete_m_hh(
     start_date="1984-01-01",
     end_date="2008-12-31",
     leaf_name="miete_m_hh",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
+    # `searchsorted` reads the unannotated `baujahre` array as a quantity, which
+    # carries no unit; a `[length]`-typed array field cannot state one either.
+    verify_units=False,
 )
 def miete_m_hh_mit_baujahr(
     mietstufe_hh: int,
@@ -211,6 +282,7 @@ def miete_m_hh_mit_baujahr(
     start_date="2009-01-01",
     end_date="2020-12-31",
     leaf_name="miete_m_hh",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
 )
 def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     mietstufe_hh: int,
@@ -229,6 +301,7 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     start_date="2021-01-01",
     end_date="2022-12-31",
     leaf_name="miete_m_hh",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
 )
 def miete_m_hh_mit_heizkostenentlastung(
     mietstufe_hh: int,
@@ -252,6 +325,7 @@ def miete_m_hh_mit_heizkostenentlastung(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="miete_m_hh",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
 )
 def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakomponente(
     mietstufe_hh: int,

@@ -7,7 +7,9 @@ from typing import TYPE_CHECKING
 import numpy
 
 from gettsim.tt import (
+    InputOutputUnits,
     PiecewisePolynomialParamValue,
+    TTSIMUnit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -51,7 +53,16 @@ def basis_für_klassen_5_6(
     )
 
 
-@param_function(start_date="2015-01-01")
+@param_function(
+    start_date="2015-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def parameter_max_lohnsteuer_klasse_5_6(
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     einkommensgrenzwerte_steuerklassen_5_6: dict[int, float],
@@ -92,8 +103,8 @@ def parameter_max_lohnsteuer_klasse_5_6(
     )
 
 
-@policy_function(start_date="2015-01-01")
-def basistarif(
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def basistarif_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -106,8 +117,8 @@ def basistarif(
     )
 
 
-@policy_function(start_date="2015-01-01")
-def splittingtarif(
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def splittingtarif_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -120,8 +131,14 @@ def splittingtarif(
     )
 
 
-@policy_function(start_date="2015-01-01")
-def tarif_klassen_5_und_6(
+@policy_function(
+    start_date="2015-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    # Body delegates to the plain `basis_für_klassen_5_6` helper, which the
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
+    verify_units=False,
+)
+def tarif_klassen_5_und_6_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     parameter_max_lohnsteuer_klasse_5_6: PiecewisePolynomialParamValue,
@@ -144,25 +161,25 @@ def tarif_klassen_5_und_6(
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def betrag_y(
     steuerklasse: int,
-    basistarif: float,
-    splittingtarif: float,
-    tarif_klassen_5_und_6: float,
+    basistarif_y: float,
+    splittingtarif_y: float,
+    tarif_klassen_5_und_6_y: float,
 ) -> float:
     """Withholding tax on earnings (Lohnsteuer)"""
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
-        out = basistarif
+        out = basistarif_y
     elif steuerklasse == 3:
-        out = splittingtarif
+        out = splittingtarif_y
     else:
-        out = tarif_klassen_5_und_6
+        out = tarif_klassen_5_und_6_y
     return max(out, 0.0)
 
 
-@policy_function(start_date="2015-01-01")
-def basistarif_mit_kinderfreibetrag(
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def basistarif_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     kinderfreibetrag_soli_y: float,
@@ -180,8 +197,8 @@ def basistarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01")
-def splittingtarif_mit_kinderfreibetrag(
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def splittingtarif_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     kinderfreibetrag_soli_y: float,
@@ -199,8 +216,14 @@ def splittingtarif_mit_kinderfreibetrag(
     )
 
 
-@policy_function(start_date="2015-01-01")
-def tarif_klassen_5_und_6_mit_kinderfreibetrag(
+@policy_function(
+    start_date="2015-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    # Body delegates to the plain `basis_für_klassen_5_6` helper, which the
+    # unit check cannot evaluate; its declared unit and edges stay checked (GEP 10).
+    verify_units=False,
+)
+def tarif_klassen_5_und_6_mit_kinderfreibetrag_y(
     einkommen_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     parameter_max_lohnsteuer_klasse_5_6: PiecewisePolynomialParamValue,
@@ -230,12 +253,12 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag(
     return xnp.minimum(xnp.maximum(min_lohnsteuer, basis), max_lohnsteuer)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def betrag_mit_kinderfreibetrag_y(
     steuerklasse: int,
-    basistarif_mit_kinderfreibetrag: float,
-    splittingtarif_mit_kinderfreibetrag: float,
-    tarif_klassen_5_und_6_mit_kinderfreibetrag: float,
+    basistarif_mit_kinderfreibetrag_y: float,
+    splittingtarif_mit_kinderfreibetrag_y: float,
+    tarif_klassen_5_und_6_mit_kinderfreibetrag_y: float,
 ) -> float:
     """Withholding tax taking child allowances into account.
 
@@ -244,15 +267,15 @@ def betrag_mit_kinderfreibetrag_y(
     of Solidaritätszuschlag on Lohnsteuer!
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
-        out = basistarif_mit_kinderfreibetrag
+        out = basistarif_mit_kinderfreibetrag_y
     elif steuerklasse == 3:
-        out = splittingtarif_mit_kinderfreibetrag
+        out = splittingtarif_mit_kinderfreibetrag_y
     else:
-        out = tarif_klassen_5_und_6_mit_kinderfreibetrag
+        out = tarif_klassen_5_und_6_mit_kinderfreibetrag_y
     return max(out, 0.0)
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def betrag_soli_y(
     betrag_mit_kinderfreibetrag_y: float,
     solidaritätszuschlag__parameter_solidaritätszuschlag: PiecewisePolynomialParamValue,
@@ -266,7 +289,7 @@ def betrag_soli_y(
     )
 
 
-@policy_function(start_date="2015-01-01")
+@policy_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def kinderfreibetrag_soli_y(
     steuerklasse: int,
     einkommensteuer__kinderfreibetrag_y: float,

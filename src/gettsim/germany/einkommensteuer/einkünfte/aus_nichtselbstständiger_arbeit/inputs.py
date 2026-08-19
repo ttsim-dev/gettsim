@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_input
+from gettsim.tt import TTSIMUnit, policy_input
 
 
-@policy_input()
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def tatsächliche_werbungskosten_y() -> float:
     """Actual yearly work-related expenses (Werbungskosten) before comparison with the
     Arbeitnehmer-Pauschbetrag.

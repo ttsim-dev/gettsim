@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from ttsim.unit_converters import m_to_y
+from ttsim.time_converters import m_to_y
 
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def mindestwartezeit_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -21,7 +21,7 @@ def mindestwartezeit_erfüllt(
     )
 
 
-@policy_function(end_date="2017-12-31")
+@policy_function(end_date="2017-12-31", unit=TTSIMUnit.DIMENSIONLESS)
 def wartezeit_15_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -35,7 +35,7 @@ def wartezeit_15_jahre_erfüllt(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def wartezeit_35_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -62,7 +62,7 @@ def wartezeit_35_jahre_erfüllt(
     )
 
 
-@policy_function(start_date="2012-01-01")
+@policy_function(start_date="2012-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def wartezeit_45_jahre_erfüllt(
     pflichtbeitragsmonate: float,
     freiwillige_beitragsmonate: float,
@@ -101,7 +101,7 @@ def wartezeit_45_jahre_erfüllt(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.MONTHS)
 def anrechnungsmonate_35_jahre_wartezeit(
     monate_in_arbeitsunfähigkeit: float,
     krankheitszeiten_ab_16_bis_24_monate: float,
@@ -125,7 +125,7 @@ def anrechnungsmonate_35_jahre_wartezeit(
     )
 
 
-@policy_function(start_date="2012-01-01")
+@policy_function(start_date="2012-01-01", unit=TTSIMUnit.MONTHS)
 def anrechnungsmonate_45_jahre_wartezeit(
     monate_in_arbeitsunfähigkeit: float,
     monate_mit_bezug_entgeltersatzleistungen_wegen_arbeitslosigkeit: float,

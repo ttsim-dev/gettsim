@@ -2,25 +2,25 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_input
+from gettsim.tt import TTSIMUnit, policy_input
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.MONTHS)
 def bewertungszeiten_monate() -> int:
     """Number of months determining amount of Grundrente."""
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.MONTHS)
 def grundrentenzeiten_monate() -> int:
     """Number of months determining eligibility for Grundrente."""
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def mean_entgeltpunkte() -> float:
     """Mean Entgeltpunkte during Bewertungszeiten."""
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def gesamteinnahmen_aus_renten_vorjahr_m() -> float:
     """Income from private and public pensions in the previous calendar year.
 
@@ -29,7 +29,7 @@ def gesamteinnahmen_aus_renten_vorjahr_m() -> float:
     """
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def bruttolohn_vorjahr_y() -> float:
     """Earnings in the previous calendar year.
 
@@ -37,7 +37,7 @@ def bruttolohn_vorjahr_y() -> float:
     """
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y() -> float:
     """Earnings from self-employment 2 years before.
 
@@ -45,7 +45,7 @@ def einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y() -> float:
     """
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y() -> float:
     """Earnings from rental income 2 years before.
 
@@ -53,7 +53,7 @@ def einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y() -> float:
     """
 
 
-@policy_input(start_date="2021-01-01")
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def einnahmen_aus_kapitalvermögen_vorvorjahr_y() -> float:
     """Earnings from capital income 2 years before.
 

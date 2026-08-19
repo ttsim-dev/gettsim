@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gettsim.tt import (
+    InputOutputUnits,
+    TTSIMUnit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -16,7 +18,11 @@ if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
-@policy_function(end_date="2004-12-31", leaf_name="altersfreibetrag_y")
+@policy_function(
+    end_date="2004-12-31",
+    leaf_name="altersfreibetrag_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
 def altersfreibetrag_y_bis_2004(
     alter: int,
     einnahmen__bruttolohn_y: float,
@@ -24,7 +30,7 @@ def altersfreibetrag_y_bis_2004(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y: float,
     altersentlastungsbetrag_altersgrenze: int,
-    maximaler_altersentlastungsbetrag: float,
+    maximaler_altersentlastungsbetrag_y: float,
     altersentlastungsquote: float,
 ) -> float:
     """Calculate tax deduction allowance for elderly until 2004."""
@@ -38,7 +44,7 @@ def altersfreibetrag_y_bis_2004(
     if alter > altersgrenze:
         out = min(
             altersentlastungsquote * (einnahmen__bruttolohn_y + weiteres_einkommen),
-            maximaler_altersentlastungsbetrag,
+            maximaler_altersentlastungsbetrag_y,
         )
     else:
         out = 0.0
@@ -46,7 +52,11 @@ def altersfreibetrag_y_bis_2004(
     return out
 
 
-@policy_function(start_date="2005-01-01", leaf_name="altersfreibetrag_y")
+@policy_function(
+    start_date="2005-01-01",
+    leaf_name="altersfreibetrag_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
 def altersfreibetrag_y_ab_2005(
     alter: int,
     geburtsjahr: int,
@@ -56,12 +66,12 @@ def altersfreibetrag_y_ab_2005(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_y: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_y: float,
     altersentlastungsbetrag_altersgrenze: int,
-    maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr: ConsecutiveIntLookupTableParamValue,
+    maximaler_altersentlastungsbetrag_y_gestaffelt_nach_geburtsjahr: ConsecutiveIntLookupTableParamValue,
     altersentlastungsquote_gestaffelt_nach_geburtsjahr: ConsecutiveIntLookupTableParamValue,
 ) -> float:
     """Calculate tax deduction allowance for elderly since 2005."""
-    maximaler_altersentlastungsbetrag = (
-        maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr.look_up(
+    maximaler_altersentlastungsbetrag_y = (
+        maximaler_altersentlastungsbetrag_y_gestaffelt_nach_geburtsjahr.look_up(
             geburtsjahr
         )
     )
@@ -80,14 +90,23 @@ def altersfreibetrag_y_ab_2005(
     )
 
     if alter > altersentlastungsbetrag_altersgrenze:
-        out = min(betrag, maximaler_altersentlastungsbetrag)
+        out = min(betrag, maximaler_altersentlastungsbetrag_y)
     else:
         out = 0.0
 
     return out
 
 
-@param_function(start_date="2005-01-01")
+@param_function(
+    start_date="2005-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.CALENDAR_YEAR,
+        output_unit=TTSIMUnit.DIMENSIONLESS,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     raw_altersentlastungsquote_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,
@@ -112,14 +131,23 @@ def altersentlastungsquote_gestaffelt_nach_geburtsjahr(
     )
 
 
-@param_function(start_date="2005-01-01")
-def maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr(
-    raw_maximaler_altersentlastungsbetrag_gestaffelt: dict[str | int, int | float],
+@param_function(
+    start_date="2005-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.CALENDAR_YEAR,
+        output_unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
+def maximaler_altersentlastungsbetrag_y_gestaffelt_nach_geburtsjahr(
+    raw_maximaler_altersentlastungsbetrag_y_gestaffelt: dict[str | int, int | float],
     altersentlastungsbetrag_altersgrenze: int,
     xnp: ModuleType,
 ) -> ConsecutiveIntLookupTableParamValue:
     """Convert the raw parameters for the age-based tax deduction allowance to a dict."""
-    spec = raw_maximaler_altersentlastungsbetrag_gestaffelt.copy()
+    spec = raw_maximaler_altersentlastungsbetrag_y_gestaffelt.copy()
     first_calendar_year_to_consider: int = int(
         spec.pop("first_calendar_year_to_consider")
     )

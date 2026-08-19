@@ -1,7 +1,7 @@
 ---
 info:
   note: |-
-    adjusted sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag
+    adjusted sozialversicherung__rente__grundrente__mean_entgeltpunkte_zuschlag_m
     since test case uses 0.8 as maximum instead of 0.8004. Beispiel Sabine M.
   precision_atol: 1
   source: |-
@@ -68,5 +68,5 @@ outputs:
           - 83.77
         betrag_m:
           - 83.77
-        mean_entgeltpunkte_zuschlag:
+        mean_entgeltpunkte_zuschlag_m:
           - 0.0058625

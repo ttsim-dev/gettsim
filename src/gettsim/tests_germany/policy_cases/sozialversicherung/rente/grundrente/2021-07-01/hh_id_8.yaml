@@ -67,5 +67,5 @@ outputs:
           - 149.72
         betrag_m:
           - 0.0
-        mean_entgeltpunkte_zuschlag:
+        mean_entgeltpunkte_zuschlag_m:
           - 0.014583333

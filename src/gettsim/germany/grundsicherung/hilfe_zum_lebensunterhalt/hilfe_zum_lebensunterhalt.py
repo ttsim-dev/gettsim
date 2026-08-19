@@ -1,11 +1,12 @@
 """Hilfe zum Lebensunterhalt (SGB XII Kap. 3)."""
 
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import TTSIMUnit, param_function, policy_function
 
 
 @policy_function(
     fail_msg_if_included="Hilfe zum Lebensunterhalt (SGB XII Kap. 3) is not implemented"
     " yet, see https://github.com/ttsim-dev/gettsim/issues/1153",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m() -> float:
     """Hilfe zum Lebensunterhalt per person (§27 ff. SGB XII).
@@ -20,7 +21,7 @@ def betrag_m() -> float:
     return 0.0  # pragma: no cover
 
 
-@param_function(start_date="2005-01-01")
+@param_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG)
 def überschusseinkommen_m_eg() -> float:
     """Excess HzL income flowing to the parent's Grundsicherung im Alter.
 
