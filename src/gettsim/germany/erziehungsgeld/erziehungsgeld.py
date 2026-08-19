@@ -335,7 +335,7 @@ def einkommensgrenze_y_fg(
             einkommensgrenze_ohne_geschwisterbonus_y_fg
             + (
                 familie__anzahl_kinder_fg
-                - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
+                - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_FG)
             )
             * erhöhung_einkommensgrenze_pro_kind_y
         )

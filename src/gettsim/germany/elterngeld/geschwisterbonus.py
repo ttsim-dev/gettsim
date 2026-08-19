@@ -52,12 +52,12 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
     return geschwister_unter_3 or geschwister_unter_6
 
 
-@policy_function(start_date="2007-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_FG)
+@policy_function(start_date="2007-01-01", unit=TTSIMUnit.COUNT.PER_FG)
 def anzahl_mehrlinge_fg(
     anzahl_mehrlinge_jüngstes_kind_fg: int,
 ) -> int:
     """Number of multiples of the youngest child."""
     out = anzahl_mehrlinge_jüngstes_kind_fg - cast_ttsim_unit(
-        1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
+        1, unit=TTSIMUnit.COUNT.PER_FG
     )
     return max(out, 0)

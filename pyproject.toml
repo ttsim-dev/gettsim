@@ -155,6 +155,11 @@ pytest-xdist = "*"
 gettsim-personas = { git = "https://github.com/ttsim-dev/gettsim-personas.git", branch = "main" }
 [tool.pixi.feature.tests.target.linux-64.tasks]
 tests = "pytest"
+unit-exception-baseline = """\
+  pytest src/gettsim/tests_germany/test_policy_cases.py -k \
+  \"gettsim_units_are_complete_and_consistent or \
+  unit_check_exceptions_match_reviewed_baseline\"\
+  """
 [tool.pixi.feature.tests.target.osx-64.tasks]
 tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.tests.target.osx-arm64.tasks]
@@ -168,7 +173,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", rev = "40a46ae20146045dc3bb0706d27a7a19442465aa" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", rev = "33658c42fb771c25cebbc4362d2af609ea889e6c" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]

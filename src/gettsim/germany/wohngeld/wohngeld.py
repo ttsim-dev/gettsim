@@ -14,7 +14,6 @@ from gettsim.tt import (
     AggType,
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
-    QuantityKind,
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
@@ -200,25 +199,22 @@ class BasisformelParamValues:
     a: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
-            input_kind=QuantityKind.COUNT,
         ),
     ]
     b: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
-            input_kind=QuantityKind.COUNT,
         ),
     ]
     c: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
-            input_kind=QuantityKind.COUNT,
         ),
     ]
 
@@ -263,9 +259,8 @@ class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParam
     zusatzbetrag_nach_haushaltsgröße: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
-            input_kind=QuantityKind.COUNT,
         ),
     ]
 

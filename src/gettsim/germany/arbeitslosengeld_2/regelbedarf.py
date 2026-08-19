@@ -9,7 +9,6 @@ from gettsim.tt import (
     UNSET_UNIT,
     ConsecutiveIntLookupTableParamValue,
     InputOutputUnits,
-    QuantityKind,
     TTSIMUnit,
     cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
@@ -319,8 +318,7 @@ def berechtigte_wohnfläche(
         maximum = (
             berechtigte_wohnfläche_miete["single"]
             + max(
-                anzahl_personen_hh
-                - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_HH),
+                anzahl_personen_hh - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_HH),
                 0,
             )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
@@ -450,9 +448,8 @@ def regelsatz_anteilsbasiert(
     start_date="2005-01-01",
     end_date="2022-12-31",
     unit=InputOutputUnits(
-        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        input_unit=TTSIMUnit.COUNT.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
-        input_kind=QuantityKind.COUNT,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
     # unit-verified. The declared axes screen the look_up call sites (GEP 10).

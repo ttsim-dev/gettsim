@@ -101,3 +101,20 @@ jobs:
       - name: Run ty (jax backend)
         run: pixi run --locked -e py314 prek run ty-jax --all-files
         shell: bash -el {0}
+  prevent-unit-check-exception-growth:
+    name: Prevent growth in unit casts and opt-outs
+    runs-on: ubuntu-latest
+    env:
+      GETTSIM_BEARTYPE_CLAW: '1'
+      TTSIM_BEARTYPE_CLAW: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: prefix-dev/setup-pixi@v0.9.6
+        with:
+          pixi-version: v0.70.1
+          cache: true
+          frozen: true
+          environments: py314
+      - name: Compare exact exceptions with the reviewed baseline
+        run: pixi run --locked -e py314 unit-exception-baseline
+        shell: bash -el {0}
