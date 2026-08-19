@@ -50,15 +50,6 @@ input into that statutory currency before the calculation and converts results i
 user's requested currency only after the statutory calculation and rounding are
 complete.
 
-## Normative language
-
-The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**,
-**SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and
-**OPTIONAL** in this document are to be interpreted as described in
-[RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and
-[RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) when, and only when, they appear in
-capital letters.
-
 ## Motivation and scope
 
 This GEP addresses four recurring sources of mistakes.
@@ -88,9 +79,9 @@ library for calculations with units, and covers:
 - unit declarations for policy functions, inputs, parameters, schedules, structured
   values, automatically generated calculations, aggregations, rounding rules, and
   optionally unit-annotated input data;
-- narrow count/indicator evidence attached to the exact scalar, mapping leaf, raw or
-  converted schedule axis, schedule output, or structured-field occurrence that it
-  authorizes;
+- explicit `COUNT` and `INDICATOR` declarations, and automatically recognized Boolean or
+  generated results, attached to the exact scalar, mapping leaf, schedule axis, schedule
+  output, or structured-field occurrence they describe;
 - checking the supported expressions inside policy functions;
 - explicit rules for conditions, `xnp.where` (an array-valued if-then-else), joins
   (merges), and reductions such as sums over arrays;
@@ -134,8 +125,8 @@ This conclusion depends on three conditions:
 1. the checker reaches all relevant cases within its documented limits; and
 1. TTSIM's checking version of each operation represents the real operation faithfully.
 
-A successful check MUST NOT be summarized as “all functions are unit-correct.”
-Documentation and continuous-integration output MUST report at least:
+A successful check must not be summarized as “all functions are unit-correct.” The
+validation report used in continuous integration must distinguish at least:
 
 - declarations that were found and resolved;
 - policy-function bodies that were checked;
@@ -218,7 +209,7 @@ results = main(
 )
 ```
 
-The data-boundary checks MUST be described exactly. They verify that:
+The data-boundary checks must be described exactly. They verify that:
 
 - an unknown unit name is an error;
 - the period in the unit agrees exactly with the GEP-1 suffix of the column name;
@@ -345,7 +336,7 @@ einkommensgrenze_m:
     value: 1000.0
 ```
 
-A monetary parameter MUST name a concrete currency. For every date on which the
+A monetary parameter must name a concrete currency. For every date on which the
 parameter entry is used, that currency must be the statutory currency of the policy
 regime.
 
@@ -361,17 +352,16 @@ regime.
 - `DIMENSIONLESS` continues to cover shares, rates without a period, identifiers,
   categories, and other physically dimensionless numbers. This GEP does not add a
   separate public unit category for every economic meaning.
-- `QuantityKind` is narrow supporting information, not another unit. It is used only to
-  distinguish a known count or yes/no indicator from another dimensionless value where a
-  group marker is declared. For a multi-axis schedule, any non-generic kind is stated
-  separately for each axis.
+- `COUNT` and `INDICATOR` explicitly mark hand-written counts and yes/no indicators.
+  They behave as dimensionless values in Pint calculations. Their extra meaning is used
+  only for the restricted group calculations in this GEP.
 - `verify_units=False` may exclude one function body from checking, but the report lists
-  it as unchecked. It MUST NOT count as a checked body.
+  it as unchecked. It must not count as a checked body.
 - `cast_ttsim_unit` remains available for a local unit assertion. The report lists each
   use separately from units inferred by TTSIM.
 - Unit checks are included by default when a policy environment is assembled. When
   explicit output targets are supplied, `include_fail_nodes=False` can omit unit-related
-  failure checks from that call. Results from such a call MUST NOT be described as
+  failure checks from that call. Results from such a call must not be described as
   unit-validated, even though some invalid declarations may still be rejected earlier.
 
 ## Detailed description
@@ -388,7 +378,7 @@ regime.
 1. **Describe the check accurately.** TTSIM checks a defined set of expressions. It does
    not prove arbitrary Python code correct.
 1. **Check every relevant argument.** If a condition, fallback value, key, period, or
-   other argument can affect the unit of a supported operation, the checker MUST inspect
+   other argument can affect the unit of a supported operation, the checker must inspect
    it.
 1. **Reject unsupported changes of level.** If an operation may change the level at
    which a result is defined and TTSIM lacks the necessary array or grouping
@@ -405,28 +395,28 @@ regime.
 
 ### Terminology
 
-| Term               | Meaning                                                                                                                                                                                                                          |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| quantity           | A value with a unit, such as income, age, a share, or a head count.                                                                                                                                                              |
-| base               | What is measured in the numerator, such as `CURRENCY`, `DIMENSIONLESS`, or `YEARS`.                                                                                                                                              |
-| period             | A denominator such as `MONTH` or `YEAR` that identifies a flow or rate.                                                                                                                                                          |
-| level              | The person or group for which a variable is defined or varies, such as person, household, or Bedarfsgemeinschaft.                                                                                                                |
-| group              | A level other than person, such as `HH` or `BG`, which may appear as a denominator.                                                                                                                                              |
-| group marker       | A denominator such as `HH` or `BG` that checks selected amounts, counts, or indicators at that level. It is not a complete representation of the level.                                                                          |
-| quantity kind      | Narrow supporting information—`GENERIC`, `COUNT`, or `INDICATOR`—used only when deciding whether a dimensionless value may carry a group marker. It belongs to one exact declared value or schedule axis and is not a Pint unit. |
-| stock              | A quantity without a period denominator, such as wealth.                                                                                                                                                                         |
-| flow               | A quantity with a period denominator, such as monthly income.                                                                                                                                                                    |
-| rate               | A multiplier. A rate that converts a stock to a flow has a period denominator.                                                                                                                                                   |
-| calendar point     | A location on a calendar, such as the year 2025.                                                                                                                                                                                 |
-| calendar ordinal   | A position within a larger calendar unit, such as month 2 or day 15.                                                                                                                                                             |
-| calendar duration  | A length of time, such as 18 years or 3 months.                                                                                                                                                                                  |
-| statutory currency | The currency in which the law states the active parameters and rounding rules.                                                                                                                                                   |
-| data currency      | The currency assumed for untagged input and requested for calculated output.                                                                                                                                                     |
-| policy environment | The functions, inputs, parameters, and automatically generated calculations that apply on one policy date.                                                                                                                       |
-| leaf               | A final value in a nested input or parameter structure, rather than a dictionary containing further entries.                                                                                                                     |
-| body check         | Running supported policy formulas with unit-carrying test values and comparing the result with the declared unit.                                                                                                                |
-| cast               | A local assertion that tells the checker to use a stated unit for one expression.                                                                                                                                                |
-| opt-out            | `verify_units=False` on one function. Its output declaration still applies, but its calculations are not checked.                                                                                                                |
+| Term                           | Meaning                                                                                                                                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| quantity                       | A value with a unit, such as income, age, a share, or a head count.                                                                                                                         |
+| base                           | What is measured in the numerator, such as `CURRENCY`, `DIMENSIONLESS`, or `YEARS`.                                                                                                         |
+| period                         | A denominator such as `MONTH` or `YEAR` that identifies a flow or rate.                                                                                                                     |
+| level                          | The person or group for which a variable is defined or varies, such as person, household, or Bedarfsgemeinschaft.                                                                           |
+| group                          | A level other than person, such as `HH` or `BG`, which may appear as a denominator.                                                                                                         |
+| group marker                   | A denominator such as `HH` or `BG` that checks selected amounts, counts, or indicators at that level. It is not a complete representation of the level.                                     |
+| count or indicator declaration | `COUNT` or `INDICATOR` on one exact declared value or schedule axis. Both are dimensionless in Pint; the explicit spelling supplies only the narrow information needed for the group rules. |
+| stock                          | A quantity without a period denominator, such as wealth.                                                                                                                                    |
+| flow                           | A quantity with a period denominator, such as monthly income.                                                                                                                               |
+| rate                           | A multiplier. A rate that converts a stock to a flow has a period denominator.                                                                                                              |
+| calendar point                 | A location on a calendar, such as the year 2025.                                                                                                                                            |
+| calendar ordinal               | A position within a larger calendar unit, such as month 2 or day 15.                                                                                                                        |
+| calendar duration              | A length of time, such as 18 years or 3 months.                                                                                                                                             |
+| statutory currency             | The currency in which the law states the active parameters and rounding rules.                                                                                                              |
+| data currency                  | The currency assumed for untagged input and requested for calculated output.                                                                                                                |
+| policy environment             | The functions, inputs, parameters, and automatically generated calculations that apply on one policy date.                                                                                  |
+| leaf                           | A final value in a nested input or parameter structure, rather than a dictionary containing further entries.                                                                                |
+| body check                     | Running supported policy formulas with unit-carrying test values and comparing the result with the declared unit.                                                                           |
+| cast                           | A local assertion that tells the checker to use a stated unit for one expression.                                                                                                           |
+| opt-out                        | `verify_units=False` on one function. Its output declaration still applies, but its calculations are not checked.                                                                           |
 
 (gep-10-valuespec)=
 
@@ -441,6 +431,7 @@ denominator, one period denominator, and one group denominator, in that order.
 base        := CURRENCY
              | EUR | DM
              | DIMENSIONLESS
+             | COUNT | INDICATOR
              | HOURS
              | SQUARE_METER | HECTARE
              | YEARS | QUARTERS | MONTHS | DAYS
@@ -464,6 +455,8 @@ unit        := base
 The fixed order gives each unit exactly one spelling. For example,
 `EUR_PER_MONTH_PER_YEAR` is invalid because it contains two period denominators.
 `EUR_PER_BG_PER_MONTH` is also invalid; the correct order is `EUR_PER_MONTH_PER_BG`.
+`COUNT` and `INDICATOR` may be used alone or with one group denominator; they cannot
+have a physical or period denominator.
 
 In Python, units are built by chaining attributes:
 
@@ -472,6 +465,8 @@ TTSIMUnit.CURRENCY.PER_MONTH.PER_BG
 TTSIMUnit.CURRENCY
 TTSIMUnit.DIMENSIONLESS
 TTSIMUnit.DIMENSIONLESS.PER_YEAR
+TTSIMUnit.COUNT.PER_HH
+TTSIMUnit.INDICATOR.PER_HH
 TTSIMUnit.HOURS.PER_WEEK
 ```
 
@@ -479,20 +474,21 @@ YAML uses the same components joined by `_PER_`.
 
 #### Common declarations
 
-| Declaration                           | Meaning                                      | Example                                                        |
-| ------------------------------------- | -------------------------------------------- | -------------------------------------------------------------- |
-| `CURRENCY_PER_MONTH`                  | currency per month                           | personal monthly income                                        |
-| `CURRENCY_PER_MONTH_PER_BG`           | currency per month for a Bedarfsgemeinschaft | monthly amount assigned to a Bedarfsgemeinschaft               |
-| `CURRENCY`                            | a currency stock                             | wealth                                                         |
-| `DIMENSIONLESS`                       | no physical unit                             | share, identifier, category, or rate without a period          |
-| `DIMENSIONLESS_PER_YEAR`              | one per year                                 | linear annual rate applied to a stock                          |
-| `DIMENSIONLESS_PER_BG`                | count or indicator for a Bedarfsgemeinschaft | number of people in the group or a group eligibility indicator |
-| `HOURS_PER_WEEK`                      | working hours per week                       | weekly working hours                                           |
-| `CURRENCY_PER_HOURS`                  | currency per working hour                    | hourly wage                                                    |
-| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | currency per square meter per month          | monthly rent ceiling per square meter                          |
-| `YEARS`                               | a duration measured in years                 | age                                                            |
-| `CALENDAR_YEAR`                       | a particular calendar year                   | birth year                                                     |
-| `CALENDAR_MONTH`                      | a month-of-year number                       | February represented as `2`                                    |
+| Declaration                           | Meaning                                      | Example                                               |
+| ------------------------------------- | -------------------------------------------- | ----------------------------------------------------- |
+| `CURRENCY_PER_MONTH`                  | currency per month                           | personal monthly income                               |
+| `CURRENCY_PER_MONTH_PER_BG`           | currency per month for a Bedarfsgemeinschaft | monthly amount assigned to a Bedarfsgemeinschaft      |
+| `CURRENCY`                            | a currency stock                             | wealth                                                |
+| `DIMENSIONLESS`                       | no physical unit                             | share, identifier, category, or rate without a period |
+| `DIMENSIONLESS_PER_YEAR`              | one per year                                 | linear annual rate applied to a stock                 |
+| `COUNT_PER_BG`                        | count for a Bedarfsgemeinschaft              | number of people in the group                         |
+| `INDICATOR_PER_BG`                    | yes/no indicator for a Bedarfsgemeinschaft   | group eligibility indicator                           |
+| `HOURS_PER_WEEK`                      | working hours per week                       | weekly working hours                                  |
+| `CURRENCY_PER_HOURS`                  | currency per working hour                    | hourly wage                                           |
+| `CURRENCY_PER_SQUARE_METER_PER_MONTH` | currency per square meter per month          | monthly rent ceiling per square meter                 |
+| `YEARS`                               | a duration measured in years                 | age                                                   |
+| `CALENDAR_YEAR`                       | a particular calendar year                   | birth year                                            |
+| `CALENDAR_MONTH`                      | a month-of-year number                       | February represented as `2`                           |
 
 `CURRENCY` is used in Python when the concrete currency depends on the policy date.
 TTSIM resolves it to the statutory currency. Parameters, rounding rules, and tagged
@@ -503,24 +499,25 @@ input use a concrete currency whenever their denomination is already known.
 #### Dimensionless values with different economic meanings
 
 Several economically different values have no physical unit. Examples are a marginal tax
-rate, a probability, a person identifier, a category code, and a number of people. All
-use `DIMENSIONLESS` unless this GEP gives a more specific rule, such as a period on a
-rate or a group marker on a known count or indicator.
+rate, a probability, a person identifier, a category code, and a number of people.
+Shares, identifiers, categories, and rates without a period use `DIMENSIONLESS`. A
+hand-written count or numeric yes/no indicator uses `COUNT` or `INDICATOR`. These two
+spellings still resolve to the dimensionless Pint unit; they only tell TTSIM which of
+the restricted group calculations below is valid.
 
-For the restricted group-marker rules, TTSIM may record one narrow `QuantityKind`:
-`GENERIC`, `COUNT`, or `INDICATOR`. This information is not another public unit and does
-not distinguish economic meanings. It answers only whether one particular dimensionless
-declaration is independently known to be a count or yes/no indicator. Like any
-declaration supplied by an author, explicit `QuantityKind` metadata can be wrong; it
-does not prove the economic meaning of the underlying data.
+A Boolean return type or Boolean parameter value already establishes a yes/no indicator.
+Generated `COUNT`, Boolean `SUM`, `ANY`, and `ALL` calculations likewise establish their
+meaning automatically. Names, qualified names, and documentation never establish that a
+number is a count or indicator. For example, an integer called `anzahl_kinder` remains a
+generic dimensionless value unless its declaration says `COUNT`.
 
 The evidence is local. A scalar function or input, one leaf of a mapping, each input
 axis of a raw parameter table or converted schedule, the schedule output, and each
 occurrence of a field in a nested structured value are separate declarations. Evidence
-for one of them MUST NOT authorize another. In particular, a count description on a
-parent object or sibling leaf does not authorize a category leaf; a count axis does not
-authorize another schedule axis; and evidence at one occurrence of a reused nested type
-does not authorize a different occurrence.
+for one of them must not authorize another. In particular, a `COUNT` declaration on a
+sibling leaf does not authorize a category leaf; a count axis does not authorize another
+schedule axis; and a declaration at one occurrence of a reused nested type does not
+authorize a different occurrence.
 
 A successful unit check therefore does not show that an identifier was never multiplied
 by a share or that two identifiers refer to the same kind of entity. Such checks would
@@ -573,23 +570,20 @@ happens to be stored after a Stata `merge` or `bysort`: repeating a household sh
 all household members does not turn the share into a household total. GEP 10 does not
 check whether such repeated values are aligned with the correct rows.
 
-Declaration validation MUST enforce the following restriction. A direct
-`DIMENSIONLESS.PER_<GROUP>` declaration is allowed only for a count or yes/no indicator
-whose meaning is established independently of its unit **for that exact declaration**.
-Generated `COUNT`, the sum of a yes/no indicator, `ANY`, and `ALL` qualify
-automatically. A Boolean return type establishes an indicator. A directly declared
-integer value may qualify as a count when its own name, documentation, or explicit
-`QuantityKind.COUNT` metadata states that interpretation unambiguously, although an
-integer return type alone does not distinguish a count from an identifier or category
-code.
+Declaration validation enforces the following restriction. A direct group-marked count
+uses `COUNT.PER_<GROUP>` in Python or `COUNT_PER_<GROUP>` in YAML. A direct group-marked
+numeric yes/no indicator uses the corresponding `INDICATOR` spelling. A Boolean return
+type or Boolean parameter value may use `DIMENSIONLESS.PER_<GROUP>` because its type or
+value supplies the same local evidence. An integer type alone does not distinguish a
+count from an identifier or category code.
 
-Evidence MUST NOT be borrowed from an enclosing object, sibling mapping leaf, another
-schedule axis, the schedule output, or another occurrence of the same nested structured
-type. General descriptions such as “number of children and rent class” do not establish
-that both components are counts. A floating-point share, probability, identifier,
-category, or rate without a period carrying a group marker is rejected. If TTSIM cannot
-establish one of the permitted cases for the exact declaration carrying the marker, it
-MUST reject the declaration rather than guess.
+The declaration must be attached to the exact scalar, mapping leaf, schedule axis,
+schedule output, or structured-field occurrence that it describes. It must not be
+borrowed from an enclosing object, sibling mapping leaf, another schedule axis, the
+schedule output, or another occurrence of the same nested structured type. A share,
+probability, identifier, category, or rate without a period cannot carry a group marker.
+If TTSIM cannot establish one of the permitted cases for the exact declaration carrying
+the marker, it must reject the declaration rather than guess.
 
 #### Restricted group calculations
 
@@ -614,9 +608,8 @@ TTSIM checks the following group calculations:
 1. Multiplication or division between quantities carrying different group markers is
    rejected.
 
-TTSIM MAY record internally that a value comes from `COUNT`, Boolean `SUM`, or another
-explicit head-count calculation. This internal information does not create another
-public unit.
+TTSIM may retain the count or indicator meaning internally while checking a formula.
+This internal information does not create another physical unit.
 
 For example, dividing a household rent total by the household head count produces a
 person-level amount:
@@ -657,7 +650,7 @@ When a comparison or logical operation produces a yes/no result, TTSIM may use t
 when checking later operations. This information comes from the operation that produced
 the result, not from its `DIMENSIONLESS` unit.
 
-The same dimensionless requirement MUST apply to:
+The same dimensionless requirement must apply to:
 
 - Python `if` statements and conditional expressions;
 - `bool(value)` calls made while branches are checked;
@@ -673,7 +666,7 @@ def invalid(wealth: float) -> float:
     return wealth if wealth else 0.0
 ```
 
-`xnp.where` MUST check its condition as well as the two possible results. Rewriting a
+`xnp.where` must check its condition as well as the two possible results. Rewriting a
 scalar conditional as an array-valued `xnp.where` must not remove this check.
 
 When two yes/no results carry the same group marker, the result keeps that marker. If
@@ -729,13 +722,11 @@ December + 2 months
 February 29 without a year and calendar
 ```
 
-The current implementation still represents framework values such as `policy_quarter`,
-`policy_month`, and `policy_day` as dimensionless numbers. This is a temporary
-implementation limitation, not a different calendar model: a successful unit check does
-not certify their ranges or their complete calendar meaning, and it does not permit the
-arithmetic ruled out above. Before full conformance, TTSIM must apply the ordinal rules
-stated here consistently. A later calendar proposal may add ranges and calendar context
-without changing the physical unit system defined here.
+TTSIM assigns `CALENDAR_YEAR`, `CALENDAR_MONTH`, and `CALENDAR_DAY` to the corresponding
+policy-date and evaluation-date framework values. These declarations check the
+arithmetic above, but they do not certify that a value lies in a valid numerical range.
+A later calendar proposal may add range checks and calendar context without changing the
+physical unit system defined here.
 
 Converting an annual flow into a monthly flow is separate from calendar arithmetic.
 `CURRENCY_PER_YEAR` to `CURRENCY_PER_MONTH` uses a reference-period ratio; it does not
@@ -813,9 +804,8 @@ the output and must agree with `output_unit`.
 
 For a raw parameter table or converted schedule with several input axes, the units are
 ordered exactly like the arguments of the lookup call. Each axis is checked separately.
-If a dimensionless group-marked axis needs count or indicator evidence, that evidence
-belongs to the same position and to no other axis. The output has its own, separate
-evidence.
+A numeric group-marked count or yes/no axis declares `COUNT` or `INDICATOR` in its own
+position. The output has its own, separate declaration.
 
 #### Parameter functions
 
@@ -837,36 +827,31 @@ def tarif() -> PiecewisePolynomialParamValue: ...
 ```
 
 A lookup table may have several input axes. Suppose the first axis is a household head
-count and the second is a rent class. Only the first may carry the household group
-marker and count evidence:
+count and the second is a rent class. Only the first carries the household group marker
+and the explicit count declaration:
 
 ```python
-from gettsim.tt import InputOutputUnits, QuantityKind, TTSIMUnit
+from gettsim.tt import InputOutputUnits, TTSIMUnit
 
 
 @param_function(
     unit=InputOutputUnits(
         input_unit=(
-            TTSIMUnit.DIMENSIONLESS.PER_HH,
+            TTSIMUnit.COUNT.PER_HH,
             TTSIMUnit.DIMENSIONLESS,
         ),
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_HH,
-        input_kind=(
-            QuantityKind.COUNT,
-            QuantityKind.GENERIC,
-        ),
     ),
     verify_units=False,
 )
 def maximum_rent_m_hh() -> ConsecutiveIntLookupTableParamValue: ...
 ```
 
-If `input_unit` is a tuple, a non-generic `input_kind` MUST be a tuple of the same
-length and is interpreted position by position. A scalar `QuantityKind.COUNT` or
-`QuantityKind.INDICATOR` MUST NOT be repeated automatically across several input axes.
-The default `QuantityKind.GENERIC` MAY stand for all-generic axes. `output_kind` applies
-only to the output and MUST NOT authorize an input axis. An arity mismatch is a
-declaration error.
+If `input_unit` is a tuple, its entries are interpreted position by position. A `COUNT`
+or `INDICATOR` spelling applies only to that entry; it is never repeated automatically
+across the other axes. `output_unit` applies only to the output and cannot authorize an
+input axis. A mismatch between the number of declared axes and the schedule arguments is
+a declaration error.
 
 The explicit opt-out applies to the code that constructs the schedule object, which is
 not a numerical policy formula. It does not remove the schedule's unit contract: for
@@ -906,7 +891,7 @@ deliberately rename or transform values. That mapping therefore remains a matter
 focused tests and policy review.
 
 Every path through a structured value is validated separately. If the same nested
-dataclass type appears under two different fields, TTSIM MUST visit both occurrences and
+dataclass type appears under two different fields, TTSIM must visit both occurrences and
 must not stop after validating the type once. Evidence from an outer field name or
 description belongs only to that occurrence. Evidence written directly in the nested
 field's type annotation applies to every occurrence of that field because it is part of
@@ -972,7 +957,7 @@ The same applies to `MIN` and `MAX`: the minimum or maximum is a property of the
 group. The current unit system records the quantity, period, and group level. It does
 not otherwise distinguish a total, mean, minimum, and maximum once produced.
 
-A hand-written aggregation declares its result unit. The declaration MUST equal the unit
+A hand-written aggregation declares its result unit. The declaration must equal the unit
 derived from the source, aggregation type, and target level. If the standard rule does
 not express the intended interpretation, the aggregation must use `verify_units=False`.
 A later policy function may use a local cast for the smallest affected expression. The
@@ -989,8 +974,8 @@ identifiers belong to the same domain is outside this GEP.
 A supported `join` receives limited checks, analogous to those available for a Stata
 `merge`:
 
-- the foreign and primary keys MUST have no physical unit or period;
-- the fallback used for a missing key MUST have a unit compatible with the target,
+- the foreign and primary keys must have no physical unit or period;
+- the fallback used for a missing key must have a unit compatible with the target,
   except for the documented dimensionless sentinel case; and
 - the joined result has the unit of the target variable.
 
@@ -1010,7 +995,7 @@ of the result represents. Unlike a declared aggregation, a raw reduction does no
 the checker which observations or array dimensions were combined. This is similar to
 seeing a Stata total without knowing the `by()` variables.
 
-The checker therefore MUST reject these reductions inside a checked policy body instead
+The checker therefore must reject these reductions inside a checked policy body instead
 rather than copying the unit of its input. A function that needs such a reduction must:
 
 - express it as a generated or hand-written aggregation with a declared target level; or
@@ -1126,7 +1111,7 @@ UNIT_SYSTEM = UnitSystem(
 Exactly one currency is statutory on every supported policy date. All monetary
 calculations inside that policy regime use this currency.
 
-For every checked regime, environment assembly MUST verify that:
+For every checked regime, environment assembly must verify that:
 
 - each active monetary parameter uses the statutory currency;
 - each active monetary rounding rule uses the statutory currency;
@@ -1254,8 +1239,8 @@ expressions in turn. Each examined return value is compared with the function's
 declaration.
 
 TTSIM knows unit rules for a defined set of operations. For each supported operation,
-its checking version MUST inspect every argument that can affect the resulting unit.
-Scalar and array-valued versions of the same calculation MUST follow equivalent rules.
+its checking version must inspect every argument that can affect the resulting unit.
+Scalar and array-valued versions of the same calculation must follow equivalent rules.
 
 The checker rejects at least:
 
@@ -1274,7 +1259,7 @@ The checker rejects at least:
 - an operation for which TTSIM has no faithful unit rule, unless the function explicitly
   opts out.
 
-The checker MUST NOT assume that the old unit survives an operation that may change a
+The checker must not assume that the old unit survives an operation that may change a
 physical dimension, period, or group interpretation. In particular, it may not ignore an
 array dimension, condition, merge key, fallback, or another argument relevant to units.
 
@@ -1293,7 +1278,7 @@ statutory currency may change while the active functions remain the same. Full-h
 validation therefore divides the supported date range into intervals within which the
 unit environment is constant.
 
-A new interval MUST begin at:
+A new interval must begin at:
 
 - every function start date;
 - the day after every inclusive function end date;
@@ -1303,11 +1288,11 @@ A new interval MUST begin at:
 
 Rounding specifications belong to dated function versions in the present design, so a
 rounding change is already captured by a function boundary. If a future design allows a
-rounding rule to change independently, its date MUST also start a new interval.
+rounding rule to change independently, its date must also start a new interval.
 
 `ttsim.testing_utils.get_policy_date_partition` limits these boundaries to the dates
 supported by the policy package and returns one representative date per interval, by
-default the first. The policy package's automated tests MUST assemble and check the
+default the first. The policy package's automated tests must assemble and check the
 environment at every returned date. A parameter-only or currency-only change must start
 a new interval even when no policy function changes.
 
@@ -1315,7 +1300,7 @@ a new interval even when no policy function changes.
 
 #### Validation report
 
-The validation report for a policy package MUST separate the coverage of declarations
+The validation report for a policy package must separate the coverage of declarations
 from the coverage of function bodies. Field names may differ across implementations, but
 the report contains at least:
 
@@ -1334,9 +1319,15 @@ A count is not enough for an exception. The report also names every function or
 calculation that uses `cast_ttsim_unit` or `verify_units=False`, and every other
 function whose body was not checked.
 
+A policy package that accepts casts or body opt-outs keeps the exact reviewed names in
+continuous integration. The test fails if the set changes: an addition, removal, or
+replacement all require an explicit update to the reviewed baseline. Unsupported bodies
+are required to remain empty. This prevents exception growth while still making a
+deliberate cleanup visible in review.
+
 A project may correctly report that every required declaration is present even when some
 bodies are unchecked. It may report that every supported, non-exempt body passed the
-unit checker. It MUST NOT call an opted-out body verified, and “100% annotated” MUST NOT
+unit checker. It must not call an opted-out body verified, and “100% annotated” must not
 be used as another name for “100% of bodies checked.”
 
 For example, an automated test run might report:
@@ -1356,11 +1347,11 @@ Date regimes:             37
 
 #### Error messages
 
-A unit error SHOULD identify the policy calculation, date or date interval, source
+A unit error should identify the policy calculation, date or date interval, source
 expression, expected unit, inferred unit, and failing operation. An error in a
-conditional or `xnp.where` SHOULD identify the condition or the two incompatible
-results. A join error SHOULD say whether a key or fallback caused it. An unsupported
-reduction SHOULD name the operation and explain that the checker lacks information about
+conditional or `xnp.where` should identify the condition or the two incompatible
+results. A join error should say whether a key or fallback caused it. An unsupported
+reduction should name the operation and explain that the checker lacks information about
 the observations or array dimensions being combined.
 
 An error message should not present a cast as the standard repair. It may mention a
@@ -1373,12 +1364,13 @@ latter removes body coverage.
 
 **Different dimensionless meanings are checked only where a group marker is declared.**
 Shares, identifiers, category codes, counts, yes/no values, rates without a period, and
-other unitless scalars all use `DIMENSIONLESS`. Outside the group-marker cases above,
-TTSIM cannot reject calculations that confuse these meanings. `QuantityKind` provides
-only the narrow, local evidence needed for a dimensionless group marker; it is not a
-general semantic type and does not make other arithmetic between dimensionless values
-safe. For conditions, TTSIM only requires that the value be dimensionless; meeting that
-requirement does not establish the meaning of the remaining dimensionless value.
+other unitless scalars are all physically dimensionless. Outside the group-marker cases
+above, TTSIM cannot reject calculations that confuse these meanings. `COUNT` and
+`INDICATOR` provide only the narrow, local evidence needed for a dimensionless group
+marker; they are not general semantic types and do not make other arithmetic between
+dimensionless values safe. For conditions, TTSIM only requires that the value be
+dimensionless; meeting that requirement does not establish the meaning of the remaining
+dimensionless value.
 
 **Equality does not compare units.** This permits sentinel comparisons such as
 `p_id_empfänger == -1`. It also means that the checker does not catch an equality
@@ -1463,13 +1455,14 @@ successfully, but it must not claim that every body was checked.
 An implementation conforms to this GEP only if all of the following hold:
 
 1. every object that requires a unit has a valid declaration;
-1. a group marker on a dimensionless value is limited to a known count or indicator;
+1. a group marker on a dimensionless value is limited to a known count or indicator,
+   with direct numeric declarations using `COUNT` or `INDICATOR`;
 1. the count/indicator evidence belongs to the exact scalar, mapping leaf, raw or
    converted schedule input axis, schedule output, or structured-field occurrence
    carrying the group marker; it is not borrowed from a sibling, parent description,
    another axis, or another occurrence of a reused nested type;
-1. tuple-valued schedule inputs use positionally matched kind evidence of the same
-   arity, and a non-generic scalar kind is not broadcast across several axes;
+1. tuple-valued schedule inputs declare each axis positionally, and `COUNT` or
+   `INDICATOR` on one axis is not broadcast across the others;
 1. unsupported products, ratios, and calculations across group levels are rejected;
 1. `MEAN`, `MIN`, and `MAX` produce a result at the target group level;
 1. scalar conditions and `xnp.where` reject values with physical units or periods;
@@ -1489,7 +1482,7 @@ An implementation conforms to this GEP only if all of the following hold:
    whole-body opt-outs, and every other unchecked body separately.
 
 Passing the project's existing tests is not enough to demonstrate these requirements.
-The implementation tests SHOULD deliberately introduce a mistake for every rule.
+The implementation tests should deliberately introduce a mistake for every rule.
 Examples include returning a stock where a flow is declared, using money as a condition,
 passing an invalid condition to `xnp.where`, using a fallback with the wrong unit in a
 join, marking a share as a group total, letting a count axis authorize a rent-class
@@ -1510,40 +1503,14 @@ parameter or currency changes.
   dimensional arithmetic.
 - [GETTSIM #1205](https://github.com/ttsim-dev/gettsim/issues/1205) tracks legally
   sensitive reference-period conventions.
-- [GETTSIM #1219](https://github.com/ttsim-dev/gettsim/issues/1219) records the review
-  that led to the narrower guarantee and additional safeguards in this revision.
 
 ## Implementation
 
-The implementation is split between TTSIM infrastructure and the unit declarations in
-each policy system.
-
-- TTSIM [#138](https://github.com/ttsim-dev/ttsim/pull/138) contains the unit
-  definitions, vocabulary, declarations, generated aggregation rules, body checker, and
-  input boundary.
-- TTSIM [#141](https://github.com/ttsim-dev/ttsim/pull/141) adds units to the fictional
-  METTSIM policy system.
-- TTSIM [#150](https://github.com/ttsim-dev/ttsim/pull/150) strengthens the checks for
-  conditions, `xnp.where`, joins, and reductions; corrects the METTSIM stock/flow
-  declaration; and expands the policy-date intervals that are checked.
-- GETTSIM [#1193](https://github.com/ttsim-dev/gettsim/pull/1193) contains GEP 10.
-- GETTSIM [#1212](https://github.com/ttsim-dev/gettsim/pull/1212) adds the declarations
-  to GETTSIM.
-
-Before this GEP is described as implemented, the code and tests must also cover the
-requirements added by this revision:
-
-- reject group-level shares and rates while retaining the documented group counts and
-  indicators;
-- attach count/indicator evidence to the exact declaration it authorizes, including each
-  schedule axis and each occurrence of a nested structured field, without broadcasting a
-  non-generic kind or reusing evidence from siblings and repeated types;
-- restrict general products and ratios between group-marked quantities;
-- keep `MEAN` at the target group level rather than treating it as person-level;
-- report casts, whole-body opt-outs, and every other body that could not be checked
-  separately from checked bodies; and
-- implement the calendar-year and ordinal meanings stated here consistently in the
-  declarations, checks, and public documentation.
+TTSIM provides the unit vocabulary, declaration parser, generated aggregation rules,
+body checker, validation report, and input boundary. Each policy package supplies its
+unit system and declarations and runs full-history validation in continuous integration.
+GETTSIM supplies these declarations for the German policy system; METTSIM provides a
+small fictional policy system used for implementation tests and examples.
 
 (gep-10-alternatives)=
 
@@ -1580,13 +1547,12 @@ require such information is rejected instead of being assigned an unchanged unit
 
 ### An explicit person-level unit
 
-Rejected for this proposal. Earlier designs wrote every person amount as
-`... / [person]` and every group head count as `[person] / [group]`. This made the
-person level explicit but added a component to almost every declaration and allowed two
-ways to write the same person-level quantity.
+Rejected for this proposal. Writing every person amount as `... / [person]` and every
+group head count as `[person] / [group]` would add a component to almost every
+declaration and allow two ways to write the same person-level quantity.
 
-The adopted design leaves person quantities without a group denominator and writes a
-group head count as `1 / [group]`. After dividing a group total by its head count, TTSIM
+Person quantities therefore have no group denominator, and a group head count is
+represented as `1 / [group]`. After dividing a group total by its head count, TTSIM
 knows that the result no longer carries the group marker. It does not separately record
 that the result is stored at the person level.
 
@@ -1611,14 +1577,6 @@ Rejected. Because each regime uses one statutory currency, concrete labels may a
 redundant. They nevertheless document the denomination in the file and catch a mismatch
 with the regime. A Euro parameter used in a Deutsche-Mark regime should produce an
 immediate error.
-
-## Discussion
-
-- [GETTSIM #1193: GEP 10 — Units and Dimensionality](https://github.com/ttsim-dev/gettsim/pull/1193)
-- [GETTSIM #1219: review of GEP 10 and its prototype implementation](https://github.com/ttsim-dev/gettsim/issues/1219)
-- [TTSIM #138: units and dimensionality infrastructure](https://github.com/ttsim-dev/ttsim/pull/138)
-- [TTSIM #141: METTSIM annotations](https://github.com/ttsim-dev/ttsim/pull/141)
-- [TTSIM #150: targeted GEP-10 guards and date regimes](https://github.com/ttsim-dev/ttsim/pull/150)
 
 ## References and footnotes
 
