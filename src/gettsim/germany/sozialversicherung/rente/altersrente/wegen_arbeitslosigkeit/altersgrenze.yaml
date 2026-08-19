@@ -13,8 +13,7 @@ altersgrenze:
       Earliest possible age to receive pension for unemployed without deductions.
       § 237 SGB VI
       https://www.gesetze-im-internet.de/sgb_6/__237.html
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 60.0
@@ -36,8 +35,8 @@ altersgrenze_gestaffelt:
       Earliest possible age to receive pension for unemployed without deductions.
       § 237 SGB VI
       https://www.gesetze-im-internet.de/sgb_6/__237.html
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
@@ -650,8 +649,8 @@ altersgrenze_gestaffelt_vertrauensschutz:
     en: >-
       Trust protection rules protect certain groups of people from the increase of
       the age threshold.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1996-07-29:
     reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.
@@ -723,8 +722,7 @@ altersgrenze_vorzeitig:
       § 237 SGB VI
       https://www.gesetze-im-internet.de/sgb_6/__237.html
       https://www.buzer.de/Anlage_19_SGB_VI.htm
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1980-01-01:
     value: 60.0
@@ -758,8 +756,8 @@ altersgrenze_vorzeitig_gestaffelt:
       § 237 SGB VI
       https://www.gesetze-im-internet.de/sgb_6/__237.html
       https://www.buzer.de/Anlage_19_SGB_VI.htm
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
     reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
@@ -1071,8 +1069,7 @@ altersgrenze_vorzeitig_mit_vertrauensschutz:
     en: >-
       Trust protection rules protect certain groups of people from the increase of
       the age threshold.
-  unit: null
-  reference_period: null
+  unit: YEARS
   type: scalar
   1996-07-29:
     reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.

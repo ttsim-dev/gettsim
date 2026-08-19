@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    TTSIMUnit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -17,16 +18,18 @@ from gettsim.tt import (
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2025-12-31",
-    rounding_spec=RoundingSpec(base=1, direction="down"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
     leaf_name="einkommen_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def einkommen_y_bis_2025(
     einnahmen__bruttolohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
-    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
+    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
 ) -> float:
     """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
@@ -42,7 +45,7 @@ def einkommen_y_bis_2025(
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
-            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis
+            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y
         )
     else:
         alleinerziehendenfreibetrag = 0.0
@@ -59,15 +62,16 @@ def einkommen_y_bis_2025(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(base=1, direction="down"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
     leaf_name="einkommen_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def einkommen_y_ab_2026(
     einnahmen__bruttolohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
-    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis: float,
+    einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
 ) -> float:
@@ -90,7 +94,7 @@ def einkommen_y_ab_2026(
 
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
-            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis
+            einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y
         )
     else:
         alleinerziehendenfreibetrag = 0.0
@@ -106,8 +110,10 @@ def einkommen_y_ab_2026(
     )
 
 
-@policy_function(start_date="2010-01-01", end_date="2025-12-31")
-def vorsorge_krankenversicherungsbeiträge_option_a(
+@policy_function(
+    start_date="2010-01-01", end_date="2025-12-31", unit=TTSIMUnit.CURRENCY.PER_YEAR
+)
+def vorsorge_krankenversicherungsbeiträge_option_a_y(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
     steuerklasse: int,
     vorsorgepauschale_mindestanteil: float,
@@ -142,7 +148,8 @@ def vorsorge_krankenversicherungsbeiträge_option_a(
 @policy_function(
     start_date="2015-01-01",
     end_date="2018-12-31",
-    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
+    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -169,7 +176,8 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
 @policy_function(
     start_date="2019-01-01",
     end_date="2025-12-31",
-    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b",
+    leaf_name="vorsorge_krankenversicherungsbeiträge_option_b_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -193,7 +201,7 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     )
 
 
-@policy_function(start_date="2026-01-01")
+@policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
     sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
@@ -216,8 +224,8 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
         )
 
 
-@policy_function(start_date="2026-01-01")
-def vorsorge_arbeitslosenversicherungsbeiträge(
+@policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def vorsorge_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
 ) -> float:
@@ -230,7 +238,9 @@ def vorsorge_arbeitslosenversicherungsbeiträge(
 
 
 @policy_function(
-    end_date="2022-12-31", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+    end_date="2022-12-31",
+    leaf_name="vorsorge_rentenversicherungsbeiträge_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
@@ -251,7 +261,9 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
 
 
 @policy_function(
-    start_date="2023-01-01", leaf_name="vorsorge_rentenversicherungsbeiträge_y"
+    start_date="2023-01-01",
+    leaf_name="vorsorge_rentenversicherungsbeiträge_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
@@ -271,7 +283,9 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     )
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
+)
 def einführungsfaktor_rentenversicherungsaufwendungen(
     parameter_einführungsfaktor_rentenversicherungsaufwendungen: PiecewisePolynomialParamValue,
     policy_year: int,
@@ -296,7 +310,8 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(base=1, direction="up"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
@@ -324,13 +339,14 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(base=1, direction="up"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     vorsorge_rentenversicherungsbeiträge_y: float,
     vorsorge_gesetzliche_krankenversicherungsbeiträge_y: float,
-    vorsorge_arbeitslosenversicherungsbeiträge: float,
-    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge: float,
+    vorsorge_arbeitslosenversicherungsbeiträge_y: float,
+    vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y: float,
 ) -> float:
     """Vorsorgepauschale considering unemployment insurance contributions.
 
@@ -340,9 +356,9 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe e EStG.
     """
     summe_av_kv_pv = min(
-        vorsorge_arbeitslosenversicherungsbeiträge
+        vorsorge_arbeitslosenversicherungsbeiträge_y
         + vorsorge_gesetzliche_krankenversicherungsbeiträge_y,
-        vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge,
+        vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y,
     )
     return vorsorge_rentenversicherungsbeiträge_y + summe_av_kv_pv
 
@@ -352,6 +368,7 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     end_date="2009-12-31",
     leaf_name="vorsorgepauschale_y",
     fail_msg_if_included="Vorsorgepauschale not implemented before 2010.",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
     pass
@@ -361,12 +378,13 @@ def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
     start_date="2010-01-01",
     end_date="2025-12-31",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(base=1, direction="up"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2010_bis_2025(
     vorsorge_rentenversicherungsbeiträge_y: float,
-    vorsorge_krankenversicherungsbeiträge_option_a: float,
-    vorsorge_krankenversicherungsbeiträge_option_b: float,
+    vorsorge_krankenversicherungsbeiträge_option_a_y: float,
+    vorsorge_krankenversicherungsbeiträge_option_b_y: float,
 ) -> float:
     """Vorsorgepauschale for Lohnsteuer valid since 2010.
 
@@ -374,8 +392,8 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
     Vorsorgeaufwendungen used when calculating Einkommensteuer.
     """
     kranken = max(
-        vorsorge_krankenversicherungsbeiträge_option_a,
-        vorsorge_krankenversicherungsbeiträge_option_b,
+        vorsorge_krankenversicherungsbeiträge_option_a_y,
+        vorsorge_krankenversicherungsbeiträge_option_b_y,
     )
     return vorsorge_rentenversicherungsbeiträge_y + kranken
 
@@ -383,7 +401,8 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
 @policy_function(
     start_date="2026-01-01",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(base=1, direction="up"),
+    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2026(
     vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y: float,

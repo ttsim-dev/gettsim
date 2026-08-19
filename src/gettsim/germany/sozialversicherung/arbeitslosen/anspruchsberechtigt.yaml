@@ -8,8 +8,7 @@ stundengrenze:
       §138 (3) SGB III, früher auch §102 (2) AFG. Grenze, ab der keine Arbeitslosigkeit
       mehr unterstellt wird.
     en: null
-  unit: Hours
-  reference_period: Week
+  unit: HOURS_PER_WEEK
   type: scalar
   1969-07-01:
     value: 20
@@ -35,8 +34,8 @@ anspruchsdauer_nach_alter:
       § 147 Abs. 2 SGB III
       The length of ALG 1 eligibility depends on age and on how many months a
       person was subject to compulsory insurance
-  unit: Months
-  reference_period: null
+  input_unit: YEARS
+  output_unit: MONTHS
   type: sparse_to_consecutive_int_lookup_table
   1997-03-24:
     0: 12
@@ -58,8 +57,8 @@ anspruchsdauer_nach_versicherungspflichtigen_monaten:
       § 147 Abs. 2 SGB III
       The length of ALG 1 eligibility depends on age and on how many months a
       person was subject to compulsory insurance
-  unit: Months
-  reference_period: null
+  input_unit: MONTHS
+  output_unit: MONTHS
   type: sparse_to_consecutive_int_lookup_table
   1997-03-24:
     0: 0
@@ -83,8 +82,7 @@ mindestversicherungsmonate:
     en: >-
       § 142 Abs. 2 SGB III
       Minimum number of months of insurance in the last 30 months before ALG 1 receipt
-  unit: Months
-  reference_period: null
+  unit: MONTHS
   type: scalar
   1997-03-24:
     value: 12

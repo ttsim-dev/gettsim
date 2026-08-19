@@ -9,38 +9,34 @@ parameter_kinderfreibetrag:
       Betreuungs-, Erziehungs- oder Ausbildungsbedarf. Wird verdoppelt für gemeinsam
       veranlagte Paare. §32 (6) EStG.
     en: null
-  unit: Euros
-  reference_period: Year
   type: dict
   1983-01-01:
-    sächliches_existenzminimum: 110
+    unit: DM_PER_YEAR
+    sächliches_existenzminimum: 216
     reference: Art. 1 G. v. 23.12.1982 BGBl. I S. 1857.
-    note: Der Betrag laut Gesetz ist 216 DM.
   1986-01-01:
-    sächliches_existenzminimum: 635
+    sächliches_existenzminimum: 1242
     reference: Art. 1 G. v. 26.06.1985 BGBl. I S. 1153.
-    note: Der Betrag im Gesetz lautet 1242 DM.
   1990-01-01:
-    sächliches_existenzminimum: 773
+    sächliches_existenzminimum: 1512
     reference: Artikel 1 G. v. 25.07.1988 BGBl. I S. 1093.
-    note: Der Betrag im Gesetz lautet 1512 DM.
   1992-01-01:
-    sächliches_existenzminimum: 1049
+    sächliches_existenzminimum: 2052
     reference: Art. 1 G. v. 25.02.1992 BGBl. I S. 297.
-    note: Wert laut Gesetz 2052 DM.
   1996-01-01:
-    sächliches_existenzminimum: 1601
+    sächliches_existenzminimum: 3132
     reference: Art. 1. G. v. 11.10.1995 BGBl. I S. 1250.
-    note: Laut Gesetz 261 DM pro Monat.
+    note: Das Gesetz nennt 261 Deutsche Mark pro Monat.
   1997-01-01:
-    sächliches_existenzminimum: 1767
-    note: Laut Gesetz 288 DM pro Monat (ab 2000 3456 DM pro Jahr)
+    sächliches_existenzminimum: 3456
+    reference: Art. 1. G. v. 11.10.1995 BGBl. I S. 1250.
+    note: Das Gesetz nennt 288 Deutsche Mark pro Monat.
   2000-01-01:
-    sächliches_existenzminimum: 1767
-    betreuung_erziehung_ausbildung: 774
+    sächliches_existenzminimum: 3456
+    betreuung_erziehung_ausbildung: 1512
     reference: Art. 1 G. v. 28.12.1999 BGBl. I. S. 2552.
-    note: Wert für betreuung_erziehung_ausbildung laut Gesetz 1512 DM.
   2002-01-01:
+    unit: EUR_PER_YEAR
     sächliches_existenzminimum: 1824
     betreuung_erziehung_ausbildung: 1080
     reference: Art. 1 G. v. 16.08.2001 BGBl. I S. 2074

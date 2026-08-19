@@ -17,9 +17,8 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       calculation.
       rises between 2005 and 2025 by 4 percentage points annually. In 2023, it was
       prematurely set to 100 percent.
-  unit: Share
-  reference_period: null
-  # type: require_converter
+  input_unit: CALENDAR_YEAR
+  output_unit: DIMENSIONLESS
   type: piecewise_linear
   2005-01-01:
     intervals:
@@ -47,8 +46,7 @@ vorsorgepauschale_mindestanteil:
       39b (2) Nr.3 EStG
       Minimum share of minimum contributions to health care and care insurance deducted
       from Mindestvorsorgepauschale
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2010-01-01:
     value: 0.12
@@ -69,14 +67,13 @@ maximal_absetzbare_krankenversicherungskosten:
       39b (2) Nr.3 EStG. Depends on Steuerklasse.
       Maximum amount considered for Mindestvorsorgepauschale of contributions to health
       care and care insurance that can be deducted from withholding tax
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: dict
   2010-01-01:
     steuerklasse_3: 3000
     steuerklasse_nicht_3: 1900
     reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
-vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge:
+vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y:
   name:
     de: >-
       39b (2) S.2 Nr. 5 EStG. Grenze zur Berücksichtigung von Vorsorgeaufwendungen bei
@@ -93,8 +90,7 @@ vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeitr
       Expenses for unemployment insurance contributions are only considered if the sum
       of the partial amounts of expenses for health care, care insurance, pension
       insurance and unemployment insurance contributions does not exceed the limit.
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2026-01-01:
     value: 1900

@@ -13,12 +13,11 @@ altersentlastungsbetrag_altersgrenze:
       § 24a Art. 3 EStG
       The old-age relief amount is granted to a taxpayer who, before the start of the
       calendar year in which he received his income, had reached the age of 64.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   1984-01-01:
     value: 64
-maximaler_altersentlastungsbetrag:
+maximaler_altersentlastungsbetrag_y:
   name:
     de: Höchstbetrag des Altersentlastungsbetrags
     en: Maximum Amount of Tax Credit for older employees.
@@ -29,26 +28,28 @@ maximaler_altersentlastungsbetrag:
     en: >-
       If someone receives employment income above the age of 64, a share up to this
       amount is deducted.
-  unit: Euros
-  reference_period: Year
-  type: require_converter
+  type: scalar
   1984-01-01:
-    value: 1534
+    unit: DM_PER_YEAR
+    value: 3000
+    reference: § 24a EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1989-01-01:
-    value: 1902
+    value: 3720
+    reference: Art. 1 Nr. 23 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 1908
   2005-01-01:
-    note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_gestaffelt`
-raw_maximaler_altersentlastungsbetrag_gestaffelt:
+    note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_y_gestaffelt`
+raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
   name:
     de: Höchstbetrag des Altersentlastungsbetrags
     en: Maximum Amount of Tax Credit for older employees.
   description:
     de: 24a EStG S. 5. Tabelle legt die Werte bis 2040 fest.
     en: null
-  unit: Euros
-  reference_period: Year
+  input_unit: CALENDAR_YEAR
+  output_unit: EUR_PER_YEAR
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
@@ -161,9 +162,8 @@ altersentlastungsquote:
     en: >-
       If someone receives employment income above the age of 64, this share of income is
       deducted. Since 2005, this share additionally depends on the birth year.
-  unit: Share
-  reference_period: null
-  type: require_converter
+  unit: DIMENSIONLESS
+  type: scalar
   1984-01-01:
     value: 0.4
   2005-01-01:
@@ -181,8 +181,8 @@ raw_altersentlastungsquote_gestaffelt:
     en: >-
       If someone receives employment income above the age of 64, this share of income is
       deducted. Since 2005, this share additionally depends on the birth year.
-  unit: Share
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: DIMENSIONLESS
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.

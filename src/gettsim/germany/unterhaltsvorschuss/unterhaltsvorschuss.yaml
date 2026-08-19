@@ -10,8 +10,19 @@ raw_mindestunterhalt:
     en: >-
       Minimum Child Alimony depending on age of child (0 - 5 years, 6 - 11 years, 12 -
       17 years).
-  unit: Euros
-  reference_period: Month
+  unit:
+    kleinkind:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
+    schulkind:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
+    jugendliche:
+      satz: EUR_PER_MONTH
+      min_alter: YEARS
+      max_alter: YEARS
   type: require_converter
   2016-01-01:
     kleinkind:
@@ -117,7 +128,7 @@ raw_mindestunterhalt:
     jugendliche:
       satz: 653
     reference: Artikel 1 V. v. 21.11.2024 BGBl. 2024 I Nr. 359
-mindesteinkommen:
+mindesteinkommen_m:
   name:
     de: >-
       Monatliches Mindesteinkommen, um Unterhaltsvorschuss für Jugendliche (Kinder von
@@ -128,8 +139,7 @@ mindesteinkommen:
   description:
     de: § 1 (1a) Nr. 2 Unterhaltsvorschussgesetz
     en: null
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2017-07-01:
     value: 600
@@ -147,8 +157,7 @@ raw_berechtigte_altersgruppen:
       § 1 Abs. 1, 1a UhVorschG
       Children under the age of 12 living with a single parent are entitled to alimony
       payments.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: require_converter
   2008-01-01:
     kleinkind:
@@ -173,8 +182,7 @@ faktor_jüngste_altersgruppe:
       § 1612a Abs. 1 BGB
       Factor by which the sächliche Existenzminimum is multiplied to calculate
       the advance child alimony for children of the youngest age group.
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2009-01-01:
     value: 0.87
@@ -203,8 +211,7 @@ unterhaltsvorschuss_nach_anwendungsvorschrift:
       apply, which can be based on unchanged values for Kindergeld or child child
       allowance can be assumed. Here, the corresponding values for the advance child
       alimony (i.e. after deduction of the assumed Kindergeld) are used.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: dict
   2015-01-01:
     kleinkind: 133

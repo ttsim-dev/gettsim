@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, policy_function
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def beiträge_versicherter_m(
     pflege__beitrag__betrag_versicherter_m: float,
     kranken__beitrag__betrag_versicherter_m: float,
@@ -21,7 +21,7 @@ def beiträge_versicherter_m(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def beiträge_arbeitgeber_m(
     pflege__beitrag__betrag_arbeitgeber_m: float,
     kranken__beitrag__betrag_arbeitgeber_m: float,
@@ -37,7 +37,7 @@ def beiträge_arbeitgeber_m(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def beiträge_gesamt_m(
     beiträge_versicherter_m: float,
     beiträge_arbeitgeber_m: float,

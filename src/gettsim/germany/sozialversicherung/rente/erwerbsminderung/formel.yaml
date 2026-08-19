@@ -10,8 +10,7 @@ zurechnungszeitgrenze:
     en: >-
       § 59 SGB VI (after July 2014)
       Supplementary periods are granted up to this age limit.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2014-07-01:
     value: 62
@@ -29,8 +28,8 @@ zurechnungszeitgrenze_gestaffelt:
     en: >-
       § 253a (Anlage 23 until 2014)
       Supplementary periods are granted up to this age limit.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_MONTH
+  output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   2000-12-23:
     reference: Anlage 23, G. v. 20.12.2000 BGBl. I S. 1827
@@ -261,8 +260,7 @@ min_zugangsfaktor:
       § 77 SGB VI, Rentenreformgesetz 1999 (RRG 1999)
       http://www.portal-sozialpolitik.de/index.php?page=rentenversicherung
     en: Deductions for early retirement are capped at 10.8%.
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2000-01-01:
     value: 0.892
@@ -282,8 +280,7 @@ parameter_rentenartfaktor:
       determines the security target of the pension type in relation to an old-age
       pension.
       https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/1051-rentenartfaktor.html
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: dict
   2001-01-01:
     teilweise: 0.5
@@ -301,8 +298,7 @@ altersgrenze_grundbewertung:
       SGB VI § 72
       As part of the "Grundbewertung" the "belegungsfähige Gesamtzeitraum" will be
       calculated, which is the period from the age of 17 until the start of the pension.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2001-01-01:
     value: 16

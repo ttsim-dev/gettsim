@@ -12,8 +12,7 @@ wartezeitgrenze_langjährig_versicherte:
       § 264d SGB VI
       Number of waiting years in accordance with § 51 Absatz 3a SGB VI, which must be
       proven for a public disability pension at 63 without deductions.
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2001-01-01:
     value: 35

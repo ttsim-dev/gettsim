@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import per_y_to_per_m
+from ttsim.time_converters import per_y_to_per_m
 
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, param_function, policy_function
 
 if TYPE_CHECKING:
     from gettsim.germany.param_types import (
@@ -15,11 +15,16 @@ if TYPE_CHECKING:
     from gettsim.tt import ConsecutiveIntLookupTableParamValue
 
 
-@param_function(start_date="2021-01-01", end_date="2022-12-31", leaf_name="satz")
+@param_function(
+    start_date="2021-01-01",
+    end_date="2022-12-31",
+    leaf_name="satz_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def satz_mit_gestaffeltem_kindergeld(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
     kindergeld__satz_nach_anzahl_kinder: ConsecutiveIntLookupTableParamValue,
-    satz_vorjahr_ohne_kindersofortzuschlag: float,
+    satz_vorjahr_ohne_kindersofortzuschlag_m: float,
 ) -> float:
     """Prior to 2021, the maximum amount of the Kinderzuschlag was specified directly in
     the laws and directives.
@@ -36,16 +41,18 @@ def satz_mit_gestaffeltem_kindergeld(
             + existenzminimum.heizkosten.kind
         )
         - kindergeld__satz_nach_anzahl_kinder.look_up(1),
-        satz_vorjahr_ohne_kindersofortzuschlag,
+        satz_vorjahr_ohne_kindersofortzuschlag_m,
     )
 
 
-@param_function(leaf_name="satz", start_date="2024-01-01")
+@param_function(
+    leaf_name="satz_m", start_date="2024-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
     existenzminimum: ExistenzminimumNachAufwendungenMitBildungUndTeilhabe,
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
     bürgergeld__kindersofortzuschlag: float,
-    satz_vorjahr_ohne_kindersofortzuschlag: float,
+    satz_vorjahr_ohne_kindersofortzuschlag_m: float,
 ) -> float:
     """Kinderzuschlag pro Kind.
 
@@ -57,17 +64,17 @@ def satz_mit_einheitlichem_kindergeld_und_kindersofortzuschlag(
             + existenzminimum.kosten_der_unterkunft.kind
             + existenzminimum.heizkosten.kind
         )
-        - kindergeld__satz
+        - kindergeld__satz_m
     )
 
     satz_ohne_kindersofortzuschlag = max(
         current_formula,
-        satz_vorjahr_ohne_kindersofortzuschlag,
+        satz_vorjahr_ohne_kindersofortzuschlag_m,
     )
     return satz_ohne_kindersofortzuschlag + bürgergeld__kindersofortzuschlag
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def betrag_m_bg(
     anspruchshöhe_m_bg: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -79,7 +86,7 @@ def betrag_m_bg(
         return 0.0
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anspruchshöhe_m(
     anspruchshöhe_m_bg: float,
     familie__anzahl_personen_bg: int,
@@ -88,7 +95,7 @@ def anspruchshöhe_m(
     return anspruchshöhe_m_bg / familie__anzahl_personen_bg
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG)
 def anspruchshöhe_m_bg(
     basisbetrag_m_bg: float,
     vermögen_bg: float,
@@ -96,8 +103,13 @@ def anspruchshöhe_m_bg(
 ) -> float:
     """Kinderzuschlag claim at the Bedarfsgemeinschaft level."""
     if vermögen_bg > vermögensfreibetrag_bg:
+        # Excess wealth reduces the monthly claim (a stock netted against a flow).
         out = max(
-            basisbetrag_m_bg - (vermögen_bg - vermögensfreibetrag_bg),
+            basisbetrag_m_bg
+            - cast_ttsim_unit(
+                vermögen_bg - vermögensfreibetrag_bg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
+            ),
             0.0,
         )
     else:
@@ -109,6 +121,7 @@ def anspruchshöhe_m_bg(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="vermögensfreibetrag_bg",
+    unit=TTSIMUnit.CURRENCY.PER_BG,
 )
 def vermögensfreibetrag_bg_bis_2022(
     arbeitslosengeld_2__vermögensfreibetrag_bg: float,
@@ -117,7 +130,11 @@ def vermögensfreibetrag_bg_bis_2022(
     return arbeitslosengeld_2__vermögensfreibetrag_bg
 
 
-@policy_function(start_date="2023-01-01", leaf_name="vermögensfreibetrag_bg")
+@policy_function(
+    start_date="2023-01-01",
+    leaf_name="vermögensfreibetrag_bg",
+    unit=TTSIMUnit.CURRENCY.PER_BG,
+)
 def vermögensfreibetrag_bg_ab_2023(
     bürgergeld__vermögensfreibetrag_in_karenzzeit_bg: float,
 ) -> float:
@@ -129,6 +146,7 @@ def vermögensfreibetrag_bg_ab_2023(
     start_date="2005-01-01",
     end_date="2008-09-30",
     leaf_name="basisbetrag_m_bg",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def basisbetrag_m_bg_check_maximales_netteinkommen(
     nettoeinkommen_eltern_m_bg: float,
@@ -147,9 +165,9 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     (familie__anzahl_erwachsene_bg >= 1).
 
     """
-    if (
-        nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg
-    ) and familie__anzahl_erwachsene_bg >= 1:
+    if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and (
+        familie__anzahl_erwachsene_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
+    ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -161,6 +179,7 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     start_date="2008-10-01",
     end_date="2019-06-30",
     leaf_name="basisbetrag_m_bg",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
 )
 def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     bruttoeinkommen_eltern_m_bg: float,
@@ -185,7 +204,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
         and (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg)
-        and familie__anzahl_erwachsene_bg >= 1
+        and (
+            familie__anzahl_erwachsene_bg
+            >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
+        )
     ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
@@ -194,7 +216,11 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     return out
 
 
-@policy_function(start_date="2019-07-01", leaf_name="basisbetrag_m_bg")
+@policy_function(
+    start_date="2019-07-01",
+    leaf_name="basisbetrag_m_bg",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_BG,
+)
 def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     bruttoeinkommen_eltern_m_bg: float,
     mindestbruttoeinkommen_m_bg: float,
@@ -212,9 +238,9 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     (familie__anzahl_erwachsene_bg >= 1).
 
     """
-    if (
-        bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg
-    ) and familie__anzahl_erwachsene_bg >= 1:
+    if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and (
+        familie__anzahl_erwachsene_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
+    ):
         out = max(basisbetrag_kind_m_bg - anzurechnendes_einkommen_eltern_m_bg, 0.0)
     else:
         out = 0.0
@@ -223,7 +249,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
 
 
 @policy_function(
-    leaf_name="basisbetrag_kind_m", start_date="2005-01-01", end_date="2022-12-31"
+    leaf_name="basisbetrag_kind_m",
+    start_date="2005-01-01",
+    end_date="2022-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_kind_m_bis_2022(
     kindergeld__ist_leistungsbegründendes_kind: bool,
@@ -231,44 +260,46 @@ def basisbetrag_kind_m_bis_2022(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
     arbeitslosengeld_2__anrechnungsfreies_einkommen_m: float,
-    satz: float,
+    satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz
-        - entzugsrate_kindeseinkommen
-        * (
+    if kindergeld__ist_leistungsbegründendes_kind:
+        out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - arbeitslosengeld_2__anrechnungsfreies_einkommen_m
         )
-    )
+    else:
+        out = 0.0
 
     return max(out, 0.0)
 
 
-@policy_function(leaf_name="basisbetrag_kind_m", start_date="2023-01-01")
+@policy_function(
+    leaf_name="basisbetrag_kind_m",
+    start_date="2023-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def basisbetrag_kind_m_ab_2023(
     kindergeld__ist_leistungsbegründendes_kind: bool,
     einnahmen__bruttolohn_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
     bürgergeld__anrechnungsfreies_einkommen_m: float,
-    satz: float,
+    satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
     """Kinderzuschlag after income for each possibly eligible child is considered."""
-    out = kindergeld__ist_leistungsbegründendes_kind * (
-        satz
-        - entzugsrate_kindeseinkommen
-        * (
+    if kindergeld__ist_leistungsbegründendes_kind:
+        out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m
             + unterhalt__tatsächlich_erhaltener_betrag_m
             + unterhaltsvorschuss__betrag_m
             - bürgergeld__anrechnungsfreies_einkommen_m
         )
-    )
+    else:
+        out = 0.0
 
     return max(out, 0.0)

@@ -7,6 +7,9 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     ConsecutiveIntLookupTableParamValue,
+    InputOutputUnits,
+    TTSIMUnit,
+    cast_ttsim_unit,
     get_consecutive_int_lookup_table_param_value,
     param_function,
     policy_function,
@@ -19,7 +22,7 @@ if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def regelbedarf_m(
     regelsatz_m: float,
     kosten_der_unterkunft_m: float,
@@ -31,13 +34,13 @@ def regelbedarf_m(
     return regelsatz_m + kosten_der_unterkunft_m
 
 
-@policy_function(start_date="2023-01-01")
-def mehrbedarf_alleinerziehend_m(
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+def mehrbedarfsanteil_alleinerziehend(
     familie__alleinerziehend: bool,
     familie__anzahl_kinder_bis_17_fg: int,
     familie__anzahl_kinder_bis_6_fg: int,
     familie__anzahl_kinder_bis_15_fg: int,
-    parameter_mehrbedarf_alleinerziehend: dict[str, float],
+    parameter_mehrbedarfsanteil_alleinerziehend: dict[str, float],
 ) -> float:
     """Mehrbedarf (additional need) for single parents as a share of the Regelsatz.
 
@@ -47,25 +50,25 @@ def mehrbedarf_alleinerziehend_m(
 
     Reference: §21 SGB II
     """
-    basis_mehrbedarf = (
-        parameter_mehrbedarf_alleinerziehend["basis_je_kind_bis_17"]
-        * familie__anzahl_kinder_bis_17_fg
-    )
-
+    basis_mehrbedarf = parameter_mehrbedarfsanteil_alleinerziehend[
+        "basis_je_kind_bis_17"
+    ] * cast_ttsim_unit(familie__anzahl_kinder_bis_17_fg, unit=TTSIMUnit.DIMENSIONLESS)
     if (
         familie__anzahl_kinder_bis_6_fg == 1
         or familie__anzahl_kinder_bis_15_fg == 2  # noqa: PLR2004
         or familie__anzahl_kinder_bis_15_fg == 3  # noqa: PLR2004
     ):
         mehrbedarf = max(
-            parameter_mehrbedarf_alleinerziehend["kind_bis_6_oder_2_3_kinder_bis_15"],
+            parameter_mehrbedarfsanteil_alleinerziehend[
+                "kind_bis_6_oder_2_3_kinder_bis_15"
+            ],
             basis_mehrbedarf,
         )
     else:
         mehrbedarf = basis_mehrbedarf
 
     if familie__alleinerziehend:
-        return min(mehrbedarf, parameter_mehrbedarf_alleinerziehend["max"])
+        return min(mehrbedarf, parameter_mehrbedarfsanteil_alleinerziehend["max"])
     else:
         return 0.0
 
@@ -73,6 +76,7 @@ def mehrbedarf_alleinerziehend_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kindersatz_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     alter: int,
@@ -110,27 +114,29 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="erwachsenensatz_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def erwachsenensatz_m_ab_2011(
-    mehrbedarf_alleinerziehend_m: float,
+    mehrbedarfsanteil_alleinerziehend: float,
     kindersatz_m: float,
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
     """Basic monthly subsistence / SGB II needs for adults without dwelling."""
-    # BG has 2 adults
     if p_id_einstandspartner >= 0:
+        # BG has 2 adults
         out = grundsicherung__regelbedarfsstufen.rbs_2
-    # This observation is not a child, so BG has 1 adult
     elif kindersatz_m == 0.0:
+        # This observation is not a child, so BG has 1 adult
         out = grundsicherung__regelbedarfsstufen.rbs_1
     else:
-        out = 0.0
+        # This observation is a child, so it carries no adult Regelsatz.
+        out = cast_ttsim_unit(0.0, unit=TTSIMUnit.CURRENCY.PER_MONTH)
 
-    return out * (1 + mehrbedarf_alleinerziehend_m)
+    return out * (1 + mehrbedarfsanteil_alleinerziehend)
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
@@ -142,6 +148,7 @@ def regelsatz_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kosten_der_unterkunft_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def kosten_der_unterkunft_m_ab_2023(
     bruttokaltmiete_m: float,
@@ -164,19 +171,21 @@ def kosten_der_unterkunft_m_ab_2023(
     return out
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(
+    start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_SQUARE_METER.PER_MONTH
+)
 def anerkannte_warmmiete_je_qm_m(
     bruttokaltmiete_m: float,
     heizkosten_m: float,
     wohnfläche: float,
-    mietobergrenze_pro_qm: float,
+    mietobergrenze_pro_qm_m: float,
 ) -> float:
     """Rent per square meter."""
     out = (bruttokaltmiete_m + heizkosten_m) / wohnfläche
-    return min(out, mietobergrenze_pro_qm)
+    return min(out, mietobergrenze_pro_qm_m)
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
 def berechtigte_wohnfläche(
     wohnfläche: float,
     wohnen__bewohnt_eigentum_hh: bool,
@@ -190,13 +199,16 @@ def berechtigte_wohnfläche(
     else:
         maximum = (
             berechtigte_wohnfläche_miete["single"]
-            + max(anzahl_personen_hh - 1, 0)
+            + max(
+                anzahl_personen_hh - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_HH),
+                0,
+            )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
         )
     return min(wohnfläche, maximum / anzahl_personen_hh)
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def bruttokaltmiete_m(
     wohnen__bruttokaltmiete_m_hh: float,
     anzahl_personen_hh: int,
@@ -210,7 +222,7 @@ def bruttokaltmiete_m(
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def heizkosten_m(
     wohnen__heizkosten_m_hh: float,
     anzahl_personen_hh: int,
@@ -224,7 +236,7 @@ def heizkosten_m(
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.SQUARE_METER)
 def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
@@ -260,7 +272,16 @@ class RegelsatzAnteilsbasiert:
     kind: RegelsatzAnteilKindNachAlter
 
 
-@param_function(start_date="2023-01-01")
+@param_function(
+    start_date="2023-01-01",
+    unit=InputOutputUnits(
+        input_unit=TTSIMUnit.COUNT.PER_HH,
+        output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
+    ),
+    # Mandatory for schedule builders: the body builds a table, so it cannot be
+    # unit-verified. The declared axes screen the look_up call sites (GEP 10).
+    verify_units=False,
+)
 def berechtigte_wohnfläche_eigentum(
     parameter_berechtigte_wohnfläche_eigentum: RawParamValue,
     wohngeld__max_anzahl_personen: dict[str, int],

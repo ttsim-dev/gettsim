@@ -100,7 +100,7 @@ income:
 
 - **SGB II → SGB XII**: If the SGB II BG members' total distributable income exceeds
   their total Bedarf, the surplus enters the SGB XII Einsatzgemeinschaft (BSG B 14 AS
-  89/20 R). In GETTSIM: `bürgergeld__überschusseinkommen_m`.
+  89/20 R). In GETTSIM: `bürgergeld__überschusseinkommen_m_bg`.
 - **SGB XII → SGB II**: Conversely, if the Einsatzgemeinschaft's income exceeds its
   Bedarf, the surplus enters the SGB II BG. In GETTSIM:
   `grundsicherung__im_alter__überschusseinkommen_m_eg` and

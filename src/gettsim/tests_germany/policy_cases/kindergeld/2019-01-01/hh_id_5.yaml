@@ -11,7 +11,7 @@ inputs:
     arbeitsstunden_w:
       - 0.0
     einkommensteuer:
-      gesamteinkommen_y:
+      gesamteinkommen_y_sn:
         - 0.0
     einnahmen:
       bruttolohn_m:

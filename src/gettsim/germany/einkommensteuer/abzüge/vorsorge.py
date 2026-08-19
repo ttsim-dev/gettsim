@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING, Any
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    TTSIMUnit,
+    cast_ttsim_unit,
     param_function,
     piecewise_polynomial,
     policy_function,
@@ -15,9 +17,16 @@ if TYPE_CHECKING:
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2004-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_bis_2004(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -30,7 +39,13 @@ def vorsorgeaufwendungen_y_sn_bis_2004(
     start_date="2005-01-01",
     end_date="2009-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -51,7 +66,13 @@ def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
     start_date="2010-01-01",
     end_date="2019-12-31",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
@@ -71,7 +92,13 @@ def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
 @policy_function(
     start_date="2020-01-01",
     leaf_name="vorsorgeaufwendungen_y_sn",
-    rounding_spec=RoundingSpec(base=1, direction="up", reference="§ 10 Abs. 3 EStG"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="§ 10 Abs. 3 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_ab_2020(
     vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn: float,
@@ -84,7 +111,16 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
     return vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn
 
 
-@policy_function(end_date="2019-12-31")
+@policy_function(
+    end_date="2019-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+    # All arguments are Steuernummer totals, while the caps of this regime are written
+    # per taxpayer. The body switches between the two views several times — dividing by
+    # and multiplying with the head count — and compares per-taxpayer amounts with
+    # Steuernummer totals, so no single unit describes its intermediate terms. The
+    # declaration above and the units of all arguments are still checked.
+    verify_units=False,
+)
 def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     vorwegabzug_lohnsteuer_y_sn: float,
     sozialversicherung__kranken__beitrag__betrag_versicherter_y_sn: float,
@@ -127,6 +163,7 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
 @policy_function(
     start_date="2005-01-01",
     end_date="2009-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_globale_kappung_y_sn(
     altersvorsorge_y_sn: float,
@@ -156,6 +193,7 @@ def vorsorgeaufwendungen_globale_kappung_y_sn(
 
 @policy_function(
     start_date="2010-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     altersvorsorge_y_sn: float,
@@ -195,7 +233,9 @@ def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
     return sonst_vors + altersvorsorge_y_sn
 
 
-@param_function(start_date="2005-01-01", end_date="2022-12-31")
+@param_function(
+    start_date="2005-01-01", end_date="2022-12-31", unit=TTSIMUnit.DIMENSIONLESS
+)
 def rate_abzugsfähige_altersvorsorgeaufwendungen(
     parameter_einführungsfaktor_altersvorsorgeaufwendungen: PiecewisePolynomialParamValue,
     policy_year: int,
@@ -222,6 +262,7 @@ def rate_abzugsfähige_altersvorsorgeaufwendungen(
     start_date="2005-01-01",
     end_date="2022-12-31",
     leaf_name="altersvorsorge_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def altersvorsorge_y_sn_phase_in(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
@@ -248,7 +289,11 @@ def altersvorsorge_y_sn_phase_in(
     return min(out, max_value)
 
 
-@policy_function(start_date="2023-01-01", leaf_name="altersvorsorge_y_sn")
+@policy_function(
+    start_date="2023-01-01",
+    leaf_name="altersvorsorge_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
 def altersvorsorge_y_sn_volle_anrechnung(
     sozialversicherung__rente__beitrag__betrag_versicherter_y_sn: float,
     beitrag_private_rentenversicherung_y_sn: float,
@@ -265,26 +310,34 @@ def altersvorsorge_y_sn_volle_anrechnung(
     return min(out, max_value)
 
 
-@policy_function(end_date="2019-12-31")
+@policy_function(
+    end_date="2019-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
 def vorwegabzug_lohnsteuer_y_sn(
     einnahmen__bruttolohn_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
     """Vorwegabzug for Vorsorgeaufwendungen via Lohnsteuer."""
-    out = (1 / familie__anzahl_personen_sn) * (
+    out = (
         familie__anzahl_personen_sn
         * parameter_altersvorsorgeaufwendungen_regime_bis_2004["vorwegabzug"]
         - parameter_altersvorsorgeaufwendungen_regime_bis_2004[
             "kürzungsanteil_abhängig_beschäftigte"
         ]
         * einnahmen__bruttolohn_y_sn
-    )
+    ) / familie__anzahl_personen_sn
 
-    return max(out, 0.0)
+    # The parenthesised term is a Steuernummer total; dividing it by the head count
+    # makes it a per-taxpayer amount. It still enters
+    # `vorsorgeaufwendungen_regime_bis_2004_y_sn` as a Steuernummer amount, so tag it as
+    # one. The level is lost in this one spot only, so a cast is enough here and the
+    # rest of the body stays checked.
+    return cast_ttsim_unit(max(out, 0.0), unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 
 
-@param_function(start_date="2015-01-01")
+@param_function(start_date="2015-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def maximalbetrag_altersvorsorgeaufwendungen_y(
     sozialversicherung__rente__beitrag__beitragssatz_knappschaftliche_rentenversicherung: float,
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y: float,

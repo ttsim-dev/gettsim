@@ -10,8 +10,7 @@ beitragssatz:
     en: >-
       Uniform contribution rate for statutory health insurance over all insurance
       providers.
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   add_jahresanfang: true
   1984-01-01:
@@ -70,8 +69,7 @@ parameter_beitragssatz:
       average contribution rate, 1992 to 2008 allgemein - general statutory
       contribution rate, since 2009 sonderbeitrag - paid by employees, Jul 2005 to
       2014 ermäßigt - reduced rate zusatz - average top-up contribution rate
-  unit: Share
-  reference_period: null
+  unit: DIMENSIONLESS
   type: dict
   add_jahresanfang: true
   2005-07-01:

@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from gettsim.tt import param_function, policy_function
+from gettsim.tt import TTSIMUnit, param_function, policy_function
 
 
-@param_function(end_date="2005-06-30")
+@param_function(end_date="2005-06-30", unit=TTSIMUnit.DIMENSIONLESS)
 def beitragssatz_arbeitnehmer(beitragssatz: float) -> float:
     """Employee's health insurance contribution rate until June 2005.
 
@@ -14,7 +14,7 @@ def beitragssatz_arbeitnehmer(beitragssatz: float) -> float:
     return beitragssatz / 2
 
 
-@param_function(end_date="2005-12-31")
+@param_function(end_date="2005-12-31", unit=TTSIMUnit.DIMENSIONLESS)
 def beitragssatz_arbeitnehmer_midijob(beitragssatz_jahresanfang: float) -> float:
     """Employee's health insurance contribution rate for the beginning of the year until
     June 2005.
@@ -28,6 +28,7 @@ def beitragssatz_arbeitnehmer_midijob(beitragssatz_jahresanfang: float) -> float
     start_date="2005-07-01",
     end_date="2008-12-31",
     leaf_name="beitragssatz_arbeitnehmer",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_07_2005_bis_2008(
     zusatzbeitragssatz: float,
@@ -46,6 +47,7 @@ def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_07_2005_bis_2008(
     start_date="2006-01-01",
     end_date="2008-12-31",
     leaf_name="beitragssatz_arbeitnehmer_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_midijob_voller_zusatzbeitrag_ab_2006_bis_2008(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -64,6 +66,7 @@ def beitragssatz_arbeitnehmer_midijob_voller_zusatzbeitrag_ab_2006_bis_2008(
     start_date="2009-01-01",
     end_date="2018-12-31",
     leaf_name="beitragssatz_arbeitnehmer",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_2009_bis_2018(
     zusatzbeitragssatz: float,
@@ -82,6 +85,7 @@ def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_2009_bis_2018(
     start_date="2009-01-01",
     end_date="2014-12-31",
     leaf_name="beitragssatz_arbeitnehmer_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_midijob_voller_sonderbeitragssatz(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -102,6 +106,7 @@ def beitragssatz_arbeitnehmer_midijob_voller_sonderbeitragssatz(
     start_date="2015-01-01",
     end_date="2018-12-31",
     leaf_name="beitragssatz_arbeitnehmer_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_midijob_voller_zusatzbeitragssatz(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -121,6 +126,7 @@ def beitragssatz_arbeitnehmer_midijob_voller_zusatzbeitragssatz(
 @policy_function(
     start_date="2019-01-01",
     leaf_name="beitragssatz_arbeitnehmer",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_paritätischer_zusatzbeitrag(
     zusatzbeitragssatz: float,
@@ -136,6 +142,7 @@ def beitragssatz_arbeitnehmer_paritätischer_zusatzbeitrag(
 @param_function(
     start_date="2019-01-01",
     leaf_name="beitragssatz_arbeitnehmer_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitnehmer_midijob_paritätischer_zusatzbeitrag(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -153,6 +160,7 @@ def beitragssatz_arbeitnehmer_midijob_paritätischer_zusatzbeitrag(
 @param_function(
     end_date="2005-06-30",
     leaf_name="beitragssatz_arbeitgeber",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_bis_06_2005(beitragssatz: float) -> float:
     """Employer's health insurance contribution rate."""
@@ -162,6 +170,7 @@ def beitragssatz_arbeitgeber_bis_06_2005(beitragssatz: float) -> float:
 @param_function(
     end_date="2005-12-31",
     leaf_name="beitragssatz_arbeitgeber_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_midijob_bis_06_2005(
     beitragssatz_jahresanfang: float,
@@ -174,6 +183,7 @@ def beitragssatz_arbeitgeber_midijob_bis_06_2005(
     start_date="2005-07-01",
     end_date="2008-12-31",
     leaf_name="beitragssatz_arbeitgeber",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_ohne_zusatzbeitrag_ab_07_2005_bis_2008(
     parameter_beitragssatz: dict[str, float],
@@ -186,6 +196,7 @@ def beitragssatz_arbeitgeber_ohne_zusatzbeitrag_ab_07_2005_bis_2008(
     start_date="2006-01-01",
     end_date="2008-12-31",
     leaf_name="beitragssatz_arbeitgeber_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_midijob_ohne_zusatzbeitrag_ab_06_2006_bis_2008(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -198,6 +209,7 @@ def beitragssatz_arbeitgeber_midijob_ohne_zusatzbeitrag_ab_06_2006_bis_2008(
     start_date="2009-01-01",
     end_date="2018-12-31",
     leaf_name="beitragssatz_arbeitgeber",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_ohne_zusatzbeitrag_ab_09_2009_bis_2018(
     parameter_beitragssatz: dict[str, float],
@@ -210,6 +222,7 @@ def beitragssatz_arbeitgeber_ohne_zusatzbeitrag_ab_09_2009_bis_2018(
     start_date="2009-01-01",
     end_date="2018-12-31",
     leaf_name="beitragssatz_arbeitgeber_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_midijob_ohne_zusatzbeitrag_ab_09_2009_bis_2018(
     parameter_beitragssatz_jahresanfang: dict[str, float],
@@ -221,6 +234,7 @@ def beitragssatz_arbeitgeber_midijob_ohne_zusatzbeitrag_ab_09_2009_bis_2018(
 @policy_function(
     start_date="2019-01-01",
     leaf_name="beitragssatz_arbeitgeber",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_paritätischer_zusatzbeitrag(
     beitragssatz_arbeitnehmer: float,
@@ -236,6 +250,7 @@ def beitragssatz_arbeitgeber_paritätischer_zusatzbeitrag(
 @param_function(
     start_date="2019-01-01",
     leaf_name="beitragssatz_arbeitgeber_midijob",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def beitragssatz_arbeitgeber_midijob_paritätischer_zusatzbeitrag(
     beitragssatz_arbeitnehmer_midijob: float,
@@ -252,6 +267,7 @@ def beitragssatz_arbeitgeber_midijob_paritätischer_zusatzbeitrag(
     start_date="2005-07-01",
     end_date="2014-12-31",
     leaf_name="zusatzbeitragssatz",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def zusatzbeitragssatz_genannt_sonderbeitrag(
     parameter_beitragssatz: dict[str, float],
@@ -263,7 +279,7 @@ def zusatzbeitragssatz_genannt_sonderbeitrag(
     return parameter_beitragssatz["sonderbeitrag"]
 
 
-@param_function(start_date="2015-01-01")
+@param_function(start_date="2015-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def zusatzbeitragssatz(
     parameter_beitragssatz: dict[str, float],
 ) -> float:

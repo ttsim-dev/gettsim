@@ -2,23 +2,30 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
-
-
-@policy_function(end_date="1999-03-31", leaf_name="betrag_versicherter_m")
-def betrag_versicherter_m_bis_03_1999(
-    betrag_versicherter_regulärer_beitragssatz: float,
-) -> float:
-    """Public pension insurance contributions paid by the insured person."""
-    return betrag_versicherter_regulärer_beitragssatz
+from gettsim.tt import TTSIMUnit, policy_function
 
 
 @policy_function(
-    start_date="1999-04-01", end_date="2003-03-31", leaf_name="betrag_versicherter_m"
+    end_date="1999-03-31",
+    leaf_name="betrag_versicherter_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def betrag_versicherter_m_bis_03_1999(
+    betrag_versicherter_regulärer_beitragssatz_m: float,
+) -> float:
+    """Public pension insurance contributions paid by the insured person."""
+    return betrag_versicherter_regulärer_beitragssatz_m
+
+
+@policy_function(
+    start_date="1999-04-01",
+    end_date="2003-03-31",
+    leaf_name="betrag_versicherter_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public pension insurance contributions paid by the insured person.
 
@@ -28,16 +35,20 @@ def betrag_versicherter_m_ohne_midijob(
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
 
-@policy_function(start_date="2003-04-01", leaf_name="betrag_versicherter_m")
+@policy_function(
+    start_date="2003-04-01",
+    leaf_name="betrag_versicherter_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def betrag_versicherter_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_in_gleitzone_arbeitnehmer_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     sozialversicherung__in_gleitzone: bool,
 ) -> float:
     """Public pension insurance contributions paid by the insured person.
@@ -52,13 +63,13 @@ def betrag_versicherter_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_in_gleitzone_arbeitnehmer_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
 
-@policy_function()
-def betrag_versicherter_regulärer_beitragssatz(
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz: float,
 ) -> float:
@@ -69,25 +80,27 @@ def betrag_versicherter_regulärer_beitragssatz(
 @policy_function(
     end_date="1999-03-31",
     leaf_name="betrag_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_ohne_arbeitgeberpauschale(
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Employer's public pension insurance contribution.
 
     Before Minijobs were subject to pension contributions.
     """
-    return betrag_versicherter_regulärer_beitragssatz
+    return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
     start_date="1999-04-01",
     end_date="2003-03-31",
     leaf_name="betrag_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     einnahmen__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
 ) -> float:
@@ -99,16 +112,20 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
 
-@policy_function(start_date="2003-04-01", leaf_name="betrag_arbeitgeber_m")
+@policy_function(
+    start_date="2003-04-01",
+    leaf_name="betrag_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def betrag_arbeitgeber_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_in_gleitzone_arbeitgeber_m: float,
-    betrag_versicherter_regulärer_beitragssatz: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
     sozialversicherung__in_gleitzone: bool,
     einnahmen__bruttolohn_m: float,
     minijob_arbeitgeberpauschale: float,
@@ -122,12 +139,12 @@ def betrag_arbeitgeber_m_mit_midijob(
     elif sozialversicherung__in_gleitzone:
         out = betrag_in_gleitzone_arbeitgeber_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz
+        out = betrag_versicherter_regulärer_beitragssatz_m
 
     return out
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_m(
     einnahmen__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
@@ -143,6 +160,7 @@ def einkommen_m(
     start_date="1990-01-01",
     end_date="2024-12-31",
     leaf_name="beitragsbemessungsgrenze_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def beitragsbemessungsgrenze_m_nach_wohnort(
     wohnort_ost_hh: bool,
@@ -156,7 +174,7 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
     )
 
 
-@policy_function(start_date="2003-04-01")
+@policy_function(start_date="2003-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_in_gleitzone_gesamt_m(
     sozialversicherung__midijob_bemessungsentgelt_m: float,
     beitragssatz: float,
@@ -171,6 +189,7 @@ def betrag_in_gleitzone_gesamt_m(
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_in_gleitzone_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_in_gleitzone_arbeitgeber_m_mit_festem_beitragssatz(
     einnahmen__bruttolohn_m: float,
@@ -180,7 +199,11 @@ def betrag_in_gleitzone_arbeitgeber_m_mit_festem_beitragssatz(
     return einnahmen__bruttolohn_m * beitragssatz / 2
 
 
-@policy_function(start_date="2022-10-01", leaf_name="betrag_in_gleitzone_arbeitgeber_m")
+@policy_function(
+    start_date="2022-10-01",
+    leaf_name="betrag_in_gleitzone_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def betrag_in_gleitzone_arbeitgeber_m_als_differenz_von_gesamt_und_arbeitnehmerbeitrag(
     betrag_in_gleitzone_gesamt_m: float,
     betrag_in_gleitzone_arbeitnehmer_m: float,
@@ -193,6 +216,7 @@ def betrag_in_gleitzone_arbeitgeber_m_als_differenz_von_gesamt_und_arbeitnehmerb
     start_date="2003-04-01",
     end_date="2022-09-30",
     leaf_name="betrag_in_gleitzone_arbeitnehmer_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_in_gleitzone_arbeitnehmer_m_als_differenz_von_gesamt_und_arbeitgeberbeitrag(
     betrag_in_gleitzone_arbeitgeber_m: float,
@@ -205,6 +229,7 @@ def betrag_in_gleitzone_arbeitnehmer_m_als_differenz_von_gesamt_und_arbeitgeberb
 @policy_function(
     start_date="2022-10-01",
     leaf_name="betrag_in_gleitzone_arbeitnehmer_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_in_gleitzone_arbeitnehmer_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,

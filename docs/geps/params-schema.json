@@ -1,6 +1,25 @@
 {
-  "$comment": "If you change this file, always change it in both locations:  1. ttsim/src/ttsim/params-schema.json  2. gettsim/docs/geps/params-schema.json",
+  "$comment": "Keep in sync with ttsim/src/ttsim/params-schema.json, except unitToken: this GETTSIM copy pins the grouping levels to Germany's, ttsim leaves them open.",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "unitToken": {
+      "$comment": "Bases stay open (currencies register per package); the grouping level, if present, must be one of Germany's.",
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*(?:_(?!PER_)[A-Z0-9]+)*(?:_PER_(?:SQUARE_METER|HOURS))?(?:_PER_(?:YEAR|QUARTER|MONTH|WEEK|DAY))?(?:_PER_(?:HH|EHE|FG|BG|EG|WTHH|SN|PERSON))?$"
+    },
+    "unitDeclaration": {
+      "oneOf": [
+        { "$ref": "#/definitions/unitToken" },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/unitDeclaration" }
+        }
+      ]
+    },
+    "axisUnitDeclaration": {
+      "$ref": "#/definitions/unitToken"
+    }
+  },
   "type": "object",
   "patternProperties": {
     "^[a-zA-Z0-9äöüßÄÖÜ_]+$": {
@@ -25,19 +44,13 @@
           "additionalProperties": false
         },
         "unit": {
-          "type": ["string", "null"],
-          "enum": [
-            "Euros",
-            "DM",
-            "Share",
-            "Percent",
-            "Years",
-            "Months",
-            "Hours",
-            "Square Meters",
-            "Euros / Square Meter",
-            null
-          ]
+          "$ref": "#/definitions/unitDeclaration"
+        },
+        "input_unit": {
+          "$ref": "#/definitions/axisUnitDeclaration"
+        },
+        "output_unit": {
+          "$ref": "#/definitions/axisUnitDeclaration"
         },
         "type": {
           "type": "string",
@@ -55,10 +68,6 @@
             "require_converter"
           ]
         },
-        "reference_period": {
-          "type": ["string", "null"],
-          "enum": ["Year", "Quarter", "Month", "Week", "Day", "Hour", null]
-        },
         "add_jahresanfang": {"type": "boolean"}
       },
       "patternProperties": {
@@ -71,9 +80,30 @@
                 { "type": "string", "enum": ["inf", "-inf"] }
               ]
             },
+            "intervals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interval": { "type": "string" }
+                },
+                "required": ["interval"],
+                "additionalProperties": true
+              }
+            },
+            "unit": {
+              "$ref": "#/definitions/unitDeclaration"
+            },
+            "input_unit": {
+              "$ref": "#/definitions/axisUnitDeclaration"
+            },
+            "output_unit": {
+              "$ref": "#/definitions/axisUnitDeclaration"
+            },
             "reference": { "type": "string" },
             "note": { "type": "string" },
-            "deviation_from": { "type": "string" }
+            "deviation_from": { "type": "string" },
+            "updates_previous": { "type": "boolean" }
           },
           "additionalProperties": true
         }
@@ -83,11 +113,88 @@
         { "required": [
           "name",
           "description",
-          "unit",
-          "reference_period",
           "type"
         ]
       },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "piecewise_constant",
+                  "piecewise_linear",
+                  "piecewise_quadratic",
+                  "piecewise_cubic",
+                  "consecutive_int_lookup_table",
+                  "sparse_to_consecutive_int_lookup_table",
+                  "month_based_phase_inout_of_age_thresholds",
+                  "year_based_phase_inout_of_age_thresholds"
+                ]
+              }
+            }
+          },
+          "then": {
+            "$comment": "A piecewise / lookup / phase-inout parameter declares its input and output units either as a top-level `input_unit:`/`output_unit:` pair, or — for a parameter re-denominated over time (e.g. DM before the 2002 euro reform, EUR after) — as one `input_unit:`/`output_unit:` pair inside each date-specific key (GEP 10). The latter carries no top-level unit declaration; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) guarantees every active leaf still resolves to a unit.",
+            "oneOf": [
+              {
+                "required": ["input_unit", "output_unit"],
+                "not": { "required": ["unit"] }
+              },
+              {
+                "allOf": [
+                  { "not": { "required": ["unit"] } },
+                  { "not": { "required": ["input_unit"] } },
+                  { "not": { "required": ["output_unit"] } }
+                ]
+              }
+            ]
+          },
+          "else": {
+            "if": {
+              "properties": { "type": { "const": "require_converter" } }
+            },
+            "then": {
+              "$comment": "A require_converter parameter declares its unit(s) in one of three ways: a single top-level `unit:`; a top-level `input_unit:`/`output_unit:` pair; or, for a parameter re-denominated over time, one `unit:` inside each date-specific key (GEP 10). The third case carries no top-level unit declaration; the build-time mandatory-units check (`fail_if_environment_units_are_missing`) guarantees every active leaf still resolves to a unit.",
+              "oneOf": [
+                {
+                  "required": ["unit"],
+                  "allOf": [
+                    { "not": { "required": ["input_unit"] } },
+                    { "not": { "required": ["output_unit"] } }
+                  ]
+                },
+                {
+                  "required": ["input_unit", "output_unit"],
+                  "not": { "required": ["unit"] }
+                },
+                {
+                  "allOf": [
+                    { "not": { "required": ["unit"] } },
+                    { "not": { "required": ["input_unit"] } },
+                    { "not": { "required": ["output_unit"] } }
+                  ]
+                }
+              ]
+            },
+            "else": {
+              "allOf": [
+                { "not": { "required": ["input_unit"] } },
+                { "not": { "required": ["output_unit"] } }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "scalar" } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "unit": { "$ref": "#/definitions/unitToken" }
+            }
+          }
+        },
         {
           "minProperties": 1,
           "patternProperties": {

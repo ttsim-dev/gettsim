@@ -12,8 +12,7 @@ alpha:
       §68 Abs. 4 S. 6 SGB VI
       Part of the sustainability factor in the pension adjustment formula which modifies
       the ratio of pensioners to contributors
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2002-01-01:
     value: 0.25
@@ -24,8 +23,7 @@ altersvorsorgeanteil:
   description:
     de: §68 Abs. 5 SGB VI (Teil des Riesterfaktors in der Rentenanpassungsformel)
     en: §68 Abs. 5 SGB VI (Part of the Riesterfaktor in the pension adjustment formula)
-  unit: null
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2002-01-01:
     value: 0.5
@@ -55,32 +53,32 @@ beitragsvolumen:
     en: >-
       Sum of contributions to the pension insurance of all employees subject to pension
       insurance, marginally employed and recipients of ALG.
-  unit: Euros
-  reference_period: Year
   type: scalar
   1991-01-01:
-    value: 108688000
+    unit: DM_PER_YEAR
+    value: 212575251
   1992-01-01:
-    value: 117359000
+    value: 229534253
   1993-01-01:
-    value: 120559000
+    value: 235792909
   1994-01-01:
-    value: 132938000
+    value: 260004129
   1995-01-01:
-    value: 139921000
+    value: 273661689
   1996-01-01:
-    value: 146160000
+    value: 285864113
   1997-01-01:
-    value: 153658000
+    value: 300528926
   1998-01-01:
-    value: 153763000
+    value: 300734288
   1999-01-01:
-    value: 160506000
+    value: 313922450
   2000-01-01:
-    value: 163367000
+    value: 319518080
   2001-01-01:
-    value: 164694000
+    value: 322113466
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 165481000
   2003-01-01:
     value: 169425000
@@ -123,8 +121,7 @@ durchschnittslohn:
   description:
     de: Durchschnittsbruttolohn aller Arbeitnehmer:innen in einem Jahr
     en: Mean gross wage of all employees per year
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2005-01-01:
     value: 28468.23
@@ -157,32 +154,33 @@ gesamtes_rentenvolumen:
   description:
     de: Gesamtvolumen der ausgezahlten Renten
     en: Total amount of paid pensions
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   1991-01-01:
-    value: 117912000
+    unit: DM_PER_YEAR
+    value: 230615827
   1992-01-01:
-    value: 130901000
+    value: 256020103
   1993-01-01:
-    value: 141180000
+    value: 276124079
   1994-01-01:
-    value: 152798000
+    value: 298846912
   1995-01-01:
-    value: 162625000
+    value: 318066854
   1996-01-01:
-    value: 168955000
+    value: 330447258
   1997-01-01:
-    value: 174479000
+    value: 341251263
   1998-01-01:
-    value: 180323800
+    value: 352682698
   1999-01-01:
-    value: 184139000
+    value: 360144580
   2000-01-01:
-    value: 190198000
+    value: 371994954
   2001-01-01:
-    value: 195776000
+    value: 382904574
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 202355000
   2003-01-01:
     value: 207749000

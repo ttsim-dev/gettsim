@@ -10,8 +10,7 @@ abzugsrate_hinzuverdienst:
     en: >-
       Deduction rate for additional earnings during early retirement
       § 34 SGB VI; Artikel 1 G. v. 08.12.2016 BGBl. I S. 2838
-  unit: Years
-  reference_period: null
+  unit: DIMENSIONLESS
   type: scalar
   2017-07-01:
     value: 0.4
@@ -26,8 +25,7 @@ hinzuverdienstgrenze_m:
       § 34 SGB VI, Hinzuverdienstgrenze vor der Regelaltersgrenze
     en: >-
       § 34 SGB VI, additional earnings threshold during early retirement
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_MONTH
   type: scalar
   2002-01-01:
     value: 350.0
@@ -46,8 +44,7 @@ hinzuverdienstgrenze_y:
       § 34 SGB VI, Hinzuverdienstgrenze vor der Regelaltersgrenze
     en: >-
       § 34 SGB VI, additional earnings threshold during early retirement
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2017-01-01:
     value: 6300.0

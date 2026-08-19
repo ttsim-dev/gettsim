@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2008-12-31",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -20,6 +21,7 @@ def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
 @policy_function(
     start_date="2009-01-01",
     leaf_name="grundsätzlich_anspruchsberechtigt_wthh",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
 )
 def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
@@ -29,7 +31,7 @@ def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     return mindesteinkommen_erreicht_wthh and vermögensgrenze_unterschritten_wthh
 
 
-@policy_function(start_date="2009-01-01")
+@policy_function(start_date="2009-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH)
 def vermögensgrenze_unterschritten_wthh(
     vermögen_wthh: float,
     anzahl_personen_wthh: int,
@@ -38,7 +40,9 @@ def vermögensgrenze_unterschritten_wthh(
     """Wealth is below the eligibility threshold for housing benefits."""
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
-    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (anzahl_personen_wthh - 1)
+    ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
+        anzahl_personen_wthh - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_WTHH)
+    )
 
     return vermögen_wthh <= vermögensfreibetrag
 
@@ -47,6 +51,7 @@ def vermögensgrenze_unterschritten_wthh(
     leaf_name="mindesteinkommen_erreicht_wthh",
     start_date="2005-01-01",
     end_date="2022-12-31",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
 )
 def mindesteinkommen_erreicht_wthh_bis_2022(
     arbeitslosengeld_2__regelbedarf_m_wthh: float,
@@ -69,7 +74,11 @@ def mindesteinkommen_erreicht_wthh_bis_2022(
     )
 
 
-@policy_function(leaf_name="mindesteinkommen_erreicht_wthh", start_date="2023-01-01")
+@policy_function(
+    leaf_name="mindesteinkommen_erreicht_wthh",
+    start_date="2023-01-01",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+)
 def mindesteinkommen_erreicht_wthh_ab_2023(
     bürgergeld__regelbedarf_m_wthh: float,
     einkommen_für_mindesteinkommen_m_wthh: float,
@@ -93,6 +102,7 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
     leaf_name="einkommen_für_mindesteinkommen_m_wthh",
     start_date="2005-01-01",
     end_date="2022-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
 def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
     arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,
@@ -123,7 +133,9 @@ def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
 
 
 @policy_function(
-    leaf_name="einkommen_für_mindesteinkommen_m_wthh", start_date="2023-01-01"
+    leaf_name="einkommen_für_mindesteinkommen_m_wthh",
+    start_date="2023-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
 def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
     bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh: float,

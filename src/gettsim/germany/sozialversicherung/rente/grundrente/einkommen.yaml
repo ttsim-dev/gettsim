@@ -12,8 +12,8 @@ anzurechnendes_einkommen_ohne_partner:
       § 97a Abs. 4 S. 2, 4 SGB VI
       Values are multiplied with the Rentenwert to compute the thresholds of the income
       crediting rule of Grundrentenzuschlag
-  unit: Share
-  reference_period: null
+  input_unit: DIMENSIONLESS
+  output_unit: DIMENSIONLESS
   type: piecewise_linear
   2021-01-01:
     intervals:
@@ -37,8 +37,8 @@ anzurechnendes_einkommen_mit_partner:
       § 97a Abs. 4 S. 2, 4 SGB VI
       Values are multiplied with the Rentenwert to compute the thresholds of the income
       crediting rule of Grundrentenzuschlag
-  unit: Share
-  reference_period: null
+  input_unit: DIMENSIONLESS
+  output_unit: DIMENSIONLESS
   type: piecewise_linear
   2021-01-01:
     intervals:

@@ -8,8 +8,23 @@ parameter_regelsatz_anteilsbasiert:
       § 20 V SGB II, siehe Bekanntmachungen zu § 20.
     en: >-
       § 20 V SGB II, see regulations for § 20.
-  unit: null
-  reference_period: Month
+  unit:
+    basissatz: EUR_PER_MONTH
+    anteil_vom_basissatz_bei_zwei_erwachsenen: DIMENSIONLESS
+    anteil_vom_basissatz_bei_weiteren_erwachsenen: DIMENSIONLESS
+    anteil_vom_basissatz_für_kinder:
+      jugendliche_und_junge_erwachsene:
+        min_alter: YEARS
+        max_alter: YEARS
+        anteil: DIMENSIONLESS
+      schulkind:
+        min_alter: YEARS
+        max_alter: YEARS
+        anteil: DIMENSIONLESS
+      kleinkind:
+        min_alter: YEARS
+        max_alter: YEARS
+        anteil: DIMENSIONLESS
   type: require_converter
   2005-01-01:
     basissatz: 338
@@ -96,14 +111,13 @@ kindersofortzuschlag:
       Children, adolescents and young adults who are entitled to unemployment benefits
       or social benefits (Regelbedarfsstufen 3, 4, 5, 6) receive an instant surcharge
       of 20 Euro.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2022-07-01:
     value: 20
   2023-01-01:
     note: Bürgergeld replaces Arbeitslosengeld II.
-parameter_mehrbedarf_alleinerziehend:
+parameter_mehrbedarfsanteil_alleinerziehend:
   name:
     de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
     en: Parameter for calculating the additional need of single parents
@@ -124,8 +138,7 @@ parameter_mehrbedarf_alleinerziehend:
       when the resulting claim is greater than the claim through
       ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gives the maximum share of the
       Regelbedarf that is considered as an additional need for single parents.
-  unit: Share
-  reference_period: Month
+  unit: DIMENSIONLESS
   type: dict
   2005-01-01:
     basis_je_kind_bis_17: 0.12

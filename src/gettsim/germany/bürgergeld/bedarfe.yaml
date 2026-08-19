@@ -14,8 +14,7 @@ kindersofortzuschlag:
       Children, adolescents and young adults who are entitled to unemployment benefits
       or social benefits (Regelbedarfsstufen 3, 4, 5, 6) receive an instant surcharge
       of 20 Euro.
-  unit: Euros
-  reference_period: Month
+  unit: EUR_PER_MONTH
   type: scalar
   2023-01-01:
     value: 20
@@ -25,7 +24,7 @@ kindersofortzuschlag:
       Gesetz zur Fortentwicklung des Steuerrechts und zur  Anpassung des Einkommen-
       steuertarifs (Steuerfortentwicklungsgesetz - SteFeG)
     reference: Art. 7 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
-parameter_mehrbedarf_alleinerziehend:
+parameter_mehrbedarfsanteil_alleinerziehend:
   name:
     de: Parameter zur Berechnung des Mehrbedarfs von Alleinerziehenden
     en: Parameter for calculating the additional need of single parents
@@ -46,8 +45,7 @@ parameter_mehrbedarf_alleinerziehend:
       when the resulting claim is greater than the claim through
       ``kind_bis_6_oder_2_3_kinder_bis_15``. ``max`` gives the maximum share of the
       Regelbedarf that is considered as an additional need for single parents.
-  unit: Share
-  reference_period: Month
+  unit: DIMENSIONLESS
   type: dict
   2023-01-01:
     basis_je_kind_bis_17: 0.12

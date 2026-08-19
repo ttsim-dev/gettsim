@@ -7,8 +7,7 @@ kohorte_abschaffung:
     de: >-
       Erster Geburtsjahrgang ohne Rente für Arbeitslose
       Rentenreformgesetz 1999. BGBl. I S. 2998 1997
-  unit: Years
-  reference_period: null
+  unit: CALENDAR_YEAR
   type: scalar
   1997-12-16:
     value: 1952

@@ -17,7 +17,7 @@ inputs:
         - false
         - false
         - false
-      mehrbedarf_alleinerziehend_m_bg:
+      mehrbedarfsanteil_alleinerziehend_m_bg:
         - 0.0
         - 0.0
         - 0.0

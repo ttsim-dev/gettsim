@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 
 from gettsim.germany.param_types import Altersgrenzen, SatzMitAltersgrenzen
-from gettsim.tt import param_function
+from gettsim.tt import UNSET_UNIT, TTSIMUnit, param_function
 
 if TYPE_CHECKING:
     from gettsim.typing import RawParamValue
@@ -12,15 +12,15 @@ if TYPE_CHECKING:
 
 @dataclass(frozen=True)
 class Regelbedarfsstufen:
-    rbs_1: float
-    rbs_2: float
-    rbs_3: float
+    rbs_1: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
+    rbs_2: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
+    rbs_3: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
     rbs_4: SatzMitAltersgrenzen
     rbs_5: SatzMitAltersgrenzen
     rbs_6: SatzMitAltersgrenzen
 
 
-@param_function(start_date="2011-01-01")
+@param_function(start_date="2011-01-01", unit=UNSET_UNIT)
 def regelbedarfsstufen(
     parameter_regelbedarfsstufen: RawParamValue,
 ) -> Regelbedarfsstufen:

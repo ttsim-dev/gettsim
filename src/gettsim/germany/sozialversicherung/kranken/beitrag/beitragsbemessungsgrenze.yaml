@@ -11,28 +11,28 @@ beitragsbemessungsgrenze_m:
       The maximum amount of income subject to health insurance contributions is
       uniform throughout the Federal Republic of Germany. It also applies to
       long-term care insurance.
-  unit: Euros
-  reference_period: Month
   type: scalar
   1984-01-01:
-    value: 1994
+    unit: DM_PER_MONTH
+    value: 3900
   1985-01-01:
-    value: 2071
+    value: 4050
   1986-01-01:
-    value: 2147
+    value: 4200
   1987-01-01:
-    value: 2186
+    value: 4275
   1988-01-01:
-    value: 2301
+    value: 4500
   1989-01-01:
-    value: 2339
+    value: 4575
   1990-01-01:
     note: >-
       The Bemessungsgrenze differs between West and East Germany. See
       ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
   2001-01-01:
-    value: 3336
+    value: 6525
   2002-01-01:
+    unit: EUR_PER_MONTH
     value: 3375
   2003-01-01:
     value: 3450
@@ -104,42 +104,46 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     en: >-
       The maximum amount of income subject to health insurance contributions differs
       between West and East Germany. It also applies to long-term care insurance.
-  unit: Euros
-  reference_period: Month
   type: dict
   1990-01-01:
-    west: 2416
-    ost: 1035
+    unit: DM_PER_MONTH
+    west: 4725
+    ost: 2025
+    reference: § 6 Abs. 7 SGB V; Anlage 2 SGB VI.
   1991-01-01:
-    west: 2493
-    ost: 1151
+    west: 4875
+    ost: 2250
+  1991-07-01:
+    updates_previous: true
+    ost: 2550
+    reference: § 2 V. v. 19.06.1991 BGBl. I S. 1300 (drei Viertel von 3 400).
   1992-01-01:
-    west: 2608
-    ost: 1841
+    west: 5100
+    ost: 3600
   1993-01-01:
-    west: 2761
-    ost: 2032
+    west: 5400
+    ost: 3975
   1994-01-01:
-    west: 2914
-    ost: 2262
+    west: 5700
+    ost: 4425
   1995-01-01:
-    west: 2991
-    ost: 2454
+    west: 5850
+    ost: 4800
   1996-01-01:
-    west: 3068
-    ost: 2608
+    west: 6000
+    ost: 5100
   1997-01-01:
-    west: 3144
-    ost: 2723
+    west: 6150
+    ost: 5325
   1998-01-01:
-    west: 3221
-    ost: 2684
+    west: 6300
+    ost: 5250
   1999-01-01:
-    west: 3259
-    ost: 2761
+    west: 6375
+    ost: 5400
   2000-01-01:
-    west: 3298
-    ost: 2723
+    west: 6450
+    ost: 5325
   2001-01-01:
     note: >-
       The Bemessungsgrenze does not differ between West and East Germany. See

@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 from gettsim.tt import (
     PiecewisePolynomialParamValue,
     RoundingSpec,
+    TTSIMUnit,
+    cast_ttsim_unit,
     piecewise_polynomial,
     policy_function,
 )
@@ -15,11 +17,13 @@ if TYPE_CHECKING:
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
     """Additional monthly pensions payments (Grundrentenzuschlag)."""
@@ -27,7 +31,7 @@ def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
     return max(out, 0.0)
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_m(
     gesamteinnahmen_aus_renten_vorjahr_m: float,
     bruttolohn_vorjahr_m: float,
@@ -64,13 +68,13 @@ def einkommen_m(
 
 def _anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
-    rentenwert: float,
+    rentenwert_m: float,
     parameter_anzurechnendes_einkommen: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
     """The isolated function for the relevant income for the Grundrentezuschlag."""
-    return rentenwert * piecewise_polynomial(
-        x=einkommen_m_ehe / rentenwert,
+    return rentenwert_m * piecewise_polynomial(
+        x=einkommen_m_ehe / rentenwert_m,
         parameters=parameter_anzurechnendes_einkommen,
         xnp=xnp,
     )
@@ -78,16 +82,21 @@ def _anzurechnendes_einkommen_m(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+    # `piecewise_polynomial` runs inside the `_anzurechnendes_einkommen_m` helper, which
+    # the unit check's stand-in cannot reach, so the body cannot be unit-checked.
+    verify_units=False,
 )
 def anzurechnendes_einkommen_m(
     einkommen_m_ehe: float,
     familie__anzahl_personen_ehe: int,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
     anzurechnendes_einkommen_ohne_partner: PiecewisePolynomialParamValue,
     anzurechnendes_einkommen_mit_partner: PiecewisePolynomialParamValue,
     xnp: ModuleType,
@@ -103,19 +112,19 @@ def anzurechnendes_einkommen_m(
     """
     # Calculate relevant income following the crediting rules using the values for
     # singles and those for married subjects
-    # Note: Thresholds are defined relativ to rentenwert which is implemented by
-    # dividing the income by rentenwert and multiply rentenwert to the result.
+    # Note: Thresholds are defined relativ to rentenwert_m which is implemented by
+    # dividing the income by rentenwert_m and multiply rentenwert_m to the result.
     if familie__anzahl_personen_ehe == 1:
         out = _anzurechnendes_einkommen_m(
             einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert=sozialversicherung__rente__rentenwert,
+            rentenwert_m=sozialversicherung__rente__rentenwert_m,
             parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_ohne_partner,
             xnp=xnp,
         )
     else:
         out = _anzurechnendes_einkommen_m(
             einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert=sozialversicherung__rente__rentenwert,
+            rentenwert_m=sozialversicherung__rente__rentenwert_m,
             parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_mit_partner,
             xnp=xnp,
         )
@@ -124,16 +133,18 @@ def anzurechnendes_einkommen_m(
 
 @policy_function(
     rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def basisbetrag_m(
-    mean_entgeltpunkte_zuschlag: float,
+    mean_entgeltpunkte_zuschlag_m: float,
     bewertungszeiten_monate: int,
-    sozialversicherung__rente__rentenwert: float,
+    sozialversicherung__rente__rentenwert_m: float,
     sozialversicherung__rente__altersrente__zugangsfaktor: float,
     maximaler_zugangsfaktor: float,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -153,15 +164,15 @@ def basisbetrag_m(
     )
 
     return (
-        mean_entgeltpunkte_zuschlag
+        mean_entgeltpunkte_zuschlag_m
         * bewertungszeiten
-        * sozialversicherung__rente__rentenwert
+        * sozialversicherung__rente__rentenwert_m
         * zugangsfaktor
     )
 
 
-@policy_function(start_date="2021-01-01")
-def mean_entgeltpunkte_pro_bewertungsmonat(
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH)
+def mean_entgeltpunkte_pro_bewertungsmonat_m(
     mean_entgeltpunkte: float,
     bewertungszeiten_monate: int,
 ) -> float:
@@ -183,6 +194,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat(
         reference="§76g SGB VI Abs. 4 Nr. 4",
     ),
     start_date="2021-01-01",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
 )
 def höchstbetrag_m(
     grundrentenzeiten_monate: int,
@@ -190,12 +202,15 @@ def höchstbetrag_m(
     höchstwert_der_entgeltpunkte: dict[str, float],
 ) -> float:
     """Maximum allowed number of average Entgeltpunkte."""
-    months_above_thresh = (
+    # The number of increment-steps above the threshold — a plain count multiplying
+    # the per-month increment.
+    months_above_thresh = cast_ttsim_unit(
         min(
             grundrentenzeiten_monate,
             berücksichtigte_wartezeit_monate["max"],
         )
-        - berücksichtigte_wartezeit_monate["min"]
+        - berücksichtigte_wartezeit_monate["min"],
+        unit=TTSIMUnit.DIMENSIONLESS,
     )
 
     return (
@@ -211,9 +226,10 @@ def höchstbetrag_m(
         reference="§ 123 SGB VI Abs. 1",
     ),
     start_date="2021-01-01",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
 )
-def mean_entgeltpunkte_zuschlag(
-    mean_entgeltpunkte_pro_bewertungsmonat: float,
+def mean_entgeltpunkte_zuschlag_m(
+    mean_entgeltpunkte_pro_bewertungsmonat_m: float,
     höchstbetrag_m: float,
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -227,28 +243,32 @@ def mean_entgeltpunkte_zuschlag(
 
     Legal reference: § 76g SGB VI
     """
-    out = 0.0
+    # A per-month zero for the "no additional Entgeltpunkte" branches, so every branch
+    # yields the declared `1 / month` (a bare 0.0 would infer dimensionless here).
+    kein_zuschlag_m = cast_ttsim_unit(0.0, unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH)
+
+    out = kein_zuschlag_m
     # Return 0 if Grundrentenzeiten below minimum
     if grundrentenzeiten_monate < berücksichtigte_wartezeit_monate["min"]:
-        out = 0.0
+        out = kein_zuschlag_m
     else:
         # Case 1: Entgeltpunkte less than half of Höchstwert
-        if mean_entgeltpunkte_pro_bewertungsmonat <= (0.5 * höchstbetrag_m):
-            out = mean_entgeltpunkte_pro_bewertungsmonat
+        if mean_entgeltpunkte_pro_bewertungsmonat_m <= (0.5 * höchstbetrag_m):
+            out = mean_entgeltpunkte_pro_bewertungsmonat_m
 
         # Case 2: Entgeltpunkte more than half of Höchstwert, but below Höchstwert
-        elif mean_entgeltpunkte_pro_bewertungsmonat < höchstbetrag_m:
-            out = höchstbetrag_m - mean_entgeltpunkte_pro_bewertungsmonat
+        elif mean_entgeltpunkte_pro_bewertungsmonat_m < höchstbetrag_m:
+            out = höchstbetrag_m - mean_entgeltpunkte_pro_bewertungsmonat_m
 
         # Case 3: Entgeltpunkte above Höchstwert
-        elif mean_entgeltpunkte_pro_bewertungsmonat > höchstbetrag_m:
-            out = 0.0
+        elif mean_entgeltpunkte_pro_bewertungsmonat_m > höchstbetrag_m:
+            out = kein_zuschlag_m
 
     # Multiply additional Engeltpunkte by factor
     return out * bonusfaktor
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def grundsätzlich_anspruchsberechtigt(
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],
@@ -257,7 +277,7 @@ def grundsätzlich_anspruchsberechtigt(
     return grundrentenzeiten_monate >= berücksichtigte_wartezeit_monate["min"]
 
 
-@policy_function(start_date="2021-01-01")
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
     einnahmen__renten__betrag_gesamt_m: float,
 ) -> float:

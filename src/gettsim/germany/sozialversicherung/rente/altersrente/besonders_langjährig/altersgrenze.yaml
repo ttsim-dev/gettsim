@@ -10,8 +10,7 @@ altersgrenze:
     en: >-
       § 38 SGB VI
       https://sozialversicherung-kompetent.de/rentenversicherung/leistungsrecht/249-altersrente-fuer-besonders-langjaehrig-versicherte.html
-  unit: Years
-  reference_period: null
+  unit: YEARS
   type: scalar
   2007-04-30:
     reference: RV-Altersgrenzenanpassungsgesetz 2007. BGBl. I S. 554 2007
@@ -63,8 +62,8 @@ altersgrenze_gestaffelt:
       age, we need the actually  feasible retirement ages as inputs. The inputs
       therefore require monthly precision  up to cohort 1952. From then we need
       annual precision.
-  unit: Years
-  reference_period: null
+  input_unit: CALENDAR_YEAR
+  output_unit: YEARS
   type: year_based_phase_inout_of_age_thresholds
   2014-06-23:
     reference: RV-Leistungsverbesserungsgesetz 2014. BGBl. I S. 787 2014

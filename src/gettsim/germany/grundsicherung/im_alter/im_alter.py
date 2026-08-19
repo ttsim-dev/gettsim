@@ -17,13 +17,20 @@ if TYPE_CHECKING:
         RegelsatzAnteilsbasiert,
     )
 
-from gettsim.tt import AggType, agg_by_p_id_function, policy_function
+from gettsim.tt import (
+    AggType,
+    TTSIMUnit,
+    agg_by_p_id_function,
+    cast_ttsim_unit,
+    policy_function,
+)
 
 
 @policy_function(
     start_date="2005-01-01",
     end_date="2019-12-31",
     leaf_name="betrag_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_mit_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
@@ -46,7 +53,9 @@ def betrag_m_mit_kindeseinkommensgrenze(
         return anspruchshöhe_m
 
 
-@policy_function(start_date="2020-01-01", leaf_name="betrag_m")
+@policy_function(
+    start_date="2020-01-01", leaf_name="betrag_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def betrag_m_ohne_kindeseinkommensgrenze(
     anspruchshöhe_m: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
@@ -80,13 +89,17 @@ def betrag_m_ohne_kindeseinkommensgrenze(
         return anspruchshöhe_m
 
 
-@policy_function(end_date="2022-12-31", leaf_name="anspruchshöhe_m")
+@policy_function(
+    end_date="2022-12-31",
+    leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def anspruchshöhe_m_bis_2022(
     individueller_restbedarf_m: float,
     individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
-    arbeitslosengeld_2__überschusseinkommen_m_eg: float,
+    arbeitslosengeld_2__überschusseinkommen_m_bg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
     vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
@@ -104,7 +117,13 @@ def anspruchshöhe_m_bis_2022(
     # https://github.com/ttsim-dev/gettsim/issues/1145
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
-        + arbeitslosengeld_2__überschusseinkommen_m_eg
+        # Deliberate cross-level transfer of the Überschusseinkommen amount: the SGB II
+        # Bedarfsgemeinschaft and the Einsatzgemeinschaft coincide, so the BG total is
+        # the EG total.
+        + cast_ttsim_unit(
+            arbeitslosengeld_2__überschusseinkommen_m_bg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+        )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
@@ -112,18 +131,31 @@ def anspruchshöhe_m_bis_2022(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
+        # The Verhältnislösung deliberately relates a person's need to the EG total.
+        # GEP 10 cannot infer that person-to-group allocation from group markers.
         return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+            individueller_restbedarf_m
+            / cast_ttsim_unit(
+                individueller_restbedarf_m_eg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH,
+            )
+        ) * cast_ttsim_unit(
+            anspruch_m_eg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        )
 
 
-@policy_function(start_date="2023-01-01", leaf_name="anspruchshöhe_m")
+@policy_function(
+    start_date="2023-01-01",
+    leaf_name="anspruchshöhe_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def anspruchshöhe_m_ab_2023(
     individueller_restbedarf_m: float,
     individueller_restbedarf_m_eg: float,
     bedarf_m_eg: float,
     einkommen_zur_verteilung_m_eg: float,
-    bürgergeld__überschusseinkommen_m_eg: float,
+    bürgergeld__überschusseinkommen_m_bg: float,
     grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg: float,
     vermögensgrenze_unterschritten_eg: bool,
 ) -> float:
@@ -141,7 +173,13 @@ def anspruchshöhe_m_ab_2023(
     # https://github.com/ttsim-dev/gettsim/issues/1145
     total_income_m_eg = (
         einkommen_zur_verteilung_m_eg
-        + bürgergeld__überschusseinkommen_m_eg
+        # Deliberate cross-level transfer of the Überschusseinkommen amount: the SGB II
+        # Bedarfsgemeinschaft and the Einsatzgemeinschaft coincide, so the BG total is
+        # the EG total.
+        + cast_ttsim_unit(
+            bürgergeld__überschusseinkommen_m_bg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG,
+        )
         + grundsicherung__hilfe_zum_lebensunterhalt__überschusseinkommen_m_eg
     )
     anspruch_m_eg = max(0.0, bedarf_m_eg - total_income_m_eg)
@@ -149,12 +187,21 @@ def anspruchshöhe_m_ab_2023(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
+        # The Verhältnislösung deliberately relates a person's need to the EG total.
+        # GEP 10 cannot infer that person-to-group allocation from group markers.
         return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+            individueller_restbedarf_m
+            / cast_ttsim_unit(
+                individueller_restbedarf_m_eg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH,
+            )
+        ) * cast_ttsim_unit(
+            anspruch_m_eg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        )
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def individueller_restbedarf_m(
     bedarf_m: float,
     einkommen_zur_verteilung_m: float,
@@ -167,7 +214,9 @@ def individueller_restbedarf_m(
     return max(0.0, bedarf_m - einkommen_zur_verteilung_m)
 
 
-@policy_function(end_date="2022-12-31", leaf_name="bedarf_m")
+@policy_function(
+    end_date="2022-12-31", leaf_name="bedarf_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def bedarf_m_bis_2022(
     arbeitslosengeld_2__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
@@ -186,7 +235,9 @@ def bedarf_m_bis_2022(
         return arbeitslosengeld_2__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
 
 
-@policy_function(start_date="2023-01-01", leaf_name="bedarf_m")
+@policy_function(
+    start_date="2023-01-01", leaf_name="bedarf_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def bedarf_m_ab_2023(
     bürgergeld__regelbedarf_m: float,
     mehrbedarf_schwerbehinderung_g_m: float,
@@ -205,7 +256,7 @@ def bedarf_m_ab_2023(
         return bürgergeld__regelbedarf_m + mehrbedarf_schwerbehinderung_g_m
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def einkommen_zur_verteilung_m(
     einkommen_m: float,
     sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
@@ -220,7 +271,7 @@ def einkommen_zur_verteilung_m(
         return einkommen_m
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EG)
 def überschusseinkommen_m_eg(
     einkommen_zur_verteilung_m_eg: float,
     bedarf_m_eg: float,
@@ -235,7 +286,11 @@ def überschusseinkommen_m_eg(
     return max(0.0, einkommen_zur_verteilung_m_eg - bedarf_m_eg)
 
 
-@policy_function(end_date="2010-12-31", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+@policy_function(
+    end_date="2010-12-31",
+    leaf_name="mehrbedarf_schwerbehinderung_g_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
@@ -243,12 +298,16 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     mehrbedarf_bei_schwerbehinderungsgrad_g: float,
 ) -> float:
     """Additional allowance for individuals with disabled person's pass G."""
-    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+    if (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg == cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
+    ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
+    ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * arbeitslosengeld_2__regelsatz_anteilsbasiert.erwachsen.je_erwachsener_ab_drei_erwachsene
@@ -260,7 +319,11 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     return out
 
 
-@policy_function(start_date="2011-01-01", leaf_name="mehrbedarf_schwerbehinderung_g_m")
+@policy_function(
+    start_date="2011-01-01",
+    leaf_name="mehrbedarf_schwerbehinderung_g_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     schwerbehindert_grad_g: bool,
     familie__anzahl_erwachsene_eg: int,
@@ -279,9 +342,13 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
         grundsicherung__regelbedarfsstufen.rbs_2
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g
 
-    if (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg == 1):
+    if (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg == cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
+    ):
         out = mehrbedarf_single
-    elif (schwerbehindert_grad_g) and (familie__anzahl_erwachsene_eg > 1):
+    elif (schwerbehindert_grad_g) and (
+        familie__anzahl_erwachsene_eg > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
+    ):
         out = mehrbedarf_in_couple
     else:
         out = 0.0
@@ -289,7 +356,7 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     return out
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
 def vermögensgrenze_unterschritten_eg(
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
@@ -298,7 +365,7 @@ def vermögensgrenze_unterschritten_eg(
     return vermögen_eg < vermögensfreibetrag_eg
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_EG)
 def vermögensfreibetrag_eg(
     familie__anzahl_kinder_eg: int,
     familie__anzahl_erwachsene_eg: int,
@@ -311,19 +378,26 @@ def vermögensfreibetrag_eg(
     )
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_gesamteinkommen_über_kindeseinkommensgrenze(
-    einkommensteuer__gesamteinkommen_y: float,
-    einkommensgrenze_kinder: float,
+    einkommensteuer__gesamteinkommen_y_sn: float,
+    einkommensgrenze_kinder_y: float,
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
     Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
     """
-    return einkommensteuer__gesamteinkommen_y >= einkommensgrenze_kinder
+    # The Gesamteinkommen is a Steuernummer-level total; compare it per person against
+    # the children's income threshold.
+    return (
+        cast_ttsim_unit(
+            einkommensteuer__gesamteinkommen_y_sn, unit=TTSIMUnit.CURRENCY.PER_YEAR
+        )
+        >= einkommensgrenze_kinder_y
+    )
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY)
+@agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_1: int,
@@ -332,7 +406,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1(
     pass
 
 
-@agg_by_p_id_function(agg_type=AggType.ANY)
+@agg_by_p_id_function(agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     hat_gesamteinkommen_über_kindeseinkommensgrenze: bool,
     familie__p_id_elternteil_2: int,
@@ -341,7 +415,7 @@ def hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2(
     pass
 
 
-@policy_function(start_date="2005-01-01")
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def hat_kind_mit_einkommen_über_einkommensgrenze(
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1: bool,
     hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_2: bool,

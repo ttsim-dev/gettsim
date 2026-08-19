@@ -3,47 +3,73 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Annotated, Any
 
 from gettsim.tt import (
+    UNSET_UNIT,
     AggType,
     RoundingSpec,
+    TTSIMUnit,
     agg_by_group_function,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     param_function,
     policy_function,
 )
 
-ErziehungsgeldSätze = Literal["regelsatz", "budgetsatz"]
+
+@dataclass(frozen=True)
+class EinkommensgrenzeNachSatz:
+    """The Familiengemeinschaft's annual income thresholds, one per Satz."""
+
+    regelsatz: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG]
+    """Threshold applying to the Regelsatz."""
+    budgetsatz: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_FG]
+    """Threshold applying to the Budgetsatz."""
 
 
 @dataclass(frozen=True)
 class Einkommensgrenzen:
-    regulär_alleinerziehend: dict[ErziehungsgeldSätze, float]
-    regulär_paar: dict[ErziehungsgeldSätze, float]
-    reduziert_alleinerziehend: dict[ErziehungsgeldSätze, float]
-    reduziert_paar: dict[ErziehungsgeldSätze, float]
+    """The income thresholds by household type and by the child's age bracket."""
+
+    regulär_alleinerziehend: EinkommensgrenzeNachSatz
+    """Single parent, child below the Reduzierungsgrenze."""
+    regulär_paar: EinkommensgrenzeNachSatz
+    """Couple, child below the Reduzierungsgrenze."""
+    reduziert_alleinerziehend: EinkommensgrenzeNachSatz
+    """Single parent, child at or above the Reduzierungsgrenze."""
+    reduziert_paar: EinkommensgrenzeNachSatz
+    """Couple, child at or above the Reduzierungsgrenze."""
 
 
 @param_function(
     start_date="2004-02-09",
     end_date="2008-12-31",
+    unit=UNSET_UNIT,
 )
 def einkommensgrenzen(
     parameter_einkommensgrenze: dict[str, Any],
 ) -> Einkommensgrenzen:
     """Parameter der Einkommensgrenze des Erziehungsgelds."""
     return Einkommensgrenzen(
-        regulär_alleinerziehend=parameter_einkommensgrenze["regulär_alleinerziehend"],
-        regulär_paar=parameter_einkommensgrenze["regulär_paar"],
-        reduziert_alleinerziehend=parameter_einkommensgrenze[
-            "reduziert_alleinerziehend"
-        ],
-        reduziert_paar=parameter_einkommensgrenze["reduziert_paar"],
+        regulär_alleinerziehend=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["regulär_alleinerziehend"]
+        ),
+        regulär_paar=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["regulär_paar"]
+        ),
+        reduziert_alleinerziehend=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["reduziert_alleinerziehend"]
+        ),
+        reduziert_paar=EinkommensgrenzeNachSatz(
+            **parameter_einkommensgrenze["reduziert_paar"]
+        ),
     )
 
 
-@agg_by_group_function(end_date="2008-12-31", agg_type=AggType.ANY)
+@agg_by_group_function(
+    end_date="2008-12-31", agg_type=AggType.ANY, unit=TTSIMUnit.DIMENSIONLESS.PER_FG
+)
 def leistungsbegründende_kinder_fg(
     ist_leistungsbegründendes_kind: bool,
     fg_id: int,
@@ -51,7 +77,9 @@ def leistungsbegründende_kinder_fg(
     pass
 
 
-@agg_by_p_id_function(end_date="2008-12-31", agg_type=AggType.SUM)
+@agg_by_p_id_function(
+    end_date="2008-12-31", agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def anspruchshöhe_m(
     anspruchshöhe_kind_m: float,
     p_id_empfänger: int,
@@ -60,7 +88,9 @@ def anspruchshöhe_m(
     pass
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def betrag_m(
     anspruchshöhe_m: float,
     grundsätzlich_anspruchsberechtigt: bool,
@@ -73,11 +103,15 @@ def betrag_m(
 
 
 @policy_function(
+    start_date="2002-01-01",
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(base=0.01, direction="nearest"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+    ),
     fail_msg_if_included="""Erziehungsgeld is not implemented yet prior to 2004, see
 https://github.com/ttsim-dev/gettsim/issues/673""",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     pass
@@ -87,7 +121,10 @@ def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     start_date="2004-01-01",
     end_date="2008-12-31",
     leaf_name="anspruchshöhe_kind_m",
-    rounding_spec=RoundingSpec(base=0.01, direction="nearest"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_mit_budgetsatz_m(
     ist_leistungsbegründendes_kind: bool,
@@ -102,12 +139,22 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     Legal reference: BGBl I. v. 17.02.2004
     """
     if ist_leistungsbegründendes_kind:
-        return max(basisbetrag_m - abzug_durch_einkommen_m_fg, 0.0)
+        # Deliberate cross-level subtraction: The FG level income deduction is
+        # subtracted from the individual level base amount
+        return max(
+            basisbetrag_m
+            - cast_ttsim_unit(
+                abzug_durch_einkommen_m_fg, unit=TTSIMUnit.CURRENCY.PER_MONTH
+            ),
+            0.0,
+        )
     else:
         return 0.0
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01", end_date="2008-12-31", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def basisbetrag_m(
     budgetsatz: bool,
     anzurechnendes_einkommen_y_fg: float,
@@ -130,7 +177,11 @@ def basisbetrag_m(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_FG,
+)
 def abzug_durch_einkommen_m_fg(
     anzurechnendes_einkommen_m_fg: float,
     einkommensgrenze_m_fg: float,
@@ -156,6 +207,7 @@ def abzug_durch_einkommen_m_fg(
     start_date="2004-01-01",
     end_date="2006-12-10",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_vor_abschaffung(
     p_id_empfänger: int,
@@ -181,6 +233,7 @@ def _leistungsbegründendes_kind_vor_abschaffung(
     start_date="2006-12-11",
     end_date="2008-12-31",
     leaf_name="ist_leistungsbegründendes_kind",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def _leistungsbegründendes_kind_nach_abschaffung(
     p_id_empfänger: int,
@@ -216,7 +269,11 @@ def _leistungsbegründendes_kind_nach_abschaffung(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
 def grundsätzlich_anspruchsberechtigt(
     arbeitsstunden_w: float,
     leistungsbegründende_kinder_fg: bool,
@@ -231,7 +288,11 @@ def grundsätzlich_anspruchsberechtigt(
     )
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+)
 def anzurechnendes_einkommen_y_fg(
     bruttolohn_vorjahr_nach_abzug_werbungskosten_y_fg: float,
     ist_leistungsbegründendes_kind: bool,
@@ -254,12 +315,16 @@ def anzurechnendes_einkommen_y_fg(
     return out
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+)
 def einkommensgrenze_y_fg(
-    einkommensgrenze_ohne_geschwisterbonus: float,
+    einkommensgrenze_ohne_geschwisterbonus_y_fg: float,
     familie__anzahl_kinder_fg: int,
     ist_leistungsbegründendes_kind: bool,
-    aufschlag_einkommen: float,
+    erhöhung_einkommensgrenze_pro_kind_y: float,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld).
 
@@ -267,18 +332,26 @@ def einkommensgrenze_y_fg(
     """
     if ist_leistungsbegründendes_kind:
         return (
-            einkommensgrenze_ohne_geschwisterbonus
-            + (familie__anzahl_kinder_fg - 1) * aufschlag_einkommen
+            einkommensgrenze_ohne_geschwisterbonus_y_fg
+            + (
+                familie__anzahl_kinder_fg
+                - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_FG)
+            )
+            * erhöhung_einkommensgrenze_pro_kind_y
         )
     else:
         return 0.0
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
-def einkommensgrenze_ohne_geschwisterbonus(
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+)
+def einkommensgrenze_ohne_geschwisterbonus_y_fg(
     alter_monate: int,
-    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze: float,
-    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg: float,
+    einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg: float,
     altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld) before adding the
@@ -287,13 +360,17 @@ def einkommensgrenze_ohne_geschwisterbonus(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if alter_monate < altersgrenze_für_reduziertes_einkommenslimit_kind_monate:
-        return einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze
+        return einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg
     else:
-        return einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze
+        return einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
-def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+)
+def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,
@@ -303,17 +380,22 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_alleinerziehend["budgetsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend.budgetsatz
     elif budgetsatz and not familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_paar["budgetsatz"]
+        satz = einkommensgrenzen.regulär_paar.budgetsatz
     elif not budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.regulär_alleinerziehend["regelsatz"]
+        satz = einkommensgrenzen.regulär_alleinerziehend.regelsatz
     else:
-        return einkommensgrenzen.regulär_paar["regelsatz"]
+        satz = einkommensgrenzen.regulär_paar.regelsatz
+    return satz
 
 
-@policy_function(start_date="2004-01-01", end_date="2008-12-31")
-def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze(
+@policy_function(
+    start_date="2004-01-01",
+    end_date="2008-12-31",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_FG,
+)
+def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_fg(
     familie__alleinerziehend_fg: bool,
     budgetsatz: bool,
     einkommensgrenzen: Einkommensgrenzen,
@@ -323,10 +405,10 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze(
     Legal reference: BGBl I. v. 17.02.2004 S.208
     """
     if budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["budgetsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend.budgetsatz
     elif budgetsatz and not familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_paar["budgetsatz"]
+        return einkommensgrenzen.reduziert_paar.budgetsatz
     elif not budgetsatz and familie__alleinerziehend_fg:
-        return einkommensgrenzen.reduziert_alleinerziehend["regelsatz"]
+        return einkommensgrenzen.reduziert_alleinerziehend.regelsatz
     else:
-        return einkommensgrenzen.reduziert_paar["regelsatz"]
+        return einkommensgrenzen.reduziert_paar.regelsatz

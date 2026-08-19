@@ -2,7 +2,19 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from ttsim.tt import Currency, UnitSystem, register_unit_builder_levels
+
 ROOT_PATH = Path(__file__).parent
+
+
+register_unit_builder_levels(["hh", "ehe", "fg", "bg", "eg", "wthh", "sn"])
+
+UNIT_SYSTEM = UnitSystem(
+    currencies={
+        "EUR": Currency(statutory_from="2002-01-01"),
+        "DM": Currency(value="EUR / 1.95583", statutory_from="0001-01-01"),
+    },
+)
 
 
 WARNING_MSG_FOR_GETTSIM_BG_ID_WTHH_ID_ETC = """

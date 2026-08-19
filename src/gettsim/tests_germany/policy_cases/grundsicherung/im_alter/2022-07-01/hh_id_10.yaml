@@ -15,7 +15,7 @@ inputs:
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
-      überschusseinkommen_m_eg:
+      überschusseinkommen_m_bg:
         - 0.0
     einkommensteuer:
       betrag_y_sn:

@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ttsim.unit_converters import m_to_y
+from ttsim.time_converters import m_to_y
 
-from gettsim.tt import policy_function
+from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 if TYPE_CHECKING:
     from types import ModuleType
@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 @policy_function(
     end_date="2011-12-31",
     leaf_name="altersgrenze",
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_mit_arbeitslosigkeit_frauen_ohne_besonders_langjährig(
     wegen_arbeitslosigkeit__grundsätzlich_anspruchsberechtigt: bool,
@@ -51,6 +52,7 @@ def altersgrenze_mit_arbeitslosigkeit_frauen_ohne_besonders_langjährig(
     start_date="2012-01-01",
     end_date="2017-12-31",
     leaf_name="altersgrenze",
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_mit_arbeitslosigkeit_frauen_besonders_langjährig(
     für_frauen__grundsätzlich_anspruchsberechtigt: bool,
@@ -98,6 +100,7 @@ def altersgrenze_mit_arbeitslosigkeit_frauen_besonders_langjährig(
 @policy_function(
     start_date="2018-01-01",
     leaf_name="altersgrenze",
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_mit_besonders_langjährig_ohne_arbeitslosigkeit_frauen(
     besonders_langjährig__grundsätzlich_anspruchsberechtigt: bool,
@@ -129,6 +132,7 @@ def altersgrenze_mit_besonders_langjährig_ohne_arbeitslosigkeit_frauen(
 @policy_function(
     end_date="2017-12-31",
     leaf_name="altersgrenze_vorzeitig",
+    unit=TTSIMUnit.YEARS,
 )
 def altersgrenze_vorzeitig_mit_arbeitslosigkeit_frauen(
     wegen_arbeitslosigkeit__grundsätzlich_anspruchsberechtigt: bool,
@@ -165,7 +169,9 @@ def altersgrenze_vorzeitig_mit_arbeitslosigkeit_frauen(
     return out
 
 
-@policy_function(start_date="2018-01-01", leaf_name="altersgrenze_vorzeitig")
+@policy_function(
+    start_date="2018-01-01", leaf_name="altersgrenze_vorzeitig", unit=TTSIMUnit.YEARS
+)
 def altersgrenze_vorzeitig_ohne_arbeitslosigkeit_frauen(
     langjährig__grundsätzlich_anspruchsberechtigt: bool,
     langjährig__altersgrenze_vorzeitig: float,
@@ -189,6 +195,7 @@ def altersgrenze_vorzeitig_ohne_arbeitslosigkeit_frauen(
 @policy_function(
     end_date="2017-12-31",
     leaf_name="vorzeitig_grundsätzlich_anspruchsberechtigt",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def vorzeitig_grundsätzlich_anspruchsberechtigt_mit_arbeitslosigkeit_frauen(
     für_frauen__grundsätzlich_anspruchsberechtigt: bool,
@@ -212,6 +219,7 @@ def vorzeitig_grundsätzlich_anspruchsberechtigt_mit_arbeitslosigkeit_frauen(
 @policy_function(
     start_date="2018-01-01",
     leaf_name="vorzeitig_grundsätzlich_anspruchsberechtigt",
+    unit=TTSIMUnit.DIMENSIONLESS,
 )
 def vorzeitig_grundsätzlich_anspruchsberechtigt_vorzeitig_ohne_arbeitslosigkeit_frauen(
     langjährig__grundsätzlich_anspruchsberechtigt: bool,
@@ -223,7 +231,9 @@ def vorzeitig_grundsätzlich_anspruchsberechtigt_vorzeitig_ohne_arbeitslosigkeit
     return langjährig__grundsätzlich_anspruchsberechtigt
 
 
-@policy_function(end_date="2017-12-31", leaf_name="referenzalter_abschlag")
+@policy_function(
+    end_date="2017-12-31", leaf_name="referenzalter_abschlag", unit=TTSIMUnit.YEARS
+)
 def referenzalter_abschlag_mit_arbeitslosigkeit_frauen(
     wegen_arbeitslosigkeit__grundsätzlich_anspruchsberechtigt: bool,
     wegen_arbeitslosigkeit__altersgrenze: float,
@@ -291,7 +301,9 @@ def referenzalter_abschlag_mit_arbeitslosigkeit_frauen(
     return out
 
 
-@policy_function(start_date="2018-01-01", leaf_name="referenzalter_abschlag")
+@policy_function(
+    start_date="2018-01-01", leaf_name="referenzalter_abschlag", unit=TTSIMUnit.YEARS
+)
 def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
     langjährig__grundsätzlich_anspruchsberechtigt: bool,
     langjährig__altersgrenze: float,
@@ -310,7 +322,7 @@ def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
     return out
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def hat_regelaltersgrenze_erreicht(
     alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
@@ -325,7 +337,7 @@ def hat_regelaltersgrenze_erreicht(
     )
 
 
-@policy_function()
+@policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def älter_als_regelaltersgrenze(
     alter_monate: int,
     sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze: float,
@@ -337,5 +349,6 @@ def älter_als_regelaltersgrenze(
     # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
     # Hence, we add a number << 1 / 12 to the RHS.
     return m_to_y(alter_monate) > (
-        sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze + 0.00001
+        sozialversicherung__rente__altersrente__regelaltersrente__altersgrenze
+        + cast_ttsim_unit(0.00001, unit=TTSIMUnit.YEARS)
     )

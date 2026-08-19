@@ -27,8 +27,8 @@ pixi run -e py314-jax tests src/gettsim/tests_germany/test_policy_cases.py
 pixi run -e py314-jax tests -k "kindergeld"
 
 # Type checking (runs as the ty / ty-jax pre-commit hooks)
-prek run ty --all-files
-prek run ty-jax --all-files
+pixi run prek run ty --all-files
+pixi run prek run ty-jax --all-files
 
 # Quality checks (linting, formatting)
 pixi run prek run --all-files

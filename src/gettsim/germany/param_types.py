@@ -1,28 +1,34 @@
 from dataclasses import dataclass
+from typing import Annotated
+
+from gettsim.tt import TTSIMUnit
 
 
 @dataclass(frozen=True)
 class Altersgrenzen:
-    min_alter: int
-    max_alter: int
+    min_alter: Annotated[int, TTSIMUnit.YEARS]
+    max_alter: Annotated[int, TTSIMUnit.YEARS]
 
 
 @dataclass(frozen=True)
 class SatzMitAltersgrenzen:
-    satz: float
+    satz: Annotated[float, TTSIMUnit.CURRENCY.PER_MONTH]
     altersgrenzen: Altersgrenzen
 
 
 @dataclass(frozen=True)
 class ElementExistenzminimum:
-    single: float
-    paar: float
-    kind: float
+    single: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_BG]
+    """Annual combined amount for the sole adult of a Bedarfsgemeinschaft."""
+    paar: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR.PER_BG]
+    """Annual amount for a Bedarfsgemeinschaft's two adults together."""
+    kind: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
+    """Annual amount per child."""
 
 
 @dataclass(frozen=True)
 class ElementExistenzminimumNurKind:
-    kind: float
+    kind: Annotated[float, TTSIMUnit.CURRENCY.PER_YEAR]
 
 
 @dataclass(frozen=True)

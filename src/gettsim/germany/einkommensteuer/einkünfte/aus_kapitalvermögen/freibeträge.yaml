@@ -1,5 +1,5 @@
 ---
-sparerfreibetrag:
+sparerfreibetrag_y:
   name:
     de: Sparerfreibetrag
     en: Allowance for Capital Gains
@@ -8,50 +8,67 @@ sparerfreibetrag:
       Früher § 20 (4) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: Euros
-  reference_period: Year
   type: scalar
   1975-01-01:
-    value: 153
-    note: 300 DM.
-  1990-01-01:
-    value: 307
-    note: 600 DM.
+    unit: DM_PER_YEAR
+    value: 300
+    reference: >-
+      § 20 Abs. 4 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
+  1989-01-01:
+    value: 600
+    reference: >-
+      Art. 1 Nr. 6 c) G. v. 30.06.1989 BGBl. I S. 1267 (G. zur Änderung des
+      Steuerreformgesetzes 1990 sowie zur Förderung des Mietwohnungsbaus und von
+      Arbeitsplätzen in Privathaushalten).
+    note: >-
+      Art. 1 Nr. 6 c) ersetzt in § 20 Abs. 4 EStG „300" durch „600" (und „600"
+      durch „1 200"). Die Anwendungsvorschrift in Art. 1 Nr. 25 b) (§ 52 Abs. 20
+      EStG) bestimmt: „§ 20 Abs. 4 ist erstmals für den Veranlagungszeitraum 1989
+      anzuwenden."
   1993-01-01:
-    value: 3068
-    note: 6000 DM.
+    value: 6000
+    reference: Art. 1 Nr. 4 G. v. 09.11.1992 BGBl. I S. 1853 (Zinsabschlaggesetz).
   2000-01-01:
-    value: 1534
-    note: 3000 DM
+    value: 3000
+    reference: >-
+      Art. 1 Nr. 29 G. v. 24.03.1999 BGBl. I S. 402
+      (Steuerentlastungsgesetz 1999/2000/2002).
   2002-01-01:
+    unit: EUR_PER_YEAR
     value: 1550
     reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2004-01-01:
     value: 1370
+    reference: >-
+      Art. 9 Nr. 19 G. v. 29.12.2003 BGBl. I S. 3076 (Haushaltsbegleitgesetz 2004).
   2007-01-01:
     value: 750
+    reference: >-
+      Art. 1 Nr. 10 G. v. 19.07.2006 BGBl. I S. 1652 (Steueränderungsgesetz 2007).
   2009-01-01:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
-werbungskostenpauschbetrag:
+werbungskostenpauschbetrag_y:
   name:
     de: Werbungskostenpauschbetrag bei Zinseinkünften
     en: null
   description:
     de: § 9a EStG
     en: null
-  unit: Euros
-  reference_period: Year
   type: scalar
   1975-01-01:
+    unit: DM_PER_YEAR
+    value: 100
+  2002-01-01:
+    unit: EUR_PER_YEAR
     value: 51
-    note: 100 DM.
+    reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
   2009-01-01:
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
-sparerpauschbetrag:
+sparerpauschbetrag_y:
   name:
     de: Sparerpauschbetrag
     en: Allowance for Capital Gains
@@ -60,8 +77,7 @@ sparerpauschbetrag:
       § 20 (9) EStG. Wert für Einzelpersonen. Wird verdoppelt für
       gemeinsam veranlagte Paare.
     en: null
-  unit: Euros
-  reference_period: Year
+  unit: EUR_PER_YEAR
   type: scalar
   2009-01-01:
     value: 801

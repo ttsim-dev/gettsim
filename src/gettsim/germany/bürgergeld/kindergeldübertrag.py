@@ -6,7 +6,9 @@ from typing import TYPE_CHECKING
 
 from gettsim.tt import (
     AggType,
+    TTSIMUnit,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     join,
     policy_function,
 )
@@ -17,7 +19,9 @@ if TYPE_CHECKING:
     from gettsim.typing import BoolColumn, FloatColumn, IntColumn
 
 
-@agg_by_p_id_function(start_date="2023-01-01", agg_type=AggType.SUM)
+@agg_by_p_id_function(
+    start_date="2023-01-01", agg_type=AggType.SUM, unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
 def kindergeldübertrag_m(
     differenz_kindergeld_kindbedarf_m: float,
     kindergeld__p_id_empfänger: int,
@@ -29,10 +33,11 @@ def kindergeldübertrag_m(
 @policy_function(
     start_date="2023-01-01",
     leaf_name="kindergeld_pro_kind_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def _mean_kindergeld_per_child_ohne_staffelung_m(
     kindergeld__anzahl_ansprüche: int,
-    kindergeld__satz: float,
+    kindergeld__satz_m: float,
 ) -> float:
     """Kindergeld per child.
 
@@ -40,10 +45,14 @@ def _mean_kindergeld_per_child_ohne_staffelung_m(
     `kindergeld_zur_bedarfsdeckung_m`.
 
     """
-    return kindergeld__satz if kindergeld__anzahl_ansprüche > 0 else 0.0
+    return kindergeld__satz_m if kindergeld__anzahl_ansprüche > 0 else 0.0
 
 
-@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2023-01-01",
+    vectorization_strategy="not_required",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
 def kindergeld_zur_bedarfsdeckung_m(
     kindergeld_pro_kind_m: FloatColumn,
     kindergeld__p_id_empfänger: IntColumn,
@@ -69,7 +78,7 @@ def kindergeld_zur_bedarfsdeckung_m(
     )
 
 
-@policy_function(start_date="2023-01-01")
+@policy_function(start_date="2023-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def differenz_kindergeld_kindbedarf_m(
     regelbedarf_m_bg: float,
     nettoeinkommen_nach_abzug_freibetrag_m: float,
@@ -90,7 +99,7 @@ def differenz_kindergeld_kindbedarf_m(
     to the parental level.
     """
     fehlbetrag = max(
-        regelbedarf_m_bg
+        cast_ttsim_unit(regelbedarf_m_bg, unit=TTSIMUnit.CURRENCY.PER_MONTH)
         - wohngeld__anspruchshöhe_m_wthh / wohngeld__anzahl_personen_wthh
         - nettoeinkommen_nach_abzug_freibetrag_m
         - unterhalt__tatsächlich_erhaltener_betrag_m
@@ -109,7 +118,11 @@ def differenz_kindergeld_kindbedarf_m(
     return out
 
 
-@policy_function(start_date="2023-01-01", vectorization_strategy="not_required")
+@policy_function(
+    start_date="2023-01-01",
+    vectorization_strategy="not_required",
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
 def in_anderer_bg_als_kindergeldempfänger(
     p_id: IntColumn,
     kindergeld__p_id_empfänger: IntColumn,

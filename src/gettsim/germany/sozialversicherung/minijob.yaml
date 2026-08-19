@@ -1,33 +1,33 @@
 ---
-minijobgrenze:
+minijobgrenze_m:
   name:
     de: Minijobgrenze
     en: Thresholds for marginal employment (minijobs)
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: Euros
-  reference_period: Month
   type: scalar
   1984-01-01:
-    value: 199
+    unit: DM_PER_MONTH
+    value: 390
   1985-01-01:
-    value: 205
+    value: 400
   1986-01-01:
-    value: 210
+    value: 410
   1987-01-01:
-    value: 220
+    value: 430
   1988-01-01:
-    value: 225
+    value: 440
   1989-01-01:
-    value: 230
+    value: 450
   1990-01-01:
     note: >-
       Minijobgrenze differs between West and East Germany. See
       ``parameter_minijobgrenze_ost_west_unterschied``.
   2000-01-01:
-    value: 322
+    value: 630
   2002-01-01:
+    unit: EUR_PER_MONTH
     value: 325
   2003-04-01:
     value: 400
@@ -43,39 +43,52 @@ parameter_minijobgrenze_ost_west_unterschied:
   description:
     de: Minijob § 8 (1) Nr. 1 SGB IV
     en: Minijob § 8 (1) Nr. 1 SGB IV
-  unit: Euros
-  reference_period: Month
+  unit: DM_PER_MONTH
   type: dict
   1990-01-01:
-    west: 240
-    ost: 102
+    west: 470
+    ost: 200
   1991-01-01:
-    west: 245
-    ost: 120
+    west: 480
+    ost: 220
+    reference: § 8 Abs. 1 Nr. 1 SGB IV.
+    note: >-
+      Ein Siebtel der Bezugsgröße (West 3 360, Ost 1 540 Deutsche Mark). Die
+      Bezugsgröße (Ost) für das erste Halbjahr 1991 beruht auf dem Gesetz über die
+      Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38 S. 486) und steht nicht
+      im Bundesgesetzblatt.
+  1991-07-01:
+    updates_previous: true
+    ost: 250
+    reference: >-
+      § 1 V. v. 19.06.1991 BGBl. I S. 1300 (Zweite V. zur Anpassung der Renten).
+    note: >-
+      Die Bezugsgröße (Ost) steigt zum 1. Juli 1991 von 1 540 auf 1 750 Deutsche Mark;
+      die Grenze ist ein Siebtel davon (§ 8 Abs. 1 Nr. 1 SGB IV).
   1992-01-01:
-    west: 256
-    ost: 153
+    west: 500
+    ost: 300
   1993-01-01:
-    west: 271
-    ost: 199
+    west: 530
+    ost: 390
   1994-01-01:
-    west: 286
-    ost: 225
+    west: 560
+    ost: 440
   1995-01-01:
-    west: 297
-    ost: 240
+    west: 580
+    ost: 470
   1996-01-01:
-    west: 302
-    ost: 256
+    west: 590
+    ost: 500
   1997-01-01:
-    west: 312
-    ost: 266
+    west: 610
+    ost: 520
   1998-01-01:
     updates_previous: true
-    west: 317
+    west: 620
   1999-01-01:
-    west: 322
-    ost: 271
+    west: 630
+    ost: 530
   2000-01-01:
     note: >-
       Minijob thresholds do not differ between West and East Germany. See
@@ -89,8 +102,9 @@ faktoren_minijobformel:
   description:
     de: §8 (1a) SGB IV
     en: §8 (1a) SGB IV
-  unit: null
-  reference_period: null
+  unit:
+    zähler: HOURS
+    nenner: MONTHS
   type: dict
   2022-10-01:
     zähler: 130

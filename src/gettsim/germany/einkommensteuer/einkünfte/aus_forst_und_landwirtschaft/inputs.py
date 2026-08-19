@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from gettsim.tt import policy_input
+from gettsim.tt import TTSIMUnit, policy_input
 
 
-@policy_input()
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def betrag_y() -> float:
     """Yearly income from forestry and agriculture."""

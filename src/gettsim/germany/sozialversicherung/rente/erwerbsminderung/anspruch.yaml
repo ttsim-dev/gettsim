@@ -8,8 +8,7 @@ mindestpflichtbeitragszeiten_monate:
       ...
     en: >-
       ...
-  unit: Months
-  reference_period: null
+  unit: MONTHS
   type: scalar
   2001-01-01:
     value: 36
