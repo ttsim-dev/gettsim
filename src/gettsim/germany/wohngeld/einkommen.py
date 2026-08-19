@@ -39,7 +39,7 @@ def alleinerziehendenbonus(
 
 @param_function(
     unit=InputOutputUnits(
-        input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+        input_unit=TTSIMUnit.COUNT.PER_WTHH,
         output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be
@@ -56,7 +56,7 @@ def mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table(
     )
 
 
-@param_function(unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH)
+@param_function(unit=TTSIMUnit.COUNT.PER_WTHH)
 def maximale_haushaltsgröße_mindesteinkommen_wthh(
     mindesteinkommen_nach_haushaltsgröße_m_wthh: dict[int, float],
 ) -> int:
@@ -67,7 +67,7 @@ def maximale_haushaltsgröße_mindesteinkommen_wthh(
     """
     return cast_ttsim_unit(
         len(mindesteinkommen_nach_haushaltsgröße_m_wthh),
-        unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+        unit=TTSIMUnit.COUNT.PER_WTHH,
     )
 
 

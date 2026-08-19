@@ -318,8 +318,7 @@ def berechtigte_wohnfläche(
         maximum = (
             berechtigte_wohnfläche_miete["single"]
             + max(
-                anzahl_personen_hh
-                - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_HH),
+                anzahl_personen_hh - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_HH),
                 0,
             )
             * berechtigte_wohnfläche_miete["je_weitere_person"]
@@ -449,7 +448,7 @@ def regelsatz_anteilsbasiert(
     start_date="2005-01-01",
     end_date="2022-12-31",
     unit=InputOutputUnits(
-        input_unit=TTSIMUnit.DIMENSIONLESS.PER_HH,
+        input_unit=TTSIMUnit.COUNT.PER_HH,
         output_unit=TTSIMUnit.SQUARE_METER.PER_HH,
     ),
     # Mandatory for schedule builders: the body builds a table, so it cannot be

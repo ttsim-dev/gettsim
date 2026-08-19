@@ -41,7 +41,7 @@ def vermögensgrenze_unterschritten_wthh(
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
     ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
-        anzahl_personen_wthh - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH)
+        anzahl_personen_wthh - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_WTHH)
     )
 
     return vermögen_wthh <= vermögensfreibetrag

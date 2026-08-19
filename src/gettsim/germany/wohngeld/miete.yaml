@@ -1178,7 +1178,10 @@ raw_max_miete_m_hh:
       - Anzahl Personen
       - Mietstufe
     en: null
-  input_unit: DIMENSIONLESS_PER_HH
+  # This raw table has two different integer key axes: household size and rent
+  # class. The converter input therefore stays bare; the converted lookup declares
+  # the exact `(count per HH, category)` axes in `miete.py`.
+  input_unit: DIMENSIONLESS
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2009-01-01:
@@ -1430,7 +1433,7 @@ raw_heizkostenentlastung_m_hh:
     en: >-
       Amount of relief in heating costs due to CO2 pricing in Euro depending on
       household size
-  input_unit: DIMENSIONLESS_PER_HH
+  input_unit: COUNT_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2021-01-01:
@@ -1452,7 +1455,7 @@ raw_dauerhafte_heizkostenkomponente_m_hh:
     en: >-
       Permanent heating cost component depending on household size introduced with the
       housing subsidy reform 2023
-  input_unit: DIMENSIONLESS_PER_HH
+  input_unit: COUNT_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
@@ -1476,7 +1479,7 @@ raw_klimakomponente_m_hh:
       Surcharge to be taken into account as climate component in addition to the maximum
       amounts pursuant to § 12 (1) in Euro depending on the size of the household;
       introduced with the housing subsidy reform 2023
-  input_unit: DIMENSIONLESS_PER_HH
+  input_unit: COUNT_PER_HH
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:

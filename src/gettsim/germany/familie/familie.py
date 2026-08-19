@@ -260,7 +260,7 @@ def hat_kind_in_gleicher_bedarfsgemeinschaft(
 ) -> bool:
     """Has a child in the same Bedarfsgemeinschaft."""
     return (
-        anzahl_kinder_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_BG)
+        anzahl_kinder_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
         and ist_erwachsener_in_bedarfsgemeinschaft
     )
 

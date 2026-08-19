@@ -235,7 +235,7 @@ def bezugsmonate_unter_grenze_fg(
         max_bezugsmonate["partnermonate"], unit=TTSIMUnit.MONTHS
     ):
         out = bisherige_bezugsmonate_fg < grenze_mit_partnermonaten_fg
-    elif anzahl_anträge_fg > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_FG):
+    elif anzahl_anträge_fg > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_FG):
         out = (
             bisherige_bezugsmonate_fg + cast_ttsim_unit(1, unit=TTSIMUnit.MONTHS.PER_FG)
             < grenze_mit_partnermonaten_fg

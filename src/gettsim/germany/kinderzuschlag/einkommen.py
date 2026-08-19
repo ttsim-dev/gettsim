@@ -16,6 +16,7 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_group_function,
+    cast_ttsim_unit,
     param_function,
     policy_function,
 )
@@ -352,7 +353,15 @@ def wohnbedarf_anteil_eltern_bg(
         wohnbedarf_anteil_berücksichtigte_kinder,
     ) * (existenzminimum.kosten_der_unterkunft.kind + existenzminimum.heizkosten.kind)
 
-    return elternbetrag / (elternbetrag + kinderbetrag)
+    # This is a share, not a group total. The local assertions make the deliberate
+    # cancellation of the two BG amounts explicit under GEP 10.
+    return cast_ttsim_unit(
+        elternbetrag,
+        unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    ) / cast_ttsim_unit(
+        elternbetrag + kinderbetrag,
+        unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    )
 
 
 @policy_function(

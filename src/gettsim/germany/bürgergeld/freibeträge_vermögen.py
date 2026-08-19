@@ -18,7 +18,7 @@ def vermögensfreibetrag_in_karenzzeit_bg(
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
         + (
             familie__anzahl_personen_bg
-            - cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_BG)
+            - cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
         )
         * vermögensfreibetrag_je_person_nach_karenzzeit["normaler_satz"]
     )

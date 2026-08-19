@@ -199,21 +199,21 @@ class BasisformelParamValues:
     a: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
         ),
     ]
     b: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
         ),
     ]
     c: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.DIMENSIONLESS,
         ),
     ]
@@ -259,7 +259,7 @@ class BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße(BasisformelParam
     zusatzbetrag_nach_haushaltsgröße: Annotated[
         ConsecutiveIntLookupTableParamValue,
         InputOutputUnits(
-            input_unit=TTSIMUnit.DIMENSIONLESS.PER_WTHH,
+            input_unit=TTSIMUnit.COUNT.PER_WTHH,
             output_unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
         ),
     ]

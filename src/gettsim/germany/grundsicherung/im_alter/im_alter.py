@@ -131,9 +131,18 @@ def anspruchshöhe_m_bis_2022(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
+        # The Verhältnislösung deliberately relates a person's need to the EG total.
+        # GEP 10 cannot infer that person-to-group allocation from group markers.
         return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+            individueller_restbedarf_m
+            / cast_ttsim_unit(
+                individueller_restbedarf_m_eg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH,
+            )
+        ) * cast_ttsim_unit(
+            anspruch_m_eg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(
@@ -178,9 +187,18 @@ def anspruchshöhe_m_ab_2023(
     if individueller_restbedarf_m_eg == 0.0 or not vermögensgrenze_unterschritten_eg:
         return 0.0
     else:
+        # The Verhältnislösung deliberately relates a person's need to the EG total.
+        # GEP 10 cannot infer that person-to-group allocation from group markers.
         return (
-            individueller_restbedarf_m / individueller_restbedarf_m_eg
-        ) * anspruch_m_eg
+            individueller_restbedarf_m
+            / cast_ttsim_unit(
+                individueller_restbedarf_m_eg,
+                unit=TTSIMUnit.CURRENCY.PER_MONTH,
+            )
+        ) * cast_ttsim_unit(
+            anspruch_m_eg,
+            unit=TTSIMUnit.CURRENCY.PER_MONTH,
+        )
 
 
 @policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -281,16 +299,14 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
 ) -> float:
     """Additional allowance for individuals with disabled person's pass G."""
     if (schwerbehindert_grad_g) and (
-        familie__anzahl_erwachsene_eg
-        == cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
+        familie__anzahl_erwachsene_eg == cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
     ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
             * mehrbedarf_bei_schwerbehinderungsgrad_g
         )
     elif (schwerbehindert_grad_g) and (
-        familie__anzahl_erwachsene_eg
-        > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
+        familie__anzahl_erwachsene_eg > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
     ):
         out = (
             arbeitslosengeld_2__regelsatz_anteilsbasiert.basissatz
@@ -327,13 +343,11 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
     ) * mehrbedarf_bei_schwerbehinderungsgrad_g
 
     if (schwerbehindert_grad_g) and (
-        familie__anzahl_erwachsene_eg
-        == cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
+        familie__anzahl_erwachsene_eg == cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
     ):
         out = mehrbedarf_single
     elif (schwerbehindert_grad_g) and (
-        familie__anzahl_erwachsene_eg
-        > cast_ttsim_unit(1, unit=TTSIMUnit.DIMENSIONLESS.PER_EG)
+        familie__anzahl_erwachsene_eg > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
     ):
         out = mehrbedarf_in_couple
     else:
