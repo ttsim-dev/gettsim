@@ -15,52 +15,102 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`1212` GEP 10 Rollout and some related column renamings: Most gain the suffix of
-  the period they are measured over: `basistarif`, `splittingtarif`,
+- {gh}`1212` GEP 10 Rollout. Most columns and parameters gain the suffix naming the
+  period they are measured over or the level they are aggregated to.
+
+  Columns gaining `_y`: the Lohnsteuer `basistarif`, `splittingtarif`,
   `tarif_klassen_5_und_6` (and their `_mit_kinderfreibetrag` variants),
-  `einkommensgrenze_ohne_geschwisterbonus` (and its two age variants),
   `vorsorge_arbeitslosenversicherungsbeiträge`,
-  `vorsorge_krankenversicherungsbeiträge_option_a` and `_option_b` all gain `_y`;
-  `betrag_versicherter_regulärer_beitragssatz`,
-  `lohnersatzanteil_einkommen_untere_grenze` and `_obere_grenze`,
-  `mean_entgeltpunkte_zuschlag`, `minijobgrenze`, `rentenwert` and the Kinderzuschlag
-  `satz` all gain `_m`. Two lose a suffix they should never have had, being shares
-  rather than flows: `anteil_steuerfälliger_einnahmen_y` and
-  `mehrbedarfsanteil_alleinerziehend_m`. `gesamteinkommen_y` becomes
-  `gesamteinkommen_y_sn`, naming the level it is aggregated to. ({ghuser}`MImmesberger`)
+  `vorsorge_krankenversicherungsbeiträge_option_a` and `_option_b`, and
+  `maximaler_altersentlastungsbetrag_gestaffelt_nach_geburtsjahr`. Gaining `_m`:
+  `betrag_versicherter_regulärer_beitragssatz` (Kranken-, Pflege-, Rentenversicherung),
+  the Elterngeld `lohnersatzanteil_einkommen_untere_grenze` and `_obere_grenze`, the
+  Grundrente `mean_entgeltpunkte_pro_bewertungsmonat` and `mean_entgeltpunkte_zuschlag`,
+  `minijobgrenze`, `rentenwert`, and the Kinderzuschlag `satz`. Gaining a level:
+  `überschusseinkommen_m` → `_m_bg` (ALG 2 and Bürgergeld), `gesamteinkommen_y` →
+  `_y_sn`, the Elterngeld `einkommen_vorjahr_unter_bezugsgrenze` → `_sn` and
+  `geschwisterbonus_m` / `mehrlingsbonus_m` → `_m_fg`, and the Erziehungsgeld
+  `einkommensgrenze_ohne_geschwisterbonus` plus its two age variants → `_y_fg`.
+
+  Two columns lose a suffix they should never have had, being shares rather than flows:
+  `anteil_steuerfälliger_einnahmen_y` → `anteil_steuerfälliger_einnahmen` and
+  `mehrbedarf_alleinerziehend_m` → `mehrbedarfsanteil_alleinerziehend`. Two are renamed:
+  the Erwerbsminderungsrente `mean_entgeltpunkte_pro_bewertungsmonat` →
+  `mean_entgeltpunkte_bewertungszeitraum_y` and the Wohngeld
+  `min_einkommen_lookup_table` →
+  `mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table`.
+
+  Parameters gaining `_y`: `alleinerziehendenfreibetrag_basis`,
+  `alleinerziehendenfreibetrag_zusatz_pro_kind`, `maximaler_altersentlastungsbetrag`
+  (and its `raw_..._gestaffelt` variant), `sparerfreibetrag`, `sparerpauschbetrag`,
+  `werbungskostenpauschbetrag` (Kapitalvermögen and sonstige Einkünfte),
+  `einkommensgrenze_kinder`, the Kinderbonus `satz`, `kinderbonus_pro_kind`,
+  `maximales_einkommen_des_kindes`, and
+  `vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge`.
+  Gaining `_m`: `mietobergrenze_pro_qm`, the Elterngeld `einkommensschritte_korrektur`,
+  `höchstbetrag`, `max_zu_berücksichtigendes_einkommen`, `mehrlingsbonus_pro_kind` and
+  `mindestbetrag`, the Kindergeld `satz`, the Kinderzuschlag `satz` and
+  `satz_vorjahr_ohne_kindersofortzuschlag`, `freibetrag_nebeneinkommen`,
+  `midijobgrenze`, `minijobgrenze`, `rentenwert`, the Unterhaltsvorschuss
+  `mindesteinkommen`, and `zusatzbetrag_pro_person_in_großen_haushalten`. Further, the
+  Elterngeld `geschwisterbonus_minimum` gains `_m_fg`, and the raw Wohngeld rent
+  parameters (`raw_max_miete_m`, `raw_min_miete_m`, `raw_max_miete_m_nach_baujahr`,
+  `raw_klimakomponente_m`, `raw_heizkostenentlastung_m`,
+  `raw_dauerhafte_heizkostenkomponente_m`) gain `_hh`. Renamed:
+  `parameter_mehrbedarf_alleinerziehend` →
+  `parameter_mehrbedarfsanteil_alleinerziehend`, the Erziehungsgeld
+  `aufschlag_einkommen` → `erhöhung_einkommensgrenze_pro_kind_y`, and the Wohngeld
+  `min_einkommen` → `mindesteinkommen_nach_haushaltsgröße_m_wthh`.
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1206` Update Rentenwert 2025, 2026. ({ghuser}`cmdr-majus`)
+
 - {gh}`1156` Collection of all Grundsicherung im Alter / Wohngeld PRs ({gh}`1163`,
   {gh}`1167`, {gh}`1164`, {gh}`1159`, {gh}`1154`, {gh}`1155`, {gh}`1178`).
   ({ghuser}`MImmesberger`)
+
 - {gh}`1178` Add Grundrentenfreibetrag to Wohngeld calculation. ({ghuser}`MImmesberger`)
+
 - {gh}`1167` No Grundsicherung im Alter if a child's annual Gesamteinkommen (§ 16 SGB
   IV) is 100,000 € or more (§ 43 Abs. 5 SGB XII). ({ghuser}`MImmesberger`)
+
 - {gh}`1164` Proper treatment of gemischte Bedarfsgemeinschaften (SGB II + SGB XII) via
   Vertikalmethode. ({ghuser}`MImmesberger`)
+
 - {gh}`1159` Add Einsatzgemeinschaft (SGB XII); remove Einstandsgemeinschaft.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1154` Fix Freibetrag for pension income from all pillars for Grundsicherung im
   Alter. ({ghuser}`MImmesberger`)
+
 - {gh}`1155` Fix Vermögensfreibetrag for Grundsicherung im Alter.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1174` Add historical values since 1949 for Beitragsbemessungsgrenzen (incl. new
   parameter for knappschaftliche Rentenversicherung Ost) and Durchschnittsentgelt.
   Replace `beitragsbemessungsgrenze_m` with `beitragsbemessungsgrenze_y`.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1185` Adopt the package-wide beartype claw and the typed exception hierarchy
   re-exported from ttsim, so malformed input is rejected with curated errors at the
   user-facing boundaries. ({ghuser}`hmgaudecker`)
+
 - {gh}`1183` Add Werbungskostenpauschbetrag for sonstige Einkünfte.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1173` Fix double taxation of `sonstige_private_vorsorge_m` and add new input
   variable `einnahmen.renten.basisrente_m` for Basisrente / Rürup-Rente.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1163` Implement Bedarfsanteilmethode for Bürgergeld/ALG2.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1172` Add Wohngeld Basisbetrag to Wohngeld Mindesteinkommen check.
   ({ghuser}`MImmesberger`)
+
 - {gh}`1170` Add proportional splitting of Werbungskosten (§ 3c EStG) and add new input
   variable `tatsächliche_werbungskosten_y`. ({ghuser}`MImmesberger`)
+
 - {gh}`1160` Make `tests-with-cov` use loop vectorization to enable coverage reporting.
   ({ghuser}`hmgaudecker`)
 
