@@ -263,7 +263,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -504,7 +504,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -745,7 +745,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -987,7 +987,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -1284,7 +1284,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1538,7 +1538,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1792,7 +1792,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2047,7 +2047,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2330,7 +2330,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/09/b9/f668bc51129c0fec7728ae8b43180417fe1c1fe99f71d302739f6cc50944/optree-0.19.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -2574,7 +2574,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2818,7 +2818,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3063,7 +3063,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/22/64/3cc7b08cb1c0f1949895f9490217ca8db6ced7f3bf75c65a5bf31c07bf1e/optree-0.19.1-cp311-cp311-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -3355,7 +3355,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/0c/b6/156a8de1e1b47694f0e7de6675866936608d45dc68388fd017d36f8693be/simplejson-4.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -3602,7 +3602,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1d/48/bc8d4ba7b37551a767bd863f15b3f80182b271c2f55975356f5f7dbe94c2/coverage-7.15.4-cp312-cp312-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -3849,7 +3849,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/20/dd/88d6f83f1fffc974a3691a34a97951c5b12df7512a6782c5963883cbc058/coverage-7.15.4-cp312-cp312-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -4097,7 +4097,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4388,7 +4388,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4636,7 +4636,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4884,7 +4884,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5133,7 +5133,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5424,7 +5424,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5672,7 +5672,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/07/f4/84d160e9fa8cada1e0a9381cae4fa81eecd573577a5b34366d8ced59bdf7/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -5920,7 +5920,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/0b/02/1abbf5c984677b0aa439cdacaccbf38d248939d8ef8fe1cc7a50d73edb77/coverage-7.15.4-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -6169,7 +6169,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/18/d8544811ab076f876c4892b3714f5b0dad335e1dc33aef826df431b8325d/plotly-6.9.0-py3-none-any.whl
@@ -6460,7 +6460,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/14/fb/94933e00bb3dcfdf66ea3456739c6a51d322353f7cc64fa1f5f660e695ac/nvidia_nccl_cu13-2.31.2-py3-none-manylinux_2_18_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/19/14/fe7b8670005fbdc2989f45a19192c979fb91334c80888147f0f34efaf19e/jax_cuda13_pjrt-0.11.1-py3-none-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -6772,7 +6772,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1c/b1/1831dd8c9b06c013085d31a2ac4f03392d43bd36bfc6ff591a08bcedc1cf/ml_dtypes-0.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7025,7 +7025,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/0b/02/1abbf5c984677b0aa439cdacaccbf38d248939d8ef8fe1cc7a50d73edb77/coverage-7.15.4-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -7279,7 +7279,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/18/72/ec1b5cbdcb140c132e6c7bdf99bd73e4f675439e77126c88f472fcffa09c/simplejson-4.1.1-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7539,7 +7539,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: .
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#a4407a01319fb04344579c8d9aa23f90ef65cdbd
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
       - pypi: https://files.pythonhosted.org/packages/09/dc/6d8fbfc29d902251cf333414cf7dcfaf4b252a9920c881354584ed36270d/jax_metal-0.1.1-py3-none-macosx_13_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/0b/02/1abbf5c984677b0aa439cdacaccbf38d248939d8ef8fe1cc7a50d73edb77/coverage-7.15.4-cp314-cp314-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -7752,7 +7752,7 @@ packages:
   - zstd >=1.5.7,<1.6.0a0
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=hash-mapping
+  - pkg:pypi/backports-zstd?source=compressed-mapping
   run_exports: {}
   size: 243610
   timestamp: 1786861410562
@@ -7885,7 +7885,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=hash-mapping
+  - pkg:pypi/cffi?source=compressed-mapping
   run_exports: {}
   size: 309459
   timestamp: 1786775113989
@@ -10146,7 +10146,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 869730
   timestamp: 1786226754702
@@ -10176,7 +10176,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 923237
   timestamp: 1786226770518
@@ -10802,7 +10802,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/charset-normalizer?source=hash-mapping
+  - pkg:pypi/charset-normalizer?source=compressed-mapping
   run_exports: {}
   size: 64487
   timestamp: 1786835648298
@@ -11096,7 +11096,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/idna?source=hash-mapping
+  - pkg:pypi/idna?source=compressed-mapping
   run_exports: {}
   size: 177433
   timestamp: 1787059857580
@@ -11418,7 +11418,7 @@ packages:
   - nodejs >=22
   license: BSD-3-Clause AND MIT AND ISC
   purls:
-  - pkg:pypi/jupyter-builder?source=hash-mapping
+  - pkg:pypi/jupyter-builder?source=compressed-mapping
   run_exports: {}
   size: 862197
   timestamp: 1786385602872
@@ -11583,7 +11583,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/jupyterlab?source=hash-mapping
+  - pkg:pypi/jupyterlab?source=compressed-mapping
   run_exports: {}
   size: 13178193
   timestamp: 1786398793317
@@ -11963,7 +11963,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/platformdirs?source=hash-mapping
+  - pkg:pypi/platformdirs?source=compressed-mapping
   run_exports: {}
   size: 26956
   timestamp: 1786708411066
@@ -12361,7 +12361,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/setuptools?source=hash-mapping
+  - pkg:pypi/setuptools?source=compressed-mapping
   run_exports: {}
   size: 524488
   timestamp: 1786282924579
@@ -12423,7 +12423,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/soupsieve?source=hash-mapping
+  - pkg:pypi/soupsieve?source=compressed-mapping
   run_exports: {}
   size: 39439
   timestamp: 1786202135509
@@ -17029,7 +17029,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/pyobjc-framework-cocoa?source=hash-mapping
+  - pkg:pypi/pyobjc-framework-cocoa?source=compressed-mapping
   run_exports: {}
   size: 384157
   timestamp: 1786682206216
@@ -17045,7 +17045,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/pyobjc-framework-cocoa?source=hash-mapping
+  - pkg:pypi/pyobjc-framework-cocoa?source=compressed-mapping
   run_exports: {}
   size: 382991
   timestamp: 1786682078806
@@ -17380,7 +17380,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 869700
   timestamp: 1786375852841
@@ -17571,7 +17571,7 @@ packages:
   - zstd >=1.5.7,<1.6.0a0
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=hash-mapping
+  - pkg:pypi/backports-zstd?source=compressed-mapping
   run_exports: {}
   size: 239485
   timestamp: 1786861404460
@@ -19686,7 +19686,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 869273
   timestamp: 1786226848377
@@ -19702,7 +19702,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=hash-mapping
+  - pkg:pypi/tornado?source=compressed-mapping
   run_exports: {}
   size: 894576
   timestamp: 1786226856347
@@ -19974,7 +19974,7 @@ packages:
   - dags>=0.6
   - gettsim>=1.1
   requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=gep10-infra-1-dimensional-core#f2612d484f7178fff5502ef86bb71b713fbc5138
+- pypi: git+https://github.com/ttsim-dev/ttsim.git?rev=f2612d484f7178fff5502ef86bb71b713fbc5138#f2612d484f7178fff5502ef86bb71b713fbc5138
   name: ttsim-backend
   version: 1.2.2.dev102+gf2612d484
   requires_dist:
