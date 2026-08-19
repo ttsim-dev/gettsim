@@ -34,14 +34,17 @@ dynamic = [ "version" ]
 # dependencies = [ "ttsim-backend>=1.2" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
+
 [[project.authors]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"
+
 [[project.authors]]
 name = "Marvin Immesberger"
 [[project.maintainers]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"
+
 [[project.maintainers]]
 name = "Marvin Immesberger"
 [project.urls]
@@ -136,7 +139,6 @@ python = "~=3.12.0"
 python = "~=3.13.0"
 [tool.pixi.feature.py314.dependencies]
 python = "~=3.14.0"
-
 # Run internal tests with the package-wide beartype claws on. Both
 # gettsim's and ttsim's claws fire — gettsim transitively exercises
 # ttsim code paths and we want violations on either side to surface.
@@ -173,7 +175,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", rev = "33658c42fb771c25cebbc4362d2af609ea889e6c" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", rev = "f2612d484f7178fff5502ef86bb71b713fbc5138" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
@@ -185,6 +187,7 @@ unsafe-fixes = false
 select = [ "ALL" ]
 extend-ignore = [
   "COM812",  # Avoid conflicts with ruff-format
+  "CPY001",  # Copyright notice at top of file
   "D",       # Docstrings
   "EM101",   # Exception must not use a string literal
   "EM102",   # Exception must not use an f-string literal
@@ -204,6 +207,7 @@ extend-ignore = [
   "PLC2401", # Allow non-ASCII characters in variable names.
   "PLC2403", # Allow non-ASCII function names for imports.
   "PLR0913", # Allow many arguments in function definitions.
+  "PLR0917", # Allow many positional arguments in function definitions.
   "PLR5501", # elif not supported by vectorization converter for Jax
   "TRY003",  # Avoid specifying long messages outside the exception class
 ]
@@ -253,7 +257,6 @@ pydocstyle.convention = "google"
 column_width = 88
 max_supported_python = "3.14"
 table_format = "long"
-collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 expand_tables = [
   "tool.pixi.dependencies",
   "tool.pixi.environments",
@@ -288,6 +291,7 @@ expand_tables = [
   "tool.pixi.tasks",
   "tool.pixi.workspace",
 ]
+collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 
 [tool.ty]
 # ty resolves third-party imports from this pixi env (the ty-pre-commit hook runs
