@@ -215,15 +215,37 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
     leaf_name="betrag_versicherter_in_gleitzone_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_versicherter_in_gleitzone_m_direkt(
+def betrag_versicherter_in_gleitzone_m_mit_zusatzbetrag_auf_bemessungsentgelt(
+    zahlt_zusatzbetrag_kinderlos: bool,
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
-    beitragssatz_arbeitnehmer: float,
+    sozialversicherung__midijob_bemessungsentgelt_m: float,
+    beitragssatz_nach_kinderzahl: dict[str, float],
 ) -> float:
-    """Employee's long-term care insurance contribution for Midijobs."""
-    return (
+    """Employee's long-term care insurance contribution for Midijobs.
+
+    The employee bears half of the standard contribution rate, assessed on the reduced
+    income of § 20 Abs. 2a S. 6 SGB IV. The surcharge for childless individuals raises the
+    contribution rate (§ 55 Abs. 3 S. 1 SGB XI), is borne by the employee alone (§ 58
+    Abs. 1 S. 3 SGB XI), and is assessed separately on the income subject to
+    contributions of § 20 Abs. 2a S. 1 SGB IV.
+
+    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
+    Abs. 3 SGB V
+    """
+    base = (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
-        * beitragssatz_arbeitnehmer
+        * beitragssatz_nach_kinderzahl["standard"]
+        / 2
     )
+
+    zusatzbetrag = (
+        sozialversicherung__midijob_bemessungsentgelt_m
+        * beitragssatz_nach_kinderzahl["zusatz_kinderlos"]
+        if zahlt_zusatzbetrag_kinderlos
+        else 0.0
+    )
+
+    return base + zusatzbetrag
 
 
 @policy_function(
@@ -238,7 +260,18 @@ def betrag_versicherter_midijob_m_mit_verringertem_beitrag_für_eltern_mit_mehre
     sozialversicherung__midijob_bemessungsentgelt_m: float,
     beitragssatz_nach_kinderzahl: dict[str, float],
 ) -> float:
-    """Employee's long-term care insurance contribution."""
+    """Employee's long-term care insurance contribution for Midijobs.
+
+    The employee bears half of the standard contribution rate, assessed on the reduced
+    income of § 20 Abs. 2a S. 6 SGB IV. The surcharge for childless individuals raises the
+    contribution rate (§ 55 Abs. 3 S. 1 SGB XI), is borne by the employee alone (§ 58
+    Abs. 1 S. 3 SGB XI), and is assessed separately on the income subject to
+    contributions of § 20 Abs. 2a S. 1 SGB IV. The reduction for parents of more than
+    one child below 25 (§ 55 Abs. 3 S. 4 SGB XI) lowers the employee's share only.
+
+    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
+    Abs. 3 SGB V
+    """
     base = (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
         * beitragssatz_nach_kinderzahl["standard"]
@@ -287,7 +320,18 @@ def betrag_arbeitgeber_in_gleitzone_m_als_anteil_der_beitragspflichtigen_einnahm
     beitragssatz_arbeitgeber: float,
     beitragssatz_nach_kinderzahl: dict[str, float],
 ) -> float:
-    """Employer's long-term care insurance contribution for Midijobs."""
+    """Employer's long-term care insurance contribution for Midijobs.
+
+    The employer bears the total contribution — assessed on the income subject to
+    contributions of § 20 Abs. 2a S. 1 SGB IV (§ 226 Abs. 4 SGB V) — less half of the
+    standard contribution rate applied to the reduced employee income of § 20 Abs. 2a
+    S. 6 SGB IV. Both the surcharge for childless individuals and the reduction for
+    parents of more than one child below 25 are left out of that deduction, so neither
+    changes the employer's share.
+
+    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
+    Abs. 3 SGB V
+    """
     return (
         sozialversicherung__midijob_bemessungsentgelt_m
         * beitragssatz_nach_kinderzahl["standard"]
