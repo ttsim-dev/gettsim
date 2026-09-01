@@ -15,6 +15,11 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`XXX` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
+  the warnings summary. A claw warning means beartype skipped an object, leaving a hole
+  in the package-wide runtime checking; the one known-benign case (`@interface_input`
+  metadata dataclasses) stays exempt. ({ghuser}`MImmesberger`)
+
 - {gh}`1215` Fix the Beitragszuschlag für Kinderlose in the Pflegeversicherung for
   Midijobs between October 2022 and June 2023. The surcharge is borne by the employee
   alone and assessed on the beitragspflichtige Einnahme of § 20 Abs. 2a S. 1 SGB IV (§ 2

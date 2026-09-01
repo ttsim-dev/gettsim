@@ -329,10 +329,17 @@ ini_options.markers = [
   "wip: Tests that are work-in-progress.",
 ]
 ini_options.filterwarnings = [
+  # A claw warning means beartype silently skipped an object, leaving a hole in
+  # the package-wide runtime checking. Fail the run instead of burying it in the
+  # warnings summary; the `ignore` below exempts the one known-benign case.
+  "error::beartype.roar.BeartypeClawDecorWarning",
   "ignore:.*'tree.iter()'*:PendingDeprecationWarning",
   "ignore:.*Sorting*:FutureWarning",
   "ignore:.*XMLParser*:DeprecationWarning",
   "ignore:Explicitly requested dtype .*64 requested in zeros_like",
+  # A non-callable metadata dataclass has nothing to type-check, so beartype's
+  # package claw skips every `@interface_input` object with a warning.
+  'ignore:Object "InterfaceInput\(:beartype.roar.BeartypeClawDecorWarning',
   "ignore:Repeated execution of the test suite",
   "ignore:The TerminalReporter.writer attribute is",
   "ignore:Using or importing the ABCs from 'collections'",
