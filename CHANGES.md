@@ -15,7 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`XXX` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
+- {gh}`1228` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
   the warnings summary. A claw warning means beartype skipped an object, leaving a hole
   in the package-wide runtime checking; the one known-benign case (`@interface_input`
   metadata dataclasses) stays exempt. ({ghuser}`MImmesberger`)
