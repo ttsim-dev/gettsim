@@ -20,6 +20,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   in the package-wide runtime checking; the one known-benign case (`@interface_input`
   metadata dataclasses) stays exempt. ({ghuser}`MImmesberger`)
 
+## v1.3 — 2026-08-20
+
 - {gh}`1215` Fix the Beitragszuschlag für Kinderlose in the Pflegeversicherung for
   Midijobs between October 2022 and June 2023. The surcharge is borne by the employee
   alone and assessed on the beitragspflichtige Einnahme of § 20 Abs. 2a S. 1 SGB IV (§ 2
