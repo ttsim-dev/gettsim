@@ -31,7 +31,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.3" ]
+dependencies = [ "ttsim-backend>=1.3.1" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
 
@@ -175,11 +175,7 @@ jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-# Temporary: build ttsim from the branch carrying the `BooleanLevel` claw fix.
-# The `error::BeartypeClawDecorWarning` filter below rejects released ttsim 1.3.0,
-# whose `BooleanLevel` NamedTuple the claw cannot decorate. Drop this override and
-# raise the `ttsim-backend` floor once the fix is released.
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "fix-beartype-claw-decor-warning" }
+# ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
 platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
