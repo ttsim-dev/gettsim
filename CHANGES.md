@@ -15,10 +15,18 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+## v1.3.1 — 2026-09-02
+
+- {gh}`1228` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
+  the warnings summary. ({ghuser}`MImmesberger`)
+
+## v1.3 — 2026-08-20
+
 - {gh}`1215` Fix the Beitragszuschlag für Kinderlose in the Pflegeversicherung for
   Midijobs between October 2022 and June 2023. The surcharge is borne by the employee
   alone and assessed on the beitragspflichtige Einnahme of § 20 Abs. 2a S. 1 SGB IV (§ 2
   Abs. 2 BVV), not on the reduced employee base of § 20 Abs. 2a S. 6 SGB IV.
+  ({ghuser}`MImmesberger`)
 
 - {gh}`1212` GEP 10 Rollout. Most columns and parameters gain the suffix naming the
   period they are measured over or the level they are aggregated to.
