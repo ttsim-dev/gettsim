@@ -15,6 +15,24 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung.
+  Drawing a Vollrente wegen Alters exempts from the Rentenversicherung, from 2017
+  onwards only past the Regelaltersgrenze and absent a Verzicht (§ 5 Abs. 4 SGB VI);
+  reaching the Regelaltersgrenze exempts from the Arbeitslosenversicherung on age alone
+  (§ 28 Abs. 1 Nr. 1 SGB III). Employers keep paying half (§ 172 Abs. 1 SGB VI,
+  § 346 Abs. 3 SGB III), except in the Arbeitslosenversicherung between 2017 and 2021.
+  A Verzicht in geringfügiger Beschäftigung now makes the employee pay the remainder of
+  the contribution on at least the Mindestbeitragsbemessungsgrundlage (§ 168 Abs. 1
+  Nr. 1b, § 163 Abs. 8 SGB VI). Entgeltpunkte follow § 76b SGB VI: none while
+  versicherungsfrei wegen Alters, a Zuschlag reflecting the Pauschalbeitrag in marginal
+  employment without mandatory coverage.
+
+  New input `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit`.
+  `sozialversicherung__rente__bezieht_rente` is renamed to `bezieht_altersrente`.
+  Social insurance contributions now require `alter_monate` and `geburtsjahr`. The
+  Grundrentenfreibetrag of § 17a WoGG now also recognises an Erwerbsminderungsrente.
+  ({ghuser}`MImmesberger`)
+
 ## v1.3.1 — 2026-09-02
 
 - {gh}`1228` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
