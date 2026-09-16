@@ -10,8 +10,9 @@ info:
     - p_id 0: über der Regelaltersgrenze und Bezug einer Vollrente wegen Alters, also
       versicherungsfrei. Kein Arbeitnehmerbeitrag und keine Entgeltpunkte
       (§ 76b Abs. 4 SGB VI).
-    - p_id 1: über der Regelaltersgrenze, aber ohne Rentenbezug. § 5 Abs. 4 Nr. 1 SGB VI
-      verlangt den Bezug einer Vollrente, es besteht also weiterhin Versicherungspflicht.
+    - p_id 1: über der Regelaltersgrenze, aber ohne Rentenbezug.
+      § 5 Abs. 4 Nr. 1 SGB VI verlangt den Bezug einer Vollrente, es besteht
+      also weiterhin Versicherungspflicht.
     - p_id 2: über der Regelaltersgrenze mit Rentenbezug, aber Verzicht auf die
       Versicherungsfreiheit (§ 5 Abs. 4 S. 2 SGB VI). Beiträge und Entgeltpunkte wie bei
       Versicherungspflicht.
