@@ -7,7 +7,6 @@ info:
     Arbeitgeber trägt stets die Hälfte des Beitrags, der bei Versicherungspflicht zu
     zahlen wäre (§ 172 Abs. 1 SGB VI): 4.000 € x 18,6 % / 2 = 372.00 €. Die vollen
     Entgeltpunkte betragen 48.000 € / 51944 € = 0.924072.
-
     - p_id 0: über der Regelaltersgrenze und Bezug einer Vollrente wegen Alters, also
       versicherungsfrei. Kein Arbeitnehmerbeitrag und keine Entgeltpunkte
       (§ 76b Abs. 4 SGB VI).
