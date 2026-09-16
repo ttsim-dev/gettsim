@@ -6,7 +6,11 @@ info:
   precision_atol: 0.01
   source: https://www.buerger-geld.org/rechner/ergebnis/index.php
 inputs:
-  assumed: {}
+  assumed:
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 45
@@ -100,7 +104,7 @@ inputs:
         altersrente:
           betrag_m:
             - 0.0
-        bezieht_rente:
+        bezieht_altersrente:
           - false
         erwerbsminderung:
           betrag_m:

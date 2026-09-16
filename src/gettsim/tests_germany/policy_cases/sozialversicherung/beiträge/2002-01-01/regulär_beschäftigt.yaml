@@ -4,7 +4,15 @@ info:
   precision_atol: 1
   source: Regression test. Unclear whether numbers are correct by external standards.
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 240
+    geburtsjahr:
+      - 1982
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 20

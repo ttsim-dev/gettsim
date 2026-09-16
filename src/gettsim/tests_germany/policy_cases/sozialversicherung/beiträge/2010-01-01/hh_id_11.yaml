@@ -4,7 +4,18 @@ info:
   precision_atol: 1
   source: https://www.ikk-gesundplus.de/arbeitgeber/service/online-rechner/gehaltsrechner/
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 240
+      - 240
+    geburtsjahr:
+      - 1990
+      - 1990
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
   provided:
     alter:
       - 20

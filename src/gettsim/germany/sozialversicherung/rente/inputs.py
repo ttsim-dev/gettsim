@@ -6,8 +6,11 @@ from gettsim.tt import TTSIMUnit, policy_input
 
 
 @policy_input(unit=TTSIMUnit.DIMENSIONLESS)
-def bezieht_rente() -> bool:
-    """Draws public pension benefits."""
+def bezieht_altersrente() -> bool:
+    """Draws an Altersrente.
+
+    Erwerbsminderungsrente is paid irrespective of this input.
+    """
 
 
 @policy_input(end_date="2023-06-30", unit=TTSIMUnit.DIMENSIONLESS)
@@ -23,6 +26,23 @@ def entgeltpunkte_west() -> float:
 @policy_input(start_date="2023-07-01", unit=TTSIMUnit.DIMENSIONLESS)
 def entgeltpunkte() -> float:
     """Earnings points for public pension claim."""
+
+
+@policy_input(unit=TTSIMUnit.DIMENSIONLESS)
+def verzichtet_auf_versicherungsfreiheit() -> bool:
+    """Pays employee pension contributions although exempt by default.
+
+    The employment is covered by mandatory pension insurance at the employee's own
+    initiative. The legal instrument differs by regime:
+
+    - geringfügige Beschäftigung until 2012-12-31: Verzicht auf die
+      Versicherungsfreiheit (§ 5 Abs. 2 S. 2 SGB VI).
+    - geringfügige Beschäftigung from 2013-01-01: the negation of the Befreiung von
+      der Versicherungspflicht (§ 6 Abs. 1b SGB VI). Minijobs are versicherungspflichtig
+      by default here, so `False` means the employee applied for the Befreiung.
+    - Beschäftigung nach Erreichen der Regelaltersgrenze from 2017-01-01: Verzicht auf
+      die Versicherungsfreiheit (§ 5 Abs. 4 S. 2 SGB VI).
+    """
 
 
 @policy_input(unit=TTSIMUnit.MONTHS)

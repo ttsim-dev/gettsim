@@ -4,7 +4,15 @@ info:
   precision_atol: 1
   source: ''
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 360
+    geburtsjahr:
+      - 1989
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 30

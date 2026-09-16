@@ -4,7 +4,15 @@ info:
   precision_atol: 1
   source: https://www.brutto-netto-rechner.info/gehalt/gehaltsrechner-arbeitgeber.php
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 480
+    geburtsjahr:
+      - 1982
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 40

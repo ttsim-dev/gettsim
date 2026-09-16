@@ -344,7 +344,12 @@ def älter_als_regelaltersgrenze(
 ) -> bool:
     """The person is older than the Regelaltersgrenze.
 
-    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II
+    Also identifies the month from which Versicherungsfreiheit takes hold, which the
+    social insurance codes date to the end of the month in which the Regelaltersgrenze
+    is reached.
+
+    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II, §5 Abs. 4 SGB VI,
+    §28 Abs. 1 Nr. 1 SGB III
     """
     # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
     # Hence, we add a number << 1 / 12 to the RHS.

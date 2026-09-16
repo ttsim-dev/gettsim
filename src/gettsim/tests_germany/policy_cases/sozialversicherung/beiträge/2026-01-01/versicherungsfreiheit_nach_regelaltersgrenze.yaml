@@ -1,0 +1,175 @@
+---
+info:
+  note: |-
+    Versicherungsfreiheit in der Rentenversicherung nach Erreichen der Regelaltersgrenze
+    (§ 5 Abs. 4 Nr. 1 SGB VI). Alle Personen sind 1958 geboren, die Regelaltersgrenze
+    liegt damit bei 66 Jahren (792 Monaten), und verdienen 4.000 € im Monat. Der
+    Arbeitgeber trägt stets die Hälfte des Beitrags, der bei Versicherungspflicht zu
+    zahlen wäre (§ 172 Abs. 1 SGB VI): 4.000 € x 18,6 % / 2 = 372.00 €. Die vollen
+    Entgeltpunkte betragen 48.000 € / 51944 € = 0.924072.
+
+    - p_id 0: über der Regelaltersgrenze und Bezug einer Vollrente wegen Alters, also
+      versicherungsfrei. Kein Arbeitnehmerbeitrag und keine Entgeltpunkte
+      (§ 76b Abs. 4 SGB VI).
+    - p_id 1: über der Regelaltersgrenze, aber ohne Rentenbezug. § 5 Abs. 4 Nr. 1 SGB VI
+      verlangt den Bezug einer Vollrente, es besteht also weiterhin Versicherungspflicht.
+    - p_id 2: über der Regelaltersgrenze mit Rentenbezug, aber Verzicht auf die
+      Versicherungsfreiheit (§ 5 Abs. 4 S. 2 SGB VI). Beiträge und Entgeltpunkte wie bei
+      Versicherungspflicht.
+    - p_id 3: genau im Monat, in dem die Regelaltersgrenze erreicht wird. Die
+      Versicherungsfreiheit tritt erst nach Ablauf dieses Monats ein.
+    - p_id 4: einen Monat später und damit versicherungsfrei.
+  precision_atol: 0.000001
+  source: Berechnung nach § 5 Abs. 4, § 76b Abs. 4, § 172 Abs. 1 SGB VI
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 66
+      - 66
+      - 66
+      - 66
+      - 66
+    alter_monate:
+      - 800
+      - 800
+      - 800
+      - 792
+      - 793
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+          - false
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    geburtsjahr:
+      - 1958
+      - 1958
+      - 1958
+      - 1958
+      - 1958
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+            - false
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+          hat_kinder:
+            - false
+            - false
+            - false
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 1500.0
+            - 0.0
+            - 1500.0
+            - 1500.0
+            - 1500.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - true
+          - false
+          - false
+outputs:
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 372.00
+          - 372.00
+          - 372.00
+          - 372.00
+          - 372.00
+        betrag_versicherter_m:
+          - 0.0
+          - 372.00
+          - 372.00
+          - 372.00
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.0
+        - 0.924072
+        - 0.924072
+        - 0.924072
+        - 0.0

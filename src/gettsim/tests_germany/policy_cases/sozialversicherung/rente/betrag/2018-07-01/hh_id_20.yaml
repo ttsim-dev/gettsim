@@ -4,7 +4,16 @@ info:
   precision_atol: 0.1
   source: ''
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 636
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 53

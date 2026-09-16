@@ -20,6 +20,23 @@ inputs:
         - -1
         - -1
         - -1
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
   provided:
     alter:
       - 56

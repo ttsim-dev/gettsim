@@ -4,7 +4,21 @@ info:
   precision_atol: 0.02
   source: https://apps.datev.de/help-center/documents/1038903
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 540
+      - 540
+      - 540
+    geburtsjahr:
+      - 1979
+      - 1979
+      - 1979
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
   provided:
     alter:
       - 45

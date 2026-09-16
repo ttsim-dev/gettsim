@@ -4,7 +4,15 @@ info:
   precision_atol: 1
   source: https://www.kbs.de/SiteGlobals/Forms/Rechner/Midijobrechner/seite1/node.html
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 540
+    geburtsjahr:
+      - 1977
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 45

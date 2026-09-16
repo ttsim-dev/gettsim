@@ -4,7 +4,16 @@ info:
   precision_atol: 0.1
   source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 552
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
   provided:
     alter:
       - 46

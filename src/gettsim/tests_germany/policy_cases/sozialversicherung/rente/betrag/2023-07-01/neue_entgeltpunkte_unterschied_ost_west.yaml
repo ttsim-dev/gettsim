@@ -4,7 +4,22 @@ info:
   precision_atol: 0.001
   source: Calculated by hand.
 inputs:
-  assumed: {}
+  assumed:
+    alter_monate:
+      - 480
+      - 480
+    geburtsjahr:
+      - 1983
+      - 1983
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
   provided:
     alter:
       - 40
@@ -25,7 +40,7 @@ inputs:
           zugangsfaktor:
             - 1.0
             - 1.0
-        bezieht_rente:
+        bezieht_altersrente:
           - true
           - true
         entgeltpunkte:

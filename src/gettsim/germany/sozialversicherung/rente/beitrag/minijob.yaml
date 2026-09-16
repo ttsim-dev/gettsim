@@ -23,3 +23,35 @@ minijob_arbeitgeberpauschale:
     value: 0.12
   2007-01-01:
     value: 0.15
+mindestbeitragsbemessungsgrundlage_geringfügige_beschäftigung_m:
+  name:
+    de: >-
+      Mindestbeitragsbemessungsgrundlage bei geringfügiger Beschäftigung
+    en: >-
+      Minimum income basis for pension contributions in marginal employment
+  description:
+    de: >-
+      Untergrenze der beitragspflichtigen Einnahme bei geringfügiger Beschäftigung
+      (§ 163 Abs. 8 SGB VI). Bis zum 31.12.2012 galt sie nur für Beschäftigte, die auf
+      die Versicherungsfreiheit verzichtet haben, seit dem 01.01.2013 für alle
+      geringfügig Beschäftigten.
+    en: >-
+      Lower bound on income subject to pension contributions in marginal employment
+      (§ 163 Abs. 8 SGB VI). Until 2012-12-31 it applied only to employees who had
+      waived their Versicherungsfreiheit, since 2013-01-01 to all marginally employed.
+  type: scalar
+  1999-04-01:
+    value: 300
+    unit: DM_PER_MONTH
+    reference: Art. 4 Nr. 13 G. v. 24.03.1999 BGBl. I S. 388
+    note: Introduction of '630 Mark' jobs.
+  2002-01-01:
+    value: 155
+    unit: EUR_PER_MONTH
+    reference: Art. 7 G. v. 21.12.2000 BGBl. I S. 1983
+    note: >-
+      Das Vierte Euro-Einführungsgesetz ersetzte die Angabe '300 Deutsche Mark' durch
+      '155 Euro'. Der Betrag wurde glatt gestellt, nicht umgerechnet.
+  2013-01-01:
+    value: 175
+    reference: Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
