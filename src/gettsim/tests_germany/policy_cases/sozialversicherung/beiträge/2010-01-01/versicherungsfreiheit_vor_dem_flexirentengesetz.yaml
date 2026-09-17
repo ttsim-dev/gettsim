@@ -19,7 +19,7 @@ info:
       In der Arbeitslosenversicherung besteht weiterhin Versicherungspflicht:
       1.000 € x 2,8 % / 2 = 14.00 €.
   precision_atol: 0.000001
-  source: Berechnung nach § 5 Abs. 4 SGB VI a. F., § 28 Abs. 1 Nr. 1 SGB III
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

@@ -20,7 +20,7 @@ info:
       Versicherungsfreiheit tritt erst nach Ablauf dieses Monats ein.
     - p_id 4: einen Monat später und damit versicherungsfrei.
   precision_atol: 0.000001
-  source: Berechnung nach § 5 Abs. 4, § 76b Abs. 4, § 172 Abs. 1 SGB VI
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

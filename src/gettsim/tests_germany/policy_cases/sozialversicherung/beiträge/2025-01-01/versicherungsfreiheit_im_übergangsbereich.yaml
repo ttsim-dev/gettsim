@@ -1,23 +1,28 @@
 ---
 info:
   note: |-
-    Aussetzung des Arbeitgeberbeitrags zur Arbeitslosenversicherung. Die Person ist 1952
-    geboren (Regelaltersgrenze 65 Jahre und 6 Monate), 67 Jahre alt, bezieht keine Rente
-    und verdient 3.000 € im Monat.
-    In der Arbeitslosenversicherung genügt das Erreichen der Regelaltersgrenze für die
-    Versicherungsfreiheit (§ 28 Abs. 1 Nr. 1 SGB III). Von 2017 bis 2021 war der
-    Arbeitgeberbeitrag ausgesetzt (§ 346 Abs. 3 S. 3 SGB III), sodass weder Arbeitnehmer
-    noch Arbeitgeber zahlen. In der Rentenversicherung besteht mangels Rentenbezugs
-    weiterhin Versicherungspflicht: 3.000 € x 18,6 % / 2 = 279.00 €.
-  precision_atol: 0.000001
-  source: Regression test.
+    Versicherungsfreier Altersvollrentner mit einem Arbeitsentgelt im Übergangsbereich,
+    Gegenstück zum Fall von 2020. Monatsentgelt 950 €, reduzierte beitragspflichtige
+    Einnahme 815.89 € (§ 20 Abs. 2a SGB IV, festgehalten in
+    2025-01-01/einkommen_in_gleitzone.yaml).
+    Seit dem 01.10.2022 bemisst sich der Arbeitgeberanteil nach § 172 Abs. 1 SGB VI
+    bzw. § 346 Abs. 3 S. 1 SGB III nach dieser reduzierten Einnahme, nicht mehr nach
+    dem Bruttoarbeitsentgelt. Der Arbeitgeber trägt also die Hälfte des Gesamtbeitrags
+    statt des asymmetrischen Anteils, der für versicherungspflichtige Beschäftigte
+    gilt:
+    - Rentenversicherung: 815.89 € x 18,6 % / 2 = 75.88 € (statt 101.01 €).
+    - Arbeitslosenversicherung: 815.89 € x 2,6 % / 2 = 10.61 € (statt 14.12 €).
+    Arbeitnehmeranteile entfallen, ebenso entstehen keine Entgeltpunkte
+    (§ 76b Abs. 4 SGB VI).
+  precision_atol: 0.02
+  source: Regression test for the rule change of 2022-10-01.
 inputs:
   assumed: {}
   provided:
     alter:
-      - 67
+      - 70
     alter_monate:
-      - 804
+      - 840
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -27,7 +32,7 @@ inputs:
           - false
     einnahmen:
       bruttolohn_m:
-        - 3000.0
+        - 950.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -40,7 +45,7 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 0.0
     geburtsjahr:
-      - 1952
+      - 1955
     hh_id:
       - 0
     p_id:
@@ -52,12 +57,14 @@ inputs:
             - false
       pflege:
         beitrag:
+          anzahl_kinder_bis_24:
+            - 0
           hat_kinder:
             - false
       rente:
         altersrente:
           betrag_m:
-            - 0.0
+            - 1200.0
         erwerbsminderung:
           betrag_m:
             - 0.0
@@ -70,12 +77,14 @@ outputs:
     arbeitslosen:
       beitrag:
         betrag_arbeitgeber_m:
-          - 0.0
+          - 10.61
         betrag_versicherter_m:
           - 0.0
     rente:
       beitrag:
         betrag_arbeitgeber_m:
-          - 279.00
+          - 75.88
         betrag_versicherter_m:
-          - 279.00
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.0

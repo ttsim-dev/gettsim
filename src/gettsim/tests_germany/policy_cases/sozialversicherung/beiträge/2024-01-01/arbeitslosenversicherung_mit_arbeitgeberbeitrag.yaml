@@ -11,7 +11,7 @@ info:
     Rentenversicherung besteht mangels Rentenbezugs Versicherungspflicht:
     3.000 € x 18,6 % / 2 = 279.00 €.
   precision_atol: 0.000001
-  source: Berechnung nach § 28 Abs. 1 Nr. 1, § 346 Abs. 3 SGB III
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

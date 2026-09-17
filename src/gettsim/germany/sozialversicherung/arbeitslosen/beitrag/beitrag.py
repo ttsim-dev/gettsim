@@ -99,11 +99,7 @@ def betrag_arbeitgeber_m_bis_03_1999(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution.
-
-    Employees exempt because of age need no separate branch: the employer owes half
-    of the contribution either way (§ 346 Abs. 3 S. 1 SGB III).
-    """
+    """Employer's unemployment insurance contribution until March 1999."""
     return sozialversicherung__rente__beitrag__einkommen_m * beitragssatz / 2
 
 
@@ -113,18 +109,15 @@ def betrag_arbeitgeber_m_bis_03_1999(
     leaf_name="betrag_arbeitgeber_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_arbeitgeber_m_ohne_midijob(
+def betrag_arbeitgeber_m_ab_04_1999_bis_03_2003(
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution until March 2003.
+    """Employer's unemployment insurance contribution from April 1999 until March 2003.
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
-
-    Employees exempt because of age need no separate branch: the employer owes half
-    of the contribution either way (§ 346 Abs. 3 S. 1 SGB III).
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
@@ -140,29 +133,23 @@ def betrag_arbeitgeber_m_ohne_midijob(
     leaf_name="betrag_arbeitgeber_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_arbeitgeber_m_mit_midijob(
+def betrag_arbeitgeber_m_ab_04_2003_bis_12_2016(
     sozialversicherung__geringfügig_beschäftigt: bool,
-    sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
     sozialversicherung__in_gleitzone: bool,
-    betrag_gesamt_in_gleitzone_m: float,
     betrag_arbeitgeber_in_gleitzone_m: float,
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution since April 2003.
+    """Employer's unemployment insurance contribution from April 2003 to December 2016.
 
-    For an employee exempt because of age the employer owes half of the contribution
-    that mandatory coverage would trigger (§ 346 Abs. 3 S. 1 SGB III). The asymmetric
-    split of the Übergangsbereich is confined to versicherungspflichtige Beschäftigte
-    (§ 346 Abs. 1a SGB III), so half of the Gesamtbeitrag applies there, too.
+    Versicherungsfreiheit wegen Alters needs no separate treatment here: the employer
+    owes half of the contribution that mandatory coverage would trigger (§ 346 Abs. 3
+    S. 1 SGB III), and in the Übergangsbereich that half is assessed on the actual
+    Bruttoarbeitsentgelt rather than on the reduced beitragspflichtige Einnahme — which
+    is what the Übergangsbereich branch computes for everyone.
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
-    elif (
-        sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
-        and sozialversicherung__in_gleitzone
-    ):
-        out = betrag_gesamt_in_gleitzone_m / 2
     elif sozialversicherung__in_gleitzone:
         out = betrag_arbeitgeber_in_gleitzone_m
     else:
@@ -177,7 +164,7 @@ def betrag_arbeitgeber_m_mit_midijob(
     leaf_name="betrag_arbeitgeber_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_arbeitgeber_m_ohne_beitrag_für_versicherungsfreie(
+def betrag_arbeitgeber_m_ab_01_2017_bis_12_2021(
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
     sozialversicherung__in_gleitzone: bool,
@@ -185,7 +172,7 @@ def betrag_arbeitgeber_m_ohne_beitrag_für_versicherungsfreie(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution while the Beitrag is suspended.
+    """Employer's unemployment insurance contribution from Jan 2017 to Dec 2021.
 
     The Flexirentengesetz suspended the employer's contribution for employees exempt
     because of age through the end of 2021 (§ 346 Abs. 3 S. 3 SGB III).
@@ -205,10 +192,41 @@ def betrag_arbeitgeber_m_ohne_beitrag_für_versicherungsfreie(
 
 @policy_function(
     start_date="2022-01-01",
+    end_date="2022-09-30",
     leaf_name="betrag_arbeitgeber_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_arbeitgeber_m_mit_beitrag_für_versicherungsfreie(
+def betrag_arbeitgeber_m_ab_01_2022_bis_09_2022(
+    sozialversicherung__geringfügig_beschäftigt: bool,
+    sozialversicherung__in_gleitzone: bool,
+    betrag_arbeitgeber_in_gleitzone_m: float,
+    sozialversicherung__rente__beitrag__einkommen_m: float,
+    beitragssatz: float,
+) -> float:
+    """Employer's unemployment insurance contribution from Jan 2022 to Sep 2022.
+
+    Versicherungsfreiheit wegen Alters needs no separate treatment here: the employer
+    owes half of the contribution that mandatory coverage would trigger (§ 346 Abs. 3
+    S. 1 SGB III), and in the Übergangsbereich that half is assessed on the actual
+    Bruttoarbeitsentgelt rather than on the reduced beitragspflichtige Einnahme — which
+    is what the Übergangsbereich branch computes for everyone.
+    """
+    if sozialversicherung__geringfügig_beschäftigt:
+        out = 0.0
+    elif sozialversicherung__in_gleitzone:
+        out = betrag_arbeitgeber_in_gleitzone_m
+    else:
+        out = sozialversicherung__rente__beitrag__einkommen_m * beitragssatz / 2
+
+    return out
+
+
+@policy_function(
+    start_date="2022-10-01",
+    leaf_name="betrag_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def betrag_arbeitgeber_m_ab_10_2022(
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
     sozialversicherung__in_gleitzone: bool,
@@ -217,12 +235,13 @@ def betrag_arbeitgeber_m_mit_beitrag_für_versicherungsfreie(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution since the suspension expired.
+    """Employer's unemployment insurance contribution since Oct 2022.
 
     For an employee exempt because of age the employer owes half of the contribution
-    that mandatory coverage would trigger (§ 346 Abs. 3 S. 1 SGB III). The asymmetric
-    split of the Übergangsbereich is confined to versicherungspflichtige Beschäftigte
-    (§ 346 Abs. 1a SGB III), so half of the Gesamtbeitrag applies there, too.
+    that mandatory coverage would trigger (§ 346 Abs. 3 S. 1 SGB III), assessed on the
+    reduced beitragspflichtige Einnahme of the Übergangsbereich (§ 20 Abs. 2a Satz 1
+    SGB IV). The asymmetric split of the Übergangsbereich is confined to
+    versicherungspflichtige Beschäftigte (§ 346 Abs. 1a SGB III).
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
