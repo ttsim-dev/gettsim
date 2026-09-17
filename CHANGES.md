@@ -22,10 +22,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
   New input `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit`.
   `sozialversicherung__rente__bezieht_rente` is renamed to `bezieht_altersrente`.
-
-  The employer's Pauschalbeitrag for Minijobs rises to 15% (Rentenversicherung) and 13%
-  (Krankenversicherung) on 2006-07-01 rather than 2007-01-01. The reduced rate for
-  Minijobs in Privathaushalten is still not modelled. ({ghuser}`MImmesberger`)
+  ({ghuser}`MImmesberger`)
 
 ## v1.3.1 — 2026-09-02
 

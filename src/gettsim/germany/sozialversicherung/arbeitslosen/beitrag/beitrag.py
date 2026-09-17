@@ -140,14 +140,7 @@ def betrag_arbeitgeber_m_ab_04_2003_bis_12_2016(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution from April 2003 to December 2016.
-
-    Versicherungsfreiheit wegen Alters needs no separate treatment here: the employer
-    owes half of the contribution that mandatory coverage would trigger (§ 346 Abs. 3
-    S. 1 SGB III), and in the Übergangsbereich that half is assessed on the actual
-    Bruttoarbeitsentgelt rather than on the reduced beitragspflichtige Einnahme — which
-    is what the Übergangsbereich branch computes for everyone.
-    """
+    """Employer's unemployment insurance contribution from Apr 2003 to Dec 2016."""
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     elif sozialversicherung__in_gleitzone:
@@ -203,14 +196,7 @@ def betrag_arbeitgeber_m_ab_01_2022_bis_09_2022(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution from Jan 2022 to Sep 2022.
-
-    Versicherungsfreiheit wegen Alters needs no separate treatment here: the employer
-    owes half of the contribution that mandatory coverage would trigger (§ 346 Abs. 3
-    S. 1 SGB III), and in the Übergangsbereich that half is assessed on the actual
-    Bruttoarbeitsentgelt rather than on the reduced beitragspflichtige Einnahme — which
-    is what the Übergangsbereich branch computes for everyone.
-    """
+    """Employer's unemployment insurance contribution from Jan 2022 to Sep 2022."""
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     elif sozialversicherung__in_gleitzone:
