@@ -7,18 +7,12 @@ info:
   precision_atol: 1
   source: https://www.steuertipps.de/service/rechner/brutto-netto-gehaltsrechner/
 inputs:
-  assumed:
-    alter_monate:
-      - 540
-    geburtsjahr:
-      - 1978
-    sozialversicherung:
-      rente:
-        verzichtet_auf_versicherungsfreiheit:
-          - false
+  assumed: {}
   provided:
     alter:
       - 45
+    alter_monate:
+      - 540
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -40,6 +34,8 @@ inputs:
           - 0.0
         aus_berufsständischen_versicherungen_m:
           - 0.0
+    geburtsjahr:
+      - 1978
     hh_id:
       - 23
     p_id:
@@ -62,6 +58,8 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     wohnort_ost_hh:
       - false
 outputs:

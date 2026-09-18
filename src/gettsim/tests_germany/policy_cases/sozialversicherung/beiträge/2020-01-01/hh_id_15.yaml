@@ -4,18 +4,12 @@ info:
   precision_atol: 1
   source: https://www.brutto-netto-rechner.info/gehalt/gehaltsrechner-arbeitgeber.php
 inputs:
-  assumed:
-    alter_monate:
-      - 480
-    geburtsjahr:
-      - 1980
-    sozialversicherung:
-      rente:
-        verzichtet_auf_versicherungsfreiheit:
-          - false
+  assumed: {}
   provided:
     alter:
       - 40
+    alter_monate:
+      - 480
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -37,6 +31,8 @@ inputs:
           - 0.0
         aus_berufsständischen_versicherungen_m:
           - 0.0
+    geburtsjahr:
+      - 1980
     hh_id:
       - 15
     p_id:
@@ -57,6 +53,8 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     wohnort_ost_hh:
       - false
 outputs:

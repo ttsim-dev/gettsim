@@ -6,11 +6,7 @@ info:
   precision_atol: 0.01
   source: https://www.buerger-geld.org/rechner/ergebnis/index.php
 inputs:
-  assumed:
-    sozialversicherung:
-      rente:
-        verzichtet_auf_versicherungsfreiheit:
-          - false
+  assumed: {}
   provided:
     alter:
       - 45
@@ -112,6 +108,8 @@ inputs:
         grundrente:
           grundrentenzeiten_monate:
             - 0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

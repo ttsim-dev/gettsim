@@ -1,41 +1,28 @@
 ---
 info:
-  note: |-
-    Update rule and Rentenwert do not differ between East and West. p_id 2 bezieht
-    keine Altersrente, der Basisbetrag ist daher 0.
+  note: Update rule and Rentenwert do not differ between East and West.
   precision_atol: 0.001
   source: Calculated by hand.
 inputs:
-  assumed:
-    alter_monate:
-      - 480
-      - 480
-      - 480
-    geburtsjahr:
-      - 1985
-      - 1985
-      - 1985
-    sozialversicherung:
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-            - 0.0
-            - 0.0
-        verzichtet_auf_versicherungsfreiheit:
-          - false
-          - false
-          - false
+  assumed: {}
   provided:
     alter:
       - 40
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
+      - 480
     einnahmen:
       bruttolohn_m:
         - 3000.0
         - 3000.0
         - 3000.0
+    geburtsjahr:
+      - 1985
+      - 1985
+      - 1985
     hh_id:
       - 0
       - 1
@@ -47,6 +34,10 @@ inputs:
     sozialversicherung:
       rente:
         altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
           zugangsfaktor:
             - 1.0
             - 1.0
@@ -59,6 +50,10 @@ inputs:
           - 30.0
           - 30.0
           - 30.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
     wohnort_ost_hh:
       - true
       - false

@@ -6,19 +6,12 @@ info:
   precision_atol: 0.1
   source: https://www.ihre-vorsorge.de/rechner/rentenbeginnrechner.html
 inputs:
-  assumed:
-    alter_monate:
-      - 708
-    sozialversicherung:
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-        verzichtet_auf_versicherungsfreiheit:
-          - false
+  assumed: {}
   provided:
     alter:
       - 59
+    alter_monate:
+      - 708
     einnahmen:
       bruttolohn_m:
         - 8000.0
@@ -33,6 +26,8 @@ inputs:
     sozialversicherung:
       rente:
         altersrente:
+          betrag_m:
+            - 0.0
           für_frauen:
             pflichtsbeitragsjahre_ab_alter_40:
               - 0.0
@@ -75,6 +70,8 @@ inputs:
           - 0.0
         pflichtbeitragsmonate:
           - 60.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     weiblich:
       - false
     wohnort_ost_hh:

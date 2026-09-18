@@ -4,26 +4,16 @@ info:
   precision_atol: 0.02
   source: https://apps.datev.de/help-center/documents/1038903
 inputs:
-  assumed:
-    alter_monate:
-      - 540
-      - 540
-      - 540
-    geburtsjahr:
-      - 1979
-      - 1979
-      - 1979
-    sozialversicherung:
-      rente:
-        verzichtet_auf_versicherungsfreiheit:
-          - false
-          - false
-          - false
+  assumed: {}
   provided:
     alter:
       - 45
       - 45
       - 45
+    alter_monate:
+      - 540
+      - 540
+      - 540
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -61,6 +51,10 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
+    geburtsjahr:
+      - 1979
+      - 1979
+      - 1979
     hh_id:
       - 0
       - 1
@@ -101,6 +95,10 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
     wohnort_ost_hh:
       - false
       - false

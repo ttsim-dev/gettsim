@@ -6,19 +6,12 @@ info:
   precision_atol: 0.1
   source: ''
 inputs:
-  assumed:
-    alter_monate:
-      - 780
-    sozialversicherung:
-      rente:
-        altersrente:
-          betrag_m:
-            - 0.0
-        verzichtet_auf_versicherungsfreiheit:
-          - false
+  assumed: {}
   provided:
     alter:
       - 65
+    alter_monate:
+      - 780
     einnahmen:
       bruttolohn_m:
         - 1500.0
@@ -36,6 +29,8 @@ inputs:
           besonders_langjährig:
             grundsätzlich_anspruchsberechtigt:
               - false
+          betrag_m:
+            - 0.0
           für_frauen:
             pflichtsbeitragsjahre_ab_alter_40:
               - 15.0
@@ -78,6 +73,8 @@ inputs:
           - 10.0
         pflichtbeitragsmonate:
           - 420.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     weiblich:
       - true
     wohnort_ost_hh:

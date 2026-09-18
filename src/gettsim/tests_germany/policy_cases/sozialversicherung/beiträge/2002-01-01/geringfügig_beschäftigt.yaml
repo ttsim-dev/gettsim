@@ -4,18 +4,14 @@ info:
   precision_atol: 1
   source: Regression test. Unclear whether numbers are correct by external standards.
 inputs:
-  assumed:
+  assumed: {}
+  provided:
+    alter:
+      - 40
     alter_monate:
       - 480
     geburtsjahr:
       - 1962
-    sozialversicherung:
-      rente:
-        verzichtet_auf_versicherungsfreiheit:
-          - false
-  provided:
-    alter:
-      - 40
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -49,6 +45,8 @@ inputs:
           hat_kinder:
             - false
       rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
         altersrente:
           betrag_m:
             - 0.0
