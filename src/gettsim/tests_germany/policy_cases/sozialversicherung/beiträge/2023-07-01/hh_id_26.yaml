@@ -11,6 +11,8 @@ inputs:
   provided:
     alter:
       - 45
+    alter_monate:
+      - 540
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -32,6 +34,8 @@ inputs:
           - 0.0
         aus_berufsständischen_versicherungen_m:
           - 0.0
+    geburtsjahr:
+      - 1978
     hh_id:
       - 26
     p_id:
@@ -54,6 +58,8 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     wohnort_ost_hh:
       - false
 outputs:

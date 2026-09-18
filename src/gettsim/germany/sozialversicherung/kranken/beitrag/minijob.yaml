@@ -18,5 +18,11 @@ minijob_arbeitgeberpauschale:
     note: Introduction of '630 Mark' jobs.
   2003-04-01:
     value: 0.11
-  2007-01-01:
+    reference: Art. 1 G. v. 23.12.2002 BGBl. I S. 4621
+    note: >-
+      Seitdem gilt für geringfügige Beschäftigungen in Privathaushalten ein
+      ermäßigter Pauschalbeitrag von 5% (§ 249b Satz 2 SGB V). Dieser wird nicht
+      modelliert, GETTSIM verwendet stets den gewerblichen Satz.
+  2006-07-01:
     value: 0.13
+    reference: G. v. 29.06.2006 BGBl. I S. 1402 (Haushaltsbegleitgesetz 2006)

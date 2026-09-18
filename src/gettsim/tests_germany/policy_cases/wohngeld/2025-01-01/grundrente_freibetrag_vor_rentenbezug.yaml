@@ -108,8 +108,9 @@ inputs:
       rente:
         jahr_renteneintritt:
           - 2027
-        bezieht_rente:
-          - false
+        altersrente:
+          betrag_m:
+            - 0.0
         grundrente:
           grundrentenzeiten_monate:
             - 396

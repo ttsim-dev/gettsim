@@ -1312,7 +1312,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1567,7 +1567,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1822,7 +1822,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2077,7 +2077,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2360,7 +2360,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/03/02/483d389f5d4984b9aab12a6c16c43cc3f27304487f22f7e99aaf1c0deb5d/optree-0.20.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2604,7 +2604,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/c6/2a089042de4705994f9e58fdbd47c4c98761ed05fcd8579e795bb0a786b4/optree-0.20.0-cp311-cp311-macosx_10_9_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2848,7 +2848,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/7d/a47cebf71cb789b6e25de07035d350bff110d02f9c28bf32f92b4c818874/coverage-7.16.0-cp311-cp311-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -3093,7 +3093,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/08/0c/6d4627be89ac02f579d88806875a5d6e328c59d7d79c594643c7a4460ef6/coverage-7.16.0-cp311-cp311-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -3385,7 +3385,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3632,7 +3632,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3879,7 +3879,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4127,7 +4127,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4419,7 +4419,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/d8/ab0bdaa45dfd6b8cbf1a3ec548fdf827684b1997f9724375c5b3e89144fb/coverage-7.16.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -4668,7 +4668,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4917,7 +4917,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5166,7 +5166,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -5458,7 +5458,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5707,7 +5707,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h84953be_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/05/ac/a9f131ae07efa8fd7b17961bdcdd5b6a00b0b49480cf66e379fe06459614/simplejson-4.1.2-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -5956,7 +5956,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -6206,7 +6206,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/17/78/1ce6ce4646822e9308dcdb1942eaf31bfd7da43247b8886338b0d6fe3767/coverage-7.16.0-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -6498,7 +6498,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/14/fb/94933e00bb3dcfdf66ea3456739c6a51d322353f7cc64fa1f5f660e695ac/nvidia_nccl_cu13-2.31.2-py3-none-manylinux_2_18_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/19/14/fe7b8670005fbdc2989f45a19192c979fb91334c80888147f0f34efaf19e/jax_cuda13_pjrt-0.11.1-py3-none-manylinux_2_27_x86_64.whl
@@ -6811,7 +6811,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1c/b1/1831dd8c9b06c013085d31a2ac4f03392d43bd36bfc6ff591a08bcedc1cf/ml_dtypes-0.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
@@ -7065,7 +7065,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -7320,7 +7320,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_11.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/17/78/1ce6ce4646822e9308dcdb1942eaf31bfd7da43247b8886338b0d6fe3767/coverage-7.16.0-cp314-cp314-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -7581,7 +7581,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h10816f8_11.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
       - pypi: https://files.pythonhosted.org/packages/09/dc/6d8fbfc29d902251cf333414cf7dcfaf4b252a9920c881354584ed36270d/jax_metal-0.1.1-py3-none-macosx_13_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -7765,7 +7765,7 @@ packages:
   - python_abi 3.11.* *_cp311
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=compressed-mapping
+  - pkg:pypi/backports-zstd?source=hash-mapping
   run_exports: {}
   size: 248174
   timestamp: 1786861402951
@@ -7795,7 +7795,7 @@ packages:
   - zstd >=1.5.7,<1.6.0a0
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=compressed-mapping
+  - pkg:pypi/backports-zstd?source=hash-mapping
   run_exports: {}
   size: 243610
   timestamp: 1786861410562
@@ -7813,7 +7813,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/brotli?source=compressed-mapping
+  - pkg:pypi/brotli?source=hash-mapping
   run_exports: {}
   size: 367362
   timestamp: 1786622943552
@@ -7849,7 +7849,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/brotli?source=compressed-mapping
+  - pkg:pypi/brotli?source=hash-mapping
   run_exports: {}
   size: 367312
   timestamp: 1786622911623
@@ -7928,7 +7928,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=compressed-mapping
+  - pkg:pypi/cffi?source=hash-mapping
   run_exports: {}
   size: 309459
   timestamp: 1786775113989
@@ -10066,7 +10066,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=compressed-mapping
+  - pkg:pypi/pyzmq?source=hash-mapping
   run_exports: {}
   size: 391713
   timestamp: 1787300895614
@@ -10117,7 +10117,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 299706
   timestamp: 1788228383642
@@ -10151,7 +10151,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 300007
   timestamp: 1788228320942
@@ -12120,7 +12120,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pydata-sphinx-theme?source=compressed-mapping
+  - pkg:pypi/pydata-sphinx-theme?source=hash-mapping
   run_exports: {}
   size: 1317450
   timestamp: 1787669422590
@@ -13112,7 +13112,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/brotli?source=compressed-mapping
+  - pkg:pypi/brotli?source=hash-mapping
   run_exports: {}
   size: 386381
   timestamp: 1786623913309
@@ -14171,7 +14171,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/numpy?source=compressed-mapping
+  - pkg:pypi/numpy?source=hash-mapping
   run_exports:
     weak:
     - numpy >=1.25,<3
@@ -14631,7 +14631,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/psutil?source=compressed-mapping
+  - pkg:pypi/psutil?source=hash-mapping
   run_exports: {}
   size: 240235
   timestamp: 1788190166664
@@ -14801,7 +14801,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/pyobjc-framework-cocoa?source=compressed-mapping
+  - pkg:pypi/pyobjc-framework-cocoa?source=hash-mapping
   run_exports: {}
   size: 381798
   timestamp: 1786682650506
@@ -14817,7 +14817,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/pyobjc-framework-cocoa?source=compressed-mapping
+  - pkg:pypi/pyobjc-framework-cocoa?source=hash-mapping
   run_exports: {}
   size: 381517
   timestamp: 1786682522325
@@ -15024,7 +15024,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=compressed-mapping
+  - pkg:pypi/pyzmq?source=hash-mapping
   run_exports: {}
   size: 369659
   timestamp: 1787301037716
@@ -15072,7 +15072,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 296493
   timestamp: 1788228610798
@@ -15088,7 +15088,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 301184
   timestamp: 1788228548015
@@ -15104,7 +15104,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 301181
   timestamp: 1788228615330
@@ -15490,7 +15490,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=compressed-mapping
+  - pkg:pypi/cffi?source=hash-mapping
   run_exports: {}
   size: 296029
   timestamp: 1786775151532
@@ -16929,7 +16929,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/psutil?source=compressed-mapping
+  - pkg:pypi/psutil?source=hash-mapping
   run_exports: {}
   size: 242564
   timestamp: 1788190051825
@@ -16957,7 +16957,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/psutil?source=compressed-mapping
+  - pkg:pypi/psutil?source=hash-mapping
   run_exports: {}
   size: 239792
   timestamp: 1788190053472
@@ -17147,7 +17147,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/pyobjc-framework-cocoa?source=compressed-mapping
+  - pkg:pypi/pyobjc-framework-cocoa?source=hash-mapping
   run_exports: {}
   size: 384157
   timestamp: 1786682206216
@@ -17361,7 +17361,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=compressed-mapping
+  - pkg:pypi/pyzmq?source=hash-mapping
   run_exports: {}
   size: 367628
   timestamp: 1787301029519
@@ -17409,7 +17409,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 287471
   timestamp: 1788228346541
@@ -17425,7 +17425,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 285818
   timestamp: 1788228343588
@@ -17441,7 +17441,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 285799
   timestamp: 1788228348121
@@ -17500,7 +17500,7 @@ packages:
   license: Apache-2.0
   license_family: Apache
   purls:
-  - pkg:pypi/tornado?source=compressed-mapping
+  - pkg:pypi/tornado?source=hash-mapping
   run_exports: {}
   size: 869700
   timestamp: 1786375852841
@@ -17835,7 +17835,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=compressed-mapping
+  - pkg:pypi/cffi?source=hash-mapping
   run_exports: {}
   size: 352291
   timestamp: 1786775178460
@@ -17852,7 +17852,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=compressed-mapping
+  - pkg:pypi/cffi?source=hash-mapping
   run_exports: {}
   size: 345248
   timestamp: 1786775168321
@@ -17869,7 +17869,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/cffi?source=compressed-mapping
+  - pkg:pypi/cffi?source=hash-mapping
   run_exports: {}
   size: 345649
   timestamp: 1786775166768
@@ -18752,7 +18752,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/numpy?source=compressed-mapping
+  - pkg:pypi/numpy?source=hash-mapping
   run_exports:
     weak:
     - numpy >=1.25,<3
@@ -19492,7 +19492,7 @@ packages:
   license: PSF-2.0
   license_family: PSF
   purls:
-  - pkg:pypi/pywin32?source=compressed-mapping
+  - pkg:pypi/pywin32?source=hash-mapping
   run_exports: {}
   size: 4460094
   timestamp: 1787374336080
@@ -19508,7 +19508,7 @@ packages:
   license: PSF-2.0
   license_family: PSF
   purls:
-  - pkg:pypi/pywin32?source=compressed-mapping
+  - pkg:pypi/pywin32?source=hash-mapping
   run_exports: {}
   size: 4466676
   timestamp: 1787374335274
@@ -19677,7 +19677,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=compressed-mapping
+  - pkg:pypi/pyzmq?source=hash-mapping
   run_exports: {}
   size: 371003
   timestamp: 1787300947175
@@ -19712,7 +19712,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 223635
   timestamp: 1788228455894
@@ -19728,7 +19728,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 218736
   timestamp: 1788228428446
@@ -19744,7 +19744,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/rpds-py?source=compressed-mapping
+  - pkg:pypi/rpds-py?source=hash-mapping
   run_exports: {}
   size: 218384
   timestamp: 1788228511847
@@ -20103,12 +20103,12 @@ packages:
   requires_dist:
   - ttsim-backend>=1.3.1
   requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#c2e0afccccb0f01c945a5aab680354da71cbd7c9
+- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=versicherungsfreiheit-regelaltersgrenze#9ea88cb1573a579773a1f99205853fbf11d35806
   name: gettsim-personas
-  version: 0.1.dev35+gc2e0afccc
+  version: 0.1.dev38+g9ea88cb15
   requires_dist:
   - dags>=0.6
-  - gettsim>=1.3
+  - gettsim>=1.3.1
   requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/03/02/483d389f5d4984b9aab12a6c16c43cc3f27304487f22f7e99aaf1c0deb5d/optree-0.20.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
   name: optree

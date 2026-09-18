@@ -8,6 +8,10 @@ inputs:
   provided:
     alter:
       - 40
+    alter_monate:
+      - 480
+    geburtsjahr:
+      - 1962
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -41,6 +45,8 @@ inputs:
           hat_kinder:
             - false
       rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
         altersrente:
           betrag_m:
             - 0.0

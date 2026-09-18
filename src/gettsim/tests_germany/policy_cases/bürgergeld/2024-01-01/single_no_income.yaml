@@ -100,7 +100,7 @@ inputs:
         altersrente:
           betrag_m:
             - 0.0
-        bezieht_rente:
+        bezieht_altersrente:
           - false
         erwerbsminderung:
           betrag_m:
@@ -108,6 +108,8 @@ inputs:
         grundrente:
           grundrentenzeiten_monate:
             - 0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

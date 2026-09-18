@@ -1,0 +1,90 @@
+---
+info:
+  note: |-
+    Versicherungsfreier Altersvollrentner mit einem Arbeitsentgelt im Übergangsbereich,
+    Gegenstück zum Fall von 2020. Monatsentgelt 950 €, reduzierte beitragspflichtige
+    Einnahme 815.89 € (§ 20 Abs. 2a SGB IV, festgehalten in
+    2025-01-01/einkommen_in_gleitzone.yaml).
+    Seit dem 01.10.2022 bemisst sich der Arbeitgeberanteil nach § 172 Abs. 1 SGB VI
+    bzw. § 346 Abs. 3 S. 1 SGB III nach dieser reduzierten Einnahme, nicht mehr nach
+    dem Bruttoarbeitsentgelt. Der Arbeitgeber trägt also die Hälfte des Gesamtbeitrags
+    statt des asymmetrischen Anteils, der für versicherungspflichtige Beschäftigte
+    gilt:
+    - Rentenversicherung: 815.89 € x 18,6 % / 2 = 75.88 € (statt 101.01 €).
+    - Arbeitslosenversicherung: 815.89 € x 2,6 % / 2 = 10.61 € (statt 14.12 €).
+    Arbeitnehmeranteile entfallen, ebenso entstehen keine Entgeltpunkte
+    (§ 76b Abs. 4 SGB VI).
+  precision_atol: 0.02
+  source: Regression test for the rule change of 2022-10-01.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+    alter_monate:
+      - 840
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 950.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    geburtsjahr:
+      - 1955
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 10.61
+        betrag_versicherter_m:
+          - 0.0
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 75.88
+        betrag_versicherter_m:
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.0

@@ -8,6 +8,10 @@ inputs:
   provided:
     alter:
       - 20
+    alter_monate:
+      - 240
+    geburtsjahr:
+      - 1982
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -41,6 +45,8 @@ inputs:
           hat_kinder:
             - false
       rente:
+        verzichtet_auf_versicherungsfreiheit:
+          - false
         altersrente:
           betrag_m:
             - 0.0

@@ -1,0 +1,94 @@
+---
+info:
+  note: |-
+    Arbeitgeberbeiträge zur Arbeitslosenversicherung ab Januar 2022, als die
+    Aussetzung des Arbeitgeberbeitrags für versicherungsfreie Beschäftigte endete
+    (§ 346 Abs. 3 Satz 3 SGB III galt nur bis zum 31.12.2021). Beitragssatz zur
+    Rentenversicherung 18,6 %, zur Arbeitslosenversicherung 2,4 %,
+    Durchschnittsentgelt 2022: 42053 €.
+    - p_id 0: versicherungspflichtig, 3.000 € im Monat. Rentenversicherung
+      3.000 € x 18,6 % / 2 = 279.00 €, Arbeitslosenversicherung
+      3.000 € x 2,4 % / 2 = 36.00 €, Entgeltpunkte 36.000 € / 42053 € = 0.856063.
+    - p_id 1: geringfügig beschäftigt mit 400 € ohne Versicherungspflicht. Nur der
+      Pauschalbeitrag des Arbeitgebers zur Rentenversicherung, 400 € x 15 % = 60.00 €;
+      zur Arbeitslosenversicherung fallen keine Beiträge an. Zuschlag an
+      Entgeltpunkten 4.800 € x 15 % / (18,6 % x 42053 €) = 0.092050.
+    - p_id 2: 70 Jahre alt und Bezug einer Vollrente wegen Alters, 3.000 € im Monat.
+      Kein Arbeitnehmerbeitrag und keine Entgeltpunkte; der Arbeitgeber zahlt in
+      beiden Zweigen die Hälfte (§ 172 Abs. 1 SGB VI, § 346 Abs. 3 SGB III).
+  precision_atol: 0.000001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 45
+      - 70
+    alter_monate:
+      - 540
+      - 540
+      - 840
+    geburtsjahr:
+      - 1977
+      - 1977
+      - 1952
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 400.0
+        - 3000.0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 1500.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 36.00
+          - 0.0
+          - 36.00
+        betrag_versicherter_m:
+          - 36.00
+          - 0.0
+          - 0.0
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 279.00
+          - 60.00
+          - 279.00
+        betrag_versicherter_m:
+          - 279.00
+          - 0.0
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.856063
+        - 0.092050
+        - 0.0

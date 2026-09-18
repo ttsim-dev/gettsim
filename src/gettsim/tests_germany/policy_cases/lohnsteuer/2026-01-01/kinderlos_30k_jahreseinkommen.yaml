@@ -4,22 +4,7 @@ info:
   precision_atol: 1.5
   source: https://www.bmf-steuerrechner.de/bl/bl2026/eingabeformbl2026.xhtml
 inputs:
-  assumed:
-    familie:
-      p_id_elternteil_1:
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
-      p_id_elternteil_2:
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
+  assumed: {}
   provided:
     alter:
       - 56
@@ -35,6 +20,21 @@ inputs:
       - 672
       - 672
       - 672
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
     geburtsjahr:
       - 1970
       - 1970
@@ -120,6 +120,22 @@ inputs:
             - false
             - false
             - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
 outputs:
   lohnsteuer:
     betrag_y:

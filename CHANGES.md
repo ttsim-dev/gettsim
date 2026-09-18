@@ -15,6 +15,15 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
+  Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social
+  insurance contributions, Wohngeld Freibeträge, and Entgeltpunkte for the public
+  pensions.
+
+  New input `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit`.
+  `sozialversicherung__rente__bezieht_rente` is renamed to `bezieht_altersrente`.
+  ({ghuser}`MImmesberger`)
+
 ## v1.3.1 — 2026-09-02
 
 - {gh}`1228` Fail the test suite on `BeartypeClawDecorWarning` instead of burying it in
