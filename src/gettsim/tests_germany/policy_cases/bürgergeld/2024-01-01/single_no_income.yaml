@@ -108,7 +108,9 @@ inputs:
         grundrente:
           grundrentenzeiten_monate:
             - 0
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
     unterhalt:
       tatsächlich_erhaltener_betrag_m:

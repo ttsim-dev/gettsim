@@ -68,7 +68,7 @@ inputs:
           - 0.0
         pflichtbeitragsmonate:
           - 182.0
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
     weiblich:
       - false

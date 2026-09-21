@@ -58,7 +58,11 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
           - false
           - false

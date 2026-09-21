@@ -38,10 +38,10 @@ def betrag_versicherter_m_ohne_midijob(
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
     """
-    if sozialversicherung__geringfügig_beschäftigt:
-        return betrag_versicherter_geringfügige_beschäftigung_m
-    elif versicherungsfrei_wegen_alters:
+    if versicherungsfrei_wegen_alters:
         return 0.0
+    elif sozialversicherung__geringfügig_beschäftigt:
+        return betrag_versicherter_geringfügige_beschäftigung_m
     else:
         return betrag_versicherter_regulärer_beitragssatz_m
 
@@ -66,10 +66,10 @@ def betrag_versicherter_m_mit_midijob(
     # TODO(@MImmesberger): Treatment of individuals that are not insured via the
     # public pension fund (or a berufsständische Rentenversicherung) is wrong.
     # https://github.com/ttsim-dev/gettsim/issues/1114
-    if sozialversicherung__geringfügig_beschäftigt:
-        return betrag_versicherter_geringfügige_beschäftigung_m
-    elif versicherungsfrei_wegen_alters:
+    if versicherungsfrei_wegen_alters:
         return 0.0
+    elif sozialversicherung__geringfügig_beschäftigt:
+        return betrag_versicherter_geringfügige_beschäftigung_m
     elif sozialversicherung__in_gleitzone:
         return betrag_in_gleitzone_arbeitnehmer_m
     else:
@@ -99,7 +99,7 @@ def versicherungsfrei_wegen_alters_ohne_altersgrenze(
 def versicherungsfrei_wegen_alters_mit_altersgrenze(
     sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
     sozialversicherung__rente__altersrente__betrag_m: float,
-    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit: bool,
+    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_alters: bool,
 ) -> bool:
     """Exempt from mandatory pension insurance because of age and an old-age pension.
 
@@ -109,13 +109,13 @@ def versicherungsfrei_wegen_alters_mit_altersgrenze(
     return (
         sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
         and sozialversicherung__rente__altersrente__betrag_m > 0
-        and not sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit
+        and not sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_alters
     )
 
 
 @policy_function(start_date="1999-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_versicherter_geringfügige_beschäftigung_m(
-    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit: bool,
+    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
     beitragspflichtige_einnahmen_geringfügige_beschäftigung_m: float,
     beitragssatz: float,
     einnahmen__bruttolohn_m: float,
@@ -127,7 +127,7 @@ def betrag_versicherter_geringfügige_beschäftigung_m(
     (§ 172 Abs. 3 SGB VI). With it, the employer stays at the Pauschalbeitrag and the
     employee owes the remainder rather than half (§ 168 Abs. 1 Nr. 1b SGB VI).
     """
-    if sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit:
+    if sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
         return (
             beitragspflichtige_einnahmen_geringfügige_beschäftigung_m * beitragssatz
             - einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale

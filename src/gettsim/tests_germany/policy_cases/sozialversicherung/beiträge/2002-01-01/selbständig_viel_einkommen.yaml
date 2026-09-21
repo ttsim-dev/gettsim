@@ -45,7 +45,7 @@ inputs:
           hat_kinder:
             - false
       rente:
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
         altersrente:
           betrag_m:

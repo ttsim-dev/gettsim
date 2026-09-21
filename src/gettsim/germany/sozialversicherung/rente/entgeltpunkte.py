@@ -51,7 +51,7 @@ def neue_entgeltpunkte_nach_wohnort(
     einnahmen__bruttolohn_y: float,
     wohnort_ost_hh: bool,
     sozialversicherung__geringfügig_beschäftigt: bool,
-    verzichtet_auf_versicherungsfreiheit: bool,
+    verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
     beitrag__beitragsbemessungsgrenze_y: float,
     beitrag__beitragssatz: float,
@@ -80,7 +80,7 @@ def neue_entgeltpunkte_nach_wohnort(
         out = 0.0
     elif (
         sozialversicherung__geringfügig_beschäftigt
-        and not verzichtet_auf_versicherungsfreiheit
+        and not verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung
     ):
         out = (
             umrechnungswert
@@ -114,7 +114,7 @@ def neue_entgeltpunkte_nach_wohnort(
 def neue_entgeltpunkte_einheitlich(
     einnahmen__bruttolohn_y: float,
     sozialversicherung__geringfügig_beschäftigt: bool,
-    verzichtet_auf_versicherungsfreiheit: bool,
+    verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
     beitrag__beitragsbemessungsgrenze_y: float,
     beitrag__beitragssatz: float,
@@ -135,7 +135,7 @@ def neue_entgeltpunkte_einheitlich(
         out = 0.0
     elif (
         sozialversicherung__geringfügig_beschäftigt
-        and not verzichtet_auf_versicherungsfreiheit
+        and not verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung
     ):
         out = (einnahmen__bruttolohn_y * beitrag__minijob_arbeitgeberpauschale) / (
             beitrag__beitragssatz * beitragspflichtiges_durchschnittsentgelt_y

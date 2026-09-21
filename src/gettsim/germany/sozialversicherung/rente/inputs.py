@@ -26,18 +26,25 @@ def entgeltpunkte() -> float:
 
 
 @policy_input(unit=TTSIMUnit.DIMENSIONLESS)
-def verzichtet_auf_versicherungsfreiheit() -> bool:
-    """Pays employee pension contributions although not mandatory.
+def verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung() -> bool:
+    """Marginal employment is covered by mandatory pension insurance.
 
-    The employment is covered by mandatory pension insurance at the employee's own
-    initiative. The legal instrument differs by the reason coverage is not mandatory:
+    The legal instrument differs by period:
 
-    - Geringfügige Beschäftigung until 2012-12-31: Verzicht auf die
-      Versicherungsfreiheit (§ 5 Abs. 2 SGB VI in der bis dahin geltenden Fassung).
-    - Geringfügige Beschäftigung since 2013-01-01: coverage is mandatory by default and
-      the employee has not applied for a Befreiung (§ 6 Abs. 1b SGB VI).
-    - Vollrente wegen Alters past the Regelaltersgrenze: Verzicht auf die
-      Versicherungsfreiheit (§ 5 Abs. 4 Satz 2 SGB VI).
+    - Until 2012-12-31: Verzicht auf die Versicherungsfreiheit (§ 5 Abs. 2 SGB VI in
+      der bis dahin geltenden Fassung).
+    - Since 2013-01-01: coverage is mandatory by default and the employee has not
+      applied for a Befreiung (§ 6 Abs. 1b SGB VI).
+
+    Irrelevant for a person who is versicherungsfrei wegen Alters (§ 5 Abs. 4 SGB VI).
+    """
+
+
+@policy_input(start_date="2017-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+def verzichtet_auf_versicherungsfreiheit_wegen_alters() -> bool:
+    """Waives the Versicherungsfreiheit of a Vollrentner past the Regelaltersgrenze.
+
+    Reference: § 5 Abs. 4 Satz 2 SGB VI
     """
 
 

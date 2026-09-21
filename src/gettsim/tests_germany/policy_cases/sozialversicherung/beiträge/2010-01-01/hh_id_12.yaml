@@ -53,7 +53,7 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
     wohnort_ost_hh:
       - false

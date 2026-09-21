@@ -20,7 +20,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   insurance contributions, Wohngeld Freibeträge, and Entgeltpunkte for the public
   pensions.
 
-  New input `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit`.
+  New inputs
+  `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_alters` and
+  `sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung`.
   `sozialversicherung__rente__bezieht_rente` is renamed to `bezieht_altersrente`.
   ({ghuser}`MImmesberger`)
 

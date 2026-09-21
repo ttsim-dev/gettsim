@@ -40,7 +40,10 @@ inputs:
         entgeltpunkte:
           - 30.0
           - 30.0
-        verzichtet_auf_versicherungsfreiheit:
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
           - false
           - false
     wohnort_ost_hh:
