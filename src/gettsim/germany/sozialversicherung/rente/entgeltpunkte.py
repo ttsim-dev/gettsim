@@ -62,8 +62,8 @@ def neue_entgeltpunkte_nach_wohnort(
 ) -> float:
     """Earnings points for the wages earned in the current year.
 
-    Versicherungsfreiheit wegen Alters rules out earnings points, both from
-    contributions and as a Zuschlag (§ 76b Abs. 4 SGB VI). A marginally employed
+    Versicherungsfreiheit wegen Alters rules out any changes in earnings points, both
+    from contributions and as a Zuschlag (§ 76b Abs. 4 SGB VI). A marginally employed
     person without mandatory coverage earns a Zuschlag reflecting the employer's
     Pauschalbeitrag (§ 76b Abs. 1 und 2 SGB VI); the counterfactual Entgelt appears in
     both factors of that product and cancels. With mandatory coverage the
@@ -124,8 +124,8 @@ def neue_entgeltpunkte_einheitlich(
 ) -> float:
     """Earning points for the wages earned in this year.
 
-    Versicherungsfreiheit wegen Alters rules out earnings points, both from
-    contributions and as a Zuschlag (§ 76b Abs. 4 SGB VI). A marginally employed
+    Versicherungsfreiheit wegen Alters rules out any changes in earnings points, both
+    from contributions and as a Zuschlag (§ 76b Abs. 4 SGB VI). A marginally employed
     person without mandatory coverage earns a Zuschlag reflecting the employer's
     Pauschalbeitrag (§ 76b Abs. 1 und 2 SGB VI); the counterfactual Entgelt appears in
     both factors of that product and cancels. With mandatory coverage the
