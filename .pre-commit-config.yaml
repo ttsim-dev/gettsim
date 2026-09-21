@@ -6,7 +6,7 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.27.1
+    rev: v2.29.3
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
@@ -56,7 +56,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.3
+    rev: v0.16.6
     hooks:
       - id: ruff-check
         args:
@@ -71,25 +71,26 @@ repos:
           - pyi
           - python
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.71
+    rev: v0.0.78
     hooks:
       - id: ty
         name: ty (numpy backend)
-        # `--no-project` keeps uv from creating a `.venv`/`uv.lock` in this
-        # pixi-managed repo; ty resolves third-party imports from the env named
-        # in `[tool.ty] environment.python` (run `pixi install` once).
-        args:
-          - --no-project
+        # The hook's default entry (`uv check`) hands ty the hook's own virtualenv
+        # instead of the pixi env named in `[tool.ty] environment.python`, so run
+        # ty directly (run `pixi install` once). Keep the ty pin in sync with `rev`.
+        entry: ty check
+        additional_dependencies:
+          - ty==0.0.78
   - repo: local
     hooks:
       - id: ty-jax
         name: ty (jax backend)
-        # A local hook because the official hook's `uv check` cannot forward
-        # `--python` to ty; this checks against the JAX environment. Keep the
-        # ty pin in sync with the `ty-pre-commit` rev above.
+        # A local hook because the official hook cannot forward `--python` to ty;
+        # this checks against the JAX environment. Keep the ty pin in sync with
+        # the `ty-pre-commit` rev above.
         language: python
         additional_dependencies:
-          - ty==0.0.71
+          - ty==0.0.78
         entry: ty check --python .pixi/envs/py314-jax
         pass_filenames: false
         always_run: true
