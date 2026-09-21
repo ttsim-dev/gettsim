@@ -1308,7 +1308,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1562,7 +1562,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1816,7 +1816,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2071,7 +2071,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2354,7 +2354,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/03/02/483d389f5d4984b9aab12a6c16c43cc3f27304487f22f7e99aaf1c0deb5d/optree-0.20.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2598,7 +2598,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/c6/2a089042de4705994f9e58fdbd47c4c98761ed05fcd8579e795bb0a786b4/optree-0.20.0-cp311-cp311-macosx_10_9_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -2842,7 +2842,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3087,7 +3087,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3379,7 +3379,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3626,7 +3626,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1a/f7/7cd4c9f2a3b7574414222ec425d5eee21cc690d867a013315e3be8ba185c/coverage-7.16.1-cp312-cp312-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -3873,7 +3873,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4121,7 +4121,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4412,7 +4412,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4660,7 +4660,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -4908,7 +4908,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5157,7 +5157,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0e/30/df2f6114f6a17cffe94721bd1d298f77f86aad493717fa5bc03cb291a1a6/coverage-7.16.1-cp313-cp313-win_amd64.whl
@@ -5448,7 +5448,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -5696,7 +5696,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/05/ac/a9f131ae07efa8fd7b17961bdcdd5b6a00b0b49480cf66e379fe06459614/simplejson-4.1.2-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -5944,7 +5944,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -6193,7 +6193,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -6484,7 +6484,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/11/05/713f261d923d0bac58d583fd248348df289393592d1fe95f74366ed0d198/nvidia_cuda_crt-13.4.59-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/14/fb/94933e00bb3dcfdf66ea3456739c6a51d322353f7cc64fa1f5f660e695ac/nvidia_nccl_cu13-2.31.2-py3-none-manylinux_2_18_x86_64.whl
@@ -6796,7 +6796,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1c/b1/1831dd8c9b06c013085d31a2ac4f03392d43bd36bfc6ff591a08bcedc1cf/ml_dtypes-0.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
@@ -7049,7 +7049,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
@@ -7303,7 +7303,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/dd/a9fe6a0a09512da23951c68bf36466aeecd89def3183dc095edbc807ddc5/pint-0.25.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7563,7 +7563,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+      - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
       - pypi: https://files.pythonhosted.org/packages/09/dc/6d8fbfc29d902251cf333414cf7dcfaf4b252a9920c881354584ed36270d/jax_metal-0.1.1-py3-none-macosx_13_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/0d/ef/2198da9c4564318d3ffb09ab1cae9042cd36f22c1288943c55c3777a00bc/ttsim_backend-1.3.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -20201,9 +20201,9 @@ packages:
   requires_dist:
   - ttsim-backend>=1.3.1
   requires_python: '>=3.11'
-- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#2fd17c89bc29d7933e00820f259bc774e85c7b96
+- pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=personas-from-explicit-elements#d0dfbc3c3e33e14d998c85a708d3dbc23f01f844
   name: gettsim-personas
-  version: 0.1.dev50+g2fd17c89b
+  version: 0.1.dev57+gd0dfbc3c3
   requires_dist:
   - dags>=0.6
   - gettsim>=1.3.1
