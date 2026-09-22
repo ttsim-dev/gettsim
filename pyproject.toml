@@ -250,14 +250,6 @@ per-file-ignores."src/gettsim/typing.py" = [
 ]
 pydocstyle.convention = "google"
 
-[tool.codespell]
-ignore-words-list = """\
-  als,alle,archiv,arithmetics,beginn,bund,dezember,disjointness,faktor,faktors,fpr,funk\
-  tion,ges,intervall,ist,januar,juli,juni,mape,ment,methode,nd,nin,oder,oktober,presse,\
-  produkt,referenz,relativ,relevante,sie,statics,unter,vor\
-  """
-skip = "*.lock,*.svg,*.bib,*.ipynb,*.html"
-
 [tool.pyproject-fmt]
 column_width = 88
 max_supported_python = "3.14"

@@ -120,12 +120,6 @@ repos:
           - --wrap
           - '88'
         files: docs/.
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.3
-    hooks:
-      - id: codespell
-        additional_dependencies:
-          - tomli
   - repo: local
     hooks:
       # Runs at pre-commit stage and fails if the config declares pre-push hooks
