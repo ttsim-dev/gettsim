@@ -6,7 +6,7 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.29.3
+    rev: v2.29.4
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
@@ -111,7 +111,7 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (AGENTS\.md|CLAUDE\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
+        files: (AGENTS\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
       - id: mdformat
         additional_dependencies:
           - mdformat-myst
