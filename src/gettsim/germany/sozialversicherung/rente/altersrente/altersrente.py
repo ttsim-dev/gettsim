@@ -18,9 +18,9 @@ from gettsim.tt import RoundingSpec, TTSIMUnit, policy_function
 )
 def betrag_m_bis_2001(
     bruttorente_m: float,
-    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
-    return bruttorente_m if sozialversicherung__rente__bezieht_rente else 0.0
+    return bruttorente_m if sozialversicherung__rente__bezieht_altersrente else 0.0
 
 
 @policy_function(
@@ -37,9 +37,9 @@ def betrag_m_bis_2001(
 )
 def betrag_m_ab_2002(
     bruttorente_m: float,
-    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
-    return bruttorente_m if sozialversicherung__rente__bezieht_rente else 0.0
+    return bruttorente_m if sozialversicherung__rente__bezieht_altersrente else 0.0
 
 
 @policy_function(
@@ -56,12 +56,12 @@ def betrag_m_ab_2002(
 def betrag_m_mit_grundrente(
     bruttorente_m: float,
     sozialversicherung__rente__grundrente__betrag_m: float,
-    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
     """Calculate total individual public pension including Grundrentenzuschlag."""
     return (
         bruttorente_m + sozialversicherung__rente__grundrente__betrag_m
-        if sozialversicherung__rente__bezieht_rente
+        if sozialversicherung__rente__bezieht_altersrente
         else 0.0
     )
 
@@ -76,7 +76,7 @@ def bruttorente_basisbetrag_m_nach_wohnort(
     zugangsfaktor: float,
     sozialversicherung__rente__entgeltpunkte_ost: float,
     sozialversicherung__rente__entgeltpunkte_west: float,
-    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__bezieht_altersrente: bool,
     sozialversicherung__rente__parameter_rentenwert_nach_wohnort: dict[str, float],
 ) -> float:
     """Old-Age Pensions claim. The function follows the following equation:
@@ -89,7 +89,7 @@ def bruttorente_basisbetrag_m_nach_wohnort(
     - https://de.wikipedia.org/wiki/Rentenformel
     - https://de.wikipedia.org/wiki/Rentenanpassungsformel
     """
-    if sozialversicherung__rente__bezieht_rente:
+    if sozialversicherung__rente__bezieht_altersrente:
         out = (
             sozialversicherung__rente__entgeltpunkte_west
             * sozialversicherung__rente__parameter_rentenwert_nach_wohnort["west"]
@@ -106,7 +106,7 @@ def bruttorente_basisbetrag_m_nach_wohnort(
 def bruttorente_basisbetrag_m(
     zugangsfaktor: float,
     sozialversicherung__rente__entgeltpunkte: float,
-    sozialversicherung__rente__bezieht_rente: bool,
+    sozialversicherung__rente__bezieht_altersrente: bool,
     sozialversicherung__rente__rentenwert_m: float,
 ) -> float:
     """Old-Age Pensions claim. The function follows the following equation:
@@ -119,7 +119,7 @@ def bruttorente_basisbetrag_m(
     - https://de.wikipedia.org/wiki/Rentenformel
     - https://de.wikipedia.org/wiki/Rentenanpassungsformel
     """
-    if sozialversicherung__rente__bezieht_rente:
+    if sozialversicherung__rente__bezieht_altersrente:
         out = (
             sozialversicherung__rente__entgeltpunkte
             * sozialversicherung__rente__rentenwert_m

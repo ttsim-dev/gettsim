@@ -1,0 +1,118 @@
+---
+info:
+  note: |-
+    Entgeltpunkte aus einer geringfügigen Beschäftigung mit 450 € Monatsentgelt.
+    Durchschnittsentgelt 2013: 33659 € (Anlage 1 SGB VI), Beitragssatz 18,9 %,
+    Arbeitgeberpauschale 15 %.
+    - p_id 0: von der Versicherungspflicht befreit (§ 6 Abs. 1b SGB VI). Nur der
+      Arbeitgeber zahlt, 450 € x 15 % = 67.50 €. Statt voller Entgeltpunkte entsteht
+      ein Zuschlag im Verhältnis des Arbeitgeberanteils zum vollen Beitrag
+      (§ 76b Abs. 1 und 2 SGB VI): 5.400 € x 15 % / (18,9 % x 33659 €) = 0.127327.
+    - p_id 1: versicherungspflichtig. Der Arbeitgeber bleibt beim Pauschalbeitrag, der
+      Beschäftigte trägt den Rest (§ 168 Abs. 1 Nr. 1b SGB VI):
+      450 € x 18,9 % - 450 € x 15 % = 17.55 €. Volle Entgeltpunkte
+      5.400 € / 33659 € = 0.160433.
+    Abweichung von der amtlichen Beispielrechnung: Die DRV teilt dort durch das
+    vorläufige Durchschnittsentgelt 2013 von 34071 € statt durch das endgültige von
+    33659 €, weil § 76b Abs. 2 Satz 2 SGB VI für das Jahr des Rentenbeginns und das
+    Jahr davor den vorläufigen Wert vorschreibt. GETTSIM führt nur die endgültige
+    Reihe der Anlage 1. Auf den Monatsbetrag des Beispiels umgerechnet ergibt der
+    vorläufige Wert 0.010482 (gerundet 0.0105, wie von der DRV ausgewiesen), der
+    endgültige 0.010611.
+    Beispiel 2 der Quelle (geringfügige Beschäftigung im Privathaushalt, 5 %
+    Arbeitgeberanteil, 0.0035 Entgeltpunkte) lässt sich nicht nachbilden, da GETTSIM
+    stets den gewerblichen Pauschalsatz ansetzt.
+  precision_atol: 0.000001
+  source: |-
+    Deutsche Rentenversicherung, GRA zu § 76b SGB VI, Beispiel 1 (Ermittlung der
+    Zuschläge bei einem Arbeitgeberanteil von 15 Prozent).
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0076_100/gra_sgb006_p_0076b.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 45
+    alter_monate:
+      - 540
+      - 540
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 450.0
+        - 450.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+    geburtsjahr:
+      - 1968
+      - 1968
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+            - 0
+          hat_kinder:
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - true
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 67.50
+          - 67.50
+        betrag_versicherter_m:
+          - 0.0
+          - 17.55
+      neue_entgeltpunkte_y:
+        - 0.127327
+        - 0.160433

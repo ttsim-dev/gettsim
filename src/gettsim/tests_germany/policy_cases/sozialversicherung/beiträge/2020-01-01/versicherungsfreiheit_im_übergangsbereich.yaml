@@ -1,0 +1,84 @@
+---
+info:
+  note: |-
+    Versicherungsfreier Altersvollrentner mit einem Arbeitsentgelt im Übergangsbereich.
+    Monatsentgelt 950 €, Beitragssatz 2020: 18,6 %. Die reduzierte beitragspflichtige
+    Einnahme beträgt 904.55 €, der Gesamtbeitrag 904.55 € x 18,6 % = 168.25 €.
+    Bis zum 30.09.2022 bemisst sich der Arbeitgeberanteil nach § 172 Abs. 1 SGB VI
+    nicht nach dieser reduzierten Einnahme, sondern nach dem tatsächlichen
+    Bruttoarbeitsentgelt (§ 168 Abs. 1 Nr. 1d SGB VI in der bis dahin geltenden
+    Fassung): 950 € x 18,6 % / 2 = 88.35 €. Ein Arbeitnehmeranteil entfällt, ebenso
+    entstehen keine Entgeltpunkte (§ 76b Abs. 4 SGB VI).
+  precision_atol: 0.01
+  source: |-
+    Deutsche Rentenversicherung, GRA zu § 172 SGB VI, Beispiel 1 (Höhe der
+    Beitragsanteile).
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0151_175/gra_sgb006_p_0172.html
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+    alter_monate:
+      - 840
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 950.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    geburtsjahr:
+      - 1950
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 88.35
+        betrag_versicherter_m:
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.0

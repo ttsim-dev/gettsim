@@ -1,0 +1,136 @@
+---
+info:
+  note: |-
+    Verzicht auf die Versicherungsfreiheit in einer geringfügigen Beschäftigung. Der
+    Arbeitgeber trägt in jedem Fall den Pauschalbeitrag von 15 % des Arbeitsentgelts;
+    bei Versicherungspflicht trägt der Beschäftigte den Rest, nicht die Hälfte
+    (§ 168 Abs. 1 Nr. 1b SGB VI). Beitragspflichtige Einnahme ist mindestens 175 €
+    (§ 163 Abs. 8 SGB VI). Ohne Versicherungspflicht entsteht statt voller
+    Entgeltpunkte ein Zuschlag im Verhältnis des Arbeitgeberanteils zum vollen Beitrag
+    (§ 76b Abs. 1 und 2 SGB VI). Durchschnittsentgelt 2025: 50493 €.
+    - p_id 0: 400 € mit Verzicht. Beitrag 400 € x 18,6 % - 400 € x 15 % = 14.40 €,
+      Entgeltpunkte 4.800 € / 50493 € = 0.095063.
+    - p_id 1: 100 € mit Verzicht. Die Mindestbeitragsbemessungsgrundlage greift:
+      175 € x 18,6 % - 100 € x 15 % = 17.55 €, Entgeltpunkte
+      2.100 € / 50493 € = 0.041590.
+    - p_id 2: 400 € ohne Verzicht. Kein Arbeitnehmerbeitrag, Zuschlag an Entgeltpunkten
+      4.800 € x 15 % / (18,6 % x 50493 €) = 0.076663, also 15/18,6 der vollen
+      Entgeltpunkte.
+  precision_atol: 0.000001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 45
+      - 45
+    alter_monate:
+      - 540
+      - 540
+      - 540
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 400.0
+        - 100.0
+        - 400.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    geburtsjahr:
+      - 1980
+      - 1980
+      - 1980
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+            - 0
+            - 0
+          hat_kinder:
+            - false
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - true
+          - true
+          - false
+    wohnort_ost_hh:
+      - false
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 60.00
+          - 15.00
+          - 60.00
+        betrag_versicherter_m:
+          - 14.40
+          - 17.55
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.095063
+        - 0.041590
+        - 0.076663

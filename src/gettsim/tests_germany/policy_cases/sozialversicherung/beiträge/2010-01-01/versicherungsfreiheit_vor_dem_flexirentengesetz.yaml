@@ -1,0 +1,113 @@
+---
+info:
+  note: |-
+    Versicherungsfreiheit vor 2017. Bis zum Flexirentengesetz genügte der Bezug einer
+    Vollrente wegen Alters in jedem Alter (§ 5 Abs. 4 Nr. 1 SGB VI a. F.); in der
+    Arbeitslosenversicherung kam es dagegen schon immer allein auf das Erreichen der
+    Regelaltersgrenze an (§ 28 Abs. 1 Nr. 1 SGB III). Die beiden Personen zeigen, dass
+    die Voraussetzungen auseinanderfallen.
+    - p_id 0: 1944 geboren (Regelaltersgrenze 65 Jahre), über der
+      Regelaltersgrenze, aber ohne Rentenbezug, 3.000 € im Monat. In der
+      Rentenversicherung besteht Versicherungspflicht:
+      3.000 € x 19,9 % / 2 = 298.50 €. In der
+      Arbeitslosenversicherung ist die Person versicherungsfrei; der Arbeitgeber trägt
+      die Hälfte des Beitrags (§ 346 Abs. 3 S. 1 SGB III):
+      3.000 € x 2,8 % / 2 = 42.00 €.
+    - p_id 1: 1948 geboren, mit 62 Jahren unter der Regelaltersgrenze, bezieht aber eine
+      Vollrente wegen Alters und verdient 1.000 € im Monat. In der Rentenversicherung
+      versicherungsfrei, der Arbeitgeber trägt 1.000 € x 19,9 % / 2 = 99.50 €.
+      In der Arbeitslosenversicherung besteht weiterhin Versicherungspflicht:
+      1.000 € x 2,8 % / 2 = 14.00 €.
+  precision_atol: 0.000001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 66
+      - 62
+    alter_monate:
+      - 792
+      - 744
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 1000.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+    geburtsjahr:
+      - 1944
+      - 1948
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 1200.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 42.00
+          - 14.00
+        betrag_versicherter_m:
+          - 0.0
+          - 14.00
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 298.50
+          - 99.50
+        betrag_versicherter_m:
+          - 298.50
+          - 0.0

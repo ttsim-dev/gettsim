@@ -31,7 +31,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.3.1" ]
+dependencies = [ "pint<0.26", "ttsim-backend>=1.3.1" ]
 [[project.authors]]
 name = "Christian Zimpelmann"
 
@@ -215,14 +215,12 @@ per-file-ignores."conftest.py" = [
   "ANN", # Type annotations not needed in conftest
 ]
 per-file-ignores."docs/*" = [
+  "E501",   # Line too long — qualified input names do not fit
   "INP001", # Implicit namespace packages
   "T201",   # print() usage OK in docs
 ]
 per-file-ignores."docs/how_to_guides/modifications_of_policy_environments.ipynb" = [
   "E402", # Module-level import not at top of cell
-]
-per-file-ignores."docs/tutorials/personas.ipynb" = [
-  "E501", # Line too long
 ]
 per-file-ignores."src/gettsim/__init__.py" = [
   "PLW0127", # Re-export things for tab-completion explicitly.
