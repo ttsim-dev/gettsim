@@ -65,7 +65,13 @@ build.targets.wheel.sources = [ "src" ]
 
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
-platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
+platforms = [
+  "linux-64",
+  "osx-64",
+  "osx-arm64",
+  "win-64",
+  { name = "linux-64-cuda13", platform = "linux-64", cuda = "13" },
+]
 [tool.pixi.dependencies]
 ipywidgets = "*"
 jupyterlab = "*"
@@ -92,8 +98,7 @@ tests-with-cov = """\
   --ignore=src/gettsim/tests_germany/test_jittability.py\
   """
 [tool.pixi.feature.cuda]
-platforms = [ "linux-64" ]
-system-requirements = { cuda = "13" }
+platforms = [ "linux-64-cuda13" ]
 [tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
 jax = { version = ">=0.8", extras = [ "cuda13" ] }
 [tool.pixi.feature.cuda.tasks]
