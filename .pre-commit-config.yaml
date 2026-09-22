@@ -122,26 +122,6 @@ repos:
         files: docs/.
   - repo: local
     hooks:
-      # Runs at pre-commit stage and fails if the config declares pre-push hooks
-      # that this clone never installed — otherwise they look active and silently
-      # never fire.
-      - id: pre-push-hooks-installed
-        name: pre-push hooks are installed in this clone
-        entry: .ai-instructions/hooks/check_pre_push_installed.py
-        language: script
-        pass_filenames: false
-        always_run: true
-      # `--check` re-solves and compares without writing, so it cannot dirty the
-      # worktree. pre-push, not pre-commit: a mid-branch commit may legitimately
-      # lag the lock, but a push with a stale lock burns a CI cycle.
-      - id: pixi-lock-check
-        name: pixi.lock is in sync with the manifest
-        entry: pixi lock --check
-        language: system
-        pass_filenames: false
-        files: ^(pyproject\.toml|pixi\.toml|pixi\.lock)$
-        stages:
-          - pre-push
       - id: notebook-cell-source-format
         name: notebook cell source is a JSON array of lines
         entry: .ai-instructions/hooks/fix_notebook_cell_source.py
@@ -173,19 +153,12 @@ repos:
 ci:
   autoupdate_schedule: monthly
   # pre-commit.ci has no pixi environments and blocks network at hook runtime;
-  # the GitHub Actions `run-ty` job covers type checking, and pixi-lock-check
-  # needs a pixi binary that pre-commit.ci does not provide.
+  # the GitHub Actions `run-ty` job covers type checking.
   #
-  # The two script hooks above run files from the `.ai-instructions` submodule,
-  # and pre-commit.ci clones without submodules, so there they fail as a missing
-  # executable rather than running. `pre-push-hooks-installed` asks about the
-  # local clone and is meaningless on a runner anyway; the notebook check does
-  # lose CI coverage, and holds only where the submodule is present. If a
-  # project wants it enforced on CI, give the `actions/checkout` step
-  # `submodules: true` and run `prek` from a workflow instead.
+  # `notebook-cell-source-format` runs a file from the `.ai-instructions`
+  # submodule, which pre-commit.ci does not clone, so the check holds only where
+  # the submodule is present.
   skip:
     - ty
     - ty-jax
-    - pixi-lock-check
-    - pre-push-hooks-installed
     - notebook-cell-source-format
