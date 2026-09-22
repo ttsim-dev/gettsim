@@ -167,7 +167,7 @@ The proposed changes will affect all areas of GETTSIM
 
    - Interacting with the policy environment in GETTSIM works with nested dictionaries.
      Paths are as defined above, leafs could be functions (for overriding / expanding
-     the policy envionment) or data columns (inputs and outputs).
+     the policy environment) or data columns (inputs and outputs).
 
      There will be built-in renaming functionality to make interaction with any data set
      on the user side very easy. Some details are described below, but there will be a
@@ -234,7 +234,7 @@ The proposed changes will affect all areas of GETTSIM
 
    Functions will not have `[x]_params` arguments containing potentially large and
    unstructured dicts any more. Instead, functions will only use the policy parameters
-   they require. These could be scalars, homogenous dictionaries, the inputs for
+   they require. These could be scalars, homogeneous dictionaries, the inputs for
    `piecewise_polynomial` parameters, or custom objects.
 
    The namespace makes clear we are talking about, say, the function `beitrag` in the
