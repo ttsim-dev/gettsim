@@ -17,8 +17,23 @@ altersgrenze:
   unit: YEARS
   type: scalar
   1957-02-26:
-    reference: Rentenreformgesetz 1957 BGBl. I S. 88
+    reference: >-
+      Artikel 1 G. v. 23.02.1957 BGBl. I S. 45 (ArVNG).
+      Artikel 1 G. v. 23.02.1957 BGBl. I S. 88 (AnVNG).
+    note: >-
+      Uniform age limit, enacted the same day by two parallel laws: the ArVNG for
+      blue-collar workers (§ 1248 Abs. 1 RVO, BGBl. I S. 45) and the AnVNG for
+      white-collar workers (§ 25 Abs. 1 AVG, BGBl. I S. 88). Identical wording in
+      both: "Altersruhegeld erhält der Versicherte, der das 65. Lebensjahr vollendet
+      hat, wenn die Wartezeit erfüllt ist."
     value: 65.0
+  1992-01-01:
+    value: 65.0
+    reference: Artikel 1 G. v. 18.12.1989 BGBl. I S. 2261 (RRG 1992).
+    note: >-
+      Recodification into the SGB VI: the age limit moves from § 1248 Abs. 5 RVO
+      (blue-collar) and § 25 Abs. 5 AVG (white-collar) into the unified
+      § 35 Satz 2 SGB VI. Value unchanged.
   2007-04-19:
     note: >-
       Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964. See
@@ -45,7 +60,9 @@ altersgrenze_gestaffelt:
   output_unit: YEARS
   type: year_based_phase_inout_of_age_thresholds
   2007-04-20:
-    reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554
+    reference: >-
+      Artikel 1 G. v. 20.04.2007 BGBl. I S. 554
+      (RV-Altersgrenzenanpassungsgesetz).
     note: >-
       Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964.
       Vertrauensschutz (Art. 56) applies for birth cohorts before 1955 who were in
