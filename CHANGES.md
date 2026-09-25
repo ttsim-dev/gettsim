@@ -827,7 +827,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## v0.3.4 — 2020-07-30
 
-- {gh}`222` Fix wohngeld coefficent. Add test for increasing wohngeld.
+- {gh}`222` Fix wohngeld coefficient. Add test for increasing wohngeld.
   ({ghuser}`hmgaudecker`, {ghuser}`MaxBlesch`)
 
 ## v0.3.3 — 2020-06-27

@@ -161,7 +161,7 @@ def midijob_faktor_f_ohne_minijob_steuerpauschale(
     ag_anteil = allg_sozialv_beitr + kranken__beitrag__beitragssatz_arbeitgeber_midijob
 
     # Sum over the shares which are specific for midijobs.
-    # New formula only inludes the lump-sum contributions to health care
+    # New formula only includes the lump-sum contributions to health care
     # and pension insurance
     pausch_mini = (
         kranken__beitrag__minijob_arbeitgeberpauschale

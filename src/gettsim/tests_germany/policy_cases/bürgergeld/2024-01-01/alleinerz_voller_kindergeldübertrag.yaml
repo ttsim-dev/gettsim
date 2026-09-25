@@ -3,7 +3,7 @@ info:
   note: |-
     Household with 2 children, where child income of second child exceeds needs.
     Second child drops out of Bedarfsgemeinschaft and all of Kindergeld is
-    transfered to the parent via Kindergeldübertrag.
+    transferred to the parent via Kindergeldübertrag.
   precision_atol: 0.01
   source: Made up.
 inputs:

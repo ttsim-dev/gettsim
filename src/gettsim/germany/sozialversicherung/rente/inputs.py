@@ -109,7 +109,7 @@ def monate_in_mutterschutz() -> float:
 
 @policy_input(unit=TTSIMUnit.MONTHS)
 def monate_in_schulausbildung() -> float:
-    """Months of schooling (incl college, unifrom age 17, max. 8 years)."""
+    """Months of schooling (incl college, uniform age 17, max. 8 years)."""
 
 
 @policy_input(unit=TTSIMUnit.MONTHS)
