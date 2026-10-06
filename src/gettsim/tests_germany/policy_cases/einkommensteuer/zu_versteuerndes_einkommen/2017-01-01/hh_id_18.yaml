@@ -4,7 +4,18 @@ info:
   precision_atol: 0.01
   source: https://www.n-heydorn.de/steuer.html
 inputs:
-  assumed: {}
+  assumed:
+    geburtstag:
+      - 15
+      - 15
+    einnahmen:
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
   provided:
     alter:
       - 37
