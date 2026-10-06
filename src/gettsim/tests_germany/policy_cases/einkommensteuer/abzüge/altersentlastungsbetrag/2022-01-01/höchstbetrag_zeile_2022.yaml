@@ -1,0 +1,128 @@
+---
+info:
+  note: |-
+    Last year of the table of 2004; row 2022 is the first year of entitlement of
+    those who completed the 64th year in 2021.
+    p_id 0 (exactly at the maximum): born 15.06.1957 (64th year completed in 2021),
+    first year of entitlement 2022; table row 2022: 14.4 %, at most 684 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4750; 14.4 % x 4750 = 684 -> 684.
+    p_id 1 (just below the maximum): born 15.06.1957 (64th year completed in 2021),
+    first year of entitlement 2022; table row 2022: 14.4 %, at most 684 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4740; 14.4 % x 4740 = 682.56, rounded up
+    to 683 -> 683.
+    p_id 2 (above the maximum): born 15.06.1957 (64th year completed in 2021), first
+    year of entitlement 2022; table row 2022: 14.4 %, at most 684 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4800; 14.4 % x 4800 = 691.20, rounded up
+    to 692, at most 684 -> 684.
+    p_id 3 (born 1 January): born 01.01.1958 (1 January: 64th year completed on
+    31.12.2021), first year of entitlement 2022; table row 2022: 14.4 %, at most 684
+    Euro; other Einkünfte: Vermietung und Verpachtung 4800; 14.4 % x 4800 = 691.20,
+    rounded up to 692, at most 684 -> 684.
+    p_id 4 (one cohort too young): born 15.06.1958 (64th year completed in 2022),
+    first year of entitlement 2023; 2022 < 2023: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 05.07.2004
+    BGBl. I S. 1427; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    geburtsjahr:
+      - 1957
+      - 1957
+      - 1957
+      - 1958
+      - 1958
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 1
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 1
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 4750.0
+            - 4740.0
+            - 4800.0
+            - 4800.0
+            - 4800.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 684.0
+        - 683.0
+        - 684.0
+        - 684.0
+        - 0.0

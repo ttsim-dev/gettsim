@@ -1,0 +1,60 @@
+---
+info:
+  note: |-
+    Arbeitslohn 20 000 Euro entered as 20 000 / 12 per month. The birth year follows
+    from the first year of entitlement 2020.
+    p_id 0 ('ab dem Jahr 2020': 16 %, at most 760 Euro): born 15.06.1955 (64th year
+    completed in 2019), first year of entitlement 2020; table row 2020: 16.0 %, at
+    most 760 Euro; Arbeitslohn 20000; other Einkünfte: Vermietung und Verpachtung
+    7500; 16.0 % x 27500 = 4400, at most 760 -> 760.
+  precision_atol: 0.01
+  source: >-
+    Buhl Data Service (WISO Steuer), 'Altersentlastungsbetrag: Mehr Geld auf dem
+    Konto mit 64', https://buhl.de/steuer/ratgeber/altersentlastungsbetrag
+inputs:
+  provided:
+    p_id:
+      - 0
+    einnahmen:
+      bruttolohn_m:
+        - 1666.67
+    einkommensteuer:
+      einkünfte:
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 7500.0
+  assumed:
+    geburtsjahr:
+      - 1955
+    geburtsmonat:
+      - 6
+    geburtstag:
+      - 15
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+    einnahmen:
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 760.0

@@ -52,6 +52,7 @@ EXPECTED_UNIT_CHECK_LOCAL_CASTS = (
     "bürgergeld__mehrbedarfsanteil_alleinerziehend",
     "bürgergeld__vermögensfreibetrag_in_karenzzeit_bg",
     "einkommensteuer__abzüge__alleinerziehend_betrag_y",
+    "einkommensteuer__abzüge__altersentlastungsbetrag_erstes_anspruchsjahr",
     "einkommensteuer__abzüge__vorwegabzug_lohnsteuer_y_sn",
     "elterngeld__anrechenbarer_betrag_m",
     "elterngeld__anspruchshöhe_m",

@@ -1,0 +1,76 @@
+---
+info:
+  note: |-
+    Row years after 2058 take the last row (0,0 % / 0 Euro).
+    p_id 0 (row year after the table): born 15.06.1994 (64th year completed in
+    2058), first year of entitlement 2059; table row 2058 (row year 2059 is outside
+    the table): 0.0 %, at most 0 Euro; other Einkünfte: Vermietung und Verpachtung
+    10000; 0.0 % x 10000 = 0 -> 0.
+    p_id 1 (row fixed for life): born 15.06.1992 (64th year completed in 2056),
+    first year of entitlement 2057; table row 2057: 0.4 %, at most 19 Euro; other
+    Einkünfte: Vermietung und Verpachtung 10000; 0.4 % x 10000 = 40, at most 19 ->
+    19.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 27.03.2024
+    BGBl. 2024 I Nr. 108; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    geburtsjahr:
+      - 1994
+      - 1992
+    geburtsmonat:
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 10000.0
+            - 10000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 0.0
+        - 19.0

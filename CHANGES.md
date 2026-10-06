@@ -15,6 +15,25 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1238` Fix and extend the Altersentlastungsbetrag (§ 24a EStG). From 2005, share
+  and maximum are those of the calendar year following the completion of the 64th year
+  of life instead of the year of completion; people born on 1 January belong to the
+  preceding cohort. Entitlement follows from the birth date and the policy year instead
+  of `alter`. The base now includes Einkünfte aus Land- und Forstwirtschaft, aus
+  Gewerbebetrieb, sonstige Einkünfte other than Leibrenten, and payouts of the
+  geförderte private Vorsorge and (from 2005) the betriebliche Altersvorsorge. Capital
+  income enters as Einkünfte through 2008 and not at all from 2009 (§ 2 Abs. 5b EStG).
+  The amount is rounded up to the full DM / Euro.
+
+  `einkommensteuer__abzüge__altersfreibetrag_y` no longer requires `alter` and
+  `einnahmen__kapitalerträge_y` (the latter from 2009). It newly requires
+  `geburtsmonat`, `geburtstag`,
+  `einkommensteuer__einkünfte__aus_forst_und_landwirtschaft__betrag_y`,
+  `einkommensteuer__einkünfte__aus_gewerbebetrieb__betrag_y`,
+  `einkommensteuer__einkünfte__sonstige__alle_weiteren_y`,
+  `einnahmen__renten__geförderte_private_vorsorge_m`, and (from 2005)
+  `einnahmen__renten__betriebliche_altersvorsorge_m`. ({ghuser}`MImmesberger`)
+
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social
   insurance contributions, Wohngeld Freibeträge, and Entgeltpunkte for the public

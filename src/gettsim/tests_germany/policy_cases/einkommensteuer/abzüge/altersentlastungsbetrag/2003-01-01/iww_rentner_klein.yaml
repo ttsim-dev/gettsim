@@ -1,0 +1,94 @@
+---
+info:
+  note: |-
+    The source states neither the year nor the birth date: VZ 2003 and a birth year
+    matching 'ist 66 Jahre alt' are assumed. Versorgungsbezüge are not an input: the
+    Arbeitslohn is entered net of them (Beamtenpension 18 000 Euro left out;
+    Arbeitslohn 4 500 Euro). Sparer-Freibetrag 1 550 Euro and Werbungskosten-
+    Pauschbetrag 51 Euro as in the source. The source's sum of 1 800 + 160 = 1 960
+    rounds the two parts separately; rounding the total once gives 1 959,60 -> 1 960
+    as well.
+    p_id 0 (Rentner Klein as published: 1 960, at most 1 908): born 15.06.1937 (64th
+    year completed in 2001), first year of entitlement 2002; 40 %, at most 1908
+    Euro; Arbeitslohn 12 x 375 = 4500; other Einkünfte: Vermietung und Verpachtung
+    -500, Einkünfte aus Kapitalvermögen max(2500 - 1601, 0) = 899; sum 399; 40.0 % x
+    4899 = 1959.60, rounded up to 1960, at most 1908 -> 1908.
+    p_id 1 (Klein's other Einkünfte alone; the source prints this intermediate step
+    as '399 x 40 % = 160 Euro'): born 15.06.1937 (64th year completed in 2001),
+    first year of entitlement 2002; 40 %, at most 1908 Euro; other Einkünfte:
+    Vermietung und Verpachtung -500, Einkünfte aus Kapitalvermögen max(2500 - 1601,
+    0) = 899; sum 399; 40.0 % x 399 = 159.60, rounded up to 160 -> 160.
+  precision_atol: 0.01
+  source: >-
+    iww, Steuern sparen professionell, 'Gestaltungsmöglichkeiten für Rentner: So
+    nutzen Rentner-Ehepaare den Altersentlastungsbetrag optimal', 01.05.2003,
+    https://www.iww.de/ssp/archiv/gestaltungsmoeglichkeiten-fuer-rentner-so-nutzen-rentner-ehepaare-den-altersentlastungsbetrag-optimal-f2721
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    einnahmen:
+      bruttolohn_m:
+        - 375.0
+        - 0.0
+      kapitalerträge_y:
+        - 2500.0
+        - 2500.0
+    einkommensteuer:
+      einkünfte:
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - -500.0
+            - -500.0
+  assumed:
+    geburtsjahr:
+      - 1937
+      - 1937
+    geburtsmonat:
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+    einnahmen:
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1908.0
+        - 160.0
+    einkünfte:
+      aus_kapitalvermögen:
+        betrag_y_sn:
+          - 899.0
+          - 899.0

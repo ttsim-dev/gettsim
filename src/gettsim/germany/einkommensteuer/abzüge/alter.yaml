@@ -5,12 +5,12 @@ altersentlastungsbetrag_altersgrenze:
     en: Age limit for old-age relief amount
   description:
     de: >-
-      § 24a Art. 3 EStG
+      § 24a Satz 3 EStG
       Der Altersentlastungsbetrag wird einem Steuerpflichtigen gewährt, der vor dem
       Beginn des Kalenderjahres, in dem er sein Einkommen bezogen hat, das 64.
       Lebensjahr vollendet hatte.
     en: >-
-      § 24a Art. 3 EStG
+      § 24a Satz 3 EStG
       The old-age relief amount is granted to a taxpayer who, before the start of the
       calendar year in which he received his income, had reached the age of 64.
   unit: YEARS
@@ -46,14 +46,16 @@ raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
     de: Höchstbetrag des Altersentlastungsbetrags
     en: Maximum Amount of Tax Credit for older employees.
   description:
-    de: 24a EStG S. 5. Tabelle legt die Werte bis 2040 fest.
+    de: >-
+      § 24a Satz 5 EStG. Die Tabelle legt die Werte bis 2040 fest, seit dem
+      Wachstumschancengesetz bis 2058.
     en: null
   input_unit: CALENDAR_YEAR
   output_unit: EUR_PER_YEAR
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
-    first_calendar_year_to_consider: 1980
+    first_calendar_year_to_consider: 1900
     last_calendar_year_to_consider: 2100
     2005: 1900
     2006: 1824
@@ -93,7 +95,7 @@ raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
     2040: 0
   2023-01-01:
     reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
-    first_calendar_year_to_consider: 1980
+    first_calendar_year_to_consider: 1900
     last_calendar_year_to_consider: 2100
     2005: 1900
     2006: 1824
@@ -155,7 +157,8 @@ altersentlastungsquote:
     en: Maximum amount of tax credit due to old age as a share of income.
   description:
     de: >-
-      §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
+      § 24a Satz 5 EStG. Die Tabelle legt die Werte bis 2040 fest, seit dem
+      Wachstumschancengesetz bis 2058. Bis 2004 wird bei allen
       Steuerpflichtigen, die im voherigen Kalenderjahr das 64. Lebensjahr vollendet
       haben, die gleiche Altersentlastungsquote abgezogen. Ab 2005 hängt diese Quote,
       den diese Steuerpflichtigen erhalten, vom Geburtsjahr ab.
@@ -174,7 +177,8 @@ raw_altersentlastungsquote_gestaffelt:
     en: Maximum amount of tax credit due to old age as a share of income.
   description:
     de: >-
-      §24a EStG S.5. Tabelle legt alle Werte bis 2040 fest. Bis 2004 wird bei allen
+      § 24a Satz 5 EStG. Die Tabelle legt die Werte bis 2040 fest, seit dem
+      Wachstumschancengesetz bis 2058. Bis 2004 wird bei allen
       Steuerpflichtigen, die im voherigen Kalenderjahr das 64. Lebensjahr vollendet
       haben, die gleiche Altersentlastungsquote abgezogen. Ab 2005 hängt diese Quote,
       den diese Steuerpflichtigen erhalten, vom Geburtsjahr ab.
@@ -186,7 +190,7 @@ raw_altersentlastungsquote_gestaffelt:
   type: require_converter
   2005-01-01:
     reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
-    first_calendar_year_to_consider: 1980
+    first_calendar_year_to_consider: 1900
     last_calendar_year_to_consider: 2100
     2005: 0.4
     2006: 0.384
@@ -226,7 +230,7 @@ raw_altersentlastungsquote_gestaffelt:
     2040: 0
   2023-01-01:
     reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
-    first_calendar_year_to_consider: 1980
+    first_calendar_year_to_consider: 1900
     last_calendar_year_to_consider: 2100
     2005: 0.4
     2006: 0.384

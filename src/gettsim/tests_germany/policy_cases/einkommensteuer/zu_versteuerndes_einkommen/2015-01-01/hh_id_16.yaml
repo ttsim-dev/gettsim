@@ -5,7 +5,15 @@ info:
   source: |-
     http://www.dr-wolters.de/content/inhalte/steuerberater_service/onlinerechner/einkommensteuer_berechnung/einkommensteuer_rechner/index.html
 inputs:
-  assumed: {}
+  assumed:
+    geburtstag:
+      - 15
+    einnahmen:
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
   provided:
     alter:
       - 40

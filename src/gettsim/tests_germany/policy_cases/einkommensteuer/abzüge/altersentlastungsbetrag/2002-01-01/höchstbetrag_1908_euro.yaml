@@ -1,0 +1,131 @@
+---
+info:
+  note: |-
+    First year of the Euro maximum.
+    p_id 0 (above the maximum): born 15.06.1930 (64th year completed in 1994), first
+    year of entitlement 1995; 40 %, at most 1908 Euro; other Einkünfte: Vermietung
+    und Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1908 -> 1908.
+    p_id 1 (exactly at the maximum): born 15.06.1930 (64th year completed in 1994),
+    first year of entitlement 1995; 40 %, at most 1908 Euro; other Einkünfte:
+    Vermietung und Verpachtung 4770; 40.0 % x 4770 = 1908 -> 1908.
+    p_id 2 (just below the maximum): born 15.06.1930 (64th year completed in 1994),
+    first year of entitlement 1995; 40 %, at most 1908 Euro; other Einkünfte:
+    Vermietung und Verpachtung 4767; 40.0 % x 4767 = 1906.80, rounded up to 1907 ->
+    1907.
+    p_id 3 (first year of entitlement): born 15.06.1937 (64th year completed in
+    2001), first year of entitlement 2002; 40 %, at most 1908 Euro; other Einkünfte:
+    Vermietung und Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1908 -> 1908.
+    p_id 4 (one cohort too young): born 15.06.1938 (64th year completed in 2002),
+    first year of entitlement 2003; 2002 < 2003: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 19.12.2000
+    BGBl. I S. 1790; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    geburtsjahr:
+      - 1930
+      - 1930
+      - 1930
+      - 1937
+      - 1938
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 10000.0
+            - 4770.0
+            - 4767.0
+            - 10000.0
+            - 10000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1908.0
+        - 1908.0
+        - 1907.0
+        - 1908.0
+        - 0.0

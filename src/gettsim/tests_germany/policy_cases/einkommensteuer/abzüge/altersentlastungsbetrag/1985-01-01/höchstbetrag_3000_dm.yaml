@@ -1,0 +1,188 @@
+---
+info:
+  note: |-
+    Amounts in DM. 40 % of the base, at most 3 000 DM, both sides of the maximum and
+    of the entitlement date.
+    p_id 0 (exactly at the maximum): born 15.06.1915 (64th year completed in 1979),
+    first year of entitlement 1980; 40 %, at most 3000 DM; Arbeitslohn 12 x 625 =
+    7500; 40.0 % x 7500 = 3000 -> 3000.
+    p_id 1 (just below the maximum): born 15.06.1915 (64th year completed in 1979),
+    first year of entitlement 1980; 40 %, at most 3000 DM; other Einkünfte:
+    Vermietung und Verpachtung 7497; 40.0 % x 7497 = 2998.80, rounded up to 2999 ->
+    2999.
+    p_id 2 (above the maximum): born 15.06.1915 (64th year completed in 1979), first
+    year of entitlement 1980; 40 %, at most 3000 DM; other Einkünfte: Vermietung und
+    Verpachtung 7600; 40.0 % x 7600 = 3040, at most 3000 -> 3000.
+    p_id 3 (rounding up): born 15.06.1915 (64th year completed in 1979), first year
+    of entitlement 1980; 40 %, at most 3000 DM; other Einkünfte: Vermietung und
+    Verpachtung 1001; 40.0 % x 1001 = 400.40, rounded up to 401 -> 401.
+    p_id 4 (first year of entitlement): born 15.06.1920 (64th year completed in
+    1984), first year of entitlement 1985; 40 %, at most 3000 DM; other Einkünfte:
+    Vermietung und Verpachtung 1001; 40.0 % x 1001 = 400.40, rounded up to 401 ->
+    401.
+    p_id 5 (one cohort too young): born 15.06.1921 (64th year completed in 1985),
+    first year of entitlement 1986; 1985 < 1986: not entitled -> 0.
+    p_id 6 (born 1 January): born 01.01.1921 (1 January: 64th year completed on
+    31.12.1984), first year of entitlement 1985; 40 %, at most 3000 DM; other
+    Einkünfte: Vermietung und Verpachtung 1001; 40.0 % x 1001 = 400.40, rounded up
+    to 401 -> 401.
+    p_id 7 (born 2 January): born 02.01.1921 (64th year completed in 1985), first
+    year of entitlement 1986; 1985 < 1986: not entitled -> 0.
+  precision_atol: 0.01
+  data_currency: DM
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 05.08.1974
+    BGBl. I S. 1769; rounding up to the full DM per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    geburtsjahr:
+      - 1915
+      - 1915
+      - 1915
+      - 1915
+      - 1920
+      - 1921
+      - 1921
+      - 1921
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 1
+      - 1
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 1
+      - 2
+    einnahmen:
+      bruttolohn_m:
+        - 625.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+            - 7497.0
+            - 7600.0
+            - 1001.0
+            - 1001.0
+            - 1001.0
+            - 1001.0
+            - 1001.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 3000.0
+        - 2999.0
+        - 3000.0
+        - 401.0
+        - 401.0
+        - 0.0
+        - 401.0
+        - 0.0
