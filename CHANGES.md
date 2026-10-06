@@ -15,7 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`126` Model the Progressionsvorbehalt for wage-replacement benefits (§ 32b Abs. 1
+- {gh}`1237` Model the Progressionsvorbehalt for wage-replacement benefits (§ 32b Abs. 1
   S. 1 Nr. 1 EStG). The benefits, less the Arbeitnehmer-Pauschbetrag not used against
   wage income, enter the besonderer Steuersatz that applies to the taxable income; from
   1996, net repayments lower it. The columns in `einkommensteuer__progressionsvorbehalt`
