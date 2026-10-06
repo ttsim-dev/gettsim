@@ -35,7 +35,6 @@ def leistungen_y_ohne_elterngeld(
     sozialversicherung__kranken__mutterschaftsgeld_y: float,
     sozialversicherung__unfall__verletztengeld_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
-    übergangsgeld_y: float,
     sonstige_leistungen_y: float,
 ) -> float:
     """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
@@ -50,7 +49,6 @@ def leistungen_y_ohne_elterngeld(
         + sozialversicherung__kranken__mutterschaftsgeld_y
         + sozialversicherung__unfall__verletztengeld_y
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
-        + übergangsgeld_y
         + sonstige_leistungen_y
     )
 
@@ -69,7 +67,6 @@ def leistungen_y_mit_elterngeld(
     sozialversicherung__kranken__mutterschaftsgeld_y: float,
     sozialversicherung__unfall__verletztengeld_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
-    übergangsgeld_y: float,
     sonstige_leistungen_y: float,
 ) -> float:
     """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
@@ -87,7 +84,6 @@ def leistungen_y_mit_elterngeld(
         + sozialversicherung__kranken__mutterschaftsgeld_y
         + sozialversicherung__unfall__verletztengeld_y
         + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
-        + übergangsgeld_y
         + sonstige_leistungen_y
     )
 

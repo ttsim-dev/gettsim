@@ -17,8 +17,6 @@ inputs:
   assumed:
     einkommensteuer:
       progressionsvorbehalt:
-        übergangsgeld_y:
-          - 0.0
         sonstige_leistungen_y:
           - 0.0
       einkünfte:

@@ -2,8 +2,8 @@
 info:
   note: >-
     Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1 EStG: every benefit of the
-    catalogue enters the sum. 1.200 + 2.400 + 100 + 200 + 300 + 400 + 500
-    + 600 + 700 + 800 = 7.200 €. Wages use up the Arbeitnehmer-Pauschbetrag.
+    catalogue enters the sum. 1.200 + 2.400 + 100 + 200 + 400 + 500 + 600
+    + 700 + 800 = 6.900 €. Wages use up the Arbeitnehmer-Pauschbetrag.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -20,8 +20,6 @@ inputs:
       gemeinsam_veranlagt:
         - false
       progressionsvorbehalt:
-        übergangsgeld_y:
-          - 300.0
         sonstige_leistungen_y:
           - 800.0
       einkünfte:
@@ -56,6 +54,6 @@ outputs:
   einkommensteuer:
     progressionsvorbehalt:
       leistungen_y:
-        - 7200.0
+        - 6900.0
       leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 7200.0
+        - 6900.0

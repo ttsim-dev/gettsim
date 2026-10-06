@@ -31,8 +31,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `sozialversicherung__kranken__mutterschaftsgeld_m`,
   `sozialversicherung__unfall__verletztengeld_m`,
   `einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y`,
-  `einkommensteuer__progressionsvorbehalt__übergangsgeld_y`, and
-  `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`.
+  and `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`.
   ({ghuser}`MImmesberger`)
 
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
