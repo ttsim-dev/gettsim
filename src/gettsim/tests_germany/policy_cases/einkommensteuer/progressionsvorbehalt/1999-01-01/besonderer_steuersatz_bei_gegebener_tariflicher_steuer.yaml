@@ -1,0 +1,89 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Hand-derived from § 32b Abs. 2 EStG: the besonderer Steuersatz is the tariff
+    tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen. z. v. E.
+    30.000 DM, Arbeitslosengeld 10.000 DM, Steuersatzeinkommen 40.000 DM. The
+    tariff tax on the Steuersatzeinkommen is an assumed input of 8.000 DM
+    because GETTSIM has no tariff before 2002: 8.000 / 40.000 = 0,2. Person 1:
+    repayment of 40.000 DM, Steuersatzeinkommen -10.000 DM, rate 0. Amounts in
+    DM.
+  precision_atol: 1.0e-06
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      progressionsvorbehalt:
+        übergangsgeld_y:
+          - 0.0
+          - 0.0
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+        steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+          - 8000.0
+          - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 30000.0
+        - 30000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 30000.0
+        - 30000.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+        - 20000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 10000.0
+          - -40000.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+outputs:
+  einkommensteuer:
+    progressionsvorbehalt:
+      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+        - 40000.0
+        - -10000.0
+      besonderer_steuersatz_ohne_kinderfreibetrag:
+        - 0.2
+        - 0.0

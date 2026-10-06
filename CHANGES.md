@@ -15,6 +15,26 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`126` Model the Progressionsvorbehalt for wage-replacement benefits (§ 32b Abs. 1
+  S. 1 Nr. 1 EStG). The benefits, less the Arbeitnehmer-Pauschbetrag not used against
+  wage income, enter the besonderer Steuersatz that applies to the taxable income; from
+  1996, net repayments lower it. The columns in `einkommensteuer__progressionsvorbehalt`
+  start in 1990; `einkommensteuer__betrag_y_sn` and everything building on it change
+  from 2002 for recipients of these benefits. Foreign income under the
+  Progressionsvorbehalt and § 34 EStG are not covered.
+
+  Computing the income tax now requires `sozialversicherung__arbeitslosen__betrag_m` and
+  (from 2007) `elterngeld__betrag_m`, either computed from their own inputs or passed
+  directly, and the new inputs `sozialversicherung__arbeitslosen__kurzarbeitergeld_m`,
+  `sozialversicherung__arbeitslosen__insolvenzgeld_m`,
+  `sozialversicherung__kranken__krankengeld_m`,
+  `sozialversicherung__kranken__mutterschaftsgeld_m`,
+  `sozialversicherung__unfall__verletztengeld_m`,
+  `einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y`,
+  `einkommensteuer__progressionsvorbehalt__übergangsgeld_y`, and
+  `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`.
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social
   insurance contributions, Wohngeld Freibeträge, and Entgeltpunkte for the public

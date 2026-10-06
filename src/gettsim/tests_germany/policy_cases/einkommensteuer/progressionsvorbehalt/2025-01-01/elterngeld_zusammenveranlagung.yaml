@@ -1,0 +1,94 @@
+---
+info:
+  note: >-
+    Inputs and Splittingtarif (8.606 € on 60.000 €) from the Finanzverwaltung
+    NRW example. Hand-derived from § 32b Abs. 2 EStG with the unrounded
+    rate: 50.000 * 8.606 / 60.000 = 7.171,67, rounded down to 7.171 €. The
+    page applies a rate rounded to 14,34 % and shows 7.170 €. Assumed: the
+    Arbeitnehmer-Pauschbetrag of the wife is used up by wages; no Kinderfreibetrag.
+  precision_atol: 1.0e-05
+  source: https://www.finanzamt.nrw.de/en/node/180
+inputs:
+  assumed:
+    einkommensteuer:
+      progressionsvorbehalt:
+        übergangsgeld_y:
+          - 0.0
+          - 0.0
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 50000.0
+        - 50000.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+        - 20000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+      gesamteinkommen_y_sn:
+        - 50000.0
+        - 50000.0
+    elterngeld:
+      betrag_y:
+        - 0.0
+        - 10000.0
+outputs:
+  einkommensteuer:
+    progressionsvorbehalt:
+      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+        - 60000.0
+        - 60000.0
+      steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+        - 8606
+        - 8606
+      besonderer_steuersatz_ohne_kinderfreibetrag:
+        - 0.143433
+        - 0.143433
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 7171
+      - 7171

@@ -1,0 +1,61 @@
+---
+info:
+  note: >-
+    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1 EStG: every benefit of the
+    catalogue enters the sum. 1.200 + 2.400 + 100 + 200 + 300 + 400 + 500
+    + 600 + 700 + 800 = 7.200 €. Wages use up the Arbeitnehmer-Pauschbetrag.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      progressionsvorbehalt:
+        übergangsgeld_y:
+          - 300.0
+        sonstige_leistungen_y:
+          - 800.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+          aufstockungsbeträge_altersteilzeit_y:
+            - 700.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 1200.0
+        kurzarbeitergeld_y:
+          - 100.0
+        insolvenzgeld_y:
+          - 200.0
+      kranken:
+        krankengeld_y:
+          - 400.0
+        mutterschaftsgeld_y:
+          - 500.0
+      unfall:
+        verletztengeld_y:
+          - 600.0
+    elterngeld:
+      betrag_y:
+        - 2400.0
+outputs:
+  einkommensteuer:
+    progressionsvorbehalt:
+      leistungen_y:
+        - 7200.0
+      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
+        - 7200.0

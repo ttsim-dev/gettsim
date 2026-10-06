@@ -1,0 +1,300 @@
+"""Progressionsvorbehalt for wage-replacement benefits (§ 32b EStG).
+
+The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG are exempt from income tax but enter the
+rate that applies to the taxable income. Foreign income under the Progressionsvorbehalt
+(§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
+"""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from gettsim.tt import (
+    PiecewisePolynomialParamValue,
+    TTSIMUnit,
+    cast_ttsim_unit,
+    piecewise_polynomial,
+    policy_function,
+)
+
+if TYPE_CHECKING:
+    from types import ModuleType
+
+
+@policy_function(
+    start_date="1990-01-01",
+    end_date="2006-12-31",
+    leaf_name="leistungen_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def leistungen_y_ohne_elterngeld(
+    sozialversicherung__arbeitslosen__betrag_y: float,
+    sozialversicherung__arbeitslosen__kurzarbeitergeld_y: float,
+    sozialversicherung__arbeitslosen__insolvenzgeld_y: float,
+    sozialversicherung__kranken__krankengeld_y: float,
+    sozialversicherung__kranken__mutterschaftsgeld_y: float,
+    sozialversicherung__unfall__verletztengeld_y: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
+    übergangsgeld_y: float,
+    sonstige_leistungen_y: float,
+) -> float:
+    """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
+
+    Negative when repayments exceed the benefits received in the year.
+    """
+    return (
+        sozialversicherung__arbeitslosen__betrag_y
+        + sozialversicherung__arbeitslosen__kurzarbeitergeld_y
+        + sozialversicherung__arbeitslosen__insolvenzgeld_y
+        + sozialversicherung__kranken__krankengeld_y
+        + sozialversicherung__kranken__mutterschaftsgeld_y
+        + sozialversicherung__unfall__verletztengeld_y
+        + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
+        + übergangsgeld_y
+        + sonstige_leistungen_y
+    )
+
+
+@policy_function(
+    start_date="2007-01-01",
+    leaf_name="leistungen_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def leistungen_y_mit_elterngeld(
+    sozialversicherung__arbeitslosen__betrag_y: float,
+    elterngeld__betrag_y: float,
+    sozialversicherung__arbeitslosen__kurzarbeitergeld_y: float,
+    sozialversicherung__arbeitslosen__insolvenzgeld_y: float,
+    sozialversicherung__kranken__krankengeld_y: float,
+    sozialversicherung__kranken__mutterschaftsgeld_y: float,
+    sozialversicherung__unfall__verletztengeld_y: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
+    übergangsgeld_y: float,
+    sonstige_leistungen_y: float,
+) -> float:
+    """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
+
+    Elterngeld is Buchstabe j of the catalogue (Art. 2 Abs. 6 Nr. 2 G. v. 05.12.2006
+    BGBl. I S. 2748). Negative when repayments exceed the benefits received in the
+    year.
+    """
+    return (
+        sozialversicherung__arbeitslosen__betrag_y
+        + elterngeld__betrag_y
+        + sozialversicherung__arbeitslosen__kurzarbeitergeld_y
+        + sozialversicherung__arbeitslosen__insolvenzgeld_y
+        + sozialversicherung__kranken__krankengeld_y
+        + sozialversicherung__kranken__mutterschaftsgeld_y
+        + sozialversicherung__unfall__verletztengeld_y
+        + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
+        + übergangsgeld_y
+        + sonstige_leistungen_y
+    )
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y: float,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
+    einnahmen__bruttolohn_y: float,
+) -> float:
+    """Arbeitnehmer-Pauschbetrag not deductible from wage income.
+
+    § 32b Abs. 2 Nr. 1 EStG deducts the Pauschbetrag from the benefits "soweit er nicht
+    bei der Ermittlung der Einkünfte aus nichtselbständiger Arbeit abziehbar ist".
+    Nothing is left when Werbungskosten above the Pauschbetrag were deducted from
+    wages.
+    """
+    if (
+        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y
+        > einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+    ):
+        out = 0.0
+    else:
+        out = max(
+            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+            - einnahmen__bruttolohn_y,
+            0.0,
+        )
+    return out
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
+    leistungen_y: float,
+    nicht_abziehbarer_arbeitnehmerpauschbetrag_y: float,
+) -> float:
+    """Benefits less the Arbeitnehmer-Pauschbetrag not deductible from wage income.
+
+    § 32b Abs. 2 Nr. 1 EStG. The deduction reduces a positive sum of benefits to zero
+    at most; a negative sum is not reduced further.
+    """
+    if leistungen_y > 0.0:
+        out = max(leistungen_y - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
+    else:
+        out = leistungen_y
+    return out
+
+
+@policy_function(
+    start_date="1990-01-01",
+    end_date="1995-12-31",
+    leaf_name="einzubeziehende_leistungen_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def einzubeziehende_leistungen_y_sn_nur_erhöhend(
+    leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn: float,
+) -> float:
+    """Benefits added to the taxable income to obtain the Steuersatzeinkommen.
+
+    § 32b Abs. 2 Nr. 1 EStG as of the Steuerreformgesetz 1990 (Art. 1 Nr. 28 G. v.
+    25.07.1988 BGBl. I S. 1093): the benefits are "einbezogen", so a negative sum does
+    not lower the rate.
+    """
+    return max(leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn, 0.0)
+
+
+@policy_function(
+    start_date="1996-01-01",
+    leaf_name="einzubeziehende_leistungen_y_sn",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def einzubeziehende_leistungen_y_sn_erhöhend_oder_mindernd(
+    leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn: float,
+) -> float:
+    """Benefits added to the taxable income to obtain the Steuersatzeinkommen.
+
+    § 32b Abs. 2 EStG as of the Jahressteuergesetz 1996 (Art. 1 Nr. 30 G. v. 11.10.1995
+    BGBl. I S. 1250): the taxable income is "vermehrt oder vermindert", so a negative
+    sum lowers the rate.
+    """
+    return leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
+    einkommensteuer__gesamteinkommen_y_sn: float,
+    einzubeziehende_leistungen_y_sn: float,
+) -> float:
+    """Steuersatzeinkommen without Kinderfreibetrag.
+
+    The income on which the besonderer Steuersatz is computed: the taxable income plus
+    `einzubeziehende_leistungen_y_sn` (§ 32b Abs. 2 EStG).
+    """
+    return einkommensteuer__gesamteinkommen_y_sn + einzubeziehende_leistungen_y_sn
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
+    einkommensteuer__zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
+    einzubeziehende_leistungen_y_sn: float,
+) -> float:
+    """Steuersatzeinkommen with Kinderfreibetrag.
+
+    The income on which the besonderer Steuersatz is computed: the taxable income plus
+    `einzubeziehende_leistungen_y_sn` (§ 32b Abs. 2 EStG).
+    """
+    return (
+        einkommensteuer__zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        + einzubeziehende_leistungen_y_sn
+    )
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+    familie__anzahl_personen_sn: int,
+    einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    xnp: ModuleType,
+) -> float:
+    """Tariff tax on the Steuersatzeinkommen, without Kinderfreibetrag.
+
+    The Steuersatzeinkommen per person is rounded down to a full Euro amount, and so is
+    the tax on it (§ 32a Abs. 1 EStG), before the tax is multiplied by the number of
+    persons (§ 32a Abs. 5 EStG). This rounding is applied in all years; rounding rules
+    of other versions of § 32a EStG are not modelled.
+    """
+    return familie__anzahl_personen_sn * xnp.floor(
+        piecewise_polynomial(
+            x=xnp.floor(
+                steuersatzeinkommen_ohne_kinderfreibetrag_y_sn
+                / familie__anzahl_personen_sn
+            ),
+            parameters=einkommensteuer__parameter_einkommensteuertarif,
+            xnp=xnp,
+        )
+    )
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
+    steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+    familie__anzahl_personen_sn: int,
+    einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    xnp: ModuleType,
+) -> float:
+    """Tariff tax on the Steuersatzeinkommen, with Kinderfreibetrag.
+
+    The Steuersatzeinkommen per person is rounded down to a full Euro amount, and so is
+    the tax on it (§ 32a Abs. 1 EStG), before the tax is multiplied by the number of
+    persons (§ 32a Abs. 5 EStG). This rounding is applied in all years; rounding rules
+    of other versions of § 32a EStG are not modelled.
+    """
+    return familie__anzahl_personen_sn * xnp.floor(
+        piecewise_polynomial(
+            x=xnp.floor(
+                steuersatzeinkommen_mit_kinderfreibetrag_y_sn
+                / familie__anzahl_personen_sn
+            ),
+            parameters=einkommensteuer__parameter_einkommensteuertarif,
+            xnp=xnp,
+        )
+    )
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+def besonderer_steuersatz_ohne_kinderfreibetrag(
+    steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+) -> float:
+    """Besonderer Steuersatz (§ 32b Abs. 2 EStG) without Kinderfreibetrag.
+
+    The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
+    unrounded; zero when the Steuersatzeinkommen is zero or negative.
+    """
+    if steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
+        # The ratio of two totals of the same Steuernummer carries no level.
+        out = cast_ttsim_unit(
+            steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
+            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        ) / cast_ttsim_unit(
+            steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
+            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        )
+    else:
+        out = 0.0
+    return out
+
+
+@policy_function(start_date="1990-01-01", unit=TTSIMUnit.DIMENSIONLESS)
+def besonderer_steuersatz_mit_kinderfreibetrag(
+    steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+    steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+) -> float:
+    """Besonderer Steuersatz (§ 32b Abs. 2 EStG) with Kinderfreibetrag.
+
+    The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
+    unrounded; zero when the Steuersatzeinkommen is zero or negative.
+    """
+    if steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
+        # The ratio of two totals of the same Steuernummer carries no level.
+        out = cast_ttsim_unit(
+            steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
+            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        ) / cast_ttsim_unit(
+            steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
+            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+        )
+    else:
+        out = 0.0
+    return out

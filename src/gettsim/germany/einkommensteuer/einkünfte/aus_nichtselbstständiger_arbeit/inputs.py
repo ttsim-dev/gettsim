@@ -13,3 +13,8 @@ def tatsächliche_werbungskosten_y() -> float:
     This corresponds to the sum of individually claimed expenses on Anlage N of the
     income tax return (e.g. commuting costs, work equipment, travel expenses).
     """
+
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def aufstockungsbeträge_altersteilzeit_y() -> float:
+    """Tax-exempt Aufstockungsbeträge under the Altersteilzeitgesetz (§ 3 Nr. 28 EStG)."""
