@@ -1,0 +1,161 @@
+---
+info:
+  note: |-
+    First year in which the last table row applies.
+    p_id 0 (last positive row): born 15.06.1992 (64th year completed in 2056), first
+    year of entitlement 2057; table row 2057: 0.4 %, at most 19 Euro; other
+    Einkünfte: Vermietung und Verpachtung 10000; 0.4 % x 10000 = 40, at most 19 ->
+    19.
+    p_id 1: born 15.06.1992 (64th year completed in 2056), first year of entitlement
+    2057; table row 2057: 0.4 %, at most 19 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1000; 0.4 % x 1000 = 4 -> 4.
+    p_id 2: born 15.06.1992 (64th year completed in 2056), first year of entitlement
+    2057; table row 2057: 0.4 %, at most 19 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1001; 0.4 % x 1001 = 4.00, rounded up to 5 -> 5.
+    p_id 3 (last row: 0,0 % / 0 Euro): born 15.06.1993 (64th year completed in
+    2057), first year of entitlement 2058; table row 2058: 0.0 %, at most 0 Euro;
+    other Einkünfte: Vermietung und Verpachtung 10000; 0.0 % x 10000 = 0 -> 0.
+    p_id 4 (born 1 January, last row): born 01.01.1994 (1 January: 64th year
+    completed on 31.12.2057), first year of entitlement 2058; table row 2058: 0.0 %,
+    at most 0 Euro; other Einkünfte: Vermietung und Verpachtung 10000; 0.0 % x 10000
+    = 0 -> 0.
+    p_id 5: born 15.06.1994 (64th year completed in 2058), first year of entitlement
+    2059; 2058 < 2059: not entitled -> 0.
+    p_id 6 (row fixed for life): born 15.06.1960 (64th year completed in 2024),
+    first year of entitlement 2025; table row 2025: 13.2 %, at most 627 Euro; other
+    Einkünfte: Vermietung und Verpachtung 10000; 13.2 % x 10000 = 1320, at most 627
+    -> 627.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 27.03.2024
+    BGBl. 2024 I Nr. 108; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    geburtsjahr:
+      - 1992
+      - 1992
+      - 1992
+      - 1993
+      - 1994
+      - 1994
+      - 1960
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 1
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 1
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 10000.0
+            - 1000.0
+            - 1001.0
+            - 10000.0
+            - 10000.0
+            - 10000.0
+            - 10000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 19.0
+        - 4.0
+        - 5.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 627.0

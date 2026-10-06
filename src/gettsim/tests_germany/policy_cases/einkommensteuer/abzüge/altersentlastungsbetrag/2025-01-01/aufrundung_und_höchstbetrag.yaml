@@ -1,0 +1,180 @@
+---
+info:
+  note: |-
+    Rounding up to the full Euro. 0.136 x 375 and 0.14 x 50 are whole numbers in
+    exact arithmetic but slightly larger as binary floating-point products.
+    p_id 0 (exact product is a whole Euro; no rounding step may add one): born
+    15.06.1959 (64th year completed in 2023), first year of entitlement 2024; table
+    row 2024: 13.6 %, at most 646 Euro; other Einkünfte: Vermietung und Verpachtung
+    375; 13.6 % x 375 = 51 -> 51.
+    p_id 1 (exact product is a whole Euro; no rounding step may add one): born
+    15.06.1958 (64th year completed in 2022), first year of entitlement 2023; table
+    row 2023: 14.0 %, at most 665 Euro; other Einkünfte: Vermietung und Verpachtung
+    50; 14.0 % x 50 = 7 -> 7.
+    p_id 2: born 15.06.1960 (64th year completed in 2024), first year of entitlement
+    2025; table row 2025: 13.2 %, at most 627 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1001; 13.2 % x 1001 = 132.13, rounded up to 133 -> 133.
+    p_id 3: born 15.06.1959 (64th year completed in 2023), first year of entitlement
+    2024; table row 2024: 13.6 %, at most 646 Euro; Arbeitslohn 12 x 100 = 1200;
+    13.6 % x 1200 = 163.20, rounded up to 164 -> 164.
+    p_id 4 (exactly at the maximum): born 15.06.1960 (64th year completed in 2024),
+    first year of entitlement 2025; table row 2025: 13.2 %, at most 627 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4750; 13.2 % x 4750 = 627 -> 627.
+    p_id 5 (just below the maximum): born 15.06.1960 (64th year completed in 2024),
+    first year of entitlement 2025; table row 2025: 13.2 %, at most 627 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4740; 13.2 % x 4740 = 625.68, rounded up
+    to 626 -> 626.
+    p_id 6 (above the maximum): born 15.06.1960 (64th year completed in 2024), first
+    year of entitlement 2025; table row 2025: 13.2 %, at most 627 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4800; 13.2 % x 4800 = 633.60, rounded up
+    to 634, at most 627 -> 627.
+    p_id 7 (one cohort too young): born 15.06.1961 (64th year completed in 2025),
+    first year of entitlement 2026; 2025 < 2026: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 27.03.2024
+    BGBl. 2024 I Nr. 108; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    geburtsjahr:
+      - 1959
+      - 1958
+      - 1960
+      - 1959
+      - 1960
+      - 1960
+      - 1960
+      - 1961
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 100.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 375.0
+            - 50.0
+            - 1001.0
+            - 0.0
+            - 4750.0
+            - 4740.0
+            - 4800.0
+            - 4800.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 51.0
+        - 7.0
+        - 133.0
+        - 164.0
+        - 627.0
+        - 626.0
+        - 627.0
+        - 0.0

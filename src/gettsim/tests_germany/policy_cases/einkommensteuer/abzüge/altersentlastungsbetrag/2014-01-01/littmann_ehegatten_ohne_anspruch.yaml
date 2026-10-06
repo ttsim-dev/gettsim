@@ -1,0 +1,89 @@
+---
+info:
+  note: |-
+    The source states no year and no pension amount: VZ 2014, birth years matching
+    the stated ages and a pension of 1 000 Euro per month are assumed.
+    p_id 0 (husband, 65, Sozialrentner without other income): born 15.06.1948 (64th
+    year completed in 2012), first year of entitlement 2013; table row 2013: 27.2 %,
+    at most 1292 Euro; sozialversicherung__rente__altersrente__betrag_m 1000: left
+    out; 27.2 % x 0 = 0 -> 0.
+    p_id 1 (wife, 60, Gewerbetreibende): born 15.06.1953 (64th year completed in
+    2017), first year of entitlement 2018; 2014 < 2018: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Littmann/Bitz/Pust, Das Einkommensteuerrecht, § 24a EStG, V. Zusammenveranlagte
+    Ehegatten/Lebenspartner, Beispiel (1) vor Rn. 42,
+    https://www.haufe.de/id/kommentar/littmannbitzpust-das-einkommensteuerrecht-estg-24a-v-zusammenveranlagte-ehegattenlebenspartner-HI6440067.html
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    einkommensteuer:
+      einkünfte:
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 20000.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 1000.0
+            - 0.0
+  assumed:
+    geburtsjahr:
+      - 1948
+      - 1953
+    geburtsmonat:
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 0.0
+        - 0.0

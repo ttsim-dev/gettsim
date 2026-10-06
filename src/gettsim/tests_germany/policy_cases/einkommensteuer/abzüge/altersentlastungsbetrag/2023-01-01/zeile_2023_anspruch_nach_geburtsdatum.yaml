@@ -1,0 +1,141 @@
+---
+info:
+  note: |-
+    The Wachstumschancengesetz table applies retroactively from VZ 2023.
+    p_id 0 (14,0 %, not the 13,6 % of the old table): born 15.06.1958 (64th year
+    completed in 2022), first year of entitlement 2023; table row 2023: 14.0 %, at
+    most 665 Euro; other Einkünfte: Vermietung und Verpachtung 1000; 14.0 % x 1000 =
+    140 -> 140.
+    p_id 1 (born 1 January): born 01.01.1959 (1 January: 64th year completed on
+    31.12.2022), first year of entitlement 2023; table row 2023: 14.0 %, at most 665
+    Euro; other Einkünfte: Vermietung und Verpachtung 1000; 14.0 % x 1000 = 140 ->
+    140.
+    p_id 2 (born 2 January): born 02.01.1959 (64th year completed in 2023), first
+    year of entitlement 2024; 2023 < 2024: not entitled -> 0.
+    p_id 3: born 15.06.1959 (64th year completed in 2023), first year of entitlement
+    2024; 2023 < 2024: not entitled -> 0.
+    p_id 4: born 01.01.1960 (1 January: 64th year completed on 31.12.2023), first
+    year of entitlement 2024; 2023 < 2024: not entitled -> 0.
+    p_id 5 (row fixed in the year before): born 15.06.1957 (64th year completed in
+    2021), first year of entitlement 2022; table row 2022: 14.4 %, at most 684 Euro;
+    other Einkünfte: Vermietung und Verpachtung 1000; 14.4 % x 1000 = 144 -> 144.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 27.03.2024
+    BGBl. 2024 I Nr. 108; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    geburtsjahr:
+      - 1958
+      - 1959
+      - 1959
+      - 1959
+      - 1960
+      - 1957
+    geburtsmonat:
+      - 6
+      - 1
+      - 1
+      - 6
+      - 1
+      - 6
+    geburtstag:
+      - 15
+      - 1
+      - 2
+      - 15
+      - 1
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 140.0
+        - 140.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 144.0

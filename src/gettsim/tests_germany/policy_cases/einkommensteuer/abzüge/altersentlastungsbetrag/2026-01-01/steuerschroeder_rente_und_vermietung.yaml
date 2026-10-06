@@ -1,0 +1,87 @@
+---
+info:
+  note: |-
+    Gesetzliche Rente 18 000 Euro entered as 1 500 per month.
+    p_id 0 (Frau Müller, '64. Lebensjahr vollendet am 15.10.2025'): born 16.10.1961
+    (64th year completed in 2025), first year of entitlement 2026; table row 2026:
+    12.8 %, at most 608 Euro; sozialversicherung__rente__altersrente__betrag_m 1500:
+    left out; other Einkünfte: Vermietung und Verpachtung 6000; 12.8 % x 6000 = 768,
+    at most 608 -> 608.
+    p_id 1 (same page: 'Wer am 31.12.1961 geboren wurde ... erstmals für den
+    Veranlagungszeitraum 2026 – mit dem Kohortensatz 12,8 % bzw. dem Höchstbetrag
+    608 €'; Frau Müller's income assumed): born 31.12.1961 (64th year completed in
+    2025), first year of entitlement 2026; table row 2026: 12.8 %, at most 608 Euro;
+    sozialversicherung__rente__altersrente__betrag_m 1500: left out; other
+    Einkünfte: Vermietung und Verpachtung 6000; 12.8 % x 6000 = 768, at most 608 ->
+    608.
+  precision_atol: 0.01
+  source: >-
+    Steuerberater Schröder, 'Altersentlastungsbetrag 2026: Tabelle, Höhe &
+    Berechnung (§ 24a EStG)', Berechnungsbeispiel 1,
+    https://www.steuerschroeder.de/Altersentlastungsbetrag.html
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    geburtsjahr:
+      - 1961
+      - 1961
+    geburtsmonat:
+      - 10
+      - 12
+    geburtstag:
+      - 16
+      - 31
+    einkommensteuer:
+      einkünfte:
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 6000.0
+            - 6000.0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 1500.0
+            - 1500.0
+  assumed:
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 608.0
+        - 608.0

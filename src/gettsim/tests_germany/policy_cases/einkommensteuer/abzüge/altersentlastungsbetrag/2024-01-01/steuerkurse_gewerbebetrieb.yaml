@@ -1,0 +1,59 @@
+---
+info:
+  note: |-
+    Versorgungsbezüge are not an input: the Arbeitslohn is entered net of them
+    ('Einkünfte nach § 19 Abs. 2 EStG: 20.000 €' left out; Arbeitslohn 0).
+    p_id 0 ('im Jahr 2017 seinen 64. Geburtstag gefeiert'): born 15.06.1953 (64th
+    year completed in 2017), first year of entitlement 2018; table row 2018: 19.2 %,
+    at most 912 Euro; other Einkünfte: Gewerbebetrieb 30000; 19.2 % x 30000 = 5760,
+    at most 912 -> 912.
+  precision_atol: 0.01
+  source: >-
+    steuerkurse.de, 'Altentlastungsbetrag nach § 24 a EStG', first Beispiel,
+    https://www.steuerkurse.de/einkommensteuer-est/altentlastungsbetrag.html
+inputs:
+  provided:
+    p_id:
+      - 0
+    geburtsjahr:
+      - 1953
+    einkommensteuer:
+      einkünfte:
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 30000.0
+  assumed:
+    geburtsmonat:
+      - 6
+    geburtstag:
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 912.0

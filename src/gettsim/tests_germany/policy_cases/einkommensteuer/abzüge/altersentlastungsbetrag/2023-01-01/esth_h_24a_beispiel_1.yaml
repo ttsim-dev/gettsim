@@ -1,0 +1,64 @@
+---
+info:
+  note: |-
+    Versorgungsbezüge are not an input: the Arbeitslohn is entered net of them
+    (Arbeitslohn 14 000 Euro less Versorgungsbezüge 6 000 Euro = 8 000 Euro, entered
+    as 8 000 / 12 per month). Beispiel 2 of this edition prints the table as it
+    stood before the Wachstumschancengesetz and is not used.
+    p_id 0 (64th year completed in VZ 2014): born 15.06.1950 (64th year completed in
+    2014), first year of entitlement 2015; table row 2015: 24.0 %, at most 1140
+    Euro; Arbeitslohn 8000; other Einkünfte: selbständige Arbeit 500, Vermietung und
+    Verpachtung -1500; sum -1000 -> not positive, left out; 24.0 % x 8000 = 1920, at
+    most 1140 -> 1140.
+  precision_atol: 0.01
+  source: >-
+    Amtliches Einkommensteuer-Handbuch 2023, H 24a 'Berechnung des
+    Altersentlastungsbetrags', Beispiel 1,
+    https://esth.bundesfinanzministerium.de/esth/2023/A-Einkommensteuergesetz/II-Einkommen/8-Die-einzelnen-Einkunftsarten/h-Gemeinsame-Vorschriften/Paragraf-24a/inhalt.html
+inputs:
+  provided:
+    p_id:
+      - 0
+    geburtsjahr:
+      - 1950
+    einnahmen:
+      bruttolohn_m:
+        - 666.67
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 500.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - -1500.0
+  assumed:
+    geburtsmonat:
+      - 6
+    geburtstag:
+      - 15
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+    einnahmen:
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1140.0

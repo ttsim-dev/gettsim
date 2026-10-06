@@ -1,0 +1,304 @@
+---
+info:
+  note: |-
+    What enters the base from 2005. Leibrenten are monthly amounts.
+    p_id 0 (Arbeitslohn only): born 15.06.1930 (64th year completed in 1994), first
+    year of entitlement 1995; table row 2005 (row year 1995 is outside the table):
+    40.0 %, at most 1900 Euro; Arbeitslohn 12 x 100 = 1200; 40.0 % x 1200 = 480 ->
+    480.
+    p_id 1 (marginal employment): born 15.06.1930 (64th year completed in 1994),
+    first year of entitlement 1995; table row 2005 (row year 1995 is outside the
+    table): 40.0 %, at most 1900 Euro; Arbeitslohn 12 x 400 = 4800, marginal
+    employment: left out; 40.0 % x 0 = 0 -> 0.
+    p_id 2 (marginal employment plus rent): born 15.06.1930 (64th year completed in
+    1994), first year of entitlement 1995; table row 2005 (row year 1995 is outside
+    the table): 40.0 %, at most 1900 Euro; Arbeitslohn 12 x 400 = 4800, marginal
+    employment: left out; other Einkünfte: Vermietung und Verpachtung 1001; 40.0 % x
+    1001 = 400.40, rounded up to 401 -> 401.
+    p_id 3 (betriebliche Altersvorsorge): born 15.06.1930 (64th year completed in
+    1994), first year of entitlement 1995; table row 2005 (row year 1995 is outside
+    the table): 40.0 %, at most 1900 Euro; other Einkünfte: betriebliche
+    Altersvorsorge 12 x 100 = 1200; 40.0 % x 1200 = 480 -> 480.
+    p_id 4 (geförderte private Vorsorge): born 15.06.1930 (64th year completed in
+    1994), first year of entitlement 1995; table row 2005 (row year 1995 is outside
+    the table): 40.0 %, at most 1900 Euro; other Einkünfte: geförderte private
+    Vorsorge 12 x 100 = 1200; 40.0 % x 1200 = 480 -> 480.
+    p_id 5 (sonstige Einkünfte): born 15.06.1930 (64th year completed in 1994),
+    first year of entitlement 1995; table row 2005 (row year 1995 is outside the
+    table): 40.0 %, at most 1900 Euro; other Einkünfte: sonstige Einkünfte (alle
+    weiteren) 1001; 40.0 % x 1001 = 400.40, rounded up to 401 -> 401.
+    p_id 6 (Land- und Forstwirtschaft): born 15.06.1930 (64th year completed in
+    1994), first year of entitlement 1995; table row 2005 (row year 1995 is outside
+    the table): 40.0 %, at most 1900 Euro; other Einkünfte: Land- und
+    Forstwirtschaft 1001; 40.0 % x 1001 = 400.40, rounded up to 401 -> 401.
+    p_id 7 (Gewerbebetrieb): born 15.06.1930 (64th year completed in 1994), first
+    year of entitlement 1995; table row 2005 (row year 1995 is outside the table):
+    40.0 %, at most 1900 Euro; other Einkünfte: Gewerbebetrieb 1001; 40.0 % x 1001 =
+    400.40, rounded up to 401 -> 401.
+    p_id 8 (Leibrenten only): born 15.06.1930 (64th year completed in 1994), first
+    year of entitlement 1995; table row 2005 (row year 1995 is outside the table):
+    40.0 %, at most 1900 Euro; sozialversicherung__rente__altersrente__betrag_m
+    1000: left out; einnahmen__renten__sonstige_private_vorsorge_m 100: left out;
+    einnahmen__renten__aus_berufsständischen_versicherungen_m 100: left out;
+    einnahmen__renten__basisrente_m 100: left out; 40.0 % x 0 = 0 -> 0.
+    p_id 9 (other Einkünfte negative in sum): born 15.06.1930 (64th year completed
+    in 1994), first year of entitlement 1995; table row 2005 (row year 1995 is
+    outside the table): 40.0 %, at most 1900 Euro; Arbeitslohn 12 x 100 = 1200;
+    other Einkünfte: Land- und Forstwirtschaft -3000, Gewerbebetrieb 1000; sum -2000
+    -> not positive, left out; 40.0 % x 1200 = 480 -> 480.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 05.07.2004
+    BGBl. I S. 1427; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    geburtsjahr:
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+      - 1930
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 100.0
+        - 400.0
+        - 400.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 100.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 100.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 100.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 100.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 100.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 100.0
+          - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1001.0
+            - 0.0
+            - 0.0
+            - -3000.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1001.0
+            - 0.0
+            - 1000.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 1001.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1001.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1000.0
+            - 0.0
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 480.0
+        - 0.0
+        - 401.0
+        - 480.0
+        - 480.0
+        - 401.0
+        - 401.0
+        - 401.0
+        - 0.0
+        - 480.0

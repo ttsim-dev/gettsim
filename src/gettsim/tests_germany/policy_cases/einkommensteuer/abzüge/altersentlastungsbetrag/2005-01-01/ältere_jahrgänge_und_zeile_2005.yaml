@@ -1,0 +1,231 @@
+---
+info:
+  note: |-
+    Taxpayers who completed the 64th year before 2004 take the first table row
+    (2005: 40,0 % / 1 900 Euro).
+    p_id 0 (row year 1990, before the table): born 15.06.1925 (64th year completed
+    in 1989), first year of entitlement 1990; table row 2005 (row year 1990 is
+    outside the table): 40.0 %, at most 1900 Euro; other Einkünfte: Vermietung und
+    Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1900 -> 1900.
+    p_id 1 (row year 1990, below the maximum): born 15.06.1925 (64th year completed
+    in 1989), first year of entitlement 1990; table row 2005 (row year 1990 is
+    outside the table): 40.0 %, at most 1900 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1001; 40.0 % x 1001 = 400.40, rounded up to 401 -> 401.
+    p_id 2 (row year 2004, before the table): born 15.06.1939 (64th year completed
+    in 2003), first year of entitlement 2004; table row 2005 (row year 2004 is
+    outside the table): 40.0 %, at most 1900 Euro; other Einkünfte: Vermietung und
+    Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1900 -> 1900.
+    p_id 3 (born 1 January, row year 2004): born 01.01.1940 (1 January: 64th year
+    completed on 31.12.2003), first year of entitlement 2004; table row 2005 (row
+    year 2004 is outside the table): 40.0 %, at most 1900 Euro; other Einkünfte:
+    Vermietung und Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1900 -> 1900.
+    p_id 4 (first row of the table): born 15.06.1940 (64th year completed in 2004),
+    first year of entitlement 2005; table row 2005: 40.0 %, at most 1900 Euro; other
+    Einkünfte: Vermietung und Verpachtung 10000; 40.0 % x 10000 = 4000, at most 1900
+    -> 1900.
+    p_id 5 (exactly at the maximum): born 15.06.1940 (64th year completed in 2004),
+    first year of entitlement 2005; table row 2005: 40.0 %, at most 1900 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4750; 40.0 % x 4750 = 1900 -> 1900.
+    p_id 6 (just below the maximum): born 15.06.1940 (64th year completed in 2004),
+    first year of entitlement 2005; table row 2005: 40.0 %, at most 1900 Euro; other
+    Einkünfte: Vermietung und Verpachtung 4747; 40.0 % x 4747 = 1898.80, rounded up
+    to 1899 -> 1899.
+    p_id 7 (born 1 January): born 01.01.1941 (1 January: 64th year completed on
+    31.12.2004), first year of entitlement 2005; table row 2005: 40.0 %, at most
+    1900 Euro; other Einkünfte: Vermietung und Verpachtung 10000; 40.0 % x 10000 =
+    4000, at most 1900 -> 1900.
+    p_id 8 (born 2 January): born 02.01.1941 (64th year completed in 2005), first
+    year of entitlement 2006; 2005 < 2006: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 05.07.2004
+    BGBl. I S. 1427; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+    geburtsjahr:
+      - 1925
+      - 1925
+      - 1939
+      - 1940
+      - 1940
+      - 1940
+      - 1940
+      - 1941
+      - 1941
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 1
+      - 6
+      - 6
+      - 6
+      - 1
+      - 1
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 1
+      - 15
+      - 15
+      - 15
+      - 1
+      - 2
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 10000.0
+            - 1001.0
+            - 10000.0
+            - 10000.0
+            - 10000.0
+            - 4750.0
+            - 4747.0
+            - 10000.0
+            - 10000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1900.0
+        - 401.0
+        - 1900.0
+        - 1900.0
+        - 1900.0
+        - 1900.0
+        - 1899.0
+        - 1900.0
+        - 0.0

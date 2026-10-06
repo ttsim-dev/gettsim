@@ -1,0 +1,85 @@
+---
+info:
+  note: |-
+    § 24a Satz 4: under joint assessment each spouse is treated separately. 'Die
+    Schneiders erhalten daher bei der Zusammenveranlagung nur für Herrn Schneider
+    den Altersentlastungsbetrag in Höhe von 1.908 Euro.' VZ 2003 and birth years
+    matching 'beide 65 Jahre alt' are assumed. The derivation deducts one Sparer-
+    Freibetrag and one Werbungskosten-Pauschbetrag from Herr Schneider's
+    Kapitalerträge; with the spouses' doubled amounts (16 000 - 3 202 = 12 798) the
+    maximum binds as well. The gesetzliche Renten are left out and not entered.
+    p_id 0 (Herr Schneider): born 15.06.1937 (64th year completed in 2001), first
+    year of entitlement 2002; 40 %, at most 1908 Euro; other Einkünfte: Einkünfte
+    aus Kapitalvermögen max(16000 - 1601, 0) = 14399; 40.0 % x 14399 = 5759.60,
+    rounded up to 5760, at most 1908 -> 1908.
+    p_id 1 (Frau Schneider, no income of her own): born 15.06.1937 (64th year
+    completed in 2001), first year of entitlement 2002; 40 %, at most 1908 Euro;
+    40.0 % x 0 = 0 -> 0.
+  precision_atol: 0.01
+  source: >-
+    iww, Steuern sparen professionell, 'Gestaltungsmöglichkeiten für Rentner: So
+    nutzen Rentner-Ehepaare den Altersentlastungsbetrag optimal', 01.05.2003,
+    https://www.iww.de/ssp/archiv/gestaltungsmoeglichkeiten-fuer-rentner-so-nutzen-rentner-ehepaare-den-altersentlastungsbetrag-optimal-f2721
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    einnahmen:
+      kapitalerträge_y:
+        - 16000.0
+        - 0.0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+  assumed:
+    geburtsjahr:
+      - 1937
+      - 1937
+    geburtsmonat:
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1908.0
+        - 0.0

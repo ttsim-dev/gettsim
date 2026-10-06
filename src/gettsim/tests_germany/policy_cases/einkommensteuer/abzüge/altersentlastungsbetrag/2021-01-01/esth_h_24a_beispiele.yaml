@@ -1,0 +1,83 @@
+---
+info:
+  note: |-
+    Versorgungsbezüge are not an input: the Arbeitslohn is entered net of them
+    (Arbeitslohn 14 000 Euro less Versorgungsbezüge 6 000 Euro = 8 000 Euro, entered
+    as 8 000 / 12 per month). Birth years follow from the stated year of completion;
+    month and day are assumed.
+    p_id 0 (Beispiel 1: 64th year completed in VZ 2004): born 15.06.1940 (64th year
+    completed in 2004), first year of entitlement 2005; table row 2005: 40.0 %, at
+    most 1900 Euro; Arbeitslohn 8000; other Einkünfte: selbständige Arbeit 500,
+    Vermietung und Verpachtung -1500; sum -1000 -> not positive, left out; 40.0 % x
+    8000 = 3200, at most 1900 -> 1900.
+    p_id 1 (Beispiel 2: 64th year completed in VZ 2020): born 15.06.1956 (64th year
+    completed in 2020), first year of entitlement 2021; table row 2021: 15.2 %, at
+    most 722 Euro; Arbeitslohn 8000; other Einkünfte: selbständige Arbeit 500,
+    Vermietung und Verpachtung -1500; sum -1000 -> not positive, left out; 15.2 % x
+    8000 = 1216, at most 722 -> 722.
+  precision_atol: 0.01
+  source: >-
+    Amtliches Einkommensteuer-Handbuch 2021, H 24a 'Berechnung des
+    Altersentlastungsbetrags', Beispiele 1 und 2,
+    https://esth.bundesfinanzministerium.de/esth/2021/A-Einkommensteuergesetz/II-Einkommen/8-Die-einzelnen-Einkunftsarten/h-Gemeinsame-Vorschriften/Paragraf-24a/inhalt.html
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+    geburtsjahr:
+      - 1940
+      - 1956
+    einnahmen:
+      bruttolohn_m:
+        - 666.67
+        - 666.67
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 500.0
+            - 500.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - -1500.0
+            - -1500.0
+  assumed:
+    geburtsmonat:
+      - 6
+      - 6
+    geburtstag:
+      - 15
+      - 15
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+    einnahmen:
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 1900.0
+        - 722.0

@@ -1,0 +1,61 @@
+---
+info:
+  note: |-
+    The source gives rate and maximum but no income. The incomes of EStH 2023 H 24a
+    Beispiel 2 are assumed (Arbeitslohn 8 000 Euro after Versorgungsbezüge, entered
+    as 8 000 / 12 per month).
+    p_id 0: born 15.06.1958 (64th year completed in 2022), first year of entitlement
+    2023; table row 2023: 14.0 %, at most 665 Euro; Arbeitslohn 8000; other
+    Einkünfte: selbständige Arbeit 500, Vermietung und Verpachtung -1500; sum -1000
+    -> not positive, left out; 14.0 % x 8000 = 1120, at most 665 -> 665.
+  precision_atol: 0.01
+  source: >-
+    Finanzverwaltung Nordrhein-Westfalen, 'Altersentlastungsbetrag', Beispiel: 'Sie
+    sind im Jahr 2022 64 Jahre alt geworden. Ab dem Jahr 2023 erhalten Sie einen
+    Altersentlastungsbetrag in Höhe von 14,0 Prozent der begünstigten Einkünfte,
+    maximal 665 Euro.'
+    https://www.finanzamt.nrw.de/steuerinfos/privatpersonen/renten-und-pensionen/altersentlastungsbetrag
+inputs:
+  provided:
+    p_id:
+      - 0
+    geburtsjahr:
+      - 1958
+  assumed:
+    geburtsmonat:
+      - 6
+    geburtstag:
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 666.67
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 500.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - -1500.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 665.0

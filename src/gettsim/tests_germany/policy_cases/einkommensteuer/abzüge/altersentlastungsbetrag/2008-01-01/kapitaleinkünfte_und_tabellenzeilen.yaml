@@ -1,0 +1,212 @@
+---
+info:
+  note: |-
+    Last year in which capital income is part of the base, as Einkünfte:
+    Kapitalerträge less Sparer-Freibetrag (750 Euro) and Werbungskosten-Pauschbetrag
+    (51 Euro); both amounts are GETTSIM's parameters for 2008 and were not re-read
+    for this case. Below the maximum the result shows the table row.
+    p_id 0 (Kapitalerträge above the allowances): born 15.06.1930 (64th year
+    completed in 1994), first year of entitlement 1995; table row 2005 (row year
+    1995 is outside the table): 40.0 %, at most 1900 Euro; other Einkünfte:
+    Einkünfte aus Kapitalvermögen max(2000 - 801, 0) = 1199; 40.0 % x 1199 = 479.60,
+    rounded up to 480 -> 480.
+    p_id 1 (Kapitalerträge below the allowances): born 15.06.1930 (64th year
+    completed in 1994), first year of entitlement 1995; table row 2005 (row year
+    1995 is outside the table): 40.0 %, at most 1900 Euro; other Einkünfte:
+    Einkünfte aus Kapitalvermögen max(500 - 801, 0) = 0 -> not positive, left out;
+    40.0 % x 0 = 0 -> 0.
+    p_id 2 (rental loss netted): born 15.06.1930 (64th year completed in 1994),
+    first year of entitlement 1995; table row 2005 (row year 1995 is outside the
+    table): 40.0 %, at most 1900 Euro; other Einkünfte: Vermietung und Verpachtung
+    -1000, Einkünfte aus Kapitalvermögen max(2000 - 801, 0) = 1199; sum 199; 40.0 %
+    x 199 = 79.60, rounded up to 80 -> 80.
+    p_id 3: born 15.06.1942 (64th year completed in 2006), first year of entitlement
+    2007; table row 2007: 36.8 %, at most 1748 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1000; 36.8 % x 1000 = 368 -> 368.
+    p_id 4: born 01.01.1943 (1 January: 64th year completed on 31.12.2006), first
+    year of entitlement 2007; table row 2007: 36.8 %, at most 1748 Euro; other
+    Einkünfte: Vermietung und Verpachtung 1000; 36.8 % x 1000 = 368 -> 368.
+    p_id 5: born 15.06.1943 (64th year completed in 2007), first year of entitlement
+    2008; table row 2008: 35.2 %, at most 1672 Euro; other Einkünfte: Vermietung und
+    Verpachtung 1000; 35.2 % x 1000 = 352 -> 352.
+    p_id 6: born 01.01.1944 (1 January: 64th year completed on 31.12.2007), first
+    year of entitlement 2008; table row 2008: 35.2 %, at most 1672 Euro; other
+    Einkünfte: Vermietung und Verpachtung 1000; 35.2 % x 1000 = 352 -> 352.
+    p_id 7: born 15.06.1944 (64th year completed in 2008), first year of entitlement
+    2009; 2008 < 2009: not entitled -> 0.
+  precision_atol: 0.01
+  source: >-
+    Hand-derived from § 24a EStG
+    (https://www.gesetze-im-internet.de/estg/__24a.html) i. d. F. G. v. 05.07.2004
+    BGBl. I S. 1427; rounding up to the full Euro per R 24a Abs. 1 Satz 4 EStR
+    (Abschn. 171a / R 171a in earlier editions).
+inputs:
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    geburtsjahr:
+      - 1930
+      - 1930
+      - 1930
+      - 1942
+      - 1943
+      - 1943
+      - 1944
+      - 1944
+    geburtsmonat:
+      - 6
+      - 6
+      - 6
+      - 6
+      - 1
+      - 6
+      - 1
+      - 6
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
+      - 1
+      - 15
+      - 1
+      - 15
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kapitalerträge_y:
+        - 2000.0
+        - 500.0
+        - 2000.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 0.0
+            - 0.0
+            - -1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+            - 1000.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  assumed: {}
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 480.0
+        - 0.0
+        - 80.0
+        - 368.0
+        - 368.0
+        - 352.0
+        - 352.0
+        - 0.0
