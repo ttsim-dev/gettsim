@@ -18,10 +18,11 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 - {gh}`1237` Model the Progressionsvorbehalt for wage-replacement benefits (§ 32b Abs. 1
   S. 1 Nr. 1 EStG). The benefits, less the Arbeitnehmer-Pauschbetrag not used against
   wage income, enter the besonderer Steuersatz that applies to the taxable income; from
-  1996, net repayments lower it. The columns in `einkommensteuer__progressionsvorbehalt`
-  start in 1990; `einkommensteuer__betrag_y_sn` and everything building on it change
-  from 2002 for recipients of these benefits. Foreign income under the
-  Progressionsvorbehalt and § 34 EStG are not covered.
+  1996, net repayments lower it. The rate is truncated to four decimals of a percent as
+  in the examples of H 32b EStH 'Allgemeines'. The columns in
+  `einkommensteuer__progressionsvorbehalt` start in 1990; `einkommensteuer__betrag_y_sn`
+  and everything building on it change from 2002 for recipients of these benefits.
+  Foreign income under the Progressionsvorbehalt and § 34 EStG are not covered.
 
   The benefits are summed in `einnahmen__lohn_und_einkommensersatzleistungen_m` (the
   full § 32b catalogue, with Elterngeld from 2007) and
