@@ -23,16 +23,28 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   from 2002 for recipients of these benefits. Foreign income under the
   Progressionsvorbehalt and § 34 EStG are not covered.
 
-  Computing the income tax now requires `sozialversicherung__arbeitslosen__betrag_m` and
-  (from 2007) `elterngeld__betrag_m`, either computed from their own inputs or passed
-  directly, and the new inputs `sozialversicherung__arbeitslosen__kurzarbeitergeld_m`,
+  The benefits are summed in `einnahmen__lohn_und_einkommensersatzleistungen_m` (the
+  full § 32b catalogue, with Elterngeld from 2007) and
+  `einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m`. Besides the
+  Progressionsvorbehalt, they count as income for Wohngeld (§ 14 Abs. 2 Nr. 6 WoGG),
+  Arbeitslosengeld II / Bürgergeld and through it Kinderzuschlag (§ 11 Abs. 1 SGB II),
+  Grundsicherung im Alter (§ 82 Abs. 1 SGB XII) and Unterhaltsvorschuss (§ 1 Abs. 1a
+  UhVG); Arbeitslosengeld is new income for Grundsicherung im Alter and Elterngeld for
+  Unterhaltsvorschuss. Net repayments do not reduce transfer income. Mutterschaftsgeld
+  is counted in full in all years; the exemption of the § 19 MuSchG part from SGB II and
+  SGB XII income (2023) is not modelled.
+
+  Computing the income tax or any of these transfers now requires
+  `sozialversicherung__arbeitslosen__betrag_m` and (from 2007) `elterngeld__betrag_m`,
+  either computed from their own inputs or passed directly, and the new inputs
+  `sozialversicherung__arbeitslosen__kurzarbeitergeld_m`,
   `sozialversicherung__arbeitslosen__insolvenzgeld_m`,
   `sozialversicherung__kranken__krankengeld_m`,
   `sozialversicherung__kranken__mutterschaftsgeld_m`,
   `sozialversicherung__unfall__verletztengeld_m`,
   `einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y`,
-  and `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`.
-  ({ghuser}`MImmesberger`)
+  and `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`; alternatively,
+  the two sums can be passed directly. ({ghuser}`MImmesberger`)
 
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social

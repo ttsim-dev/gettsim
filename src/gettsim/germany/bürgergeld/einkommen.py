@@ -75,10 +75,13 @@ def bruttoeinkommen_m(
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
-    elterngeld__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
-    """Sum up the gross income for calculation of basic subsistence."""
+    """Sum up the gross income for calculation of basic subsistence.
+
+    Wage-replacement benefits, Elterngeld among them, are "Einnahmen in Geld"
+    (§ 11 Abs. 1 S. 1 SGB II); a net repayment is not a receipt.
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -86,8 +89,7 @@ def bruttoeinkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
-        + elterngeld__betrag_m
+        + max(einnahmen__lohn_und_einkommensersatzleistungen_m, 0.0)
     )
 
 

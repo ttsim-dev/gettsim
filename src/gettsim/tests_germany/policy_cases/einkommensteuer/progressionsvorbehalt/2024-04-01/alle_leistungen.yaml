@@ -51,9 +51,10 @@ inputs:
       betrag_y:
         - 2400.0
 outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_y:
+      - 6900.0
   einkommensteuer:
     progressionsvorbehalt:
-      leistungen_y:
-        - 6900.0
       leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
         - 6900.0

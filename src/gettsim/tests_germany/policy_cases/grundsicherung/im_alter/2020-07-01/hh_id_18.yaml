@@ -5,7 +5,10 @@ info:
   source: |-
     https://www.mags.nrw/grundsicherung-im-alter-und-bei-erwerbsminderung-viertes-kapitel-ssss-41-46a-sgb-xii
 inputs:
-  assumed: {}
+  assumed:
+    einnahmen:
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
   provided:
     alter:
       - 80

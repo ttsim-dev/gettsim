@@ -11,7 +11,10 @@ info:
   source: |-
     https://www.wohngeldrechner.nrw.de/wg/wgrbhtml/WGRBWLKM?BULA=NW
 inputs:
-  assumed: {}
+  assumed:
+    einnahmen:
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
   provided:
     alter:
       - 67

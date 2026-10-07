@@ -6,7 +6,16 @@ info:
   precision_atol: 0.01
   source: https://buergergeld-rechner.org/
 inputs:
-  assumed: {}
+  assumed:
+    einnahmen:
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
   provided:
     alter:
       - 40

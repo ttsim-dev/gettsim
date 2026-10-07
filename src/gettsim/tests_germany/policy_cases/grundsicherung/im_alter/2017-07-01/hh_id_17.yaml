@@ -5,7 +5,10 @@ info:
   source: |-
     https://www.bpb.de/politik/innenpolitik/rentenpolitik/289395/leistungshoehe-und-fallbeispiele
 inputs:
-  assumed: {}
+  assumed:
+    einnahmen:
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
   provided:
     alter:
       - 82

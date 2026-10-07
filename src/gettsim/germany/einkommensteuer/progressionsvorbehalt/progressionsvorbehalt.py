@@ -1,8 +1,9 @@
 """Progressionsvorbehalt for wage-replacement benefits (§ 32b EStG).
 
-The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG are exempt from income tax but enter the
-rate that applies to the taxable income. Foreign income under the Progressionsvorbehalt
-(§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
+The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG (summed in
+`einnahmen__lohn_und_einkommensersatzleistungen_y`) are exempt from income tax but
+enter the rate that applies to the taxable income. Foreign income under the
+Progressionsvorbehalt (§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
 """
 
 from __future__ import annotations
@@ -19,73 +20,6 @@ from gettsim.tt import (
 
 if TYPE_CHECKING:
     from types import ModuleType
-
-
-@policy_function(
-    start_date="1990-01-01",
-    end_date="2006-12-31",
-    leaf_name="leistungen_y",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR,
-)
-def leistungen_y_ohne_elterngeld(
-    sozialversicherung__arbeitslosen__betrag_y: float,
-    sozialversicherung__arbeitslosen__kurzarbeitergeld_y: float,
-    sozialversicherung__arbeitslosen__insolvenzgeld_y: float,
-    sozialversicherung__kranken__krankengeld_y: float,
-    sozialversicherung__kranken__mutterschaftsgeld_y: float,
-    sozialversicherung__unfall__verletztengeld_y: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
-    sonstige_leistungen_y: float,
-) -> float:
-    """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
-
-    Negative when repayments exceed the benefits received in the year.
-    """
-    return (
-        sozialversicherung__arbeitslosen__betrag_y
-        + sozialversicherung__arbeitslosen__kurzarbeitergeld_y
-        + sozialversicherung__arbeitslosen__insolvenzgeld_y
-        + sozialversicherung__kranken__krankengeld_y
-        + sozialversicherung__kranken__mutterschaftsgeld_y
-        + sozialversicherung__unfall__verletztengeld_y
-        + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
-        + sonstige_leistungen_y
-    )
-
-
-@policy_function(
-    start_date="2007-01-01",
-    leaf_name="leistungen_y",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR,
-)
-def leistungen_y_mit_elterngeld(
-    sozialversicherung__arbeitslosen__betrag_y: float,
-    elterngeld__betrag_y: float,
-    sozialversicherung__arbeitslosen__kurzarbeitergeld_y: float,
-    sozialversicherung__arbeitslosen__insolvenzgeld_y: float,
-    sozialversicherung__kranken__krankengeld_y: float,
-    sozialversicherung__kranken__mutterschaftsgeld_y: float,
-    sozialversicherung__unfall__verletztengeld_y: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y: float,
-    sonstige_leistungen_y: float,
-) -> float:
-    """Sum of the benefits under § 32b Abs. 1 Nr. 1 EStG.
-
-    Elterngeld is Buchstabe j of the catalogue (Art. 2 Abs. 6 Nr. 2 G. v. 05.12.2006
-    BGBl. I S. 2748). Negative when repayments exceed the benefits received in the
-    year.
-    """
-    return (
-        sozialversicherung__arbeitslosen__betrag_y
-        + elterngeld__betrag_y
-        + sozialversicherung__arbeitslosen__kurzarbeitergeld_y
-        + sozialversicherung__arbeitslosen__insolvenzgeld_y
-        + sozialversicherung__kranken__krankengeld_y
-        + sozialversicherung__kranken__mutterschaftsgeld_y
-        + sozialversicherung__unfall__verletztengeld_y
-        + einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y
-        + sonstige_leistungen_y
-    )
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
@@ -117,7 +51,7 @@ def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
-    leistungen_y: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_y: float,
     nicht_abziehbarer_arbeitnehmerpauschbetrag_y: float,
 ) -> float:
     """Benefits less the Arbeitnehmer-Pauschbetrag not deductible from wage income.
@@ -125,10 +59,14 @@ def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
     § 32b Abs. 2 Nr. 1 EStG. The deduction reduces a positive sum of benefits to zero
     at most; a negative sum is not reduced further.
     """
-    if leistungen_y > 0.0:
-        out = max(leistungen_y - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
+    if einnahmen__lohn_und_einkommensersatzleistungen_y > 0.0:
+        out = max(
+            einnahmen__lohn_und_einkommensersatzleistungen_y
+            - nicht_abziehbarer_arbeitnehmerpauschbetrag_y,
+            0.0,
+        )
     else:
-        out = leistungen_y
+        out = einnahmen__lohn_und_einkommensersatzleistungen_y
     return out
 
 
