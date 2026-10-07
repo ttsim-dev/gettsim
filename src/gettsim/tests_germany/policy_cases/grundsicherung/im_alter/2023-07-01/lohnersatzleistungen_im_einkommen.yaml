@@ -1,0 +1,122 @@
+---
+info:
+  note: >-
+    Hand-derived from § 82 Abs. 1 Satz 1 SGB XII: "Zum Einkommen gehören alle
+    Einkünfte in Geld oder Geldeswert", so Arbeitslosengeld and the other
+    wage-replacement benefits count in full next to the pension; Elterngeld
+    enters as `elterngeld__anrechenbarer_betrag_m` (existing treatment,
+    unchanged). Person 0: gesetzliche Rente 500 + Arbeitslosengeld 100 +
+    Krankengeld 300 + Mutterschaftsgeld 200 + anrechenbares Elterngeld 160 =
+    1.260 €, no taxes or contributions. Mutterschaftsgeld is counted in full by
+    decision although § 82 Abs. 1 Satz 2 Nr. 5 SGB XII (Art. 5 Bürgergeld-Gesetz
+    v. 16.12.2022 BGBl. I S. 2328) exempts the § 19 MuSchG part from 01.01.2023.
+    Person 1: gesetzliche Rente 800 € and repaid Krankengeld 200 €; the node is
+    floored at zero, income 800 € (not 600 €). Earnings, zusätzliche
+    Altersvorsorge and capital income are supplied as zero nodes.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed:
+    grundsicherung:
+      im_alter:
+        erwerbseinkommen_m:
+          - 0.0
+          - 0.0
+        einkommen_aus_zusätzlicher_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        kapitaleinkommen_brutto_m:
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+    solidaritätszuschlag:
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+    grundsicherung:
+      im_alter:
+        gesetzliche_rente_m:
+          - 500.0
+          - 800.0
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 160.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 100.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 300.0
+          - -200.0
+        mutterschaftsgeld_m:
+          - 200.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 600.0
+      - -200.0
+  grundsicherung:
+    im_alter:
+      einkommen_m:
+        - 1260.0
+        - 800.0

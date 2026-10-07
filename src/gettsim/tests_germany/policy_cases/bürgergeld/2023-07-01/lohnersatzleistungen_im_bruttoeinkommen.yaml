@@ -1,0 +1,92 @@
+---
+info:
+  note: >-
+    Hand-derived from § 11 Abs. 1 Satz 1 SGB II: "Einnahmen in Geld" are
+    income; Arbeitslosengeld, Kurzarbeitergeld, Krankengeld and Elterngeld (in
+    full, § 10 Abs. 5 BEEG allowance not modelled) count. Person 0:
+    Kurzarbeitergeld 200 + Krankengeld 350 + Mutterschaftsgeld 390 + Elterngeld
+    370 = 1.310 €. Mutterschaftsgeld is counted in full by decision although
+    § 11a Abs. 1 Nr. 6 SGB II (Art. 1 Bürgergeld-Gesetz v. 16.12.2022 BGBl. I
+    S. 2328) exempts the § 19 MuSchG part from 01.07.2023; the single input
+    bundles it with the employer's Zuschuss and is not split. Person 1: wages
+    800 € and repaid Verletztengeld 200 €; the node is floored at zero, gross
+    income 800 € (not 600 €). Kinderzuschlag reads this income unchanged.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    einkommensteuer:
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 800.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+      renten:
+        betrag_gesamt_m:
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 370.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 200.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 350.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 390.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - -200.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_m:
+      - 1310.0
+      - -200.0
+  bürgergeld:
+    bruttoeinkommen_m:
+      - 1310.0
+      - 800.0

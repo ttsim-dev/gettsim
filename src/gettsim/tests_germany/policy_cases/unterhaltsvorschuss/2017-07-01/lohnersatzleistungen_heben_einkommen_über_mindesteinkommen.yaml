@@ -1,0 +1,168 @@
+---
+info:
+  note: >-
+    Hand-derived from § 1 Abs. 1a Satz 1 Nr. 2 UhVG (Art. 23 G. v. 14.08.2017
+    BGBl. I S. 3122): for a child aged 12 to 17 the parent needs "Einkommen im
+    Sinne des § 11 Absatz 1 Satz 1 SGB II" of at least 600 € per month, so
+    Krankengeld and Elterngeld count like under the SGB II (Elterngeld in full,
+    § 10 Abs. 5 BEEG allowance not modelled). Household 0: wages 300 +
+    Elterngeld 200 + Krankengeld 150 = 650 € >= 600 €, the child receives the
+    full 268 € (amount of the existing 2017-07-01 cases); without either
+    addition the income would fall short. Household 1: wages 700 € and repaid
+    Krankengeld 200 €; the node is floored at zero, income 700 € >= 600 €, the
+    child receives 268 € (not 0 € as 500 € would give).
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    hh_id:
+      - 0
+      - 0
+      - 1
+      - 1
+    alter:
+      - 45
+      - 15
+      - 45
+      - 15
+    familie:
+      alleinerziehend:
+        - true
+        - false
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - -1
+        - 2
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+        - -1
+        - 2
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 300.0
+        - 0.0
+        - 700.0
+        - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betrag_gesamt_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 200.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 150.0
+          - 0.0
+          - -200.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_m:
+      - 350.0
+      - 0.0
+      - -200.0
+      - 0.0
+  unterhaltsvorschuss:
+    einkommen_m:
+      - 650.0
+      - 0.0
+      - 700.0
+      - 0.0
+    betrag_m:
+      - 0.0
+      - 268.0
+      - 0.0
+      - 268.0

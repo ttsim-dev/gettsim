@@ -1,0 +1,118 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Hand-derived from § 10 Abs. 1 WoGG a.F. (Neufassung v. 01.02.1993 BGBl. I
+    S. 183): the Jahreseinkommen is every receipt in money, taxable or not, so
+    wage-replacement benefits count in full; § 17 WoGG a.F. deducts 6 % when
+    neither taxes nor contributions are paid (the 6 % is GETTSIM's existing
+    § 17 parameter for that case). Person 0: Krankengeld 1.200 + Kurzarbeitergeld
+    300 = 1.500 DM, no other income, income before Freibetrag 0,94 x 1.500 =
+    1.410 DM. Person 1: wages after Werbungskosten 2.000 DM and repaid Krankengeld
+    200 DM; a repayment is not a receipt, so the node is floored at zero and the
+    income is 0,94 x 2.000 = 1.880 DM (not 0,94 x 1.800). Amounts in DM.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 0.0
+            - 2000.0
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+    einnahmen:
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 300.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 1200.0
+          - -200.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 1500.0
+      - -200.0
+  wohngeld:
+    abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
+      - 0.06
+      - 0.06
+    einkommen_vor_freibetrag_m:
+      - 1410.0
+      - 1880.0

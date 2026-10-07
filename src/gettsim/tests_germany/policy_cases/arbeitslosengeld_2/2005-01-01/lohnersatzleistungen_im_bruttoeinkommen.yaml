@@ -1,0 +1,85 @@
+---
+info:
+  note: >-
+    Hand-derived from § 11 Abs. 1 Satz 1 SGB II (Art. 1 G. v. 24.12.2003
+    BGBl. I S. 2954): "Einnahmen in Geld oder Geldeswert" are income, and no
+    exception covers the wage-replacement benefits, so the full § 32b catalogue
+    (before 2007 without Elterngeld) enters the gross income. Person 0:
+    Arbeitslosengeld 600 + Insolvenzgeld 300 = 900 €, no other income. Person 1:
+    wages 800 € and repaid Krankengeld 200 €; a repayment is not a receipt, so
+    the node is floored at zero and the gross income is 800 € (not 600 €).
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    einkommensteuer:
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 800.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+      renten:
+        betrag_gesamt_m:
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 600.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 300.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 0.0
+          - -200.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_m:
+      - 900.0
+      - -200.0
+  arbeitslosengeld_2:
+    bruttoeinkommen_m:
+      - 900.0
+      - 800.0

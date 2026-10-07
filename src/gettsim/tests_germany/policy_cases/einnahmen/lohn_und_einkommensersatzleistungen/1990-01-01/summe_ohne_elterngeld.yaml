@@ -1,0 +1,66 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Hand-derived from § 32b Abs. 1 Nr. 1 EStG 1990 (Art. 1 Nr. 28 G. v.
+    25.07.1988 BGBl. I S. 1093): before Elterngeld exists, the two nodes hold
+    the same catalogue. Person 0: Arbeitslosengeld 1.000 + Kurzarbeitergeld 100
+    + Insolvenzgeld 200 + Krankengeld 400 + Mutterschaftsgeld 500 +
+    Verletztengeld 600 + Aufstockungsbeträge 8.400/12 + sonstige 9.600/12 =
+    4.300 DM per month in both nodes. Person 1: Krankengeld 300 DM only. The
+    yearly inputs are multiples of twelve so that the automatic time conversion
+    is exact. Amounts in DM.
+  precision_atol: 0.01
+  source: ''
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    einkommensteuer:
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 9600.0
+          - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          aufstockungsbeträge_altersteilzeit_y:
+            - 8400.0
+            - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 1000.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 100.0
+          - 0.0
+        insolvenzgeld_m:
+          - 200.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 400.0
+          - 300.0
+        mutterschaftsgeld_m:
+          - 500.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 600.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 4300.0
+      - 300.0
+    lohn_und_einkommensersatzleistungen_m:
+      - 4300.0
+      - 300.0
+    lohn_und_einkommensersatzleistungen_y:
+      - 51600.0
+      - 3600.0

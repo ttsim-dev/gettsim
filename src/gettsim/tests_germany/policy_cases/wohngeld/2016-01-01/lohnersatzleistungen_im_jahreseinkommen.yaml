@@ -1,0 +1,154 @@
+---
+info:
+  note: >-
+    § 14 Abs. 2 Nr. 6 WoGG (Art. 1 G. v. 24.09.2008 BGBl. I S. 1856): the
+    Lohn- und Einkommensersatzleistungen nach § 32b Abs. 1 Satz 1 Nr. 1 EStG
+    belong to the Jahreseinkommen; § 10 BEEG "bleibt unberührt". No taxes or
+    contributions are paid, so the § 16 WoGG deduction is zero (G. v.
+    02.10.2015 BGBl. I S. 1610; BMI-Erlass v. 06.04.2020 says the same for
+    Kurzarbeitergeld without wages). Person 0 is WoGVwV Nr. 14.21.6 Abs. 4
+    (Beispiel): Mutterschaftsgeld 390 €, Elterngeld claim 760 € reduced by it
+    to 370 € paid; "wohngeldrechtlich anrechenbar sind ... 460 Euro". GETTSIM
+    reaches 460 as 390 + (370 - 300) with `elterngeld__anrechenbarer_betrag_m`
+    = 70 supplied (derived; the allowance on Elterngeld alone coincides with
+    the shared allowance of the source whenever the paid Elterngeld is at least
+    300 €). Person 1: Kurzarbeitergeld 900 € only, income 900 €. Person 2:
+    wages after Werbungskosten 2.000 € and repaid Krankengeld 200 €; the node
+    is floored at zero, income 2.000 € (hand-derived). Assumed: single birth,
+    Basiselterngeld, month entirely after the birth, no employer Zuschuss.
+  precision_atol: 0.01
+  source: https://dserver.bundestag.de/brd/2017/0284-17.pdf
+inputs:
+  assumed:
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 70.0
+        - 0.0
+        - 0.0
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 2
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      progressionsvorbehalt:
+        sonstige_leistungen_y:
+          - 0.0
+          - 0.0
+          - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 0.0
+            - 0.0
+            - 2000.0
+          aufstockungsbeträge_altersteilzeit_y:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+              - 0.0
+    einnahmen:
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 900.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 0.0
+          - 0.0
+          - -200.0
+        mutterschaftsgeld_m:
+          - 390.0
+          - 0.0
+          - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 390.0
+      - 900.0
+      - -200.0
+  wohngeld:
+    abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommen_vor_freibetrag_m:
+      - 460.0
+      - 900.0
+      - 2000.0
