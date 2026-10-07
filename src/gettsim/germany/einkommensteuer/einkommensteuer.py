@@ -14,7 +14,6 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_p_id_function,
-    cast_ttsim_unit,
     get_piecewise_parameters,
     intervals_to_thresholds,
     param_function,
@@ -166,7 +165,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     progressionsvorbehalt__einzubeziehende_leistungen_y_sn: float,
     progressionsvorbehalt__steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
-    progressionsvorbehalt__steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+    progressionsvorbehalt__besonderer_steuersatz_mit_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
     """Taxes with child allowance on Steuernummer level.
@@ -174,10 +173,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     Also referred to as "tarifliche ESt I".
 
     With benefits under the Progressionsvorbehalt, the besonderer Steuersatz applies to
-    the taxable income (§ 32b EStG): the tax is the tariff tax on the Steuersatzeinkommen
-    times the taxable income, divided by the Steuersatzeinkommen. Multiplying before
-    dividing keeps a result that is a full Euro amount from falling below it through
-    floating-point error.
+    the taxable income (§ 32b EStG).
     """
     if progressionsvorbehalt__einzubeziehende_leistungen_y_sn == 0.0:
         out = familie__anzahl_personen_sn * piecewise_polynomial(
@@ -187,17 +183,14 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
             xnp=xnp,
         )
     elif progressionsvorbehalt__steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
+        # The rate is a whole number of millionths up to floating-point error; restoring
+        # that whole number keeps a full-Euro product from falling below it.
         out = (
-            cast_ttsim_unit(
-                progressionsvorbehalt__steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
-                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            xnp.round(
+                progressionsvorbehalt__besonderer_steuersatz_mit_kinderfreibetrag * 1e6
             )
             * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
-            / cast_ttsim_unit(
-                progressionsvorbehalt__steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
-                unit=TTSIMUnit.CURRENCY.PER_YEAR,
-            )
+            / 1e6
         )
     else:
         out = 0.0
@@ -220,17 +213,14 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     progressionsvorbehalt__einzubeziehende_leistungen_y_sn: float,
     progressionsvorbehalt__steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
-    progressionsvorbehalt__steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+    progressionsvorbehalt__besonderer_steuersatz_ohne_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
     """Taxes without child allowance on Steuernummer level. Also referred to as
     "tarifliche ESt II".
 
     With benefits under the Progressionsvorbehalt, the besonderer Steuersatz applies to
-    the taxable income (§ 32b EStG): the tax is the tariff tax on the Steuersatzeinkommen
-    times the taxable income, divided by the Steuersatzeinkommen. Multiplying before
-    dividing keeps a result that is a full Euro amount from falling below it through
-    floating-point error.
+    the taxable income (§ 32b EStG).
     """
     if progressionsvorbehalt__einzubeziehende_leistungen_y_sn == 0.0:
         out = familie__anzahl_personen_sn * piecewise_polynomial(
@@ -239,17 +229,14 @@ def betrag_ohne_kinderfreibetrag_y_sn(
             xnp=xnp,
         )
     elif progressionsvorbehalt__steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
+        # The rate is a whole number of millionths up to floating-point error; restoring
+        # that whole number keeps a full-Euro product from falling below it.
         out = (
-            cast_ttsim_unit(
-                progressionsvorbehalt__steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
-                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            xnp.round(
+                progressionsvorbehalt__besonderer_steuersatz_ohne_kinderfreibetrag * 1e6
             )
             * gesamteinkommen_y_sn
-            / cast_ttsim_unit(
-                progressionsvorbehalt__steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
-                unit=TTSIMUnit.CURRENCY.PER_YEAR,
-            )
+            / 1e6
         )
     else:
         out = 0.0

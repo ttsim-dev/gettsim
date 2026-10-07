@@ -3,12 +3,16 @@ info:
   note: >-
     H 32b EStH 2019 'Allgemeines', Beispiele, Fall B: z. v. E. 40.000 €,
     zurückgezahltes Arbeitslosengeld 3.000 €, Splittingtarif. Assumed:
-    Veranlagungszeitraum = edition year; the Arbeitnehmer-Pauschbetrag is used
-    up by wage income; no Kinderfreibetrag. The printed rate has four decimals
-    of a percent.
+    Veranlagungszeitraum = edition year; the Arbeitnehmer-Pauschbetrag is used up by
+    wage income; no Kinderfreibetrag. The printed rate has four decimals of a
+    percent. The 2019 edition prints 4.372 €, rounded to the nearest Euro; the tax
+    is rounded down (§ 32a Abs. 1 Satz 6 EStG), as the Progressionsvorbehalt
+    calculator of the Bayerisches Landesamt für Steuern confirms for the same inputs
+    (4.371 €).
   precision_atol: 1.0e-06
   source: >-
     https://esth.bundesfinanzministerium.de/esth/2019/A-Einkommensteuergesetz/IV-Tarif/Paragraf-32b/inhalt.html
+    https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
 inputs:
   assumed:
     einkommensteuer:
@@ -90,5 +94,5 @@ outputs:
         - 0.109297
         - 0.109297
     betrag_ohne_kinderfreibetrag_y_sn:
-      - 4372
-      - 4372
+      - 4371
+      - 4371

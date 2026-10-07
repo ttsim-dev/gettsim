@@ -2,12 +2,13 @@
 info:
   note: >-
     H 32b EStH 2019 'Allgemeines', Beispiele, Fall A: z. v. E. 40.000 €,
-    Arbeitslosengeld 10.000 €, Splittingtarif. Assumed: Veranlagungszeitraum
-    = edition year; the Arbeitnehmer-Pauschbetrag is used up by wage income;
-    no Kinderfreibetrag. The printed rate has four decimals of a percent.
+    Arbeitslosengeld 10.000 €, Splittingtarif. Assumed: Veranlagungszeitraum =
+    edition year; the Arbeitnehmer-Pauschbetrag is used up by wage income; no
+    Kinderfreibetrag. The printed rate has four decimals of a percent.
   precision_atol: 1.0e-06
   source: >-
     https://esth.bundesfinanzministerium.de/esth/2019/A-Einkommensteuergesetz/IV-Tarif/Paragraf-32b/inhalt.html
+    https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
 inputs:
   assumed:
     einkommensteuer:
@@ -89,5 +90,5 @@ outputs:
         - 0.15164
         - 0.15164
     betrag_ohne_kinderfreibetrag_y_sn:
-      - 6066
-      - 6066
+      - 6065
+      - 6065

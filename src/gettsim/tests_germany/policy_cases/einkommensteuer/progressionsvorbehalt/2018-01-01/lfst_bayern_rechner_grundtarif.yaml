@@ -1,19 +1,21 @@
 ---
 info:
   note: >-
-    Tariff values from H 32b EStH 2024: Splittingtarif on 50.000 € = 6.046
-    € and on 37.000 € = 2.706 €, hence Grundtarif on 25.000 € = 3.023 €
-    and on 18.500 € = 1.353 € (§ 32a Abs. 5 EStG). Hand-derived from § 32b
-    Abs. 2 EStG, tax rounded down to full Euro. Person 0: z. v. E. 20.000
-    €, Krankengeld 5.000 €, 3.023 * 20.000 / 25.000 = 2.418,40. Person 1:
-    z. v. E. 21.500 €, repaid Krankengeld 3.000 €, 1.353 * 21.500 / 18.500
-    = 1.572,40. Person 2: z. v. E. 5.000 € below the Grundfreibetrag, Krankengeld
-    20.000 €, 3.023 * 5.000 / 25.000 = 604,60. Person 3: z. v. E. 0, Krankengeld
-    25.000 €, tax 0. Persons 4 and 5: Steuersatzeinkommen of 0 and of -1.000 €, rate
-    0.
+    Grundtarif 2018, expected values from the Progressionsvorbehalt calculator of
+    the Bayerisches Landesamt für Steuern, which truncates the rate to four decimals
+    of a percent and the tax to full Euro. Wages use up the Arbeitnehmer-Pauschbetrag.
+    person 0: z. v. E. 20.000 €, krankengeld 5.000 €, Krankengeld raises the rate;
+    person 1: z. v. E. 21.500 €, krankengeld -3.000 €, repaid Krankengeld lowers
+    the rate; person 2: z. v. E. 5.000 €, arbeitslosengeld 20.000 €, z. v. E. below
+    the Grundfreibetrag; person 3: z. v. E. 100.000 €, arbeitslosengeld 20.000 €,
+    z. v. E. in the top bracket; person 4: z. v. E. 5.000 €, krankengeld -20.000
+    €, negative Steuersatzeinkommen; person 5: z. v. E. 30.000 € ohne and 22.000
+    € mit Kinderfreibetrag, arbeitslosengeld 8.000 €. Person 1: the calculator prints
+    2.407 €, one Euro below 21.500 € × 11,2000 % = 2.408,00 € — a floating-point
+    floor of its own; the exact product is used here.
   precision_atol: 1.0e-06
   source: >-
-    https://esth.bundesfinanzministerium.de/esth/2024/A-Einkommensteuergesetz/IV-Tarif-31-34b/Paragraf-32b/inhalt.html
+    https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
 inputs:
   assumed: {}
   provided:
@@ -75,16 +77,16 @@ inputs:
         - 20000.0
         - 21500.0
         - 5000.0
-        - 0.0
-        - 3000.0
-        - 2000.0
+        - 100000.0
+        - 5000.0
+        - 30000.0
       zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
         - 20000.0
         - 21500.0
         - 5000.0
-        - 0.0
-        - 3000.0
-        - 2000.0
+        - 100000.0
+        - 5000.0
+        - 22000.0
     einnahmen:
       bruttolohn_y:
         - 20000.0
@@ -98,10 +100,10 @@ inputs:
         betrag_y:
           - 0.0
           - 0.0
+          - 20000.0
+          - 20000.0
           - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
+          - 8000.0
         kurzarbeitergeld_y:
           - 0.0
           - 0.0
@@ -120,10 +122,10 @@ inputs:
         krankengeld_y:
           - 5000.0
           - -3000.0
-          - 20000.0
-          - 25000.0
-          - -3000.0
-          - -3000.0
+          - 0.0
+          - 0.0
+          - -20000.0
+          - 0.0
         mutterschaftsgeld_y:
           - 0.0
           - 0.0
@@ -154,27 +156,55 @@ outputs:
         - 25000.0
         - 18500.0
         - 25000.0
-        - 25000.0
-        - 0.0
-        - -1000.0
+        - 120000.0
+        - -15000.0
+        - 38000.0
       steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 3023
-        - 1353
-        - 3023
-        - 3023
+        - 3852
+        - 2072
+        - 3852
+        - 41778
         - 0
-        - 0
+        - 7970
       besonderer_steuersatz_ohne_kinderfreibetrag:
-        - 0.12092
-        - 0.073135
-        - 0.12092
-        - 0.12092
+        - 0.15408
+        - 0.112
+        - 0.15408
+        - 0.34815
         - 0.0
+        - 0.209736
+      steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
+        - 25000.0
+        - 18500.0
+        - 25000.0
+        - 120000.0
+        - -15000.0
+        - 30000.0
+      steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
+        - 3852
+        - 2072
+        - 3852
+        - 41778
+        - 0
+        - 5348
+      besonderer_steuersatz_mit_kinderfreibetrag:
+        - 0.15408
+        - 0.112
+        - 0.15408
+        - 0.34815
         - 0.0
+        - 0.178266
     betrag_ohne_kinderfreibetrag_y_sn:
-      - 2418
-      - 1572
-      - 604
+      - 3081
+      - 2408
+      - 770
+      - 34815
       - 0
+      - 6292
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 3081
+      - 2408
+      - 770
+      - 34815
       - 0
-      - 0
+      - 3921

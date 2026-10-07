@@ -7,10 +7,12 @@ info:
     Abs. 2 Nr. 1 EStG: the spouse without wage income receives 11.230 €
     Arbeitslosengeld, less the unused Arbeitnehmer-Pauschbetrag of 1.230
     € = 10.000 €. Steuersatzeinkommen 50.000 €, tax 40.000 * 6.046 / 50.000 = 4.836,80,
-    rounded down.
+    rounded down to 4.836 € (confirmed by the calculator of the Bayerisches
+    Landesamt für Steuern).
   precision_atol: 1.0e-06
   source: >-
     https://esth.bundesfinanzministerium.de/esth/2024/A-Einkommensteuergesetz/IV-Tarif-31-34b/Paragraf-32b/inhalt.html
+    https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
 inputs:
   assumed: {}
   provided:

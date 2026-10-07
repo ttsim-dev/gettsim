@@ -190,45 +190,67 @@ def steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
 def besonderer_steuersatz_ohne_kinderfreibetrag(
     steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
     steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+    xnp: ModuleType,
 ) -> float:
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) without Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    unrounded; zero when the Steuersatzeinkommen is zero or negative.
+    truncated to four decimals of a percent as the Finanzverwaltung states and applies
+    it (H 32b EStH 'Allgemeines', Beispiele); zero when the Steuersatzeinkommen is zero
+    or negative.
     """
-    if steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
-        out = cast_ttsim_unit(
-            steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
-            unit=TTSIMUnit.CURRENCY.PER_YEAR,
-        ) / cast_ttsim_unit(
-            steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
-            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    # Both operands are whole Euro amounts, so the scaled quotient is exact and the
+    # floor cannot land one ulp below an integer. The ratio of two totals of the same
+    # Steuernummer carries no level.
+    truncated = (
+        xnp.floor(
+            cast_ttsim_unit(
+                steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
+                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            )
+            * 1e6
+            / cast_ttsim_unit(
+                steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
+                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            )
         )
-    else:
-        out = 0.0
-    return out
+        / 1e6
+    )
+    return xnp.where(
+        steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0, truncated, 0.0
+    )
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.DIMENSIONLESS)
 def besonderer_steuersatz_mit_kinderfreibetrag(
     steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
     steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+    xnp: ModuleType,
 ) -> float:
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) with Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    unrounded; zero when the Steuersatzeinkommen is zero or negative.
+    truncated to four decimals of a percent as the Finanzverwaltung states and applies
+    it (H 32b EStH 'Allgemeines', Beispiele); zero when the Steuersatzeinkommen is zero
+    or negative.
     """
-    if steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
-        out = cast_ttsim_unit(
-            steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
-            unit=TTSIMUnit.CURRENCY.PER_YEAR,
-        ) / cast_ttsim_unit(
-            steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
-            unit=TTSIMUnit.CURRENCY.PER_YEAR,
+    # Both operands are whole Euro amounts, so the scaled quotient is exact and the
+    # floor cannot land one ulp below an integer. The ratio of two totals of the same
+    # Steuernummer carries no level.
+    truncated = (
+        xnp.floor(
+            cast_ttsim_unit(
+                steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
+                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            )
+            * 1e6
+            / cast_ttsim_unit(
+                steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
+                unit=TTSIMUnit.CURRENCY.PER_YEAR,
+            )
         )
-    else:
-        out = 0.0
-    return out
+        / 1e6
+    )
+    return xnp.where(
+        steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0, truncated, 0.0
+    )
