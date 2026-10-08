@@ -42,6 +42,16 @@ inputs:
         - -1
         - -1
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 3000.0
       gemeinsam_veranlagt:
         - false
         - false
@@ -82,7 +92,7 @@ inputs:
           - 5000.0
           - 5000.0
           - 500.0
-          - -3000.0
+          - 0.0
         kurzarbeitergeld_y:
           - 0.0
           - 0.0

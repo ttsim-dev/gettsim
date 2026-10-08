@@ -10,6 +10,11 @@ info:
   source: https://urteile-gesetze.de/rechtsprechung/iii-r-61-12
 inputs:
   assumed:
+    einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_y:

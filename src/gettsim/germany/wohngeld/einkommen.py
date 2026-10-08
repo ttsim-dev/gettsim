@@ -151,7 +151,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     )
 
     transfers = (
-        max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
+        einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
@@ -198,7 +198,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     )
 
     transfers = (
-        max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
+        einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m

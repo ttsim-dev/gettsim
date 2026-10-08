@@ -3,7 +3,8 @@
 The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG (summed in
 `einnahmen__lohn_und_einkommensersatzleistungen_y`) are exempt from income tax but
 enter the rate that applies to the taxable income. The Steuersatzeinkommen is the
-taxable income plus these benefits; the besonderer Steuersatz is the tariff tax on the
+taxable income plus these benefits, less repayments of such benefits
+(`zurückgezahlte_leistungen_y`); the besonderer Steuersatz is the tariff tax on the
 Steuersatzeinkommen divided by the Steuersatzeinkommen. Foreign income under the
 Progressionsvorbehalt (§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
 """
@@ -55,21 +56,22 @@ def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
     einnahmen__lohn_und_einkommensersatzleistungen_y: float,
+    zurückgezahlte_leistungen_y: float,
     nicht_abziehbarer_arbeitnehmerpauschbetrag_y: float,
 ) -> float:
-    """Benefits less the Arbeitnehmer-Pauschbetrag not deductible from wage income.
+    """Benefits net of repayments, less the Arbeitnehmer-Pauschbetrag not deductible
+    from wage income.
 
-    § 32b Abs. 2 Nr. 1 EStG. The deduction reduces a positive sum of benefits to zero
-    at most; a negative sum is not reduced further.
+    § 32b Abs. 2 Nr. 1 EStG. The deduction reduces a positive net amount to zero at
+    most; a negative net amount is not reduced further.
     """
-    if einnahmen__lohn_und_einkommensersatzleistungen_y > 0.0:
-        out = max(
-            einnahmen__lohn_und_einkommensersatzleistungen_y
-            - nicht_abziehbarer_arbeitnehmerpauschbetrag_y,
-            0.0,
-        )
+    netto = (
+        einnahmen__lohn_und_einkommensersatzleistungen_y - zurückgezahlte_leistungen_y
+    )
+    if netto > 0.0:
+        out = max(netto - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
     else:
-        out = einnahmen__lohn_und_einkommensersatzleistungen_y
+        out = netto
     return out
 
 

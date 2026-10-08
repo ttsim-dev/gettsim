@@ -14,6 +14,10 @@ info:
 inputs:
   assumed:
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 0.0
       einkünfte:
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:

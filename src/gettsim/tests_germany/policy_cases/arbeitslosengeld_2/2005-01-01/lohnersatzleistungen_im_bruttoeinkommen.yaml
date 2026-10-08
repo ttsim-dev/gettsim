@@ -6,8 +6,7 @@ info:
     exception covers the wage-replacement benefits, so the full § 32b catalogue
     (before 2007 without Elterngeld) enters the gross income. Person 0:
     Arbeitslosengeld 600 + Insolvenzgeld 300 = 900 €, no other income. Person 1:
-    wages 800 € and repaid Krankengeld 200 €; a repayment is not a receipt, so
-    the node is floored at zero and the gross income is 800 € (not 600 €).
+    wages 800 € and no benefits, gross income 800 €.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -58,7 +57,7 @@ inputs:
       kranken:
         krankengeld_m:
           - 0.0
-          - -200.0
+          - 0.0
         mutterschaftsgeld_m:
           - 0.0
           - 0.0
@@ -70,7 +69,7 @@ outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_m:
       - 900.0
-      - -200.0
+      - 0.0
   arbeitslosengeld_2:
     bruttoeinkommen_m:
       - 900.0

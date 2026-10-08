@@ -37,6 +37,14 @@ inputs:
         - 5
         - 4
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 0.0
+          - 4000.0
+          - 0.0
+          - 0.0
+          - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -102,7 +110,7 @@ inputs:
         krankengeld_y:
           - 0.0
           - 0.0
-          - -4000.0
+          - 0.0
           - 0.0
           - 0.0
           - 0.0

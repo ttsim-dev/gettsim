@@ -9,8 +9,8 @@ info:
     § 11a Abs. 1 Nr. 6 SGB II (Art. 1 Bürgergeld-Gesetz v. 16.12.2022 BGBl. I
     S. 2328) exempts the § 19 MuSchG part from 01.07.2023; the single input
     bundles it with the employer's Zuschuss and is not split. Person 1: wages
-    800 € and repaid Verletztengeld 200 €; the node is floored at zero, gross
-    income 800 € (not 600 €). Kinderzuschlag reads this income unchanged.
+    800 € and no benefits, gross income 800 €. Kinderzuschlag reads this income
+    unchanged.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -72,12 +72,12 @@ inputs:
       unfall:
         verletztengeld_m:
           - 0.0
-          - -200.0
+          - 0.0
 outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_m:
       - 1310.0
-      - -200.0
+      - 0.0
   bürgergeld:
     bruttoeinkommen_m:
       - 1310.0

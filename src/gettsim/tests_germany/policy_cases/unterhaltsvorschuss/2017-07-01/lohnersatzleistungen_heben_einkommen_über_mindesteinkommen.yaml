@@ -8,9 +8,8 @@ info:
     § 10 Abs. 5 BEEG allowance not modelled). Household 0: wages 300 +
     Elterngeld 200 + Krankengeld 150 = 650 € >= 600 €, the child receives the
     full 268 € (amount of the existing 2017-07-01 cases); without either
-    addition the income would fall short. Household 1: wages 700 € and repaid
-    Krankengeld 200 €; the node is floored at zero, income 700 € >= 600 €, the
-    child receives 268 € (not 0 € as 500 € would give).
+    addition the income would fall short. Household 1: wages 700 € and no
+    benefits, income 700 € >= 600 €, the child receives 268 €.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -123,7 +122,7 @@ inputs:
         krankengeld_m:
           - 150.0
           - 0.0
-          - -200.0
+          - 0.0
           - 0.0
         mutterschaftsgeld_m:
           - 0.0
@@ -141,7 +140,7 @@ outputs:
     lohn_und_einkommensersatzleistungen_m:
       - 350.0
       - 0.0
-      - -200.0
+      - 0.0
       - 0.0
   unterhaltsvorschuss:
     einkommen_m:

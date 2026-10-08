@@ -13,8 +13,8 @@ info:
     = 70 supplied (derived; the allowance on Elterngeld alone coincides with
     the shared allowance of the source whenever the paid Elterngeld is at least
     300 €). Person 1: Kurzarbeitergeld 900 € only, income 900 €. Person 2:
-    wages after Werbungskosten 2.000 € and repaid Krankengeld 200 €; the node
-    is floored at zero, income 2.000 € (hand-derived). Assumed: single birth,
+    wages after Werbungskosten 2.000 € and no benefits, income 2.000 €
+    (hand-derived). Assumed: single birth,
     Basiselterngeld, month entirely after the birth, no employer Zuschuss.
   precision_atol: 0.01
   source: https://dserver.bundestag.de/brd/2017/0284-17.pdf
@@ -97,7 +97,7 @@ inputs:
         krankengeld_m:
           - 0.0
           - 0.0
-          - -200.0
+          - 0.0
         mutterschaftsgeld_m:
           - 390.0
           - 0.0
@@ -133,7 +133,7 @@ outputs:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
       - 390.0
       - 900.0
-      - -200.0
+      - 0.0
   wohngeld:
     abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
       - 0.0

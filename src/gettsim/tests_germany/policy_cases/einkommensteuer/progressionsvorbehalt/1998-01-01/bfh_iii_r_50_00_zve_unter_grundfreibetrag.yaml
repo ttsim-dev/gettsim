@@ -48,6 +48,9 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
       gemeinsam_veranlagt:
         - false
       gesamteinkommen_y_sn:

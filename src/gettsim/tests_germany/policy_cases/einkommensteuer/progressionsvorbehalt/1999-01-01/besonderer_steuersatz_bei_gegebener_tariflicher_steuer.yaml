@@ -29,6 +29,9 @@ inputs:
         - false
         - false
       progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 40000.0
         steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
           - 8000.0
           - 0.0
@@ -51,7 +54,7 @@ inputs:
       arbeitslosen:
         betrag_y:
           - 10000.0
-          - -40000.0
+          - 0.0
         kurzarbeitergeld_y:
           - 0.0
           - 0.0

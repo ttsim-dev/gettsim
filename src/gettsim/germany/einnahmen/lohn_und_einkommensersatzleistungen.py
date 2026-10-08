@@ -21,8 +21,7 @@ def lohn_und_einkommensersatzleistungen_ohne_elterngeld_m(
     """Sum of the benefits under § 32b Abs. 1 S. 1 Nr. 1 EStG except Elterngeld.
 
     Wohngeld (§ 14 Abs. 2 Nr. 6 WoGG) and Grundsicherung im Alter (§ 82 Abs. 1 SGB
-    XII) read this sum and add Elterngeld after the allowance of § 10 BEEG. The sum is
-    negative when repayments exceed receipts.
+    XII) read this sum and add Elterngeld after the allowance of § 10 BEEG.
     """
     return (
         sozialversicherung__arbeitslosen__betrag_m

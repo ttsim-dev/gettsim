@@ -10,9 +10,8 @@ info:
     1.260 €, no taxes or contributions. Mutterschaftsgeld is counted in full by
     decision although § 82 Abs. 1 Satz 2 Nr. 5 SGB XII (Art. 5 Bürgergeld-Gesetz
     v. 16.12.2022 BGBl. I S. 2328) exempts the § 19 MuSchG part from 01.01.2023.
-    Person 1: gesetzliche Rente 800 € and repaid Krankengeld 200 €; the node is
-    floored at zero, income 800 € (not 600 €). Earnings, zusätzliche
-    Altersvorsorge and capital income are supplied as zero nodes.
+    Person 1: gesetzliche Rente 800 € and no benefits, income 800 €. Earnings,
+    zusätzliche Altersvorsorge and capital income are supplied as zero nodes.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -86,7 +85,7 @@ inputs:
       kranken:
         krankengeld_m:
           - 300.0
-          - -200.0
+          - 0.0
         mutterschaftsgeld_m:
           - 200.0
           - 0.0
@@ -106,7 +105,7 @@ outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
       - 600.0
-      - -200.0
+      - 0.0
   grundsicherung:
     im_alter:
       einkommen_m:

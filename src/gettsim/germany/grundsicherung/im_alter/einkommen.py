@@ -46,9 +46,8 @@ def einkommen_m_bis_2006(
     """Income considered for Grundsicherung im Alter.
 
     All pension income and wage-replacement benefits are fully counted as income
-    (§ 82 Abs. 1 S. 1 SGB XII). Repayments of such benefits do not reduce income, so the
-    sum of benefits enters only when it is positive. Erziehungsgeld is not counted as
-    income (§8 Abs. 1 BErzGG).
+    (§ 82 Abs. 1 S. 1 SGB XII). Erziehungsgeld is not counted as income (§8 Abs. 1
+    BErzGG).
     """
     total_income = (
         erwerbseinkommen_m
@@ -61,7 +60,7 @@ def einkommen_m_bis_2006(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
-        + max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
     )
@@ -117,7 +116,7 @@ def einkommen_m_ab_2007_bis_2017(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
-        + max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + elterngeld__anrechenbarer_betrag_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
@@ -165,7 +164,7 @@ def einkommen_m_ab_2018(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
-        + max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + elterngeld__anrechenbarer_betrag_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m

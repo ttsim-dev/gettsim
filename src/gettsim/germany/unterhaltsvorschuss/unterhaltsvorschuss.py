@@ -336,8 +336,7 @@ def einkommen_m(
     """Calculate relevant income for advance on alimony payment.
 
     Income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 1 Abs. 1a S. 1 Nr. 2 UhVG), so
-    wage-replacement benefits including Elterngeld count. Repayments of such benefits
-    do not reduce income, so the sum of benefits enters only when it is positive.
+    wage-replacement benefits including Elterngeld count.
     """
     return (
         einnahmen__bruttolohn_m
@@ -346,7 +345,7 @@ def einkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + max(einnahmen__lohn_und_einkommensersatzleistungen_m, 0.0)
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
     )
 
 

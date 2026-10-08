@@ -19,6 +19,9 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 3000.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -42,7 +45,7 @@ inputs:
           - 0.0
       kranken:
         krankengeld_y:
-          - -3000.0
+          - 0.0
         mutterschaftsgeld_y:
           - 0.0
       unfall:

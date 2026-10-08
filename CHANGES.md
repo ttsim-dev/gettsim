@@ -18,12 +18,14 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 - {gh}`1237` Model the Progressionsvorbehalt for wage-replacement benefits (§ 32b Abs. 1
   S. 1 Nr. 1 EStG). The benefits, less the Arbeitnehmer-Pauschbetrag not used against
   wage income, enter the besonderer Steuersatz that applies to the taxable income; from
-  1996, net repayments lower it. The rate is truncated to four decimals of a percent as
-  in the examples of H 32b EStH 'Allgemeines'. The columns in
-  `einkommensteuer__progressionsvorbehalt` start in 1990, the tariff tax on the
-  Steuersatzeinkommen in 2002 with the tariff; `einkommensteuer__betrag_y_sn` and
-  everything building on it change from 2002 for recipients of these benefits. Foreign
-  income under the Progressionsvorbehalt and § 34 EStG are not covered.
+  1996, repaid benefits
+  (`einkommensteuer__progressionsvorbehalt__zurückgezahlte_leistungen_y`) lower it. The
+  rate is truncated to four decimals of a percent as in the examples of H 32b EStH
+  'Allgemeines'. The columns in `einkommensteuer__progressionsvorbehalt` start in 1990,
+  the tariff tax on the Steuersatzeinkommen in 2002 with the tariff;
+  `einkommensteuer__betrag_y_sn` and everything building on it change from 2002 for
+  recipients of these benefits. Foreign income under the Progressionsvorbehalt and § 34
+  EStG are not covered.
 
   The benefits are summed in `einnahmen__lohn_und_einkommensersatzleistungen_m` (the
   full § 32b catalogue, with Elterngeld from 2007) and
@@ -32,9 +34,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   Arbeitslosengeld II / Bürgergeld and through it Kinderzuschlag (§ 11 Abs. 1 SGB II),
   Grundsicherung im Alter (§ 82 Abs. 1 SGB XII) and Unterhaltsvorschuss (§ 1 Abs. 1a
   UhVG); Arbeitslosengeld is new income for Grundsicherung im Alter and Elterngeld for
-  Unterhaltsvorschuss. Net repayments do not reduce transfer income. Mutterschaftsgeld
-  is counted in full in all years; the exemption of the § 19 MuSchG part from SGB II and
-  SGB XII income (2023) is not modelled.
+  Unterhaltsvorschuss. Mutterschaftsgeld is counted in full in all years; the exemption
+  of the § 19 MuSchG part from SGB II and SGB XII income (2023) is not modelled.
 
   Computing the income tax or any of these transfers now requires
   `sozialversicherung__arbeitslosen__betrag_m` and (from 2007) `elterngeld__betrag_m`,
@@ -44,7 +45,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `sozialversicherung__kranken__krankengeld_m`,
   `sozialversicherung__kranken__mutterschaftsgeld_m`, and
   `sozialversicherung__unfall__verletztengeld_m`; alternatively, the two sums can be
-  passed directly. ({ghuser}`MImmesberger`)
+  passed directly. The income tax additionally requires
+  `einkommensteuer__progressionsvorbehalt__zurückgezahlte_leistungen_y`.
+  ({ghuser}`MImmesberger`)
 
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social

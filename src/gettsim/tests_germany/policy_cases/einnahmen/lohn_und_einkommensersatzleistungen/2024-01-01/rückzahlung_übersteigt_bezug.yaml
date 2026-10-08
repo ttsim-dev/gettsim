@@ -1,16 +1,15 @@
 ---
 info:
   note: >-
-    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1, Abs. 2 EStG: the inputs are net
-    of repayments, and the sum is "vermehrt oder vermindert" (Art. 1 Nr. 30 G.
-    v. 11.10.1995 BGBl. I S. 1250), so a repayment that exceeds the receipts
-    gives a negative sum that the nodes pass through. Krankengeld 200 € less
-    repaid Arbeitslosengeld 700 € = -500 € per month, -6.000 € per year. No
-    wages, so the Arbeitnehmer-Pauschbetrag (1.230 €) is not deductible from
-    wage income; a negative sum of benefits is not reduced by it (§ 32b Abs. 2
-    Nr. 1 EStG), and it lowers the Steuersatzeinkommen in full. The transfer
-    consumers floor the node at zero instead; see the Wohngeld, ALG II,
-    Bürgergeld, Grundsicherung and Unterhaltsvorschuss cases.
+    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1, Abs. 2 EStG: the sum of
+    benefits is "vermehrt oder vermindert" (Art. 1 Nr. 30 G. v. 11.10.1995
+    BGBl. I S. 1250), so a repayment that exceeds the receipts lowers the
+    Steuersatzeinkommen. Krankengeld 200 € per month, 2.400 € per year, less
+    repaid Arbeitslosengeld 8.400 € = -6.000 €. No wages, so the
+    Arbeitnehmer-Pauschbetrag (1.230 €) is not deductible from wage income; a
+    negative net amount is not reduced by it (§ 32b Abs. 2 Nr. 1 EStG). The
+    sums of benefits themselves stay at the receipts; the transfers read them
+    and never see the repayment.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -24,6 +23,9 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 8400.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -36,7 +38,7 @@ inputs:
     sozialversicherung:
       arbeitslosen:
         betrag_m:
-          - -700.0
+          - 0.0
         kurzarbeitergeld_m:
           - 0.0
         insolvenzgeld_m:
@@ -55,11 +57,11 @@ inputs:
 outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-      - -500.0
+      - 200.0
     lohn_und_einkommensersatzleistungen_m:
-      - -500.0
+      - 200.0
     lohn_und_einkommensersatzleistungen_y:
-      - -6000.0
+      - 2400.0
   einkommensteuer:
     progressionsvorbehalt:
       leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:

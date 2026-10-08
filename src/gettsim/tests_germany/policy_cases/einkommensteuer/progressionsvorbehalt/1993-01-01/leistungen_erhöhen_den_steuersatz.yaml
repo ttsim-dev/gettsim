@@ -24,6 +24,10 @@ inputs:
         - -1
         - -1
     einkommensteuer:
+      progressionsvorbehalt:
+        zurückgezahlte_leistungen_y:
+          - 0.0
+          - 0.0
       gemeinsam_veranlagt:
         - false
         - false

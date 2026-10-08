@@ -8,9 +8,8 @@ info:
     neither taxes nor contributions are paid (the 6 % is GETTSIM's existing
     § 17 parameter for that case). Person 0: Krankengeld 1.200 + Kurzarbeitergeld
     300 = 1.500 DM, no other income, income before Freibetrag 0,94 x 1.500 =
-    1.410 DM. Person 1: wages after Werbungskosten 2.000 DM and repaid Krankengeld
-    200 DM; a repayment is not a receipt, so the node is floored at zero and the
-    income is 0,94 x 2.000 = 1.880 DM (not 0,94 x 1.800). Amounts in DM.
+    1.410 DM. Person 1: wages after Werbungskosten 2.000 DM and no benefits, income
+    0,94 x 2.000 = 1.880 DM. Amounts in DM.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -72,7 +71,7 @@ inputs:
       kranken:
         krankengeld_m:
           - 1200.0
-          - -200.0
+          - 0.0
         mutterschaftsgeld_m:
           - 0.0
           - 0.0
@@ -101,7 +100,7 @@ outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
       - 1500.0
-      - -200.0
+      - 0.0
   wohngeld:
     abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
       - 0.06
