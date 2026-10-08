@@ -276,8 +276,8 @@ mindestanteil_bezugsgröße_selbstständige:
       neunzigste Teil der monatlichen Bezugsgröße (1/90*30)
     en: >-
       §240 SGB V Abs. 4
-      Health Insurance contributions have to be payed, at the minimum, on the ninetieth
-      part of the monthly Bezugsgröße for each calender day
+      Health Insurance contributions have to be paid, at the minimum, on the ninetieth
+      part of the monthly Bezugsgröße for each calendar day
   unit: DIMENSIONLESS
   type: scalar
   1990-01-01:

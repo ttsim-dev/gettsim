@@ -55,7 +55,7 @@ inputs:
       - 5
     sozialversicherung:
       rente:
-        bezieht_rente:
+        bezieht_altersrente:
           - false
           - false
     unterhalt:

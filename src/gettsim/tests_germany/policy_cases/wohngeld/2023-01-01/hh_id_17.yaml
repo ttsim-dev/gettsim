@@ -224,12 +224,13 @@ inputs:
             - 0.0
             - 0.0
       rente:
-        bezieht_rente:
-          - false
-          - false
-          - false
-          - false
-          - false
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
         grundrente:
           grundrentenzeiten_monate:
             - 0

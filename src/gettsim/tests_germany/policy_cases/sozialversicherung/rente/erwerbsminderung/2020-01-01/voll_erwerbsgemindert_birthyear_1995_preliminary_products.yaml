@@ -13,7 +13,7 @@ inputs:
       - 29
     sozialversicherung:
       rente:
-        bezieht_rente:
+        bezieht_altersrente:
           - true
         entgeltpunkte_ost:
           - 0.0

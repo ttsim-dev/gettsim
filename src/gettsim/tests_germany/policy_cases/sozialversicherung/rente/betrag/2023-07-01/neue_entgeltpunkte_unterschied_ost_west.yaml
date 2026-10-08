@@ -9,10 +9,16 @@ inputs:
     alter:
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
     einnahmen:
       bruttolohn_m:
         - 3000.0
         - 3000.0
+    geburtsjahr:
+      - 1983
+      - 1983
     hh_id:
       - 0
       - 1
@@ -22,15 +28,24 @@ inputs:
     sozialversicherung:
       rente:
         altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
           zugangsfaktor:
             - 1.0
             - 1.0
-        bezieht_rente:
+        bezieht_altersrente:
           - true
           - true
         entgeltpunkte:
           - 30.0
           - 30.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
     wohnort_ost_hh:
       - true
       - false

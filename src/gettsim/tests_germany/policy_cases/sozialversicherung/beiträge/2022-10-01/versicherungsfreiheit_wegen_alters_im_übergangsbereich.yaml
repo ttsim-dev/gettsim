@@ -1,0 +1,89 @@
+---
+info:
+  note: |-
+    Versicherungsfreiheit wegen Alters im Übergangsbereich. Die Person ist 1955 geboren
+    (Regelaltersgrenze 65 Jahre und 9 Monate), über die Regelaltersgrenze hinaus
+    beschäftigt, bezieht eine Vollrente wegen Alters und verdient 950 € im Monat.
+    Der Arbeitgeber trägt die Hälfte des Beitrags, der bei
+    Versicherungspflicht zu zahlen wäre (§ 172 Abs. 1 SGB VI,
+    § 346 Abs. 3 S. 1 SGB III). Die abweichende Beitragslast
+    im Übergangsbereich gilt nur für versicherungspflichtig Beschäftigte
+    (§ 168 Abs. 1 Nr. 1d SGB VI, § 346 Abs. 1a SGB III) und bleibt hier außer Betracht.
+    Maßgeblich ist daher der halbe Gesamtbeitrag auf das Bemessungsentgelt von
+    856.39 €: 856.39 € x 18,6 % / 2 = 79.64 € in der
+    Rentenversicherung und 856.39 € x 2,4 % / 2 = 10.28 € in der
+    Arbeitslosenversicherung.
+  precision_atol: 0.01
+  source: https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Fachliteratur_Kommentare_Gesetzestexte/summa_summarum/rundschreiben/2022/beschaeftigungen_im_uebergangsbereich.pdf
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 66
+    alter_monate:
+      - 800
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 950.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    geburtsjahr:
+      - 1955
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 1500.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    midijob_bemessungsentgelt_m:
+      - 856.39
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 10.28
+        betrag_versicherter_m:
+          - 0.0
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 79.64
+        betrag_versicherter_m:
+          - 0.0

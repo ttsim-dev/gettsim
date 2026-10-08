@@ -152,10 +152,10 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
 
     Relevant parameter is directly 'steuerfrei zu stellenden sächlichen Existenzminimum
     des minderjährigen Kindes' § 1612a (1). Modeling relative to the child allowance for
-    this. The amout for the lower age group is defined relative to the middle age group
+    this. The amount for the lower age group is defined relative to the middle age group
     with a factor of 0.87.
 
-    Rule was in priciple also active for 2015 but has been overwritten by an
+    Rule was in principle also active for 2015 but has been overwritten by an
     Anwendungsvorschrift as Kinderfreibetrag and Kindergeld changed on July 2015.
 
     """
@@ -198,7 +198,7 @@ def anspruchshöhe_m_anwendungsvors(
 ) -> float:
     """Claim for advance on alimony payment (Unterhaltsvorschuss) on child level.
 
-    Rule anspruchshöhe_m_2009_bis_2014 was in priciple also active for
+    Rule anspruchshöhe_m_2009_bis_2014 was in principle also active for
     2015 but has been overwritten by an Anwendungsvorschrift as Kinderfreibetrag and
     Kindergeld changed in July 2015.
     """

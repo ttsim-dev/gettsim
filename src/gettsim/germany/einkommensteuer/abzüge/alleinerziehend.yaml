@@ -1,7 +1,7 @@
 ---
 alleinerziehendenfreibetrag_basis_y:
   name:
-    de: Parmeter zur Berechnung ds Entlastungsbetrags für Alleinerziehende
+    de: Parameter zur Berechnung ds Entlastungsbetrags für Alleinerziehende
     en: Income Tax Allowance for Single Parents
   description:
     de: § 24b (1) EStG. vor 2004 "Haushaltsfreibetrag", § 32 (7) EStG

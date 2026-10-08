@@ -121,7 +121,7 @@ Aggregation functions will be provided by GETTSIM.
 - Aggregation will always start from the individual level. If aggregation at the, say,
   Bedarfsgemeinschaft-level to the household-level is required (and possible), users
   will first need to provide an appropriate individual-level column (e.g., by dividing
-  some Bedarfsgemeinschaft-level aggregate by the number of indviduals within the same
+  some Bedarfsgemeinschaft-level aggregate by the number of individuals within the same
   Bedarfsgemeinschaft)
 
 - As outlined in {ref}`GEP 4 <gep-4-aggregation-by-group-functions>` users will need to

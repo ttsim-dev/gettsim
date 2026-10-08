@@ -315,7 +315,7 @@ The following walks through several cases.
   West Germany. from 2000-01-01 until 2022-10-01, the parameter is active again. After
   that, it is superseded by a formula based on the statutory minimum wage.
 
-- There could be a dictionary, which has to be homogenous in the keys (integers or
+- There could be a dictionary, which has to be homogeneous in the keys (integers or
   strings) and values (scalar floating point numbers, integers, or Booleans):
 
   ```yaml
@@ -428,7 +428,7 @@ The following walks through several cases.
   (e.g. increasing statutory retirement age thresholds) should be specified as type
   `birth_year_based_phase_inout`. The parameter specification is converted to a lookup
   table that maps a birth year to the age threshold. The conversion requires the
-  following stucture after the `YYYY-MM-DD` key:
+  following structure after the `YYYY-MM-DD` key:
 
   - `first_birthyear_to_consider`: The birth year at which the lookup table starts (just
     choose some birthyear that is far enough in the past).
@@ -645,7 +645,7 @@ the parameter (see the previous section), the following types are possible:
 
 - `scalar` parameters are just floats / ints / Booleans; i.e., simply the `value` key of
   the yaml file.
-- `dict` parameters are homogenous dictionaries with all contents of the `YYYY-MM-DD`
+- `dict` parameters are homogeneous dictionaries with all contents of the `YYYY-MM-DD`
   entries except for the `note` and `reference` keys.
 - `piecewise_constant` / `piecewise_linear` / `piecewise_quadratic` / `piecewise_cubic`
   parameters are converted to `PiecewisePolynomialParameter` objects.

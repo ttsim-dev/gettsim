@@ -110,8 +110,9 @@ inputs:
       rente:
         jahr_renteneintritt:
           - 2024
-        bezieht_rente:
-          - true
+        altersrente:
+          betrag_m:
+            - 500.0
         grundrente:
           grundrentenzeiten_monate:
             - 396

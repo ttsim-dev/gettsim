@@ -32,7 +32,7 @@ inputs:
             - 0.0
           zugangsfaktor:
             - 1.0
-        bezieht_rente:
+        bezieht_altersrente:
           - true
         entgeltpunkte_ost:
           - 18.7

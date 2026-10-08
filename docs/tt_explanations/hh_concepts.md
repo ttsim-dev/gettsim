@@ -54,7 +54,7 @@ the [dedicated repository](https://github.com/ttsim-dev/gettsim-crazy-grouping-r
 - Parents (max 2) and their children
 - Don't have to be part of the same household
 - Possibly claim on more than one Freibetrag for one child due to
-  - no child support payed by other parent
+  - no child support paid by other parent
   - other parent not known
 
 #### Pointers

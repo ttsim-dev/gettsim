@@ -270,13 +270,14 @@ inputs:
             - 50.0
             - 0.0
             - 0.0
-        bezieht_rente:
-          - false
-          - false
-          - false
-          - false
-          - false
-          - false
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
         erwerbsminderung:
           betrag_m:
             - 0.0

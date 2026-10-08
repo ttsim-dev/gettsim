@@ -339,7 +339,7 @@ beartype-decorated; its only job is to apply the auto-vectorisation or rounding 
 ```python
 import functools
 
-# Module-level so other wrappers can re-use it.
+# Module-level so other wrappers can reuse it.
 _WRAPPER_ASSIGNMENTS_NO_ANNOTATIONS = tuple(
     a for a in functools.WRAPPER_ASSIGNMENTS
     if a not in ("__annotations__", "__annotate__")

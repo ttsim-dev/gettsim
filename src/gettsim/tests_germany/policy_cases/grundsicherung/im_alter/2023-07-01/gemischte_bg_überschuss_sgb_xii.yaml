@@ -145,7 +145,7 @@ inputs:
           betrag_m:
             - 0.0
             - 1200.0
-        bezieht_rente:
+        bezieht_altersrente:
           - false
           - true
         erwerbsminderung:
