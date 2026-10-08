@@ -46,8 +46,9 @@ def einkommen_m_bis_2006(
     """Income considered for Grundsicherung im Alter.
 
     All pension income and wage-replacement benefits are fully counted as income
-    (§ 82 Abs. 1 S. 1 SGB XII); a net repayment is not a receipt. Erziehungsgeld is
-    not counted as income (§8 Abs. 1 BErzGG).
+    (§ 82 Abs. 1 S. 1 SGB XII). Repayments of such benefits do not reduce income, so the
+    sum of benefits enters only when it is positive. Erziehungsgeld is not counted as
+    income (§8 Abs. 1 BErzGG).
     """
     total_income = (
         erwerbseinkommen_m

@@ -150,8 +150,6 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
     )
 
-    # Lohn- und Einkommensersatzleistungen (§ 10 Abs. 2 WoGG a.F. from 2001; before
-    # that all receipts count, § 10 Abs. 1 WoGG a.F.); a net repayment is not a receipt.
     transfers = (
         max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m
@@ -199,8 +197,6 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
     )
 
-    # Lohn- und Einkommensersatzleistungen (§ 14 Abs. 2 Nr. 6 WoGG; § 10 Abs. 2 WoGG
-    # a.F. until 2008); a net repayment is not a receipt.
     transfers = (
         max(einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m, 0.0)
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m

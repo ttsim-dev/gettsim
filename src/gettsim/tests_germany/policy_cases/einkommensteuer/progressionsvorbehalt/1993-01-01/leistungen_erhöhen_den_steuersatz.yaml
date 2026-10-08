@@ -27,16 +27,9 @@ inputs:
       gemeinsam_veranlagt:
         - false
         - false
-      progressionsvorbehalt:
-        sonstige_leistungen_y:
-          - 0.0
-          - 0.0
       einkünfte:
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
-            - 0.0
-            - 0.0
-          aufstockungsbeträge_altersteilzeit_y:
             - 0.0
             - 0.0
       gesamteinkommen_y_sn:

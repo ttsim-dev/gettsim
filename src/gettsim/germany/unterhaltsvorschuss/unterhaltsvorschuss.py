@@ -336,8 +336,8 @@ def einkommen_m(
     """Calculate relevant income for advance on alimony payment.
 
     Income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 1 Abs. 1a S. 1 Nr. 2 UhVG), so
-    wage-replacement benefits including Elterngeld count; a net repayment is not a
-    receipt.
+    wage-replacement benefits including Elterngeld count. Repayments of such benefits
+    do not reduce income, so the sum of benefits enters only when it is positive.
     """
     return (
         einnahmen__bruttolohn_m

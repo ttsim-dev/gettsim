@@ -6,10 +6,8 @@ info:
     25.07.1988 BGBl. I S. 1093): before Elterngeld exists, the two nodes hold
     the same catalogue. Person 0: Arbeitslosengeld 1.000 + Kurzarbeitergeld 100
     + Insolvenzgeld 200 + Krankengeld 400 + Mutterschaftsgeld 500 +
-    Verletztengeld 600 + Aufstockungsbeträge 8.400/12 + sonstige 9.600/12 =
-    4.300 DM per month in both nodes. Person 1: Krankengeld 300 DM only. The
-    yearly inputs are multiples of twelve so that the automatic time conversion
-    is exact. Amounts in DM.
+    Verletztengeld 600 = 2.800 DM per month in both nodes. Person 1:
+    Krankengeld 300 DM only. Amounts in DM.
   precision_atol: 0.01
   source: ''
 inputs:
@@ -21,16 +19,6 @@ inputs:
     hh_id:
       - 0
       - 1
-    einkommensteuer:
-      progressionsvorbehalt:
-        sonstige_leistungen_y:
-          - 9600.0
-          - 0.0
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          aufstockungsbeträge_altersteilzeit_y:
-            - 8400.0
-            - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -56,11 +44,11 @@ inputs:
 outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-      - 4300.0
+      - 2800.0
       - 300.0
     lohn_und_einkommensersatzleistungen_m:
-      - 4300.0
+      - 2800.0
       - 300.0
     lohn_und_einkommensersatzleistungen_y:
-      - 51600.0
+      - 33600.0
       - 3600.0

@@ -3,13 +3,11 @@ info:
   note: >-
     Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1 EStG as amended by Art. 2 Abs. 6
     Nr. 2 G. v. 05.12.2006 BGBl. I S. 2748 (Elterngeld is Buchst. j from
-    01.01.2007). The node without Elterngeld sums Arbeitslosengeld and the seven
-    inputs: 1.200 + 100 + 200 + 400 + 500 + 600 + 8.400/12 + 9.600/12 = 4.500 €
-    per month; the full catalogue adds Elterngeld 300 € to 4.800 € per month.
-    The yearly nodes are twelve times the monthly ones. The yearly inputs are
-    multiples of twelve so that the automatic time conversion is exact. The full
-    yearly node replaces `einkommensteuer__progressionsvorbehalt__leistungen_y`
-    and feeds the Progressionsvorbehalt unchanged: 57.600 € before the
+    01.01.2007). The node without Elterngeld sums Arbeitslosengeld and the five
+    inputs: 1.200 + 100 + 200 + 400 + 500 + 600 = 3.000 € per month; the full
+    catalogue adds Elterngeld 300 € to 3.300 € per month. The yearly nodes are
+    twelve times the monthly ones. The full yearly node feeds the
+    Progressionsvorbehalt unchanged: 39.600 € before the
     Arbeitnehmer-Pauschbetrag deduction, which wages use up here.
   precision_atol: 0.01
   source: ''
@@ -26,15 +24,10 @@ inputs:
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
-      progressionsvorbehalt:
-        sonstige_leistungen_y:
-          - 9600.0
       einkünfte:
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
             - 0.0
-          aufstockungsbeträge_altersteilzeit_y:
-            - 8400.0
     einnahmen:
       bruttolohn_y:
         - 20000.0
@@ -60,14 +53,14 @@ inputs:
 outputs:
   einnahmen:
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-      - 4500.0
+      - 3000.0
     lohn_und_einkommensersatzleistungen_m:
-      - 4800.0
+      - 3300.0
     lohn_und_einkommensersatzleistungen_ohne_elterngeld_y:
-      - 54000.0
+      - 36000.0
     lohn_und_einkommensersatzleistungen_y:
-      - 57600.0
+      - 39600.0
   einkommensteuer:
     progressionsvorbehalt:
       leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 57600.0
+        - 39600.0

@@ -87,8 +87,9 @@ def bruttoeinkommen_m(
 ) -> float:
     """Sum up the gross income for calculation of basic subsistence.
 
-    Wage-replacement benefits, Elterngeld among them, are "Einnahmen in Geld"
-    (§ 11 Abs. 1 S. 1 SGB II); a net repayment is not a receipt.
+    Wage-replacement benefits including Elterngeld count as income (§ 11 Abs. 1 S. 1
+    SGB II). Repayments of such benefits are debts, which do not reduce income, so the
+    sum of benefits enters only when it is positive.
     """
     return (
         einnahmen__bruttolohn_m

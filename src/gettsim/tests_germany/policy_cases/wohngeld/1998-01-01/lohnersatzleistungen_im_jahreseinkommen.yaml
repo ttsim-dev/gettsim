@@ -33,10 +33,6 @@ inputs:
       betrag_y_sn:
         - 0.0
         - 0.0
-      progressionsvorbehalt:
-        sonstige_leistungen_y:
-          - 0.0
-          - 0.0
       einkünfte:
         aus_selbstständiger_arbeit:
           betrag_m:
@@ -46,9 +42,6 @@ inputs:
           einnahmen_nach_abzug_werbungskosten_m:
             - 0.0
             - 2000.0
-          aufstockungsbeträge_altersteilzeit_y:
-            - 0.0
-            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0

@@ -20,9 +20,10 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   wage income, enter the besonderer Steuersatz that applies to the taxable income; from
   1996, net repayments lower it. The rate is truncated to four decimals of a percent as
   in the examples of H 32b EStH 'Allgemeines'. The columns in
-  `einkommensteuer__progressionsvorbehalt` start in 1990; `einkommensteuer__betrag_y_sn`
-  and everything building on it change from 2002 for recipients of these benefits.
-  Foreign income under the Progressionsvorbehalt and § 34 EStG are not covered.
+  `einkommensteuer__progressionsvorbehalt` start in 1990, the tariff tax on the
+  Steuersatzeinkommen in 2002 with the tariff; `einkommensteuer__betrag_y_sn` and
+  everything building on it change from 2002 for recipients of these benefits. Foreign
+  income under the Progressionsvorbehalt and § 34 EStG are not covered.
 
   The benefits are summed in `einnahmen__lohn_und_einkommensersatzleistungen_m` (the
   full § 32b catalogue, with Elterngeld from 2007) and
@@ -41,11 +42,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `sozialversicherung__arbeitslosen__kurzarbeitergeld_m`,
   `sozialversicherung__arbeitslosen__insolvenzgeld_m`,
   `sozialversicherung__kranken__krankengeld_m`,
-  `sozialversicherung__kranken__mutterschaftsgeld_m`,
-  `sozialversicherung__unfall__verletztengeld_m`,
-  `einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__aufstockungsbeträge_altersteilzeit_y`,
-  and `einkommensteuer__progressionsvorbehalt__sonstige_leistungen_y`; alternatively,
-  the two sums can be passed directly. ({ghuser}`MImmesberger`)
+  `sozialversicherung__kranken__mutterschaftsgeld_m`, and
+  `sozialversicherung__unfall__verletztengeld_m`; alternatively, the two sums can be
+  passed directly. ({ghuser}`MImmesberger`)
 
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social

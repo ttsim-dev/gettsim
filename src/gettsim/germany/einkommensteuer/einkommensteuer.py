@@ -164,7 +164,6 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     progressionsvorbehalt__einzubeziehende_leistungen_y_sn: float,
-    progressionsvorbehalt__steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
     progressionsvorbehalt__besonderer_steuersatz_mit_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
@@ -172,8 +171,9 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
 
     Also referred to as "tarifliche ESt I".
 
-    With benefits under the Progressionsvorbehalt, the besonderer Steuersatz applies to
-    the taxable income (§ 32b EStG).
+    Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
+    income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
+    Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
     """
     if progressionsvorbehalt__einzubeziehende_leistungen_y_sn == 0.0:
         out = familie__anzahl_personen_sn * piecewise_polynomial(
@@ -182,18 +182,11 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
             parameters=parameter_einkommensteuertarif,
             xnp=xnp,
         )
-    elif progressionsvorbehalt__steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
-        # The rate is a whole number of millionths up to floating-point error; restoring
-        # that whole number keeps a full-Euro product from falling below it.
-        out = (
-            xnp.round(
-                progressionsvorbehalt__besonderer_steuersatz_mit_kinderfreibetrag * 1e6
-            )
-            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
-            / 1e6
-        )
     else:
-        out = 0.0
+        out = (
+            progressionsvorbehalt__besonderer_steuersatz_mit_kinderfreibetrag
+            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        )
     return out
 
 
@@ -212,15 +205,15 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     progressionsvorbehalt__einzubeziehende_leistungen_y_sn: float,
-    progressionsvorbehalt__steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
     progressionsvorbehalt__besonderer_steuersatz_ohne_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
     """Taxes without child allowance on Steuernummer level. Also referred to as
     "tarifliche ESt II".
 
-    With benefits under the Progressionsvorbehalt, the besonderer Steuersatz applies to
-    the taxable income (§ 32b EStG).
+    Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
+    income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
+    Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
     """
     if progressionsvorbehalt__einzubeziehende_leistungen_y_sn == 0.0:
         out = familie__anzahl_personen_sn * piecewise_polynomial(
@@ -228,18 +221,11 @@ def betrag_ohne_kinderfreibetrag_y_sn(
             parameters=parameter_einkommensteuertarif,
             xnp=xnp,
         )
-    elif progressionsvorbehalt__steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
-        # The rate is a whole number of millionths up to floating-point error; restoring
-        # that whole number keeps a full-Euro product from falling below it.
-        out = (
-            xnp.round(
-                progressionsvorbehalt__besonderer_steuersatz_ohne_kinderfreibetrag * 1e6
-            )
-            * gesamteinkommen_y_sn
-            / 1e6
-        )
     else:
-        out = 0.0
+        out = (
+            progressionsvorbehalt__besonderer_steuersatz_ohne_kinderfreibetrag
+            * gesamteinkommen_y_sn
+        )
     return out
 
 

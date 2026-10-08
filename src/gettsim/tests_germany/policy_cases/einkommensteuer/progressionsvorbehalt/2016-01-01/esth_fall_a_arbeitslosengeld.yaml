@@ -11,16 +11,9 @@ info:
 inputs:
   assumed:
     einkommensteuer:
-      progressionsvorbehalt:
-        sonstige_leistungen_y:
-          - 0.0
-          - 0.0
       einkünfte:
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
-            - 0.0
-            - 0.0
-          aufstockungsbeträge_altersteilzeit_y:
             - 0.0
             - 0.0
       zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:

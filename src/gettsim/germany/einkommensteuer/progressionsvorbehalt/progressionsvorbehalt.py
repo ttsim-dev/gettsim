@@ -2,7 +2,9 @@
 
 The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG (summed in
 `einnahmen__lohn_und_einkommensersatzleistungen_y`) are exempt from income tax but
-enter the rate that applies to the taxable income. Foreign income under the
+enter the rate that applies to the taxable income. The Steuersatzeinkommen is the
+taxable income plus these benefits; the besonderer Steuersatz is the tariff tax on the
+Steuersatzeinkommen divided by the Steuersatzeinkommen. Foreign income under the
 Progressionsvorbehalt (§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
 """
 
@@ -135,55 +137,123 @@ def steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
     )
 
 
-@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
-def steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
+@policy_function(
+    start_date="2002-01-01",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 1 und Abs. 5 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
     steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
     familie__anzahl_personen_sn: int,
+) -> float:
+    """Steuersatzeinkommen per person of the Steuernummer, without Kinderfreibetrag.
+
+    The amount the tariff is applied to under the splitting procedure, rounded down to
+    a full Euro amount.
+    """
+    return steuersatzeinkommen_ohne_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
+
+
+@policy_function(
+    start_date="2002-01-01",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 6 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
+    steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Tariff tax on the Steuersatzeinkommen, without Kinderfreibetrag.
-
-    The Steuersatzeinkommen per person is rounded down to a full Euro amount, and so is
-    the tax on it (§ 32a Abs. 1 EStG), before the tax is multiplied by the number of
-    persons (§ 32a Abs. 5 EStG). This rounding is applied in all years; rounding rules
-    of other versions of § 32a EStG are not modelled.
-    """
-    return familie__anzahl_personen_sn * xnp.floor(
-        piecewise_polynomial(
-            x=xnp.floor(
-                steuersatzeinkommen_ohne_kinderfreibetrag_y_sn
-                / familie__anzahl_personen_sn
-            ),
-            parameters=einkommensteuer__parameter_einkommensteuertarif,
-            xnp=xnp,
-        )
+    """Tariff tax on the Steuersatzeinkommen per person, without Kinderfreibetrag."""
+    return piecewise_polynomial(
+        x=steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y,
+        parameters=einkommensteuer__parameter_einkommensteuertarif,
+        xnp=xnp,
     )
 
 
-@policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
-def steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
+@policy_function(start_date="2002-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y: float,
+    familie__anzahl_personen_sn: int,
+) -> float:
+    """Tariff tax on the Steuersatzeinkommen of the Steuernummer, without Kinderfreibetrag.
+
+    The tax per person times the number of persons (§ 32a Abs. 5 EStG).
+    """
+    return (
+        familie__anzahl_personen_sn
+        * steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y
+    )
+
+
+@policy_function(
+    start_date="2002-01-01",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 1 und Abs. 5 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
     steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
     familie__anzahl_personen_sn: int,
+) -> float:
+    """Steuersatzeinkommen per person of the Steuernummer, with Kinderfreibetrag.
+
+    The amount the tariff is applied to under the splitting procedure, rounded down to
+    a full Euro amount.
+    """
+    return steuersatzeinkommen_mit_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
+
+
+@policy_function(
+    start_date="2002-01-01",
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 6 EStG",
+    ),
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
+    steuersatzeinkommen_je_person_mit_kinderfreibetrag_y: float,
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Tariff tax on the Steuersatzeinkommen, with Kinderfreibetrag.
+    """Tariff tax on the Steuersatzeinkommen per person, with Kinderfreibetrag."""
+    return piecewise_polynomial(
+        x=steuersatzeinkommen_je_person_mit_kinderfreibetrag_y,
+        parameters=einkommensteuer__parameter_einkommensteuertarif,
+        xnp=xnp,
+    )
 
-    The Steuersatzeinkommen per person is rounded down to a full Euro amount, and so is
-    the tax on it (§ 32a Abs. 1 EStG), before the tax is multiplied by the number of
-    persons (§ 32a Abs. 5 EStG). This rounding is applied in all years; rounding rules
-    of other versions of § 32a EStG are not modelled.
+
+@policy_function(start_date="2002-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
+def steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
+    steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y: float,
+    familie__anzahl_personen_sn: int,
+) -> float:
+    """Tariff tax on the Steuersatzeinkommen of the Steuernummer, with Kinderfreibetrag.
+
+    The tax per person times the number of persons (§ 32a Abs. 5 EStG).
     """
-    return familie__anzahl_personen_sn * xnp.floor(
-        piecewise_polynomial(
-            x=xnp.floor(
-                steuersatzeinkommen_mit_kinderfreibetrag_y_sn
-                / familie__anzahl_personen_sn
-            ),
-            parameters=einkommensteuer__parameter_einkommensteuertarif,
-            xnp=xnp,
-        )
+    return (
+        familie__anzahl_personen_sn
+        * steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y
     )
 
 
