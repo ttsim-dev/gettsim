@@ -91,7 +91,7 @@ gettsim = { path = ".", editable = true }
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "pint-0.26" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.feature.coverage.tasks]
 tests-with-cov = """\
   pytest --cov-report=xml --cov=./ \
