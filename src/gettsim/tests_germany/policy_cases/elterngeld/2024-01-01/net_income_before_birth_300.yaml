@@ -1,6 +1,7 @@
 ---
 info:
-  note: Tests that the Elterngeld replacement rate (lohnersatzanteil) is capped at 100% for low-income earnings.
+  note: Tests that the Elterngeld replacement rate (lohnersatzanteil) is capped at 100% for
+    low-income earnings.
   precision_atol: 0.01
   source: Section 2(2) BEEG regression test (#1240).
 inputs:
