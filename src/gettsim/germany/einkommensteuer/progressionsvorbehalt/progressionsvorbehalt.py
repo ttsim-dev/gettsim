@@ -2,11 +2,7 @@
 
 The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG (summed in
 `einnahmen__lohn_und_einkommensersatzleistungen_y`) are exempt from income tax but
-enter the rate that applies to the taxable income. The Steuersatzeinkommen is the
-taxable income plus these benefits, less repayments of such benefits
-(`zurückgezahlte_leistungen_y`); the besonderer Steuersatz is the tariff tax on the
-Steuersatzeinkommen divided by the Steuersatzeinkommen. Foreign income under the
-Progressionsvorbehalt (§ 32b Abs. 1 S. 1 Nr. 2 to 5 EStG) is not modelled.
+enter the calculation of the progressive tax rate ('Steuersatzeinkommen').
 """
 
 from __future__ import annotations
@@ -43,20 +39,19 @@ def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
         einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y
         > einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
     ):
-        out = 0.0
+        return 0.0
     else:
-        out = max(
+        return max(
             einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
             - einnahmen__bruttolohn_y,
             0.0,
         )
-    return out
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
     einnahmen__lohn_und_einkommensersatzleistungen_y: float,
-    zurückgezahlte_leistungen_y: float,
+    zurückgezahlte_lohn_und_einkommensersatzleistungen_m: float,
     nicht_abziehbarer_arbeitnehmerpauschbetrag_y: float,
 ) -> float:
     """Benefits net of repayments, less the Arbeitnehmer-Pauschbetrag not deductible
@@ -66,13 +61,13 @@ def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
     most; a negative net amount is not reduced further.
     """
     netto = (
-        einnahmen__lohn_und_einkommensersatzleistungen_y - zurückgezahlte_leistungen_y
+        einnahmen__lohn_und_einkommensersatzleistungen_y
+        - zurückgezahlte_lohn_und_einkommensersatzleistungen_m
     )
     if netto > 0.0:
-        out = max(netto - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
+        return max(netto - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
     else:
-        out = netto
-    return out
+        return netto
 
 
 @policy_function(
@@ -91,23 +86,6 @@ def einzubeziehende_leistungen_y_sn_nur_erhöhend(
     not lower the rate.
     """
     return max(leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn, 0.0)
-
-
-@policy_function(
-    start_date="1996-01-01",
-    leaf_name="einzubeziehende_leistungen_y_sn",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
-)
-def einzubeziehende_leistungen_y_sn_erhöhend_oder_mindernd(
-    leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn: float,
-) -> float:
-    """Benefits added to the taxable income to obtain the Steuersatzeinkommen.
-
-    § 32b Abs. 2 EStG as of the Jahressteuergesetz 1996 (Art. 1 Nr. 30 G. v. 11.10.1995
-    BGBl. I S. 1250): the taxable income is "vermehrt oder vermindert", so a negative
-    sum lowers the rate.
-    """
-    return leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
@@ -184,21 +162,6 @@ def steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
     )
 
 
-@policy_function(start_date="2002-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
-def steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
-    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y: float,
-    familie__anzahl_personen_sn: int,
-) -> float:
-    """Tariff tax on the Steuersatzeinkommen of the Steuernummer, without Kinderfreibetrag.
-
-    The tax per person times the number of persons (§ 32a Abs. 5 EStG).
-    """
-    return (
-        familie__anzahl_personen_sn
-        * steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y
-    )
-
-
 @policy_function(
     start_date="2002-01-01",
     rounding_spec=RoundingSpec(
@@ -244,21 +207,6 @@ def steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
     )
 
 
-@policy_function(start_date="2002-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
-def steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
-    steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y: float,
-    familie__anzahl_personen_sn: int,
-) -> float:
-    """Tariff tax on the Steuersatzeinkommen of the Steuernummer, with Kinderfreibetrag.
-
-    The tax per person times the number of persons (§ 32a Abs. 5 EStG).
-    """
-    return (
-        familie__anzahl_personen_sn
-        * steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y
-    )
-
-
 @policy_function(
     start_date="1990-01-01",
     rounding_spec=RoundingSpec(
@@ -280,7 +228,7 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
     """
     if steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
         # The ratio of two totals of the same Steuernummer carries no level.
-        out = cast_ttsim_unit(
+        return cast_ttsim_unit(
             steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
             unit=TTSIMUnit.CURRENCY.PER_YEAR,
         ) / cast_ttsim_unit(
@@ -288,8 +236,7 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
             unit=TTSIMUnit.CURRENCY.PER_YEAR,
         )
     else:
-        out = 0.0
-    return out
+        return 0.0
 
 
 @policy_function(

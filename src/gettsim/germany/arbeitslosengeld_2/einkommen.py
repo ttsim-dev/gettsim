@@ -85,11 +85,7 @@ def bruttoeinkommen_m(
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
-    """Sum up the gross income for calculation of basic subsistence.
-
-    Wage-replacement benefits including Elterngeld count as income (§ 11 Abs. 1 S. 1
-    SGB II).
-    """
+    """Sum up the gross income for calculation of basic subsistence."""
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
