@@ -15,6 +15,8 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1240` Cap Elterngeld replacement rate at 100% for low-income pre-birth
+  earnings per Section 2(2) BEEG. ({ghuser}`Fire162`)
 - {gh}`1233` Model Versicherungsfreiheit in der Renten- und Arbeitslosenversicherung for
   Rentner, Minijobber, people older than the Regelaltersgrenze. Changes affect social
   insurance contributions, Wohngeld Freibeträge, and Entgeltpunkte for the public
