@@ -268,10 +268,14 @@ def lohnersatzanteil(
         < nettoeinkommensstufen_für_lohnersatzrate["lower_threshold"]
         and mean_nettoeinkommen_in_12_monaten_vor_geburt_m > 0
     ):
-        out = satz + (
-            lohnersatzanteil_einkommen_untere_grenze_m
-            / einkommensschritte_korrektur_m
-            * prozent_korrektur
+        out = min(
+            satz
+            + (
+                lohnersatzanteil_einkommen_untere_grenze_m
+                / einkommensschritte_korrektur_m
+                * prozent_korrektur
+            ),
+            1.0,
         )
     # Lower replacement rate if considered income is above a threshold
     elif (

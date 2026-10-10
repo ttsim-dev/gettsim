@@ -15,6 +15,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1240` Cap Elterngeld replacement rate at 100% for low-income pre-birth earnings
+  per Section 2(2) BEEG. ({ghuser}`Fire162`)
+
 - {gh}`1237` Model the Progressionsvorbehalt for Lohn- und Einkommensersatzleistungen (§
   32b Abs. 1 S. 1 Nr. 1 EStG); these benefits now also count as income for Wohngeld,
   Arbeitslosengeld II / Bürgergeld, Grundsicherung im Alter, and Unterhaltsvorschuss.
