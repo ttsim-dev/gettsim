@@ -1,42 +1,13 @@
 ---
 info:
   note: >-
-    BFH v. 25.09.2014, III R 61/12 (BStBl II 2015 S. 182), Streitjahr 2009:
-    the Elterngeld of both spouses enters the rate in full. Husband: wages
-    35.970 €, Werbungskosten 1.142 € above the Arbeitnehmer-Pauschbetrag
-    of 920 €. Wife: wages 3.012 €, Werbungskosten 329 €, Pauschbetrag deducted
-    from her wages. The decision states no tax.
+    The decision states no tax.
   precision_atol: 0.01
-  source: https://urteile-gesetze.de/rechtsprechung/iii-r-61-12
+  source: >-
+    BFH v. 25.09.2014, III R 61/12, Rn. 1 and 2:
+    https://urteile-gesetze.de/rechtsprechung/iii-r-61-12
 inputs:
-  assumed:
-    einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-          - 0.0
-    sozialversicherung:
-      arbeitslosen:
-        betrag_y:
-          - 0.0
-          - 0.0
-        kurzarbeitergeld_y:
-          - 0.0
-          - 0.0
-        insolvenzgeld_y:
-          - 0.0
-          - 0.0
-      kranken:
-        krankengeld_y:
-          - 0.0
-          - 0.0
-        mutterschaftsgeld_y:
-          - 0.0
-          - 0.0
-      unfall:
-        verletztengeld_y:
-          - 0.0
-          - 0.0
+  assumed: {}
   provided:
     p_id:
       - 0
@@ -61,19 +32,43 @@ inputs:
       bruttolohn_y:
         - 35970.0
         - 3012.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
     elterngeld:
       betrag_y:
         - 1359.0
         - 761.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
-        - 0.0
-        - 0.0
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y:
-        - 1359.0
-        - 761.0
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 2120.0
-        - 2120.0
+    nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
+      - 0.0
+      - 0.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y:
+      - 1359.0
+      - 761.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 2120.0
+      - 2120.0

@@ -1,0 +1,36 @@
+---
+info:
+  note: >-
+    Without benefits under § 32b EStG the tariff of § 32a EStG gives the tax amount
+    directly; a truncated average rate times the z. v. E. would give 1 € less in both
+    cases.
+  precision_atol: 1.0e-06
+  source: >-
+    FG Düsseldorf v. 17.04.2019, 15 K 1127/18 E, Rn. 7, 9 and 26 (Einspruchsentscheidung
+    of the Finanzamt, VZ 2015, Grundtarif):
+    https://nrwe.justiz.nrw.de/fgs/duesseldorf/j2019/15_K_1127_18_E_Urteil_20190417.html
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      dem_progressionsvorbehalt_unterliegende_leistungen_y:
+        - 0.0
+      gesamteinkommen_y_sn:
+        - 75283.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 68131.0
+outputs:
+  einkommensteuer:
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 23357
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 20353

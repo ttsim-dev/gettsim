@@ -2,14 +2,9 @@
 info:
   data_currency: DM
   note: >-
-    Hand-derived from § 32b Abs. 1 Nr. 1 EStG 1990 (Art. 1 Nr. 28 G. v.
-    25.07.1988 BGBl. I S. 1093): before Elterngeld exists, the two nodes hold
-    the same catalogue. Person 0: Arbeitslosengeld 1.000 + Kurzarbeitergeld 100
-    + Insolvenzgeld 200 + Krankengeld 400 + Mutterschaftsgeld 500 +
-    Verletztengeld 600 = 2.800 DM per month in both nodes. Person 1:
-    Krankengeld 300 DM only. Amounts in DM.
+    Before Elterngeld exists, both sums contain the same benefits.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

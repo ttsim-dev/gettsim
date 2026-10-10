@@ -1,14 +1,10 @@
 ---
 info:
   note: >-
-    Hand-derived from § 11 Abs. 1 Satz 1 SGB II (Art. 1 G. v. 24.12.2003
-    BGBl. I S. 2954): "Einnahmen in Geld oder Geldeswert" are income, and no
-    exception covers the wage-replacement benefits, so the full § 32b catalogue
-    (before 2007 without Elterngeld) enters the gross income. Person 0:
-    Arbeitslosengeld 600 + Insolvenzgeld 300 = 900 €, no other income. Person 1:
-    wages 800 € and no benefits, gross income 800 €.
+    Lohn- und Einkommensersatzleistungen (before 2007 without Elterngeld) count in full
+    as gross income (§ 11 Abs. 1 S. 1 SGB II).
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

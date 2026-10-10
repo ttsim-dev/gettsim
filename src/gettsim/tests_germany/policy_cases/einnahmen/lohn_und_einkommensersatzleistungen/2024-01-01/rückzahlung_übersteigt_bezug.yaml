@@ -1,17 +1,10 @@
 ---
 info:
   note: >-
-    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1, Abs. 2 EStG: the sum of
-    benefits is "vermehrt oder vermindert" (Art. 1 Nr. 30 G. v. 11.10.1995
-    BGBl. I S. 1250), so a repayment that exceeds the receipts lowers the
-    Steuersatzeinkommen. Krankengeld 200 € per month, 2.400 € per year, less
-    repaid Arbeitslosengeld 8.400 € = -6.000 €. No wages, so the
-    Arbeitnehmer-Pauschbetrag (1.230 €) is not deductible from wage income; a
-    negative net amount is not reduced by it (§ 32b Abs. 2 Nr. 1 EStG). The
-    sums of benefits themselves stay at the receipts; the transfers read them
-    and never see the repayment.
+    A repayment exceeding the receipts makes the amount under the Progressionsvorbehalt
+    negative, while the sums of benefits read by the transfers stay at the receipts.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -23,9 +16,6 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 8400.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -35,6 +25,8 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 0.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 8400.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -63,8 +55,5 @@ outputs:
     lohn_und_einkommensersatzleistungen_y:
       - 2400.0
   einkommensteuer:
-    progressionsvorbehalt:
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - -6000.0
-      einzubeziehende_leistungen_y_sn:
-        - -6000.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - -6000.0

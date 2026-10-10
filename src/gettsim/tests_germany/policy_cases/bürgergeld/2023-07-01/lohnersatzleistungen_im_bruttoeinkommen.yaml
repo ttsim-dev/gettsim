@@ -1,18 +1,11 @@
 ---
 info:
   note: >-
-    Hand-derived from § 11 Abs. 1 Satz 1 SGB II: "Einnahmen in Geld" are
-    income; Arbeitslosengeld, Kurzarbeitergeld, Krankengeld and Elterngeld (in
-    full, § 10 Abs. 5 BEEG allowance not modelled) count. Person 0:
-    Kurzarbeitergeld 200 + Krankengeld 350 + Mutterschaftsgeld 390 + Elterngeld
-    370 = 1.310 €. Mutterschaftsgeld is counted in full by decision although
-    § 11a Abs. 1 Nr. 6 SGB II (Art. 1 Bürgergeld-Gesetz v. 16.12.2022 BGBl. I
-    S. 2328) exempts the § 19 MuSchG part from 01.07.2023; the single input
-    bundles it with the employer's Zuschuss and is not split. Person 1: wages
-    800 € and no benefits, gross income 800 €. Kinderzuschlag reads this income
-    unchanged.
+    Lohn- und Einkommensersatzleistungen including Elterngeld count in full as gross
+    income (§ 11 Abs. 1 S. 1 SGB II). The exemption of Mutterschaftsgeld under § 11a
+    Abs. 1 Nr. 6 SGB II from 01.07.2023 is not modelled.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

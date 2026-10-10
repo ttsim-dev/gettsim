@@ -7,10 +7,7 @@ info:
   source: |-
     https://www.bmas.de/SharedDocs/Downloads/DE/Publikationen/a207-sozialhilfe-und-grundsicherung.pdf?__blob=publicationFile&v=1
 inputs:
-  assumed:
-    einnahmen:
-      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-        - 0.0
+  assumed: {}
   provided:
     alter:
       - 68
@@ -41,6 +38,8 @@ inputs:
         - 0.0
       kapitalerträge_m:
         - 2.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0

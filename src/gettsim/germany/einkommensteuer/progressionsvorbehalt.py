@@ -1,8 +1,7 @@
 """Progressionsvorbehalt for wage-replacement benefits (§ 32b EStG).
 
-The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG (summed in
-`einnahmen__lohn_und_einkommensersatzleistungen_y`) are exempt from income tax but
-enter the calculation of the progressive tax rate ('Steuersatzeinkommen').
+The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG are exempt from income tax but enter the
+calculation of the tax rate via the Steuersatzeinkommen.
 """
 
 from __future__ import annotations
@@ -24,96 +23,82 @@ if TYPE_CHECKING:
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
+    einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y: float,
+    einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
     einnahmen__bruttolohn_y: float,
 ) -> float:
-    """Arbeitnehmer-Pauschbetrag not deductible from wage income.
+    """Part of the Arbeitnehmer-Pauschbetrag not deductible from wage income.
 
-    § 32b Abs. 2 Nr. 1 EStG deducts the Pauschbetrag from the benefits "soweit er nicht
-    bei der Ermittlung der Einkünfte aus nichtselbständiger Arbeit abziehbar ist".
-    Nothing is left when Werbungskosten above the Pauschbetrag were deducted from
-    wages.
+    § 32b Abs. 2 S. 1 Nr. 1 EStG deducts the Pauschbetrag from the benefits "soweit er
+    nicht bei der Ermittlung der Einkünfte aus nichtselbständiger Arbeit abziehbar
+    ist". Against wages it is deductible up to the amount of the wages (§ 9a S. 2
+    EStG), so the remainder above the wages is left for the benefits. Nothing is left
+    when actual Werbungskosten above the Pauschbetrag are deducted from wages (H 32b
+    EStH 'Arbeitnehmer-Pauschbetrag'; BFH v. 25.09.2014, III R 61/12).
     """
     if (
-        einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y
-        > einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+        einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y
+        > einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
     ):
-        return 0.0
+        out = 0.0
     else:
-        return max(
-            einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
+        out = max(
+            einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
             - einnahmen__bruttolohn_y,
             0.0,
         )
+    return out
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
-def leistungen_nach_abzug_arbeitnehmerpauschbetrag_y(
+def dem_progressionsvorbehalt_unterliegende_leistungen_y(
     einnahmen__lohn_und_einkommensersatzleistungen_y: float,
-    zurückgezahlte_lohn_und_einkommensersatzleistungen_m: float,
+    einnahmen__zurückgezahlte_lohn_und_einkommensersatzleistungen_y: float,
     nicht_abziehbarer_arbeitnehmerpauschbetrag_y: float,
 ) -> float:
-    """Benefits net of repayments, less the Arbeitnehmer-Pauschbetrag not deductible
-    from wage income.
+    """Benefits subject to the Progressionsvorbehalt.
 
-    § 32b Abs. 2 Nr. 1 EStG. The deduction reduces a positive net amount to zero at
-    most; a negative net amount is not reduced further.
+    The benefits net of repayments, less the part of the Arbeitnehmer-Pauschbetrag
+    not deductible from wage income (§ 32b Abs. 2 S. 1 Nr. 1 EStG). The Pauschbetrag
+    reduces positive net benefits to zero at most and is not subtracted from a net
+    repayment. The sum over the Steuernummer is added to the taxable income to obtain
+    the Steuersatzeinkommen and may be negative.
+
+    The 1990 wording ("die Summe der bezogenen Leistungen", Steuerreformgesetz 1990,
+    BT-Drs. 11/2157) was rephrased by the Jahressteuergesetz 1996 to "vermehrt oder
+    vermindert"; for wage-replacement benefits this codified the existing procedure
+    ("insoweit entsprechend dem bisher angewendeten Verfahren", BT-Drs. 13/901, p.
+    136), so one rule applies throughout.
     """
     netto = (
         einnahmen__lohn_und_einkommensersatzleistungen_y
-        - zurückgezahlte_lohn_und_einkommensersatzleistungen_m
+        - einnahmen__zurückgezahlte_lohn_und_einkommensersatzleistungen_y
     )
     if netto > 0.0:
-        return max(netto - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
+        out = max(netto - nicht_abziehbarer_arbeitnehmerpauschbetrag_y, 0.0)
     else:
-        return netto
-
-
-@policy_function(
-    start_date="1990-01-01",
-    end_date="1995-12-31",
-    leaf_name="einzubeziehende_leistungen_y_sn",
-    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
-)
-def einzubeziehende_leistungen_y_sn_nur_erhöhend(
-    leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn: float,
-) -> float:
-    """Benefits added to the taxable income to obtain the Steuersatzeinkommen.
-
-    § 32b Abs. 2 Nr. 1 EStG as of the Steuerreformgesetz 1990 (Art. 1 Nr. 28 G. v.
-    25.07.1988 BGBl. I S. 1093): the benefits are "einbezogen", so a negative sum does
-    not lower the rate.
-    """
-    return max(leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn, 0.0)
+        out = netto
+    return out
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 def steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
-    einkommensteuer__gesamteinkommen_y_sn: float,
-    einzubeziehende_leistungen_y_sn: float,
+    gesamteinkommen_y_sn: float,
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
 ) -> float:
-    """Steuersatzeinkommen without Kinderfreibetrag.
-
-    The income on which the besonderer Steuersatz is computed: the taxable income plus
-    `einzubeziehende_leistungen_y_sn` (§ 32b Abs. 2 EStG).
-    """
-    return einkommensteuer__gesamteinkommen_y_sn + einzubeziehende_leistungen_y_sn
+    """Steuersatzeinkommen without Kinderfreibetrag (§ 32b Abs. 2 EStG)."""
+    return gesamteinkommen_y_sn + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
 def steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
-    einkommensteuer__zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
-    einzubeziehende_leistungen_y_sn: float,
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
 ) -> float:
-    """Steuersatzeinkommen with Kinderfreibetrag.
-
-    The income on which the besonderer Steuersatz is computed: the taxable income plus
-    `einzubeziehende_leistungen_y_sn` (§ 32b Abs. 2 EStG).
-    """
+    """Steuersatzeinkommen with Kinderfreibetrag (§ 32b Abs. 2 EStG)."""
     return (
-        einkommensteuer__zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
-        + einzubeziehende_leistungen_y_sn
+        zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
     )
 
 
@@ -151,13 +136,17 @@ def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
 )
 def steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
     steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y: float,
-    einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Tariff tax on the Steuersatzeinkommen per person, without Kinderfreibetrag."""
+    """Tariff tax on the Steuersatzeinkommen per person, without Kinderfreibetrag.
+
+    Summed over the Steuernummer, this is the tariff tax on the Steuersatzeinkommen
+    (§ 32a Abs. 5 EStG).
+    """
     return piecewise_polynomial(
         x=steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y,
-        parameters=einkommensteuer__parameter_einkommensteuertarif,
+        parameters=parameter_einkommensteuertarif,
         xnp=xnp,
     )
 
@@ -196,13 +185,17 @@ def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
 )
 def steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
     steuersatzeinkommen_je_person_mit_kinderfreibetrag_y: float,
-    einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Tariff tax on the Steuersatzeinkommen per person, with Kinderfreibetrag."""
+    """Tariff tax on the Steuersatzeinkommen per person, with Kinderfreibetrag.
+
+    Summed over the Steuernummer, this is the tariff tax on the Steuersatzeinkommen
+    (§ 32a Abs. 5 EStG).
+    """
     return piecewise_polynomial(
         x=steuersatzeinkommen_je_person_mit_kinderfreibetrag_y,
-        parameters=einkommensteuer__parameter_einkommensteuertarif,
+        parameters=parameter_einkommensteuertarif,
         xnp=xnp,
     )
 
@@ -212,31 +205,36 @@ def steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
     rounding_spec=RoundingSpec(
         base=1e-6,
         direction="down",
-        reference="H 32b EStH 'Allgemeines', Beispiele",
+        reference=(
+            "H 32b EStH 'Allgemeines', Beispiele (Fall B: 11,9567 %); "
+            "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
+        ),
     ),
     unit=TTSIMUnit.DIMENSIONLESS,
 )
 def besonderer_steuersatz_ohne_kinderfreibetrag(
-    steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn: float,
     steuersatzeinkommen_ohne_kinderfreibetrag_y_sn: float,
 ) -> float:
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) without Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    truncated to four decimals of a percent as in the examples of H 32b EStH
-    'Allgemeines'; zero when the Steuersatzeinkommen is zero or negative.
+    truncated to four decimals of a percent; zero when the Steuersatzeinkommen is zero
+    or negative.
     """
     if steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
-        return cast_ttsim_unit(
-            steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
+        # A share of two Steuernummer totals; GEP 10 ('Restricted group calculations',
+        # rule 5) requires an explicit cast for dividing two group quantities.
+        out = cast_ttsim_unit(
+            steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn,
             unit=TTSIMUnit.CURRENCY.PER_YEAR,
         ) / cast_ttsim_unit(
             steuersatzeinkommen_ohne_kinderfreibetrag_y_sn,
             unit=TTSIMUnit.CURRENCY.PER_YEAR,
         )
     else:
-        return 0.0
+        out = 0.0
+    return out
 
 
 @policy_function(
@@ -244,24 +242,28 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
     rounding_spec=RoundingSpec(
         base=1e-6,
         direction="down",
-        reference="H 32b EStH 'Allgemeines', Beispiele",
+        reference=(
+            "H 32b EStH 'Allgemeines', Beispiele (Fall B: 11,9567 %); "
+            "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
+        ),
     ),
     unit=TTSIMUnit.DIMENSIONLESS,
 )
 def besonderer_steuersatz_mit_kinderfreibetrag(
-    steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
+    steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_sn: float,
     steuersatzeinkommen_mit_kinderfreibetrag_y_sn: float,
 ) -> float:
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) with Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    truncated to four decimals of a percent as in the examples of H 32b EStH
-    'Allgemeines'; zero when the Steuersatzeinkommen is zero or negative.
+    truncated to four decimals of a percent; zero when the Steuersatzeinkommen is zero
+    or negative.
     """
     if steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
-        # The ratio of two totals of the same Steuernummer carries no level.
+        # A share of two Steuernummer totals; GEP 10 ('Restricted group calculations',
+        # rule 5) requires an explicit cast for dividing two group quantities.
         out = cast_ttsim_unit(
-            steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn,
+            steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_sn,
             unit=TTSIMUnit.CURRENCY.PER_YEAR,
         ) / cast_ttsim_unit(
             steuersatzeinkommen_mit_kinderfreibetrag_y_sn,

@@ -1,36 +1,13 @@
 ---
 info:
   note: >-
-    Hand-derived from § 82 Abs. 1 Satz 1 SGB XII: "Zum Einkommen gehören alle
-    Einkünfte in Geld oder Geldeswert", so Arbeitslosengeld and the other
-    wage-replacement benefits count in full next to the pension; Elterngeld
-    enters as `elterngeld__anrechenbarer_betrag_m` (existing treatment,
-    unchanged). Person 0: gesetzliche Rente 500 + Arbeitslosengeld 100 +
-    Krankengeld 300 + Mutterschaftsgeld 200 + anrechenbares Elterngeld 160 =
-    1.260 €, no taxes or contributions. Mutterschaftsgeld is counted in full by
-    decision although § 82 Abs. 1 Satz 2 Nr. 5 SGB XII (Art. 5 Bürgergeld-Gesetz
-    v. 16.12.2022 BGBl. I S. 2328) exempts the § 19 MuSchG part from 01.01.2023.
-    Person 1: gesetzliche Rente 800 € and no benefits, income 800 €. Earnings,
-    zusätzliche Altersvorsorge and capital income are supplied as zero nodes.
+    Lohn- und Einkommensersatzleistungen count in full as income (§ 82 Abs. 1 SGB XII).
+    The exemption of Mutterschaftsgeld under § 82 Abs. 1 S. 2 Nr. 5 SGB XII from
+    01.01.2023 is not modelled.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
-  assumed:
-    grundsicherung:
-      im_alter:
-        erwerbseinkommen_m:
-          - 0.0
-          - 0.0
-        einkommen_aus_zusätzlicher_altersvorsorge_m:
-          - 0.0
-          - 0.0
-        kapitaleinkommen_brutto_m:
-          - 0.0
-          - 0.0
-    sozialversicherung:
-      beiträge_versicherter_m:
-        - 0.0
-        - 0.0
+  assumed: {}
   provided:
     p_id:
       - 0
@@ -67,6 +44,15 @@ inputs:
         gesetzliche_rente_m:
           - 500.0
           - 800.0
+        erwerbseinkommen_m:
+          - 0.0
+          - 0.0
+        einkommen_aus_zusätzlicher_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        kapitaleinkommen_brutto_m:
+          - 0.0
+          - 0.0
     elterngeld:
       anrechenbarer_betrag_m:
         - 160.0
@@ -93,6 +79,9 @@ inputs:
         verletztengeld_m:
           - 0.0
           - 0.0
+      beiträge_versicherter_m:
+        - 0.0
+        - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

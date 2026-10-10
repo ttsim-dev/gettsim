@@ -5,10 +5,7 @@ info:
   source: |-
     https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/stadt-wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2025-artikel.html
 inputs:
-  assumed:
-    einnahmen:
-      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-        - 0.0
+  assumed: {}
   provided:
     alter:
       - 57
@@ -46,6 +43,8 @@ inputs:
       bruttolohn_m:
         - 2000.0
       kapitalerträge_y:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
       renten:
         gesetzliche_m:

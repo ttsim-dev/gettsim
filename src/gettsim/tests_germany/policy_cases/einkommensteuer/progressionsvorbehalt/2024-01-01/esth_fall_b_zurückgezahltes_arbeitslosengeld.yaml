@@ -1,13 +1,11 @@
 ---
 info:
   note: >-
-    H 32b EStH 2024 'Allgemeines', Beispiele, Fall B: z. v. E. 40.000 €,
-    zurückgezahltes Arbeitslosengeld 3.000 €, Splittingtarif. Assumed:
-    Veranlagungszeitraum = edition year; the Arbeitnehmer-Pauschbetrag is used
-    up by wage income; no Kinderfreibetrag. The printed rate has four decimals
-    of a percent.
+    Assumed: Veranlagungszeitraum 2024. Assumed: wages use up the
+    Arbeitnehmer-Pauschbetrag and there is no Kinderfreibetrag.
   precision_atol: 1.0e-06
   source: >-
+    H 32b EStH 2024, 'Allgemeines', Beispiele, Fall B:
     https://esth.bundesfinanzministerium.de/esth/2024/A-Einkommensteuergesetz/IV-Tarif-31-34b/Paragraf-32b/inhalt.html
 inputs:
   assumed:
@@ -24,8 +22,29 @@ inputs:
       bruttolohn_y:
         - 20000.0
         - 20000.0
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+      gesamteinkommen_y_sn:
+        - 40000.0
+        - 40000.0
     sozialversicherung:
       arbeitslosen:
+        betrag_y:
+          - 0.0
+          - 0.0
         kurzarbeitergeld_y:
           - 0.0
           - 0.0
@@ -43,49 +62,25 @@ inputs:
         verletztengeld_y:
           - 0.0
           - 0.0
+    einnahmen:
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 3000.0
+        - 0.0
     elterngeld:
       betrag_y:
         - 0.0
         - 0.0
-  provided:
-    p_id:
-      - 0
-      - 1
-    hh_id:
-      - 0
-      - 0
-    familie:
-      p_id_ehepartner:
-        - 1
-        - 0
-    einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 3000.0
-          - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
-      gesamteinkommen_y_sn:
-        - 40000.0
-        - 40000.0
-    sozialversicherung:
-      arbeitslosen:
-        betrag_y:
-          - 0.0
-          - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 37000.0
-        - 37000.0
-      steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 2706
-        - 2706
-      besonderer_steuersatz_ohne_kinderfreibetrag:
-        - 0.073135
-        - 0.073135
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 37000.0
+      - 37000.0
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+      - 2706
+      - 2706
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.073135
+      - 0.073135
     betrag_ohne_kinderfreibetrag_y_sn:
       - 2925
       - 2925

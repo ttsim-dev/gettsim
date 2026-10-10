@@ -1,16 +1,9 @@
 ---
 info:
   note: >-
-    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1 EStG as amended by Art. 2 Abs. 6
-    Nr. 2 G. v. 05.12.2006 BGBl. I S. 2748 (Elterngeld is Buchst. j from
-    01.01.2007). The node without Elterngeld sums Arbeitslosengeld and the five
-    inputs: 1.200 + 100 + 200 + 400 + 500 + 600 = 3.000 € per month; the full
-    catalogue adds Elterngeld 300 € to 3.300 € per month. The yearly nodes are
-    twelve times the monthly ones. The full yearly node feeds the
-    Progressionsvorbehalt unchanged: 39.600 € before the
-    Arbeitnehmer-Pauschbetrag deduction, which wages use up here.
+    From 2007, the full sum adds Elterngeld to the sum without it.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -22,9 +15,6 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -34,6 +24,8 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -64,6 +56,5 @@ outputs:
     lohn_und_einkommensersatzleistungen_y:
       - 39600.0
   einkommensteuer:
-    progressionsvorbehalt:
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 39600.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 39600.0

@@ -5,12 +5,7 @@ info:
   source: |-
     https://www.bmwsb.bund.de/SiteGlobals/Forms/wohngeldrechner/wohngeldrechner-2023-formular.html?resourceId=18737268&input_=18737272&pageLocale=de&householdMembers=3&housingbenefitRecipients=3&income=1365&rent=700&rentLevelZIPCode=73434&rentLevelTown=3&rentLevelTown.GROUP=1&rentLevel=3&rentLevel.GROUP=3&update=Berechnen&result=425%2C00
 inputs:
-  assumed:
-    einnahmen:
-      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-        - 0.0
-        - 0.0
-        - 0.0
+  assumed: {}
   provided:
     alter:
       - 39
@@ -74,6 +69,10 @@ inputs:
         - 1050.0
         - 0.0
       kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
         - 0.0

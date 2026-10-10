@@ -2,15 +2,11 @@
 info:
   data_currency: DM
   note: >-
-    Hand-derived from § 32b Abs. 2 EStG: the besonderer Steuersatz is the tariff
-    tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen. z. v. E.
-    30.000 DM, Arbeitslosengeld 10.000 DM, Steuersatzeinkommen 40.000 DM. The
-    tariff tax on the Steuersatzeinkommen is an assumed input of 8.000 DM
-    because GETTSIM has no tariff before 2002: 8.000 / 40.000 = 0,2. Person 1:
-    repayment of 40.000 DM, Steuersatzeinkommen -10.000 DM, rate 0. Amounts in
-    DM.
+    The besonderer Steuersatz is the tariff tax on the Steuersatzeinkommen divided by
+    the Steuersatzeinkommen, and zero for a negative Steuersatzeinkommen. The tariff tax
+    is supplied because GETTSIM has no tariff before 2002.
   precision_atol: 1.0e-06
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -28,13 +24,9 @@ inputs:
       gemeinsam_veranlagt:
         - false
         - false
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-          - 40000.0
-        steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-          - 8000.0
-          - 0.0
+      steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+        - 8000.0
+        - 0.0
       einkünfte:
         aus_nichtselbstständiger_arbeit:
           tatsächliche_werbungskosten_y:
@@ -50,6 +42,9 @@ inputs:
       bruttolohn_y:
         - 20000.0
         - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 40000.0
     sozialversicherung:
       arbeitslosen:
         betrag_y:
@@ -74,10 +69,9 @@ inputs:
           - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 40000.0
-        - -10000.0
-      besonderer_steuersatz_ohne_kinderfreibetrag:
-        - 0.2
-        - 0.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 40000.0
+      - -10000.0
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.2
+      - 0.0

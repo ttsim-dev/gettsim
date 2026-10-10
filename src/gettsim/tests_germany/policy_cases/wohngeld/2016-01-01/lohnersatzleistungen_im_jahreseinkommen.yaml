@@ -1,23 +1,15 @@
 ---
 info:
   note: >-
-    § 14 Abs. 2 Nr. 6 WoGG (Art. 1 G. v. 24.09.2008 BGBl. I S. 1856): the
-    Lohn- und Einkommensersatzleistungen nach § 32b Abs. 1 Satz 1 Nr. 1 EStG
-    belong to the Jahreseinkommen; § 10 BEEG "bleibt unberührt". No taxes or
-    contributions are paid, so the § 16 WoGG deduction is zero (G. v.
-    02.10.2015 BGBl. I S. 1610; BMI-Erlass v. 06.04.2020 says the same for
-    Kurzarbeitergeld without wages). Person 0 is WoGVwV Nr. 14.21.6 Abs. 4
-    (Beispiel): Mutterschaftsgeld 390 €, Elterngeld claim 760 € reduced by it
-    to 370 € paid; "wohngeldrechtlich anrechenbar sind ... 460 Euro". GETTSIM
-    reaches 460 as 390 + (370 - 300) with `elterngeld__anrechenbarer_betrag_m`
-    = 70 supplied (derived; the allowance on Elterngeld alone coincides with
-    the shared allowance of the source whenever the paid Elterngeld is at least
-    300 €). Person 1: Kurzarbeitergeld 900 € only, income 900 €. Person 2:
-    wages after Werbungskosten 2.000 € and no benefits, income 2.000 €
-    (hand-derived). Assumed: single birth,
-    Basiselterngeld, month entirely after the birth, no employer Zuschuss.
+    Only person 0 is from the source; persons 1 and 2 are a regression test. Assumed:
+    `elterngeld__anrechenbarer_betrag_m` of 70 € (paid Elterngeld of 370 € less 300 €),
+    which gives the 460 € of the source together with the Mutterschaftsgeld of 390 €.
+    Assumed: single birth, Basiselterngeld, month entirely after the birth, no Zuschuss
+    of the employer.
   precision_atol: 0.01
-  source: https://dserver.bundestag.de/brd/2017/0284-17.pdf
+  source: >-
+    WoGVwV Nr. 14.21.6 Abs. 4, Beispiel (BR-Drs. 284/17, S. 42):
+    https://dserver.bundestag.de/brd/2017/0284-17.pdf
 inputs:
   assumed:
     elterngeld:

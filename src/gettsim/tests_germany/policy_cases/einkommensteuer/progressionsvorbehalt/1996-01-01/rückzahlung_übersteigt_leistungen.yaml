@@ -2,12 +2,9 @@
 info:
   data_currency: DM
   note: >-
-    Hand-derived: z. v. E. 30.000 DM, repaid Krankengeld 3.000 DM, no benefits
-    received. From VZ 1996 the taxable income is 'vermehrt oder vermindert'
-    (Art. 1 Nr. 30 G. v. 11.10.1995 BGBl. I S. 1250), so the negative sum
-    lowers the rate: Steuersatzeinkommen 27.000 DM. Amounts in DM.
+    A repayment exceeding the benefits lowers the Steuersatzeinkommen.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -19,9 +16,6 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 3000.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -35,6 +29,8 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 3000.0
     sozialversicherung:
       arbeitslosen:
         betrag_y:
@@ -53,10 +49,7 @@ inputs:
           - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - -3000.0
-      einzubeziehende_leistungen_y_sn:
-        - -3000.0
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 27000.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - -3000.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 27000.0

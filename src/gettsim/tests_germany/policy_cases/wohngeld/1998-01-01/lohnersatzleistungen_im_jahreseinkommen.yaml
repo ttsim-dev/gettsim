@@ -2,16 +2,9 @@
 info:
   data_currency: DM
   note: >-
-    Hand-derived from § 10 Abs. 1 WoGG a.F. (Neufassung v. 01.02.1993 BGBl. I
-    S. 183): the Jahreseinkommen is every receipt in money, taxable or not, so
-    wage-replacement benefits count in full; § 17 WoGG a.F. deducts 6 % when
-    neither taxes nor contributions are paid (the 6 % is GETTSIM's existing
-    § 17 parameter for that case). Person 0: Krankengeld 1.200 + Kurzarbeitergeld
-    300 = 1.500 DM, no other income, income before Freibetrag 0,94 x 1.500 =
-    1.410 DM. Person 1: wages after Werbungskosten 2.000 DM and no benefits, income
-    0,94 x 2.000 = 1.880 DM. Amounts in DM.
+    Lohn- und Einkommensersatzleistungen count in full in the Jahreseinkommen.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

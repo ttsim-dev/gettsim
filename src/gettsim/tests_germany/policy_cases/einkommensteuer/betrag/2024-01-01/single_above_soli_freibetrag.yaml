@@ -4,13 +4,11 @@ info:
   precision_atol: 1
   source: https://www.bmf-steuerrechner.de
 inputs:
-  assumed:
-    einkommensteuer:
-      progressionsvorbehalt:
-        leistungen_nach_abzug_arbeitnehmerpauschbetrag_y:
-          - 0.0
+  assumed: {}
   provided:
     einkommensteuer:
+      dem_progressionsvorbehalt_unterliegende_leistungen_y:
+        - 0.0
       gemeinsam_veranlagt:
         - false
       gesamteinkommen_y_sn:

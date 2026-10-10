@@ -1,17 +1,10 @@
 ---
 info:
   note: >-
-    Hand-derived from § 1 Abs. 1a Satz 1 Nr. 2 UhVG (Art. 23 G. v. 14.08.2017
-    BGBl. I S. 3122): for a child aged 12 to 17 the parent needs "Einkommen im
-    Sinne des § 11 Absatz 1 Satz 1 SGB II" of at least 600 € per month, so
-    Krankengeld and Elterngeld count like under the SGB II (Elterngeld in full,
-    § 10 Abs. 5 BEEG allowance not modelled). Household 0: wages 300 +
-    Elterngeld 200 + Krankengeld 150 = 650 € >= 600 €, the child receives the
-    full 268 € (amount of the existing 2017-07-01 cases); without either
-    addition the income would fall short. Household 1: wages 700 € and no
-    benefits, income 700 € >= 600 €, the child receives 268 €.
+    Krankengeld and Elterngeld count towards the minimum income of the parent (§ 1 Abs.
+    1a S. 1 Nr. 2 UhVG).
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:

@@ -8,18 +8,7 @@ info:
   source: |-
     https://www.bmwsb.bund.de/Webs/BMWSB/DE/themen/wohnen/wohnraumfoerderung/wohngeld/wohngeldrechner-2023-artikel.html
 inputs:
-  assumed:
-    einnahmen:
-      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-      lohn_und_einkommensersatzleistungen_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
+  assumed: {}
   provided:
     alter:
       - 40
@@ -91,6 +80,16 @@ inputs:
         - 0.0
         - 0.0
       kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
         - 0.0

@@ -2,16 +2,13 @@
 info:
   data_currency: DM
   note: >-
-    BFH v. 09.08.2001, III R 50/00 (BStBl II 2001 S. 778), VZ 1998, getrennte
-    Veranlagung: z. v. E. 9.739 DM, Arbeitslosen- und Übergangsgeld 29.203
-    DM (entered as Arbeitslosengeld; the decision gives no split), Einkünfte
-    aus nichtselbständiger Arbeit 8.252 DM. The benefits enter the rate
-    in full. Assumed: gross wage 10.252 DM, so the Arbeitnehmer-Pauschbetrag
-    of 2.000 DM is used up. The Steuersatzeinkommen of 38.942 DM is not printed in
-    the decision. The assessed tax of 1.882 DM is not a target: GETTSIM
-    has no tariff for 1998. Amounts in DM.
+    Assumed: the Arbeitslosen- und Übergangsgeld is entered as Arbeitslosengeld because
+    the decision gives no split. Assumed: gross wage of 10.252 DM (Einkünfte of 8.252 DM
+    plus the Arbeitnehmer-Pauschbetrag of 2.000 DM) and no Kinderfreibetrag. The
+    assessed tax of 1.882 DM is not a target because GETTSIM has no tariff before 2002.
   precision_atol: 0.01
   source: >-
+    BFH v. 09.08.2001, III R 50/00, Tatbestand I:
     https://www.haufe.de/id/entscheidung/bfh-urteil-vom-09082001-iii-r-5000-HI640742.html
 inputs:
   assumed:
@@ -25,8 +22,23 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 10252.0
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      gesamteinkommen_y_sn:
+        - 9739.0
     sozialversicherung:
       arbeitslosen:
+        betrag_y:
+          - 29203.0
         kurzarbeitergeld_y:
           - 0.0
         insolvenzgeld_y:
@@ -39,32 +51,14 @@ inputs:
       unfall:
         verletztengeld_y:
           - 0.0
-  provided:
-    p_id:
-      - 0
-    hh_id:
-      - 0
-    familie:
-      p_id_ehepartner:
-        - -1
-    einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-      gemeinsam_veranlagt:
-        - false
-      gesamteinkommen_y_sn:
-        - 9739.0
-    sozialversicherung:
-      arbeitslosen:
-        betrag_y:
-          - 29203.0
+    einnahmen:
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
-        - 0.0
-      einzubeziehende_leistungen_y_sn:
-        - 29203.0
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 38942.0
+    nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
+      - 0.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 29203.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 38942.0

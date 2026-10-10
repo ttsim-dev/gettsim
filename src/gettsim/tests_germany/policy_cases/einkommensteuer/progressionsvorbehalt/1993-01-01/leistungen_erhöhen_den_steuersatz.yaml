@@ -2,14 +2,10 @@
 info:
   data_currency: DM
   note: >-
-    Hand-derived from § 32b Abs. 1 Nr. 1, Abs. 2 Nr. 1 EStG 1990 (Art. 1
-    Nr. 28 G. v. 25.07.1988 BGBl. I S. 1093): the benefits less the unused
-    Arbeitnehmer-Pauschbetrag (2.000 DM) are 'einbezogen'. Person 0: z.
-    v. E. 30.000 DM, Krankengeld 6.000 DM, Pauschbetrag used up by wages,
-    Steuersatzeinkommen 36.000 DM. Person 1: no wages, Arbeitslosengeld 5.000 DM less
-    2.000 DM, Steuersatzeinkommen 33.000 DM. Amounts in DM.
+    Benefits less the Arbeitnehmer-Pauschbetrag not used against wages raise the
+    Steuersatzeinkommen.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -24,10 +20,6 @@ inputs:
         - -1
         - -1
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-          - 0.0
       gemeinsam_veranlagt:
         - false
         - false
@@ -45,6 +37,9 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 20000.0
+        - 0.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
         - 0.0
     sozialversicherung:
       arbeitslosen:
@@ -70,16 +65,12 @@ inputs:
           - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 6000.0
-        - 3000.0
-      einzubeziehende_leistungen_y_sn:
-        - 6000.0
-        - 3000.0
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 36000.0
-        - 33000.0
-      steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
-        - 36000.0
-        - 33000.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 6000.0
+      - 3000.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 36000.0
+      - 33000.0
+    steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
+      - 36000.0
+      - 33000.0

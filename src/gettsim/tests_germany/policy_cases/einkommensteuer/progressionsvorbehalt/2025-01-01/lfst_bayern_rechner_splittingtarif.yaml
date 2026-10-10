@@ -1,18 +1,32 @@
 ---
 info:
   note: >-
-    Splittingtarif 2025, expected values from the Progressionsvorbehalt calculator
-    of the Bayerisches Landesamt für Steuern, which truncates the rate to four decimals
-    of a percent and the tax to full Euro. Wages use up the Arbeitnehmer-Pauschbetrag.
-    couple 0: z. v. E. 60.000 €, arbeitslosengeld 12.000 €, Arbeitslosengeld raises
-    the rate; couple 1: z. v. E. 60.000 €, krankengeld -4.000 €, repaid Krankengeld
-    lowers the rate; couple 2: z. v. E. 80.000 € ohne and 66.000 € mit Kinderfreibetrag,
-    arbeitslosengeld 12.000 €.
+    Assumed: wages use up the Arbeitnehmer-Pauschbetrag, so the calculator's
+    Progressionseinkünfte are the benefits less repayments.
   precision_atol: 1.0e-06
   source: >-
+    LfSt Bayern Progressionsvorbehalt-Rechner, Splittingtarif 2025:
     https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
 inputs:
-  assumed: {}
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
   provided:
     p_id:
       - 0
@@ -37,14 +51,6 @@ inputs:
         - 5
         - 4
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-          - 0.0
-          - 4000.0
-          - 0.0
-          - 0.0
-          - 0.0
       gemeinsam_veranlagt:
         - true
         - true
@@ -52,15 +58,6 @@ inputs:
         - true
         - true
         - true
-      einkünfte:
-        aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
       gesamteinkommen_y_sn:
         - 60000.0
         - 60000.0
@@ -76,13 +73,13 @@ inputs:
         - 66000.0
         - 66000.0
     einnahmen:
-      bruttolohn_y:
-        - 20000.0
-        - 20000.0
-        - 20000.0
-        - 20000.0
-        - 20000.0
-        - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
+        - 4000.0
+        - 0.0
+        - 0.0
+        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_y:
@@ -139,49 +136,48 @@ inputs:
         - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 72000.0
-        - 72000.0
-        - 56000.0
-        - 56000.0
-        - 92000.0
-        - 92000.0
-      steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 12142
-        - 12142
-        - 7484
-        - 7484
-        - 18600
-        - 18600
-      besonderer_steuersatz_ohne_kinderfreibetrag:
-        - 0.168638
-        - 0.168638
-        - 0.133642
-        - 0.133642
-        - 0.202173
-        - 0.202173
-      steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
-        - 72000.0
-        - 72000.0
-        - 56000.0
-        - 56000.0
-        - 78000.0
-        - 78000.0
-      steuer_auf_steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
-        - 12142
-        - 12142
-        - 7484
-        - 7484
-        - 14006
-        - 14006
-      besonderer_steuersatz_mit_kinderfreibetrag:
-        - 0.168638
-        - 0.168638
-        - 0.133642
-        - 0.133642
-        - 0.179564
-        - 0.179564
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 72000.0
+      - 72000.0
+      - 56000.0
+      - 56000.0
+      - 92000.0
+      - 92000.0
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+      - 12142
+      - 12142
+      - 7484
+      - 7484
+      - 18600
+      - 18600
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.168638
+      - 0.168638
+      - 0.133642
+      - 0.133642
+      - 0.202173
+      - 0.202173
+    steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
+      - 72000.0
+      - 72000.0
+      - 56000.0
+      - 56000.0
+      - 78000.0
+      - 78000.0
+    steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_sn:
+      - 12142
+      - 12142
+      - 7484
+      - 7484
+      - 14006
+      - 14006
+    besonderer_steuersatz_mit_kinderfreibetrag:
+      - 0.168638
+      - 0.168638
+      - 0.133642
+      - 0.133642
+      - 0.179564
+      - 0.179564
     betrag_ohne_kinderfreibetrag_y_sn:
       - 10118
       - 10118

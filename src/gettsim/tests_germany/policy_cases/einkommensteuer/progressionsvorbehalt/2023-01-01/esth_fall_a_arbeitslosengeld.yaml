@@ -1,12 +1,11 @@
 ---
 info:
   note: >-
-    H 32b EStH 2023 'Allgemeines', Beispiele, Fall A: z. v. E. 40.000 €,
-    Arbeitslosengeld 10.000 €, Splittingtarif. Assumed: Veranlagungszeitraum
-    = edition year; the Arbeitnehmer-Pauschbetrag is used up by wage income;
-    no Kinderfreibetrag. The printed rate has four decimals of a percent.
+    Assumed: Veranlagungszeitraum 2023. Assumed: wages use up the
+    Arbeitnehmer-Pauschbetrag and there is no Kinderfreibetrag.
   precision_atol: 1.0e-06
   source: >-
+    H 32b EStH 2023, 'Allgemeines', Beispiele, Fall A:
     https://esth.bundesfinanzministerium.de/esth/2023/A-Einkommensteuergesetz/IV-Tarif/Paragraf-32b/inhalt.html
 inputs:
   assumed:
@@ -23,8 +22,29 @@ inputs:
       bruttolohn_y:
         - 20000.0
         - 20000.0
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+      gesamteinkommen_y_sn:
+        - 40000.0
+        - 40000.0
     sozialversicherung:
       arbeitslosen:
+        betrag_y:
+          - 10000.0
+          - 0.0
         kurzarbeitergeld_y:
           - 0.0
           - 0.0
@@ -42,49 +62,25 @@ inputs:
         verletztengeld_y:
           - 0.0
           - 0.0
+    einnahmen:
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
     elterngeld:
       betrag_y:
         - 0.0
         - 0.0
-  provided:
-    p_id:
-      - 0
-      - 1
-    hh_id:
-      - 0
-      - 0
-    familie:
-      p_id_ehepartner:
-        - 1
-        - 0
-    einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
-          - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
-      gesamteinkommen_y_sn:
-        - 40000.0
-        - 40000.0
-    sozialversicherung:
-      arbeitslosen:
-        betrag_y:
-          - 10000.0
-          - 0.0
 outputs:
   einkommensteuer:
-    progressionsvorbehalt:
-      steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 50000.0
-        - 50000.0
-      steuer_auf_steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
-        - 6560
-        - 6560
-      besonderer_steuersatz_ohne_kinderfreibetrag:
-        - 0.1312
-        - 0.1312
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 50000.0
+      - 50000.0
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+      - 6560
+      - 6560
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.1312
+      - 0.1312
     betrag_ohne_kinderfreibetrag_y_sn:
       - 5248
       - 5248

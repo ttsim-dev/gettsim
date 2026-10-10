@@ -4,12 +4,7 @@ info:
   precision_atol: 0.01
   source: https://www.smart-rechner.de/wohngeld/rechner.php
 inputs:
-  assumed:
-    einnahmen:
-      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
-        - 0.0
-      lohn_und_einkommensersatzleistungen_m:
-        - 0.0
+  assumed: {}
   provided:
     alter:
       - 57
@@ -45,6 +40,10 @@ inputs:
       bruttolohn_m:
         - 1050.0
       kapitalerträge_y:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
       renten:
         gesetzliche_m:

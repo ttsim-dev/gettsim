@@ -1,11 +1,9 @@
 ---
 info:
   note: >-
-    Hand-derived from § 32b Abs. 1 Satz 1 Nr. 1 EStG: every benefit of the
-    catalogue enters the sum. 1.200 + 2.400 + 100 + 200 + 400 + 500 + 600
-    = 5.400 €. Wages use up the Arbeitnehmer-Pauschbetrag.
+    Every benefit of the catalogue in § 32b Abs. 1 S. 1 Nr. 1 EStG enters the sum.
   precision_atol: 0.01
-  source: ''
+  source: Regression test.
 inputs:
   assumed: {}
   provided:
@@ -17,9 +15,6 @@ inputs:
       p_id_ehepartner:
         - -1
     einkommensteuer:
-      progressionsvorbehalt:
-        zurückgezahlte_lohn_und_einkommensersatzleistungen_m:
-          - 0.0
       gemeinsam_veranlagt:
         - false
       einkünfte:
@@ -29,6 +24,8 @@ inputs:
     einnahmen:
       bruttolohn_y:
         - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_y:
@@ -53,6 +50,5 @@ outputs:
     lohn_und_einkommensersatzleistungen_y:
       - 5400.0
   einkommensteuer:
-    progressionsvorbehalt:
-      leistungen_nach_abzug_arbeitnehmerpauschbetrag_y_sn:
-        - 5400.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 5400.0
