@@ -131,7 +131,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
     einnahmen__kapitalerträge_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -151,7 +151,7 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
     )
 
     transfers = (
-        sozialversicherung__arbeitslosen__betrag_m
+        einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
@@ -173,7 +173,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__einnahmen_nach_abzug_werbungskosten_m: float,
     einnahmen__kapitalerträge_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m: float,
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
@@ -198,7 +198,7 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
     )
 
     transfers = (
-        sozialversicherung__arbeitslosen__betrag_m
+        einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + einkommensteuer__einkünfte__sonstige__rente__steuerpflichtige_einnahmen_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m

@@ -1,0 +1,72 @@
+---
+info:
+  note: >-
+    Lohn- und Einkommensersatzleistungen (before 2007 without Elterngeld) count in full
+    as gross income (§ 11 Abs. 1 S. 1 SGB II).
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 800.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+      renten:
+        betrag_gesamt_m:
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 600.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 300.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_m:
+      - 900.0
+      - 0.0
+  arbeitslosengeld_2:
+    bruttoeinkommen_m:
+      - 900.0
+      - 800.0

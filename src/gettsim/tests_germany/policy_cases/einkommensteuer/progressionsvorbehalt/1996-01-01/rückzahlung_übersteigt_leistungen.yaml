@@ -1,0 +1,55 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    A repayment exceeding the benefits lowers the Steuersatzeinkommen.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 30000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 30000.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 3000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+outputs:
+  einkommensteuer:
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - -3000.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 27000.0

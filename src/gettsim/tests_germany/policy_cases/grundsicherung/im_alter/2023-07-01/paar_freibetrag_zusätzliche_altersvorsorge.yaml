@@ -79,6 +79,11 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 50.0

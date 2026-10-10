@@ -1,0 +1,64 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Assumed: the Arbeitslosen- und Übergangsgeld is entered as Arbeitslosengeld because
+    the decision gives no split. Assumed: gross wage of 10.252 DM (Einkünfte of 8.252 DM
+    plus the Arbeitnehmer-Pauschbetrag of 2.000 DM) and no Kinderfreibetrag. The
+    assessed tax of 1.882 DM is not a target because GETTSIM has no tariff before 2002.
+  precision_atol: 0.01
+  source: >-
+    BFH v. 09.08.2001, III R 50/00, Tatbestand I:
+    https://www.haufe.de/id/entscheidung/bfh-urteil-vom-09082001-iii-r-5000-HI640742.html
+inputs:
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 9739.0
+    einnahmen:
+      bruttolohn_y:
+        - 10252.0
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      gesamteinkommen_y_sn:
+        - 9739.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 29203.0
+        kurzarbeitergeld_y:
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+    einnahmen:
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+outputs:
+  einkommensteuer:
+    nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
+      - 0.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 29203.0
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 38942.0

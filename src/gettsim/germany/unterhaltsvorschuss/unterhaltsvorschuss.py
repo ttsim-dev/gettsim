@@ -331,9 +331,13 @@ def einkommen_m(
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
-    """Calculate relevant income for advance on alimony payment."""
+    """Calculate relevant income for advance on alimony payment.
+
+    Income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 1 Abs. 1a S. 1 Nr. 2 UhVG), so
+    wage-replacement benefits including Elterngeld count.
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -341,7 +345,7 @@ def einkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
     )
 
 

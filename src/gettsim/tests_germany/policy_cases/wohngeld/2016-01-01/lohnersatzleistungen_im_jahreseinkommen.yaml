@@ -1,0 +1,137 @@
+---
+info:
+  note: >-
+    Only person 0 is from the source; persons 1 and 2 are a regression test. Assumed:
+    `elterngeld__anrechenbarer_betrag_m` of 70 € (paid Elterngeld of 370 € less 300 €),
+    which gives the 460 € of the source together with the Mutterschaftsgeld of 390 €.
+    Assumed: single birth, Basiselterngeld, month entirely after the birth, no Zuschuss
+    of the employer.
+  precision_atol: 0.01
+  source: >-
+    WoGVwV Nr. 14.21.6 Abs. 4, Beispiel (BR-Drs. 284/17, S. 42):
+    https://dserver.bundestag.de/brd/2017/0284-17.pdf
+inputs:
+  assumed:
+    elterngeld:
+      anrechenbarer_betrag_m:
+        - 70.0
+        - 0.0
+        - 0.0
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 2
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 0.0
+            - 0.0
+            - 2000.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+              - 0.0
+    einnahmen:
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 900.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 390.0
+          - 0.0
+          - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 390.0
+      - 900.0
+      - 0.0
+  wohngeld:
+    abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
+      - 0.0
+      - 0.0
+      - 0.0
+    einkommen_vor_freibetrag_m:
+      - 460.0
+      - 900.0
+      - 2000.0

@@ -37,6 +37,10 @@ inputs:
         - 1200.0
       kapitalerträge_m:
         - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0

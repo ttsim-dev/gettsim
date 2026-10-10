@@ -52,6 +52,8 @@ inputs:
         - 0.0
       kapitalerträge_y:
         - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         gesetzliche_m:
           - 500.0

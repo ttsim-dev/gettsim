@@ -41,6 +41,10 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
       renten:
         betrag_gesamt_m:
           - 0.0

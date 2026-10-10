@@ -1,0 +1,77 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    The besonderer Steuersatz is the tariff tax on the Steuersatzeinkommen divided by
+    the Steuersatzeinkommen, and zero for a negative Steuersatzeinkommen. The tariff tax
+    is supplied because GETTSIM has no tariff before 2002.
+  precision_atol: 1.0e-06
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+        - 8000.0
+        - 0.0
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 30000.0
+        - 30000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 30000.0
+        - 30000.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+        - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 40000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 10000.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+outputs:
+  einkommensteuer:
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 40000.0
+      - -10000.0
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.2
+      - 0.0

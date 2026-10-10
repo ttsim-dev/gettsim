@@ -1,0 +1,148 @@
+---
+info:
+  note: >-
+    Krankengeld and Elterngeld count towards the minimum income of the parent (§ 1 Abs.
+    1a S. 1 Nr. 2 UhVG).
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    hh_id:
+      - 0
+      - 0
+      - 1
+      - 1
+    alter:
+      - 45
+      - 15
+      - 45
+      - 15
+    familie:
+      alleinerziehend:
+        - true
+        - false
+        - true
+        - false
+      p_id_elternteil_1:
+        - -1
+        - 0
+        - -1
+        - 2
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+    kindergeld:
+      p_id_empfänger:
+        - -1
+        - 0
+        - -1
+        - 2
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 300.0
+        - 0.0
+        - 700.0
+        - 0.0
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      renten:
+        betrag_gesamt_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 200.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 150.0
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_m:
+      - 350.0
+      - 0.0
+      - 0.0
+      - 0.0
+  unterhaltsvorschuss:
+    einkommen_m:
+      - 650.0
+      - 0.0
+      - 700.0
+      - 0.0
+    betrag_m:
+      - 0.0
+      - 268.0
+      - 0.0
+      - 268.0

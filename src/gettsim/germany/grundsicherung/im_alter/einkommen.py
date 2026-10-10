@@ -35,6 +35,7 @@ def einkommen_m_bis_2006(
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     kapitaleinkommen_brutto_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
     familie__anzahl_personen_sn: int,
@@ -44,8 +45,9 @@ def einkommen_m_bis_2006(
 ) -> float:
     """Income considered for Grundsicherung im Alter.
 
-    All pension income is fully counted as income. Erziehungsgeld is not counted as
-    income (§8 Abs. 1 BErzGG).
+    All pension income and wage-replacement benefits are fully counted as income
+    (§ 82 Abs. 1 S. 1 SGB XII). Erziehungsgeld is not counted as income (§8 Abs. 1
+    BErzGG).
     """
     total_income = (
         erwerbseinkommen_m
@@ -58,6 +60,7 @@ def einkommen_m_bis_2006(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
     )
@@ -89,6 +92,7 @@ def einkommen_m_ab_2007_bis_2017(
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     kapitaleinkommen_brutto_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
     familie__anzahl_personen_sn: int,
@@ -112,6 +116,7 @@ def einkommen_m_ab_2007_bis_2017(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + elterngeld__anrechenbarer_betrag_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m
@@ -137,6 +142,7 @@ def einkommen_m_ab_2018(
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     kapitaleinkommen_brutto_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m: float,
     einkommensteuer__betrag_m_sn: float,
     solidaritätszuschlag__betrag_m_sn: float,
     familie__anzahl_personen_sn: int,
@@ -158,6 +164,7 @@ def einkommen_m_ab_2018(
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
         + kapitaleinkommen_brutto_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
         + elterngeld__anrechenbarer_betrag_m
         + unterhalt__tatsächlich_erhaltener_betrag_m
         + unterhaltsvorschuss__betrag_m

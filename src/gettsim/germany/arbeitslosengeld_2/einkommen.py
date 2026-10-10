@@ -83,8 +83,7 @@ def bruttoeinkommen_m(
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
-    elterngeld__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
     """Sum up the gross income for calculation of basic subsistence."""
     return (
@@ -94,8 +93,7 @@ def bruttoeinkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
-        + elterngeld__betrag_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
     )
 
 

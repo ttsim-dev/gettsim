@@ -53,6 +53,8 @@ EXPECTED_UNIT_CHECK_LOCAL_CASTS = (
     "bürgergeld__vermögensfreibetrag_in_karenzzeit_bg",
     "einkommensteuer__abzüge__alleinerziehend_betrag_y",
     "einkommensteuer__abzüge__vorwegabzug_lohnsteuer_y_sn",
+    "einkommensteuer__besonderer_steuersatz_mit_kinderfreibetrag",
+    "einkommensteuer__besonderer_steuersatz_ohne_kinderfreibetrag",
     "elterngeld__anrechenbarer_betrag_m",
     "elterngeld__anspruchshöhe_m",
     "elterngeld__anzahl_mehrlinge_fg",
