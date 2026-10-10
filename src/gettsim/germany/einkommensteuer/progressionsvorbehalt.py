@@ -87,7 +87,9 @@ def steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
     dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
 ) -> float:
     """Steuersatzeinkommen without Kinderfreibetrag (§ 32b Abs. 2 EStG)."""
-    return gesamteinkommen_y_sn + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
+    return (
+        gesamteinkommen_y_sn + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
+    )
 
 
 @policy_function(start_date="1990-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN)
