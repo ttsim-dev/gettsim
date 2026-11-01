@@ -15,7 +15,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
-- {gh}`TBD` Model Entgeltpunkte from drawing Arbeitslosengeld (§ 3 Satz 1 Nr. 3, § 166
+- {gh}`1252` Model Entgeltpunkte from drawing Arbeitslosengeld (§ 3 Satz 1 Nr. 3, § 166
   Abs. 1 Nr. 2 SGB VI) from August 1998, added to
   `sozialversicherung__rente__neue_entgeltpunkte_y`. Correct the Entgeltpunkte of
   earnings in the Beitrittsgebiet up to 2024: earnings are capped at the
