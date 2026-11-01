@@ -415,3 +415,20 @@ umrechnung_entgeltpunkte_beitrittsgebiet:
     value: 1.0140
   2025-01-01:
     note: Umrechnung entfällt.
+anteil_bemessungsentgelt_arbeitslosengeld:
+  name:
+    de: Beitragspflichtiger Anteil des Bemessungsentgelts bei Arbeitslosengeld
+    en: Share of the Bemessungsentgelt subject to contributions during Arbeitslosengeld
+  description:
+    de: >-
+      § 166 Abs. 1 Nr. 2 SGB VI. Beitragspflichtige Einnahme bei Bezug von
+      Arbeitslosengeld ist dieser Anteil des der Leistung zugrunde liegenden
+      Arbeitsentgelts.
+    en: >-
+      § 166 Abs. 1 Nr. 2 SGB VI. While drawing Arbeitslosengeld, this share of the
+      Arbeitsentgelt the benefit is based on is subject to pension contributions.
+  unit: DIMENSIONLESS
+  type: scalar
+  1995-01-01:
+    value: 0.8
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2306

@@ -163,6 +163,27 @@ inputs:
       - 7
       - 8
     sozialversicherung:
+      arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
       kranken:
         beitrag:
           privat_versichert:
@@ -220,6 +241,16 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        im_vorjahr_versicherungspflichtig:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:
           - false
           - false

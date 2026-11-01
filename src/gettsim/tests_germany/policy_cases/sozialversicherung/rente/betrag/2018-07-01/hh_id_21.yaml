@@ -1,8 +1,8 @@
 ---
 info:
   note: |-
-    From eastern Germany: earns less Entgeltpunkte for same wage because
-    Beitragsbemessungsgrenze is lower.
+    From eastern Germany: wage above the Beitragsbemessungsgrenze (Ost); the
+    upscaled wage is capped at the Beitragsbemessungsgrenze (West).
   precision_atol: 0.1
   source: https://www.ihre-vorsorge.de/rechner/rentenbeginnrechner.html
 inputs:
@@ -24,6 +24,11 @@ inputs:
     p_id:
       - 21
     sozialversicherung:
+      arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 0.0
       rente:
         altersrente:
           betrag_m:
@@ -48,6 +53,8 @@ inputs:
           - 0.0
         freiwillige_beitragsmonate:
           - 0.0
+        im_vorjahr_versicherungspflichtig:
+          - false
         kinderberücksichtigungszeiten_monate:
           - 0.0
         krankheitszeiten_ab_16_bis_24_monate:
@@ -85,4 +92,4 @@ outputs:
         altersgrenze:
           - 65.5
       neue_entgeltpunkte_y:
-        - 1.79167737
+        - 2.041244

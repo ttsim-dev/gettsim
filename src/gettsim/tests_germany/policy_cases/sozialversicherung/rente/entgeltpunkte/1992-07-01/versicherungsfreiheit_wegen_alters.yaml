@@ -1,0 +1,46 @@
+---
+info:
+  data_currency: DM
+  note: Versicherungsfreiheit wegen Alters schließt Entgeltpunkte aus.
+  precision_atol: 0.0001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+      - 70
+    alter_monate:
+      - 840
+      - 840
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 3000.0
+    geburtsjahr:
+      - 1922
+      - 1922
+    geburtsmonat:
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - true
+            - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 0.0
+        - 0.768902

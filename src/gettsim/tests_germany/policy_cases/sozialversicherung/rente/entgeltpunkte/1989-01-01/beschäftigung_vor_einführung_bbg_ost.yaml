@@ -1,0 +1,78 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Vor 1990 gibt es nur eine Beitragsbemessungsgrenze. West und Ost, jeweils unter und
+    über der Grenze; zuletzt Versicherungsfreiheit wegen Alters.
+  precision_atol: 0.0001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+      - 40
+      - 40
+      - 40
+    alter_monate:
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 8000.0
+        - 1000.0
+        - 3000.0
+        - 3000.0
+    geburtsjahr:
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+      - 1949
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
+            - false
+            - true
+    wohnort_ost_hh:
+      - false
+      - false
+      - true
+      - true
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 0.898585
+        - 1.827122
+        - 0.968375
+        - 1.827122
+        - 0.0

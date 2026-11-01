@@ -26,6 +26,13 @@ inputs:
       - 0
       - 1
     sozialversicherung:
+      arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
+          - false
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 0.0
+          - 0.0
       rente:
         altersrente:
           betrag_m:
@@ -40,6 +47,9 @@ inputs:
         entgeltpunkte:
           - 30.0
           - 30.0
+        im_vorjahr_versicherungspflichtig:
+          - false
+          - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:
           - false
           - false

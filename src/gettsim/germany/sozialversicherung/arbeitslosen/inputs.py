@@ -33,3 +33,12 @@ def monate_durchgängigen_bezugs_von_arbeitslosengeld() -> int:
 @policy_input(unit=TTSIMUnit.MONTHS)
 def monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren() -> int:
     """Months of subjection to compulsory insurance in the 5 years before claiming unemployment."""
+
+
+@policy_input(start_date="1998-08-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m() -> float:
+    """Gross Arbeitsentgelt the Arbeitslosengeld is based on, per month.
+
+    The Bemessungsentgelt of § 151 SGB III (before 2005: § 132 SGB III a. F.) times
+    30. A 12-month mean of `('sozialversicherung', 'rente', 'beitrag', 'einkommen_m')`.
+    """

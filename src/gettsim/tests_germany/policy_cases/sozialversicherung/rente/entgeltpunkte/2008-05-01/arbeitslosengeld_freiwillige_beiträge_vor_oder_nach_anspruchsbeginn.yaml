@@ -1,0 +1,82 @@
+---
+info:
+  note: >-
+    Freiwillige Beiträge in oder vor der Sperrzeit; die Quelle prüft nur die
+    Versicherungspflicht, der Betrag ist angenommen.
+  precision_atol: 0.0001
+  source: >-
+    GRA zu § 3 SGB VI, Beispiele 17 und 24,
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0001_25/gra_sgb006_p_0003.html
+inputs:
+  assumed:
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        arbeitssuchend:
+          - true
+          - true
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 2500.0
+          - 2500.0
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 24
+          - 24
+        monate_durchgängigen_bezugs_von_arbeitslosengeld:
+          - 0
+          - 0
+        monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+          - 24
+          - 24
+  provided:
+    alter:
+      - 40
+      - 40
+    alter_monate:
+      - 480
+      - 480
+    geburtsjahr:
+      - 1968
+      - 1968
+    geburtsmonat:
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        im_vorjahr_versicherungspflichtig:
+          - true
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 0.783673
+        - 0.0
