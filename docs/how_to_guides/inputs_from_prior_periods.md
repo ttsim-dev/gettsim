@@ -53,7 +53,8 @@ lifetime earnings:
   - Before July 2023: `("sozialversicherung", "rente", "entgeltpunkte_west")` and
     `("sozialversicherung", "rente", "entgeltpunkte_ost")`
 - **Calculation target**: `("sozialversicherung", "rente", "neue_entgeltpunkte_y")`
-  - This returns the yearly earnings points earned in the current year
+  - This returns the yearly earnings points earned in the current year, from employment
+    and from drawing Arbeitslosengeld
   - For other time units, request `neue_entgeltpunkte_m`, `neue_entgeltpunkte_q`, etc.
     (these are auto-generated via time conversion)
 - **Stock accumulation**: Users are responsible for accumulating earnings points. Add
@@ -65,7 +66,10 @@ lifetime earnings:
 Unemployment benefits are based on the income in the 12 months preceding the beginning
 of the unemployment spell:
 
-- **Historical input**:
-  `("arbeitslosengeld", "mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")`
+- **Historical inputs**:
+  `("arbeitslosengeld", "mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")` for
+  the benefit and
+  `("arbeitslosengeld", "mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")`
+  for the Entgeltpunkte earned while drawing it
 - **Calculation target**:
   `("arbeitslosengeld", "mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y")`

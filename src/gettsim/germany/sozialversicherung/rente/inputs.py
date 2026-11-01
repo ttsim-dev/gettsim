@@ -127,3 +127,13 @@ def pflichtbeitragsmonate() -> float:
 @policy_input(unit=TTSIMUnit.MONTHS)
 def pflegeberücksichtigungszeiten_monate() -> float:
     """Total months of home care provision (01.01.1992-31.03.1995)."""
+
+
+@policy_input(start_date="1998-08-01", unit=TTSIMUnit.DIMENSIONLESS)
+def im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig() -> bool:
+    """Last status in the year before the Arbeitslosengeld began was mandatory coverage.
+
+    Condition for mandatory pension insurance while drawing Arbeitslosengeld (§ 3
+    Satz 1 Nr. 3 SGB VI). Since 2011 the year is extended by Anrechnungszeiten for
+    Arbeitslosengeld II / Bürgergeld receipt.
+    """
