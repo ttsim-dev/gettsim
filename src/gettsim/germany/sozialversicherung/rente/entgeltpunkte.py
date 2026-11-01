@@ -21,7 +21,6 @@ def neue_entgeltpunkte_nach_wohnort_ohne_geringfügige_beschäftigung(
 
     Versicherungsfreiheit wegen Alters rules out earnings points (§ 76b Abs. 4 SGB VI).
     Marginal employment carries no employer contribution yet, so it earns none either.
-    Arbeitslosengeld receipt is not credited.
 
     Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
     scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
@@ -74,10 +73,7 @@ def neue_entgeltpunkte_nach_wohnort_mit_arbeitslosengeld_ohne_geringfügige_besc
 
     While drawing Arbeitslosengeld, a person covered under § 3 Satz 1 Nr. 3 SGB VI pays
     contributions on a share of the capped Arbeitsentgelt the benefit is based on
-    (§ 166 Abs. 1 Nr. 2 SGB VI). Both terms are capped on their own. Amounts in the
-    Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are scaled up by
-    Anlage 10, and the result is capped at the Beitragsbemessungsgrenze (West)
-    (§ 256a Abs. 1, § 260 Satz 2 SGB VI).
+    (§ 166 Abs. 1 Nr. 2 SGB VI).
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -103,7 +99,6 @@ def neue_entgeltpunkte_nach_wohnort_mit_arbeitslosengeld_ohne_geringfügige_besc
     if beitrag__versicherungsfrei_wegen_alters:
         out = 0.0
     else:
-        # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
             min(
                 umrechnungswert

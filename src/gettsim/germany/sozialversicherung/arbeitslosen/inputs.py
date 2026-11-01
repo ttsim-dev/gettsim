@@ -40,6 +40,5 @@ def mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m() -> float:
     """Gross Arbeitsentgelt the Arbeitslosengeld is based on, per month.
 
     The Bemessungsentgelt of § 151 SGB III (before 2005: § 132 SGB III a. F.) times
-    30. A 12-month mean of `('sozialversicherung', 'rente', 'beitrag', 'einkommen_m')`
-    before the unemployment approximates it.
+    30. A 12-month mean of `('sozialversicherung', 'rente', 'beitrag', 'einkommen_m')`.
     """

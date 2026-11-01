@@ -53,8 +53,7 @@ lifetime earnings:
   - Before July 2023: `("sozialversicherung", "rente", "entgeltpunkte_west")` and
     `("sozialversicherung", "rente", "entgeltpunkte_ost")`
 - **Calculation target**: `("sozialversicherung", "rente", "neue_entgeltpunkte_y")`
-  - This returns the yearly earnings points earned in the current year, from employment
-    and from drawing Arbeitslosengeld
+  - This returns the yearly earnings points earned in the current year
   - For other time units, request `neue_entgeltpunkte_m`, `neue_entgeltpunkte_q`, etc.
     (these are auto-generated via time conversion)
 - **Stock accumulation**: Users are responsible for accumulating earnings points. Add
