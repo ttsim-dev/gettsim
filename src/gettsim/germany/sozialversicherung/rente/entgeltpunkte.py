@@ -54,20 +54,18 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
     Versicherungsfreiheit wegen Alters rules out earnings points (§ 76b Abs. 4 SGB VI).
     Marginal employment carries no employer contribution yet, so it earns none either.
     """
-    # Scale bruttolohn up if earned in eastern Germany
     if wohnort_ost_hh:
-        umgerechneter_bruttolohn_y = (
-            einnahmen__bruttolohn_y * umrechnung_entgeltpunkte_beitrittsgebiet
-        )
+        umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
     else:
-        umgerechneter_bruttolohn_y = einnahmen__bruttolohn_y
+        umrechnungswert = 1.0
 
     if beitrag__versicherungsfrei_wegen_alters:
         out = 0.0
     else:
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
-            min(umgerechneter_bruttolohn_y, beitrag__beitragsbemessungsgrenze_y)
+            umrechnungswert
+            * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y)
             / beitragspflichtiges_durchschnittsentgelt_y
         )
 
@@ -106,7 +104,6 @@ def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort_ohne_geringfügige_besch�
     if beitrag__versicherungsfrei_wegen_alters:
         out = 0.0
     else:
-        # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
             min(
                 umrechnungswert
@@ -276,9 +273,6 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
     capped Arbeitsentgelt the benefit is based on (§ 166 Abs. 1 Nr. 2 SGB VI). Amounts
     in the Beitrittsgebiet are scaled up by Anlage 10 (§ 256a Abs. 1 SGB VI).
     """
-    # The cap at the Beitragsbemessungsgrenze (West) of § 260 Satz 2 SGB VI cannot bind:
-    # the share times Anlage 10 times the Beitragsbemessungsgrenze (Ost) stays below it
-    # in every year this function applies to.
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
     else:
