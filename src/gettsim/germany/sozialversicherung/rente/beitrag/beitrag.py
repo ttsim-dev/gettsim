@@ -294,34 +294,6 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
     )
 
 
-@policy_function(
-    end_date="1989-12-31",
-    leaf_name="beitragsbemessungsgrenze_west_m",
-    unit=TTSIMUnit.CURRENCY.PER_MONTH,
-)
-def beitragsbemessungsgrenze_west_m_einheitlich(
-    beitragsbemessungsgrenze_m: float,
-) -> float:
-    """Beitragsbemessungsgrenze im Bundesgebiet (§ 260 Satz 2 SGB VI)."""
-    return beitragsbemessungsgrenze_m
-
-
-@policy_function(
-    start_date="1990-01-01",
-    end_date="2024-12-31",
-    leaf_name="beitragsbemessungsgrenze_west_m",
-    unit=TTSIMUnit.CURRENCY.PER_MONTH,
-)
-def beitragsbemessungsgrenze_west_m_nach_wohnort(
-    parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
-) -> float:
-    """Beitragsbemessungsgrenze im Bundesgebiet ohne Beitrittsgebiet.
-
-    Caps the upscaled Beitrittsgebiet earnings (§ 260 Satz 2 SGB VI, Anlage 2).
-    """
-    return parameter_beitragsbemessungsgrenze_nach_wohnort["west"]
-
-
 @policy_function(start_date="2003-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def betrag_in_gleitzone_gesamt_m(
     sozialversicherung__midijob_bemessungsentgelt_m: float,

@@ -27,7 +27,7 @@ inputs:
           - 24
           - 24
       rente:
-        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
+        im_vorjahr_versicherungspflichtig:
           - false
           - true
   provided:

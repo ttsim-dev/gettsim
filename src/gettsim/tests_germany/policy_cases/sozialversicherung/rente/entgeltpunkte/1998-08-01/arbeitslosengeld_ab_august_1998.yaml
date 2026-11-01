@@ -58,7 +58,7 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
+        im_vorjahr_versicherungspflichtig:
           - true
           - true
         verzichtet_auf_versicherungsfreiheit_wegen_alters:

@@ -23,11 +23,7 @@ info:
     Beschäftigungsverhältnissen im Übergangsbereich" vom 20.12.2022, Beispiel 12
     (zu Ziffer 4.3.3.6).
 inputs:
-  assumed:
-    sozialversicherung:
-      arbeitslosen:
-        grundsätzlich_anspruchsberechtigt:
-          - false
+  assumed: {}
   provided:
     alter:
       - 70
@@ -62,6 +58,8 @@ inputs:
       - 0
     sozialversicherung:
       arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
         mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
           - 0.0
       kranken:
@@ -75,14 +73,14 @@ inputs:
           hat_kinder:
             - false
       rente:
-        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
-          - false
         altersrente:
           betrag_m:
             - 1200.0
         erwerbsminderung:
           betrag_m:
             - 0.0
+        im_vorjahr_versicherungspflichtig:
+          - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:
           - false
         verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:

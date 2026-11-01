@@ -24,8 +24,7 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
   New inputs
   `sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m`
-  and
-  `sozialversicherung__rente__im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig`.
+  and `sozialversicherung__rente__im_vorjahr_versicherungspflichtig`.
   ({ghuser}`MImmesberger`)
 
 - {gh}`1240` Cap Elterngeld replacement rate at 100% for low-income pre-birth earnings

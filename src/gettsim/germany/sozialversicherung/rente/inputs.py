@@ -130,7 +130,7 @@ def pflegeberücksichtigungszeiten_monate() -> float:
 
 
 @policy_input(start_date="1998-08-01", unit=TTSIMUnit.DIMENSIONLESS)
-def im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig() -> bool:
+def im_vorjahr_versicherungspflichtig() -> bool:
     """Last status in the year before the Arbeitslosengeld began was mandatory coverage.
 
     Condition for mandatory pension insurance while drawing Arbeitslosengeld (§ 3

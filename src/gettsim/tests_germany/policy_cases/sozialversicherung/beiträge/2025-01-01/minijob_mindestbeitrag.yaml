@@ -18,12 +18,7 @@ info:
     Mindestbeitrag zur Rentenversicherung.
     https://www.minijob-zentrale.de/DE/die-minijobs/rentenversicherungspflicht
 inputs:
-  assumed:
-    sozialversicherung:
-      arbeitslosen:
-        grundsätzlich_anspruchsberechtigt:
-          - false
-          - false
+  assumed: {}
   provided:
     alter:
       - 45
@@ -71,6 +66,9 @@ inputs:
       - 1
     sozialversicherung:
       arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
+          - false
         mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
           - 0.0
           - 0.0
@@ -88,9 +86,6 @@ inputs:
             - false
             - false
       rente:
-        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
-          - false
-          - false
         altersrente:
           betrag_m:
             - 0.0
@@ -99,6 +94,9 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
+        im_vorjahr_versicherungspflichtig:
+          - false
+          - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:
           - false
           - false

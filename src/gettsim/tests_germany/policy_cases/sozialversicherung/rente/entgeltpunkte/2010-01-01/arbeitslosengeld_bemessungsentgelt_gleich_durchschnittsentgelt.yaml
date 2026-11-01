@@ -23,7 +23,7 @@ inputs:
         monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
           - 24
       rente:
-        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
+        im_vorjahr_versicherungspflichtig:
           - true
   provided:
     alter:
