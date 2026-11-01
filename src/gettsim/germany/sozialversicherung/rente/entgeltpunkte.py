@@ -64,8 +64,11 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
     else:
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
-            umrechnungswert
-            * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y)
+            min(
+                umrechnungswert
+                * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y),
+                beitrag__beitragsbemessungsgrenze_y,
+            )
             / beitragspflichtiges_durchschnittsentgelt_y
         )
 

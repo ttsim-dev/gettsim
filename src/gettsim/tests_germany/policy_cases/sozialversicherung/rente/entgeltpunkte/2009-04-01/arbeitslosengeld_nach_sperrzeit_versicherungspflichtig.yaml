@@ -1,8 +1,12 @@
 ---
 info:
-  note: Versicherungspflicht nach Sperrzeit (GRA zu § 3 SGB VI, Beispiel 16).
+  note: >-
+    Versicherungspflicht nach Sperrzeit; die Quelle prüft nur die Versicherungspflicht,
+    der Betrag ist angenommen.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    GRA zu § 3 SGB VI, Beispiel 16,
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0001_25/gra_sgb006_p_0003.html
 inputs:
   assumed:
     arbeitsstunden_w:

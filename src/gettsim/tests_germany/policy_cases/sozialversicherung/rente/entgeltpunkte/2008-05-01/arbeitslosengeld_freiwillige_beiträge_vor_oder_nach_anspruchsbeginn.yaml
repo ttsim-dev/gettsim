@@ -1,8 +1,12 @@
 ---
 info:
-  note: Freiwillige Beiträge in oder vor der Sperrzeit (GRA zu § 3, Beispiele 17, 24).
+  note: >-
+    Freiwillige Beiträge in oder vor der Sperrzeit; die Quelle prüft nur die
+    Versicherungspflicht, der Betrag ist angenommen.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    GRA zu § 3 SGB VI, Beispiele 17 und 24,
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0001_25/gra_sgb006_p_0003.html
 inputs:
   assumed:
     arbeitsstunden_w:

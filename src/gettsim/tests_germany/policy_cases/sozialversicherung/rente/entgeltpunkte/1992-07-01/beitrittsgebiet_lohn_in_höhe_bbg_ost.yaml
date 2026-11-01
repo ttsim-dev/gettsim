@@ -1,9 +1,13 @@
 ---
 info:
   data_currency: DM
-  note: Beitrittsgebiet 1992, Lohn gleich BBG (Ost), hochgewertet über BBG (West).
+  note: >-
+    Beitrittsgebiet 1992, Lohn gleich BBG (Ost), hochgewertet über BBG (West); die
+    Quelle endet bei der Beitragsbemessungsgrundlage.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    GRA zu § 256a SGB VI, Beispiel 1,
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0251_275/gra_sgb006_p_0256a.html
 inputs:
   assumed: {}
   provided:

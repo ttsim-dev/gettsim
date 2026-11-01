@@ -1,6 +1,6 @@
 ---
 info:
-  note: 'Doppelter Durchschnittsverdienst: Beschäftigung gegen ALG (Forum 30.12.2017).'
+  note: Doppelter Durchschnittsverdienst, Beschäftigung gegen ALG.
   precision_atol: 0.0001
   source: Regression test.
 inputs:

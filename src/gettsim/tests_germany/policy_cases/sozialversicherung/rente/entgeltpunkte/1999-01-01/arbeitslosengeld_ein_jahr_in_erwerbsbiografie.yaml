@@ -1,9 +1,14 @@
 ---
 info:
   data_currency: DM
-  note: ALG statt Beschäftigung bei Durchschnittsverdienst (Wunder, ZAF 4/2005).
+  note: >-
+    ALG statt Beschäftigung bei Durchschnittsverdienst; das Beispiel der Quelle ist
+    stilisiert und ohne Kalenderjahr.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    Wunder, Arbeitslosigkeit und Alterssicherung, Zeitschrift für ArbeitsmarktForschung
+    4/2005, S. 496,
+    https://doku.iab.de/zaf/2005/2005_4_zaf_wunder.pdf
 inputs:
   assumed:
     arbeitsstunden_w:

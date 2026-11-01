@@ -1,6 +1,6 @@
 ---
 info:
-  note: Beschäftigung gegen ALG bei 38.901 € Jahresbrutto (Forum 31.07.2019).
+  note: Beschäftigung gegen ALG bei Durchschnittsverdienst.
   precision_atol: 0.0001
   source: Regression test.
 inputs:

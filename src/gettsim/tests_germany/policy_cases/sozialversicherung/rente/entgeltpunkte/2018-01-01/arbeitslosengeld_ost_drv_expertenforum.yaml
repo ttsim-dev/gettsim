@@ -1,8 +1,13 @@
 ---
 info:
-  note: ALG im Beitrittsgebiet (DRV-Expertenforum 25.10.2018), endgültige Werte 2018.
+  note: >-
+    ALG im Beitrittsgebiet; die Quelle rechnet mit vorläufigen Werten 2018, der Fall mit
+    endgültigen.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    Ihre Vorsorge Expertenforum, Entgeltpunkte für Krankengeld/ALG1, Antwort der
+    Deutschen Rentenversicherung vom 25.10.2018,
+    https://www.ihre-vorsorge.de/expertenforum/entgeltpunkte-fuer-krankengeldalg1
 inputs:
   assumed:
     arbeitsstunden_w:

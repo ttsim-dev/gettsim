@@ -1,8 +1,13 @@
 ---
 info:
-  note: ALG nach Verdienst in Höhe des Durchschnittsentgelts (Forum 02.02.2010).
+  note: >-
+    ALG nach Verdienst in Höhe des Durchschnittsentgelts; die Quelle nennt nur einen
+    ungefähren Wert.
   precision_atol: 0.0001
-  source: Regression test.
+  source: >-
+    Ihre Vorsorge Expertenforum, Rentenversicherung, Antwort der Moderation vom
+    02.02.2010,
+    https://www.ihre-vorsorge.de/expertenforum/rentenversicherung-11
 inputs:
   assumed:
     arbeitsstunden_w:
