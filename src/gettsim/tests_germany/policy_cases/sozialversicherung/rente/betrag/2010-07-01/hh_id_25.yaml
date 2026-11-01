@@ -4,7 +4,11 @@ info:
   precision_atol: 0.1
   source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
-  assumed: {}
+  assumed:
+    sozialversicherung:
+      arbeitslosen:
+        grundsätzlich_anspruchsberechtigt:
+          - false
   provided:
     alter:
       - 63
@@ -22,7 +26,12 @@ inputs:
     p_id:
       - 18
     sozialversicherung:
+      arbeitslosen:
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 0.0
       rente:
+        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
+          - false
         altersrente:
           betrag_m:
             - 0.0

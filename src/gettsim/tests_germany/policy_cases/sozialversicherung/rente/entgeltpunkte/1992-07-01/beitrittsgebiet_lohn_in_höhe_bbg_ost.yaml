@@ -1,0 +1,56 @@
+---
+info:
+  data_currency: DM
+  note: Beitrittsgebiet 1992, Lohn gleich BBG (Ost), hochgewertet über BBG (West).
+  precision_atol: 0.0001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+    alter_monate:
+      - 480
+      - 480
+    einnahmen:
+      bruttolohn_m:
+        - 4800.0
+        - 4800.0
+    geburtsjahr:
+      - 1952
+      - 1952
+    geburtsmonat:
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+    wohnort_ost_hh:
+      - true
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 1.742845
+        - 1.230243

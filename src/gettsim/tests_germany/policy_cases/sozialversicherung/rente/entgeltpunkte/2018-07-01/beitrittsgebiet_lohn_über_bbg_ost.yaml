@@ -1,0 +1,137 @@
+---
+info:
+  note: Beitrittsgebiet 2018, hochgewerteter Lohn um die BBG (West).
+  precision_atol: 0.0001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+      - 40
+      - 40
+      - 40
+      - 40
+    alter_monate:
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
+    arbeitsstunden_w:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 6000.0
+        - 5700.0
+        - 5750.0
+        - 6000.0
+        - 6500.0
+    geburtsjahr:
+      - 1978
+      - 1978
+      - 1978
+      - 1978
+      - 1978
+    geburtsmonat:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    sozialversicherung:
+      arbeitslosen:
+        arbeitssuchend:
+          - false
+          - false
+          - false
+          - false
+          - false
+        mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        monate_beitragspflichtig_versichert_in_letzten_30_monaten:
+          - 24
+          - 24
+          - 24
+          - 24
+          - 24
+        monate_durchgängigen_bezugs_von_arbeitslosengeld:
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+        monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
+          - 24
+          - 24
+          - 24
+          - 24
+          - 24
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        im_jahr_vor_arbeitslosengeld_zuletzt_versicherungspflichtig:
+          - false
+          - false
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+          - false
+          - false
+          - false
+    wohnort_ost_hh:
+      - true
+      - true
+      - true
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 2.041244
+        - 2.029696
+        - 2.041244
+        - 1.884225
+        - 2.041244
