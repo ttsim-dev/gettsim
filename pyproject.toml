@@ -79,7 +79,7 @@ numpy_groupies = "*"
 numpydoc = "*"
 openpyxl = "*"
 pandas = ">=3"
-prek = "*"
+prek = ">=0.5.9"
 pygments = "*"
 pygraphviz = "*"
 pyyaml = "*"
@@ -91,7 +91,7 @@ gettsim = { path = ".", editable = true }
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "pint-0.26" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.feature.coverage.tasks]
 tests-with-cov = """\
   pytest --cov-report=xml --cov=./ \
@@ -295,6 +295,9 @@ expand_tables = [
 collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 
 [tool.ty]
+# The `.ai-instructions` hook scripts import tools that exist only in their
+# pre-commit environments (vulture), so ty cannot resolve them.
+src.exclude = [ ".ai-instructions" ]
 # ty resolves third-party imports from this pixi env. The pre-commit hook runs
 # ty directly; pixi owns the project environment. Run `pixi install` once.
 # The ty-jax hook overrides this on the command line for jax.
@@ -302,19 +305,19 @@ environment.python = ".pixi/envs/py314"
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
 rules.division-by-zero = "error"
-rules.empty-body = "ignore"  # raised for all functions decorated with @policy_input
 rules.ignore-comment-unknown-rule = "error"
 rules.ineffective-final = "error"
 rules.invalid-enum-member-annotation = "error"
+rules.invalid-explicit-return = "ignore"
 rules.invalid-ignore-comment = "error"
+rules.invalid-implicit-return-in-function-with-stub-body = "ignore"  # raised for all functions decorated with @policy_input
 rules.invalid-legacy-positional-parameter = "error"
-rules.invalid-return-type = "ignore"
 rules.possibly-missing-submodule = "error"
 rules.redundant-cast = "error"
 rules.unused-awaitable = "error"
 rules.unused-ignore-comment = "error"
 overrides = [
-  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
+  { include = [ "docs/**" ], rules.missing-attribute = "ignore", rules.invalid-argument-type = "ignore" },
 ]
 
 [tool.pytest]
@@ -363,3 +366,15 @@ exclude_lines = [ "^\\s*pass\\s*$", "if TYPE_CHECKING:", "pragma: no cover" ]
 line_length = 88
 sequence_style = "block_style"
 none_representation = "null"
+
+# Read by the `dead-code` hook (`.ai-instructions/hooks/dead_code.py`). gettsim is
+# a library, so only `_`-private definitions without a caller are reported.
+[tool.dead-code]
+consumers = [ "src", "docs" ]
+public = [ "src/gettsim/" ]
+tests = "src/gettsim/tests_germany"
+registering-decorators = [ "@policy_function" ]
+[[tool.dead-code.allow]]
+path = "src/gettsim/tests_germany/conftest.py"
+name = "pytest_*"
+reason = "pytest hook implementations, called by the plugin manager by name."
