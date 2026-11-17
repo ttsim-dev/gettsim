@@ -194,9 +194,12 @@ def einkommen_m_ab_2011_bis_2017(
 
 
 @policy_function(
-    start_date="2018-01-01", leaf_name="einkommen_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+    start_date="2018-01-01",
+    end_date="2022-12-31",
+    leaf_name="einkommen_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def einkommen_m_ab_2018(
+def einkommen_m_ab_2018_bis_2022(
     erwerbseinkommen_m: float,
     einkommen_aus_zusätzlicher_altersvorsorge_m: float,
     gesetzliche_rente_m: float,
@@ -212,13 +215,11 @@ def einkommen_m_ab_2018(
     unterhalt__tatsächlich_erhaltener_betrag_m: float,
     unterhaltsvorschuss__betrag_m: float,
 ) -> float:
-    """Income considered for Grundsicherung im Alter from 2018.
+    """Income considered for Grundsicherung im Alter from 2018 until 2022.
 
     From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz v.
     17.08.2017, BGBl. I S. 3214) introduces a Freibetrag for 'zusätzliche
-    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m. From
-    2023, Mutterschaftsgeld is exempt (§ 82 Abs. 1 S. 2 Nr. 5 SGB XII, § 10 Abs. 5 S. 4
-    BEEG), which elterngeld__freibetrag_paragraph_10_abs_5_beeg_m contains.
+    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m.
     """
     total_income = (
         erwerbseinkommen_m
@@ -235,6 +236,55 @@ def einkommen_m_ab_2018(
     out = (
         total_income
         - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
+        - einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn
+        - solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn
+        - sozialversicherung__beiträge_versicherter_m
+    )
+
+    return max(out, 0.0)
+
+
+@policy_function(
+    start_date="2023-01-01", leaf_name="einkommen_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
+def einkommen_m_ab_2023(
+    erwerbseinkommen_m: float,
+    einkommen_aus_zusätzlicher_altersvorsorge_m: float,
+    gesetzliche_rente_m: float,
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
+    kapitaleinkommen_brutto_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
+    einkommensteuer__betrag_m_sn: float,
+    solidaritätszuschlag__betrag_m_sn: float,
+    familie__anzahl_personen_sn: int,
+    sozialversicherung__beiträge_versicherter_m: float,
+    elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
+    sozialversicherung__kranken__mutterschaftsgeld_m: float,
+    unterhalt__tatsächlich_erhaltener_betrag_m: float,
+    unterhaltsvorschuss__betrag_m: float,
+) -> float:
+    """Income considered for Grundsicherung im Alter from 2023.
+
+    Mutterschaftsgeld is exempt in full (§ 82 Abs. 1 S. 2 Nr. 5 SGB XII, inserted by
+    Art. 5 Nr. 13 G. v. 16.12.2022, BGBl. I S. 2328).
+    """
+    total_income = (
+        erwerbseinkommen_m
+        + gesetzliche_rente_m
+        + einkommen_aus_zusätzlicher_altersvorsorge_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
+        + kapitaleinkommen_brutto_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
+        + unterhalt__tatsächlich_erhaltener_betrag_m
+        + unterhaltsvorschuss__betrag_m
+    )
+
+    out = (
+        total_income
+        - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
+        - sozialversicherung__kranken__mutterschaftsgeld_m
         - einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn
         - solidaritätszuschlag__betrag_m_sn / familie__anzahl_personen_sn
         - sozialversicherung__beiträge_versicherter_m

@@ -2,11 +2,12 @@
 info:
   note: >-
     Elterngeld counts towards the minimum income of the parent only beyond the amount
-    exempt under § 10 Abs. 5 S. 2 BEEG: the income from employment before the birth, up
-    to 300 € (UVG-Richtlinien, Nr. 1.7.4). Mutterschaftsgeld does not count (§ 10 Abs. 5
-    S. 4 BEEG). Parents 0 to 2 receive 600 € Basiselterngeld and have no other income.
-    Income from employment before the birth: 1.500 €, none, 100 €. Parent 3 receives
-    700 € Mutterschaftsgeld, which is credited against the Elterngeld in full.
+    exempt under § 10 Abs. 5 S. 2 BEEG: the income from employment before the birth,
+    up to 300 € (UVG-Richtlinien, Nr. 1.7.4). Mutterschaftsgeld does not count (§ 11a
+    Abs. 1 Nr. 6 SGB II). Parents 0 to 2 receive 600 € Basiselterngeld and have no
+    other income. Income from employment before the birth: 1.500 €, none, 100 €.
+    Parent 3 receives 700 € Mutterschaftsgeld, which is credited against the
+    Elterngeld in full.
   precision_atol: 0.01
   source: Regression test.
 inputs:
@@ -83,7 +84,7 @@ outputs:
       - 300.0
       - 0.0
       - 100.0
-      - 700.0
+      - 0.0
   unterhaltsvorschuss:
     einkommen_m:
       - 300.0

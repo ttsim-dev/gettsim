@@ -404,28 +404,24 @@ def freibetrag_paragraph_10_abs_5_beeg_m_mit_angerechneten_einnahmen(
     leaf_name="freibetrag_paragraph_10_abs_5_beeg_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def freibetrag_paragraph_10_abs_5_beeg_m_mit_mutterschaftsgeld(
+def freibetrag_paragraph_10_abs_5_beeg_m_ohne_mutterschaftsgeld(
     betrag_m: float,
-    sozialversicherung__kranken__mutterschaftsgeld_m: float,
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     mindestbetrag_m: float,
 ) -> float:
-    """Elterngeld and Mutterschaftsgeld that do not count as income for SGB II, SGB XII
-    and Kinderzuschlag.
+    """Elterngeld that does not count as income for SGB II, SGB XII and Kinderzuschlag.
 
-    Mutterschaftsgeld under § 19 MuSchG remains exempt in full, including the part
-    credited against the Elterngeld (§ 10 Abs. 5 S. 4 BEEG, inserted by Art. 12 Abs. 7
-    G. v. 16.12.2022, BGBl. I S. 2328). The paid Elterngeld remains exempt in the amount
-    of the income from employment before the birth, up to the Mindestbetrag (§ 10 Abs.
-    5 S. 2 BEEG).
+    The Elterngeld remains exempt in the amount of the income from employment before
+    the birth, up to the Mindestbetrag (§ 10 Abs. 5 S. 2 BEEG). Mutterschaftsgeld
+    credited against the Elterngeld no longer counts towards this exemption because it
+    is exempt in full (§ 10 Abs. 5 S. 4 BEEG, inserted by Art. 12 Abs. 7 G. v.
+    16.12.2022, BGBl. I S. 2328); the transfers subtract it themselves.
     """
     # TODO(@MImmesberger): The exemption halves for Elterngeld Plus (§ 10 Abs. 5 S. 3
     # BEEG).
     # https://github.com/ttsim-dev/gettsim/issues/151
     höchstbetrag = min(mean_nettoeinkommen_in_12_monaten_vor_geburt_m, mindestbetrag_m)
-    return (
-        min(betrag_m, höchstbetrag) + sozialversicherung__kranken__mutterschaftsgeld_m
-    )
+    return min(betrag_m, höchstbetrag)
 
 
 @policy_function(unit=TTSIMUnit.DIMENSIONLESS)
