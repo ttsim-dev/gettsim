@@ -2,6 +2,15 @@
 
 The wage-replacement benefits that are exempt from income tax but subject to the
 Progressionsvorbehalt. Their sum also counts as income for several transfers.
+
+Implemented benefits of the catalogue:
+
+- Buchst. a: Arbeitslosengeld, Kurzarbeitergeld, Insolvenzgeld
+- Buchst. b and c: Krankengeld, Mutterschaftsgeld, Verletztengeld
+- Buchst. j: Elterngeld
+
+Not implemented: the other benefits of Buchst. a to c (e.g. Übergangsgeld, the
+Zuschuss zum Mutterschaftsgeld) and Buchst. d to i and k.
 """
 
 from __future__ import annotations

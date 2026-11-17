@@ -7,7 +7,10 @@ from gettsim.tt import TTSIMUnit, policy_input
 
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def krankengeld_m() -> float:
-    """Krankengeld received."""
+    """Krankengeld received from the statutory health insurance.
+
+    Excludes private Krankentagegeld.
+    """
 
 
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)

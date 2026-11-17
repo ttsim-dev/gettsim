@@ -339,7 +339,8 @@ def einkommen_m(
     Income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 1 Abs. 1a S. 1 Nr. 2 UhVG), so
     wage-replacement benefits count. Deductions under § 11b SGB II do not reduce it,
     but income exempt under other laws does not count, such as the part of the
-    Elterngeld exempt under § 10 Abs. 5 BEEG (UVG-Richtlinien, Nr. 1.7.4).
+    Elterngeld and, from 2023, the Mutterschaftsgeld exempt under § 10 Abs. 5 BEEG
+    (UVG-Richtlinien, Nr. 1.7.4).
     """
     return (
         einnahmen__bruttolohn_m

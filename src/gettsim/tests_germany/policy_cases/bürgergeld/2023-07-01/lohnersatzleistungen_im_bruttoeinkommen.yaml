@@ -1,9 +1,10 @@
 ---
 info:
   note: >-
-    Lohn- und Einkommensersatzleistungen including Elterngeld count in full as gross
-    income (§ 11 Abs. 1 S. 1 SGB II). The exemption of Mutterschaftsgeld under § 11a
-    Abs. 1 Nr. 6 SGB II from 01.07.2023 is not modelled.
+    Lohn- und Einkommensersatzleistungen count as gross income (§ 11 Abs. 1 S. 1 SGB
+    II), except Mutterschaftsgeld (§ 10 Abs. 5 S. 4 BEEG, § 11a Abs. 1 Nr. 6 SGB II).
+    Person 0 had no income from employment before the birth, so the Elterngeld counts
+    in full (§ 10 Abs. 5 S. 2 BEEG).
   precision_atol: 0.01
   source: Regression test.
 inputs:
@@ -44,6 +45,9 @@ inputs:
       betrag_m:
         - 370.0
         - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
+        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -73,5 +77,5 @@ outputs:
       - 0.0
   bürgergeld:
     bruttoeinkommen_m:
-      - 1310.0
+      - 920.0
       - 800.0

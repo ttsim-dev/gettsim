@@ -190,9 +190,10 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
             xnp=xnp,
         )
     else:
-        return (
-            besonderer_steuersatz_mit_kinderfreibetrag
-            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        # The rate applies to the zvE rounded down to full Euros (§ 32a Abs. 1 S. 1
+        # EStG); GETTSIM assumes the same for 2002 to 2003.
+        return besonderer_steuersatz_mit_kinderfreibetrag * xnp.floor(
+            zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
         )
 
 
@@ -234,7 +235,11 @@ def betrag_ohne_kinderfreibetrag_y_sn(
             xnp=xnp,
         )
     else:
-        return besonderer_steuersatz_ohne_kinderfreibetrag * gesamteinkommen_y_sn
+        # The rate applies to the zvE rounded down to full Euros (§ 32a Abs. 1 S. 1
+        # EStG); GETTSIM assumes the same for 2002 to 2003.
+        return besonderer_steuersatz_ohne_kinderfreibetrag * xnp.floor(
+            gesamteinkommen_y_sn
+        )
 
 
 @policy_function(

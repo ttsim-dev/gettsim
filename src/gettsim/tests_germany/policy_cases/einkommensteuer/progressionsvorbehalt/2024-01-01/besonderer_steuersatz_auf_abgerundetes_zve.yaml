@@ -1,0 +1,37 @@
+---
+info:
+  note: >-
+    The besonderer Steuersatz applies to the taxable income rounded down to full Euros
+    (§ 32a Abs. 1 S. 1 EStG). The rate is given; applied to the unrounded taxable
+    income, the tax would be one Euro higher.
+  precision_atol: 1.0e-06
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      gesamteinkommen_y_sn:
+        - 40002.9
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 40002.9
+      dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+        - 10000.0
+      besonderer_steuersatz_ohne_kinderfreibetrag:
+        - 0.4
+      besonderer_steuersatz_mit_kinderfreibetrag:
+        - 0.4
+outputs:
+  einkommensteuer:
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 16000
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 16000

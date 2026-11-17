@@ -216,7 +216,9 @@ def einkommen_m_ab_2018(
 
     From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz v.
     17.08.2017, BGBl. I S. 3214) introduces a Freibetrag for 'zusätzliche
-    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m.
+    Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m. From
+    2023, Mutterschaftsgeld is exempt (§ 82 Abs. 1 S. 2 Nr. 5 SGB XII, § 10 Abs. 5 S. 4
+    BEEG), which elterngeld__freibetrag_paragraph_10_abs_5_beeg_m contains.
     """
     total_income = (
         erwerbseinkommen_m

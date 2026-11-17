@@ -76,8 +76,12 @@ def bruttoeinkommen_m(
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einnahmen__lohn_und_einkommensersatzleistungen_m: float,
+    elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
 ) -> float:
-    """Sum up the gross income for calculation of basic subsistence."""
+    """Sum up the gross income for calculation of basic subsistence.
+
+    Mutterschaftsgeld and part of the Elterngeld are exempt (§ 10 Abs. 5 BEEG).
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -86,6 +90,7 @@ def bruttoeinkommen_m(
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
         + einnahmen__lohn_und_einkommensersatzleistungen_m
+        - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
     )
 
 

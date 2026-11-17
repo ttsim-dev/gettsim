@@ -1,12 +1,12 @@
 ---
 info:
   note: >-
-    Lohn- und Einkommensersatzleistungen count in full as income (§ 82 Abs. 1 SGB XII).
-    The exemption of Mutterschaftsgeld under § 82 Abs. 1 S. 2 Nr. 5 SGB XII from
-    01.01.2023 is not modelled. Elterngeld remains exempt only in the amount of the
-    income from employment before the birth, up to 300 € (§ 10 Abs. 5 BEEG). Person 0:
-    the Mutterschaftsgeld of 200 € is credited against the Elterngeld; Elterngeld (460
-    €) and credited Mutterschaftsgeld count above 300 €. Person 2 had no income before
+    Lohn- und Einkommensersatzleistungen count as income (§ 82 Abs. 1 SGB XII), except
+    Mutterschaftsgeld, which is exempt in full also where it is credited against the
+    Elterngeld (§ 82 Abs. 1 S. 2 Nr. 5 SGB XII, § 10 Abs. 5 S. 4 BEEG). Elterngeld
+    remains exempt only in the amount of the income from employment before the birth,
+    up to 300 € (§ 10 Abs. 5 S. 2 BEEG). Person 0 receives 460 € Elterngeld after
+    crediting 200 € Mutterschaftsgeld. Person 2 had no income before
     the birth, so the Elterngeld of 300 € counts in full. Person 3 had 100 €, so 200 €
     count.
   precision_atol: 0.01
@@ -159,7 +159,7 @@ outputs:
   grundsicherung:
     im_alter:
       einkommen_m:
-        - 1260.0
+        - 1060.0
         - 800.0
         - 800.0
         - 700.0

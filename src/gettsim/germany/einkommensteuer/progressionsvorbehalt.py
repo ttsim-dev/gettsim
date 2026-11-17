@@ -2,6 +2,10 @@
 
 The benefits of § 32b Abs. 1 S. 1 Nr. 1 EStG are exempt from income tax but enter the
 calculation of the tax rate via the Steuersatzeinkommen.
+
+Not implemented: the income of § 32b Abs. 1 S. 1 Nr. 2 to 5 EStG (foreign income and
+income exempt under a double taxation agreement or other conventions) and the
+interaction with § 34 EStG.
 """
 
 from __future__ import annotations
@@ -27,7 +31,7 @@ if TYPE_CHECKING:
         base=1e-6,
         direction="down",
         reference=(
-            "H 32b EStH 'Allgemeines', Beispiele (Fall B: 11,9567 %); "
+            "H 32b EStH 2025 'Allgemeines', Beispiele (Fall B: 6,8648 %); "
             "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
         ),
     ),
@@ -62,7 +66,7 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
         base=1e-6,
         direction="down",
         reference=(
-            "H 32b EStH 'Allgemeines', Beispiele (Fall B: 11,9567 %); "
+            "H 32b EStH 2025 'Allgemeines', Beispiele (Fall B: 6,8648 %); "
             "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
         ),
     ),
@@ -274,11 +278,12 @@ def dem_progressionsvorbehalt_unterliegende_leistungen_y(
 ) -> float:
     """Benefits subject to the Progressionsvorbehalt.
 
-    The benefits net of repayments, less the part of the Arbeitnehmer-Pauschbetrag
-    not deductible from wage income (§ 32b Abs. 2 S. 1 Nr. 1 EStG). The Pauschbetrag
-    reduces positive net benefits to zero at most and is not subtracted from a net
-    repayment. The sum over the Steuernummer is added to the taxable income to obtain
-    the Steuersatzeinkommen and may be negative.
+    The benefits net of repayments in the same year (R 32b Abs. 3 EStR), less the part
+    of the Arbeitnehmer-Pauschbetrag not deductible from wage income (§ 32b Abs. 2 S. 1
+    Nr. 1 EStG). The Pauschbetrag reduces positive net benefits to zero at most and is
+    not subtracted from a net repayment, which enters as a negative amount (R 32b Abs.
+    3 EStR). The sum over the Steuernummer is added to the taxable income to obtain the
+    Steuersatzeinkommen and may be negative.
 
     The 1990 wording ("die Summe der bezogenen Leistungen", Steuerreformgesetz 1990,
     BT-Drs. 11/2157) was rephrased by the Jahressteuergesetz 1996 to "vermehrt oder
@@ -311,6 +316,9 @@ def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
     when actual Werbungskosten above the Pauschbetrag are deducted from wages (H 32b
     EStH 'Arbeitnehmer-Pauschbetrag'; BFH v. 25.09.2014, III R 61/12).
     """
+    # TODO(@MImmesberger): Pauschal taxed wages (e.g. Minijobs) are not deductible from
+    # wage income and should not use up the Pauschbetrag.
+    # https://github.com/ttsim-dev/gettsim/issues/1242
     if (
         einkünfte__aus_nichtselbstständiger_arbeit__werbungskosten_y
         > einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag
