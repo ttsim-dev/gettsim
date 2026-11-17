@@ -325,11 +325,11 @@ def mindesteinkommen_erreicht(
 
 @policy_function(
     start_date="2017-07-01",
-    end_date="2023-06-30",
+    end_date="2022-12-31",
     leaf_name="einkommen_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def einkommen_m_bis_06_2023(
+def einkommen_m_bis_2022(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
@@ -359,9 +359,9 @@ def einkommen_m_bis_06_2023(
 
 
 @policy_function(
-    start_date="2023-07-01", leaf_name="einkommen_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+    start_date="2023-01-01", leaf_name="einkommen_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
 )
-def einkommen_m_ab_07_2023(
+def einkommen_m_ab_2023(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
@@ -372,10 +372,11 @@ def einkommen_m_ab_07_2023(
     elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
     sozialversicherung__kranken__mutterschaftsgeld_m: float,
 ) -> float:
-    """Calculate relevant income for advance on alimony payment from 07/2023.
+    """Calculate relevant income for advance on alimony payment from 2023.
 
-    Mutterschaftsgeld is not income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 11a
-    Abs. 1 Nr. 6 SGB II, inserted by Art. 1 Nr. 10 G. v. 16.12.2022, BGBl. I S. 2328).
+    Mutterschaftsgeld is exempt in full under § 10 Abs. 5 S. 4 BEEG (inserted by Art. 12
+    Abs. 7 G. v. 16.12.2022, BGBl. I S. 2328) and therefore does not count
+    (UVG-Richtlinien, Nr. 1.7.4).
     """
     return (
         einnahmen__bruttolohn_m

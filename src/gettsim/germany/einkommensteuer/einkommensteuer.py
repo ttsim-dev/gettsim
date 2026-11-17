@@ -161,7 +161,7 @@ def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
-    zu_versteuerndes_einkommen_mit_kinderfreibetrag_abgerundet_y_sn: float,
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
@@ -184,7 +184,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
         0.005, unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN
     ):
         return familie__anzahl_personen_sn * piecewise_polynomial(
-            x=zu_versteuerndes_einkommen_mit_kinderfreibetrag_abgerundet_y_sn
+            x=zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
             / familie__anzahl_personen_sn,
             parameters=parameter_einkommensteuertarif,
             xnp=xnp,
@@ -192,7 +192,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     else:
         return (
             besonderer_steuersatz_mit_kinderfreibetrag
-            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_abgerundet_y_sn
+            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
         )
 
 
@@ -207,7 +207,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_ohne_kinderfreibetrag_y_sn(
-    gesamteinkommen_abgerundet_y_sn: float,
+    gesamteinkommen_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
@@ -229,15 +229,12 @@ def betrag_ohne_kinderfreibetrag_y_sn(
         0.005, unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN
     ):
         return familie__anzahl_personen_sn * piecewise_polynomial(
-            x=gesamteinkommen_abgerundet_y_sn / familie__anzahl_personen_sn,
+            x=gesamteinkommen_y_sn / familie__anzahl_personen_sn,
             parameters=parameter_einkommensteuertarif,
             xnp=xnp,
         )
     else:
-        return (
-            besonderer_steuersatz_ohne_kinderfreibetrag
-            * gesamteinkommen_abgerundet_y_sn
-        )
+        return besonderer_steuersatz_ohne_kinderfreibetrag * gesamteinkommen_y_sn
 
 
 @policy_function(

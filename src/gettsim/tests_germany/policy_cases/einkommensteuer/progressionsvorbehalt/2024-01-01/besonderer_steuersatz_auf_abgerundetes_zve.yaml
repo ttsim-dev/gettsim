@@ -19,10 +19,14 @@ inputs:
     einkommensteuer:
       gemeinsam_veranlagt:
         - false
-      gesamteinkommen_y_sn:
-        - 40002.9
-      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
-        - 40002.9
+      einkünfte:
+        gesamtbetrag_der_einkünfte_y_sn:
+          - 40002.9
+      abzüge:
+        betrag_y_sn:
+          - 0.0
+      kinderfreibetrag_y_sn:
+        - 0.0
       dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
         - 10000.0
       besonderer_steuersatz_ohne_kinderfreibetrag:
