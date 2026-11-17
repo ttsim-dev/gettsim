@@ -205,7 +205,7 @@ inputs:
             - 500.0
             - 400.0
             - 500.0
-        bezieht_rente:
+        bezieht_altersrente:
           - true
           - true
           - true

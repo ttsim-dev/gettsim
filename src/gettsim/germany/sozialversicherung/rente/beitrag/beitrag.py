@@ -11,10 +11,14 @@ from gettsim.tt import TTSIMUnit, policy_function
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
+    versicherungsfrei_wegen_alters: bool,
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public pension insurance contributions paid by the insured person."""
-    return betrag_versicherter_regulärer_beitragssatz_m
+    if versicherungsfrei_wegen_alters:
+        return 0.0
+    else:
+        return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -25,6 +29,8 @@ def betrag_versicherter_m_bis_03_1999(
 )
 def betrag_versicherter_m_ohne_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
+    betrag_versicherter_geringfügige_beschäftigung_m: float,
+    versicherungsfrei_wegen_alters: bool,
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
     """Public pension insurance contributions paid by the insured person.
@@ -32,12 +38,12 @@ def betrag_versicherter_m_ohne_midijob(
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
     """
-    if sozialversicherung__geringfügig_beschäftigt:
-        out = 0.0
+    if versicherungsfrei_wegen_alters:
+        return 0.0
+    elif sozialversicherung__geringfügig_beschäftigt:
+        return betrag_versicherter_geringfügige_beschäftigung_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz_m
-
-    return out
+        return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
@@ -47,6 +53,8 @@ def betrag_versicherter_m_ohne_midijob(
 )
 def betrag_versicherter_m_mit_midijob(
     sozialversicherung__geringfügig_beschäftigt: bool,
+    betrag_versicherter_geringfügige_beschäftigung_m: float,
+    versicherungsfrei_wegen_alters: bool,
     betrag_in_gleitzone_arbeitnehmer_m: float,
     betrag_versicherter_regulärer_beitragssatz_m: float,
     sozialversicherung__in_gleitzone: bool,
@@ -58,14 +66,89 @@ def betrag_versicherter_m_mit_midijob(
     # TODO(@MImmesberger): Treatment of individuals that are not insured via the
     # public pension fund (or a berufsständische Rentenversicherung) is wrong.
     # https://github.com/ttsim-dev/gettsim/issues/1114
-    if sozialversicherung__geringfügig_beschäftigt:
-        out = 0.0
+    if versicherungsfrei_wegen_alters:
+        return 0.0
+    elif sozialversicherung__geringfügig_beschäftigt:
+        return betrag_versicherter_geringfügige_beschäftigung_m
     elif sozialversicherung__in_gleitzone:
-        out = betrag_in_gleitzone_arbeitnehmer_m
+        return betrag_in_gleitzone_arbeitnehmer_m
     else:
-        out = betrag_versicherter_regulärer_beitragssatz_m
+        return betrag_versicherter_regulärer_beitragssatz_m
 
-    return out
+
+@policy_function(
+    end_date="2016-12-31",
+    leaf_name="versicherungsfrei_wegen_alters",
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
+def versicherungsfrei_wegen_alters_ohne_altersgrenze(
+    sozialversicherung__rente__altersrente__betrag_m: float,
+) -> bool:
+    """Exempt from mandatory pension insurance because an old-age pension is drawn.
+
+    Drawing a Vollrente wegen Alters exempts at any age (§ 5 Abs. 4 Nr. 1 SGB VI).
+    """
+    return sozialversicherung__rente__altersrente__betrag_m > 0
+
+
+@policy_function(
+    start_date="2017-01-01",
+    leaf_name="versicherungsfrei_wegen_alters",
+    unit=TTSIMUnit.DIMENSIONLESS,
+)
+def versicherungsfrei_wegen_alters_mit_altersgrenze(
+    sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
+    sozialversicherung__rente__altersrente__betrag_m: float,
+    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_alters: bool,
+) -> bool:
+    """Exempt from mandatory pension insurance because of age and an old-age pension.
+
+    The Flexirentengesetz restricted the exemption to Vollrentner past the
+    Regelaltersgrenze and allowed them to waive it (§ 5 Abs. 4 Nr. 1 und S. 2 SGB VI).
+    """
+    return (
+        sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
+        and sozialversicherung__rente__altersrente__betrag_m > 0
+        and not sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_alters
+    )
+
+
+@policy_function(start_date="1999-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def betrag_versicherter_geringfügige_beschäftigung_m(
+    sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
+    beitragspflichtige_einnahmen_geringfügige_beschäftigung_m: float,
+    beitragssatz: float,
+    einnahmen__bruttolohn_m: float,
+    minijob_arbeitgeberpauschale: float,
+) -> float:
+    """Public pension insurance contributions paid by a marginally employed person.
+
+    Without mandatory coverage the employer's Pauschalbeitrag is the only contribution
+    (§ 172 Abs. 3 SGB VI). With it, the employer stays at the Pauschalbeitrag and the
+    employee owes the remainder rather than half (§ 168 Abs. 1 Nr. 1b SGB VI).
+    """
+    if sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+        return (
+            beitragspflichtige_einnahmen_geringfügige_beschäftigung_m * beitragssatz
+            - einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
+        )
+    else:
+        return 0.0
+
+
+@policy_function(start_date="1999-04-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def beitragspflichtige_einnahmen_geringfügige_beschäftigung_m(
+    einnahmen__bruttolohn_m: float,
+    mindestbeitragsbemessungsgrundlage_geringfügige_beschäftigung_m: float,
+) -> float:
+    """Income subject to pension contributions in marginal employment.
+
+    Reference: § 163 Abs. 8 SGB VI
+    """
+    return max(
+        einnahmen__bruttolohn_m,
+        mindestbeitragsbemessungsgrundlage_geringfügige_beschäftigung_m,
+    )
 
 
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -119,6 +202,7 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
 
 @policy_function(
     start_date="2003-04-01",
+    end_date="2022-09-30",
     leaf_name="betrag_arbeitgeber_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -136,6 +220,42 @@ def betrag_arbeitgeber_m_mit_midijob(
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
+    elif sozialversicherung__in_gleitzone:
+        out = betrag_in_gleitzone_arbeitgeber_m
+    else:
+        out = betrag_versicherter_regulärer_beitragssatz_m
+
+    return out
+
+
+@policy_function(
+    start_date="2022-10-01",
+    leaf_name="betrag_arbeitgeber_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def betrag_arbeitgeber_m_mit_midijob_ab_10_2022(
+    sozialversicherung__geringfügig_beschäftigt: bool,
+    versicherungsfrei_wegen_alters: bool,
+    betrag_in_gleitzone_gesamt_m: float,
+    betrag_in_gleitzone_arbeitgeber_m: float,
+    betrag_versicherter_regulärer_beitragssatz_m: float,
+    sozialversicherung__in_gleitzone: bool,
+    einnahmen__bruttolohn_m: float,
+    minijob_arbeitgeberpauschale: float,
+) -> float:
+    """Employer's public pension insurance contribution.
+
+    For a versicherungsfreier Beschäftigter the employer owes half of the contribution
+    that mandatory coverage would trigger (§ 172 Abs. 1 SGB VI), assessed on the reduced
+    beitragspflichtige Einnahme of the Übergangsbereich (§ 20 Abs. 2a Satz 1 SGB IV).
+    The asymmetric split of the Übergangsbereich is confined to versicherungspflichtige
+    Beschäftigte (§ 168 Abs. 1 Nr. 1d SGB VI). Outside the Übergangsbereich that half is
+    the regular employee-rate contribution.
+    """
+    if sozialversicherung__geringfügig_beschäftigt:
+        out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
+    elif versicherungsfrei_wegen_alters and sozialversicherung__in_gleitzone:
+        out = betrag_in_gleitzone_gesamt_m / 2
     elif sozialversicherung__in_gleitzone:
         out = betrag_in_gleitzone_arbeitgeber_m
     else:
@@ -195,7 +315,7 @@ def betrag_in_gleitzone_arbeitgeber_m_mit_festem_beitragssatz(
     einnahmen__bruttolohn_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution until September 2022."""
+    """Employer's public pension insurance contribution for midijobs until Sep 2022."""
     return einnahmen__bruttolohn_m * beitragssatz / 2
 
 
@@ -208,7 +328,7 @@ def betrag_in_gleitzone_arbeitgeber_m_als_differenz_von_gesamt_und_arbeitnehmerb
     betrag_in_gleitzone_gesamt_m: float,
     betrag_in_gleitzone_arbeitnehmer_m: float,
 ) -> float:
-    """Employer's unemployment insurance contribution since October 2022."""
+    """Employer's public pension insurance contribution for midijobs since Oct 2022."""
     return betrag_in_gleitzone_gesamt_m - betrag_in_gleitzone_arbeitnehmer_m
 
 
@@ -222,7 +342,7 @@ def betrag_in_gleitzone_arbeitnehmer_m_als_differenz_von_gesamt_und_arbeitgeberb
     betrag_in_gleitzone_arbeitgeber_m: float,
     betrag_in_gleitzone_gesamt_m: float,
 ) -> float:
-    """Employee's unemployment insurance contribution for midijobs until September 2022."""
+    """Employee's public pension insurance contribution for midijobs until Sep 2022."""
     return betrag_in_gleitzone_gesamt_m - betrag_in_gleitzone_arbeitgeber_m
 
 
@@ -235,7 +355,7 @@ def betrag_in_gleitzone_arbeitnehmer_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employee's unemployment insurance contribution for midijobs since October 2022."""
+    """Employee's public pension insurance contribution for midijobs since Oct 2022."""
     return (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
         * beitragssatz

@@ -70,7 +70,8 @@ def max_miete_m_lookup_mit_baujahr(
     return LookupTableBaujahr(
         baujahre=xnp.asarray(baujahre),
         lookup_table=get_consecutive_int_lookup_table_param_value(
-            raw=lookup_dict, xnp=xnp
+            raw=lookup_dict,  # ty: ignore[invalid-argument-type]
+            xnp=xnp,
         ),
     )
 

@@ -10,6 +10,10 @@ inputs:
       - 45
       - 45
       - 45
+    alter_monate:
+      - 540
+      - 540
+      - 540
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -47,6 +51,10 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
+    geburtsjahr:
+      - 1980
+      - 1980
+      - 1980
     hh_id:
       - 0
       - 1
@@ -83,6 +91,14 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+          - false
     wohnort_ost_hh:
       - false
       - false

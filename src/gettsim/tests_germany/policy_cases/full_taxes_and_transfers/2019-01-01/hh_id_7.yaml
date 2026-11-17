@@ -127,7 +127,7 @@ inputs:
               - 1.0
           höchster_bruttolohn_letzte_15_jahre_vor_rente_y:
             - 0.0
-        bezieht_rente:
+        bezieht_altersrente:
           - false
         entgeltpunkte_ost:
           - 0.0

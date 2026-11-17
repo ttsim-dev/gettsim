@@ -9,6 +9,9 @@ inputs:
     alter:
       - 20
       - 20
+    alter_monate:
+      - 240
+      - 240
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -38,6 +41,9 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 0.0
           - 0.0
+    geburtsjahr:
+      - 1990
+      - 1990
     hh_id:
       - 11
       - 11
@@ -64,6 +70,9 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
     wohnort_ost_hh:
       - false
       - false

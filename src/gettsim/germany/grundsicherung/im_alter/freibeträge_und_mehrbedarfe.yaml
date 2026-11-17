@@ -162,7 +162,7 @@ mehrbedarf_bei_schwerbehinderungsgrad_g:
       Mehrbedarf anerkannt.
     en: >-
       § 30 Abs. 1 SGB XII, https://www.buzer.de/gesetz/3415/al0-3758.htm
-      This share of the Regelbedarf is added as for someone who has a severly disabled
+      This share of the Regelbedarf is added as for someone who has a severely disabled
       ID card which shows the code 'G' and is entitled to the Grundsicherung.
   unit: DIMENSIONLESS
   type: scalar

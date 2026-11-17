@@ -6,7 +6,7 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.29.3
+    rev: v2.30.6
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
@@ -14,7 +14,7 @@ repos:
     hooks:
       - id: yamlfix
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.38.0
+    rev: 0.39.0
     hooks:
       - id: check-github-workflows
       - id: check-jsonschema
@@ -56,7 +56,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.6
+    rev: v0.17.5
     hooks:
       - id: ruff-check
         args:
@@ -71,26 +71,24 @@ repos:
           - pyi
           - python
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.78
+    rev: v0.0.104
     hooks:
       - id: ty
         name: ty (numpy backend)
-        # The hook's default entry (`uv check`) hands ty the hook's own virtualenv
-        # instead of the pixi env named in `[tool.ty] environment.python`, so run
-        # ty directly (run `pixi install` once). Keep the ty pin in sync with `rev`.
+        # Run ty directly so import resolution uses `[tool.ty] environment.python`.
+        # Keep this dependency pin aligned with the hook revision above.
         entry: ty check
         additional_dependencies:
-          - ty==0.0.78
+          - ty==0.0.104
   - repo: local
     hooks:
       - id: ty-jax
         name: ty (jax backend)
-        # A local hook because the official hook cannot forward `--python` to ty;
-        # this checks against the JAX environment. Keep the ty pin in sync with
-        # the `ty-pre-commit` rev above.
+        # A separate hook because it checks against a second environment, the
+        # JAX one. Keep the ty pin in sync with the `ty-pre-commit` rev above.
         language: python
         additional_dependencies:
-          - ty==0.0.78
+          - ty==0.0.104
         entry: ty check --python .pixi/envs/py314-jax
         pass_filenames: false
         always_run: true
@@ -113,7 +111,7 @@ repos:
         args:
           - --wrap
           - '88'
-        files: (AGENTS\.md|CLAUDE\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
+        files: (AGENTS\.md|README\.md|CHANGES\.md|CODE_OF_CONDUCT\.md|modules/.*\.md|profiles/.*\.md)
       - id: mdformat
         additional_dependencies:
           - mdformat-myst
@@ -122,10 +120,87 @@ repos:
           - --wrap
           - '88'
         files: docs/.
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.3
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+  - repo: local
+    hooks:
+      # Runs at pre-commit stage and fails if the config declares pre-push hooks
+      # that this clone never installed — otherwise they look active and silently
+      # never fire.
+      - id: pre-push-hooks-installed
+        name: pre-push hooks are installed in this clone
+        entry: .ai-instructions/hooks/check_pre_push_installed.py
+        language: script
+        pass_filenames: false
+        always_run: true
+      # `--check` re-solves and compares without writing, so it cannot dirty the
+      # worktree. pre-push, not pre-commit: a mid-branch commit may legitimately
+      # lag the lock, but a push with a stale lock burns a CI cycle.
+      - id: pixi-lock-check
+        name: pixi.lock is in sync with the manifest
+        entry: pixi lock --check
+        language: system
+        pass_filenames: false
+        files: ^(pyproject\.toml|pixi\.toml|pixi\.lock)$
+        stages:
+          - pre-push
+      - id: notebook-cell-source-format
+        name: notebook cell source is a JSON array of lines
+        entry: .ai-instructions/hooks/fix_notebook_cell_source.py
+        language: script
+        types:
+          - jupyter
+      # Whole-repository analysis: a change in one file can orphan code in another.
+      - id: dead-code
+        name: no internal or test code without a caller
+        entry: python .ai-instructions/hooks/dead_code.py
+        language: python
+        additional_dependencies:
+          - vulture==2.16
+        pass_filenames: false
+        files: \.py$|^pyproject\.toml$
+      - id: no-hardcoded-user-paths
+        name: no hardcoded user-specific absolute paths
+        language: pygrep
+        entry: (/home/[A-Za-z0-9_.-]+/|/Users/[A-Za-z0-9_.-]+/|[A-Za-z]:\\Users\\)
+        types_or:
+          - python
+          - toml
+      - id: no-section-separator-comments
+        name: no decorative section-separator comments
+        language: pygrep
+        entry: ^\s*#\s*[-=#_*]{10,}\s*$
+        types:
+          - python
+      # Catches the labelled forms only — PR/issue numbers, `E<n>`/`F<n>`
+      # finding labels, `round-<n>`, `pre-fix`. Prose that rehearses history
+      # without a label stays a review responsibility.
+      - id: no-internal-references
+        name: no references a reader cannot reach from the checkout
+        language: pygrep
+        entry: (?:^|[\s(\[])\#[0-9]{2,5}\b(?!\.[0-9])|(?i:\b(?:round|wave)-[0-9]+\b)|(?i:\b(?:audit|review|finding|witness|defect|bug|fix|guard)\s+)(?:finding\s+)?[EF][0-9]{1,2}\b|\b[EF][0-9]{1,2}(?i:\s+(?:fix|guard|bug|defect|witness|signature|regression|finding|audit)\b)|(?:^|\s)\((?:the\s+)?(?!(?:F8|F16|F32|F64)\b)[EF][0-9]{1,2}['’]?(?:\s*[,/]\s*[EF][0-9]{1,2}['’]?)*(?:[,)\s])|(?i:\b(?:pre|post)-fix\b)
+        types:
+          - python
 ci:
   autoupdate_schedule: monthly
   # pre-commit.ci has no pixi environments and blocks network at hook runtime;
-  # the GitHub Actions run-ty job covers type checking.
+  # the GitHub Actions `run-ty` job covers type checking, and pixi-lock-check
+  # needs a pixi binary that pre-commit.ci does not provide.
+  #
+  # The hooks above that run files from the `.ai-instructions` submodule
+  # fail as a missing file on pre-commit.ci, which clones without submodules.
+  # `pre-push-hooks-installed` asks about the local clone and is meaningless on
+  # a runner anyway; `dead-code` runs in the GitHub Actions `run-ty` job, which
+  # checks out the submodule; the notebook check loses CI coverage and holds
+  # only where the submodule is present.
   skip:
     - ty
     - ty-jax
+    - pixi-lock-check
+    - pre-push-hooks-installed
+    - notebook-cell-source-format
+    - dead-code

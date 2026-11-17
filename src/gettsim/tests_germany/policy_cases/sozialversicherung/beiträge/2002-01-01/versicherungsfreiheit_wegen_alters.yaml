@@ -1,0 +1,76 @@
+---
+info:
+  note: |-
+    Versicherungsfreiheit wegen Alters vor dem Flexirentengesetz und vor Einführung der
+    Midijobs. Beide Personen verdienen 2.000 € im Monat. Beitragssatz zur
+    Rentenversicherung 2002: 19,1 %, zur Arbeitslosenversicherung: 6,5 %,
+    Durchschnittsentgelt 2002: 28626 €.
+    - p_id 0: versicherungspflichtig. Rentenversicherung 2.000 € x 19,1 % / 2 =
+      191.00 €, Arbeitslosenversicherung 2.000 € x 6,5 % / 2 = 65.00 €, Entgeltpunkte
+      24.000 € / 28626 € = 0.838399.
+    - p_id 1: 70 Jahre alt und Bezug einer Vollrente wegen Alters. Vor 2017 genügt der
+      Rentenbezug in jedem Alter (§ 5 Abs. 4 Nr. 1 SGB VI a. F.). Kein
+      Arbeitnehmerbeitrag und keine Entgeltpunkte (§ 76b Abs. 4 SGB VI); der
+      Arbeitgeber zahlt unverändert die Hälfte (§ 172 Abs. 1 SGB VI,
+      § 346 Abs. 3 SGB III).
+  precision_atol: 0.000001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 45
+      - 70
+    alter_monate:
+      - 540
+      - 840
+    geburtsjahr:
+      - 1957
+      - 1932
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    einnahmen:
+      bruttolohn_m:
+        - 2000.0
+        - 2000.0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 1000.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  sozialversicherung:
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 65.00
+          - 65.00
+        betrag_versicherter_m:
+          - 65.00
+          - 0.0
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 191.00
+          - 191.00
+        betrag_versicherter_m:
+          - 191.00
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.838399
+        - 0.0

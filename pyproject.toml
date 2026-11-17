@@ -31,7 +31,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "ttsim-backend>=1.3.1" ]
+dependencies = [ "jaxtyping>=0.3.11", "pint<0.27", "ttsim-backend>=1.3.1" ]
 [[project.maintainers]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"
@@ -65,7 +65,13 @@ build.targets.wheel.sources = [ "src" ]
 
 [tool.pixi.workspace]
 channels = [ "conda-forge" ]
-platforms = [ "linux-64", "osx-64", "osx-arm64", "win-64" ]
+platforms = [
+  "linux-64",
+  "osx-64",
+  "osx-arm64",
+  "win-64",
+  { name = "linux-64-cuda13", platform = "linux-64", cuda = "13" },
+]
 [tool.pixi.dependencies]
 ipywidgets = "*"
 jupyterlab = "*"
@@ -73,7 +79,7 @@ numpy_groupies = "*"
 numpydoc = "*"
 openpyxl = "*"
 pandas = ">=3"
-prek = "*"
+prek = ">=0.5.9"
 pygments = "*"
 pygraphviz = "*"
 pyyaml = "*"
@@ -82,22 +88,17 @@ tabulate = "*"
 toml = "*"
 [tool.pixi.pypi-dependencies]
 gettsim = { path = ".", editable = true }
-jaxtyping = ">=0.3.2"
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-# pint 0.26 declares its registry with a type-parameter bound that only exists under
-# TYPE_CHECKING; ttsim's beartype claw cannot decorate functions annotated with it.
-pint = "<0.26"
-# ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.feature.coverage.tasks]
 tests-with-cov = """\
   pytest --cov-report=xml --cov=./ \
   --ignore=src/gettsim/tests_germany/test_jittability.py\
   """
 [tool.pixi.feature.cuda]
-platforms = [ "linux-64" ]
-system-requirements = { cuda = "13" }
+platforms = [ "linux-64-cuda13" ]
 [tool.pixi.feature.cuda.target.linux-64.pypi-dependencies]
 jax = { version = ">=0.8", extras = [ "cuda13" ] }
 [tool.pixi.feature.cuda.tasks]
@@ -130,11 +131,6 @@ tests-jax = "pytest --backend=jax"
 tests-jax = "dot -c && pytest --backend=jax"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.jax.target.win-64.tasks]
 tests-jax = "pytest --backend=jax"
-[tool.pixi.feature.metal]
-platforms = [ "osx-arm64" ]
-[tool.pixi.feature.metal.target.osx-arm64.pypi-dependencies]
-jax = ">=0.8"
-jax-metal = ">=0.1.1"
 [tool.pixi.feature.py311.dependencies]
 python = "~=3.11.0"
 [tool.pixi.feature.py312.dependencies]
@@ -172,7 +168,6 @@ tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.tests.target.win-64.tasks]
 tests = "pytest"
-[tool.pixi.feature.tests.tasks]
 [tool.pixi.environments]
 py311 = [ "py311", "tests" ]
 py312 = [ "py312", "tests" ]
@@ -180,7 +175,6 @@ py313 = [ "py313", "tests" ]
 py314 = [ "py314", "tests", "coverage" ]
 py314-cuda = [ "py314", "tests", "cuda" ]
 py314-jax = [ "py314", "tests", "jax" ]
-py314-metal = [ "py314", "tests", "metal" ]
 docs = [ "docs", "py313" ]
 
 [tool.ruff]
@@ -218,14 +212,12 @@ per-file-ignores."conftest.py" = [
   "ANN", # Type annotations not needed in conftest
 ]
 per-file-ignores."docs/*" = [
+  "E501",   # Line too long — qualified input names do not fit
   "INP001", # Implicit namespace packages
   "T201",   # print() usage OK in docs
 ]
 per-file-ignores."docs/how_to_guides/modifications_of_policy_environments.ipynb" = [
   "E402", # Module-level import not at top of cell
-]
-per-file-ignores."docs/tutorials/personas.ipynb" = [
-  "E501", # Line too long
 ]
 per-file-ignores."src/gettsim/__init__.py" = [
   "PLW0127", # Re-export things for tab-completion explicitly.
@@ -256,6 +248,14 @@ per-file-ignores."src/gettsim/typing.py" = [
 ]
 pydocstyle.convention = "google"
 
+[tool.codespell]
+ignore-words-list = """\
+  als,alle,archiv,arithmetics,beginn,bund,dezember,disjointness,faktor,faktors,fpr,funk\
+  tion,ges,intervall,ist,januar,juli,juni,mape,ment,methode,nd,nin,oder,oktober,presse,\
+  produkt,referenz,relativ,relevante,sie,statics,unter,vor\
+  """
+skip = "*.lock,*.svg,*.bib,*.ipynb,*.html"
+
 [tool.pyproject-fmt]
 column_width = 88
 max_supported_python = "3.14"
@@ -278,8 +278,6 @@ expand_tables = [
   "tool.pixi.feature.jax.target.linux-64.tasks",
   "tool.pixi.feature.jax.target.osx-arm64.tasks",
   "tool.pixi.feature.jax.target.win-64.tasks",
-  "tool.pixi.feature.metal",
-  "tool.pixi.feature.metal.target.osx-arm64.pypi-dependencies",
   "tool.pixi.feature.py311.dependencies",
   "tool.pixi.feature.py312.dependencies",
   "tool.pixi.feature.py313.dependencies",
@@ -297,26 +295,29 @@ expand_tables = [
 collapse_tables = [ "tool.hatch", "tool.pytest", "tool.ty" ]
 
 [tool.ty]
-# ty resolves third-party imports from this pixi env (the ty-pre-commit hook runs
-# `ty check` directly, so uv neither creates a `.venv` nor picks the environment).
-# Run `pixi install` once. The ty-jax hook overrides this on the command line for jax.
+# The `.ai-instructions` hook scripts import tools that exist only in their
+# pre-commit environments (vulture), so ty cannot resolve them.
+src.exclude = [ ".ai-instructions" ]
+# ty resolves third-party imports from this pixi env. The pre-commit hook runs
+# ty directly; pixi owns the project environment. Run `pixi install` once.
+# The ty-jax hook overrides this on the command line for jax.
 environment.python = ".pixi/envs/py314"
 rules.ambiguous-protocol-member = "error"
 rules.deprecated = "error"
 rules.division-by-zero = "error"
-rules.empty-body = "ignore"  # raised for all functions decorated with @policy_input
 rules.ignore-comment-unknown-rule = "error"
 rules.ineffective-final = "error"
 rules.invalid-enum-member-annotation = "error"
+rules.invalid-explicit-return = "ignore"
 rules.invalid-ignore-comment = "error"
+rules.invalid-implicit-return-in-function-with-stub-body = "ignore"  # raised for all functions decorated with @policy_input
 rules.invalid-legacy-positional-parameter = "error"
-rules.invalid-return-type = "ignore"
 rules.possibly-missing-submodule = "error"
 rules.redundant-cast = "error"
 rules.unused-awaitable = "error"
 rules.unused-ignore-comment = "error"
 overrides = [
-  { include = [ "docs/**" ], rules.unresolved-attribute = "ignore", rules.invalid-argument-type = "ignore" },
+  { include = [ "docs/**" ], rules.missing-attribute = "ignore", rules.invalid-argument-type = "ignore" },
 ]
 
 [tool.pytest]
@@ -365,3 +366,15 @@ exclude_lines = [ "^\\s*pass\\s*$", "if TYPE_CHECKING:", "pragma: no cover" ]
 line_length = 88
 sequence_style = "block_style"
 none_representation = "null"
+
+# Read by the `dead-code` hook (`.ai-instructions/hooks/dead_code.py`). gettsim is
+# a library, so only `_`-private definitions without a caller are reported.
+[tool.dead-code]
+consumers = [ "src", "docs" ]
+public = [ "src/gettsim/" ]
+tests = "src/gettsim/tests_germany"
+registering-decorators = [ "@policy_function" ]
+[[tool.dead-code.allow]]
+path = "src/gettsim/tests_germany/conftest.py"
+name = "pytest_*"
+reason = "pytest hook implementations, called by the plugin manager by name."

@@ -1,0 +1,100 @@
+---
+info:
+  note: |-
+    Versicherungsfreier Altersvollrentner mit 1.280 € Monatsentgelt im
+    Übergangsbereich. Die reduzierte beitragspflichtige Einnahme beträgt 1202.13 €
+    (§ 20 Abs. 2a Satz 1 SGB IV).
+    Seit dem 01.10.2022 ergibt sich der Arbeitgeberanteil aus der Anwendung des halben
+    Beitragssatzes auf diese reduzierte Einnahme, nicht mehr auf das
+    Bruttoarbeitsentgelt: 1202.13 € x 9,3 % = 111.80 € (§ 172 Abs. 1 SGB VI). Für die
+    Arbeitslosenversicherung gilt das laut Ziffer 4.3.3.6 des Rundschreibens analog
+    (§ 346 Abs. 3 SGB III): 1202.13 € x 1,3 % = 15.63 €.
+    Die Quelle weist 1202.13 € und 111.80 € für einen nach § 6 Abs. 1 Satz 1 Nr. 1
+    SGB VI befreiten Beschäftigten aus, für den der Arbeitgeber denselben halben
+    Beitrag als Zuschuss nach § 172a SGB VI trägt. Der Betrag zur
+    Arbeitslosenversicherung ist aus derselben Bemessungsgrundlage abgeleitet, nicht
+    der Quelle entnommen.
+    Arbeitnehmeranteile entfallen, ebenso entstehen keine Entgeltpunkte
+    (§ 76b Abs. 4 SGB VI).
+  precision_atol: 0.01
+  source: |-
+    GKV-Spitzenverband / Deutsche Rentenversicherung Bund / Bundesagentur für Arbeit,
+    Rundschreiben "Versicherungs-, beitrags- und melderechtliche Behandlung von
+    Beschäftigungsverhältnissen im Übergangsbereich" vom 20.12.2022, Beispiel 12
+    (zu Ziffer 4.3.3.6).
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 70
+    alter_monate:
+      - 840
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+        ist_hauptberuflich_selbstständig:
+          - false
+    einnahmen:
+      bruttolohn_m:
+        - 1280.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+        basisrente_m:
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+    geburtsjahr:
+      - 1953
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+      pflege:
+        beitrag:
+          anzahl_kinder_bis_24:
+            - 0
+          hat_kinder:
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    midijob_bemessungsentgelt_m:
+      - 1202.13
+    arbeitslosen:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 15.63
+        betrag_versicherter_m:
+          - 0.0
+    rente:
+      beitrag:
+        betrag_arbeitgeber_m:
+          - 111.80
+        betrag_versicherter_m:
+          - 0.0
+      neue_entgeltpunkte_y:
+        - 0.0

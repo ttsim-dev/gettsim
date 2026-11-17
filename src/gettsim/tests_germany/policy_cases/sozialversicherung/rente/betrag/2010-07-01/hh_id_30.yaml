@@ -10,6 +10,8 @@ inputs:
   provided:
     alter:
       - 71
+    alter_monate:
+      - 852
     einnahmen:
       bruttolohn_m:
         - 1500.0
@@ -24,6 +26,8 @@ inputs:
     sozialversicherung:
       rente:
         altersrente:
+          betrag_m:
+            - 0.0
           für_frauen:
             pflichtsbeitragsjahre_ab_alter_40:
               - 15.0
@@ -62,6 +66,8 @@ inputs:
           - 10.0
         pflichtbeitragsmonate:
           - 420.0
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
     weiblich:
       - true
     wohnort_ost_hh:

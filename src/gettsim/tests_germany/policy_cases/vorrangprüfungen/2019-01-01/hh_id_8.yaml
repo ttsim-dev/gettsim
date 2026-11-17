@@ -41,7 +41,7 @@ inputs:
       - 20
     sozialversicherung:
       rente:
-        bezieht_rente:
+        bezieht_altersrente:
           - true
     unterhalt:
       tatsächlich_erhaltener_betrag_m:

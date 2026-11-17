@@ -37,7 +37,7 @@ GETTSIM's default will be 1. This document describes how we support both use cas
 
 ## Implementation
 
-GETTSIM allows for optional rounding of functions' results. Rounding specications are
+GETTSIM allows for optional rounding of functions' results. Rounding specifications are
 defined in the `policy_function` decorators. The following goes through the details
 using an example from the basic pension allowance (Grundrente).
 

@@ -8,6 +8,12 @@ inputs:
     alter:
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
+    geburtsjahr:
+      - 1959
+      - 1959
     einkommensteuer:
       einkünfte:
         aus_selbstständiger_arbeit:
@@ -52,6 +58,9 @@ inputs:
             - false
             - false
       rente:
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
         altersrente:
           betrag_m:
             - 0.0

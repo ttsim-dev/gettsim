@@ -51,10 +51,10 @@ jobs:
           - os: windows-latest
             environment: py313
     steps:
-      - uses: actions/checkout@v7
-      - uses: prefix-dev/setup-pixi@v0.10.2
+      - uses: actions/checkout@v7.0.1
+      - uses: prefix-dev/setup-pixi@v0.11.3
         with:
-          pixi-version: v0.77.0
+          pixi-version: v0.84.2
           cache: true
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           frozen: true
@@ -80,17 +80,20 @@ jobs:
         shell: bash -el {0}
       - name: Upload coverage reports
         if: runner.os == 'Linux' && matrix.environment == 'py314'
-        uses: codecov/codecov-action@v7.0.0
+        uses: codecov/codecov-action@v7.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   run-ty:
     name: Run ty
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: prefix-dev/setup-pixi@v0.10.2
+      - uses: actions/checkout@v7.0.1
         with:
-          pixi-version: v0.77.0
+          # `.ai-instructions` carries the dead-code script.
+          submodules: true
+      - uses: prefix-dev/setup-pixi@v0.11.3
+        with:
+          pixi-version: v0.84.2
           cache: true
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
           frozen: true
@@ -101,6 +104,9 @@ jobs:
       - name: Run ty (jax backend)
         run: pixi run --locked -e py314 prek run ty-jax --all-files
         shell: bash -el {0}
+      - name: Refuse dead internal and test code
+        run: pixi run --locked -e py314 prek run dead-code --all-files
+        shell: bash -el {0}
   prevent-unit-check-exception-growth:
     name: Prevent growth in unit casts and opt-outs
     runs-on: ubuntu-latest
@@ -108,10 +114,10 @@ jobs:
       GETTSIM_BEARTYPE_CLAW: '1'
       TTSIM_BEARTYPE_CLAW: '1'
     steps:
-      - uses: actions/checkout@v7
-      - uses: prefix-dev/setup-pixi@v0.10.2
+      - uses: actions/checkout@v7.0.1
+      - uses: prefix-dev/setup-pixi@v0.11.3
         with:
-          pixi-version: v0.77.0
+          pixi-version: v0.84.2
           cache: true
           frozen: true
           environments: py314
