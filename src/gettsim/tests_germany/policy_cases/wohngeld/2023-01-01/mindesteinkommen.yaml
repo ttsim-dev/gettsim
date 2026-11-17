@@ -18,6 +18,13 @@ inputs:
       - 40
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -134,7 +141,7 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      freibetrag_paragraph_10_abs_1_beeg_m:
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
         - 0.0
         - 0.0
@@ -142,6 +149,13 @@ inputs:
         - 0.0
         - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
         - 0.0
@@ -280,6 +294,13 @@ inputs:
         - 0.0
         - 0.0
       kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         beitrag:
           betrag_versicherter_m:
             - 100.0

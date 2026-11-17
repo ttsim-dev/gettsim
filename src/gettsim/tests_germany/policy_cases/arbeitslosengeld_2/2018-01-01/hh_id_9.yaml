@@ -129,12 +129,6 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      freibetrag_paragraph_10_abs_5_beeg_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
@@ -143,6 +137,12 @@ inputs:
         - 0.0
       betrag_m:
         - 372.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
         - 0.0
         - 0.0
         - 0.0

@@ -13,6 +13,13 @@ inputs:
       - 15
       - 6
       - 5
+    alter_monate:
+      - 516
+      - 576
+      - 168
+      - 180
+      - 72
+      - 60
     anzahl_personen_hh:
       - 6
       - 6
@@ -121,14 +128,14 @@ inputs:
         - 0.0
         - 0.0
     elterngeld:
-      freibetrag_paragraph_10_abs_1_beeg_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
         - 0.0

@@ -53,11 +53,9 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 0.0
     elterngeld:
-      freibetrag_paragraph_10_abs_5_beeg_m:
-        - 0.0
-      angerechnete_mutterschaftsleistungen_m:
-        - 0.0
       betrag_m:
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
     familie:
       alleinerziehend:
@@ -108,6 +106,9 @@ inputs:
         grundrente:
           grundrentenzeiten_monate:
             - 0
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

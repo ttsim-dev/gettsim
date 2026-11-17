@@ -10,7 +10,10 @@ inputs:
       betrag_m:
         - 0.0
         - 0.0
-      freibetrag_paragraph_10_abs_5_beeg_m:
+      angerechnete_mutterschaftsleistungen_m:
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
         - 0.0
     alter:

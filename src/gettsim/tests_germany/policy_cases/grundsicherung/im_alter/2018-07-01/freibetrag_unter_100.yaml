@@ -54,8 +54,6 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 75.0
     elterngeld:
-      freibetrag_paragraph_10_abs_1_beeg_m:
-        - 0.0
       betrag_m:
         - 0.0
     familie:

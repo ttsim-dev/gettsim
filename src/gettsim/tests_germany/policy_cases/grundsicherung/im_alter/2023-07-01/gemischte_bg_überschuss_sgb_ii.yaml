@@ -82,10 +82,10 @@ inputs:
           - 0.0
           - 400.0
     elterngeld:
-      freibetrag_paragraph_10_abs_5_beeg_m:
-        - 0.0
-        - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
         - 0.0
     familie:
@@ -192,6 +192,10 @@ inputs:
           grundrentenzeiten_monate:
             - 0
             - 500
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
