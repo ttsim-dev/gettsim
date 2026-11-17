@@ -91,3 +91,35 @@ def zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn(
     """Calculate taxable income with child allowance on Steuernummer level."""
     out = gesamteinkommen_y_sn - kinderfreibetrag_y_sn
     return max(out, 0.0)
+
+
+@policy_function(
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 1 EStG",
+    ),
+    start_date="2002-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def zu_versteuerndes_einkommen_mit_kinderfreibetrag_abgerundet_y_sn(
+    zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
+) -> float:
+    """Taxable income with child allowance, rounded down to full Euros."""
+    return zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+
+
+@policy_function(
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="down",
+        reference="§ 32a Abs. 1 S. 1 EStG",
+    ),
+    start_date="2002-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
+)
+def gesamteinkommen_abgerundet_y_sn(gesamteinkommen_y_sn: float) -> float:
+    """Taxable income without child allowance, rounded down to full Euros."""
+    return gesamteinkommen_y_sn
