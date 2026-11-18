@@ -1,0 +1,43 @@
+---
+info:
+  data_currency: DM
+  note: ALG vor August 1998 bringt keine Entgeltpunkte.
+  precision_atol: 0.0001
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    alter:
+      - 40
+    alter_monate:
+      - 480
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+    geburtsjahr:
+      - 1958
+    geburtsmonat:
+      - 1
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      neue_entgeltpunkte_y:
+        - 0.0
