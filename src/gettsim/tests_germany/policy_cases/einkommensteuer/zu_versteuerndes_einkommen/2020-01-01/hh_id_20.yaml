@@ -107,6 +107,17 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      renten:
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
     familie:
       alleinerziehend:
         - false
@@ -138,6 +149,11 @@ inputs:
       - 1
       - 1
       - 1
+    geburtstag:
+      - 15
+      - 15
+      - 15
+      - 15
     hh_id:
       - 20
       - 20
