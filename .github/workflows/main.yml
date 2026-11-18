@@ -32,23 +32,12 @@ jobs:
           - macos-latest
           - windows-latest
         environment:
-          - py311
-          - py312
-          - py313
           - py314
           - py314-jax
-        exclude:
-          - os: macos-latest
-            environment: py311
-          - os: macos-latest
+        include:
+          - os: ubuntu-latest
             environment: py312
-          - os: macos-latest
-            environment: py313
-          - os: windows-latest
-            environment: py311
-          - os: windows-latest
-            environment: py312
-          - os: windows-latest
+          - os: ubuntu-latest
             environment: py313
     steps:
       - uses: actions/checkout@v7.0.1
@@ -61,7 +50,6 @@ jobs:
           environments: ${{ matrix.environment }}
       - name: Run tests on Linux (with NumPy backend and without coverage)
         if: >-
-          matrix.environment == 'py311' ||
           matrix.environment == 'py312' ||
           matrix.environment == 'py313'
         run: pixi run --locked -e ${{ matrix.environment }} tests
