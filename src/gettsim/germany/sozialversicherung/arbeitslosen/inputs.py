@@ -33,3 +33,13 @@ def monate_durchgängigen_bezugs_von_arbeitslosengeld() -> int:
 @policy_input(unit=TTSIMUnit.MONTHS)
 def monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren() -> int:
     """Months of subjection to compulsory insurance in the 5 years before claiming unemployment."""
+
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def kurzarbeitergeld_m() -> float:
+    """Kurzarbeitergeld received."""
+
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def insolvenzgeld_m() -> float:
+    """Insolvenzgeld received."""

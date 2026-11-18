@@ -15,6 +15,8 @@ inputs:
   provided:
     alter:
       - 67
+    alter_monate:
+      - 804
     anzahl_personen_hh:
       - 1
     bürgergeld:
@@ -40,10 +42,10 @@ inputs:
           rente:
             betrag_m:
               - 500.0
-            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
-              - 65
+            steuerpflichtige_einnahmen_m:
+              - 415.0
         aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
+          einnahmen_nach_abzug_werbungskosten_m:
             - 0.0
       gemeinsam_veranlagt:
         - false
@@ -52,23 +54,15 @@ inputs:
         - 0.0
       kapitalerträge_y:
         - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         gesetzliche_m:
           - 500.0
-        sonstige_private_vorsorge_m:
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-        basisrente_m:
-          - 0.0
-        betriebliche_altersvorsorge_m:
-          - 0.0
-        aus_berufsständischen_versicherungen_m:
-          - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
       betrag_m:
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
     familie:
       alleinerziehend:
@@ -108,8 +102,6 @@ inputs:
           betrag_versicherter_m:
             - 40.0
       rente:
-        jahr_renteneintritt:
-          - 2024
         altersrente:
           betrag_m:
             - 500.0
