@@ -1,6 +1,6 @@
 ---
 info:
-  note: 'ALG neben Beschäftigung: beide Teile je für sich begrenzt.'
+  note: ALG neben nicht geringfügiger Beschäftigung, Lohn unter und über der BBG.
   precision_atol: 0.0001
   source: Regression test.
 inputs:
@@ -72,6 +72,10 @@ inputs:
 outputs:
   sozialversicherung:
     rente:
+      beitrag:
+        beitragspflichtige_einnahmen_aus_arbeitslosengeld_y:
+          - 4800.0
+          - 0.0
       neue_entgeltpunkte_y:
-        - 1.164518
-        - 3.443646
+        - 0.689205
+        - 1.913136
