@@ -1,0 +1,79 @@
+---
+info:
+  note: >-
+    Annual benefits that are fully repaid leave no benefits under the
+    Progressionsvorbehalt, so the tariff applies directly. The annual benefit passes
+    through the monthly sum of benefits and back (1.000,32 / 12 × 12), which leaves a
+    floating-point residue that must not trigger the besonderer Steuersatz. The second
+    person has no benefits at all.
+  precision_atol: 1.0e-06
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 40001.0
+        - 40001.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 40001.0
+        - 40001.0
+    einnahmen:
+      bruttolohn_y:
+        - 45000.0
+        - 45000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 1000.32
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 1000.32
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_y:
+        - 0.0
+        - 0.0
+outputs:
+  einkommensteuer:
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 7461
+      - 7461
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 7461
+      - 7461

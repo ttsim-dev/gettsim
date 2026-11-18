@@ -1,0 +1,76 @@
+---
+info:
+  note: >-
+    Benefits under the Progressionsvorbehalt raise the besonderer Steuersatz in both
+    branches of the Günstigerprüfung (§ 31 EStG) and thereby the tax relief from the
+    Kinderfreibetrag. Persons 0 and 1 have the same income; only person 1 receives
+    benefits, which makes the Kinderfreibetrag more favourable than the Kindergeld.
+    The Solidaritätszuschlag of person 2 is based on the tax with Kinderfreibetrag at
+    the besonderer Steuersatz (§ 3 Abs. 2 SolZG).
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 2
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+      gesamteinkommen_y_sn:
+        - 39000.0
+        - 39000.0
+        - 80000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 34230.0
+        - 34230.0
+        - 75230.0
+      dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+        - 0.0
+        - 10000.0
+        - 10000.0
+      relevantes_kindergeld_y_sn:
+        - 1500.0
+        - 1500.0
+        - 1500.0
+      abgeltungssteuer:
+        betrag_y_sn:
+          - 0.0
+          - 0.0
+          - 0.0
+outputs:
+  einkommensteuer:
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 7139
+      - 8369
+      - 24144
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 5657
+      - 6856
+      - 22207
+    kinderfreibetrag_günstiger_sn:
+      - false
+      - true
+      - true
+    betrag_y_sn:
+      - 7139
+      - 8356
+      - 23707
+  solidaritätszuschlag:
+    betrag_y_sn:
+      - 0.0
+      - 0.0
+      - 485.16

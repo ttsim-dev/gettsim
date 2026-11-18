@@ -323,17 +323,29 @@ def mindesteinkommen_erreicht(
     return einkommen_m >= mindesteinkommen_m
 
 
-@policy_function(start_date="2017-07-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def einkommen_m(
+@policy_function(
+    start_date="2017-07-01",
+    end_date="2022-12-31",
+    leaf_name="einkommen_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def einkommen_m_bis_2022(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
+    elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
 ) -> float:
-    """Calculate relevant income for advance on alimony payment."""
+    """Calculate relevant income for advance on alimony payment.
+
+    Income in the sense of § 11 Abs. 1 S. 1 SGB II (§ 1 Abs. 1a S. 1 Nr. 2 UhVG), so
+    wage-replacement benefits count. Deductions under § 11b SGB II do not reduce it,
+    but income exempt under other laws does not count, such as the part of the
+    Elterngeld exempt under § 10 Abs. 5 BEEG (UVG-Richtlinien, Nr. 1.7.4).
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -341,7 +353,41 @@ def einkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
+        - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
+    )
+
+
+@policy_function(
+    start_date="2023-01-01", leaf_name="einkommen_m", unit=TTSIMUnit.CURRENCY.PER_MONTH
+)
+def einkommen_m_ab_2023(
+    einnahmen__bruttolohn_m: float,
+    einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
+    einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m: float,
+    einnahmen__kapitalerträge_m: float,
+    einnahmen__renten__betrag_gesamt_m: float,
+    einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
+    elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
+    sozialversicherung__kranken__mutterschaftsgeld_m: float,
+) -> float:
+    """Calculate relevant income for advance on alimony payment from 2023.
+
+    Mutterschaftsgeld is exempt in full under § 10 Abs. 5 S. 4 BEEG (inserted by Art. 12
+    Abs. 7 G. v. 16.12.2022, BGBl. I S. 2328) and therefore does not count
+    (UVG-Richtlinien, Nr. 1.7.4).
+    """
+    return (
+        einnahmen__bruttolohn_m
+        + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
+        + einkommensteuer__einkünfte__aus_vermietung_und_verpachtung__betrag_m
+        + einnahmen__kapitalerträge_m
+        + einnahmen__renten__betrag_gesamt_m
+        + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
+        - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
+        - sozialversicherung__kranken__mutterschaftsgeld_m
     )
 
 

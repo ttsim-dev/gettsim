@@ -115,6 +115,13 @@ inputs:
       - 1986
       - 2016
     sozialversicherung:
+      arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
       kranken:
         beitrag:
           privat_versichert:
