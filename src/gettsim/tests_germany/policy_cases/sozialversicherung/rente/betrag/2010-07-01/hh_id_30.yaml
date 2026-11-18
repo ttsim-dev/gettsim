@@ -49,7 +49,7 @@ inputs:
           - 0.0
         freiwillige_beitragsmonate:
           - 0.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
         kinderberücksichtigungszeiten_monate:
           - 108.0

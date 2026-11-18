@@ -47,7 +47,7 @@ inputs:
         entgeltpunkte:
           - 30.0
           - 30.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
           - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:

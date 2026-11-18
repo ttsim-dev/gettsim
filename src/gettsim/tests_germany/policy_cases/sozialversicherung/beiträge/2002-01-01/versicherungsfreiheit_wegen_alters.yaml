@@ -54,7 +54,7 @@ inputs:
           betrag_m:
             - 0.0
             - 0.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
           - false
         verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:

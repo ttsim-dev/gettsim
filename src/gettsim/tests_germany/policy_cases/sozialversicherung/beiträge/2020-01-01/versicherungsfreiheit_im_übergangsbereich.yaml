@@ -71,7 +71,7 @@ inputs:
         erwerbsminderung:
           betrag_m:
             - 0.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
         verzichtet_auf_versicherungsfreiheit_wegen_alters:
           - false

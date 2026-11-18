@@ -27,7 +27,7 @@ inputs:
           - 24
           - 24
       rente:
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
           - true
   provided:

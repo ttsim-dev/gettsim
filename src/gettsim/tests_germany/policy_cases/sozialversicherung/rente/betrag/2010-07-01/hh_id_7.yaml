@@ -3,6 +3,8 @@ info:
   note: |-
     From eastern Germany: wage above the Beitragsbemessungsgrenze (Ost); the
     upscaled wage is capped at the Beitragsbemessungsgrenze (West).
+    `neue_entgeltpunkte_y` is computed by hand from the statute; the source does
+    not report it.
   precision_atol: 0.1
   source: https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Dienste/Online-Rechner/RentenbeginnUndHoehenRechner/rentenbeginnrechner_node.html
 inputs:
@@ -53,7 +55,7 @@ inputs:
           - 0.0
         freiwillige_beitragsmonate:
           - 0.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
         kinderberücksichtigungszeiten_monate:
           - 0.0

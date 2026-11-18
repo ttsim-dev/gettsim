@@ -66,9 +66,9 @@ Unemployment benefits are based on the income in the 12 months preceding the beg
 of the unemployment spell:
 
 - **Historical inputs**:
-  `("arbeitslosengeld", "mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")` for
-  the benefit and
-  `("arbeitslosengeld", "mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")`
+  `("sozialversicherung", "arbeitslosen", "mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")`
+  for the benefit and
+  `("sozialversicherung", "arbeitslosen", "mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m")`
   for the Entgeltpunkte earned while drawing it
 - **Calculation target**:
-  `("arbeitslosengeld", "mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y")`
+  `("sozialversicherung", "arbeitslosen", "mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y")`

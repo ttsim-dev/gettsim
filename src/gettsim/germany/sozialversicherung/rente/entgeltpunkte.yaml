@@ -423,12 +423,19 @@ anteil_bemessungsentgelt_arbeitslosengeld:
     de: >-
       § 166 Abs. 1 Nr. 2 SGB VI. Beitragspflichtige Einnahme bei Bezug von
       Arbeitslosengeld ist dieser Anteil des der Leistung zugrunde liegenden
-      Arbeitsentgelts.
+      Arbeitsentgelts, abzüglich desselben Anteils des beitragspflichtigen
+      Arbeitsentgelts aus einer daneben ausgeübten, nicht geringfügigen Beschäftigung.
     en: >-
       § 166 Abs. 1 Nr. 2 SGB VI. While drawing Arbeitslosengeld, this share of the
-      Arbeitsentgelt the benefit is based on is subject to pension contributions.
+      Arbeitsentgelt the benefit is based on is subject to pension contributions, minus
+      the same share of the contributory wage from a concurrent employment that is not
+      geringfügig.
   unit: DIMENSIONLESS
   type: scalar
   1995-01-01:
     value: 0.8
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2306
+    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261, 2306
+    note: >-
+      In der Zeit vom 01.01.1992 bis 31.12.1994 waren gemäß § 276 Abs. 1 SGB VI a. F.
+      abweichend von § 166 Abs. 1 Nr. 2 SGB VI die gezahlten Sozialleistungen
+      beitragspflichtige Einnahmen.

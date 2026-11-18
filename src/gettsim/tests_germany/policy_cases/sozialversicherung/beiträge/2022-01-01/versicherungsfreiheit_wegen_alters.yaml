@@ -67,7 +67,7 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - false
           - false
           - false

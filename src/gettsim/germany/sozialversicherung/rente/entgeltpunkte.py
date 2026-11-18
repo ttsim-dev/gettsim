@@ -51,8 +51,12 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
 ) -> float:
     """Earnings points for the wages earned in the current year.
 
-    Versicherungsfreiheit wegen Alters rules out earnings points (§ 76b Abs. 4 SGB VI).
-    Marginal employment carries no employer contribution yet, so it earns none either.
+    Versicherungsfreiheit wegen Alters rules out earnings points. Marginal employment
+    carries no employer contribution yet, so it earns none either.
+
+    Wages earned in the GDR are not capped at the GDR's contribution limits (§ 256a
+    Abs. 3 SGB VI); they are scaled up by Anlage 10 and the result is capped at the
+    Beitragsbemessungsgrenze.
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -65,8 +69,7 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
             min(
-                umrechnungswert
-                * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y),
+                umrechnungswert * einnahmen__bruttolohn_y,
                 beitrag__beitragsbemessungsgrenze_y,
             )
             / beitragspflichtiges_durchschnittsentgelt_y
@@ -92,12 +95,12 @@ def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort_ohne_geringfügige_besch�
 ) -> float:
     """Earnings points for the wages earned in the current year.
 
-    Versicherungsfreiheit wegen Alters rules out earnings points (§ 76b Abs. 4 SGB VI).
+    Versicherungsfreiheit wegen Alters rules out earnings points (§ 5 Abs. 4 SGB VI).
     Marginal employment carries no employer contribution yet, so it earns none either.
 
     Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
     scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
-    (West) (§ 256a Abs. 1, § 260 Satz 2 SGB VI).
+    (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -152,7 +155,7 @@ def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort(
 
     Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
     scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
-    (West) (§ 256a Abs. 1, § 260 Satz 2 SGB VI).
+    (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
     """
     # Earnings in the Beitrittsgebiet are scaled up before they are compared to the
     # national Durchschnittsentgelt (§ 256a SGB VI).
@@ -261,20 +264,22 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_bis_1998_07() -> float:
 )
 def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
     sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt: bool,
-    sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y: float,
-    im_vorjahr_versicherungspflichtig: bool,
+    zuletzt_versicherungspflichtig_vor_leistungsbeginn: bool,
     wohnort_ost_hh: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
-    beitrag__beitragsbemessungsgrenze_y: float,
-    anteil_bemessungsentgelt_arbeitslosengeld: float,
+    beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y: float,
     beitragspflichtiges_durchschnittsentgelt_y: float,
     umrechnung_entgeltpunkte_beitrittsgebiet: float,
 ) -> float:
     """Earnings points for drawing Arbeitslosengeld in the current year.
 
-    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on a share of the
-    capped Arbeitsentgelt the benefit is based on (§ 166 Abs. 1 Nr. 2 SGB VI). Amounts
-    in the Beitrittsgebiet are scaled up by Anlage 10 (§ 256a Abs. 1 SGB VI).
+    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on the
+    beitragspflichtige Einnahme of § 166 Abs. 1 Nr. 2 SGB VI. Amounts in the
+    Beitrittsgebiet are scaled up by Anlage 10 (§ 256a Abs. 1 SGB VI).
+
+    The Rechtskreis follows the current place of residence. The statute uses the place
+    where the wage underlying the benefit was earned (GRA zu § 166 SGB VI), so a person
+    who moved between East and West after losing the job is assigned the wrong one.
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -283,16 +288,12 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
 
     if (
         sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt
-        and im_vorjahr_versicherungspflichtig
+        and zuletzt_versicherungspflichtig_vor_leistungsbeginn
         and not beitrag__versicherungsfrei_wegen_alters
     ):
         out = (
             umrechnungswert
-            * anteil_bemessungsentgelt_arbeitslosengeld
-            * min(
-                sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,
-                beitrag__beitragsbemessungsgrenze_y,
-            )
+            * beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y
             / beitragspflichtiges_durchschnittsentgelt_y
         )
     else:
@@ -308,29 +309,23 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
 )
 def neue_entgeltpunkte_aus_arbeitslosengeld_einheitlich(
     sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt: bool,
-    sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y: float,
-    im_vorjahr_versicherungspflichtig: bool,
+    zuletzt_versicherungspflichtig_vor_leistungsbeginn: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
-    beitrag__beitragsbemessungsgrenze_y: float,
-    anteil_bemessungsentgelt_arbeitslosengeld: float,
+    beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y: float,
     beitragspflichtiges_durchschnittsentgelt_y: float,
 ) -> float:
     """Earnings points for drawing Arbeitslosengeld in the current year.
 
-    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on a share of the
-    capped Arbeitsentgelt the benefit is based on (§ 166 Abs. 1 Nr. 2 SGB VI).
+    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on the
+    beitragspflichtige Einnahme of § 166 Abs. 1 Nr. 2 SGB VI.
     """
     if (
         sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt
-        and im_vorjahr_versicherungspflichtig
+        and zuletzt_versicherungspflichtig_vor_leistungsbeginn
         and not beitrag__versicherungsfrei_wegen_alters
     ):
         out = (
-            anteil_bemessungsentgelt_arbeitslosengeld
-            * min(
-                sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,
-                beitrag__beitragsbemessungsgrenze_y,
-            )
+            beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y
             / beitragspflichtiges_durchschnittsentgelt_y
         )
     else:

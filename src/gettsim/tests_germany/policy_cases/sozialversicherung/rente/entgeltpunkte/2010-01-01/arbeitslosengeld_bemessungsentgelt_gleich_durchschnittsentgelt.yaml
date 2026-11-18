@@ -28,7 +28,7 @@ inputs:
         monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren:
           - 24
       rente:
-        im_vorjahr_versicherungspflichtig:
+        zuletzt_versicherungspflichtig_vor_leistungsbeginn:
           - true
   provided:
     alter:
