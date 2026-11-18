@@ -62,13 +62,14 @@ lifetime earnings:
 
 **Grundrente (Grundrentenzuschlag)**
 
-The Grundrentenzuschlag is reduced by the income of an earlier year:
+The Grundrentenzuschlag is reduced by the income of the calendar year before the
+previous one (§ 97a Abs. 2 S. 2 SGB VI):
 
 - **Past input**:
-  `("sozialversicherung", "rente", "grundrente", "einkommen_vorjahr_m_ehe")`
+  `("sozialversicherung", "rente", "grundrente", "einkommen_vorvorjahr_m_ehe")`
 - **Calculation target**:
-  `("sozialversicherung", "rente", "grundrente", "einkommen_im_folgejahr_m_ehe")`,
-  calculated with the policy environment of the previous year
+  `("sozialversicherung", "rente", "grundrente", "einkommen_für_einkommensanrechnung_im_übernächsten_jahr_m_ehe")`,
+  calculated with the policy environment of the year before the previous one
 
 For a worked example, see the [Grundrente tutorial](calculating_grundrente.ipynb).
 

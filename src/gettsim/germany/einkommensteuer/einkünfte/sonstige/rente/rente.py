@@ -117,6 +117,14 @@ def renten_aus_basisversorgung_m_ohne_grundrentenzuschlag(
     The pension share resting on the Grundrentenzuschlag is tax-free. The Zuschlag is
     part of the Altersrente only while the person receives it.
 
+    If `einnahmen__renten__gesetzliche_m` is supplied as data, it must include the
+    Grundrentenzuschlag that is subtracted here (`grundrente__betrag_m`, supplied or
+    computed). Otherwise the difference is too small and may become negative.
+
+    § 3 Nr. 14a EStG covers the Zuschlag in every pension from the gesetzliche
+    Rentenversicherung, including Erwerbsminderungsrenten. GETTSIM models the Zuschlag
+    for Altersrenten only.
+
     Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG; § 3 Nr. 14a EStG
     (Art. 3 G. v. 16.12.2022 BGBl. I S. 2294, applicable from VZ 2021)
     """

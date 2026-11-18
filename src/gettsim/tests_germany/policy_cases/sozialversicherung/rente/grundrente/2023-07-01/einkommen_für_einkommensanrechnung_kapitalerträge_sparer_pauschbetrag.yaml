@@ -1,24 +1,22 @@
 ---
 info:
-  note: ''
+  note: The person has no income other than the capital income (assumed).
   precision_atol: 0.01
-  source: Regression test.
+  source: |-
+    DRV, Gemeinsame Rechtliche Anweisungen zu § 97a SGB VI, Version 008.00, Stand
+    15.01.2026, Beispiel 4 (Einkünfte aus Kapitalvermögen, Beispiel zu Abschnitt 3.6).
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0076_100/gra_sgb006_p_0097a.html
 inputs:
-  assumed: {}
-  provided:
+  assumed:
     einkommensteuer:
       einkünfte:
         sonstige:
           rente:
             alter_beginn_leistungsbezug_sonstige_private_vorsorge:
               - 65
-      gemeinsam_veranlagt:
-        - false
       zu_versteuerndes_einkommen_y_sn:
-        - -1200.0
-    einnahmen:
-      kapitalerträge_y:
         - 0.0
+    einnahmen:
       renten:
         aus_berufsständischen_versicherungen_m:
           - 0.0
@@ -30,20 +28,13 @@ inputs:
           - 0.0
         sonstige_private_vorsorge_m:
           - 0.0
-    familie:
-      p_id_ehepartner:
-        - -1
-    hh_id:
-      - 0
-    p_id:
-      - 0
     sozialversicherung:
       rente:
         altersrente:
           bruttorente_m:
-            - 1000.0
+            - 0.0
         bezieht_altersrente:
-          - true
+          - false
         erwerbsminderung:
           betrag_m:
             - 0.0
@@ -52,9 +43,23 @@ inputs:
             - 0.0
         jahr_renteneintritt:
           - 2020
+  provided:
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+    einnahmen:
+      kapitalerträge_y:
+        - 1580.0
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 0
+    p_id:
+      - 0
 outputs:
   sozialversicherung:
     rente:
       grundrente:
-        einkommen_im_folgejahr_m:
-          - 100.0
+        einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y:
+          - 580.0

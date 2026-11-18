@@ -80,6 +80,6 @@ outputs:
   sozialversicherung:
     rente:
       grundrente:
-        einkommen_im_folgejahr_y:
+        einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y:
           - 1500.0
           - 1500.0

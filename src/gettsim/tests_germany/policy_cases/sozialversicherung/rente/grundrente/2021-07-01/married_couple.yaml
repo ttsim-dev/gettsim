@@ -51,7 +51,7 @@ inputs:
           bewertungszeiten_monate:
             - 300
             - 300
-          einkommen_vorjahr_m_ehe:
+          einkommen_vorvorjahr_m_ehe:
             - 0.0
             - 0.0
           grundrentenzeiten_monate:

@@ -24,7 +24,7 @@ inputs:
     sozialversicherung:
       rente:
         grundrente:
-          einkommen_vorjahr_y_ehe:
+          einkommen_vorvorjahr_y_ehe:
             - 8453.0
     wohnort_ost_hh:
       - false

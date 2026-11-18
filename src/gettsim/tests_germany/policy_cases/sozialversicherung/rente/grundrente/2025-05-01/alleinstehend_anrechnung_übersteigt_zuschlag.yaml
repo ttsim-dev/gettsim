@@ -23,7 +23,7 @@ inputs:
         grundrente:
           basisbetrag_m:
             - 101.88
-          einkommen_vorjahr_m_ehe:
+          einkommen_vorvorjahr_m_ehe:
             - 1765.08
 outputs:
   sozialversicherung:

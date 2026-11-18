@@ -25,7 +25,7 @@ inputs:
           basisbetrag_m:
             - 400.0
             - 200.0
-          einkommen_vorjahr_m_ehe:
+          einkommen_vorvorjahr_m_ehe:
             - 2800.0
             - 2800.0
 outputs:
