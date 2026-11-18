@@ -39,10 +39,19 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 - {gh}`1246` Fix the date key of the 39.32 € Rentenwert from `2024-01-07` to
   `2024-07-01` (see {gh}`1202`). This changes results that use the Rentenwert for policy
   dates from 7 January to 30 June 2024 (37.60 € instead of 39.32 €).
+
+- {gh}`1250` Split social insurance contributions between taxable and tax-free wage
+  (e.g. Aktivrente) when deducting Vorsorgeaufwendungen (§ 10 Abs. 2 EStG); fix the
+  order of capping in § 10 Abs. 3 EStG. New column
+  `sozialversicherung__{kranken,pflege}__beitrag__betrag_versicherter_aus_erwerbseinkommen_m`.
   ({ghuser}`MImmesberger`)
 
 - {gh}`1258` Drop Python 3.11 support, following numpy, which requires Python >=3.12
   from 2.5 on. ({ghuser}`hmgaudecker`)
+
+- {gh}`1238` Fix the Altersentlastungsbetrag (§ 24a EStG): rate and maximum follow the
+  calendar year after completing the 64th year of life, and the base covers all
+  Einkünfte except Leibrenten. ({ghuser}`MImmesberger`)
 
 - {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
   ({ghuser}`MImmesberger`)

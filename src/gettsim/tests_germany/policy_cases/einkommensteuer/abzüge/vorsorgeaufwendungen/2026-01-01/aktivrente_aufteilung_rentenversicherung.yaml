@@ -1,0 +1,61 @@
+---
+info:
+  note: RV-Arbeitnehmeranteil im Verhältnis des steuerpflichtigen Lohns abziehbar.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 794  # At the Regelaltersgrenze, no Aktivrente
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+        - 10000.0  # Above the Beitragsbemessungsgrenze
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 372.0
+            - 372.0
+            - 785.85  # Capped at the Beitragsbemessungsgrenze
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 4464.0
+        - 2232.0  # 4464 * 24000 / 48000
+        - 7544.16  # 9430.20 * 96000 / 120000
+      altersvorsorge_y_sn:
+        - 4464.0
+        - 2232.0
+        - 7544.16

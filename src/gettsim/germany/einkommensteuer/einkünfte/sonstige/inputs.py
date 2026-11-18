@@ -7,8 +7,7 @@ from gettsim.tt import TTSIMUnit, policy_input
 
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def alle_weiteren_y() -> float:
-    """Any sonstige Einnahmen according to EStG not considered explicitly.
+    """Taxable Einnahmen under § 22 EStG not covered by other inputs.
 
-    Includes private and public transfers that are not yet implemented in GETTSIM
-    (e.g., BAföG, Kriegsopferfürsorge).
+    Tax-free transfers (e.g., BAföG, Kriegsopferfürsorge) do not belong here.
     """

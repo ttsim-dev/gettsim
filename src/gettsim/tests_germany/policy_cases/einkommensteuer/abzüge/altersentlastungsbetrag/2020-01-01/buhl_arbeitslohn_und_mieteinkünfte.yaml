@@ -1,0 +1,58 @@
+---
+info:
+  note: >-
+    Source: Buhl. Birth date assumed.
+  precision_atol: 0.01
+  source: >-
+    Buhl Data Service (WISO Steuer), 'Altersentlastungsbetrag: Mehr Geld auf dem
+    Konto mit 64', https://buhl.de/steuer/ratgeber/altersentlastungsbetrag
+inputs:
+  provided:
+    p_id:
+      - 0
+    einnahmen:
+      bruttolohn_m:
+        - 1666.67
+    einkommensteuer:
+      einkünfte:
+        aus_vermietung_und_verpachtung:
+          betrag_y:
+            - 7500.0
+  assumed:
+    geburtsjahr:
+      - 1955
+    geburtsmonat:
+      - 6
+    geburtstag:
+      - 15
+    einkommensteuer:
+      einkünfte:
+        aus_forst_und_landwirtschaft:
+          betrag_y:
+            - 0.0
+        aus_gewerbebetrieb:
+          betrag_y:
+            - 0.0
+        aus_selbstständiger_arbeit:
+          betrag_y:
+            - 0.0
+        sonstige:
+          alle_weiteren_y:
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+    einnahmen:
+      renten:
+        geförderte_private_vorsorge_m:
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+    sozialversicherung:
+      geringfügig_beschäftigt:
+        - false
+outputs:
+  einkommensteuer:
+    abzüge:
+      altersfreibetrag_y:
+        - 760.0
