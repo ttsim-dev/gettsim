@@ -15,7 +15,7 @@ keywords = [
   "Transfers",
 ]
 license = { file = "LICENSE" }
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 classifiers = [
   "Intended Audience :: Science/Research",
   "License :: OSI Approved :: GNU Affero General Public License v3",
@@ -25,7 +25,6 @@ classifiers = [
   "Operating System :: POSIX",
   "Operating System :: Unix",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
@@ -133,8 +132,6 @@ tests-jax = "pytest --backend=jax"
 tests-jax = "dot -c && pytest --backend=jax"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.jax.target.win-64.tasks]
 tests-jax = "pytest --backend=jax"
-[tool.pixi.feature.py311.dependencies]
-python = "~=3.11.0"
 [tool.pixi.feature.py312.dependencies]
 python = "~=3.12.0"
 [tool.pixi.feature.py313.dependencies]
@@ -173,7 +170,6 @@ tests = "dot -c && pytest"  # dot -c needed for pygraphviz on macOS
 [tool.pixi.feature.tests.target.win-64.tasks]
 tests = "pytest"
 [tool.pixi.environments]
-py311 = [ "py311", "tests" ]
 py312 = [ "py312", "tests" ]
 py313 = [ "py313", "tests" ]
 py314 = [ "py314", "tests", "coverage" ]
@@ -282,7 +278,6 @@ expand_tables = [
   "tool.pixi.feature.jax.target.linux-64.tasks",
   "tool.pixi.feature.jax.target.osx-arm64.tasks",
   "tool.pixi.feature.jax.target.win-64.tasks",
-  "tool.pixi.feature.py311.dependencies",
   "tool.pixi.feature.py312.dependencies",
   "tool.pixi.feature.py313.dependencies",
   "tool.pixi.feature.py314.dependencies",
