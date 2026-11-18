@@ -85,6 +85,18 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 372.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -117,8 +129,20 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
+      angerechnete_mutterschaftsleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
       betrag_m:
         - 372.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
         - 0.0
         - 0.0
         - 0.0
@@ -200,6 +224,18 @@ inputs:
         - 0.0
     sozialversicherung:
       arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         betrag_m:
           - 0.0
           - 0.0

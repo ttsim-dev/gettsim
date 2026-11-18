@@ -1,0 +1,69 @@
+---
+info:
+  note: >-
+    Kurzarbeitergeld and Insolvenzgeld count as income from employment, so the
+    Erwerbstätigenfreibetrag (§ 11b Abs. 3 SGB II) applies to them (BA, Fachliche
+    Weisungen §§ 11-11b SGB II, Rz. 11.148 f.). The first person receives 600 €
+    Kurzarbeitergeld without any wages (Kurzarbeit null): 100 + 20 % × 500 =
+    200 €. The second person receives 600 € Insolvenzgeld, which approximates the
+    underlying gross wage. The third person receives 600 € Arbeitslosengeld, which is
+    not income from employment.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 2
+    familie:
+      anzahl_kinder_bis_17_bg:
+        - 0
+        - 0
+        - 0
+    einkommensteuer:
+      anzahl_kinderfreibeträge:
+        - 0
+        - 0
+        - 0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_m:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        kurzarbeitergeld_m:
+          - 600.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 600.0
+          - 0.0
+    arbeitslosengeld_2:
+      nettoeinkommen_vor_abzug_freibetrag_m:
+        - 600.0
+        - 600.0
+        - 600.0
+outputs:
+  arbeitslosengeld_2:
+    anrechnungsfreies_einkommen_m:
+      - 200.0
+      - 200.0
+      - 0.0
+    nettoeinkommen_nach_abzug_freibetrag_m:
+      - 400.0
+      - 400.0
+      - 600.0

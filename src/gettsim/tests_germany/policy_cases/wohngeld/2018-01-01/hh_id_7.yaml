@@ -20,6 +20,20 @@ inputs:
       - 20
       - 9
       - 7
+    alter_monate:
+      - 540
+      - 504
+      - 660
+      - 684
+      - 300
+      - 216
+      - 192
+      - 168
+      - 156
+      - 144
+      - 240
+      - 108
+      - 84
     anzahl_personen_hh:
       - 13
       - 13
@@ -197,6 +211,34 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
       renten:
         betrag_gesamt_m:
           - 0.0
@@ -213,21 +255,21 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
         - 0.0
@@ -414,6 +456,34 @@ inputs:
         - 0.0
     sozialversicherung:
       arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         betrag_m:
           - 0.0
           - 0.0

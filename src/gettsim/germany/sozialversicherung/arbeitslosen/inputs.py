@@ -43,3 +43,13 @@ def mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m() -> float:
     Bemessungsentgelt of § 132 SGB III a. F. times 13/3. A 12-month mean of
     `('sozialversicherung', 'rente', 'beitrag', 'einkommen_m')`.
     """
+
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def kurzarbeitergeld_m() -> float:
+    """Kurzarbeitergeld received."""
+
+
+@policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def insolvenzgeld_m() -> float:
+    """Insolvenzgeld received."""

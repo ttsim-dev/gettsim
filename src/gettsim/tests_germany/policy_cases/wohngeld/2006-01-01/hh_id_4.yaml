@@ -25,6 +25,18 @@ inputs:
         - -1
         - -1
         - -1
+      nettoeinkommen_vor_abzug_freibetrag_m_wthh:
+        - 2000.0
+        - 2000.0
+        - 2000.0
+        - 2000.0
+        - 2000.0
+      regelbedarf_m_wthh:
+        - 1916.7999999999997
+        - 1916.7999999999997
+        - 1916.7999999999997
+        - 1916.7999999999997
+        - 1916.7999999999997
     behinderungsgrad:
       - 0
       - 0
@@ -68,18 +80,12 @@ inputs:
               - 0.0
               - 0.0
         aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 923.3333333333334
+            - 923.3333333333334
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
-            - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
-        - true
-        - true
-        - true
     einnahmen:
       bruttolohn_m:
         - 1000.0
@@ -93,20 +99,13 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-      renten:
-        betrag_gesamt_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       betrag_m:
         - 0.0
         - 0.0
@@ -120,12 +119,6 @@ inputs:
         - false
         - false
         - false
-      p_id_ehepartner:
-        - 23
-        - 22
-        - -1
-        - -1
-        - -1
       p_id_elternteil_1:
         - -1
         - -1
@@ -138,12 +131,6 @@ inputs:
         - 23
         - 23
         - 23
-    geburtsjahr:
-      - 1964
-      - 1953
-      - 1999
-      - 1998
-      - 1994
     geburtsmonat:
       - 1
       - 1
@@ -175,19 +162,18 @@ inputs:
         - 22
         - 22
         - 22
+      betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     p_id:
       - 22
       - 23
       - 24
       - 25
       - 26
-    solidaritätszuschlag:
-      betrag_y_sn:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -196,12 +182,6 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-      beiträge_versicherter_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       kranken:
         beitrag:
           betrag_versicherter_m:
@@ -232,6 +212,12 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      tatsächlich_erhaltener_betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     unterhaltsvorschuss:
       betrag_m:
         - 0.0
@@ -239,12 +225,12 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-    vermögen:
-      - 200000.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
+      betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     wohnen:
       baujahr_immobilie_hh:
         - 1995
@@ -252,30 +238,12 @@ inputs:
         - 1995
         - 1995
         - 1995
-      bewohnt_eigentum_hh:
-        - false
-        - false
-        - false
-        - false
-        - false
       bruttokaltmiete_m_hh:
         - 850.0
         - 850.0
         - 850.0
         - 850.0
         - 850.0
-      heizkosten_m_hh:
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-      wohnfläche_hh:
-        - 70.0
-        - 70.0
-        - 70.0
-        - 70.0
-        - 70.0
     wohngeld:
       mietstufe_hh:
         - 3
@@ -283,6 +251,13 @@ inputs:
         - 3
         - 3
         - 3
+    kinderzuschlag:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
 outputs:
   wohngeld:
     anspruchshöhe_m_wthh:

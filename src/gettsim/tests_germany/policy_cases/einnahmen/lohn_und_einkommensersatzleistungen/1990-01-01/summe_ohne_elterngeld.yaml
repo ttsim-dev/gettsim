@@ -1,0 +1,49 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Before Elterngeld exists, both sums contain the same benefits.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 1000.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 100.0
+          - 0.0
+        insolvenzgeld_m:
+          - 200.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 400.0
+          - 300.0
+        mutterschaftsgeld_m:
+          - 500.0
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 600.0
+          - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 2800.0
+      - 300.0
+    lohn_und_einkommensersatzleistungen_m:
+      - 2800.0
+      - 300.0
+    lohn_und_einkommensersatzleistungen_y:
+      - 33600.0
+      - 3600.0

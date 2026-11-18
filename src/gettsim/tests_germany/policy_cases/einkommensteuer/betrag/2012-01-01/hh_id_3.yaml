@@ -7,6 +7,8 @@ inputs:
   assumed: {}
   provided:
     einkommensteuer:
+      dem_progressionsvorbehalt_unterliegende_leistungen_y:
+        - 0.0
       gemeinsam_veranlagt:
         - false
       gesamteinkommen_y_sn:

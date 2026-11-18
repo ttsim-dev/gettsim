@@ -1,0 +1,54 @@
+---
+info:
+  note: >-
+    Every benefit of the catalogue in § 32b Abs. 1 S. 1 Nr. 1 EStG enters the sum.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 1200.0
+        kurzarbeitergeld_y:
+          - 100.0
+        insolvenzgeld_y:
+          - 200.0
+      kranken:
+        krankengeld_y:
+          - 400.0
+        mutterschaftsgeld_y:
+          - 500.0
+      unfall:
+        verletztengeld_y:
+          - 600.0
+    elterngeld:
+      betrag_y:
+        - 2400.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_y:
+      - 5400.0
+  einkommensteuer:
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 5400.0
