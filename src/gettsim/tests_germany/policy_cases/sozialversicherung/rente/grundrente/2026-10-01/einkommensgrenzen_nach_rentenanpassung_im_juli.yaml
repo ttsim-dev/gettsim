@@ -1,0 +1,38 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: |-
+    DRV, "Fragen und Antworten zum Grundrentenzuschlag", questions "Wird Einkommen
+    auf den Grundrentenzuschlag angerechnet?" (thresholds "ab Januar 2026") and
+    "Bleiben die Einkommensgrenzen für den Grundrentenzuschlag unverändert?" (changes
+    on 1 January), page as read on 18.10.2026.
+    https://www.deutsche-rentenversicherung.de/SharedDocs/FAQ/grundrente/grundrente_faq_liste.html
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+    hh_id:
+      - 0
+      - 1
+      - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        obere_einkommensgrenze_m:
+          - 1909.0
+          - 2744.0
+          - 2744.0
+        untere_einkommensgrenze_m:
+          - 1492.0
+          - 2327.0
+          - 2327.0

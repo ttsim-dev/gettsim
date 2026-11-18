@@ -1,18 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from gettsim.tt import (
-    PiecewisePolynomialParamValue,
     RoundingSpec,
     TTSIMUnit,
     cast_ttsim_unit,
-    piecewise_polynomial,
+    param_function,
     policy_function,
 )
-
-if TYPE_CHECKING:
-    from types import ModuleType
 
 
 @policy_function(
@@ -31,55 +25,6 @@ def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
     return max(out, 0.0)
 
 
-@policy_function(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def einkommen_m(
-    gesamteinnahmen_aus_renten_vorjahr_m: float,
-    bruttolohn_vorjahr_m: float,
-    einnahmen_aus_selbstständiger_arbeit_vorvorjahr_m: float,
-    einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_m: float,
-    einnahmen_aus_kapitalvermögen_vorvorjahr_m: float,
-) -> float:
-    """Income relevant for Grundrentenzuschlag before deductions.
-
-    Some notes:
-
-    - The Grundrentenzuschlag (in previous years) is not part of the relevant income and
-      does not lower the Grundrentenzuschlag (reference: § 97a Abs. 2 S. 7 SGB VI).
-    - The Deutsche Rentenversicherung uses the income of the year two to three years ago
-      to be able to use administrative data on this income for the calculation: "It can
-      be assumed that the tax office regularly has the data two years after the end of
-      the assessment period, which can be retrieved from the pension insurance."
-    - Warning: Freibeträge for income are currently not considered as `freibeträge_y`
-      depends on pension income through
-      `sozialversicherung__kranken__beitrag__betrag_versicherter_m` ->
-      `vorsorgeaufw` -> `freibeträge`
-
-    Reference: § 97a Abs. 2 S. 1 SGB VI
-    """
-    # Sum income over different income sources.
-    return (
-        gesamteinnahmen_aus_renten_vorjahr_m
-        + bruttolohn_vorjahr_m
-        + einnahmen_aus_selbstständiger_arbeit_vorvorjahr_m
-        + einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_m
-        + einnahmen_aus_kapitalvermögen_vorvorjahr_m
-    )
-
-
-def _anzurechnendes_einkommen_m(
-    einkommen_m_ehe: float,
-    rentenwert_m: float,
-    parameter_anzurechnendes_einkommen: PiecewisePolynomialParamValue,
-    xnp: ModuleType,
-) -> float:
-    """The isolated function for the relevant income for the Grundrentezuschlag."""
-    return rentenwert_m * piecewise_polynomial(
-        x=einkommen_m_ehe / rentenwert_m,
-        parameters=parameter_anzurechnendes_einkommen,
-        xnp=xnp,
-    )
-
-
 @policy_function(
     rounding_spec=RoundingSpec(
         unit=TTSIMUnit.EUR.PER_MONTH,
@@ -89,46 +34,162 @@ def _anzurechnendes_einkommen_m(
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
-    # `piecewise_polynomial` runs inside the `_anzurechnendes_einkommen_m` helper, which
-    # the unit check's stand-in cannot reach, so the body cannot be unit-checked.
-    verify_units=False,
 )
 def anzurechnendes_einkommen_m(
-    einkommen_m_ehe: float,
-    familie__anzahl_personen_ehe: int,
-    sozialversicherung__rente__rentenwert_m: float,
-    anzurechnendes_einkommen_ohne_partner: PiecewisePolynomialParamValue,
-    anzurechnendes_einkommen_mit_partner: PiecewisePolynomialParamValue,
-    xnp: ModuleType,
+    einkommen_vorvorjahr_m_ehe: float,
+    untere_einkommensgrenze_m: float,
+    obere_einkommensgrenze_m: float,
+    anrechnungssätze: dict[str, float],
 ) -> float:
     """Income which is deducted from Grundrentenzuschlag.
 
-    Apply allowances. There are upper and lower thresholds for singles and
-    couples. 60% of income between the upper and lower threshold is credited against
-    the Grundrentenzuschlag. All the income above the upper threshold is credited
-    against the Grundrentenzuschlag.
+    The income of the Berechtigter and their spouse is added up. Above the lower
+    threshold, 60 % of the income up to the upper threshold is credited; above the
+    upper threshold, the full excess is credited as well.
 
-    Reference: § 97a Abs. 4 S. 2, 4 SGB VI
+    Reference: § 97a Abs. 1, Abs. 4 S. 1-4 SGB VI
     """
-    # Calculate relevant income following the crediting rules using the values for
-    # singles and those for married subjects
-    # Note: Thresholds are defined relativ to rentenwert_m which is implemented by
-    # dividing the income by rentenwert_m and multiply rentenwert_m to the result.
-    if familie__anzahl_personen_ehe == 1:
-        out = _anzurechnendes_einkommen_m(
-            einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert_m=sozialversicherung__rente__rentenwert_m,
-            parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_ohne_partner,
-            xnp=xnp,
+    # The couple's income is compared with the thresholds, and the result is credited
+    # in full against each spouse's Zuschlag, so the sum loses its group level here.
+    einkommen_m = cast_ttsim_unit(
+        einkommen_vorvorjahr_m_ehe, unit=TTSIMUnit.CURRENCY.PER_MONTH
+    )
+    einkommen_zwischen_den_grenzen = min(
+        max(einkommen_m - untere_einkommensgrenze_m, 0.0),
+        obere_einkommensgrenze_m - untere_einkommensgrenze_m,
+    )
+    einkommen_über_der_oberen_grenze = max(einkommen_m - obere_einkommensgrenze_m, 0.0)
+    return (
+        anrechnungssätze["zwischen_den_grenzen"] * einkommen_zwischen_den_grenzen
+        + anrechnungssätze["über_der_oberen_grenze"] * einkommen_über_der_oberen_grenze
+    )
+
+
+@policy_function(
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=1,
+        direction="up",
+        reference="§ 97a Abs. 4 S. 1 SGB VI",
+    ),
+    start_date="2021-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def untere_einkommensgrenze_m(
+    familie__anzahl_personen_ehe: int,
+    rentenwert_für_einkommensgrenzen_m: float,
+    einkommensgrenzen_ohne_ehegatte: dict[str, float],
+    einkommensgrenzen_mit_ehegatte: dict[str, float],
+) -> float:
+    """Income up to which nothing is credited against the Grundrentenzuschlag.
+
+    Married Berechtigte get the threshold for couples, also if the spouse has no income
+    or lives apart. The statute does not settle this case; GETTSIM follows DRV, GRA zu
+    § 97a SGB VI, Version 008.00, Abschnitt 5 ("Der für Ehegatten höhere Freibetrag ist
+    auch dann zu berücksichtigen, wenn der Ehegatte des Berechtigten über kein eigenes
+    Einkommen verfügt.") and Abschnitt 2 ("Dies gilt auch für dauernd getrenntlebende
+    Ehegatten").
+
+    Reference: § 97a Abs. 4 S. 1, 2, 4 SGB VI
+    """
+    if familie__anzahl_personen_ehe > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EHE):
+        out = (
+            einkommensgrenzen_mit_ehegatte["untere_grenze"]
+            * rentenwert_für_einkommensgrenzen_m
         )
     else:
-        out = _anzurechnendes_einkommen_m(
-            einkommen_m_ehe=einkommen_m_ehe,
-            rentenwert_m=sozialversicherung__rente__rentenwert_m,
-            parameter_anzurechnendes_einkommen=anzurechnendes_einkommen_mit_partner,
-            xnp=xnp,
+        out = (
+            einkommensgrenzen_ohne_ehegatte["untere_grenze"]
+            * rentenwert_für_einkommensgrenzen_m
         )
     return out
+
+
+@policy_function(
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=1,
+        direction="up",
+        reference="§ 97a Abs. 4 S. 1 SGB VI",
+    ),
+    start_date="2021-01-01",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def obere_einkommensgrenze_m(
+    familie__anzahl_personen_ehe: int,
+    rentenwert_für_einkommensgrenzen_m: float,
+    einkommensgrenzen_ohne_ehegatte: dict[str, float],
+    einkommensgrenzen_mit_ehegatte: dict[str, float],
+) -> float:
+    """Income above which all income is credited against the Grundrentenzuschlag.
+
+    Married Berechtigte get the threshold for couples, also if the spouse has no income
+    or lives apart. The statute does not settle this case; GETTSIM follows DRV, GRA zu
+    § 97a SGB VI, Version 008.00, Abschnitte 2 and 5 (see `untere_einkommensgrenze_m`).
+
+    Reference: § 97a Abs. 4 S. 1, 3, 4 SGB VI
+    """
+    if familie__anzahl_personen_ehe > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EHE):
+        out = (
+            einkommensgrenzen_mit_ehegatte["obere_grenze"]
+            * rentenwert_für_einkommensgrenzen_m
+        )
+    else:
+        out = (
+            einkommensgrenzen_ohne_ehegatte["obere_grenze"]
+            * rentenwert_für_einkommensgrenzen_m
+        )
+    return out
+
+
+@param_function(
+    start_date="2021-01-01",
+    end_date="2023-12-31",
+    leaf_name="rentenwert_für_einkommensgrenzen_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def rentenwert_für_einkommensgrenzen_nach_wohnort_m(
+    sozialversicherung__rente__parameter_rentenwert_nach_wohnort_jahresanfang: dict[
+        str, float
+    ],
+) -> float:
+    """Rentenwert that sets the income thresholds of the calendar year.
+
+    Changes of the thresholds take effect on 1 January, so the Rentenwert in force on
+    1 January applies for the whole year.
+
+    Until 30 June 2023 the Rentenwert differed between West and Ost. The thresholds
+    are nevertheless uniform across Germany and use the West value, also for
+    Berechtigte living in the Beitrittsgebiet (DRV, GRA zu § 97a SGB VI: "Durch die
+    Anknüpfung an den aktuellen Rentenwert gelten die Freibeträge einheitlich im
+    gesamten Bundesgebiet"; BT-Drs. 19/18473, p. 42: "Die jeweils maßgebenden Beträge
+    gelten einheitlich für Berechtigte im gesamten Bundesgebiet."). The 2021 thresholds
+    stated there (1 250, 1 600, 1 950 and 2 300 euros) equal the factors times the West
+    value of 34.19 euros, rounded up.
+
+    Reference: § 97a Abs. 4 S. 5 i.V.m. Abs. 5 S. 2 SGB VI
+    """
+    return sozialversicherung__rente__parameter_rentenwert_nach_wohnort_jahresanfang[
+        "west"
+    ]
+
+
+@param_function(
+    start_date="2024-01-01",
+    leaf_name="rentenwert_für_einkommensgrenzen_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def rentenwert_für_einkommensgrenzen_einheitlich_m(
+    sozialversicherung__rente__rentenwert_m_jahresanfang: float,
+) -> float:
+    """Rentenwert that sets the income thresholds of the calendar year.
+
+    Changes of the thresholds take effect on 1 January, so the Rentenwert in force on
+    1 January applies for the whole year.
+
+    Reference: § 97a Abs. 4 S. 5 i.V.m. Abs. 5 S. 2 SGB VI
+    """
+    return sozialversicherung__rente__rentenwert_m_jahresanfang
 
 
 @policy_function(
@@ -191,7 +252,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat_m(
     rounding_spec=RoundingSpec(
         base=0.0001,
         direction="nearest",
-        reference="§76g SGB VI Abs. 4 Nr. 4",
+        reference="§ 76g Abs. 4 S. 4 SGB VI",
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
@@ -277,12 +338,54 @@ def grundsätzlich_anspruchsberechtigt(
     return grundrentenzeiten_monate >= berücksichtigte_wartezeit_monate["min"]
 
 
-@policy_function(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m(
-    einnahmen__renten__betrag_gesamt_m: float,
+@policy_function(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y(
+    einkommensteuer__zu_versteuerndes_einkommen_y_sn: float,
+    einkommensteuer__einkünfte__aus_kapitalvermögen__betrag_y_sn: float,
+    einkommensteuer__einkünfte__sonstige__rente__renten_aus_basisversorgung_y: float,
+    einkommensteuer__einkünfte__sonstige__rente__steuerpflichtiger_anteil_der_renteneinnahmen_y: float,
+    familie__anzahl_personen_sn: int,
 ) -> float:
-    """Income from private and public pensions in the previous calendar year.
+    """Income of this calendar year relevant for the Grundrentenzuschlag.
 
-    This target can be used as an input in another GETTSIM call to compute Grundrente.
+    The Grundrentenzuschlag of a calendar year is reduced by the income of the year
+    before the previous one (vorvergangenes Kalenderjahr, § 97a Abs. 2 S. 2 SGB VI), or
+    of the year before that if no tax assessment exists (S. 3). Its sum over the
+    spouses can be used as the input `einkommen_vorvorjahr_m_ehe` in a GETTSIM call for
+    the year after next. It is the sum of
+
+    - the zu versteuerndes Einkommen,
+    - the steuerfreier Teil of pensions taxed at the Besteuerungsanteil, and
+    - the capital income subject to the Abgeltungsteuer.
+
+    The zu versteuerndes Einkommen and the capital income are split equally among the
+    members of the Steuernummer, so that the sum over the spouses is the couple's
+    income both under joint and under separate assessment.
+
+    The share of the pension resting on the Grundrentenzuschlag is tax-free (§ 3 Nr. 14a
+    EStG), so it is contained in neither the zu versteuerndes Einkommen nor the
+    steuerfreier Teil of pensions computed here (cf. § 97a Abs. 2 S. 7 SGB VI).
+
+    A negative zu versteuerndes Einkommen (possible only if supplied as data) is added
+    as is and offsets the other components. Neither the statute nor the GRA addresses
+    negative amounts; this follows the wording of § 97a Abs. 2 S. 1 SGB VI, which sums
+    the components.
+
+    Reference: § 97a Abs. 2 S. 1 SGB VI
     """
-    return einnahmen__renten__betrag_gesamt_m
+    zu_versteuerndes_einkommen_y = (
+        einkommensteuer__zu_versteuerndes_einkommen_y_sn / familie__anzahl_personen_sn
+    )
+    kapitaleinkünfte_y = (
+        einkommensteuer__einkünfte__aus_kapitalvermögen__betrag_y_sn
+        / familie__anzahl_personen_sn
+    )
+    steuerfreier_teil_der_renten_y = (
+        einkommensteuer__einkünfte__sonstige__rente__renten_aus_basisversorgung_y
+        - einkommensteuer__einkünfte__sonstige__rente__steuerpflichtiger_anteil_der_renteneinnahmen_y
+    )
+    return (
+        zu_versteuerndes_einkommen_y
+        + steuerfreier_teil_der_renten_y
+        + kapitaleinkünfte_y
+    )

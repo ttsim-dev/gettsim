@@ -60,6 +60,19 @@ lifetime earnings:
   `neue_entgeltpunkte_y` to the previous year's `entgeltpunkte` to get the updated
   lifetime total.
 
+**Grundrente (Grundrentenzuschlag)**
+
+The Grundrentenzuschlag is reduced by the income of the calendar year before the
+previous one (§ 97a Abs. 2 S. 2 SGB VI):
+
+- **Past input**:
+  `("sozialversicherung", "rente", "grundrente", "einkommen_vorvorjahr_m_ehe")`
+- **Calculation target**:
+  `("sozialversicherung", "rente", "grundrente", "einkommen_für_einkommensanrechnung_im_übernächsten_jahr_m_ehe")`,
+  calculated with the policy environment of the year before the previous one
+
+For a worked example, see the [Grundrente tutorial](calculating_grundrente.ipynb).
+
 **Unemployment benefits (Arbeitslosengeld)**
 
 Unemployment benefits are based on the income in the 12 months preceding the beginning

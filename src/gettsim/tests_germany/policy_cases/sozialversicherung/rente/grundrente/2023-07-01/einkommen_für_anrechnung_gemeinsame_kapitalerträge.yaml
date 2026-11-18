@@ -1,0 +1,85 @@
+---
+info:
+  note: |-
+    Only Fall A of the source. The joint capital income of 5,000.00 EUR is split
+    equally between the spouses, and the spouses have no other income (assumed).
+  precision_atol: 0.01
+  source: |-
+    DRV, Gemeinsame Rechtliche Anweisungen zu § 97a SGB VI, Version 008.00, Stand
+    15.01.2026, Beispiel 10, Fall A (Kapitalerträge bei Nichtveranlagung, Beispiel zu
+    Abschnitt 3.6.1).
+    https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0076_100/gra_sgb006_p_0097a.html
+inputs:
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
+      zu_versteuerndes_einkommen_y_sn:
+        - 0.0
+        - 0.0
+    einnahmen:
+      kapitalerträge_y:
+        - 2500.0
+        - 2500.0
+      renten:
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 0.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 0.0
+          - 0.0
+    sozialversicherung:
+      rente:
+        altersrente:
+          bruttorente_m:
+            - 0.0
+            - 0.0
+        bezieht_altersrente:
+          - false
+          - false
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        grundrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2020
+          - 2020
+  provided:
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y:
+          - 1500.0
+          - 1500.0

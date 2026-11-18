@@ -1,0 +1,33 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: |-
+    DRV, Broschüre "Grundrente: Zuschlag zur Rente", Nr. 210, 5. Auflage (5/2026),
+    p. 15 (thresholds for Unverheiratete) and p. 16 (Beispiel "Dieter P.").
+    https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/grundrente_zuschlag_zur_rente.pdf?__blob=publicationFile&v=10
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        grundrente:
+          einkommen_vorvorjahr_m_ehe:
+            - 1550.0
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 34.8
+        obere_einkommensgrenze_m:
+          - 1909.0
+        untere_einkommensgrenze_m:
+          - 1492.0

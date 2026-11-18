@@ -113,6 +113,29 @@ inputs:
           - 1000.0
     sozialversicherung:
       rente:
+        bezieht_altersrente:
+          - true
+          - true
+          - true
+          - true
+          - true
+          - true
+          - true
+          - true
+          - true
+          - true
+        grundrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
         jahr_renteneintritt:
           - 2005
           - 2010

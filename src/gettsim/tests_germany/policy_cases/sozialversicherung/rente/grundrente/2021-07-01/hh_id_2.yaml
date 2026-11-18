@@ -40,15 +40,7 @@ inputs:
         grundrente:
           bewertungszeiten_monate:
             - 420
-          bruttolohn_vorjahr_m:
-            - 0.0
-          einnahmen_aus_kapitalvermögen_vorvorjahr_y:
-            - 0.0
-          einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y:
-            - 0.0
-          einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y:
-            - 0.0
-          gesamteinnahmen_aus_renten_vorjahr_m:
+          einkommen_vorvorjahr_m_ehe:
             - 0.0
           grundrentenzeiten_monate:
             - 420
