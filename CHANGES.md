@@ -30,6 +30,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   `sozialversicherung__{kranken,pflege}__beitrag__betrag_versicherter_aus_erwerbseinkommen_m`.
   ({ghuser}`MImmesberger`)
 
+- {gh}`1258` Drop Python 3.11 support, following numpy, which requires Python >=3.12
+  from 2.5 on. ({ghuser}`hmgaudecker`)
+
 - {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
   ({ghuser}`MImmesberger`)
 

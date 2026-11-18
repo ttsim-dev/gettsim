@@ -75,12 +75,12 @@ inputs:
 outputs:
   einkommensteuer:
     abzüge:
-      absetzbare_krankenversicherungsbeiträge_y:
+      abziehbare_krankenversicherungsbeiträge_y:
         - 1044.0  # 3132 / 3
         - 2124.0  # 1080 + 3132 / 3
         - 1080.0
         - 4212.0
-      absetzbare_pflegeversicherungsbeiträge_y:
+      abziehbare_pflegeversicherungsbeiträge_y:
         - 216.0  # 648 / 3
         - 696.0  # 480 + 648 / 3
         - 480.0
