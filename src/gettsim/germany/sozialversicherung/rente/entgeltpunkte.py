@@ -1,14 +1,47 @@
 from __future__ import annotations
 
+from ttsim.time_converters import per_m_to_per_y
+
 from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 
 
 @policy_function(
-    end_date="1999-03-31",
+    end_date="1998-07-31",
     leaf_name="neue_entgeltpunkte_y",
     unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
 )
-def neue_entgeltpunkte_nach_wohnort_ohne_geringfügige_beschäftigung(
+def neue_entgeltpunkte_ohne_arbeitslosengeld(
+    neue_entgeltpunkte_aus_beschäftigung_y: float,
+) -> float:
+    """Earnings points earned in the current year."""
+    # TODO(@MImmesberger): Arbeitslosengeld is not modelled before August 1998, so this
+    # function does not include earnings points from drawing it.
+    # https://github.com/ttsim-dev/gettsim/issues/1253
+    return neue_entgeltpunkte_aus_beschäftigung_y
+
+
+@policy_function(
+    start_date="1998-08-01",
+    leaf_name="neue_entgeltpunkte_y",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_mit_arbeitslosengeld(
+    neue_entgeltpunkte_aus_beschäftigung_y: float,
+    neue_entgeltpunkte_aus_arbeitslosengeld_y: float,
+) -> float:
+    """Earnings points earned in the current year."""
+    return (
+        neue_entgeltpunkte_aus_beschäftigung_y
+        + neue_entgeltpunkte_aus_arbeitslosengeld_y
+    )
+
+
+@policy_function(
+    end_date="1989-12-31",
+    leaf_name="neue_entgeltpunkte_aus_beschäftigung_y",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
     einnahmen__bruttolohn_y: float,
     wohnort_ost_hh: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
@@ -18,23 +51,74 @@ def neue_entgeltpunkte_nach_wohnort_ohne_geringfügige_beschäftigung(
 ) -> float:
     """Earnings points for the wages earned in the current year.
 
-    Versicherungsfreiheit wegen Alters rules out earnings points (§ 76b Abs. 4 SGB VI).
-    Marginal employment carries no employer contribution yet, so it earns none either.
+    Versicherungsfreiheit wegen Alters rules out earnings points. Marginal employment
+    carries no employer contribution yet, so it earns none either.
+
+    Wages in the Beitrittsgebiet are scaled up by Anlage 10 and only the result is capped
+    at the Beitragsbemessungsgrenze (§ 256a Abs. 1, § 260 Satz 2 SGB VI). There is no cap
+    before the scaling: the Beitragsbemessungsgrenze (Ost) of Anlage 2a only exists from
+    1 July 1990, and § 256a Abs. 3 SGB VI counts wages above the limits of the GDR.
     """
-    # Scale bruttolohn up if earned in eastern Germany
     if wohnort_ost_hh:
-        umgerechneter_bruttolohn_y = (
-            einnahmen__bruttolohn_y * umrechnung_entgeltpunkte_beitrittsgebiet
-        )
+        umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
     else:
-        umgerechneter_bruttolohn_y = einnahmen__bruttolohn_y
+        umrechnungswert = 1.0
 
     if beitrag__versicherungsfrei_wegen_alters:
         out = 0.0
     else:
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
-            min(umgerechneter_bruttolohn_y, beitrag__beitragsbemessungsgrenze_y)
+            min(
+                umrechnungswert * einnahmen__bruttolohn_y,
+                beitrag__beitragsbemessungsgrenze_y,
+            )
+            / beitragspflichtiges_durchschnittsentgelt_y
+        )
+
+    return cast_ttsim_unit(out, unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR)
+
+
+@policy_function(
+    start_date="1990-01-01",
+    end_date="1999-03-31",
+    leaf_name="neue_entgeltpunkte_aus_beschäftigung_y",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort_ohne_geringfügige_beschäftigung(
+    einnahmen__bruttolohn_y: float,
+    wohnort_ost_hh: bool,
+    beitrag__versicherungsfrei_wegen_alters: bool,
+    beitrag__beitragsbemessungsgrenze_y: float,
+    beitrag__parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
+    beitragspflichtiges_durchschnittsentgelt_y: float,
+    umrechnung_entgeltpunkte_beitrittsgebiet: float,
+) -> float:
+    """Earnings points for the wages earned in the current year.
+
+    Versicherungsfreiheit wegen Alters rules out earnings points (§ 5 Abs. 4 SGB VI).
+    Marginal employment carries no employer contribution yet, so it earns none either.
+
+    Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
+    scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
+    (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
+    """
+    if wohnort_ost_hh:
+        umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
+    else:
+        umrechnungswert = 1.0
+
+    if beitrag__versicherungsfrei_wegen_alters:
+        out = 0.0
+    else:
+        out = (
+            min(
+                umrechnungswert
+                * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y),
+                per_m_to_per_y(
+                    beitrag__parameter_beitragsbemessungsgrenze_nach_wohnort["west"]
+                ),
+            )
             / beitragspflichtiges_durchschnittsentgelt_y
         )
 
@@ -44,16 +128,17 @@ def neue_entgeltpunkte_nach_wohnort_ohne_geringfügige_beschäftigung(
 @policy_function(
     start_date="1999-04-01",
     end_date="2024-12-31",
-    leaf_name="neue_entgeltpunkte_y",
+    leaf_name="neue_entgeltpunkte_aus_beschäftigung_y",
     unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
 )
-def neue_entgeltpunkte_nach_wohnort(
+def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort(
     einnahmen__bruttolohn_y: float,
     wohnort_ost_hh: bool,
     sozialversicherung__geringfügig_beschäftigt: bool,
     verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
     beitrag__versicherungsfrei_wegen_alters: bool,
     beitrag__beitragsbemessungsgrenze_y: float,
+    beitrag__parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
     beitrag__beitragssatz: float,
     beitrag__minijob_arbeitgeberpauschale: float,
     beitrag__beitragspflichtige_einnahmen_geringfügige_beschäftigung_y: float,
@@ -68,6 +153,10 @@ def neue_entgeltpunkte_nach_wohnort(
     Pauschalbeitrag (§ 76b Abs. 1 und 2 SGB VI); the counterfactual Entgelt appears in
     both factors of that product and cancels. With mandatory coverage the
     Mindestbeitragsbemessungsgrundlage applies (§ 163 Abs. 8 SGB VI).
+
+    Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
+    scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
+    (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
     """
     # Earnings in the Beitrittsgebiet are scaled up before they are compared to the
     # national Durchschnittsentgelt (§ 256a SGB VI).
@@ -97,8 +186,11 @@ def neue_entgeltpunkte_nach_wohnort(
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
             min(
-                umrechnungswert * einnahmen__bruttolohn_y,
-                beitrag__beitragsbemessungsgrenze_y,
+                umrechnungswert
+                * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y),
+                per_m_to_per_y(
+                    beitrag__parameter_beitragsbemessungsgrenze_nach_wohnort["west"]
+                ),
             )
             / beitragspflichtiges_durchschnittsentgelt_y
         )
@@ -108,10 +200,10 @@ def neue_entgeltpunkte_nach_wohnort(
 
 @policy_function(
     start_date="2025-01-01",
-    leaf_name="neue_entgeltpunkte_y",
+    leaf_name="neue_entgeltpunkte_aus_beschäftigung_y",
     unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
 )
-def neue_entgeltpunkte_einheitlich(
+def neue_entgeltpunkte_aus_beschäftigung_einheitlich(
     einnahmen__bruttolohn_y: float,
     sozialversicherung__geringfügig_beschäftigt: bool,
     verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung: bool,
@@ -151,6 +243,94 @@ def neue_entgeltpunkte_einheitlich(
             min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y)
             / beitragspflichtiges_durchschnittsentgelt_y
         )
+
+    return cast_ttsim_unit(out, unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR)
+
+
+@policy_function(
+    end_date="1998-07-31",
+    leaf_name="neue_entgeltpunkte_aus_arbeitslosengeld_y",
+    fail_msg_if_included="Arbeitslosengeld before August 1998 is not implemented.",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_aus_arbeitslosengeld_bis_1998_07() -> float:
+    """Earnings points for drawing Arbeitslosengeld in the current year."""
+
+
+@policy_function(
+    start_date="1998-08-01",
+    end_date="2024-12-31",
+    leaf_name="neue_entgeltpunkte_aus_arbeitslosengeld_y",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
+    sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt: bool,
+    zuletzt_versicherungspflichtig_vor_leistungsbeginn: bool,
+    wohnort_ost_hh: bool,
+    beitrag__versicherungsfrei_wegen_alters: bool,
+    beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y: float,
+    beitragspflichtiges_durchschnittsentgelt_y: float,
+    umrechnung_entgeltpunkte_beitrittsgebiet: float,
+) -> float:
+    """Earnings points for drawing Arbeitslosengeld in the current year.
+
+    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on the
+    beitragspflichtige Einnahme of § 166 Abs. 1 Nr. 2 SGB VI. Amounts in the
+    Beitrittsgebiet are scaled up by Anlage 10 (§ 256a Abs. 1 SGB VI).
+
+    The Rechtskreis follows the current place of residence. The statute uses the place
+    where the wage underlying the benefit was earned (GRA zu § 166 SGB VI), so a person
+    who moved between East and West after losing the job is assigned the wrong one.
+    """
+    if wohnort_ost_hh:
+        umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
+    else:
+        umrechnungswert = 1.0
+
+    if (
+        sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt
+        and zuletzt_versicherungspflichtig_vor_leistungsbeginn
+        and not beitrag__versicherungsfrei_wegen_alters
+    ):
+        out = (
+            umrechnungswert
+            * beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y
+            / beitragspflichtiges_durchschnittsentgelt_y
+        )
+    else:
+        out = 0.0
+
+    return cast_ttsim_unit(out, unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR)
+
+
+@policy_function(
+    start_date="2025-01-01",
+    leaf_name="neue_entgeltpunkte_aus_arbeitslosengeld_y",
+    unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
+)
+def neue_entgeltpunkte_aus_arbeitslosengeld_einheitlich(
+    sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt: bool,
+    zuletzt_versicherungspflichtig_vor_leistungsbeginn: bool,
+    beitrag__versicherungsfrei_wegen_alters: bool,
+    beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y: float,
+    beitragspflichtiges_durchschnittsentgelt_y: float,
+) -> float:
+    """Earnings points for drawing Arbeitslosengeld in the current year.
+
+    A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on the
+    beitragspflichtige Einnahme of § 166 Abs. 1 Nr. 2 SGB VI.
+    """
+    if (
+        sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt
+        and zuletzt_versicherungspflichtig_vor_leistungsbeginn
+        and not beitrag__versicherungsfrei_wegen_alters
+    ):
+        out = (
+            beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y
+            / beitragspflichtiges_durchschnittsentgelt_y
+        )
+    else:
+        out = 0.0
 
     return cast_ttsim_unit(out, unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR)
 

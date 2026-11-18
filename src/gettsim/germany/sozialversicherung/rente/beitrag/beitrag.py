@@ -361,3 +361,91 @@ def betrag_in_gleitzone_arbeitnehmer_m_mit_festem_beitragssatz(
         * beitragssatz
         / 2
     )
+
+
+@policy_function(
+    start_date="1998-08-01",
+    end_date="2003-03-31",
+    leaf_name="beitragspflichtige_einnahmen_aus_arbeitslosengeld_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def beitragspflichtige_einnahmen_aus_arbeitslosengeld_y_ohne_midijob(
+    sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y: float,
+    sozialversicherung__geringfügig_beschäftigt: bool,
+    einkommen_y: float,
+    beitragsbemessungsgrenze_y: float,
+    sozialversicherung__rente__anteil_bemessungsentgelt_arbeitslosengeld: float,
+) -> float:
+    """Income subject to pension contributions while drawing Arbeitslosengeld.
+
+    The Bemessungsentgelt, capped at the Beitragsbemessungsgrenze, minus the
+    beitragspflichtige Arbeitsentgelt of a concurrent job that is not geringfügig; 80 %
+    of the difference, floored at 0, is contributory (§ 166 Abs. 1 Nr. 2 SGB VI). The
+    job is assumed to run alongside the whole benefit period.
+
+    The Bundesagentur für Arbeit does not deduct "privilegiertes Nebeneinkommen"; the
+    statute has no such exception, and GETTSIM follows the statute.
+
+    Until 1999-03-31 the statute deducted the wage "aus einem
+    Beschäftigungsverhältnis", which includes the few geringfügige jobs that were
+    versicherungspflichtig then. GETTSIM deducts no geringfügige job.
+
+    The Beitragsbemessungsgrenze follows the current place of residence, not where the
+    wage underlying the benefit was earned.
+    """
+    bemessungsentgelt_y = min(
+        sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,
+        beitragsbemessungsgrenze_y,
+    )
+    abzug_y = 0.0 if sozialversicherung__geringfügig_beschäftigt else einkommen_y
+    return sozialversicherung__rente__anteil_bemessungsentgelt_arbeitslosengeld * max(
+        bemessungsentgelt_y - abzug_y, 0.0
+    )
+
+
+@policy_function(
+    start_date="2003-04-01",
+    leaf_name="beitragspflichtige_einnahmen_aus_arbeitslosengeld_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def beitragspflichtige_einnahmen_aus_arbeitslosengeld_y_mit_midijob(
+    sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y: float,
+    sozialversicherung__geringfügig_beschäftigt: bool,
+    sozialversicherung__in_gleitzone: bool,
+    sozialversicherung__midijob_bemessungsentgelt_y: float,
+    einkommen_y: float,
+    beitragsbemessungsgrenze_y: float,
+    sozialversicherung__rente__anteil_bemessungsentgelt_arbeitslosengeld: float,
+) -> float:
+    """Income subject to pension contributions while drawing Arbeitslosengeld.
+
+    The Bemessungsentgelt, capped at the Beitragsbemessungsgrenze, minus the
+    beitragspflichtige Arbeitsentgelt of a concurrent job that is not geringfügig; 80 %
+    of the difference, floored at 0, is contributory (§ 166 Abs. 1 Nr. 2 SGB VI). The
+    job is assumed to run alongside the whole benefit period.
+
+    In the Gleitzone / Übergangsbereich the reduced contribution base (§ 163 Abs. 10
+    SGB VI) is deducted. The GRA zu § 166 SGB VI states this for the Gleitzone; for the
+    Übergangsbereich no source states it, and GETTSIM keeps the same rule. The opt-out
+    to the full wage (§ 163 Abs. 10 Satz 6 SGB VI a. F., until 2019-06-30) is not
+    modelled.
+
+    The Bundesagentur für Arbeit does not deduct "privilegiertes Nebeneinkommen"; the
+    statute has no such exception, and GETTSIM follows the statute.
+
+    The Beitragsbemessungsgrenze follows the current place of residence, not where the
+    wage underlying the benefit was earned.
+    """
+    bemessungsentgelt_y = min(
+        sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,
+        beitragsbemessungsgrenze_y,
+    )
+    if sozialversicherung__geringfügig_beschäftigt:
+        abzug_y = 0.0
+    elif sozialversicherung__in_gleitzone:
+        abzug_y = sozialversicherung__midijob_bemessungsentgelt_y
+    else:
+        abzug_y = einkommen_y
+    return sozialversicherung__rente__anteil_bemessungsentgelt_arbeitslosengeld * max(
+        bemessungsentgelt_y - abzug_y, 0.0
+    )

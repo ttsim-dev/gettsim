@@ -15,6 +15,22 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1252` Model Entgeltpunkte from drawing Arbeitslosengeld (§ 3 Satz 1 Nr. 3, § 166
+  Abs. 1 Nr. 2 SGB VI) from August 1998, added to
+  `sozialversicherung__rente__neue_entgeltpunkte_y`. The contribution base of the
+  benefit is reduced by 80 % of the contributory wage from a concurrent job that is not
+  geringfügig (§ 166 Abs. 1 Nr. 2 Halbsatz 2 SGB VI), new column
+  `sozialversicherung__rente__beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y`.
+  Correct the Entgeltpunkte of earnings in the Beitrittsgebiet from 1990 to 2024:
+  earnings are capped at the Beitragsbemessungsgrenze (Ost) before the Anlage 10 scaling
+  and at the Beitragsbemessungsgrenze (West) after it (§ 275a mit Anlage 2a, § 256a Abs.
+  1, § 260 Satz 2 SGB VI).
+
+  New inputs
+  `sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m`
+  and `sozialversicherung__rente__zuletzt_versicherungspflichtig_vor_leistungsbeginn`.
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1251` Grant the Aktivrente (§ 3 Nr. 21 EStG) if the employer owes pension
   insurance contributions: versicherungsfreie Vollrentner qualify, Minijobber do not.
   From 2026, compute the Teilbeträge of the Lohnsteuer Vorsorgepauschale on the wage net

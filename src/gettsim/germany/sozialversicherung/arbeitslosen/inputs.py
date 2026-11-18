@@ -9,7 +9,7 @@ from gettsim.tt import TTSIMUnit, policy_input
 def mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m() -> float:
     """Mean net wage in the 12 months before unemployment.
 
-    To compute this value using GETTSIM set `('arbeitslosengeld',
+    To compute this value using GETTSIM set `('sozialversicherung', 'arbeitslosen',
     'mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y')` as the TT
     target and use input data from the 12 months before the unemployment.
     """
@@ -33,6 +33,16 @@ def monate_durchgängigen_bezugs_von_arbeitslosengeld() -> int:
 @policy_input(unit=TTSIMUnit.MONTHS)
 def monate_sozialversicherungspflichtiger_beschäftigung_in_letzten_5_jahren() -> int:
     """Months of subjection to compulsory insurance in the 5 years before claiming unemployment."""
+
+
+@policy_input(start_date="1998-08-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m() -> float:
+    """Gross Arbeitsentgelt the Arbeitslosengeld is based on, per month.
+
+    The daily Bemessungsentgelt of § 151 SGB III times 30; before 2005 the weekly
+    Bemessungsentgelt of § 132 SGB III a. F. times 13/3. A 12-month mean of
+    `('sozialversicherung', 'rente', 'beitrag', 'einkommen_m')`.
+    """
 
 
 @policy_input(unit=TTSIMUnit.CURRENCY.PER_MONTH)
