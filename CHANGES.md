@@ -33,6 +33,10 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 - {gh}`1258` Drop Python 3.11 support, following numpy, which requires Python >=3.12
   from 2.5 on. ({ghuser}`hmgaudecker`)
 
+- {gh}`1238` Fix the Altersentlastungsbetrag (§ 24a EStG): rate and maximum follow the
+  calendar year after completing the 64th year of life, and the base covers all
+  Einkünfte except Leibrenten. ({ghuser}`MImmesberger`)
+
 - {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
   ({ghuser}`MImmesberger`)
 
