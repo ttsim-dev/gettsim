@@ -37,6 +37,10 @@ inputs:
         - 0.0
       kapitalerträge_m:
         - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         betriebliche_altersvorsorge_m:
           - 0.0
@@ -50,6 +54,8 @@ inputs:
           - 0.0
     elterngeld:
       betrag_m:
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
     familie:
       alleinerziehend:
@@ -80,6 +86,10 @@ inputs:
         - 0.0
     sozialversicherung:
       arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
         betrag_m:
           - 0.0
       beiträge_versicherter_m:
@@ -96,6 +106,9 @@ inputs:
         grundrente:
           grundrentenzeiten_monate:
             - 0
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0

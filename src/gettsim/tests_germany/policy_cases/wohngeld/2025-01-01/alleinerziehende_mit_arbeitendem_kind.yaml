@@ -15,6 +15,9 @@ inputs:
     alter:
       - 40
       - 16
+    alter_monate:
+      - 480
+      - 192
     anzahl_personen_hh:
       - 2
       - 2
@@ -49,13 +52,13 @@ inputs:
             betrag_m:
               - 0.0
               - 0.0
-            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
-              - 65
-              - 65
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
         aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
-            - 0.0
-            - 0.0
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 1797.5
+            - 297.5
       gemeinsam_veranlagt:
         - false
         - false
@@ -66,30 +69,18 @@ inputs:
       kapitalerträge_y:
         - 0.0
         - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
       renten:
         gesetzliche_m:
           - 0.0
           - 0.0
-        sonstige_private_vorsorge_m:
-          - 0.0
-          - 0.0
-        geförderte_private_vorsorge_m:
-          - 0.0
-          - 0.0
-        basisrente_m:
-          - 0.0
-          - 0.0
-        betriebliche_altersvorsorge_m:
-          - 0.0
-          - 0.0
-        aus_berufsständischen_versicherungen_m:
-          - 0.0
-          - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
     familie:
@@ -148,9 +139,6 @@ inputs:
         bezieht_altersrente:
           - false
           - false
-        jahr_renteneintritt:
-          - 2052
-          - 2076
         altersrente:
           betrag_m:
             - 0.0

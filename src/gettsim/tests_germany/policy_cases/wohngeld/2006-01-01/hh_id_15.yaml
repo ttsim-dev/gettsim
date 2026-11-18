@@ -36,6 +36,24 @@ inputs:
         - -1
         - -1
         - -1
+      nettoeinkommen_vor_abzug_freibetrag_m_wthh:
+        - 2900.0
+        - 2900.0
+        - 2900.0
+        - 2900.0
+        - 2900.0
+        - 2900.0
+        - 2900.0
+        - 2900.0
+      regelbedarf_m_wthh:
+        - 2725.2
+        - 2725.2
+        - 2725.2
+        - 2725.2
+        - 2725.2
+        - 2725.2
+        - 2725.2
+        - 2725.2
     behinderungsgrad:
       - 0
       - 0
@@ -97,24 +115,15 @@ inputs:
               - 0.0
               - 0.0
         aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 1373.3333333333333
+            - 1373.3333333333333
             - 0.0
             - 0.0
             - 0.0
             - 0.0
             - 0.0
             - 0.0
-            - 0.0
-            - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
     einnahmen:
       bruttolohn_m:
         - 1450.0
@@ -134,26 +143,16 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-      renten:
-        betrag_gesamt_m:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       betrag_m:
         - 0.0
         - 0.0
@@ -173,15 +172,6 @@ inputs:
         - false
         - false
         - false
-      p_id_ehepartner:
-        - 67
-        - 66
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
       p_id_elternteil_1:
         - -1
         - -1
@@ -200,15 +190,6 @@ inputs:
         - 67
         - 67
         - 67
-    geburtsjahr:
-      - 1964
-      - 1953
-      - 1999
-      - 1998
-      - 1994
-      - 2004
-      - 2004
-      - 2001
     geburtsmonat:
       - 1
       - 1
@@ -255,6 +236,15 @@ inputs:
         - 66
         - 66
         - 66
+      betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     p_id:
       - 66
       - 67
@@ -264,16 +254,6 @@ inputs:
       - 71
       - 72
       - 73
-    solidaritätszuschlag:
-      betrag_y_sn:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
@@ -285,15 +265,6 @@ inputs:
           - 0.0
           - 0.0
           - 0.0
-      beiträge_versicherter_m:
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
-        - 0.0
       kranken:
         beitrag:
           betrag_versicherter_m:
@@ -336,6 +307,15 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      tatsächlich_erhaltener_betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     unterhaltsvorschuss:
       betrag_m:
         - 0.0
@@ -346,15 +326,15 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-    vermögen:
-      - 200000.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
+      betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     wohnen:
       baujahr_immobilie_hh:
         - 1995
@@ -365,15 +345,6 @@ inputs:
         - 1995
         - 1995
         - 1995
-      bewohnt_eigentum_hh:
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
-        - false
       bruttokaltmiete_m_hh:
         - 850.0
         - 850.0
@@ -383,24 +354,6 @@ inputs:
         - 850.0
         - 850.0
         - 850.0
-      heizkosten_m_hh:
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-        - 50.0
-      wohnfläche_hh:
-        - 100.0
-        - 100.0
-        - 100.0
-        - 100.0
-        - 100.0
-        - 100.0
-        - 100.0
-        - 100.0
     wohngeld:
       mietstufe_hh:
         - 3
@@ -411,6 +364,16 @@ inputs:
         - 3
         - 3
         - 3
+    kinderzuschlag:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
 outputs:
   wohngeld:
     anspruchshöhe_m_wthh:

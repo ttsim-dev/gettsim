@@ -1,0 +1,96 @@
+---
+info:
+  note: >-
+    From 2004, the Steuersatzeinkommen per person is rounded down to a full Euro amount
+    (§ 32a Abs. 1 S. 1 EStG); the 36-Euro rounding of 2002 and 2003 no longer applies.
+    The first person is assessed individually, the other two jointly; the spouse
+    without wages has 21.044 € Arbeitslosengeld less the Arbeitnehmer-Pauschbetrag of
+    920 €, so the benefits are 20.124 € and the joint Steuersatzeinkommen 100.124 €.
+  precision_atol: 1.0e-06
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - true
+        - true
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 40000.0
+        - 80000.0
+        - 80000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 40000.0
+        - 80000.0
+        - 80000.0
+    einnahmen:
+      bruttolohn_y:
+        - 45000.0
+        - 0.0
+        - 90000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 10000.0
+          - 21044.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+outputs:
+  einkommensteuer:
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 50000.0
+      - 100124.0
+      - 100124.0
+    steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y:
+      - 50000.0
+      - 50062.0
+      - 50062.0
+    steuersatzeinkommen_je_person_mit_kinderfreibetrag_y:
+      - 50000.0
+      - 50062.0
+      - 50062.0

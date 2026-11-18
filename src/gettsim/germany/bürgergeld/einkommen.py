@@ -75,10 +75,16 @@ def bruttoeinkommen_m(
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
-    elterngeld__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
+    elterngeld__freibetrag_paragraph_10_abs_5_beeg_m: float,
+    sozialversicherung__kranken__mutterschaftsgeld_m: float,
 ) -> float:
-    """Sum up the gross income for calculation of basic subsistence."""
+    """Sum up the gross income for calculation of basic subsistence.
+
+    Part of the Elterngeld is exempt (§ 10 Abs. 5 S. 2 BEEG). Mutterschaftsgeld is
+    exempt in full (§ 10 Abs. 5 S. 4 BEEG; from 01.07.2023 also § 11a Abs. 1 Nr. 6 SGB
+    II).
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -86,8 +92,9 @@ def bruttoeinkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
-        + elterngeld__betrag_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
+        - elterngeld__freibetrag_paragraph_10_abs_5_beeg_m
+        - sozialversicherung__kranken__mutterschaftsgeld_m
     )
 
 
@@ -95,6 +102,8 @@ def bruttoeinkommen_m(
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
+    sozialversicherung__arbeitslosen__kurzarbeitergeld_m: float,
+    sozialversicherung__arbeitslosen__insolvenzgeld_m: float,
     familie__anzahl_kinder_bis_17_bg: int,
     einkommensteuer__anzahl_kinderfreibeträge: int,
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
@@ -110,9 +119,14 @@ def anrechnungsfreies_einkommen_m(
     # TODO(@MImmesberger): Should consider income from other sources too. Also,
     # thresholds for children might be different.
     # https://github.com/ttsim-dev/gettsim/issues/598
+
+    # TODO(@MImmesberger): Insolvenzgeld enters as net, not as the underlying gross wage.
+    # https://github.com/ttsim-dev/gettsim/issues/1244
     eink_erwerbstätigkeit = (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
+        + sozialversicherung__arbeitslosen__kurzarbeitergeld_m
+        + sozialversicherung__arbeitslosen__insolvenzgeld_m
     )
 
     if (

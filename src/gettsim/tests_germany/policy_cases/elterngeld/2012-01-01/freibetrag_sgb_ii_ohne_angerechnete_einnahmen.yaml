@@ -1,0 +1,42 @@
+---
+info:
+  note: >-
+    For Arbeitslosengeld II, Sozialhilfe, Kinderzuschlag and Unterhaltsvorschuss, the
+    Elterngeld remains exempt in the amount of the income from employment before the
+    birth, up to 300 €. Person 0 receives 200 € Elterngeld with 300 € Mutterschaftsgeld
+    credited against it, person 1 100 € with 50 € credited, person 2 400 € without
+    income before the birth. Before 18.09.2012, only the Elterngeld itself is exempt
+    (§ 10 Abs. 5 S. 2 BEEG as inserted by Art. 14 Nr. 4 G. v. 09.12.2010, BGBl. I S.
+    1896); the credited Mutterschaftsgeld is not.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 2
+    elterngeld:
+      betrag_m:
+        - 200.0
+        - 100.0
+        - 400.0
+      angerechnete_mutterschaftsleistungen_m:
+        - 300.0
+        - 50.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 1000.0
+        - 120.0
+        - 0.0
+outputs:
+  elterngeld:
+    freibetrag_paragraph_10_abs_5_beeg_m:
+      - 200.0
+      - 100.0
+      - 0.0
