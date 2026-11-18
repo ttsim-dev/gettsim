@@ -378,7 +378,7 @@ stays single-source.
 
 `from __future__ import annotations` defers all annotations to strings and breaks the
 claw's runtime resolution. While Python 3.14's PEP 649 deferred evaluation makes the
-pragma unnecessary, at the time of writing we still support 3.11–3.13, so the pragma
+pragma unnecessary, at the time of writing we still support 3.12–3.13, so the pragma
 stays. The trade is local: only the specific names beartype must resolve at decoration
 time are lifted out of `TYPE_CHECKING` blocks and into runtime scope — column aliases,
 scalar aliases, `User*` aliases, `DashedISOString`, `Callable`, `Any`, `ModuleType`,
