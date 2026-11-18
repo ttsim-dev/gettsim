@@ -41,6 +41,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   dates from 7 January to 30 June 2024 (37.60 € instead of 39.32 €).
   ({ghuser}`MImmesberger`)
 
+- {gh}`1258` Drop Python 3.11 support, following numpy, which requires Python >=3.12
+  from 2.5 on. ({ghuser}`hmgaudecker`)
+
 - {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
   ({ghuser}`MImmesberger`)
 
