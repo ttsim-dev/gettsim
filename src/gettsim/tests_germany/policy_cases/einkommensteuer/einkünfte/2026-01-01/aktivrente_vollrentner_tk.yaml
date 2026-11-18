@@ -1,0 +1,52 @@
+---
+info:
+  note: Versicherungsfreier Vollrentner mit 2.500 € Monatslohn, steuerfrei sind 2.000 €.
+  precision_atol: 0.01
+  source: >-
+    Techniker Krankenkasse, Aktivrente kurz&kompakt, Fachinformation für Firmenkunden
+    2026, Stand 08/2026, Beispiel 2 (Folien 11–12).
+    https://www.tk.de/resource/blob/2222064/9d2875389996ea5f7f4cd46f9a317d58/folien-w-o-d-aktivrente-data.pdf
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1957
+    alter_monate:
+      - 828  # 69 years; the Regelaltersgrenze of the 1957 cohort is 65 years 11 months
+    lohnsteuer:
+      steuerklasse:
+        - 1  # Not stated; any Steuerklasse other than VI
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0  # Amount not stated; Vollrente implied by "RV nur AG-Anteil"
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false  # Implied by "RV nur AG-Anteil"
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false  # Not a Minijob
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 2500.0
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 2000.0
+  lohnsteuer:
+    steuerpflichtiger_arbeitslohn_m:
+      - 500.0
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 0.0  # "RV nur AG-Anteil"
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 0.0  # "Keine Beiträge zur Arbeitslosenversicherung."

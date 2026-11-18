@@ -4,7 +4,14 @@ info:
   precision_atol: 0.01
   source: Section 2(2) BEEG regression test (#1240).
 inputs:
-  assumed: {}
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
   provided:
     alter:
       - 43

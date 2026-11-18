@@ -10,6 +10,11 @@ inputs:
         - -1
       p_id_elternteil_2:
         - -1
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
   provided:
     alter:
       - 25

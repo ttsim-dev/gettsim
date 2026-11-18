@@ -29,6 +29,10 @@ inputs:
     p_id:
       - 1
     sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
       pflege:
         beitrag:
           hat_kinder:

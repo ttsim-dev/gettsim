@@ -1,0 +1,78 @@
+---
+info:
+  note: Anspruch nach Rentenversicherungsstatus, Minijobgrenze von beiden Seiten.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+      - 795
+      - 795
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 2500.0
+        - 2500.0
+        - 603.0  # Minijobgrenze 2026
+        - 603.0
+        - 603.01  # Übergangsbereich
+        - 603.01
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0
+            - 1200.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1200.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false  # Versicherungsfreier Vollrentner
+          - true  # Vollrentner, versicherungspflichtig by waiver
+          - false
+          - false
+          - false
+          - false  # Versicherungsfreier Vollrentner
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+          - true  # Minijob with RV coverage
+          - false  # Minijob, befreit
+          - false
+          - false
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 2000.0  # Employer owes the § 172 Abs. 1 SGB VI share
+          - 2000.0
+          - 0.0  # Minijob, although RV contributions are paid
+          - 0.0
+          - 603.01  # Insured in the Übergangsbereich
+          - 603.01  # Versicherungsfrei in the Übergangsbereich

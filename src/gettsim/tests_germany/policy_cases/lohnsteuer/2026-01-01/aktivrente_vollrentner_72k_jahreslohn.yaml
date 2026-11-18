@@ -1,0 +1,77 @@
+---
+info:
+  note: Versicherungsfreier Vollrentner, kein Teilbetrag für die Rentenversicherung.
+  precision_atol: 1.0
+  source: >-
+    BMF Lohn- und Einkommensteuerrechner, externe Schnittstelle (PAP 2026), run
+    of 2026-10-23 (A3_frei_72k.xml, MD5 10762529d5cc00b7d88fa8c8b277363c) with
+    LZZ=1, STKL=1, R=0, KVZ=2.90, PVZ=1, PKV=0, ALTER1=0, RE4=4800000,
+    KRV=1, ALV=1. RE4 is the wage net of the 24 000 € Aktivrente (BMF FAQ
+    zur Aktivrente III.3, III.4). ALTER1=0 leaves out the
+    Altersentlastungsbetrag, which GETTSIM's Lohnsteuer does not model yet
+    (https://github.com/ttsim-dev/gettsim/issues/1259).
+    https://www.bmf-steuerrechner.de/interface/2026Version1.xhtml?code=LSt2026ext
+inputs:
+  assumed:
+    # Not calculator inputs; ALTER1=0 drops the age from its computation.
+    alter:
+      - 66
+    alter_monate:
+      - 800  # Past the Regelaltersgrenze of 66 years 2 months (1959 cohort)
+    geburtsjahr:
+      - 1959
+    arbeitsstunden_w:
+      - 40.0
+    familie:
+      p_id_elternteil_1:
+        - -1
+      p_id_elternteil_2:
+        - -1
+    kindergeld:
+      in_ausbildung:
+        - false
+    sozialversicherung:
+      kranken:
+        beitrag:
+          beitrag_private_basiskrankenversicherung_abzüglich_arbeitgeberanteil_y:
+            - 0.0
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0  # Vollrente; KRV=1, not pflichtversichert
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false  # Not a Minijob
+  provided:
+    einnahmen:
+      bruttolohn_y:
+        - 72000.0  # RE4 plus the 24 000 € Aktivrente; constant monthly wage
+    hh_id:
+      - 0
+    lohnsteuer:
+      steuerklasse:
+        - 1  # STKL=1
+    p_id:
+      - 0
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false  # PKV=0
+          zusatzbeitragssatz:
+            - 0.029  # KVZ=2.90
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false  # PVZ=1
+outputs:
+  lohnsteuer:
+    betrag_y:
+      - 7696.0  # LSTLZZ
+    betrag_soli_y:
+      - 0.0  # SOLZLZZ
+    steuerpflichtiger_arbeitslohn_y:
+      - 48000.0  # RE4
+    vorsorgepauschale_y:
+      - 5208.0  # RE4 minus Pauschbeträge, Grundfreibetrag and WVFRB / 100
