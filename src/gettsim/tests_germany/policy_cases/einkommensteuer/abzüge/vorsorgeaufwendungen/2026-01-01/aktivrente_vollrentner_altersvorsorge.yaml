@@ -47,7 +47,7 @@ inputs:
 outputs:
   einkommensteuer:
     abzüge:
-      absetzbare_rentenversicherungsbeiträge_y:
+      abziehbare_rentenversicherungsbeiträge_y:
         - 0.0
         - 0.0
       altersvorsorge_y_sn:
