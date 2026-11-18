@@ -1,0 +1,52 @@
+---
+info:
+  note: Versicherungsfreie Vollrentnerin im Übergangsbereich, Lohn ganz steuerfrei.
+  precision_atol: 0.01
+  source: >-
+    Techniker Krankenkasse, Aktivrente kurz&kompakt, Fachinformation für Firmenkunden
+    2026, Stand 08/2026, Beispiel 1 (Folien 9–10).
+    https://www.tk.de/resource/blob/2222064/9d2875389996ea5f7f4cd46f9a317d58/folien-w-o-d-aktivrente-data.pdf
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1958
+    alter_monate:
+      - 816  # 68 years; the Regelaltersgrenze of the 1958 cohort is 66 years
+    lohnsteuer:
+      steuerklasse:
+        - 1  # Not stated; any Steuerklasse other than VI
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 1200.0  # Vollrente implied by "nur der Arbeitgeberanteil"
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false  # Implied by "nur der Arbeitgeberanteil"
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false  # Not a Minijob
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 1800.0
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 1800.0
+  lohnsteuer:
+    steuerpflichtiger_arbeitslohn_m:
+      - 0.0
+  sozialversicherung:
+    rente:
+      beitrag:
+        betrag_versicherter_m:
+          - 0.0  # "Zur Rentenversicherung ist nur der Arbeitgeberanteil zu entrichten."
+    arbeitslosen:
+      beitrag:
+        betrag_versicherter_m:
+          - 0.0  # "Keine Beiträge zur Arbeitslosenversicherung."

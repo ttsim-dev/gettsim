@@ -1,0 +1,44 @@
+---
+info:
+  note: Höchstbetrag vor Prozentsatz und Arbeitgeberanteil, knapp über und unter ihm.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 7050.0
+        - 7050.0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 1000.0  # 2 * 7867.80 + 12000 > 25639
+          - 500.0  # 2 * 7867.80 + 6000 < 25639
+      gemeinsam_veranlagt:
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 655.65
+            - 655.65
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 7867.8
+        - 7867.8
+      altersvorsorge_y_sn:
+        - 16232.86  # 0.94 * 25639 - 7867.80
+        - 12563.664  # 0.94 * 21735.60 - 7867.80

@@ -1,0 +1,87 @@
+---
+info:
+  note: KV/PV-Beiträge auf den Lohn aufgeteilt, Beiträge auf die Rente voll abziehbar.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
+            - false
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+      - 795
+      - 794  # At the Regelaltersgrenze, no Aktivrente
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 3000.0
+        - 0.0  # Pension only
+        - 3000.0
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 279.0
+            - 279.0
+            - 0.0
+            - 279.0
+      kranken:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 90.0
+            - 90.0
+            - 90.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 261.0
+            - 261.0
+            - 0.0
+            - 261.0
+      pflege:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 40.0
+            - 40.0
+            - 40.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 54.0
+            - 54.0
+            - 0.0
+            - 54.0
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_krankenversicherungsbeiträge_y:
+        - 1044.0  # 3132 / 3
+        - 2124.0  # 1080 + 3132 / 3
+        - 1080.0
+        - 4212.0
+      abziehbare_pflegeversicherungsbeiträge_y:
+        - 216.0  # 648 / 3
+        - 696.0  # 480 + 648 / 3
+        - 480.0
+        - 1128.0

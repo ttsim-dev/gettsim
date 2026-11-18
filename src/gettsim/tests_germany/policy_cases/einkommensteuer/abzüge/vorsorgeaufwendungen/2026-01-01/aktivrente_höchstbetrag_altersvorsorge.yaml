@@ -1,0 +1,81 @@
+---
+info:
+  note: Höchstbetrag nach § 10 Abs. 3 EStG knapp über und unter den Beiträgen.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
+            - false
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+      - 794  # At the Regelaltersgrenze, no Aktivrente
+      - 794
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+        - 4000.0
+        - 4000.0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 2500.0  # 2 * 2232 + 30000 > 30826
+          - 2000.0  # 2 * 2232 + 24000 < 30826
+          - 2500.0  # 2 * 4464 + 30000 > 30826
+          - 1500.0  # 2 * 4464 + 18000 < 30826
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 372.0
+            - 372.0
+            - 372.0
+            - 372.0
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 2232.0
+        - 2232.0
+        - 4464.0
+        - 4464.0
+      altersvorsorge_y_sn:
+        - 28594.0  # 30826 - 2232
+        - 26232.0  # 2 * 2232 + 24000 - 2232
+        - 26362.0  # 30826 - 4464
+        - 22464.0  # 2 * 4464 + 18000 - 4464

@@ -1,0 +1,37 @@
+---
+info:
+  note: Minijob nach der Regelaltersgrenze, kein Aktivrenten-Freibetrag.
+  precision_atol: 0.01
+  source: >-
+    Techniker Krankenkasse, Aktivrente kurz&kompakt, Fachinformation für Firmenkunden
+    2026, Stand 08/2026, Beispiel 3 (Folien 13–14), Minijob.
+    https://www.tk.de/resource/blob/2222064/9d2875389996ea5f7f4cd46f9a317d58/folien-w-o-d-aktivrente-data.pdf
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1959
+    alter_monate:
+      - 804  # 67 years; the Regelaltersgrenze of the 1959 cohort is 66 years 2 months
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0  # Pension status not stated
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false  # RV status of the Minijob not stated; befreit
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 520.0  # Only the Minijob; the insured part-time job is not modelled
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 0.0

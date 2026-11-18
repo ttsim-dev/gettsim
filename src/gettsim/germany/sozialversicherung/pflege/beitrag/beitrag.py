@@ -11,26 +11,50 @@ from gettsim.tt import TTSIMUnit, policy_function
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_versicherter_m_bis_03_1999(
-    betrag_versicherter_regulärer_beitragssatz_m: float,
+    betrag_versicherter_aus_erwerbseinkommen_m: float,
 ) -> float:
     """Long-term care insurance contributions paid by the insured person."""
+    return betrag_versicherter_aus_erwerbseinkommen_m
+
+
+@policy_function(
+    start_date="1999-04-01",
+    leaf_name="betrag_versicherter_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def betrag_versicherter_m_ab_04_1999(
+    betrag_versicherter_aus_erwerbseinkommen_m: float,
+    betrag_rentner_m: float,
+) -> float:
+    """Contributions paid by the insured person, including those on pensions."""
+    return betrag_versicherter_aus_erwerbseinkommen_m + betrag_rentner_m
+
+
+@policy_function(
+    end_date="1999-03-31",
+    leaf_name="betrag_versicherter_aus_erwerbseinkommen_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def betrag_versicherter_aus_erwerbseinkommen_m_bis_03_1999(
+    betrag_versicherter_regulärer_beitragssatz_m: float,
+) -> float:
+    """Contributions on wages and self-employment income paid by the insured person."""
     return betrag_versicherter_regulärer_beitragssatz_m
 
 
 @policy_function(
     start_date="1999-04-01",
     end_date="2003-03-31",
-    leaf_name="betrag_versicherter_m",
+    leaf_name="betrag_versicherter_aus_erwerbseinkommen_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_versicherter_m_ohne_midijob(
+def betrag_versicherter_aus_erwerbseinkommen_m_ohne_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
     betrag_selbstständig_m: float,
     sozialversicherung__geringfügig_beschäftigt: bool,
     betrag_versicherter_regulärer_beitragssatz_m: float,
-    betrag_rentner_m: float,
 ) -> float:
-    """Long-term care insurance contributions paid by the insured person.
+    """Contributions on wages and self-employment income paid by the insured person.
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
@@ -42,25 +66,23 @@ def betrag_versicherter_m_ohne_midijob(
     else:
         out = betrag_versicherter_regulärer_beitragssatz_m
 
-    # Add the care insurance contribution for pensions
-    return out + betrag_rentner_m
+    return out
 
 
 @policy_function(
     start_date="2003-04-01",
-    leaf_name="betrag_versicherter_m",
+    leaf_name="betrag_versicherter_aus_erwerbseinkommen_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
-def betrag_versicherter_m_mit_midijob(
+def betrag_versicherter_aus_erwerbseinkommen_m_mit_midijob(
     einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig: bool,
     betrag_selbstständig_m: float,
     sozialversicherung__geringfügig_beschäftigt: bool,
     sozialversicherung__in_gleitzone: bool,
     betrag_versicherter_in_gleitzone_m: float,
     betrag_versicherter_regulärer_beitragssatz_m: float,
-    betrag_rentner_m: float,
 ) -> float:
-    """Long-term care insurance contributions paid by the insured person."""
+    """Contributions on wages and self-employment income paid by the insured person."""
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = betrag_selbstständig_m
     elif sozialversicherung__geringfügig_beschäftigt:
@@ -70,8 +92,7 @@ def betrag_versicherter_m_mit_midijob(
     else:
         out = betrag_versicherter_regulärer_beitragssatz_m
 
-    # Add the care insurance contribution for pensions
-    return out + betrag_rentner_m
+    return out
 
 
 @policy_function(

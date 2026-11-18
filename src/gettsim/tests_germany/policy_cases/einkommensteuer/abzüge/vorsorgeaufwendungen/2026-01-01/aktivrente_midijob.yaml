@@ -1,0 +1,69 @@
+---
+info:
+  note: Midijob mit Aktivrente, ganzer Lohn steuerfrei, Beiträge nicht abziehbar.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 794  # At the Regelaltersgrenze, no Aktivrente
+    einnahmen:
+      bruttolohn_m:
+        - 1800.0
+        - 1800.0
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 140.0  # Reduced Midijob base
+            - 140.0
+      kranken:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 0.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 130.0
+            - 130.0
+      pflege:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 0.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 30.0
+            - 30.0
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        steuerbefreite_einnahmen_y:
+          - 21600.0
+          - 0.0
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 0.0
+        - 1680.0
+      abziehbare_krankenversicherungsbeiträge_y:
+        - 0.0
+        - 1560.0
+      abziehbare_pflegeversicherungsbeiträge_y:
+        - 0.0
+        - 360.0

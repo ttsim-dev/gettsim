@@ -9,14 +9,15 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       § 39b (4) EStG
       Der Anteil der Rentenversicherungsbeiträge, die bei der Lohnsteuerberechnung
       abgezogen werden
-      Funktion erst ab 2005 vorhanden. Steigt zwischen 2005 und 2025 jährlich um 4
-      Prozentpunkte. 2023 wurde der Wert vorzeitig auf 100% gesetzt.
+      Funktion erst ab 2005 vorhanden. Steigt ab 2005 jährlich um 4 Prozentpunkte
+      (20% in 2005, 40% in 2010, 88% in 2022). 2023 wurde der Wert vorzeitig auf
+      100% gesetzt.
     en: >-
       § 39b (4) EStG
       The share of pension insurance contributions deducted in the withholding tax
       calculation.
-      rises between 2005 and 2025 by 4 percentage points annually. In 2023, it was
-      prematurely set to 100 percent.
+      Rises by 4 percentage points annually from 2005 (20% in 2005, 40% in 2010,
+      88% in 2022). In 2023, it was prematurely set to 100 percent.
   input_unit: CALENDAR_YEAR
   output_unit: DIMENSIONLESS
   type: piecewise_linear

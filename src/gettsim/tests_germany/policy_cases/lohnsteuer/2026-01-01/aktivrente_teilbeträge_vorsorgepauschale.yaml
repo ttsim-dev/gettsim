@@ -1,0 +1,173 @@
+---
+info:
+  note: Teilbeträge der Vorsorgepauschale nach Alter und Rentenversicherungsstatus.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    # No parents in the data; only needed for the Pflegeversicherung rate.
+    familie:
+      p_id_elternteil_1:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+      p_id_elternteil_2:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+  provided:
+    alter:
+      - 66
+      - 66
+      - 66
+      - 66
+      - 66
+      - 66
+      - 66
+    alter_monate:
+      - 794  # At the Regelaltersgrenze of the 1959 cohort
+      - 795  # Past the Regelaltersgrenze
+      - 795
+      - 795
+      - 795
+      - 794
+      - 795
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+      - 1959
+    einnahmen:
+      bruttolohn_y:
+        - 36000.0
+        - 36000.0
+        - 36000.0
+        - 36000.0
+        - 36000.0
+        - 36000.0
+        - 150000.0  # Taxable wage above both Beitragsbemessungsgrenzen
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    lohnsteuer:
+      steuerklasse:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 6  # No Aktivrente in Steuerklasse VI
+        - 1
+        - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    sozialversicherung:
+      kranken:
+        beitrag:
+          privat_versichert:
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+          zusatzbeitragssatz:
+            - 0.029
+            - 0.029
+            - 0.029
+            - 0.029
+            - 0.029
+            - 0.029
+            - 0.029
+      pflege:
+        beitrag:
+          hat_kinder:
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 1200.0  # Vollrente
+            - 1200.0  # Vollrente
+            - 0.0
+            - 1200.0  # Vollrente before the Regelaltersgrenze
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+          - true  # Versicherungspflichtig by waiver
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+          - false
+outputs:
+  lohnsteuer:
+    steuerpflichtiger_arbeitslohn_y:
+      - 36000.0
+      - 12000.0
+      - 12000.0
+      - 12000.0
+      - 36000.0
+      - 36000.0
+      - 126000.0
+    vorsorge_rentenversicherungsbeiträge_y:
+      - 3348.0
+      - 1116.0
+      - 0.0  # Versicherungsfrei wegen Alters
+      - 1116.0
+      - 3348.0
+      - 3348.0
+      - 9430.2  # Capped at the RV Beitragsbemessungsgrenze
+    vorsorge_arbeitslosenversicherungsbeiträge_y:
+      - 468.0
+      - 0.0  # Versicherungsfrei in the ALV past the Regelaltersgrenze
+      - 0.0
+      - 0.0
+      - 0.0
+      - 468.0
+      - 0.0
+    vorsorge_gesetzliche_krankenversicherungsbeiträge_y:
+      - 3906.0
+      - 1302.0
+      - 1302.0
+      - 1302.0
+      - 3906.0
+      - 3906.0
+      - 7567.875  # Capped at the KV Beitragsbemessungsgrenze

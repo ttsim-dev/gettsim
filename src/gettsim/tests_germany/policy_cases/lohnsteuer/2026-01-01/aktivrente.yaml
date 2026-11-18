@@ -1,6 +1,6 @@
 ---
 info:
-  note: ''
+  note: Aktivrente im steuerpflichtigen Arbeitslohn der Lohnsteuer.
   precision_atol: 1.0
   source: Regression test.
 inputs:
@@ -67,13 +67,25 @@ inputs:
           - 0.0
     sozialversicherung:
       rente:
-        beitrag:
-          betrag_versicherter_m:
-            - 50.0
-            - 50.0
-            - 50.0
+        altersrente:
+          betrag_m:
             - 0.0
-            - 50.0
+            - 0.0
+            - 0.0
+            - 1200.0  # Vollrentner
+            - 0.0
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+          - false
+          - false
+          - false
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false
+          - false
+          - false
+          - false
+          - false
     p_id:
       - 0
       - 1
@@ -86,5 +98,11 @@ outputs:
       - 3000.0  # Not eligible because not older than Regelaltersgrenze
       - 1000.0  # Eligible
       - 2000.0  # Eligible
-      - 4000.0  # Not eligible because no public pension contribution
+      - 2000.0  # Versicherungsfrei; employer owes the § 172 Abs. 1 SGB VI share
       - 4000.0  # Steuerklasse 6; no Aktivrente
+    steuerpflichtiger_arbeitslohn_y:
+      - 36000.0
+      - 12000.0
+      - 24000.0
+      - 24000.0
+      - 48000.0

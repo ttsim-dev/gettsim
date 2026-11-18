@@ -21,15 +21,37 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   benefit is reduced by 80 % of the contributory wage from a concurrent job that is not
   geringfügig (§ 166 Abs. 1 Nr. 2 Halbsatz 2 SGB VI), new column
   `sozialversicherung__rente__beitrag__beitragspflichtige_einnahmen_aus_arbeitslosengeld_y`.
-  Correct the Entgeltpunkte of earnings in the Beitrittsgebiet up to 2024: earnings are
-  capped at the Beitragsbemessungsgrenze (Ost) before the Anlage 10 scaling and at the
-  Beitragsbemessungsgrenze (West) after it (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260
-  Satz 2 SGB VI).
+  Correct the Entgeltpunkte of earnings in the Beitrittsgebiet from 1990 to 2024:
+  earnings are capped at the Beitragsbemessungsgrenze (Ost) before the Anlage 10 scaling
+  and at the Beitragsbemessungsgrenze (West) after it (§ 275a mit Anlage 2a, § 256a Abs.
+  1, § 260 Satz 2 SGB VI).
 
   New inputs
   `sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m`
   and `sozialversicherung__rente__zuletzt_versicherungspflichtig_vor_leistungsbeginn`.
   ({ghuser}`MImmesberger`)
+
+- {gh}`1251` Grant the Aktivrente (§ 3 Nr. 21 EStG) if the employer owes pension
+  insurance contributions: versicherungsfreie Vollrentner qualify, Minijobber do not.
+  From 2026, compute the Teilbeträge of the Lohnsteuer Vorsorgepauschale on the wage net
+  of the Aktivrente, without the unemployment insurance Teilbetrag past the
+  Regelaltersgrenze. Lohnsteuer now needs
+  `sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters` (or its pension
+  inputs). New column `lohnsteuer__steuerpflichtiger_arbeitslohn_y`.
+  ({ghuser}`MImmesberger`)
+
+- {gh}`1250` Split social insurance contributions between taxable and tax-free wage
+  (e.g. Aktivrente) when deducting Vorsorgeaufwendungen (§ 10 Abs. 2 EStG); fix the
+  order of capping in § 10 Abs. 3 EStG. New column
+  `sozialversicherung__{kranken,pflege}__beitrag__betrag_versicherter_aus_erwerbseinkommen_m`.
+  ({ghuser}`MImmesberger`)
+
+- {gh}`1258` Drop Python 3.11 support, following numpy, which requires Python >=3.12
+  from 2.5 on. ({ghuser}`hmgaudecker`)
+
+- {gh}`1238` Fix the Altersentlastungsbetrag (§ 24a EStG): rate and maximum follow the
+  calendar year after completing the 64th year of life, and the base covers all
+  Einkünfte except Leibrenten. ({ghuser}`MImmesberger`)
 
 - {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
   ({ghuser}`MImmesberger`)

@@ -1,0 +1,68 @@
+---
+info:
+  note: Zusammenveranlagte Ehegatten, beide mit Aktivrente.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 3000.0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+      gemeinsam_veranlagt:
+        - true
+        - true
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 372.0
+            - 279.0
+      kranken:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 0.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 320.0
+            - 261.0
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 2232.0  # 4464 * 24000 / 48000
+        - 1116.0  # 3348 * 12000 / 36000
+      abziehbare_krankenversicherungsbeiträge_y:
+        - 1920.0  # 3840 * 24000 / 48000
+        - 1044.0  # 3132 * 12000 / 36000
+      altersvorsorge_y_sn:
+        - 3348.0
+        - 3348.0

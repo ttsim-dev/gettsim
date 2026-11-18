@@ -1,0 +1,39 @@
+---
+info:
+  note: Versicherungspflichtig Beschäftigte ohne Rentenbezug, 2.000 € steuerfrei.
+  precision_atol: 0.01
+  source: >-
+    Techniker Krankenkasse, Aktivrente kurz&kompakt, Fachinformation für Firmenkunden
+    2026, Stand 08/2026, Beispiel 4 (Folien 15–16).
+    https://www.tk.de/resource/blob/2222064/9d2875389996ea5f7f4cd46f9a317d58/folien-w-o-d-aktivrente-data.pdf
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1959
+    alter_monate:
+      - 798  # 66 years, past the Regelaltersgrenze of 66 years 2 months (1959 cohort)
+    sozialversicherung:
+      rente:
+        verzichtet_auf_versicherungsfreiheit_wegen_alters:
+          - false
+        verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
+          - false  # Not a Minijob
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 2000.0
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        altersrente:
+          betrag_m:
+            - 0.0  # "bezieht also noch keine Altersrente"
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 2000.0
