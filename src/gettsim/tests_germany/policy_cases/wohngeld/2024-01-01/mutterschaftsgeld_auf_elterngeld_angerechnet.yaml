@@ -1,0 +1,158 @@
+---
+info:
+  note: >-
+    Mutterschaftsgeld after the birth is credited against the Elterngeld (§ 3 Abs. 1
+    S. 1 Nr. 1 BEEG). For Wohngeld, the Elterngeld together with the credited
+    Mutterschaftsgeld remains exempt up to 300 € (§ 14 Abs. 2 Nr. 6 WoGG, § 10 Abs. 1
+    BEEG); Mutterschaftsgeld above the Elterngeld counts in full. Elterngeld before
+    crediting: 460 €, 700 €, 460 €, none. Mutterschaftsgeld: 340 €, 1.000 €, none, 340 €
+    (no Elterngeld claim, e.g. before the birth).
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    fg_id:
+      - 0
+      - 1
+      - 2
+      - 3
+    elterngeld:
+      grundsätzlich_anspruchsberechtigt:
+        - true
+        - true
+        - true
+        - false
+      anspruchshöhe_m:
+        - 460.0
+        - 700.0
+        - 460.0
+        - 0.0
+      anzahl_mehrlinge_fg:
+        - 0
+        - 0
+        - 0
+        - 0
+    einkommensteuer:
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+    einnahmen:
+      kapitalerträge_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 340.0
+          - 1000.0
+          - 0.0
+          - 340.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    wohngeld:
+      abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  elterngeld:
+    betrag_m:
+      - 120.0
+      - 0.0
+      - 460.0
+      - 0.0
+    angerechnete_mutterschaftsleistungen_m:
+      - 340.0
+      - 700.0
+      - 0.0
+      - 0.0
+    freibetrag_paragraph_10_abs_1_beeg_m:
+      - 300.0
+      - 300.0
+      - 300.0
+      - 0.0
+  wohngeld:
+    einkommen_vor_freibetrag_m:
+      - 160.0
+      - 700.0
+      - 160.0
+      - 340.0

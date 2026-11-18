@@ -1,0 +1,167 @@
+---
+info:
+  note: >-
+    The Arbeitnehmer-Pauschbetrag not used against wages reduces positive benefits at
+    most to zero, is not deducted from a net repayment, and is not deducted at all when
+    actual Werbungskosten exceed it.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    hh_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 1231.0
+            - 1230.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 0.0
+        - 500.0
+        - 1229.0
+        - 1230.0
+        - 500.0
+        - 500.0
+        - 0.0
+        - 0.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 3000.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 5000.0
+          - 5000.0
+          - 5000.0
+          - 5000.0
+          - 5000.0
+          - 5000.0
+          - 500.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  einkommensteuer:
+    nicht_abziehbarer_arbeitnehmerpauschbetrag_y:
+      - 1230.0
+      - 730.0
+      - 1.0
+      - 0.0
+      - 0.0
+      - 730.0
+      - 1230.0
+      - 1230.0
+    dem_progressionsvorbehalt_unterliegende_leistungen_y:
+      - 3770.0
+      - 4270.0
+      - 4999.0
+      - 5000.0
+      - 5000.0
+      - 4270.0
+      - 0.0
+      - -3000.0

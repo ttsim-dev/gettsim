@@ -83,8 +83,7 @@ def bruttoeinkommen_m(
     einnahmen__kapitalerträge_m: float,
     einnahmen__renten__betrag_gesamt_m: float,
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
-    sozialversicherung__arbeitslosen__betrag_m: float,
-    elterngeld__betrag_m: float,
+    einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
     """Sum up the gross income for calculation of basic subsistence."""
     return (
@@ -94,8 +93,7 @@ def bruttoeinkommen_m(
         + einnahmen__kapitalerträge_m
         + einnahmen__renten__betrag_gesamt_m
         + einkommensteuer__einkünfte__sonstige__alle_weiteren_m
-        + sozialversicherung__arbeitslosen__betrag_m
-        + elterngeld__betrag_m
+        + einnahmen__lohn_und_einkommensersatzleistungen_m
     )
 
 
@@ -156,6 +154,8 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
 def anrechnungsfreies_einkommen_m(
     einnahmen__bruttolohn_m: float,
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
+    sozialversicherung__arbeitslosen__kurzarbeitergeld_m: float,
+    sozialversicherung__arbeitslosen__insolvenzgeld_m: float,
     familie__anzahl_kinder_bis_17_bg: int,
     einkommensteuer__anzahl_kinderfreibeträge: int,
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
@@ -170,10 +170,17 @@ def anrechnungsfreies_einkommen_m(
     """
     # Beneficiaries who live with a minor child in a group home or who have a minor
     # child have slightly different thresholds. We currently do not consider the second
-    # condition.
+    # condition. Kurzarbeitergeld and Insolvenzgeld count as income from employment (BA,
+    # Fachliche Weisungen §§ 11-11b SGB II, Rz. 11.148 f.).
+
+    # TODO(@MImmesberger): Insolvenzgeld enters as net, not as the underlying gross
+    # wage.
+    # https://github.com/ttsim-dev/gettsim/issues/1244
     eink_erwerbstätigkeit = (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
+        + sozialversicherung__arbeitslosen__kurzarbeitergeld_m
+        + sozialversicherung__arbeitslosen__insolvenzgeld_m
     )
 
     if (

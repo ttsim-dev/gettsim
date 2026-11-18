@@ -99,8 +99,8 @@ outputs:
       gesamtbetrag_der_einkünfte_y:
         - 13480
     gesamteinkommen_y_sn:
-      - 11109.8
+      - 11109
     kinderfreibetrag_y_sn:
       - 0
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
-      - 11109.8
+      - 11109

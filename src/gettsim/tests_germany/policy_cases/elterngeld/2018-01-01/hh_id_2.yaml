@@ -77,6 +77,10 @@ inputs:
       - 42
       - 43
     sozialversicherung:
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
       pflege:
         beitrag:
           hat_kinder:

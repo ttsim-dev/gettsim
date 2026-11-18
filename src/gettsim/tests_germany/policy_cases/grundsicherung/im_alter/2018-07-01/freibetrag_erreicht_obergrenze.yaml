@@ -58,8 +58,6 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 100.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
       betrag_m:
         - 0.0
     familie:
