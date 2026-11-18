@@ -27,6 +27,9 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
   and `sozialversicherung__rente__im_vorjahr_versicherungspflichtig`.
   ({ghuser}`MImmesberger`)
 
+- {gh}`1232` Show how to add input elements to a persona in the personas tutorial.
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1240` Cap Elterngeld replacement rate at 100% for low-income pre-birth earnings
   per Section 2(2) BEEG. ({ghuser}`Fire162`)
 
