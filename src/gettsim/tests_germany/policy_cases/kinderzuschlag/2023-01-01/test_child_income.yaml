@@ -9,6 +9,14 @@ info:
 inputs:
   assumed: {}
   provided:
+    sozialversicherung:
+      arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
     alter:
       - 38
       - 15

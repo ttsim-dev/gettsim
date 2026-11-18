@@ -84,10 +84,6 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
-        - 0.0
       betrag_m:
         - 0.0
         - 0.0
