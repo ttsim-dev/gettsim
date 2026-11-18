@@ -91,9 +91,7 @@ gettsim = { path = ".", editable = true }
 kaleido = ">=1.0.0"
 pdbp = ">=1.7.1"
 dags = ">=0.6.0"
-# TODO(@MImmesberger): Point back at ttsim main once #160 has been merged.
-# https://github.com/ttsim-dev/ttsim/pull/160
-ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "loop-vectorization-otypes" }
+ttsim-backend = { git = "https://github.com/ttsim-dev/ttsim.git", branch = "main" }
 [tool.pixi.feature.coverage.tasks]
 tests-with-cov = """\
   pytest --cov-report=xml --cov=./ \

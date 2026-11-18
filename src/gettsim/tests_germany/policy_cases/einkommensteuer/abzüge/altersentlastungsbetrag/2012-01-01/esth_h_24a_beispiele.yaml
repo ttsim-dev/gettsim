@@ -51,6 +51,10 @@ inputs:
           alle_weiteren_y:
             - 0.0
             - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
     einnahmen:
       renten:
         geförderte_private_vorsorge_m:

@@ -2,6 +2,8 @@
 info:
   note: >-
     Source: Finanzverwaltung NRW. Income assumed (from EStH 2023 H 24a, Beispiel 2).
+    The rate and maximum in that Beispiel (13.6 %, 646 Euro) predate the
+    Wachstumschancengesetz and are outdated.
   precision_atol: 0.01
   source: >-
     Finanzverwaltung Nordrhein-Westfalen, 'Altersentlastungsbetrag', Beispiel: 'Sie
@@ -45,6 +47,9 @@ inputs:
         sonstige:
           alle_weiteren_y:
             - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
     sozialversicherung:
       geringfügig_beschäftigt:
         - false

@@ -44,6 +44,9 @@ inputs:
         sonstige:
           alle_weiteren_y:
             - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
     sozialversicherung:
       geringfügig_beschäftigt:
         - false

@@ -4,7 +4,20 @@ info:
   precision_atol: 0.01
   data_currency: DM
 inputs:
-  assumed: {}
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
   provided:
     p_id:
       - 0

@@ -65,6 +65,10 @@ inputs:
           alle_weiteren_y:
             - 0.0
             - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 660.0
+              - 0.0
     sozialversicherung:
       rente:
         altersrente:

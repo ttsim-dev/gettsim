@@ -3,7 +3,18 @@ info:
   note: Regression test.
   precision_atol: 0.01
 inputs:
-  assumed: {}
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
+              - 0.0
   provided:
     p_id:
       - 0
