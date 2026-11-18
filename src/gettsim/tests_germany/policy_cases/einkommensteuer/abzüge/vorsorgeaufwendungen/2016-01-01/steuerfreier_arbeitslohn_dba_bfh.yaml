@@ -1,0 +1,49 @@
+---
+info:
+  note: >-
+    Lohn zu 87,72 % nach DBA steuerfrei, RV- und AV-Beiträge zu 12,28 % abziehbar.
+  precision_atol: 1.0
+  source: >-
+    BFH, Urteil v. 14.12.2022 – X R 25/21, Rz 3, 5 und 6.
+    https://www.bundesfinanzhof.de/de/entscheidung/entscheidungen-online/detail/pdf/STRE202310090?type=1646225765
+inputs:
+  assumed:
+    einnahmen:
+      bruttolohn_y:
+        - 100000.0  # Not in the source; only the taxable share (Rz 6) matters
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+      gemeinsam_veranlagt:
+        - false  # Spouse's own contributions are not reported
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          steuerbefreite_einnahmen_y:
+            - 87720.0  # 87.72 % of the wage, leaving the taxable share of 12.28 %
+    familie:
+      p_id_ehepartner:
+        - -1
+  provided:
+    sozialversicherung:
+      arbeitslosen:
+        beitrag:
+          betrag_versicherter_y:
+            - 1116.0  # Backed out: 12.28 % of it gives the 137 € in Rz 6
+      rente:
+        beitrag:
+          betrag_versicherter_y:
+            - 6956.5  # Half of 13,913 € (Rz 5); the other half is the employer share
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_arbeitslosenversicherungsbeiträge_y:
+        - 137.0
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 854.0
+      altersvorsorge_y_sn:
+        - 547.0

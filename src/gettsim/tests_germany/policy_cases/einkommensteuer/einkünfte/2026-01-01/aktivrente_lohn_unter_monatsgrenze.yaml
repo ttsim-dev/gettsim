@@ -1,0 +1,47 @@
+---
+info:
+  note: Aktivrente höchstens in Höhe des Lohns, Lohn um die Monatsgrenze.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 1500.0
+        - 2000.0
+        - 2000.01
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 139.5
+            - 186.0
+            - 186.0
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 1500.0
+          - 2000.0
+          - 2000.0
+        steuerbefreite_einnahmen_y:
+          - 18000.0
+          - 24000.0
+          - 24000.0

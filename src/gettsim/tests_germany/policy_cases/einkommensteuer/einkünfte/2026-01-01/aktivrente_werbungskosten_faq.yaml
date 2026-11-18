@@ -1,0 +1,44 @@
+---
+info:
+  note: Aktivrente bei 3.000 € Monatslohn, Aufteilung der Werbungskosten.
+  precision_atol: 0.01
+  source: >-
+    BMF, Fragen und Antworten zur Aktivrente, Stand 25. Juni 2026, Abschnitt II,
+    Frage 12 (Beispiel).
+    https://www.bundesfinanzministerium.de/Content/DE/FAQ/FAQ-zur-Aktivrente.html
+inputs:
+  assumed:
+    geburtsjahr:
+      - 1959
+    alter_monate:
+      - 795  # Past the Regelaltersgrenze in all of 2026
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 279.0
+  provided:
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 3000.0
+    hh_id:
+      - 0
+    p_id:
+      - 0
+outputs:
+  einkommensteuer:
+    einkünfte:
+      aus_nichtselbstständiger_arbeit:
+        anspruchshöhe_steuerfreibetrag_aktivrente_m:
+          - 2000.0
+        steuerbefreite_einnahmen_y:
+          - 24000.0
+        anteil_steuerfälliger_einnahmen:
+          - 0.333333
+        werbungskosten_y:
+          - 1230.0

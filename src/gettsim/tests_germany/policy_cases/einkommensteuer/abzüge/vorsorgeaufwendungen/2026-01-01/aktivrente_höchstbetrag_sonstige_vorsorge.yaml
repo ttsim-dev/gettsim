@@ -1,0 +1,87 @@
+---
+info:
+  note: Aufteilung vor dem Höchstbetrag nach § 10 Abs. 4 EStG und der Basisabsicherung.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 3000.0
+        - 3000.0
+        - 3000.0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 0.0
+          - 0.0
+          - 0.0
+      gemeinsam_veranlagt:
+        - false
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+        - -1
+    sozialversicherung:
+      arbeitslosen:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+            - 0.0
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 279.0
+            - 279.0
+            - 279.0
+      kranken:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 150.0
+            - 0.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 261.0
+            - 261.0
+            - 375.0
+      pflege:
+        beitrag:
+          betrag_rentner_m:
+            - 0.0
+            - 40.0
+            - 0.0
+          betrag_versicherter_aus_erwerbseinkommen_m:
+            - 54.0
+            - 54.0
+            - 112.5
+    hh_id:
+      - 0
+      - 1
+      - 2
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  einkommensteuer:
+    abzüge:
+      vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn:
+        - 2376.0  # 1116 + (1044 + 216), below 1900
+        - 4542.24  # 1116 + 696 + 0.96 * 2844, Basisabsicherung above 1900
+        - 3016.0  # 1116 + 1900, cap binds above Basisabsicherung of 1890
+      vorsorgeaufwendungen_y_sn:
+        - 2376.0
+        - 4543.0
+        - 3016.0

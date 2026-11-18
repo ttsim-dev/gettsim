@@ -111,13 +111,14 @@ def steuerbefreite_einnahmen_y_ab_2026(
 ) -> float:
     """Steuerbefreite Einnahmen aus abhängiger Beschäftigung.
 
-    Since 2026, this includes the Aktivrente (§ 3 Abs. 21 EStG).
+    Since 2026, this includes the Aktivrente (§ 3 Nr. 21 EStG).
     """
     return anspruchshöhe_steuerfreibetrag_aktivrente_y
 
 
 @policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
+    einnahmen__bruttolohn_m: float,
     sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
     steuerfreibetrag_aktivrente_m: float,
     sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
@@ -131,12 +132,13 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
 
     The Steuerfreibetrag is deducted on a **monthly** basis, i.e. it is not possible to
     to accumulate the Steuerfreibetrag in case one earns less than it in one month and
-    then apply a higher Steuerfreibetrag in another month.
+    then apply a higher Steuerfreibetrag in another month. The claim cannot exceed the
+    monthly wage.
 
     If you want to calculate taxes with income that varies by month, pass the correct
     Aktivrente deduction as an input when calling GETTSIM.
 
-    Reference: § 3 Abs. 21 EStG.
+    Reference: § 3 Nr. 21 EStG.
     """
     pays_contributions_to_pension_insurance = (
         sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
@@ -145,6 +147,6 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
         sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
         and pays_contributions_to_pension_insurance
     ):
-        return steuerfreibetrag_aktivrente_m
+        return min(einnahmen__bruttolohn_m, steuerfreibetrag_aktivrente_m)
     else:
         return 0.0
