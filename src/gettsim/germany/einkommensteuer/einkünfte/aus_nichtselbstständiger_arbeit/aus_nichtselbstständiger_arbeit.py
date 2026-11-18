@@ -119,16 +119,25 @@ def steuerbefreite_einnahmen_y_ab_2026(
 @policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
 def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     einnahmen__bruttolohn_m: float,
-    sozialversicherung__rente__beitrag__betrag_versicherter_m: float,
+    sozialversicherung__rente__beitrag__betrag_arbeitgeber_m: float,
+    sozialversicherung__geringfügig_beschäftigt: bool,
     steuerfreibetrag_aktivrente_m: float,
     sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
 ) -> float:
     """Steuerfreibetrag 'Aktivrente' nach Anspruchsprüfung.
 
-    The Aktivrente is a special tax deduction for workers who are
-        - older than the Normal Retirement Age
-        - the source of income is a 'rentenversicherungspflichtiges
-          Beschäftigungsverhältnis'
+    The Aktivrente is a special tax deduction for wages earned past the
+    Regelaltersgrenze from an employment for which the employer owes pension insurance
+    contributions. This includes the isolated employer share for versicherungsfreie
+    Vollrentner (§ 172 Abs. 1 SGB VI) but not Minijobs, whose employer contributions
+    fall under norms § 3 Nr. 21 EStG does not list (§ 168 Abs. 1 Nr. 1b, § 172 Abs. 3
+    SGB VI).
+
+    GETTSIM does not yet model employments without employer pension contributions
+    other than Minijobs (e.g. Beamte, Vorstände, kurzfristig Beschäftigte), see
+    https://github.com/ttsim-dev/gettsim/issues/1114. These individuals are treated
+    as eligible unless `sozialversicherung__rente__beitrag__betrag_arbeitgeber_m` is
+    set to zero.
 
     The Steuerfreibetrag is deducted on a **monthly** basis, i.e. it is not possible to
     to accumulate the Steuerfreibetrag in case one earns less than it in one month and
@@ -140,12 +149,15 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
 
     Reference: § 3 Nr. 21 EStG.
     """
-    pays_contributions_to_pension_insurance = (
-        sozialversicherung__rente__beitrag__betrag_versicherter_m > 0.0
-    )
+    # Past the Regelaltersgrenze, every employment except Minijobs yields a positive
+    # employer contribution in GETTSIM: § 168 Abs. 1 Nr. 1 SGB VI if the employee is
+    # pflichtversichert, § 172 Abs. 1 SGB VI if versicherungsfrei. The check mirrors
+    # the wording of § 3 Nr. 21 EStG and lets users exclude employments without
+    # employer contributions by overriding `betrag_arbeitgeber_m`.
     if (
         sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
-        and pays_contributions_to_pension_insurance
+        and sozialversicherung__rente__beitrag__betrag_arbeitgeber_m > 0.0
+        and not sozialversicherung__geringfügig_beschäftigt
     ):
         return min(einnahmen__bruttolohn_m, steuerfreibetrag_aktivrente_m)
     else:

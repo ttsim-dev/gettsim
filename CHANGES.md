@@ -15,6 +15,15 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1251` Grant the Aktivrente (§ 3 Nr. 21 EStG) if the employer owes pension
+  insurance contributions: versicherungsfreie Vollrentner qualify, Minijobber do not.
+  From 2026, compute the Teilbeträge of the Lohnsteuer Vorsorgepauschale on the wage net
+  of the Aktivrente, without the unemployment insurance Teilbetrag past the
+  Regelaltersgrenze. Lohnsteuer now needs
+  `sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters` (or its pension
+  inputs). New column `lohnsteuer__steuerpflichtiger_arbeitslohn_y`.
+  ({ghuser}`MImmesberger`)
+
 - {gh}`1250` Split social insurance contributions between taxable and tax-free wage
   (e.g. Aktivrente) when deducting Vorsorgeaufwendungen (§ 10 Abs. 2 EStG); fix the
   order of capping in § 10 Abs. 3 EStG. New column

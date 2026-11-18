@@ -17,6 +17,8 @@ inputs:
         beitrag:
           betrag_versicherter_m:
             - 232.5
+          versicherungsfrei_wegen_alters:
+            - false
   provided:
     einnahmen:
       bruttolohn_m:

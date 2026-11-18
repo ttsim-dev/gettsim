@@ -2,10 +2,9 @@
 steuerfreibetrag_aktivrente_y:
   name:
     de: >-
-      Steuerfreibetrag für versicherungspflichtig Erwerbstätige nach der
-      Regelaltersgrenze (Aktivrente).
+      Steuerfreibetrag für Beschäftigte nach der Regelaltersgrenze (Aktivrente).
     en: >-
-      Tax deduction for insured workers after the normal retirement age (Aktivrente).
+      Tax deduction for employees past the normal retirement age (Aktivrente).
   description:
     de: § 3 Nr. 21 EStG
     en: § 3 Nr. 21 EStG

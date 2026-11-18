@@ -1,0 +1,55 @@
+---
+info:
+  note: >-
+    Vollrentner, Arbeitgeberanteil nach § 172 Abs. 1 SGB VI zählt nicht in
+    Vorsorgeaufwendungen.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    geburtsjahr:
+      - 1959
+      - 1959
+    alter_monate:
+      - 795
+      - 795
+    einnahmen:
+      bruttolohn_m:
+        - 4000.0
+        - 4000.0
+    einkommensteuer:
+      abzüge:
+        beitrag_private_rentenversicherung_m:
+          - 500.0
+          - 3000.0  # Above the Höchstbetrag
+      gemeinsam_veranlagt:
+        - false
+        - false
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    sozialversicherung:
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0  # The employer pays its half alone
+            - 0.0
+          versicherungsfrei_wegen_alters:
+            - true
+            - true
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+outputs:
+  einkommensteuer:
+    abzüge:
+      abziehbare_rentenversicherungsbeiträge_y:
+        - 0.0
+        - 0.0
+      altersvorsorge_y_sn:
+        - 6000.0
+        - 30826.0  # Höchstbetrag

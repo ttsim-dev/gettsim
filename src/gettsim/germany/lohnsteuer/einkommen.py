@@ -67,13 +67,12 @@ def einkommen_y_bis_2025(
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def einkommen_y_ab_2026(
-    einnahmen__bruttolohn_y: float,
+    steuerpflichtiger_arbeitslohn_y: float,
     steuerklasse: int,
     vorsorgepauschale_y: float,
     einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__arbeitnehmerpauschbetrag: float,
     einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
-    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
 ) -> float:
     """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
     if steuerklasse == 6:
@@ -86,12 +85,6 @@ def einkommen_y_ab_2026(
     else:
         sonderausgaben = einkommensteuer__abzüge__sonderausgabenpauschbetrag
 
-    if steuerklasse == 6:
-        steuerfreibetrag_aktivrente = 0.0
-    else:
-        # Aktivrente is only applicable to one job (usually the 'main' job).
-        steuerfreibetrag_aktivrente = einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y
-
     if steuerklasse == 2:
         alleinerziehendenfreibetrag = (
             einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y
@@ -100,14 +93,45 @@ def einkommen_y_ab_2026(
         alleinerziehendenfreibetrag = 0.0
 
     return max(
-        einnahmen__bruttolohn_y
+        steuerpflichtiger_arbeitslohn_y
         - werbungskosten
         - sonderausgaben
         - alleinerziehendenfreibetrag
-        - vorsorgepauschale_y
-        - steuerfreibetrag_aktivrente,
+        - vorsorgepauschale_y,
         0.0,
     )
+
+
+@policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
+def steuerpflichtiger_arbeitslohn_y(
+    einnahmen__bruttolohn_y: float,
+    steuerklasse: int,
+    einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y: float,
+) -> float:
+    """Wage subject to Lohnsteuer, net of the Aktivrente.
+
+    The Lohnsteuer is only computed on the wage above the Aktivrente. This wage is also
+    the base of the Teilbeträge of the Vorsorgepauschale. The Aktivrente is not part of
+    the Programmablaufplan; employers pass the wage net of it.
+
+    The Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG) is not deducted yet, see
+    https://github.com/ttsim-dev/gettsim/issues/1259.
+
+    Reference: § 3 Nr. 21 EStG; BMF FAQ zur Aktivrente III.4; BMF-Schreiben vom
+    14.08.2025 zur Vorsorgepauschale, Rn. 5.
+    """
+    if steuerklasse == 6:
+        # TODO(@MImmesberger): With Steuerklasse 6, the deduction is only applied if the
+        # individual does not claim the deduction for another job. As GETTSIM does not
+        # support multiple jobs yet, we don't model this distinction. We assume that the
+        # Aktivrente is applied to the primary job, not the secondary job.
+        # https://github.com/ttsim-dev/gettsim/issues/1249
+        return einnahmen__bruttolohn_y
+    else:
+        return (
+            einnahmen__bruttolohn_y
+            - einkommensteuer__einkünfte__aus_nichtselbstständiger_arbeit__anspruchshöhe_steuerfreibetrag_aktivrente_y
+        )
 
 
 @policy_function(
@@ -204,37 +228,56 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
 @policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
     sozialversicherung__kranken__beitrag__privat_versichert: bool,
-    sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y: float,
+    steuerpflichtiger_arbeitslohn_y: float,
+    sozialversicherung__kranken__beitrag__beitragsbemessungsgrenze_y: float,
     sozialversicherung__kranken__beitrag__zusatzbeitragssatz: float,
     sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer: float,
     sozialversicherung__kranken__beitrag__parameter_beitragssatz: dict[str, float],
 ) -> float:
-    """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge."""
+    """Vorsorgepauschale für gesetzliche Krankenversicherungsbeiträge.
+
+    The Übergangsbereich is ignored (BMF-Schreiben 14.08.2025, Rn. 7).
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b und c EStG.
+    """
     if sozialversicherung__kranken__beitrag__privat_versichert:
         return 0.0
     else:
-        return (
-            sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
-            * (
-                sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"]
-                / 2
-                + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
-                + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
-            )
+        return min(
+            steuerpflichtiger_arbeitslohn_y,
+            sozialversicherung__kranken__beitrag__beitragsbemessungsgrenze_y,
+        ) * (
+            sozialversicherung__kranken__beitrag__parameter_beitragssatz["ermäßigt"] / 2
+            + sozialversicherung__kranken__beitrag__zusatzbeitragssatz / 2
+            + sozialversicherung__pflege__beitrag__beitragssatz_arbeitnehmer
         )
 
 
 @policy_function(start_date="2026-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
 def vorsorge_arbeitslosenversicherungsbeiträge_y(
-    sozialversicherung__rente__beitrag__einkommen_y: float,
+    steuerpflichtiger_arbeitslohn_y: float,
+    sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y: float,
     sozialversicherung__arbeitslosen__beitrag__beitragssatz: float,
+    sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze: bool,
 ) -> float:
-    """Vorsorgepauschale für Arbeitslosenversicherungsbeiträge."""
-    return (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__arbeitslosen__beitrag__beitragssatz
-        / 2
-    )
+    """Vorsorgepauschale für Arbeitslosenversicherungsbeiträge.
+
+    Employees past the Regelaltersgrenze are versicherungsfrei (§ 28 Abs. 1 Nr. 1 SGB
+    III).
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG.
+    """
+    if sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze:
+        return 0.0
+    else:
+        return (
+            min(
+                steuerpflichtiger_arbeitslohn_y,
+                sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y,
+            )
+            * sozialversicherung__arbeitslosen__beitrag__beitragssatz
+            / 2
+        )
 
 
 @policy_function(
@@ -245,42 +288,105 @@ def vorsorge_arbeitslosenversicherungsbeiträge_y(
 def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__rente__beitrag__beitragssatz: float,
+    sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters: bool,
     einführungsfaktor_rentenversicherungsaufwendungen: float,
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
-    Between 2005 and 2022 the share of deductible contributions increases by
-    2 percentage points each year from 60% in 2005 to 100% in 2022.
+    Until 2022 only a share of the contributions is deducted. It rises by 4 percentage
+    points each year from 40% in 2010 to 88% in 2022 (§ 39b Abs. 4 EStG).
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
+    Buchst. a EStG).
     """
-    return (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__rente__beitrag__beitragssatz
-        / 2
-        * einführungsfaktor_rentenversicherungsaufwendungen
-    )
+    # TODO(@MImmesberger): Should also return 0 for other individuals that are not
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
+    # https://github.com/ttsim-dev/gettsim/issues/1114
+    if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
+        return 0.0
+    else:
+        return (
+            sozialversicherung__rente__beitrag__einkommen_y
+            * sozialversicherung__rente__beitrag__beitragssatz
+            / 2
+            * einführungsfaktor_rentenversicherungsaufwendungen
+        )
 
 
 @policy_function(
     start_date="2023-01-01",
+    end_date="2025-12-31",
     leaf_name="vorsorge_rentenversicherungsbeiträge_y",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     sozialversicherung__rente__beitrag__einkommen_y: float,
     sozialversicherung__rente__beitrag__beitragssatz: float,
+    sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters: bool,
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
     Since 2023 the contributions are fully deductible.
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
+    Buchst. a EStG).
     """
-    # TODO(@MImmesberger): Should return 0 for individuals that are not insured via the
-    # public pension fund (or a berufsständische Rentenversicherung).
+    # TODO(@MImmesberger): Should also return 0 for other individuals that are not
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
     # https://github.com/ttsim-dev/gettsim/issues/1114
-    return (
-        sozialversicherung__rente__beitrag__einkommen_y
-        * sozialversicherung__rente__beitrag__beitragssatz
-        / 2
-    )
+    if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
+        return 0.0
+    else:
+        return (
+            sozialversicherung__rente__beitrag__einkommen_y
+            * sozialversicherung__rente__beitrag__beitragssatz
+            / 2
+        )
+
+
+@policy_function(
+    start_date="2026-01-01",
+    leaf_name="vorsorge_rentenversicherungsbeiträge_y",
+    unit=TTSIMUnit.CURRENCY.PER_YEAR,
+)
+def vorsorge_rentenversicherungsbeiträge_auf_steuerpflichtigen_arbeitslohn_y(
+    steuerpflichtiger_arbeitslohn_y: float,
+    sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y: float,
+    sozialversicherung__rente__beitrag__beitragssatz: float,
+    sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters: bool,
+) -> float:
+    """Vorsorgepauschale für Rentenversicherungsbeiträge.
+
+    Since 2026 the base is the wage net of the Aktivrente, capped at the
+    Beitragsbemessungsgrenze.
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag.
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG.
+    """
+    # TODO(@MImmesberger): Should also return 0 for other individuals that are not
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
+    # https://github.com/ttsim-dev/gettsim/issues/1114
+    if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
+        return 0.0
+    else:
+        return (
+            min(
+                steuerpflichtiger_arbeitslohn_y,
+                sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y,
+            )
+            * sozialversicherung__rente__beitrag__beitragssatz
+            / 2
+        )
 
 
 @param_function(
@@ -291,15 +397,12 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
     policy_year: int,
     xnp: ModuleType,
 ) -> dict[str, Any]:
-    """Calculate introductory factor for pension expense deductions which depends on the
-    current year as follows:
+    """Share of pension insurance contributions in the Vorsorgepauschale.
 
-    In the years 2005-2025 the share of deductible contributions increases by
-    2 percentage points each year from 60% in 2005 to 100% in 2025.
+    The share rises by 4 percentage points each year from 40% in 2010 to 88% in 2022.
+    Since 2023, contributions are fully deductible.
 
-    Reference: § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
-
-
+    Reference: § 39b Abs. 4 EStG.
     """
     return piecewise_polynomial(
         x=policy_year,
@@ -418,8 +521,9 @@ def vorsorgepauschale_y_ab_2026(
     Lohnsteuer BMF 2025-11-12
     """
     # TODO(@MImmesberger): Should return
-    # vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y for individuals that do
-    # not pay mandatory unemployment insurance contributions.
+    # vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y for individuals other
+    # than those past the Regelaltersgrenze that do not pay mandatory unemployment
+    # insurance contributions.
     # https://github.com/ttsim-dev/gettsim/issues/1114
     if steuerklasse == 6:
         return vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y

@@ -1,0 +1,31 @@
+---
+info:
+  note: Kein RV-Teilbetrag bei Versicherungsfreiheit wegen Alters.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  provided:
+    einnahmen:
+      bruttolohn_y:
+        - 36000.0
+        - 36000.0
+    hh_id:
+      - 0
+      - 1
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - true
+            - false
+    wohnort_ost_hh:
+      - false
+      - false
+outputs:
+  lohnsteuer:
+    vorsorge_rentenversicherungsbeiträge_y:
+      - 0.0
+      - 2946.24
