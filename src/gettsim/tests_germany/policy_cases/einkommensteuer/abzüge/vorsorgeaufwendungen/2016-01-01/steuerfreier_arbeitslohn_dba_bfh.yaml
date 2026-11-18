@@ -1,6 +1,7 @@
 ---
 info:
-  note: Lohn zu 87,72 % nach DBA steuerfrei, RV-Beiträge zu 12,28 % abziehbar.
+  note: >-
+    Lohn zu 87,72 % nach DBA steuerfrei, RV- und AV-Beiträge zu 12,28 % abziehbar.
   precision_atol: 1.0
   source: >-
     BFH, Urteil v. 14.12.2022 – X R 25/21, Rz 3, 5 und 6.
@@ -25,10 +26,14 @@ inputs:
         - -1
   provided:
     sozialversicherung:
+      arbeitslosen:
+        beitrag:
+          betrag_versicherter_y:
+            - 1116.0  # Backed out: 12.28 % of it gives the 137 € in Rz 6
       rente:
         beitrag:
           betrag_versicherter_y:
-            - 6956.5  # Half of 13,913 € (Rz 3); the other half is the employer share
+            - 6956.5  # Half of 13,913 € (Rz 5); the other half is the employer share
     hh_id:
       - 0
     p_id:
@@ -36,7 +41,9 @@ inputs:
 outputs:
   einkommensteuer:
     abzüge:
-      absetzbare_rentenversicherungsbeiträge_y:
+      abziehbare_arbeitslosenversicherungsbeiträge_y:
+        - 137.0
+      abziehbare_rentenversicherungsbeiträge_y:
         - 854.0
       altersvorsorge_y_sn:
         - 547.0

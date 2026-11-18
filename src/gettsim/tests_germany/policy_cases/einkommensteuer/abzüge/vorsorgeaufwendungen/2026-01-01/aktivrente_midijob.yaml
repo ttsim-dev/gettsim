@@ -51,12 +51,12 @@ outputs:
           - 21600.0
           - 0.0
     abzüge:
-      absetzbare_rentenversicherungsbeiträge_y:
+      abziehbare_rentenversicherungsbeiträge_y:
         - 0.0
         - 1680.0
-      absetzbare_krankenversicherungsbeiträge_y:
+      abziehbare_krankenversicherungsbeiträge_y:
         - 0.0
         - 1560.0
-      absetzbare_pflegeversicherungsbeiträge_y:
+      abziehbare_pflegeversicherungsbeiträge_y:
         - 0.0
         - 360.0
