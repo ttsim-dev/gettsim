@@ -1,0 +1,97 @@
+---
+info:
+  note: >-
+    In 2002 and 2003, the Steuersatzeinkommen per person is rounded down to the next
+    multiple of 36 € and increased by 18 € (§ 32a Abs. 2 EStG). Under the splitting
+    procedure, the rounding applies to half of the joint amount (§ 32a Abs. 5 EStG):
+    36 × floor(50.000 / 36) + 18 = 49.986 €. The first person is assessed individually,
+    the other two jointly; the spouse without wages has 21.044 € Arbeitslosengeld less
+    the Arbeitnehmer-Pauschbetrag of 1.044 €.
+  precision_atol: 1.0e-06
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+    hh_id:
+      - 0
+      - 1
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - true
+        - true
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+      gesamteinkommen_y_sn:
+        - 40000.0
+        - 80000.0
+        - 80000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 40000.0
+        - 80000.0
+        - 80000.0
+    einnahmen:
+      bruttolohn_y:
+        - 45000.0
+        - 0.0
+        - 90000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 10000.0
+          - 21044.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+outputs:
+  einkommensteuer:
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 50000.0
+      - 100000.0
+      - 100000.0
+    steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y:
+      - 49986.0
+      - 49986.0
+      - 49986.0
+    steuersatzeinkommen_je_person_mit_kinderfreibetrag_y:
+      - 49986.0
+      - 49986.0
+      - 49986.0

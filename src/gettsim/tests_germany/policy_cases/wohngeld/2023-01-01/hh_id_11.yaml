@@ -9,6 +9,8 @@ inputs:
   provided:
     alter:
       - 57
+    alter_monate:
+      - 684
     anzahl_personen_hh:
       - 1
     bürgergeld:
@@ -44,15 +46,17 @@ inputs:
         - 1050.0
       kapitalerträge_y:
         - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+        - 0.0
       renten:
         gesetzliche_m:
           - 0.0
         gesamt_m:
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
       betrag_m:
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
     familie:
       alleinerziehend:

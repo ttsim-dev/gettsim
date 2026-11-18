@@ -6,6 +6,16 @@ info:
 inputs:
   assumed: {}
   provided:
+    elterngeld:
+      betrag_m:
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
+        - 0.0
     alter:
       - 40
       - 8
@@ -32,6 +42,9 @@ inputs:
         - 0.0
         - 0.0
       kapitalerträge_m:
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
       renten:

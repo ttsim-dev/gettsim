@@ -8,11 +8,17 @@ inputs:
   provided:
     alter:
       - 52
+    alter_monate:
+      - 624
     anzahl_personen_hh:
       - 1
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
+      nettoeinkommen_vor_abzug_freibetrag_m_wthh:
+        - 1000.0
+      regelbedarf_m_wthh:
+        - 824.0
     behinderungsgrad:
       - 0
     einkommensteuer:
@@ -32,34 +38,27 @@ inputs:
             steuerpflichtige_einnahmen_m:
               - 0.0
         aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
-            - 0.0
-      gemeinsam_veranlagt:
-        - false
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 916.6666666666666
     einnahmen:
       bruttolohn_m:
         - 1000.0
       kapitalerträge_y:
         - 0.0
-      renten:
-        betrag_gesamt_m:
-          - 0.0
-    elterngeld:
-      anrechenbarer_betrag_m:
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
+    elterngeld:
       betrag_m:
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
     familie:
       alleinerziehend:
         - false
-      p_id_ehepartner:
-        - -1
       p_id_elternteil_1:
         - -1
       p_id_elternteil_2:
         - -1
-    geburtsjahr:
-      - 1967
     geburtsmonat:
       - 1
     geburtstag:
@@ -69,19 +68,14 @@ inputs:
     kindergeld:
       ist_leistungsbegründendes_kind:
         - false
-      p_id_empfänger:
-        - -1
+      betrag_m_wthh:
+        - 0.0
     p_id:
       - 27
-    solidaritätszuschlag:
-      betrag_y_sn:
-        - 0.0
     sozialversicherung:
       arbeitslosen:
         betrag_m:
           - 0.0
-      beiträge_versicherter_m:
-        - 0.0
       kranken:
         beitrag:
           betrag_versicherter_m:
@@ -96,25 +90,26 @@ inputs:
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
+      tatsächlich_erhaltener_betrag_m_wthh:
+        - 0.0
     unterhaltsvorschuss:
       betrag_m:
+        - 0.0
+      betrag_m_wthh:
         - 0.0
     vermögen:
       - 55000.0
     wohnen:
       baujahr_immobilie_hh:
         - 1995
-      bewohnt_eigentum_hh:
-        - false
       bruttokaltmiete_m_hh:
         - 1200.0
-      heizkosten_m_hh:
-        - 50.0
-      wohnfläche_hh:
-        - 40.0
     wohngeld:
       mietstufe_hh:
         - 5
+    kinderzuschlag:
+      anspruchshöhe_m_wthh:
+        - 0.0
 outputs:
   wohngeld:
     anspruchshöhe_m_wthh:

@@ -15,19 +15,16 @@ inputs:
     alter:
       - 70
       - 22
-    alter_monate:
-      - 840
-      - 264
     bürgergeld:
-      bezug_im_vorjahr:
-        - false
-        - false
       p_id_einstandspartner:
         - -1
         - -1
       überschusseinkommen_m_bg:
         - 0.0
         - 0.0
+      regelbedarf_m:
+        - 707.0
+        - 627.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -45,14 +42,14 @@ inputs:
           alle_weiteren_m:
             - 0.0
             - 0.0
-      gemeinsam_veranlagt:
-        - false
-        - false
     einnahmen:
       bruttolohn_m:
         - 0.0
         - 0.0
       kapitalerträge_m:
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
       renten:
@@ -72,28 +69,28 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
       betrag_m:
         - 0.0
         - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
+        - 0.0
     familie:
-      alleinerziehend:
-        - true
-        - false
-      p_id_ehepartner:
-        - -1
-        - -1
       p_id_elternteil_1:
         - -1
         - 0
       p_id_elternteil_2:
         - -1
         - -1
-    geburtsjahr:
-      - 1953
-      - 2001
+      anzahl_erwachsene_eg:
+        - 1
+        - 1
+      anzahl_kinder_eg:
+        - 0
+        - 0
+      anzahl_personen_sn:
+        - 1
+        - 1
     geburtsmonat:
       - 1
       - 1
@@ -108,10 +105,6 @@ inputs:
         hat_kind_mit_einkommen_über_einkommensgrenze:
           - false
           - false
-    kindergeld:
-      p_id_empfänger:
-        - -1
-        - 0
     p_id:
       - 0
       - 1
@@ -135,6 +128,9 @@ inputs:
           betrag_m:
             - 300.0
             - 0.0
+          hat_regelaltersgrenze_erreicht:
+            - true
+            - false
         bezieht_altersrente:
           - true
           - true
@@ -146,6 +142,10 @@ inputs:
           grundrentenzeiten_monate:
             - 500
             - 0
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -161,19 +161,6 @@ inputs:
       wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         - false
         - false
-    wohnen:
-      bewohnt_eigentum_hh:
-        - false
-        - false
-      bruttokaltmiete_m_hh:
-        - 350.0
-        - 350.0
-      heizkosten_m_hh:
-        - 60.0
-        - 60.0
-      wohnfläche_hh:
-        - 50.0
-        - 50.0
 outputs:
   grundsicherung:
     im_alter:
