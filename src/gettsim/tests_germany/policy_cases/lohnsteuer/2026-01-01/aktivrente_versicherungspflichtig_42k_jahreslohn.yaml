@@ -7,8 +7,9 @@ info:
     of 2026-10-23 (A4_frei_42k_krv0.xml, MD5 3a8c9ccc245309a032246f0074295db0) with
     LZZ=1, STKL=1, R=0, KVZ=2.90, PVZ=1, PKV=0, ALTER1=0, RE4=1800000,
     KRV=0, ALV=1. RE4 is the wage net of the 24 000 € Aktivrente (BMF FAQ
-    zur Aktivrente III.4). ALTER1=0 leaves out the Altersentlastungsbetrag, which
-    GETTSIM's Lohnsteuer does not model.
+    zur Aktivrente III.3, III.4). ALTER1=0 leaves out the
+    Altersentlastungsbetrag, which GETTSIM's Lohnsteuer does not model yet
+    (https://github.com/ttsim-dev/gettsim/issues/1259).
     https://www.bmf-steuerrechner.de/interface/2026Version1.xhtml?code=LSt2026ext
 inputs:
   assumed:

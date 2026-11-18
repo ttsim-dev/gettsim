@@ -4,6 +4,14 @@ info:
   precision_atol: 0.01
   source: Regression test.
 inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
   provided:
     geburtsjahr:
       - 1959
@@ -25,10 +33,6 @@ inputs:
             - 139.5
             - 186.0
             - 186.0
-          versicherungsfrei_wegen_alters:
-            - false
-            - false
-            - false
     hh_id:
       - 0
       - 1

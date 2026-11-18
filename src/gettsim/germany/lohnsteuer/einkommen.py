@@ -110,7 +110,15 @@ def steuerpflichtiger_arbeitslohn_y(
 ) -> float:
     """Wage subject to Lohnsteuer, net of the Aktivrente.
 
-    Reference: 'RE4' in Programmablaufplan Lohnsteuer BMF 2025-11-12.
+    The Lohnsteuer is only computed on the wage above the Aktivrente. This wage is also
+    the base of the Teilbeträge of the Vorsorgepauschale. The Aktivrente is not part of
+    the Programmablaufplan; employers pass the wage net of it.
+
+    The Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG) is not deducted yet, see
+    https://github.com/ttsim-dev/gettsim/issues/1259.
+
+    Reference: § 3 Nr. 21 EStG; BMF FAQ zur Aktivrente III.4; BMF-Schreiben vom
+    14.08.2025 zur Vorsorgepauschale, Rn. 5.
     """
     if steuerklasse == 6:
         # TODO(@MImmesberger): With Steuerklasse 6, the deduction is only applied if the
@@ -285,13 +293,17 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
-    Between 2005 and 2022 the share of deductible contributions increases by
-    2 percentage points each year from 60% in 2005 to 100% in 2022. Only employees with
-    mandatory pension insurance get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3 Buchst. a
-    EStG).
+    Until 2022 only a share of the contributions is deducted. It rises by 4 percentage
+    points each year from 40% in 2010 to 88% in 2022 (§ 39b Abs. 4 EStG).
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
+    Buchst. a EStG).
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
-    # insured via the public pension fund (or a berufsständische Rentenversicherung).
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
     # https://github.com/ttsim-dev/gettsim/issues/1114
     if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
         return 0.0
@@ -317,11 +329,16 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
-    Since 2023 the contributions are fully deductible. Only employees with mandatory
-    pension insurance get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG).
+    Since 2023 the contributions are fully deductible.
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
+    Buchst. a EStG).
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
-    # insured via the public pension fund (or a berufsständische Rentenversicherung).
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
     # https://github.com/ttsim-dev/gettsim/issues/1114
     if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
         return 0.0
@@ -338,7 +355,7 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
     leaf_name="vorsorge_rentenversicherungsbeiträge_y",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
-def vorsorge_rentenversicherungsbeiträge_y_ab_2026(
+def vorsorge_rentenversicherungsbeiträge_auf_steuerpflichtigen_arbeitslohn_y(
     steuerpflichtiger_arbeitslohn_y: float,
     sozialversicherung__rente__beitrag__beitragsbemessungsgrenze_y: float,
     sozialversicherung__rente__beitrag__beitragssatz: float,
@@ -346,12 +363,18 @@ def vorsorge_rentenversicherungsbeiträge_y_ab_2026(
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
-    Only employees with mandatory pension insurance get this Teilbetrag.
+    Since 2026 the base is the wage net of the Aktivrente, capped at the
+    Beitragsbemessungsgrenze.
+
+    Only employees who are pflichtversichert in the public pension insurance or befreit
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag.
 
     Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG.
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
-    # insured via the public pension fund (or a berufsständische Rentenversicherung).
+    # insured via the public pension fund (or a berufsständische Rentenversicherung),
+    # e.g. Minijobber who are exempt from mandatory pension insurance (BMF-Schreiben
+    # vom 14.08.2025 zur Vorsorgepauschale, Rn. 11).
     # https://github.com/ttsim-dev/gettsim/issues/1114
     if sozialversicherung__rente__beitrag__versicherungsfrei_wegen_alters:
         return 0.0
@@ -374,15 +397,12 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
     policy_year: int,
     xnp: ModuleType,
 ) -> dict[str, Any]:
-    """Calculate introductory factor for pension expense deductions which depends on the
-    current year as follows:
+    """Share of pension insurance contributions in the Vorsorgepauschale.
 
-    In the years 2005-2025 the share of deductible contributions increases by
-    2 percentage points each year from 60% in 2005 to 100% in 2025.
+    The share rises by 4 percentage points each year from 40% in 2010 to 88% in 2022.
+    Since 2023, contributions are fully deductible.
 
-    Reference: § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
-
-
+    Reference: § 39b Abs. 4 EStG.
     """
     return piecewise_polynomial(
         x=policy_year,

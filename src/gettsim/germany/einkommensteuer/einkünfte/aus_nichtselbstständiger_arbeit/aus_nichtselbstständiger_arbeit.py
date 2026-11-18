@@ -133,6 +133,12 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     fall under norms § 3 Nr. 21 EStG does not list (§ 168 Abs. 1 Nr. 1b, § 172 Abs. 3
     SGB VI).
 
+    GETTSIM does not yet model employments without employer pension contributions
+    other than Minijobs (e.g. Beamte, Vorstände, kurzfristig Beschäftigte), see
+    https://github.com/ttsim-dev/gettsim/issues/1114. These individuals are treated
+    as eligible unless `sozialversicherung__rente__beitrag__betrag_arbeitgeber_m` is
+    set to zero.
+
     The Steuerfreibetrag is deducted on a **monthly** basis, i.e. it is not possible to
     to accumulate the Steuerfreibetrag in case one earns less than it in one month and
     then apply a higher Steuerfreibetrag in another month. The claim cannot exceed the
@@ -143,6 +149,11 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
 
     Reference: § 3 Nr. 21 EStG.
     """
+    # Past the Regelaltersgrenze, every employment except Minijobs yields a positive
+    # employer contribution in GETTSIM: § 168 Abs. 1 Nr. 1 SGB VI if the employee is
+    # pflichtversichert, § 172 Abs. 1 SGB VI if versicherungsfrei. The check mirrors
+    # the wording of § 3 Nr. 21 EStG and lets users exclude employments without
+    # employer contributions by overriding `betrag_arbeitgeber_m`.
     if (
         sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
         and sozialversicherung__rente__beitrag__betrag_arbeitgeber_m > 0.0

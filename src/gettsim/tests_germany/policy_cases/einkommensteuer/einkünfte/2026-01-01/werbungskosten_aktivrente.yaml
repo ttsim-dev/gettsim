@@ -10,6 +10,15 @@ info:
     Werbungskosten aus?
     https://www.bundesfinanzministerium.de/Content/DE/FAQ/FAQ-zur-Aktivrente.html
 inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        beitrag:
+          versicherungsfrei_wegen_alters:
+            - false
+            - false
+            - false
+            - false
   provided:
     geburtsjahr:
       - 1959
@@ -48,11 +57,6 @@ inputs:
             - 50.0
             - 50.0
             - 50.0
-          versicherungsfrei_wegen_alters:
-            - false
-            - false
-            - false
-            - false
     p_id:
       - 0
       - 1
