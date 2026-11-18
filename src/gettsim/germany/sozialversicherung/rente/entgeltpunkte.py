@@ -53,10 +53,6 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
 
     Versicherungsfreiheit wegen Alters rules out earnings points. Marginal employment
     carries no employer contribution yet, so it earns none either.
-
-    Wages earned in the GDR are not capped at the GDR's contribution limits (§ 256a
-    Abs. 3 SGB VI); they are scaled up by Anlage 10 and the result is capped at the
-    Beitragsbemessungsgrenze.
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -69,7 +65,8 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
         # Both operands are annual rates, so the ratio counts points per year of work.
         out = (
             min(
-                umrechnungswert * einnahmen__bruttolohn_y,
+                umrechnungswert
+                * min(einnahmen__bruttolohn_y, beitrag__beitragsbemessungsgrenze_y),
                 beitrag__beitragsbemessungsgrenze_y,
             )
             / beitragspflichtiges_durchschnittsentgelt_y
