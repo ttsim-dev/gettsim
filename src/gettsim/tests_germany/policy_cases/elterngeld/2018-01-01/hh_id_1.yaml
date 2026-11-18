@@ -56,6 +56,9 @@ inputs:
     p_id:
       - 23
     sozialversicherung:
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
       pflege:
         beitrag:
           hat_kinder:

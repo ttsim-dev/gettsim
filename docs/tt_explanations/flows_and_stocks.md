@@ -74,12 +74,12 @@ for month in range(1, 13):
         input_data=InputData.tree(monthly_inputs),
         tt_targets=TTTargets.tree({"elterngeld": {"betrag_m": None}}),
     )
-    elterngeld_total += results["elterngeld"]["betrag_m"].sum()
+    elterngeld_total += results["elterngeld"]["betrag_m"]
 
 # Use the annual total as input for income tax calculation
 annual_inputs = {
     ...,
-    "elterngeld": {"betrag_y_sn": elterngeld_total},
+    "elterngeld": {"betrag_y": elterngeld_total},
 }
 tax_results = main(
     policy_date_str="2024-01-01",

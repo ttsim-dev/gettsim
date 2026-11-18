@@ -6,7 +6,7 @@ repos:
       - id: check-useless-excludes
       # - id: identity  # Prints all files passed to pre-commits. Debugging.
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.29.4
+    rev: v2.30.6
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/lyz-code/yamlfix
@@ -14,7 +14,7 @@ repos:
     hooks:
       - id: yamlfix
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.38.0
+    rev: 0.39.0
     hooks:
       - id: check-github-workflows
       - id: check-jsonschema
@@ -56,7 +56,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.8
+    rev: v0.17.5
     hooks:
       - id: ruff-check
         args:
@@ -71,7 +71,7 @@ repos:
           - pyi
           - python
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.83
+    rev: v0.0.104
     hooks:
       - id: ty
         name: ty (numpy backend)
@@ -79,7 +79,7 @@ repos:
         # Keep this dependency pin aligned with the hook revision above.
         entry: ty check
         additional_dependencies:
-          - ty==0.0.83
+          - ty==0.0.104
   - repo: local
     hooks:
       - id: ty-jax
@@ -88,7 +88,7 @@ repos:
         # JAX one. Keep the ty pin in sync with the `ty-pre-commit` rev above.
         language: python
         additional_dependencies:
-          - ty==0.0.83
+          - ty==0.0.104
         entry: ty check --python .pixi/envs/py314-jax
         pass_filenames: false
         always_run: true
@@ -154,6 +154,15 @@ repos:
         language: script
         types:
           - jupyter
+      # Whole-repository analysis: a change in one file can orphan code in another.
+      - id: dead-code
+        name: no internal or test code without a caller
+        entry: python .ai-instructions/hooks/dead_code.py
+        language: python
+        additional_dependencies:
+          - vulture==2.16
+        pass_filenames: false
+        files: \.py$|^pyproject\.toml$
       - id: no-hardcoded-user-paths
         name: no hardcoded user-specific absolute paths
         language: pygrep
@@ -182,16 +191,16 @@ ci:
   # the GitHub Actions `run-ty` job covers type checking, and pixi-lock-check
   # needs a pixi binary that pre-commit.ci does not provide.
   #
-  # The two script hooks above run files from the `.ai-instructions` submodule,
-  # and pre-commit.ci clones without submodules, so there they fail as a missing
-  # executable rather than running. `pre-push-hooks-installed` asks about the
-  # local clone and is meaningless on a runner anyway; the notebook check does
-  # lose CI coverage, and holds only where the submodule is present. If a
-  # project wants it enforced on CI, give the `actions/checkout` step
-  # `submodules: true` and run `prek` from a workflow instead.
+  # The hooks above that run files from the `.ai-instructions` submodule
+  # fail as a missing file on pre-commit.ci, which clones without submodules.
+  # `pre-push-hooks-installed` asks about the local clone and is meaningless on
+  # a runner anyway; `dead-code` runs in the GitHub Actions `run-ty` job, which
+  # checks out the submodule; the notebook check loses CI coverage and holds
+  # only where the submodule is present.
   skip:
     - ty
     - ty-jax
     - pixi-lock-check
     - pre-push-hooks-installed
     - notebook-cell-source-format
+    - dead-code

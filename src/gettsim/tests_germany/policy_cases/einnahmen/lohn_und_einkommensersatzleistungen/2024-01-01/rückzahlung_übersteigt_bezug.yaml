@@ -1,0 +1,59 @@
+---
+info:
+  note: >-
+    A repayment exceeding the receipts makes the amount under the Progressionsvorbehalt
+    negative, while the sums of benefits read by the transfers stay at the receipts.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 0.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 8400.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+        kurzarbeitergeld_m:
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 200.0
+        mutterschaftsgeld_m:
+          - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+    elterngeld:
+      betrag_m:
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 200.0
+    lohn_und_einkommensersatzleistungen_m:
+      - 200.0
+    lohn_und_einkommensersatzleistungen_y:
+      - 2400.0
+  einkommensteuer:
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - -6000.0

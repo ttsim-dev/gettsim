@@ -12,13 +12,13 @@ inputs:
   provided:
     alter:
       - 68
-    alter_monate:
-      - 816
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - -1
       überschusseinkommen_m_bg:
         - 0.0
+      regelbedarf_m:
+        - 852.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -32,12 +32,12 @@ inputs:
         sonstige:
           alle_weiteren_m:
             - 0.0
-      gemeinsam_veranlagt:
-        - false
     einnahmen:
       bruttolohn_m:
         - 0.0
       kapitalerträge_m:
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
       renten:
         betriebliche_altersvorsorge_m:
@@ -51,21 +51,23 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 300.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
       betrag_m:
         - 0.0
+      angerechnete_mutterschaftsleistungen_m:
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
     familie:
-      alleinerziehend:
-        - false
-      p_id_ehepartner:
-        - -1
       p_id_elternteil_1:
         - -1
       p_id_elternteil_2:
         - -1
-    geburtsjahr:
-      - 1950
+      anzahl_erwachsene_eg:
+        - 1
+      anzahl_kinder_eg:
+        - 0
+      anzahl_personen_sn:
+        - 1
     geburtsmonat:
       - 1
     geburtstag:
@@ -76,9 +78,6 @@ inputs:
       im_alter:
         hat_kind_mit_einkommen_über_einkommensgrenze:
           - false
-    kindergeld:
-      p_id_empfänger:
-        - -1
     p_id:
       - 101
     schwerbehindert_grad_g:
@@ -96,6 +95,8 @@ inputs:
         altersrente:
           betrag_m:
             - 200.0
+          hat_regelaltersgrenze_erreicht:
+            - true
         bezieht_altersrente:
           - true
         erwerbsminderung:
@@ -112,15 +113,6 @@ inputs:
         - 0.0
     vermögen_eg:
       - 0.0
-    wohnen:
-      bewohnt_eigentum_hh:
-        - false
-      bruttokaltmiete_m_hh:
-        - 344.0
-      heizkosten_m_hh:
-        - 92.0
-      wohnfläche_hh:
-        - 45.0
 outputs:
   grundsicherung:
     im_alter:

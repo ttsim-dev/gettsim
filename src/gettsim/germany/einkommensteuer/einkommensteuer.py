@@ -14,6 +14,7 @@ from gettsim.tt import (
     RoundingSpec,
     TTSIMUnit,
     agg_by_p_id_function,
+    cast_ttsim_unit,
     get_piecewise_parameters,
     intervals_to_thresholds,
     param_function,
@@ -163,22 +164,36 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
+    besonderer_steuersatz_mit_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
     """Taxes with child allowance on Steuernummer level.
 
     Also referred to as "tarifliche ESt I".
 
+    Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
+    income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
+    Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
     """
-    zu_verst_eink_per_indiv = (
-        zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
-        / familie__anzahl_personen_sn
-    )
-    return familie__anzahl_personen_sn * piecewise_polynomial(
-        x=zu_verst_eink_per_indiv,
-        parameters=parameter_einkommensteuertarif,
-        xnp=xnp,
-    )
+    # If there are no benefits under § 32b, § 32a gives the tax amount directly (FG
+    # Düsseldorf v. 17.04.2019, 15 K 1127/18 E). If not, a rounded 'besonderer
+    # Steuersatz' is applied to the taxable income. Because of the rounding, we cannot
+    # use the 'besondere Steuersatz' for both logic branches.
+    if abs(dem_progressionsvorbehalt_unterliegende_leistungen_y_sn) < cast_ttsim_unit(
+        0.005, unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN
+    ):
+        return familie__anzahl_personen_sn * piecewise_polynomial(
+            x=zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+            / familie__anzahl_personen_sn,
+            parameters=parameter_einkommensteuertarif,
+            xnp=xnp,
+        )
+    else:
+        return (
+            besonderer_steuersatz_mit_kinderfreibetrag
+            * zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
+        )
 
 
 @policy_function(
@@ -195,18 +210,31 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     gesamteinkommen_y_sn: float,
     familie__anzahl_personen_sn: int,
     parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
+    besonderer_steuersatz_ohne_kinderfreibetrag: float,
     xnp: ModuleType,
 ) -> float:
     """Taxes without child allowance on Steuernummer level. Also referred to as
     "tarifliche ESt II".
 
+    Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
+    income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
+    Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
     """
-    zu_verst_eink_per_indiv = gesamteinkommen_y_sn / familie__anzahl_personen_sn
-    return familie__anzahl_personen_sn * piecewise_polynomial(
-        x=zu_verst_eink_per_indiv,
-        parameters=parameter_einkommensteuertarif,
-        xnp=xnp,
-    )
+    # If there are no benefits under § 32b, § 32a gives the tax amount directly (FG
+    # Düsseldorf v. 17.04.2019, 15 K 1127/18 E). If not, a rounded 'besonderer
+    # Steuersatz' is applied to the taxable income. Because of the rounding, we cannot
+    # use the 'besondere Steuersatz' for both logic branches.
+    if abs(dem_progressionsvorbehalt_unterliegende_leistungen_y_sn) < cast_ttsim_unit(
+        0.005, unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN
+    ):
+        return familie__anzahl_personen_sn * piecewise_polynomial(
+            x=gesamteinkommen_y_sn / familie__anzahl_personen_sn,
+            parameters=parameter_einkommensteuertarif,
+            xnp=xnp,
+        )
+    else:
+        return besonderer_steuersatz_ohne_kinderfreibetrag * gesamteinkommen_y_sn
 
 
 @policy_function(

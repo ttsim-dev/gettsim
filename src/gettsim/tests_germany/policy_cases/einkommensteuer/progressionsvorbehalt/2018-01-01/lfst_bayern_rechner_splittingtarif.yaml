@@ -1,0 +1,194 @@
+---
+info:
+  note: >-
+    Assumed: wages use up the Arbeitnehmer-Pauschbetrag, so the calculator's
+    Progressionseinkünfte are the benefits less repayments.
+  precision_atol: 1.0e-06
+  source: >-
+    LfSt Bayern Progressionsvorbehalt-Rechner, Splittingtarif 2018:
+    https://www.lfst.bayern.de/steuerinfos/steuerberechnung/progressionsvorbehalt-rechner
+inputs:
+  assumed:
+    einkommensteuer:
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
+        - 20000.0
+  provided:
+    p_id:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    hh_id:
+      - 0
+      - 0
+      - 1
+      - 1
+      - 2
+      - 2
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+        - 3
+        - 2
+        - 5
+        - 4
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - true
+        - true
+        - true
+        - true
+        - true
+        - true
+      gesamteinkommen_y_sn:
+        - 60000.0
+        - 60000.0
+        - 60000.0
+        - 60000.0
+        - 80000.0
+        - 80000.0
+      zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn:
+        - 60000.0
+        - 60000.0
+        - 60000.0
+        - 60000.0
+        - 66000.0
+        - 66000.0
+    einnahmen:
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+        - 0.0
+        - 4000.0
+        - 0.0
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_y:
+          - 12000.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 12000.0
+          - 0.0
+        kurzarbeitergeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        insolvenzgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+        mutterschaftsgeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+      unfall:
+        verletztengeld_y:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+    elterngeld:
+      betrag_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+outputs:
+  einkommensteuer:
+    steuersatzeinkommen_ohne_kinderfreibetrag_y_sn:
+      - 72000.0
+      - 72000.0
+      - 56000.0
+      - 56000.0
+      - 92000.0
+      - 92000.0
+    steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_sn:
+      - 14576
+      - 14576
+      - 9472
+      - 9472
+      - 21748
+      - 21748
+    besonderer_steuersatz_ohne_kinderfreibetrag:
+      - 0.202444
+      - 0.202444
+      - 0.169142
+      - 0.169142
+      - 0.236391
+      - 0.236391
+    steuersatzeinkommen_mit_kinderfreibetrag_y_sn:
+      - 72000.0
+      - 72000.0
+      - 56000.0
+      - 56000.0
+      - 78000.0
+      - 78000.0
+    steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_sn:
+      - 14576
+      - 14576
+      - 9472
+      - 9472
+      - 16636
+      - 16636
+    besonderer_steuersatz_mit_kinderfreibetrag:
+      - 0.202444
+      - 0.202444
+      - 0.169142
+      - 0.169142
+      - 0.213282
+      - 0.213282
+    betrag_ohne_kinderfreibetrag_y_sn:
+      - 12146
+      - 12146
+      - 10148
+      - 10148
+      - 18911
+      - 18911
+    betrag_mit_kinderfreibetrag_y_sn:
+      - 12146
+      - 12146
+      - 10148
+      - 10148
+      - 14076
+      - 14076

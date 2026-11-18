@@ -22,9 +22,6 @@ inputs:
     alter:
       - 55
       - 67
-    alter_monate:
-      - 660
-      - 804
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -32,9 +29,6 @@ inputs:
       p_id_einstandspartner:
         - 1
         - 0
-    arbeitsstunden_w:
-      - 30.0
-      - 0.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -52,14 +46,20 @@ inputs:
           alle_weiteren_m:
             - 0.0
             - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
+      anzahl_kinderfreibeträge:
+        - 0
+        - 0
     einnahmen:
       bruttolohn_m:
         - 1100.0
         - 0.0
       kapitalerträge_m:
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
       renten:
@@ -78,29 +78,53 @@ inputs:
         aus_berufsständischen_versicherungen_m:
           - 0.0
           - 0.0
+        betrag_gesamt_m:
+          - 0.0
+          - 400.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
         - 0.0
     familie:
       alleinerziehend:
         - false
         - false
-      p_id_ehepartner:
-        - 1
-        - 0
       p_id_elternteil_1:
         - -1
         - -1
       p_id_elternteil_2:
         - -1
         - -1
-    geburtsjahr:
-      - 1968
-      - 1956
+      anzahl_erwachsene_eg:
+        - 2
+        - 2
+      anzahl_kinder_bis_15_fg:
+        - 0
+        - 0
+      anzahl_kinder_bis_17_bg:
+        - 0
+        - 0
+      anzahl_kinder_bis_17_fg:
+        - 0
+        - 0
+      anzahl_kinder_bis_6_fg:
+        - 0
+        - 0
+      anzahl_kinder_eg:
+        - 0
+        - 0
+      anzahl_personen_bg:
+        - 2
+        - 2
+      anzahl_personen_sn:
+        - 2
+        - 2
+      ist_kind_in_bedarfsgemeinschaft:
+        - false
+        - false
     geburtsmonat:
       - 1
       - 1
@@ -116,12 +140,15 @@ inputs:
           - false
           - false
     kindergeld:
-      in_ausbildung:
-        - false
-        - false
       p_id_empfänger:
         - -1
         - -1
+      anzahl_ansprüche:
+        - 0
+        - 0
+      gleiche_fg_wie_empfänger:
+        - false
+        - false
     p_id:
       - 0
       - 1
@@ -134,6 +161,12 @@ inputs:
         - 0.0
     sozialversicherung:
       arbeitslosen:
+        kurzarbeitergeld_m:
+          - 0.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
         betrag_m:
           - 0.0
           - 0.0
@@ -145,6 +178,9 @@ inputs:
           betrag_m:
             - 0.0
             - 400.0
+          hat_regelaltersgrenze_erreicht:
+            - false
+            - true
         bezieht_altersrente:
           - false
           - true
@@ -156,6 +192,10 @@ inputs:
           grundrentenzeiten_monate:
             - 0
             - 500
+      kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
     unterhalt:
       tatsächlich_erhaltener_betrag_m:
         - 0.0
@@ -187,6 +227,13 @@ inputs:
       anspruchshöhe_m_wthh:
         - 0.0
         - 0.0
+      anzahl_personen_wthh:
+        - 2
+        - 2
+    vorrangprüfungen:
+      wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
+        - false
+        - false
 outputs:
   bürgergeld:
     betrag_m:

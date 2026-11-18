@@ -18,6 +18,13 @@ inputs:
       - 40
       - 40
       - 40
+    alter_monate:
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
+      - 480
     bürgergeld:
       bezug_im_vorjahr:
         - false
@@ -57,14 +64,6 @@ inputs:
             - 0.0
             - 0.0
             - 0.0
-        aus_nichtselbstständiger_arbeit:
-          tatsächliche_werbungskosten_y:
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
-            - 0.0
         aus_vermietung_und_verpachtung:
           betrag_m:
             - 0.0
@@ -89,13 +88,14 @@ inputs:
               - 0.0
               - 0.0
               - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
-        - true
-        - true
-        - true
-        - true
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 1097.5
+            - 1097.5
+            - 647.5
+            - 647.5
+            - 347.5
+            - 347.5
     einnahmen:
       bruttolohn_m:
         - 1200.0
@@ -105,6 +105,20 @@ inputs:
         - 450.0
         - 450.0
       kapitalerträge_y:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
         - 0.0
@@ -127,7 +141,7 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
         - 0.0
         - 0.0
         - 0.0
@@ -135,6 +149,13 @@ inputs:
         - 0.0
         - 0.0
       betrag_m:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      angerechnete_mutterschaftsleistungen_m:
         - 0.0
         - 0.0
         - 0.0
@@ -149,13 +170,6 @@ inputs:
         - false
         - false
         - false
-      p_id_ehepartner:
-        - 1
-        - 0
-        - 3
-        - 2
-        - 5
-        - 4
       p_id_elternteil_1:
         - -1
         - -1
@@ -170,6 +184,34 @@ inputs:
         - -1
         - -1
         - -1
+      anzahl_kinder_bis_15_fg:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      anzahl_kinder_bis_17_fg:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      anzahl_kinder_bis_6_fg:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      anzahl_personen_sn:
+        - 2
+        - 2
+        - 2
+        - 2
+        - 2
+        - 2
     geburtsjahr:
       - 1983
       - 1983
@@ -206,13 +248,20 @@ inputs:
         - false
         - false
         - false
-      p_id_empfänger:
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
-        - -1
+      betrag_m_wthh:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      gleiche_fg_wie_empfänger:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
     p_id:
       - 0
       - 1
@@ -245,6 +294,13 @@ inputs:
         - 0.0
         - 0.0
       kranken:
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
         beitrag:
           betrag_versicherter_m:
             - 100.0
@@ -294,6 +350,13 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
+      tatsächlich_erhaltener_betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     unterhaltsvorschuss:
       betrag_m:
         - 0.0
@@ -302,13 +365,13 @@ inputs:
         - 0.0
         - 0.0
         - 0.0
-    vermögen:
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
-      - 0.0
+      betrag_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
     wohnen:
       baujahr_immobilie_hh:
         - 2010
@@ -353,6 +416,14 @@ inputs:
         - 5
         - 5
         - 5
+    kinderzuschlag:
+      anspruchshöhe_m_wthh:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
 outputs:
   bürgergeld:
     regelbedarf_m_bg:

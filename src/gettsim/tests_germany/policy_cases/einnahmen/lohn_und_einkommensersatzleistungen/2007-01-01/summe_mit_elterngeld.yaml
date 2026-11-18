@@ -1,0 +1,60 @@
+---
+info:
+  note: >-
+    From 2007, the full sum adds Elterngeld to the sum without it.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+    hh_id:
+      - 0
+    familie:
+      p_id_ehepartner:
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+      einkünfte:
+        aus_nichtselbstständiger_arbeit:
+          tatsächliche_werbungskosten_y:
+            - 0.0
+    einnahmen:
+      bruttolohn_y:
+        - 20000.0
+      zurückgezahlte_lohn_und_einkommensersatzleistungen_y:
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 1200.0
+        kurzarbeitergeld_m:
+          - 100.0
+        insolvenzgeld_m:
+          - 200.0
+      kranken:
+        krankengeld_m:
+          - 400.0
+        mutterschaftsgeld_m:
+          - 500.0
+      unfall:
+        verletztengeld_m:
+          - 600.0
+    elterngeld:
+      betrag_m:
+        - 300.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 3000.0
+    lohn_und_einkommensersatzleistungen_m:
+      - 3300.0
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_y:
+      - 36000.0
+    lohn_und_einkommensersatzleistungen_y:
+      - 39600.0
+  einkommensteuer:
+    dem_progressionsvorbehalt_unterliegende_leistungen_y_sn:
+      - 39600.0

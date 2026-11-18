@@ -9,9 +9,6 @@ inputs:
     alter:
       - 76
       - 70
-    alter_monate:
-      - 912
-      - 840
     arbeitslosengeld_2:
       p_id_einstandspartner:
         - 6
@@ -19,6 +16,9 @@ inputs:
       überschusseinkommen_m_bg:
         - 0.0
         - 0.0
+      regelbedarf_m:
+        - 654.0
+        - 654.0
     einkommensteuer:
       betrag_y_sn:
         - 0.0
@@ -36,14 +36,14 @@ inputs:
           alle_weiteren_m:
             - 0.0
             - 0.0
-      gemeinsam_veranlagt:
-        - true
-        - true
     einnahmen:
       bruttolohn_m:
         - 0.0
         - 0.0
       kapitalerträge_m:
+        - 0.0
+        - 0.0
+      lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
         - 0.0
         - 0.0
       renten:
@@ -63,28 +63,31 @@ inputs:
           - 0.0
           - 0.0
     elterngeld:
-      anrechenbarer_betrag_m:
-        - 0.0
-        - 0.0
       betrag_m:
         - 0.0
         - 0.0
+      angerechnete_mutterschaftsleistungen_m:
+        - 0.0
+        - 0.0
+      mean_nettoeinkommen_in_12_monaten_vor_geburt_m:
+        - 0.0
+        - 0.0
     familie:
-      alleinerziehend:
-        - false
-        - false
-      p_id_ehepartner:
-        - 6
-        - 5
       p_id_elternteil_1:
         - -1
         - -1
       p_id_elternteil_2:
         - -1
         - -1
-    geburtsjahr:
-      - 1946
-      - 1952
+      anzahl_erwachsene_eg:
+        - 2
+        - 2
+      anzahl_kinder_eg:
+        - 0
+        - 0
+      anzahl_personen_sn:
+        - 2
+        - 2
     geburtsmonat:
       - 1
       - 1
@@ -99,10 +102,6 @@ inputs:
         hat_kind_mit_einkommen_über_einkommensgrenze:
           - false
           - false
-    kindergeld:
-      p_id_empfänger:
-        - -1
-        - -1
     p_id:
       - 5
       - 6
@@ -126,6 +125,9 @@ inputs:
           betrag_m:
             - 360.0
             - 120.0
+          hat_regelaltersgrenze_erreicht:
+            - true
+            - true
         bezieht_altersrente:
           - true
           - true
@@ -148,19 +150,6 @@ inputs:
     vermögen_eg:
       - 0.0
       - 0.0
-    wohnen:
-      bewohnt_eigentum_hh:
-        - false
-        - false
-      bruttokaltmiete_m_hh:
-        - 430.0
-        - 430.0
-      heizkosten_m_hh:
-        - 70.0
-        - 70.0
-      wohnfläche_hh:
-        - 55.0
-        - 55.0
 outputs:
   grundsicherung:
     im_alter:

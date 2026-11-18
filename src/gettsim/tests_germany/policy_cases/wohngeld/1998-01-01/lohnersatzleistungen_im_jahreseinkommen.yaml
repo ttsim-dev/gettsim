@@ -1,0 +1,103 @@
+---
+info:
+  data_currency: DM
+  note: >-
+    Lohn- und Einkommensersatzleistungen count in full in the Jahreseinkommen.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    p_id:
+      - 0
+      - 1
+    hh_id:
+      - 0
+      - 1
+    familie:
+      p_id_ehepartner:
+        - -1
+        - -1
+    einkommensteuer:
+      gemeinsam_veranlagt:
+        - false
+        - false
+      betrag_y_sn:
+        - 0.0
+        - 0.0
+      einkünfte:
+        aus_selbstständiger_arbeit:
+          betrag_m:
+            - 0.0
+            - 0.0
+        aus_nichtselbstständiger_arbeit:
+          einnahmen_nach_abzug_werbungskosten_m:
+            - 0.0
+            - 2000.0
+        aus_vermietung_und_verpachtung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        sonstige:
+          alle_weiteren_m:
+            - 0.0
+            - 0.0
+          rente:
+            steuerpflichtige_einnahmen_m:
+              - 0.0
+              - 0.0
+    einnahmen:
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+    sozialversicherung:
+      arbeitslosen:
+        betrag_m:
+          - 0.0
+          - 0.0
+        kurzarbeitergeld_m:
+          - 300.0
+          - 0.0
+        insolvenzgeld_m:
+          - 0.0
+          - 0.0
+      kranken:
+        krankengeld_m:
+          - 1200.0
+          - 0.0
+        mutterschaftsgeld_m:
+          - 0.0
+          - 0.0
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+      rente:
+        beitrag:
+          betrag_versicherter_m:
+            - 0.0
+            - 0.0
+      unfall:
+        verletztengeld_m:
+          - 0.0
+          - 0.0
+    unterhalt:
+      tatsächlich_erhaltener_betrag_m:
+        - 0.0
+        - 0.0
+    unterhaltsvorschuss:
+      betrag_m:
+        - 0.0
+        - 0.0
+outputs:
+  einnahmen:
+    lohn_und_einkommensersatzleistungen_ohne_elterngeld_m:
+      - 1500.0
+      - 0.0
+  wohngeld:
+    abzugsanteil_vom_einkommen_für_steuern_sozialversicherung:
+      - 0.06
+      - 0.06
+    einkommen_vor_freibetrag_m:
+      - 1410.0
+      - 1880.0
