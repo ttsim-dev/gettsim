@@ -1,7 +1,9 @@
 ---
 info:
   data_currency: DM
-  note: ALG neben regulärer, geringfügiger und besser bezahlter Beschäftigung.
+  note: >-
+    ALG neben regulärer und geringfügiger Beschäftigung sowie neben einer Beschäftigung
+    mit höherem Lohn als dem Bemessungsentgelt.
   precision_atol: 0.0001
   source: Regression test.
 inputs:
