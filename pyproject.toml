@@ -30,7 +30,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
 ]
 dynamic = [ "version" ]
-dependencies = [ "jaxtyping>=0.3.11", "pint<0.27", "ttsim-backend>=1.3.1" ]
+dependencies = [ "jaxtyping>=0.3.11", "pint<0.27", "ttsim-backend>=1.4" ]
 [[project.maintainers]]
 name = "Hans-Martin von Gaudecker"
 email = "hmgaudecker@uni-bonn.de"

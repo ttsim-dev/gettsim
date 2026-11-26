@@ -13,7 +13,7 @@ chronological order. Since v1.0, GETTSIM's versioning follows a rule inspired by
 
 All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/gettsim).
 
-## Unreleased
+## v1.4 — 2026-11-26
 
 - {gh}`1246` Base the income test of the Grundrentenzuschlag on the § 97a Abs. 2 SGB VI
   income (zu versteuerndes Einkommen, steuerfreier Teil of pensions, and capital income
