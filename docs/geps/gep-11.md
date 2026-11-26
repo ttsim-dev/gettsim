@@ -86,6 +86,50 @@ The following is out of scope:
 
 ## Usage and Impact
 
+### Writing references
+
+All policy functions, all date entries of parameters, and all `RoundingSpec`s shipped
+with GETTSIM must carry a reference. A reference cites the provision and the act that
+gave the provision its wording:
+
+```
+§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+```
+
+The paragraph and the law are required; Absatz, Satz, and lower levels are optional. The
+act is cited with its date and its page in the BGBl until 2022 and with its number from
+2023 on. Laws are cited by their official abbreviation, e.g., `SGB II`.
+
+In policy functions, references are listed in a `Reference:` section at the end of the
+docstring:
+
+```python
+def betrag_ohne_staffelung_m(anzahl_ansprüche: int, satz_m: float) -> float:
+    """Sum of Kindergeld for eligible children.
+
+    Reference:
+        - § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    """
+    return satz_m * anzahl_ansprüche
+```
+
+In parameter files, the reference goes into the `reference` key of each date entry:
+
+```yaml
+2023-01-01:
+  value: 250
+  reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+  note: Inflationsausgleichsgesetz
+```
+
+In a `RoundingSpec`, it goes into the `reference` argument.
+
+If there is no provision to cite, the reference is replaced by `none (<reason>)`, e.g.,
+`Reference: none (technical helper)`. Several references are given as a list. The format
+and the remaining rules are specified in {ref}`gep-11-format` and the following
+sections; the test suite fails if a reference is missing or malformed (see
+{ref}`gep-11-enforcement`).
+
 (gep-11-lookup)=
 
 ### Looking up policy functions and parameters by provision
