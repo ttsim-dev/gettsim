@@ -277,8 +277,9 @@ satz_m:
     en: Child benefit amount, identical for all children.
   description:
     de: >-
-      Identische Werte in § 6 Abs. 1 BKGG, diese sind aber nur für beschränkt
-      Steuerpflichtige relevant.
+      § 66 Abs. 1 EStG. Identische Werte in § 6 Abs. 1 BKGG, diese sind aber nur für
+      beschränkt Steuerpflichtige relevant (d.h. Ausländer mit Erwerbstätigkeit in
+      Deutschland). Für Werte vor 2002, siehe 'BMF - Datensammlung zur Steuerpolitik'
     en: null
   unit: EUR_PER_MONTH
   type: scalar
@@ -289,7 +290,7 @@ satz_m:
   2025-01-01:
     value: 255
     reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
-    note: Steuerfortentwicklungsgesetz
+    note: Steuerfortentwicklungsgesetz (SteFeG)
 ```
 
 Every date entry requires a reference. This includes date entries that mark the end of a
@@ -300,8 +301,11 @@ the reason:
 ```yaml
   2011-01-01:
     note: Calculation method changed, see regelbedarfsstufen.
-    reference: none (calculation method changed in GETTSIM)
+    reference: none (Regelbedarfe are no longer set as shares of a base amount)
 ```
+
+If the values of a date entry follow from several provisions, the `reference` key holds
+a list of references, as in the `Reference:` section of policy functions.
 
 The `note` key continues to hold any additional information. The name of an act (e.g.,
 "Steuerfortentwicklungsgesetz") belongs there and not in the reference.

@@ -212,6 +212,7 @@ satz_m:
   2023-01-01:
     value: 250
     reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Inflationsausgleichsgesetz
 ```
 
 ### The `note` key of [YYYY-MM-DD]
@@ -301,7 +302,7 @@ The following walks through several cases.
       value: 450
     2022-10-01:
       note: Minijob thresholds now calculated based on statutory minimum wage
-      reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+      reference: § 8 Abs. 1a SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
   ```
 
   Note that there are different "active periods" for this parameter. The first one lasts
@@ -383,7 +384,8 @@ The following walks through several cases.
       3: 154
       4: 179
     2009-01-01:
-      reference: Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+      reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+      note: Familienleistungsgesetz
       1: 164
       2: 164
       3: 170
@@ -409,7 +411,8 @@ The following walks through several cases.
     reference_period: Year
     type: piecewise_linear
     1991-01-01:
-      reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
+      reference: § 4 Nr. 1 SolZG idF Art. 1 G. v. 24.06.1991 BGBl. I S. 1318
+      note: Solidaritätsgesetz
       intervals:
         - interval: (-inf, 0)
           slope: 0
@@ -455,12 +458,12 @@ The following walks through several cases.
   reference_period: null
   type: birth_year_based_phase_inout
   2007-04-20:
-    reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554
+    reference: § 235 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     note: >-
-      Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964.
-      Vertrauensschutz (Art. 56) applies for birth cohorts before 1955 who were in
-      Altersteilzeit before January 1st, 2007 or received "Anpassungsgeld für
-      entlassene Arbeitnehmer des Bergbaus".
+      RV-Altersgrenzenanpassungsgesetz. Increase of the normal retirement age from 65
+      to 67 for birth cohort 1947-1964. Vertrauensschutz (§ 235 Abs. 2 Satz 3 SGB VI)
+      applies for birth cohorts before 1955 who were in Altersteilzeit before January
+      1st, 2007 or received "Anpassungsgeld für entlassene Arbeitnehmer des Bergbaus".
     first_birthyear_to_consider: 1900
     last_birthyear_to_consider: 2031
     1946:
@@ -541,8 +544,10 @@ The following walks through several cases.
   ```yaml
   ...
     1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
-    note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Rentenreformgesetz 1992. Increase of full retirement age from 63 to 65 for birth
+      cohort 1938-1943.
     first_birthyear_to_consider: 1900
     last_birthyear_to_consider: 2100
     1937:
@@ -604,7 +609,10 @@ The following walks through several cases.
         min_alter: 0
         max_alter: 5
         betrag: 215
-      reference: Artikel 1 G. v. 24.03.2011 BGBl. I S. 453.
+      reference:
+        - § 20 Abs. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 20 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 77 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
   ```
 
 - In general, a parameter should appear for the first time that it is mentioned in a
@@ -624,7 +632,7 @@ The following walks through several cases.
       de: Berechnungsgrundlagen für den Regelsatz
     2011-01-01:
       note: Calculation method changed, see regelsatz_nach_regelbedarfsstufen.
-      reference: none (calculation method changed in GETTSIM)
+      reference: none (Regelbedarfe are no longer set as shares of a base amount)
   ```
 
 (gep-3-handling-of-parameters-in-the-codebase)=
