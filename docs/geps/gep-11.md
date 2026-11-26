@@ -86,15 +86,21 @@ The following is out of scope:
 
 ## Usage and Impact
 
+(gep-11-lookup)=
+
 ### Looking up policy functions and parameters by provision
 
 ```python
-from gettsim import find_node_by_legal_reference
+from gettsim import MainTarget, main
 
-find_node_by_legal_reference("§ 66 EStG", policy_date_str="2025-01-01")
+main(
+    main_target=MainTarget.legal_references.matching_query,
+    legal_reference_query="§ 66 EStG",
+    policy_date_str="2025-01-01",
+)
 ```
 
-The function returns the paths of all policy functions and parameters in the policy
+The main target returns the paths of all policy functions and parameters in the policy
 environment at that date whose references match the query, together with the matching
 references. A query matches all references to the provision itself and to its parts,
 i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a reference is
@@ -108,8 +114,9 @@ be interpreted, the error message lists the closest abbreviations of laws.
 The policy date is required because paths only have a meaning within a policy
 environment.
 
-The same information is available via the `main` function (see {ref}`GEP 7 <gep-7>`) as
-a main target, which maps each path in the policy environment to its references.
+A second main target, `MainTarget.legal_references.by_path`, maps each path in the
+policy environment to its references. Both main targets are part of the interface DAG
+(see {ref}`GEP 7 <gep-7>`); there is no separate function for the lookup.
 
 ### Documentation
 
@@ -119,8 +126,8 @@ Plots of the DAG show the references of each node.
 
 ## Backward compatibility
 
-The user interface does not change; `find_node_by_legal_reference` and the main target
-are additions.
+The user interface does not change; the main targets and the `legal_reference_query`
+argument of `main` are additions.
 
 For developers, the style of the `reference` key in the parameter files changes (see
 {ref}`gep-11-parameters`). This requires rewriting all existing `reference` entries.
@@ -333,9 +340,13 @@ TTSIM
   `reference` key from the date entries of parameters;
 - stores them as an attribute of each policy object, either as a list of strings or as
   the reason why there is no reference;
-- accepts a parser for references that is supplied by the country package;
-- provides the main target that maps each path in the policy environment to its parsed
-  references; and
+- accepts a parser for references that is supplied by the country package, in the same
+  way as the unit system. The parser turns a reference or a query into a structured
+  representation and decides whether a reference matches a query;
+- adds the `legal_reference_query` argument to `main`;
+- provides the main targets `legal_references.by_path`, which maps each path in the
+  policy environment to its parsed references, and `legal_references.matching_query`,
+  which keeps the paths whose references match the query; and
 - shows references in plots of the DAG.
 
 GETTSIM
@@ -344,9 +355,9 @@ GETTSIM
   [bundesrecht](https://pypi.org/project/bundesrecht/) package for the provision, a
   small grammar for the act (bundesrecht does not parse references to the BGBl), and the
   list of accepted laws in `laws.yaml` (bundesrecht accepts, e.g.,
-  `§ 32 Art. 2-4 EStG`);
-- provides `find_node_by_legal_reference`, which interprets the query and filters the
-  output of the main target; and
+  `§ 32 Art. 2-4 EStG`). The parser is lenient for queries (see {ref}`gep-11-lookup`),
+  but strict for references in the code;
+- passes the parser to TTSIM in `gettsim.main`; and
 - checks the requirements of this GEP in its test suite.
 
 (gep-11-enforcement)=
@@ -391,13 +402,14 @@ is set up, so users are never affected by a missing or malformed reference.
 ## Implementation
 
 1. TTSIM: Extract references from docstrings and parameter files, store them in the
-   policy objects, accept a parser from the country package, and add the main target.
+   policy objects, accept a parser from the country package, and add the
+   `legal_reference_query` argument and the main targets.
 1. GETTSIM: Add `laws.yaml`, the parser, and the test including the baseline file.
 1. GETTSIM: Convert the `reference` keys in all parameter files and the references of
    all `RoundingSpec`s.
 1. GETTSIM: Add `Reference:` sections to policy functions, one area at a time.
-1. GETTSIM: Add `find_node_by_legal_reference`, the generated page with all references,
-   and a how-to guide on finding the code for a provision.
+1. GETTSIM: Pass the parser to TTSIM in `gettsim.main`, add the generated page with all
+   references, and add a how-to guide on finding the code for a provision.
 1. TTSIM: Show references in plots of the DAG.
 1. Update the contributor guide.
 
@@ -444,6 +456,11 @@ would require one very large pull request. Raising an error when the policy envi
 is set up would confront users with problems that only concern developers. Requiring
 references for parameter functions would mostly lead to exceptions, since most of them
 only convert or combine parameters.
+
+For the lookup, we considered a separate function `find_node_by_legal_reference`. It
+would have to set up the policy environment itself and accept the same arguments as
+`main` for this purpose (e.g., a modified policy environment). As a main target, the
+lookup reuses this logic and works on any policy environment that `main` can produce.
 
 ## Discussion
 
