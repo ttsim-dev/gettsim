@@ -57,7 +57,7 @@ from gettsim.tt import policy_function, RoundingSpec, RoundingDirection
     rounding_spec=RoundingSpec(
         base=0.0001,
         direction="nearest",
-        reference="§76g SGB VI Abs. 4 Nr. 4",
+        reference="§ 76g Abs. 4 Nr. 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879",
     ),
     start_date="2021-01-01",
 )
@@ -74,7 +74,8 @@ The specification of the rounding parameters is defined via the `RoundingSpec` c
 - The `base` determines the base to which the variables is rounded. It has to be a
   floating point number.
 - The `direction` has to be one of `up`, `down`, or `nearest`.
-- The `reference` provides the legal reference for the rounding rule. This is optional.
+- The `reference` provides the legal reference for the rounding rule. It follows the
+  rules of {ref}`GEP 11 <gep-11>`.
 - Additionally, via the `to_add_after_rounding` input, users can specify some amount
   that should be added after the rounding is done (this was relevant for the income tax
   before 2004).

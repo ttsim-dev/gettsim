@@ -247,6 +247,21 @@ version of the provision was matched.
 Renumberings are not detected automatically. Whoever implements the amending act adds
 the new reference.
 
+### Rounding rules
+
+The `reference` argument of a `RoundingSpec` (see {ref}`GEP 5 <gep-5>`) follows the same
+rules as the references of policy functions. If a policy function has a `rounding_spec`,
+its `reference` is required, has to follow the format of this GEP, and may be replaced
+by `none (<reason>)`.
+
+```python
+RoundingSpec(
+    base=0.01,
+    direction="down",
+    reference="§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+)
+```
+
 (gep-11-parameters)=
 
 ### Parameters
@@ -296,6 +311,7 @@ The `note` key continues to hold any additional information. The name of an act 
 | Object                                                    | Reference                                 |
 | --------------------------------------------------------- | ----------------------------------------- |
 | Policy functions                                          | required, or `Reference: none (<reason>)` |
+| `reference` of a `RoundingSpec`                           | required, or `none (<reason>)`            |
 | Date entries of parameters, including the end of a period | required, or `reference: none (<reason>)` |
 | Parameter functions                                       | optional                                  |
 | Aggregation functions, group creation functions, inputs   | not checked                               |
@@ -337,6 +353,7 @@ fails if
 
 - a policy function has neither a `Reference:` section nor a reason for not having one;
 - a date entry of a parameter has neither a reference nor a reason for not having one;
+- a `RoundingSpec` has neither a reference nor a reason for not having one;
 - a reference does not follow the format of this GEP; or
 - a reference cites a law that is not listed in `laws.yaml`.
 
@@ -371,7 +388,8 @@ is set up, so users are never affected by a missing or malformed reference.
 1. TTSIM: Extract references from docstrings and parameter files, store them in the
    policy objects, accept a parser from the country package, and add the main target.
 1. GETTSIM: Add `laws.yaml`, the parser, and the test including the baseline file.
-1. GETTSIM: Convert the `reference` keys in all parameter files.
+1. GETTSIM: Convert the `reference` keys in all parameter files and the references of
+   all `RoundingSpec`s.
 1. GETTSIM: Add `Reference:` sections to policy functions, one area at a time.
 1. GETTSIM: Add `find_node_by_legal_reference`, the generated page with all references,
    and a how-to guide on finding the code for a provision.
