@@ -627,12 +627,12 @@ The following walks through several cases.
   Example:
 
   ```yaml
-  parameter_regelsatz_anteilsbasiert:
+  altersgrenze_gestaffelt:
     name:
-      de: Berechnungsgrundlagen für den Regelsatz
-    2011-01-01:
-      note: Calculation method changed, see regelsatz_nach_regelbedarfsstufen.
-      reference: none (Regelbedarfe are no longer set as shares of a base amount)
+      de: Gestaffelte Altersgrenze für abschlagsfreie Altersrente für Frauen
+    2018-01-01:
+      note: Irrelevant because last cohort has passed the normal retirement age.
+      reference: none (all eligible cohorts have reached the Regelaltersgrenze)
   ```
 
 (gep-3-handling-of-parameters-in-the-codebase)=

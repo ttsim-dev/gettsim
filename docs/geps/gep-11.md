@@ -354,10 +354,13 @@ parameter or its calculation method. If there is nothing to cite, the date entry
 the reason:
 
 ```yaml
-  2011-01-01:
-    note: Calculation method changed, see regelbedarfsstufen.
-    reference: none (Regelbedarfe are no longer set as shares of a base amount)
+  2018-01-01:
+    note: Irrelevant because last cohort has passed the normal retirement age.
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
 ```
+
+Here, the Altersrente für Frauen (§ 237a SGB VI) is only available to women born before
+1952\. The provision was not changed, but it no longer applies to anyone.
 
 If the values of a date entry follow from several provisions, the `reference` key holds
 a list of references, as in the `Reference:` section of policy functions.
