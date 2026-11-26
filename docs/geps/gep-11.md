@@ -110,8 +110,7 @@ docstring:
 def betrag_ohne_staffelung_m(anzahl_ansprüche: int, satz_m: float) -> float:
     """Sum of Kindergeld for eligible children.
 
-    Reference:
-        - § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    Reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     """
     return satz_m * anzahl_ansprüche
 ```
@@ -230,8 +229,9 @@ Examples:
 ### Policy functions
 
 References of policy functions are written in a `Reference:` section at the end of the
-docstring. Each reference is an indented list item starting with `-`. The rest of the
-docstring is not affected and should still describe what the function does.
+docstring. A single reference follows the colon on the same line. Several references are
+written as indented list items starting with `-` (see {ref}`gep-11-over-time`). The rest
+of the docstring is not affected and should still describe what the function does.
 
 ```python
 @policy_function(
@@ -246,8 +246,7 @@ def betrag_ohne_staffelung_m(
     Kindergeld claim is the same for each child, i.e. increases linearly with the number
     of children.
 
-    Reference:
-        - § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    Reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     """
     return satz_m * anzahl_ansprüche
 ```
@@ -276,6 +275,8 @@ def ist_kind_bis_2_in_familiengemeinschaft(
 
 The reason in parentheses is required. There is no way to exclude entire namespaces;
 each exception is visible in the policy function it applies to.
+
+(gep-11-over-time)=
 
 ### References over time
 
