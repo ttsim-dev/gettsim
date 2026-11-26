@@ -34,6 +34,11 @@ inputs:
           - 0.0
     sozialversicherung:
       rente:
+        bezieht_altersrente:
+          - true
+        grundrente:
+          betrag_m:
+            - 0.0
         jahr_renteneintritt:
           - 2025
 outputs:

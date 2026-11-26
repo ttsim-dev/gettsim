@@ -1,0 +1,52 @@
+---
+info:
+  note: |-
+    The source's figures are those of the Berechtigter (row 0). The spouse (row 1)
+    has no Zuschlag of their own (assumed).
+  precision_atol: 0.01
+  source: |-
+    DRV, Gemeinsame Rechtliche Anweisungen zu § 97a SGB VI, Version 006.00, Stand
+    11.09.2024, veröffentlicht 21.09.2024, Beispiel 7 (Freibetrag, Beispiel zu
+    Abschnitt 5). Archived copy:
+    https://web.archive.org/web/20250114132316/https://rvrecht.deutsche-rentenversicherung.de/SharedDocs/rvRecht/01_GRA_SGB/06_SGB_VI/pp_0076_100/gra_sgb006_p_0097a.html?nn=1505808
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        grundrente:
+          einkommen_vorvorjahr_m_ehe:
+            - 2700.0
+            - 2700.0
+  provided:
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        grundrente:
+          basisbetrag_m:
+            - 100.0
+            - 0.0
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 401.0
+          - 401.0
+        betrag_m:
+          - 0.0
+          - 0.0
+        obere_einkommensgrenze_m:
+          - 2530.0
+          - 2530.0
+        untere_einkommensgrenze_m:
+          - 2145.0
+          - 2145.0

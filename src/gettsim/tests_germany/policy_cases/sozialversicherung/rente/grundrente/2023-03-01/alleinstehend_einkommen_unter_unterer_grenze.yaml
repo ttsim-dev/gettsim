@@ -1,0 +1,38 @@
+---
+info:
+  note: |-
+    Income from SG Nürnberg, Urteil v. 29.02.2024 - S 20 R 211/23, Rn. 4 ("kein
+    Anrechnungsbetrag mehr"). Single status and the Zuschlag of 200.00 EUR are
+    assumed; the source states neither.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed:
+    sozialversicherung:
+      rente:
+        grundrente:
+          basisbetrag_m:
+            - 200.0
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        grundrente:
+          einkommen_vorvorjahr_y_ehe:
+            - 8453.0
+    wohnort_ost_hh:
+      - false
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 0.0
+        betrag_m:
+          - 200.0

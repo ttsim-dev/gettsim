@@ -1,0 +1,33 @@
+---
+info:
+  note: |-
+    Inputs from Lohnsteuer kompakt, "Beispiel für eine alleinstehende Person 2024"
+    (T. Rudolph, 20.05.2024). The source rounds the 60 % band 230.40 to 230 and
+    reports a Zuschlag of 49 EUR; § 97a SGB VI prescribes no such rounding.
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        grundrente:
+          basisbetrag_m:
+            - 320.0
+          einkommen_vorvorjahr_m_ehe:
+            - 1800.0
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 271.4
+        betrag_m:
+          - 48.6
