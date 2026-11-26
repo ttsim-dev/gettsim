@@ -22,7 +22,7 @@
 This GEP makes references to the law a required and machine-readable part of all policy
 functions and parameters of the taxes and transfers system that are shipped with
 GETTSIM. A reference consists of a provision and the act published in the
-Bundesgesetzblatt (BGBl) that gave the provision the wording we cite, e.g.:
+Bundesgesetzblatt (BGBl) by which the provision received the cited wording, e.g.:
 
 ```
 § 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
@@ -49,7 +49,7 @@ or as `§ 66 Abs. 1 EStG`. Many policy functions do not cite any law at all, and
 malformed references go unnoticed (e.g., `§ 32 Art. 2-4 EStG` instead of
 `§ 32 Abs. 2-4 EStG`).
 
-We aim for two things:
+This GEP has two goals.
 
 1. **Reverse lookup.** Researchers and developers should be able to find the parts of
    GETTSIM that implement a provision, e.g., `§ 66 EStG` on 2025-01-01, without
@@ -115,11 +115,6 @@ a main target, which maps each path in the policy environment to its references.
 The documentation contains a page that lists all paths together with their references
 and can be searched by provision. The page is generated when the documentation is built.
 Plots of the DAG show the references of each node.
-
-### Impact on users
-
-Users who write their own policy functions or parameters are not affected. The checks
-described below only cover the contents of `gettsim.germany`.
 
 ## Backward compatibility
 
@@ -225,12 +220,13 @@ each exception is visible in the policy function it applies to.
 ### References over time
 
 A reference refers to the version of a provision that is in force at the `start_date` of
-the policy function. Because the `idF` part pins down the version, the reference remains
-valid if the paragraph is renumbered later.
+the policy function. Because the `idF` part determines the version, the reference
+remains valid if the paragraph is renumbered later.
 
 If a provision is moved while the policy function remains the same, both references are
 listed. The list items do not carry dates; the period during which a policy function is
-active is determined by `start_date` and `end_date` only.
+active is determined by `start_date` and `end_date` only. In the following example, the
+article numbers serve as an illustration only.
 
 ```python
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -242,8 +238,6 @@ def anrechnungsfreies_einkommen_m(bruttolohn_m: float) -> float:
         - § 11b Abs. 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
 ```
-
-(The article numbers in this example are for illustration only.)
 
 A policy function matches a query if any of its references matches. Hence, a query for
 `§ 30 SGB II` at a date after the renumbering also returns this policy function. Since
@@ -351,15 +345,10 @@ file. The test skips these objects and fails if the baseline file grows. Thus, n
 has to follow this GEP from the start, while existing code can be converted one area at
 a time. The baseline file is removed once it is empty.
 
-References are not checked when a policy environment is set up. Users will therefore
-never encounter an error caused by a reference.
-
-### What is not checked
-
-- Whether the cited provision exists or existed in the cited version.
-- Whether the act in the `idF` part is cited with the correct date, article, and page.
-  Only its format is checked.
-- Whether the code implements the cited provision.
+The test does not check whether the cited provision exists or existed in the cited
+version, whether the act is cited with the correct date, article, and page, or whether
+the code implements the provision. References are not checked when a policy environment
+is set up, so users are never affected by a missing or malformed reference.
 
 ## Related Work
 
@@ -395,58 +384,43 @@ Steps 3 to 5 require steps 1 and 2. Step 6 only requires step 1.
 
 ## Alternatives
 
-We considered the following alternatives.
+Regarding the place of references, we considered an argument of the decorators (e.g.,
+`legal_basis="§ 66 Abs. 1 EStG"`). This would have required changing the decorators in
+TTSIM and separated the reference from the description of the function. Marking
+references anywhere in the text of the docstring would make it hard to distinguish
+provisions that a function implements from provisions it merely mentions. For the
+parameter files, a separate key for the provision, with the `reference` key holding only
+the act, would avoid repeating the provision whenever the value changes. However, two
+keys would have to be kept consistent.
 
-**References as an argument of the decorator** (e.g., `legal_basis="§ 66 Abs. 1 EStG"`).
-This would have changed the decorators of TTSIM and separated the reference from the
-description of the function in the docstring.
+Regarding the format, citing only the provision is not stable over time, and resolving
+it would require historical versions of the law. Citing only the act in the BGBl is
+stable, but does not allow for a lookup by paragraph. A manually maintained list of
+amending acts, to which references would point, cannot be kept up to date without an API
+that lists all publications in the BGBl.
 
-**Citing only the provision.** Such a reference is not stable over time. Resolving it
-would require historical versions of the law, using the `start_date` of the policy
-function.
+Regarding renumberings, we considered adding dates to the references of a policy
+function (e.g., `since 2011-01-01: § 11b Abs. 3 SGB II …`). This would make the lookup
+exact for every date, but it would specify the validity of a policy function in a second
+place next to `start_date` and `end_date`. Splitting a policy function whenever a cited
+provision moves would lead to duplicate code that does not change any calculation.
 
-**Citing only the act in the BGBl.** This is stable, but does not allow for a lookup by
-paragraph.
+Regarding checks, we would like to verify references against the texts of the law.
+bundesrecht only covers the current version of the law and would reject correct
+references to earlier versions. As of November 2026, the legal information portal of the
+federal government only contains versions that are currently in force, with historical
+versions announced for 2028. It contains neither the EStG, SGB IV, SGB V, SGB VI, SGB
+XI, and AO, nor any amending acts. We will reconsider this question once historical
+versions are available, together with a list of provisions that do not have a
+counterpart in GETTSIM. A test that the same act is always cited with the same date and
+article would catch some typos in the `idF` part, but we do not think it is worth the
+additional complexity.
 
-**Marking references within the text of the docstring.** This makes it hard to
-distinguish provisions that a function implements from provisions it only mentions.
-
-**A separate key for the provision in the parameter files**, with the `reference` key
-holding only the act. This avoids repeating the provision with every change of the
-value, but introduces two keys that have to be kept consistent.
-
-**Dates for references within a policy function** (e.g.,
-`since 2011-01-01: § 11b Abs. 3 SGB II …`). This would make the lookup exact for every
-date. However, it introduces a second place in which the validity of a policy function
-over time is specified, in addition to `start_date` and `end_date`.
-
-**Splitting a policy function whenever a cited provision is moved.** This leads to
-duplicate code without any change in the calculation.
-
-**A manually maintained list of amending acts**, which references would point to. In the
-absence of an API that lists all publications in the BGBl, we do not see how such a list
-could be kept up to date.
-
-**Checking references against the texts of the law.** bundesrecht only covers the
-current version of the law and would therefore reject correct references to earlier
-versions. As of November 2026, the legal information portal of the federal government
-only contains versions that are currently in force (historical versions are announced
-for 2028). It does not contain the EStG, SGB IV, SGB V, SGB VI, SGB XI, and AO, nor the
-amending acts. We will reconsider this once historical versions are available, together
-with a list of provisions that do not have a counterpart in GETTSIM.
-
-**Checking that an act is always cited with the same date and article.** This would
-detect some typos in the `idF` part, but we do not think it is worth the additional
-complexity.
-
-**Converting all policy objects before introducing the test.** This would require one
-very large pull request.
-
-**Raising an error when the policy environment is set up.** Users would be confronted
-with problems that only concern developers.
-
-**Requiring references for parameter functions.** Most parameter functions convert or
-combine parameters and would need to state a reason for not having a reference.
+Regarding the introduction, converting all policy objects before introducing the test
+would require one very large pull request. Raising an error when the policy environment
+is set up would confront users with problems that only concern developers. Requiring
+references for parameter functions would mostly lead to exceptions, since most of them
+only convert or combine parameters.
 
 ## Discussion
 
