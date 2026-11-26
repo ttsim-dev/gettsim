@@ -94,8 +94,8 @@ The following is out of scope:
 from gettsim import MainTarget, main
 
 main(
-    main_target=MainTarget.legal_references.matching_query,
-    legal_reference_query="§ 66 EStG",
+    main_target=MainTarget.legal_references.by_query,
+    legal_references_query="§ 66 EStG",
     policy_date_str="2025-01-01",
 )
 ```
@@ -107,7 +107,7 @@ i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a refer
 only taken into account if it is part of the query. A query that consists of an act only
 returns everything that cites this act.
 
-`legal_reference_query` also accepts a tuple of queries, e.g.,
+`legal_references_query` also accepts a tuple of queries, e.g.,
 `("§ 66 EStG", "§ 6 BKGG")`. In this case, the main target maps each query to its
 result.
 
@@ -130,7 +130,7 @@ Plots of the DAG show the references of each node.
 
 ## Backward compatibility
 
-The user interface does not change; the main targets and the `legal_reference_query`
+The user interface does not change; the main targets and the `legal_references_query`
 argument of `main` are additions.
 
 For developers, the style of the `reference` key in the parameter files changes (see
@@ -347,11 +347,11 @@ TTSIM
 - accepts a parser for references that is supplied by the country package, in the same
   way as the unit system. The parser turns a reference or a query into a structured
   representation and decides whether a reference matches a query;
-- adds the `legal_reference_query` argument to `main`, which takes a query or a tuple of
-  queries;
+- adds the `legal_references_query` argument to `main`, which takes a query or a tuple
+  of queries;
 - provides the main targets `legal_references.by_path`, which maps each path in the
-  policy environment to its parsed references, and `legal_references.matching_query`,
-  which keeps the paths whose references match the query; and
+  policy environment to its parsed references, and `legal_references.by_query`, which
+  keeps the paths whose references match the query; and
 - shows references in plots of the DAG.
 
 GETTSIM
@@ -408,7 +408,7 @@ is set up, so users are never affected by a missing or malformed reference.
 
 1. TTSIM: Extract references from docstrings and parameter files, store them in the
    policy objects, accept a parser from the country package, and add the
-   `legal_reference_query` argument and the main targets.
+   `legal_references_query` argument and the main targets.
 1. GETTSIM: Add `laws.yaml`, the parser, and the test including the baseline file.
 1. GETTSIM: Convert the `reference` keys in all parameter files and the references of
    all `RoundingSpec`s.
