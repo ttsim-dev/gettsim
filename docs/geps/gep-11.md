@@ -36,9 +36,9 @@ parameters that implement a given provision at a given date.
 Because public APIs for (historical) versions of German federal law are still
 experimental and incomplete, we cannot synchronise federal law and GETTSIM completely.
 Checking whether a given reference truly exists or whether certain gaps in GETTSIM's
-coverage of the law exist remains up to the users. Tools like the [legal information
-portal of the federal government](https://docs.rechtsinformationen.bund.de/) might help
-in the future.
+coverage of the law exist remains up to the users. Tools like the
+[legal information portal of the federal government](https://docs.rechtsinformationen.bund.de/)
+might help in the future.
 
 ## Motivation and Scope
 
@@ -47,8 +47,8 @@ and the law on the other hand has been an implicit one. References are given in
 docstrings, in the `reference` key of parameters, or in `note` keys. They are written as
 free text and in varying styles; e.g., the same provision may appear as `§66 (1) EStG`
 or as `§ 66 Abs. 1 EStG`. Many policy functions do not cite any law at all, and
-malformed references go unnoticed (e.g., `§ 32 Art. 2-4 EStG` instead of `§ 32 Abs. 2-4
-EStG`).
+malformed references go unnoticed (e.g., `§ 32 Art. 2-4 EStG` instead of
+`§ 32 Abs. 2-4 EStG`).
 
 This GEP has two goals.
 
@@ -101,9 +101,9 @@ i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a refer
 only taken into account if it is part of the query. A query that consists of an act only
 returns everything that cites this act.
 
-We allow for some flexibility in the query. `§66 Estg`, `§ 66 EStG`, `§ 66 Absatz 1
-EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot be interpreted,
-the error message lists the closest abbreviations of laws.
+We allow for some flexibility in the query. `§66 Estg`, `§ 66 EStG`,
+`§ 66 Absatz 1 EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot
+be interpreted, the error message lists the closest abbreviations of laws.
 
 The policy date is required because paths only have a meaning within a policy
 environment.
