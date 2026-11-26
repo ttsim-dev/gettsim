@@ -1,0 +1,40 @@
+---
+info:
+  note: |-
+    The joint income is credited in full in both pensions (DRV, GRA zu § 97a SGB VI,
+    Version 008.00, Abschnitt 5: "Bei zwei grundrentenberechtigten Ehegatten ist in
+    beiden Renten das gemeldete gemeinsame Einkommen zu berücksichtigen").
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        grundrente:
+          basisbetrag_m:
+            - 400.0
+            - 200.0
+          einkommen_vorvorjahr_m_ehe:
+            - 2800.0
+            - 2800.0
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 306.2
+          - 306.2
+        betrag_m:
+          - 93.8
+          - 0.0

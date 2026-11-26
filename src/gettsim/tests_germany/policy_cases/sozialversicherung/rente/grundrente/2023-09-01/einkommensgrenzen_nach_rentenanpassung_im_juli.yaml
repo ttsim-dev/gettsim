@@ -1,0 +1,36 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: |-
+    DRV Rheinland, Fachinfo 01/2024, section "„Grundrente“: Zuschlag an Entgeltpunkten
+    für langjährige Versicherung" (thresholds "im Jahr 2023").
+    https://www.deutsche-rentenversicherung.de/DRV/DE/Experten/Traeger/Rheinland/Fachinformationen/Rundschreiben/2024/1_2024.html
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+    hh_id:
+      - 0
+      - 1
+      - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        obere_einkommensgrenze_m:
+          - 1686.0
+          - 2424.0
+          - 2424.0
+        untere_einkommensgrenze_m:
+          - 1317.0
+          - 2055.0
+          - 2055.0

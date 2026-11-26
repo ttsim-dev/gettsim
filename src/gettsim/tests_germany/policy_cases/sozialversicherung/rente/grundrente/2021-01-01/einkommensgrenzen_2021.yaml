@@ -1,0 +1,36 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: |-
+    BT-Drs. 19/18473 (Gesetzentwurf Grundrentengesetz, 21.04.2020), Begründung zu
+    § 97a Abs. 4 SGB VI, p. 42.
+    https://dserver.bundestag.de/btd/19/184/1918473.pdf
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+        - 2
+        - 1
+    hh_id:
+      - 0
+      - 1
+      - 1
+    p_id:
+      - 0
+      - 1
+      - 2
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        obere_einkommensgrenze_m:
+          - 1600.0
+          - 2300.0
+          - 2300.0
+        untere_einkommensgrenze_m:
+          - 1250.0
+          - 1950.0
+          - 1950.0

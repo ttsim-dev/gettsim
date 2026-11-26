@@ -15,6 +15,31 @@ All releases are available on [Anaconda.org](https://anaconda.org/conda-forge/ge
 
 ## Unreleased
 
+- {gh}`1246` Base the income test of the Grundrentenzuschlag on the § 97a Abs. 2 SGB VI
+  income (zu versteuerndes Einkommen, steuerfreier Teil of pensions, and capital income
+  under the Abgeltungsteuer) instead of gross receipts.
+
+  New input `sozialversicherung__rente__grundrente__einkommen_vorvorjahr_m_ehe` (the
+  couple's income of the vorvergangenes Kalenderjahr, § 97a Abs. 2 S. 2 SGB VI), which
+  replaces the old Grundrente income inputs. The target
+  `sozialversicherung__rente__grundrente__gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m`
+  is replaced by
+  `sozialversicherung__rente__grundrente__einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y`.
+  ({ghuser}`MImmesberger`)
+
+- {gh}`1246` Round the Grundrente income thresholds up to full euros and keep them fixed
+  for the calendar year, using the Rentenwert in force on 1 January (§ 97a Abs. 4 S. 1,
+  5 SGB VI). ({ghuser}`MImmesberger`)
+
+- {gh}`1246` Exempt the Grundrentenzuschlag from income tax from 2021 (§ 3 Nr. 14a
+  EStG). Anyone who supplies `einnahmen__renten__gesetzliche_m` as data now also needs
+  `sozialversicherung__rente__grundrente__betrag_m` and
+  `sozialversicherung__rente__bezieht_altersrente`. ({ghuser}`MImmesberger`)
+
+- {gh}`1246` Fix the date key of the 39.32 € Rentenwert from `2024-01-07` to
+  `2024-07-01` (see {gh}`1202`). This changes results that use the Rentenwert for policy
+  dates from 7 January to 30 June 2024 (37.60 € instead of 39.32 €).
+
 - {gh}`1252` Model Entgeltpunkte from drawing Arbeitslosengeld (§ 3 Satz 1 Nr. 3, § 166
   Abs. 1 Nr. 2 SGB VI) from August 1998, added to
   `sozialversicherung__rente__neue_entgeltpunkte_y`. The contribution base of the

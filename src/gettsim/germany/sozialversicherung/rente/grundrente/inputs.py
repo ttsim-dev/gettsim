@@ -20,42 +20,19 @@ def mean_entgeltpunkte() -> float:
     """Mean Entgeltpunkte during Bewertungszeiten."""
 
 
-@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
-def gesamteinnahmen_aus_renten_vorjahr_m() -> float:
-    """Income from private and public pensions in the previous calendar year.
+@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_EHE)
+def einkommen_vorvorjahr_m_ehe() -> float:
+    """Income of the couple relevant for the Grundrentenzuschlag (§ 97a SGB VI).
 
-    GETTSIM can calculate this input based on the data of the previous calendar year using the
-    target `('sozialversicherung', 'rente', 'grundrente', 'gesamteinnahmen_aus_renten_für_einkommensberechnung_im_folgejahr_m')`.
-    """
+    The sum of the zu versteuerndes Einkommen, the steuerfreier Teil of pensions, and
+    the capital income subject to the Abgeltungsteuer of the person and their spouse
+    in the calendar year before the previous one (vorvergangenes Kalenderjahr), as a
+    monthly amount. If no tax assessment exists for that year, the statute uses the
+    year before it instead (§ 97a Abs. 2 S. 3 SGB VI).
 
+    GETTSIM can calculate this input based on the data of that calendar year using the
+    target `('sozialversicherung', 'rente', 'grundrente',
+    'einkommen_für_einkommensanrechnung_im_übernächsten_jahr_m_ehe')`.
 
-@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
-def bruttolohn_vorjahr_y() -> float:
-    """Earnings in the previous calendar year.
-
-    Calculation is based on the 'Einnahmen' definitions of the basic tax law (EStG).
-    """
-
-
-@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
-def einnahmen_aus_selbstständiger_arbeit_vorvorjahr_y() -> float:
-    """Earnings from self-employment 2 years before.
-
-    Calculation is based on the 'Einnahmen' definitions of the basic tax law (EStG).
-    """
-
-
-@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
-def einnahmen_aus_vermietung_und_verpachtung_vorvorjahr_y() -> float:
-    """Earnings from rental income 2 years before.
-
-    Calculation is based on the 'Einnahmen' definitions of the basic tax law (EStG).
-    """
-
-
-@policy_input(start_date="2021-01-01", unit=TTSIMUnit.CURRENCY.PER_YEAR)
-def einnahmen_aus_kapitalvermögen_vorvorjahr_y() -> float:
-    """Earnings from capital income 2 years before.
-
-    Calculation is based on the 'Einnahmen' definitions of the basic tax law (EStG).
+    Reference: § 97a Abs. 2 S. 1-3 SGB VI
     """

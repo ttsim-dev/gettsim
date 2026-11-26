@@ -47,30 +47,97 @@ def steuerpflichtige_einnahmen_m_nach_ertragsanteil(
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def steuerpflichtige_einnahmen_m_nach_besteuerungsanteil(
-    besteuerungsanteil: float,
+    steuerpflichtiger_anteil_der_renteneinnahmen_m: float,
     ertragsanteil_sonstige_private_vorsorge: float,
-    einnahmen__renten__gesetzliche_m: float,
     einnahmen__renten__geförderte_private_vorsorge_m: float,
-    einnahmen__renten__basisrente_m: float,
     einnahmen__renten__sonstige_private_vorsorge_m: float,
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
-    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
     """Steuerpflichtige Einnahmen aus Renten i.S.d. § 22 EStG.
 
     Reference: § 22 Nr. 1 Satz 3 Buchstabe a EStG
     """
     return (
-        besteuerungsanteil
-        * (
-            einnahmen__renten__gesetzliche_m
-            + einnahmen__renten__basisrente_m
-            + einnahmen__renten__aus_berufsständischen_versicherungen_m
-        )
+        steuerpflichtiger_anteil_der_renteneinnahmen_m
         + ertragsanteil_sonstige_private_vorsorge
         * einnahmen__renten__sonstige_private_vorsorge_m
         + einnahmen__renten__betriebliche_altersvorsorge_m
         + einnahmen__renten__geförderte_private_vorsorge_m
+    )
+
+
+@policy_function(start_date="2005-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
+def steuerpflichtiger_anteil_der_renteneinnahmen_m(
+    besteuerungsanteil: float,
+    renten_aus_basisversorgung_m: float,
+) -> float:
+    """Taxable share of the pensions from the Basisversorgung.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    """
+    return besteuerungsanteil * renten_aus_basisversorgung_m
+
+
+@policy_function(
+    start_date="2005-01-01",
+    end_date="2020-12-31",
+    leaf_name="renten_aus_basisversorgung_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def renten_aus_basisversorgung_m_bis_2020(
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__basisrente_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
+) -> float:
+    """Pensions from the Basisversorgung, taxed at the Besteuerungsanteil.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    """
+    return (
+        einnahmen__renten__gesetzliche_m
+        + einnahmen__renten__basisrente_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
+    )
+
+
+@policy_function(
+    start_date="2021-01-01",
+    leaf_name="renten_aus_basisversorgung_m",
+    unit=TTSIMUnit.CURRENCY.PER_MONTH,
+)
+def renten_aus_basisversorgung_m_ohne_grundrentenzuschlag(
+    einnahmen__renten__gesetzliche_m: float,
+    einnahmen__renten__basisrente_m: float,
+    einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
+    sozialversicherung__rente__grundrente__betrag_m: float,
+    sozialversicherung__rente__bezieht_altersrente: bool,
+) -> float:
+    """Pensions from the Basisversorgung, without the Grundrentenzuschlag.
+
+    The pension share resting on the Grundrentenzuschlag is tax-free. The Zuschlag is
+    part of the Altersrente only while the person receives it.
+
+    If `einnahmen__renten__gesetzliche_m` is supplied as data, it must include the
+    Grundrentenzuschlag that is subtracted here (`grundrente__betrag_m`, supplied or
+    computed). Otherwise the difference is too small and may become negative.
+
+    § 3 Nr. 14a EStG covers the Zuschlag in every pension from the gesetzliche
+    Rentenversicherung, including Erwerbsminderungsrenten. GETTSIM models the Zuschlag
+    for Altersrenten only.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG; § 3 Nr. 14a EStG
+    (Art. 3 G. v. 16.12.2022 BGBl. I S. 2294, applicable from VZ 2021)
+    """
+    grundrentenzuschlag_m = (
+        sozialversicherung__rente__grundrente__betrag_m
+        if sozialversicherung__rente__bezieht_altersrente
+        else 0.0
+    )
+    return (
+        einnahmen__renten__gesetzliche_m
+        - grundrentenzuschlag_m
+        + einnahmen__renten__basisrente_m
+        + einnahmen__renten__aus_berufsständischen_versicherungen_m
     )
 
 

@@ -35,6 +35,7 @@ parameter_rentenwert_nach_wohnort:
       The current pension value expresses the amount of monthly pension paid for one
       Entgeltpunkt.
   type: dict
+  add_jahresanfang: true
   1992-01-01:
     unit: DM_PER_MONTH
     west: 41.44
@@ -218,10 +219,11 @@ rentenwert_m:
       Entgeltpunkt.
   unit: EUR_PER_MONTH
   type: scalar
+  add_jahresanfang: true
   2023-07-01:
     value: 37.60
     reference: V.v. 21.06.2023 BGBl. 2023 I Nr. 164.
-  2024-01-07:
+  2024-07-01:
     value: 39.32
     reference: V. v. 17.06.2024 BGBl. 2024 I Nr. 194.
   2025-07-01:

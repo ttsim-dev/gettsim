@@ -1,0 +1,78 @@
+---
+info:
+  note: ''
+  precision_atol: 0.01
+  source: Regression test.
+inputs:
+  assumed: {}
+  provided:
+    einkommensteuer:
+      einkünfte:
+        sonstige:
+          rente:
+            alter_beginn_leistungsbezug_sonstige_private_vorsorge:
+              - 65
+              - 65
+      gemeinsam_veranlagt:
+        - true
+        - true
+      zu_versteuerndes_einkommen_y_sn:
+        - 24000.0
+        - 24000.0
+    einnahmen:
+      kapitalerträge_y:
+        - 0.0
+        - 0.0
+      renten:
+        aus_berufsständischen_versicherungen_m:
+          - 0.0
+          - 200.0
+        basisrente_m:
+          - 0.0
+          - 0.0
+        betriebliche_altersvorsorge_m:
+          - 0.0
+          - 0.0
+        geförderte_private_vorsorge_m:
+          - 0.0
+          - 0.0
+        sonstige_private_vorsorge_m:
+          - 300.0
+          - 0.0
+    familie:
+      p_id_ehepartner:
+        - 1
+        - 0
+    hh_id:
+      - 0
+      - 0
+    p_id:
+      - 0
+      - 1
+    sozialversicherung:
+      rente:
+        altersrente:
+          bruttorente_m:
+            - 1000.0
+            - 500.0
+        bezieht_altersrente:
+          - true
+          - true
+        erwerbsminderung:
+          betrag_m:
+            - 0.0
+            - 0.0
+        grundrente:
+          betrag_m:
+            - 100.0
+            - 0.0
+        jahr_renteneintritt:
+          - 2020
+          - 2015
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        einkommen_für_einkommensanrechnung_im_übernächsten_jahr_m:
+          - 1200.0
+          - 1210.0

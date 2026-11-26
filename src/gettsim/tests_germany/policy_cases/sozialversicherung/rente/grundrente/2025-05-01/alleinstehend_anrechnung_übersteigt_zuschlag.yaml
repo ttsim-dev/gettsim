@@ -1,0 +1,35 @@
+---
+info:
+  note: |-
+    Single status is inferred from the single threshold of 1,438 EUR applied in the
+    source.
+  precision_atol: 0.01
+  source: |-
+    SG Augsburg, Gerichtsbescheid v. 01.10.2025 - S 13 R 469/25, Tatbestand Rn. 2
+    (DRV-Bescheid v. 30.04.2025).
+    https://www.gesetze-bayern.de/Content/Rtf/Y-300-Z-BECKRS-B-2025-N-44738?all=False
+inputs:
+  assumed: {}
+  provided:
+    familie:
+      p_id_ehepartner:
+        - -1
+    hh_id:
+      - 0
+    p_id:
+      - 0
+    sozialversicherung:
+      rente:
+        grundrente:
+          basisbetrag_m:
+            - 101.88
+          einkommen_vorvorjahr_m_ehe:
+            - 1765.08
+outputs:
+  sozialversicherung:
+    rente:
+      grundrente:
+        anzurechnendes_einkommen_m:
+          - 196.25
+        betrag_m:
+          - 0.0
