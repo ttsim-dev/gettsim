@@ -30,24 +30,25 @@ Bundesgesetzblatt (BGBl) by which the provision received the cited wording, e.g.
 
 For policy functions, references are written in a `Reference:` section of the docstring.
 For parameters, they are written in the `reference` key of each date entry (see
-{ref}`GEP 3 <gep-3>`). TTSIM collects the references, GETTSIM parses them and checks
-them in its test suite. Based on this, users can look up the policy functions and
+{ref}`GEP 3 <gep-3>`). Based on this, users can look up the policy functions and
 parameters that implement a given provision at a given date.
 
-The GEP standardises the format of references and makes sure that they are present and
-well-formed. It does not establish that a reference is correct, i.e., that the cited
-provision exists or that the code implements it correctly. This remains the task of
-tests and code review.
+Because public APIs for (historical) versions of German federal law are still
+experimental and incomplete, we cannot synchronise federal law and GETTSIM completely.
+Checking whether a given reference truly exists or whether certain gaps in GETTSIM's
+coverage of the law exist remains up to the users. Tools like the [legal information
+portal of the federal government](https://docs.rechtsinformationen.bund.de/) might help
+in the future.
 
 ## Motivation and Scope
 
 So far, the connection between GETTSIM's policy functions and parameters on the one hand
 and the law on the other hand has been an implicit one. References are given in
-docstrings, in the `description` of parameters, or in `note` keys. They are written as
+docstrings, in the `reference` key of parameters, or in `note` keys. They are written as
 free text and in varying styles; e.g., the same provision may appear as `§66 (1) EStG`
 or as `§ 66 Abs. 1 EStG`. Many policy functions do not cite any law at all, and
-malformed references go unnoticed (e.g., `§ 32 Art. 2-4 EStG` instead of
-`§ 32 Abs. 2-4 EStG`).
+malformed references go unnoticed (e.g., `§ 32 Art. 2-4 EStG` instead of `§ 32 Abs. 2-4
+EStG`).
 
 This GEP has two goals.
 
@@ -69,9 +70,9 @@ the act that gave it its wording ("in der Fassung", abbreviated `idF`). Such a r
 remains valid after later renumberings, and its first part still allows for a lookup by
 paragraph.
 
-The requirements of this GEP only apply to the policy functions and parameters in
-`gettsim.germany`. Users who write their own policy functions or parameters do not need
-to add references.
+The requirements of this GEP only apply to the policy functions and parameters GETTSIM
+ships with, i.e., those in `gettsim.germany`. Users who write their own policy functions
+or parameters do not need to add references.
 
 The following is out of scope:
 
@@ -100,9 +101,9 @@ i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a refer
 only taken into account if it is part of the query. A query that consists of an act only
 returns everything that cites this act.
 
-Queries do not need to follow the format of this GEP. `§66 Estg`, `§ 66 EStG`,
-`§ 66 Absatz 1 EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot
-be interpreted, the error message lists the closest abbreviations of laws.
+We allow for some flexibility in the query. `§66 Estg`, `§ 66 EStG`, `§ 66 Absatz 1
+EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot be interpreted,
+the error message lists the closest abbreviations of laws.
 
 The policy date is required because paths only have a meaning within a policy
 environment.
