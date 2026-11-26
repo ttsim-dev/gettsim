@@ -25,7 +25,7 @@ GETTSIM. A reference consists of a provision and the act published in the
 Bundesgesetzblatt (BGBl) by which the provision received the cited wording, e.g.:
 
 ```
-§ 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
+§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
 ```
 
 For policy functions, references are written in a `Reference:` section of the docstring.
@@ -163,8 +163,8 @@ The following rules apply:
 Examples:
 
 ```
-§ 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
-§ 32a Abs. 1 EStG idF Art. 1 G. v. 30.12.2024 BGBl. 2024 I Nr. 449
+§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+§ 32a Abs. 1 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
 ```
 
 ### Policy functions
@@ -187,7 +187,7 @@ def betrag_ohne_staffelung_m(
     of children.
 
     Reference:
-        - § 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     """
     return satz_m * anzahl_ansprüche
 ```
@@ -284,11 +284,11 @@ satz_m:
   type: scalar
   2023-01-01:
     value: 250
-    reference: § 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz
   2025-01-01:
     value: 255
-    reference: § 66 Abs. 1 EStG idF Art. 5 G. v. 30.12.2024 BGBl. 2024 I Nr. 449
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
     note: Steuerfortentwicklungsgesetz
 ```
 

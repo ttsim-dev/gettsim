@@ -211,7 +211,7 @@ satz_m:
     de: Kindergeld pro Kind, identisch für alle Kinder.
   2023-01-01:
     value: 250
-    reference: § 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
 ```
 
 ### The `note` key of [YYYY-MM-DD]
@@ -225,7 +225,7 @@ satz_m:
     de: Kindergeld pro Kind, identisch für alle Kinder.
   2023-01-01:
     value: 250
-    reference: § 66 Abs. 1 EStG idF Art. 6 G. v. 08.12.2022 BGBl. I S. 2230
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz
 ```
 
