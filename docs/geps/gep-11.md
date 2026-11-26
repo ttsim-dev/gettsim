@@ -33,7 +33,7 @@ For parameters, they are written in the `reference` key of each date entry (see
 {ref}`GEP 3 <gep-3>`). Based on this, users can look up the policy functions and
 parameters that implement a given provision at a given date.
 
-Because public APIs for (historical) versions of German federal law are still
+Because public APIs for historical versions of German federal law are still
 experimental and incomplete, we cannot synchronise federal law and GETTSIM completely.
 Checking whether a given reference truly exists or whether certain gaps in GETTSIM's
 coverage of the law exist remains up to the users. Tools like the
@@ -96,9 +96,13 @@ gave the provision its wording:
 § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
 ```
 
-The paragraph and the law are required; Absatz, Satz, and lower levels are optional. The
-act is cited with its date and its page in the BGBl until 2022 and with its number from
-2023 on. Laws are cited by their official abbreviation, e.g., `SGB II`.
+The reference should be as precise as possible. The act is cited with its date and its
+page in the BGBl until 2022 and with its number from 2023 on. Laws are cited by their
+official abbreviation, e.g., `SGB II`. If a provision has Absätze, Sätze, or lower
+levels, they should be included in the reference. However, because we cannot determine
+the depth of a provision without the text of the law, GETTSIM only enforces that the
+paragraph and the act are cited automatically.
+
 
 In policy functions, references are listed in a `Reference:` section at the end of the
 docstring:
@@ -125,7 +129,7 @@ In parameter files, the reference goes into the `reference` key of each date ent
 In a `RoundingSpec`, it goes into the `reference` argument.
 
 If there is no provision to cite, the reference is replaced by `none (<reason>)`, e.g.,
-`Reference: none (technical helper)`. Several references are given as a list. The format
+`reference: none (technical helper)`. Several references are given as a list. The format
 and the remaining rules are specified in {ref}`gep-11-format` and the following
 sections; the test suite fails if a reference is missing or malformed (see
 {ref}`gep-11-enforcement`).
@@ -145,11 +149,11 @@ main(
 ```
 
 The main target returns the paths of all policy functions and parameters in the policy
-environment at that date whose references match the query, together with the matching
-references. A query matches all references to the provision itself and to its parts,
-i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a reference is
-only taken into account if it is part of the query. A query that consists of an act only
-returns everything that cites this act.
+environment at that date whose references match the query. A query matches all
+references to the provision itself and to its parts, i.e., `§ 66 EStG` matches `§ 66
+Abs. 1 Satz 2 EStG`. The `idF` part of a reference is only taken into account if it is
+part of the query. A query that consists of an act only returns everything that cites
+this act.
 
 `legal_references_query` also accepts a tuple of queries, e.g.,
 `("§ 66 EStG", "§ 6 BKGG")`. In this case, the main target maps each query to its
