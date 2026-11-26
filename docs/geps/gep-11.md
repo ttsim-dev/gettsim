@@ -33,10 +33,10 @@ For parameters, they are written in the `reference` key of each date entry (see
 {ref}`GEP 3 <gep-3>`). Based on this, users can look up the policy functions and
 parameters that implement a given provision at a given date.
 
-Because public APIs for historical versions of German federal law are still
-experimental and incomplete, we cannot synchronise federal law and GETTSIM completely.
-Checking whether a given reference truly exists or whether certain gaps in GETTSIM's
-coverage of the law exist remains up to the users. Tools like the
+Because public APIs for historical versions of German federal law are still experimental
+and incomplete, we cannot synchronise federal law and GETTSIM completely. Checking
+whether a given reference truly exists or whether certain gaps in GETTSIM's coverage of
+the law exist remains up to the users. Tools like the
 [legal information portal of the federal government](https://docs.rechtsinformationen.bund.de/)
 might help in the future.
 
@@ -103,7 +103,6 @@ levels, they should be included in the reference. However, because we cannot det
 the depth of a provision without the text of the law, GETTSIM only enforces that the
 paragraph and the act are cited automatically.
 
-
 In policy functions, references are listed in a `Reference:` section at the end of the
 docstring:
 
@@ -150,10 +149,10 @@ main(
 
 The main target returns the paths of all policy functions and parameters in the policy
 environment at that date whose references match the query. A query matches all
-references to the provision itself and to its parts, i.e., `§ 66 EStG` matches `§ 66
-Abs. 1 Satz 2 EStG`. The `idF` part of a reference is only taken into account if it is
-part of the query. A query that consists of an act only returns everything that cites
-this act.
+references to the provision itself and to its parts, i.e., `§ 66 EStG` matches
+`§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a reference is only taken into account if
+it is part of the query. A query that consists of an act only returns everything that
+cites this act.
 
 `legal_references_query` also accepts a tuple of queries, e.g.,
 `("§ 66 EStG", "§ 6 BKGG")`. In this case, the main target maps each query to its
