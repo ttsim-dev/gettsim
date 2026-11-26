@@ -150,17 +150,20 @@ main(
 The main target returns the paths of all policy functions and parameters in the policy
 environment at that date whose references match the query. A query matches all
 references to the provision itself and to its parts, i.e., `§ 66 EStG` matches
-`§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a reference is only taken into account if
-it is part of the query. A query that consists of an act only returns everything that
-cites this act.
+`§ 66 Abs. 1 Satz 2 EStG`. A more precise query only returns the matching parts:
+`§ 66 Abs. 2 EStG` matches `§ 66 Abs. 2 EStG` and `§ 66 Abs. 2 Satz 1 EStG`, but not
+`§ 66 Abs. 1 EStG`. A reference that is less precise than the query, e.g., `§ 66 EStG`,
+is treated as covering all of its parts and hence also matches `§ 66 Abs. 2 EStG`. The
+`idF` part of a reference is only taken into account if it is part of the query. A query
+that consists of an act only returns everything that cites this act.
 
 `legal_references_query` also accepts a tuple of queries, e.g.,
 `("§ 66 EStG", "§ 6 BKGG")`. In this case, the main target maps each query to its
 result.
 
-We allow for some flexibility in the query. `§66 Estg`, `§ 66 EStG`,
-`§ 66 Absatz 1 EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot
-be interpreted, the error message lists the closest abbreviations of laws.
+We allow for some flexibility in the query. `§66 Estg` and `§ 66 EStG` yield the same
+result, as do `§ 66 Abs. 1 EStG`, `§ 66 Absatz 1 EStG`, and `§ 66 (1) EStG`. If a query
+cannot be interpreted, the error message lists the closest abbreviations of laws.
 
 The policy date is required because paths only have a meaning within a policy
 environment.
