@@ -170,7 +170,7 @@ environment.
 
 A second main target, `MainTarget.legal_references.by_path`, maps each path in the
 policy environment to its references. Both main targets are part of the interface DAG
-(see {ref}`GEP 7 <gep-7>`); there is no separate function for the lookup.
+(see {ref}`GEP 7 <gep-7>`).
 
 ### Documentation
 
@@ -185,9 +185,7 @@ argument of `main` are additions.
 
 For developers, the style of the `reference` key in the parameter files changes (see
 {ref}`gep-11-parameters`). This requires rewriting all existing `reference` entries.
-Docstrings of policy functions gain a `Reference:` section. In order to avoid a single
-large pull request, existing gaps are recorded in a baseline file (see
-{ref}`gep-11-enforcement`).
+Docstrings of policy functions gain a `Reference:` section.
 
 ## Detailed description
 
@@ -219,8 +217,8 @@ The following rules apply:
 - For acts published until 2022, the page is the first page of the act, not the page of
   the provision.
 - `<law>` is the official abbreviation of the law as used on gesetze-im-internet.de,
-  e.g., `EStG` or `SGB II` (not `SGB 2`). The abbreviations we accept are listed in
-  `laws.yaml`.
+  e.g., `EStG` or `SGB II` (not `SGB 2`). The abbreviations we accept are listed in a
+  file called `laws.yaml`.
 
 Examples:
 
