@@ -273,8 +273,7 @@ def ist_kind_bis_2_in_familiengemeinschaft(
     )
 ```
 
-The reason in parentheses is required. There is no way to exclude entire namespaces;
-each exception is visible in the policy function it applies to.
+The reason in parentheses is required.
 
 (gep-11-over-time)=
 
@@ -284,10 +283,8 @@ A reference refers to the version of a provision that is in force at the `start_
 the policy function. Because the `idF` part determines the version, the reference
 remains valid if the paragraph is renumbered later.
 
-If a provision is moved while the policy function remains the same, both references are
-listed. The list items do not carry dates; the period during which a policy function is
-active is determined by `start_date` and `end_date` only. In the following example, the
-article numbers serve as an illustration only.
+If a provision is changed while the policy function remains the same, both references
+are listed:
 
 ```python
 @policy_function(unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -304,9 +301,6 @@ A policy function matches a query if any of its references matches. Hence, a que
 `§ 30 SGB II` at a date after the renumbering also returns this policy function. Since
 the result contains the matching reference including its `idF` part, it is clear which
 version of the provision was matched.
-
-Renumberings are not detected automatically. Whoever implements the amending act adds
-the new reference.
 
 ### Rounding rules
 
