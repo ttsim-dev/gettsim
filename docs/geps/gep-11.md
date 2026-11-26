@@ -107,6 +107,10 @@ i.e., `§ 66 EStG` matches `§ 66 Abs. 1 Satz 2 EStG`. The `idF` part of a refer
 only taken into account if it is part of the query. A query that consists of an act only
 returns everything that cites this act.
 
+`legal_reference_query` also accepts a tuple of queries, e.g.,
+`("§ 66 EStG", "§ 6 BKGG")`. In this case, the main target maps each query to its
+result.
+
 We allow for some flexibility in the query. `§66 Estg`, `§ 66 EStG`,
 `§ 66 Absatz 1 EStG`, and `§ 66 (1) EStG` all yield the same result. If a query cannot
 be interpreted, the error message lists the closest abbreviations of laws.
@@ -343,7 +347,8 @@ TTSIM
 - accepts a parser for references that is supplied by the country package, in the same
   way as the unit system. The parser turns a reference or a query into a structured
   representation and decides whether a reference matches a query;
-- adds the `legal_reference_query` argument to `main`;
+- adds the `legal_reference_query` argument to `main`, which takes a query or a tuple of
+  queries;
 - provides the main targets `legal_references.by_path`, which maps each path in the
   policy environment to its parsed references, and `legal_references.matching_query`,
   which keeps the paths whose references match the query; and
