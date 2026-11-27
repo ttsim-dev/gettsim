@@ -216,10 +216,10 @@ class _SubstringParser:
             ),
         ),
         (
-            "§ 4 Nr. 1 SolZG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130",
+            "§ 4 Nr. 1 SolzG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130",
             LegalReference(
                 provision=Provision(
-                    paragraph="4", parts=(("Nr", "1"),), law="SolZG 1995"
+                    paragraph="4", parts=(("Nr", "1"),), law="SolzG 1995"
                 ),
                 act=Act(kind="B.", date=datetime.date(2002, 10, 15), page=4130),
             ),
