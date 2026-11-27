@@ -185,37 +185,34 @@ entry is added. Beyond that, no additional keys are allowed.
 
    - hold all historical values for a specific parameter or set of parameters in
      dictionaries
-   - contain a precise reference to the law in the `reference` subkey;
+   - contain a precise reference to the law in the `reference` subkey (see
+     {ref}`GEP 11 <gep-11>`);
    - may add additional descriptions in the `note` key;
-   - is present with a note or reference only if a parameter ceases to exist starting on
-     a particular date;
+   - is present with only a reference and possibly a note if a parameter ceases to exist
+     starting on a particular date;
    - in case of a `scalar` type, the key of the scalar is `value`.
 
    The remainder of this section explains this element in much more detail.
 
 ### The `reference` key of [YYYY-MM-DD]
 
-- cites the law (Gesetz "G. v."), decree (Verordnung "V. v.") or proclamation
-  (Bekanntmachung "B. v.") that changes the law
+- holds the reference to the law in the format specified in {ref}`GEP 11 <gep-11>`,
+  i.e., the provision together with the law (Gesetz "G. v."), decree (Verordnung "V.
+  v.") or proclamation (Bekanntmachung "B. v.") that gave the provision its wording
 - uses German language
-- follows the style
-  - `Artikel [n] [G./V./B.] v. [DD.MM.YYYY] BGBl. I S. [SSSS].` for references published
-    until 2022 (the page should be the first page of the law/decree/proclamation, not
-    the exact page of the parameter)
-  - `Artikel [n] [G./V./B.] v. [DD.MM.YYYY] BGBl. [YYYY] I Nr. [NNN].` for references
-    from 2023 on
 - does not add information "geändert durch" (it is always a change) or the date the law
   comes into force (this would just repeat the date key one level above)
 
 Example:
 
 ```yaml
-beitragssatz:
+satz_m:
   name:
-    de: Beitragssatz zur Arbeitslosenversicherung
-  2019-01-01:
-    value: 0.0125
-    reference: V. v. 21.12.2018 BGBl. I S. 2663
+    de: Kindergeld pro Kind, identisch für alle Kinder.
+  2023-01-01:
+    value: 250
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Inflationsausgleichsgesetz
 ```
 
 ### The `note` key of [YYYY-MM-DD]
@@ -224,15 +221,13 @@ This optional key may contain a free-form note holding any information that may 
 relevant for the interpretation of the parameter, the implementer, user, ...
 
 ```yaml
-beitragssatz:
+satz_m:
   name:
-    de: Beitragssatz zur Arbeitslosenversicherung
-  2019-01-01:
-    value: 0.0125
-    reference: V. v. 21.12.2018 BGBl. I S. 2663
-    note: >-
-      Set to 0.013 in Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651. Temporarily
-      reduced to 0.0125 in BeiSaV 2019.
+    de: Kindergeld pro Kind, identisch für alle Kinder.
+  2023-01-01:
+    value: 250
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Inflationsausgleichsgesetz
 ```
 
 ### The `updates_previous` key of [YYYY-MM-DD]
@@ -307,7 +302,7 @@ The following walks through several cases.
       value: 450
     2022-10-01:
       note: Minijob thresholds now calculated based on statutory minimum wage
-      reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+      reference: § 8 Abs. 1a SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
   ```
 
   Note that there are different "active periods" for this parameter. The first one lasts
@@ -389,7 +384,8 @@ The following walks through several cases.
       3: 154
       4: 179
     2009-01-01:
-      reference: Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+      reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+      note: Familienleistungsgesetz
       1: 164
       2: 164
       3: 170
@@ -415,7 +411,8 @@ The following walks through several cases.
     reference_period: Year
     type: piecewise_linear
     1991-01-01:
-      reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
+      reference: § 4 Nr. 1 SolZG idF Art. 1 G. v. 24.06.1991 BGBl. I S. 1318
+      note: Solidaritätsgesetz
       intervals:
         - interval: (-inf, 0)
           slope: 0
@@ -461,12 +458,12 @@ The following walks through several cases.
   reference_period: null
   type: birth_year_based_phase_inout
   2007-04-20:
-    reference: RV-Altersgrenzenanpassungsgesetz 20.04.2007. BGBl. I S. 554
+    reference: § 235 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     note: >-
-      Increase of the early retirement age from 65 to 67 for birth cohort 1947-1964.
-      Vertrauensschutz (Art. 56) applies for birth cohorts before 1955 who were in
-      Altersteilzeit before January 1st, 2007 or received "Anpassungsgeld für
-      entlassene Arbeitnehmer des Bergbaus".
+      RV-Altersgrenzenanpassungsgesetz. Increase of the normal retirement age from 65
+      to 67 for birth cohort 1947-1964. Vertrauensschutz (§ 235 Abs. 2 Satz 3 SGB VI)
+      applies for birth cohorts before 1955 who were in Altersteilzeit before January
+      1st, 2007 or received "Anpassungsgeld für entlassene Arbeitnehmer des Bergbaus".
     first_birthyear_to_consider: 1900
     last_birthyear_to_consider: 2031
     1946:
@@ -547,8 +544,10 @@ The following walks through several cases.
   ```yaml
   ...
     1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
-    note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Rentenreformgesetz 1992. Increase of full retirement age from 63 to 65 for birth
+      cohort 1938-1943.
     first_birthyear_to_consider: 1900
     last_birthyear_to_consider: 2100
     1937:
@@ -610,7 +609,10 @@ The following walks through several cases.
         min_alter: 0
         max_alter: 5
         betrag: 215
-      reference: Artikel 1 G. v. 24.03.2011 BGBl. I S. 453.
+      reference:
+        - § 20 Abs. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 20 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 77 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
   ```
 
 - In general, a parameter should appear for the first time that it is mentioned in a
@@ -619,17 +621,18 @@ The following walks through several cases.
   Do not set parameters to some value if they are not relevant yet.
 
 - If a parameter ceases to be relevant, is superseded by something else, etc., there
-  must be a `YYYY-MM-DD` key with a `note` and/or `reference` key. There must not be
-  other entries except for these two.
+  must be a `YYYY-MM-DD` key with a `reference` key and possibly a `note` key (see
+  {ref}`GEP 11 <gep-11>`). There must not be other entries except for these two.
 
   Example:
 
   ```yaml
-  parameter_regelsatz_anteilsbasiert:
+  altersgrenze_gestaffelt:
     name:
-      de: Berechnungsgrundlagen für den Regelsatz
-    2011-01-01:
-      note: Calculation method changed, see regelsatz_nach_regelbedarfsstufen.
+      de: Gestaffelte Altersgrenze für abschlagsfreie Altersrente für Frauen
+    2018-01-01:
+      note: Irrelevant because last cohort has passed the normal retirement age.
+      reference: none (all eligible cohorts have reached the Regelaltersgrenze)
   ```
 
 (gep-3-handling-of-parameters-in-the-codebase)=
