@@ -29,10 +29,6 @@ from gettsim.legal_references import (
     Provision,
 )
 
-# --------------------------------------------------------------------------------------
-# Enforcement
-# --------------------------------------------------------------------------------------
-
 
 @pytest.fixture(scope="module")
 def orig_policy_objects() -> dict[str, Any]:
@@ -133,11 +129,6 @@ def test_param_date_entries_have_valid_references(orig_policy_objects):
                 continue
             problems.extend(_problems(location, references, required=True))
     _fail_if_problems(problems, "date entries of parameters")
-
-
-# --------------------------------------------------------------------------------------
-# Parser
-# --------------------------------------------------------------------------------------
 
 
 def test_parser_satisfies_protocol():

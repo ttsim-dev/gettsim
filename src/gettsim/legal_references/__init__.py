@@ -178,10 +178,6 @@ class GermanLegalReferenceParser:
         self.laws: dict[str, str] = dict(laws)
         self._laws_by_key = {_law_key(law): law for law in self.laws}
 
-    # ----------------------------------------------------------------------------------
-    # Protocol of ttsim.tt.legal_references.LegalReferenceParser
-    # ----------------------------------------------------------------------------------
-
     def parse_reference(self, reference: str) -> Hashable:
         """Parse a reference as written in the code (strict)."""
         provision, sep, act = reference.partition(f" {IDF} ")
@@ -230,10 +226,6 @@ class GermanLegalReferenceParser:
         return query.act is None or (
             reference.act is not None and query.act.matches(reference.act)
         )
-
-    # ----------------------------------------------------------------------------------
-    # Provisions
-    # ----------------------------------------------------------------------------------
 
     def _parse_provision(self, text: str, *, strict: bool) -> Provision:
         normalized = (
@@ -309,11 +301,6 @@ def _normalize_provision_lenient(text: str) -> str:
     text = re.sub(r"\((\d+[a-z]?)\)", r"Abs. \1", text, flags=re.IGNORECASE)
     text = re.sub(r"\bS(?:atz|\.)?\s*(?=\d)", "Satz ", text)
     return " ".join(text.split())
-
-
-# --------------------------------------------------------------------------------------
-# Acts
-# --------------------------------------------------------------------------------------
 
 
 def _parse_act(text: str, *, strict: bool) -> Act:
