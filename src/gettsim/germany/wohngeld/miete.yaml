@@ -5,15 +5,15 @@ raw_min_miete_m_hh:
     en: Minimum value for parameter M of the Wohngeld formula
   description:
     de: >-
-      WoGG - Anlage 3 (bis 2019 Anlage 2) (zu § 19 Abs. 2)
-      Parameter ist abhängig von der Anzahl der Haushaltsmitglieder. Keys in den
-      Parameter-Dicts beziehen sich auf die Anzahl der Haushaltsmitglieder. Bei mehr als
-      12 Mitgliedern wird der Wert für 12 Mitglieder verwendet.
+      WoGG - Anlage 3 (bis 2019 Anlage 2) (zu § 19 Abs. 2) Parameter ist abhängig von
+      der Anzahl der Haushaltsmitglieder. Keys in den Parameter-Dicts beziehen sich auf
+      die Anzahl der Haushaltsmitglieder. Bei mehr als 12 Mitgliedern wird der Wert für
+      12 Mitglieder verwendet.
     en: >-
-      WoGG - Appendix 3 (until 2019 Appendix 2) (to § 19 (2))
-      Parameter is dependent on the number of household members. Keys in the parameter
-      dicts refer to the number of household members. If there are more than 12 members,
-      the value for 12 members is used.
+      WoGG - Appendix 3 (until 2019 Appendix 2) (to § 19 (2)) Parameter is dependent on
+      the number of household members. Keys in the parameter dicts refer to the number
+      of household members. If there are more than 12 members, the value for 12 members
+      is used.
   type: dict
   1984-01-01:
     unit: DM_PER_MONTH_PER_HH
@@ -48,9 +48,9 @@ raw_min_miete_m_hh:
     12: 303.15
     reference: § 2 Abs. 2 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
     note: >-
-      Anlage 2 Nr. 3 WoGG. Anlage 2 nennt die Mindestwerte für „M“ in Euro und schreibt vor, eine in
-      Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; daher hier in
-      Deutsche Mark umgerechnet.
+      Anlage 2 Nr. 3 WoGG. Anlage 2 nennt die Mindestwerte für „M“ in Euro und schreibt
+      vor, eine in Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; daher
+      hier in Deutsche Mark umgerechnet.
   2002-01-01:
     unit: EUR_PER_MONTH_PER_HH
     1: 22.5
@@ -115,8 +115,8 @@ raw_min_miete_m_hh:
   2025-01-01:
     reference: § 19 Abs. 2 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
     note: >-
-      Anlage 3 Nr. 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
-      § 43 des Wohngeldgesetzes.
+      Anlage 3 Nr. 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach § 43
+      des Wohngeldgesetzes.
     1: 54
     2: 67
     3: 79
@@ -135,11 +135,8 @@ raw_max_miete_m_nach_baujahr_hh:
     en: Maximum values for rent and burden, by year of construction of the property
   description:
     de: >-
-      Anlage 1 WoGG, §8 (1) WoGG.
-      Die Werte sind geordnet nach
-      - Anzahl Personen
-      - maximales Baujahr des Hauses
-      - Mietstufe
+      Anlage 1 WoGG, §8 (1) WoGG. Die Werte sind geordnet nach - Anzahl Personen -
+      maximales Baujahr des Hauses - Mietstufe
     en: null
   type: require_converter
   1981-01-01:
@@ -248,8 +245,8 @@ raw_max_miete_m_nach_baujahr_hh:
         3: 94
     reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 04.08.1980 BGBl. I S. 1159
     note: >-
-      Bis 1985 nur drei Mietstufen, streng abhängig von der Größe der Gemeinde. Es
-      wird "Wohnung mit Sammelheizung und mit Bad oder Duschraum" angenommen.
+      Bis 1985 nur drei Mietstufen, streng abhängig von der Größe der Gemeinde. Es wird
+      "Wohnung mit Sammelheizung und mit Bad oder Duschraum" angenommen.
   1986-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
@@ -404,8 +401,7 @@ raw_max_miete_m_nach_baujahr_hh:
         5: 115
     reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 11.07.1985 BGBl. I S. 1318
     note: >-
-      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
-      angenommen.
+      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum" angenommen.
   1990-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
@@ -584,8 +580,7 @@ raw_max_miete_m_nach_baujahr_hh:
         6: 120
     reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 13.12.1989 BGBl. I S. 2148
     note: >-
-      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
-      angenommen.
+      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum" angenommen.
   1990-10-01:
     unit: DM_PER_MONTH_PER_HH
     1:
@@ -722,8 +717,7 @@ raw_max_miete_m_nach_baujahr_hh:
         6: 135
     reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 10.08.1990 BGBl. I S. 1522
     note: >-
-      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
-      angenommen.
+      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum" angenommen.
   1992-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
@@ -1184,9 +1178,7 @@ raw_max_miete_m_hh:
   description:
     de: >-
       Anlage 1 WoGG, bis 2019 §12 (1) WoGG. Seit 2022 auch §24 Wohngeldverordnung
-      (WoGV). Die Werte sind geordnet nach
-      - Anzahl Personen
-      - Mietstufe
+      (WoGV). Die Werte sind geordnet nach - Anzahl Personen - Mietstufe
     en: null
   # This raw table has two different integer key axes: household size and rent
   # class. The converter input therefore stays bare; the converted lookup declares
@@ -1384,13 +1376,13 @@ raw_max_miete_m_hh:
       7: 157
     reference: § 12 Abs. 1 WoGG idF Art. 1 V. v. 03.06.2021 BGBl. I S. 1369
     note: >-
-      Werte in Anlage 1 WoGG; Erste Verordnung zur Fortschreibung des Wohngeldes nach
-      § 43 des Wohngeldgesetzes.
+      Werte in Anlage 1 WoGG; Erste Verordnung zur Fortschreibung des Wohngeldes nach §
+      43 des Wohngeldgesetzes.
   2025-01-01:
     reference: § 12 Abs. 1 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
     note: >-
-      Werte in Anlage 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
-      § 43 des Wohngeldgesetzes.
+      Werte in Anlage 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach §
+      43 des Wohngeldgesetzes.
     1:
       1: 361
       2: 408

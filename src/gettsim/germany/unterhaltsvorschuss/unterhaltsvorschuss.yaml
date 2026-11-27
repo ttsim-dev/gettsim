@@ -136,8 +136,8 @@ mindesteinkommen_m:
       Monatliches Mindesteinkommen, um Unterhaltsvorschuss für Jugendliche (Kinder von
       12 bis 17 Jahren; siehe `mindestunterhalt`) zu erhalten.
     en: >-
-      Monthly minimum income necessary to get Unterhaltsvorschuss for children of age
-      12 to 17 years (see `mindestunterhalt`).
+      Monthly minimum income necessary to get Unterhaltsvorschuss for children of age 12
+      to 17 years (see `mindestunterhalt`).
   description:
     de: § 1 (1a) Nr. 2 Unterhaltsvorschussgesetz
     en: null
@@ -145,20 +145,20 @@ mindesteinkommen_m:
   type: scalar
   2017-07-01:
     value: 600
-    reference: § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+    reference: >-
+      § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
 raw_berechtigte_altersgruppen:
   name:
     de: Altersgrenzen für den Bezug von Unterhaltsvorschuss.
     en: Age limits for receiving alimony payments.
   description:
     de: >-
-      § 1 Abs. 1, 1a UhVorschG
-      Kinder, die das 12. Lebensjahr noch nicht vollendet haben und bei einem
-      alleinerziehenden Elternteil leben haben Anspruch auf Unterhaltszahlungen.
+      § 1 Abs. 1, 1a UhVorschG Kinder, die das 12. Lebensjahr noch nicht vollendet haben
+      und bei einem alleinerziehenden Elternteil leben haben Anspruch auf
+      Unterhaltszahlungen.
     en: >-
-      § 1 Abs. 1, 1a UhVorschG
-      Children under the age of 12 living with a single parent are entitled to alimony
-      payments.
+      § 1 Abs. 1, 1a UhVorschG Children under the age of 12 living with a single parent
+      are entitled to alimony payments.
   unit: YEARS
   type: require_converter
   2008-01-01:
@@ -180,18 +180,17 @@ faktor_jüngste_altersgruppe:
     en: Factor for the advance child alimony of the youngest age group
   description:
     de: >-
-      § 1612a Abs. 1 BGB
-      Faktor mit dem das sächliche Existenzminimum multipliziert wird um den
-      Unterhaltsvorschuss für Kinder der jüngsten Altersgruppe zu berechnen.
+      § 1612a Abs. 1 BGB Faktor mit dem das sächliche Existenzminimum multipliziert wird
+      um den Unterhaltsvorschuss für Kinder der jüngsten Altersgruppe zu berechnen.
     en: >-
-      § 1612a Abs. 1 BGB
-      Factor by which the sächliche Existenzminimum is multiplied to calculate
-      the advance child alimony for children of the youngest age group.
+      § 1612a Abs. 1 BGB Factor by which the sächliche Existenzminimum is multiplied to
+      calculate the advance child alimony for children of the youngest age group.
   unit: DIMENSIONLESS
   type: scalar
   2009-01-01:
     value: 0.87
-    reference: § 1612a Abs. 1 Satz 3 Nr. 1 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
+    reference: >-
+      § 1612a Abs. 1 Satz 3 Nr. 1 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
   2015-01-01:
     note: >-
       Anspruchshöhe is calculated via an Anwendungsvorschrift in 2015.

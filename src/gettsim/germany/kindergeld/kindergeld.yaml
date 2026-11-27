@@ -5,15 +5,13 @@ altersgrenze:
     en: Age at which child benefit is no longer paid.
   description:
     de: >-
-      § 32 Art. 2-4 EStG.
-      Für minderjährige Kinder besteht ohne Bedingungen ein Anspruch auf Kindergeld.
-      Auch für erwachsene Kinder kann bis zu einer Altersgrenze unter bestimmten
-      Bedingungen ein Anspruch auf Kindergeld bestehen.
+      § 32 Art. 2-4 EStG. Für minderjährige Kinder besteht ohne Bedingungen ein Anspruch
+      auf Kindergeld. Auch für erwachsene Kinder kann bis zu einer Altersgrenze unter
+      bestimmten Bedingungen ein Anspruch auf Kindergeld bestehen.
     en: >-
-      § 32 Art. 2-4 EStG.
-      Underage children are entitled to child benefit without any conditions. Also adult
-      children up to a specified age are entitled to child benefit under certain
-      conditions.
+      § 32 Art. 2-4 EStG. Underage children are entitled to child benefit without any
+      conditions. Also adult children up to a specified age are entitled to child
+      benefit under certain conditions.
   unit: YEARS
   type: dict
   1996-01-01:
@@ -257,8 +255,8 @@ maximales_einkommen_des_kindes_y:
     value: 12360
     reference: § 52 Abs. 22a EStG idF Art. 8 G. v. 20.12.1996 BGBl. I S. 2049
     note: >-
-      Jahressteuergesetz 1997: § 32 Abs. 4 Satz 2 EStG is applied with 12 360 DM
-      instead of 12 000 DM for the Veranlagungszeitraum 1998.
+      Jahressteuergesetz 1997: § 32 Abs. 4 Satz 2 EStG is applied with 12 360 DM instead
+      of 12 000 DM for the Veranlagungszeitraum 1998.
   1999-01-01:
     value: 13020
     reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 19.12.1998 BGBl. I S. 3779
@@ -288,8 +286,9 @@ maximales_einkommen_des_kindes_y:
       - § 32 Abs. 4 Satz 2 EStG idF Art. 2 G. v. 26.06.2013 BGBl. I S. 1809
       - § 32 Abs. 4 Satz 3 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
     note: >-
-      Revoked in favour of maximale_arbeitsstunden_des_kindes (Steuervereinfachungsgesetz
-      2011; Satz 2 amended retroactively by the Amtshilferichtlinie-Umsetzungsgesetz).
+      Revoked in favour of maximale_arbeitsstunden_des_kindes
+      (Steuervereinfachungsgesetz 2011; Satz 2 amended retroactively by the
+      Amtshilferichtlinie-Umsetzungsgesetz).
 maximale_arbeitsstunden_des_kindes:
   name:
     de: Wochenstundengrenze für Kindergeldanspruch

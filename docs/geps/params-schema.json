@@ -100,7 +100,12 @@
             "output_unit": {
               "$ref": "#/definitions/axisUnitDeclaration"
             },
-            "reference": { "type": "string" },
+            "reference": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+              ]
+            },
             "note": { "type": "string" },
             "deviation_from": { "type": "string" },
             "updates_previous": { "type": "boolean" }

@@ -5,16 +5,15 @@ mindesteinkommen_nach_haushaltsgröße_m_wthh:
     en: null
   description:
     de: >-
-      WoGG - Anlage 3 (bis 2019 Anlage 2) (zu § 19 Abs. 2)
-      Parameter Y ist abhängig von der Anzahl der (wohngeldrechtlichen)
-      Haushaltsmitglieder. Keys in den Parameter-Dicts beziehen sich auf die Anzahl der
-      Haushaltsmitglieder. Bei mehr als 12 Mitgliedern wird der Wert für 12 Mitglieder
-      verwendet.
+      WoGG - Anlage 3 (bis 2019 Anlage 2) (zu § 19 Abs. 2) Parameter Y ist abhängig von
+      der Anzahl der (wohngeldrechtlichen) Haushaltsmitglieder. Keys in den
+      Parameter-Dicts beziehen sich auf die Anzahl der Haushaltsmitglieder. Bei mehr als
+      12 Mitgliedern wird der Wert für 12 Mitglieder verwendet.
     en: >-
-      WoGG - Appendix 3 (until 2019 Appendix 2) (to § 19 (2))
-      Parameter Y is dependent on the number of household members (in the Wohngeld
-      sense). Keys in the parameter dicts refer to the number of household members. If
-      there are more than 12 members, the value for 12 members is used.
+      WoGG - Appendix 3 (until 2019 Appendix 2) (to § 19 (2)) Parameter Y is dependent
+      on the number of household members (in the Wohngeld sense). Keys in the parameter
+      dicts refer to the number of household members. If there are more than 12 members,
+      the value for 12 members is used.
   type: dict
   1984-01-01:
     unit: DM_PER_MONTH_PER_WTHH
@@ -46,9 +45,9 @@ mindesteinkommen_nach_haushaltsgröße_m_wthh:
     12: 2298.10
     reference: § 2 Abs. 2 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
     note: >-
-      Anlage 2 Nr. 3 WoGG. Anlage 2 nennt die Mindestwerte für „Y“ in Euro und schreibt vor, ein in
-      Deutsche Mark ermitteltes Einkommen zuvor durch 1,95583 zu teilen; hier in
-      Deutsche Mark umgerechnet.
+      Anlage 2 Nr. 3 WoGG. Anlage 2 nennt die Mindestwerte für „Y“ in Euro und schreibt
+      vor, ein in Deutsche Mark ermitteltes Einkommen zuvor durch 1,95583 zu teilen;
+      hier in Deutsche Mark umgerechnet.
   2002-01-01:
     unit: EUR_PER_MONTH_PER_WTHH
     1: 120
@@ -128,8 +127,8 @@ mindesteinkommen_nach_haushaltsgröße_m_wthh:
   2025-01-01:
     reference: § 19 Abs. 2 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
     note: >-
-      Anlage 3 Nr. 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
-      § 43 des Wohngeldgesetzes.
+      Anlage 3 Nr. 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach § 43
+      des Wohngeldgesetzes.
     1: 396
     2: 679
     3: 906
@@ -150,9 +149,8 @@ abzugsbeträge_steuern_sozialversicherung:
     en: null
   description:
     de: >-
-      § 16 (1, 2) WoGG
-      Kriterien sind entrichtete Steuern / entrichtete GKV- und GPV-Beiträge /
-      entrichtete GRV-Beiträge
+      § 16 (1, 2) WoGG Kriterien sind entrichtete Steuern / entrichtete GKV- und
+      GPV-Beiträge / entrichtete GRV-Beiträge
     en: null
   input_unit: DIMENSIONLESS
   output_unit: DIMENSIONLESS
@@ -223,8 +221,7 @@ freibetrag_bei_behinderung_gestaffelt_y:
     en: Annual allowance per disabled household member
   description:
     de: >-
-      § 17 (2) WoGG
-      Der Betrag ist abhängig vom Behinderungsgrad der jeweiligen Person.
+      § 17 (2) WoGG Der Betrag ist abhängig vom Behinderungsgrad der jeweiligen Person.
       Bis 1990 gilt ein einheitlicher Freibetrag ab einem Grad der Behinderung von 80;
       die gestaffelten Beträge kommen 1991 hinzu.
     en: null
@@ -269,10 +266,10 @@ freibetrag_bei_behinderung_pauschal_y:
     en: Annual allowance per disabled household member
   description:
     de: >-
-      § 17 Nr. 1 WoGG.
-      Für Menschen mit Behinderungsgrad unter 100% muss zusätzlich Pflegebedürftigkeit
-      gem. §14 SGB XI. und gleichzeitig Häusliche/teilstationäre/Kurzzeit-Pflege
-      vorliegen. Dies ist aktuell nicht implementiert.
+      § 17 Nr. 1 WoGG. Für Menschen mit Behinderungsgrad unter 100% muss zusätzlich
+      Pflegebedürftigkeit gem. §14 SGB XI. und gleichzeitig
+      Häusliche/teilstationäre/Kurzzeit-Pflege vorliegen. Dies ist aktuell nicht
+      implementiert.
     en: null
   unit: EUR_PER_YEAR
   type: scalar
@@ -288,19 +285,18 @@ anrechnungsfreier_anteil_gesetzliche_rente:
     en: Share of public pension not subject to transfer withdrawal
   description:
     de: >-
-      § 17a WoGG (eingeführt durch Art. 4 Grundrentengesetz v. 12.08.2020,
-      BGBl. I S. 1879, mit Wirkung zum 01.01.2021).
-      Vom Renteneinkommen abziehbarer Freibetrag für Bezieher einer Rente nach dem
-      Sechsten Buch Sozialgesetzbuch mit mindestens 33 Jahren Grundrentenzeiten:
-      100 € Sockel zuzüglich 30 % des darüber liegenden Renteneinkommens, gedeckelt
-      auf 50 % der Regelbedarfsstufe 1 nach der Anlage zu § 28 SGB XII.
+      § 17a WoGG (eingeführt durch Art. 4 Grundrentengesetz v. 12.08.2020, BGBl. I S.
+      1879, mit Wirkung zum 01.01.2021). Vom Renteneinkommen abziehbarer Freibetrag für
+      Bezieher einer Rente nach dem Sechsten Buch Sozialgesetzbuch mit mindestens 33
+      Jahren Grundrentenzeiten: 100 € Sockel zuzüglich 30 % des darüber liegenden
+      Renteneinkommens, gedeckelt auf 50 % der Regelbedarfsstufe 1 nach der Anlage zu §
+      28 SGB XII.
     en: >-
-      § 17a WoGG (introduced by Art. 4 Grundrentengesetz v. 12.08.2020, BGBl. I S.
-      1879, effective 2021-01-01).
-      Allowance deducted from public pension income for recipients of a pension under
-      SGB VI with at least 33 years of Grundrentenzeiten: € 100 base plus 30 % of
-      pension income above € 100, capped at 50 % of Regelbedarfsstufe 1 (Anlage zu
-      § 28 SGB XII).
+      § 17a WoGG (introduced by Art. 4 Grundrentengesetz v. 12.08.2020, BGBl. I S. 1879,
+      effective 2021-01-01). Allowance deducted from public pension income for
+      recipients of a pension under SGB VI with at least 33 years of Grundrentenzeiten:
+      € 100 base plus 30 % of pension income above € 100, capped at 50 % of
+      Regelbedarfsstufe 1 (Anlage zu § 28 SGB XII).
   input_unit: EUR_PER_MONTH
   output_unit: EUR_PER_MONTH
   type: piecewise_linear
