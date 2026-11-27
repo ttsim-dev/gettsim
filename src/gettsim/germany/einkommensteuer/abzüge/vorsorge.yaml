@@ -214,7 +214,8 @@ minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge:
   type: scalar
   2010-01-01:
     value: 0.04
-    reference: § 10 Abs. 1 Nr. 3 Buchst. a Satz 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: § 10 Abs. 1 Nr. 3 Buchst. a Satz 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I
+      S. 1959
     note: >-
       Bürgerentlastungsgesetz Krankenversicherung (anzuwenden ab VZ 2010, § 52 Abs. 1
       EStG).

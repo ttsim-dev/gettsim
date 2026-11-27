@@ -43,6 +43,7 @@ parameter_absetzbare_kinderbetreuungskosten:
   2025-01-01:
     anteil: 0.8
     maximum: 4800.0
-    reference: § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 4 G. v. 02.12.2024 BGBl. 2024 I Nr. 387
+    reference: § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 4 G. v. 02.12.2024 BGBl. 2024 I Nr.
+      387
     note: >-
       Jahressteuergesetz 2024.

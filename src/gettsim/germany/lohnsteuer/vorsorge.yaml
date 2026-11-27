@@ -56,7 +56,8 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       Prematurely set to 100% in 2023. § 39b Abs. 4 EStG was repealed by Art. 4 G. v.
       16.12.2022 BGBl. I S. 2294 (JStG 2022), so the full amount of § 39b Abs. 2 Satz
       5 Nr. 3 Buchst. a EStG is deducted.
-    reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl.
+      I S. 1959
 vorsorgepauschale_mindestanteil:
   name:
     de: Mindestanteil für Mindestvorsorgepauschale
@@ -82,7 +83,8 @@ vorsorgepauschale_mindestanteil:
       Art. 5 G. v. 21.12.2020 BGBl. I S. 3096 (JStG 2020) without it; by § 52 Abs. 36
       EStG the new version applies from 01.01.2026. See also the Anwendungsregelung BMF
       v. 14.08.2025 (BStBl 2025 I S. 1628).
-    reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr.
+      411
 maximal_absetzbare_krankenversicherungskosten:
   name:
     de: Höchstbetrag Mindestvorsorgepauschale

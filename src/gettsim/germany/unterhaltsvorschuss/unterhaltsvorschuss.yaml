@@ -145,7 +145,8 @@ mindesteinkommen_m:
   type: scalar
   2017-07-01:
     value: 600
-    reference: § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+    reference: § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S.
+      3122
 raw_berechtigte_altersgruppen:
   name:
     de: Altersgrenzen für den Bezug von Unterhaltsvorschuss.
