@@ -16,8 +16,11 @@ altersgrenze:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 2 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 2 AVG.
     value: 60.0
   1989-12-18:
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Increase of age threshold from 60 to 65 for birth cohort 1941-1952. See
       `altersgrenze_gestaffelt`.
@@ -39,7 +42,7 @@ altersgrenze_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of full retirement age from 60 to 65 for birth cohort 1941-1952.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
@@ -91,6 +94,9 @@ altersgrenze_gestaffelt:
       1:
         years: 61
         months: 1
+      3:
+        years: 61
+        months: 2
       5:
         years: 61
         months: 3
@@ -117,7 +123,7 @@ altersgrenze_gestaffelt:
         years: 61
         months: 10
       9:
-        years: 60
+        years: 61
         months: 11
       11:
         years: 62
@@ -237,8 +243,10 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   1996-07-29:
-    reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.
-    note: Increase of full retirement age from 60 to 65 for birth cohort 1937-1952.
+    reference: § 41 Abs. 1a SGB VI idF Art. 2 Nr. 5 G. v. 23.07.1996 BGBl. I S. 1078
+    note: >-
+      Increase of full retirement age from 60 to 65 for birth cohort 1937-1952. Gesetz
+      zur Förderung eines gleitenden Übergangs in den Ruhestand.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
     1936:
@@ -314,7 +322,7 @@ altersgrenze_gestaffelt:
         years: 61
         months: 10
       11:
-        years: 60
+        years: 61
         months: 11
       12:
         years: 62
@@ -437,8 +445,11 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
-    note: Increase of full retirement age from 60 to 65 for birth cohort 1937-1941.
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+    note: >-
+      Increase of full retirement age from 60 to 65 for birth cohort 1937-1941.
+      Wachstums- und Beschäftigungsförderungsgesetz, Anlage 19 SGB VI. Seit dem
+      Rentenreformgesetz 1999 in § 237 Abs. 3 SGB VI.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
     1936:
@@ -514,7 +525,7 @@ altersgrenze_gestaffelt:
         years: 61
         months: 10
       11:
-        years: 60
+        years: 61
         months: 11
       12:
         years: 62
@@ -631,6 +642,7 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_gestaffelt_vertrauensschutz:
   name:
@@ -653,12 +665,12 @@ altersgrenze_gestaffelt_vertrauensschutz:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1996-07-29:
-    reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.
+    reference: § 237 Abs. 2 SGB VI idF Art. 2 Nr. 17 G. v. 23.07.1996 BGBl. I S. 1078
     note: >-
       Increase of full retirement age according to old law (RRG 1992) for individuals
       covered under Vertrauensschutz. The Vertrauensschutzregel was not revoked under
-      the subsequent Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
-      1996.
+      the subsequent Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S.
+      1461 1996. Seit dem Rentenreformgesetz 1999 in § 237 Abs. 4 SGB VI.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
     1940:
@@ -700,6 +712,9 @@ altersgrenze_gestaffelt_vertrauensschutz:
         years: 60
         months: 10
   2010-01-01:
+    reference: >-
+      none (all cohorts covered by the Vertrauensschutz have reached the
+      Regelaltersgrenze)
     note: >-
       All potential beneficiaries of Vertrauensschutz have reached the
       Regelaltersgrenze.
@@ -725,18 +740,23 @@ altersgrenze_vorzeitig:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 2 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 2 AVG.
     value: 60.0
   1989-12-18:
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Increase of early retirement age from 60 to 62 for birth cohort 1949-1952. See
       `altersgrenze_vorzeitig_gestaffelt`.
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
-    note: Increase of ERA was revoked.
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+    note: Increase of ERA was revoked. Anlage 19 SGB VI.
     value: 60.0
   2004-07-26:
-    reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
-    note: Increase of the early retirement age from 60 to 63 for birth cohort 1946-1948.
+    reference: § 237 Abs. 3 SGB VI idF Art. 1 Nr. 78 G. v. 21.07.2004 BGBl. I S. 1791
+    note: >-
+      Increase of the early retirement age from 60 to 63 for birth cohort 1946-1948.
+      Anlage 19 SGB VI, in Kraft ab 1.1.2006.
 altersgrenze_vorzeitig_gestaffelt:
   name:
     de: >-
@@ -760,7 +780,7 @@ altersgrenze_vorzeitig_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of early retirement age from 60 to 62 for birth cohort 1949-1952.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
@@ -839,13 +859,13 @@ altersgrenze_vorzeitig_gestaffelt:
         years: 61
         months: 10
       9:
-        years: 60
+        years: 61
         months: 11
       11:
         years: 62
         months: 0
   1996-07-29:
-    reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.
+    reference: § 41 Abs. 1a SGB VI idF Art. 2 Nr. 5 G. v. 23.07.1996 BGBl. I S. 1078
     note: Increase of early retirement age as before. (§ 237 SGB VI  Abs.5).
     first_year_to_consider: 1900
     last_year_to_consider: 2030
@@ -924,17 +944,19 @@ altersgrenze_vorzeitig_gestaffelt:
         years: 61
         months: 10
       9:
-        years: 60
+        years: 61
         months: 11
       11:
         years: 62
         months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
-    note: Increase of ERA was revoked.
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+    note: Increase of ERA was revoked. Anlage 19 SGB VI.
   2004-07-26:
-    reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
-    note: Increase of the early retirement age from 60 to 63 for birth cohort 1946-1948.
+    reference: § 237 Abs. 3 SGB VI idF Art. 1 Nr. 78 G. v. 21.07.2004 BGBl. I S. 1791
+    note: >-
+      Increase of the early retirement age from 60 to 63 for birth cohort 1946-1948.
+      Anlage 19 SGB VI, in Kraft ab 1.1.2006.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
     1945:
@@ -1010,7 +1032,7 @@ altersgrenze_vorzeitig_gestaffelt:
         years: 61
         months: 10
       11:
-        years: 60
+        years: 61
         months: 11
       12:
         years: 62
@@ -1053,6 +1075,7 @@ altersgrenze_vorzeitig_gestaffelt:
         years: 63
         months: 0
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_vorzeitig_mit_vertrauensschutz:
   name:
@@ -1072,13 +1095,15 @@ altersgrenze_vorzeitig_mit_vertrauensschutz:
   unit: YEARS
   type: scalar
   1996-07-29:
-    reference: Ruhestandsförderungsgesetz 1996. BGBl. I S. 1078 1996.
+    reference: § 237 Abs. 2 SGB VI idF Art. 2 Nr. 17 G. v. 23.07.1996 BGBl. I S. 1078
     value: 60.0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
     note: Increase of ERA was revoked.
   2004-07-26:
-    reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
+    reference: § 237 Abs. 5 SGB VI idF Art. 1 Nr. 45 G. v. 21.07.2004 BGBl. I S. 1791
+    note: Vertrauensschutz für Versicherte, die am 1.1.2004 arbeitslos waren.
     value: 60.0
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Last cohort to be eligible for Altersrente wegen Arbeitslosigkeit has retired.

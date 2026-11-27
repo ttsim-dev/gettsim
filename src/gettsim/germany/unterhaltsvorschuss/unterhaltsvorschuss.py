@@ -40,7 +40,7 @@ def an_elternteil_auszuzahlender_betrag_m(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="up",
-        reference="§ 9 Abs. 3 UhVorschG",
+        reference="§ 9 Abs. 3 Satz 2 UhVorschG idF Art. 5 G. v. 16.08.2001 BGBl. I S. 2074",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -65,6 +65,10 @@ def betrag_m(
 
     The amount is specified in §1612a BGB and, ultimately, in
     Mindestunterhaltsverordnung.
+
+    Reference:
+        - § 1 Abs. 1 Nr. 3 UhVorschG idF B. v. 17.07.2007 BGBl. I S. 1446
+        - § 2 Abs. 3 Nr. 1 UhVorschG idF B. v. 17.07.2007 BGBl. I S. 1446
     """
     if elternteil_alleinerziehend:
         out = max(anspruchshöhe_m - unterhalt__tatsächlich_erhaltener_betrag_m, 0.0)
@@ -84,6 +88,8 @@ def elternteil_alleinerziehend(
     """Check if parent that receives Kindergeld is a single parent.
 
     Only single parents receive Kindergeld.
+
+    Reference: § 1 Abs. 1 Nr. 2 UhVorschG idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3194
     """
     return join(
         foreign_key=kindergeld__p_id_empfänger,
@@ -101,14 +107,17 @@ def elternteil_alleinerziehend(
     rounding_spec=RoundingSpec(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
-        direction="down",
-        reference="§ 9 Abs. 3 UhVorschG",
+        direction="up",
+        reference="§ 9 Abs. 3 Satz 2 UhVorschG idF Art. 5 G. v. 16.08.2001 BGBl. I S. 2074",
     ),
     fail_msg_if_included="Unterhaltsvorschuss is not implemented prior to 2009.",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_bis_2008() -> float:
-    pass
+    """Advance alimony payments (Unterhaltsvorschuss) before 2009.
+
+    Reference: § 2 Abs. 1 UhVorschG idF B. v. 02.01.2002 BGBl. I S. 2
+    """
 
 
 @param_function(
@@ -158,6 +167,11 @@ def unterhaltsvorschuss_anspruch_m_2009_bis_2014(
     Rule was in principle also active for 2015 but has been overwritten by an
     Anwendungsvorschrift as Kinderfreibetrag and Kindergeld changed on July 2015.
 
+    Reference:
+        - § 2 Abs. 1 Satz 1 UhVorschG idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3194
+        - § 2 Abs. 1 Satz 1 UhVorschG idF Art. 1 G. v. 03.05.2013 BGBl. I S. 1108
+        - § 2 Abs. 2 Satz 1 UhVorschG idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3194
+        - § 1612a Abs. 1 Satz 3 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
     """
     sächliches_existenzmininmum_y = einkommensteuer__parameter_kinderfreibetrag[
         "sächliches_existenzminimum"
@@ -201,6 +215,10 @@ def anspruchshöhe_m_anwendungsvors(
     Rule anspruchshöhe_m_2009_bis_2014 was in principle also active for
     2015 but has been overwritten by an Anwendungsvorschrift as Kinderfreibetrag and
     Kindergeld changed in July 2015.
+
+    Reference:
+        - § 11a Satz 1 UhVorschG idF Art. 9 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 11a Satz 2 UhVorschG idF Art. 9 G. v. 16.07.2015 BGBl. I S. 1202
     """
     if (
         berechtigte_altersgruppen["kleinkind"].min_alter <= alter
@@ -236,6 +254,12 @@ def anspruchshöhe_m_2016_bis_2017_06(
     Kindes' (§ 1612a (1)) as well as a Verordnungsermächtigung (§ 1612a (4)). The § 1
     Mindesunterhaltsverordnung applies fixed amounts and no relative definition as
     before.
+
+    Reference:
+        - § 2 Abs. 1 Satz 1 UhVorschG idF Art. 1 G. v. 03.05.2013 BGBl. I S. 1108
+        - § 2 Abs. 2 Satz 1 UhVorschG idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3194
+        - § 1612a Abs. 1 Satz 2 BGB idF Art. 1 G. v. 20.11.2015 BGBl. I S. 2018
+        - § 1612a Abs. 1 Satz 3 BGB idF Art. 1 G. v. 20.11.2015 BGBl. I S. 2018
     """
     if (
         mindestunterhalt_nach_alter["kleinkind"].altersgrenzen.min_alter <= alter
@@ -267,7 +291,12 @@ def anspruchshöhe_m_ab_2017_07(
     """Claim for advance on alimony payment (Unterhaltsvorschuss) on child level.
 
     Introduction of a minimum income threshold if child is older than some threshold and
-    third age group (12-17) via Artikel 23 G. v. 14.08.2017 BGBl. I S. 3122.
+    third age group (12-17).
+
+    Reference:
+        - § 2 Abs. 1 Satz 1 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+        - § 1 Abs. 1a Satz 1 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+        - § 2 Abs. 2 Satz 1 UhVorschG idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3194
     """
     if (
         mindestunterhalt_nach_alter["kleinkind"].altersgrenzen.min_alter <= alter
@@ -304,6 +333,8 @@ def elternteil_mindesteinkommen_erreicht(
 ) -> BoolColumn:
     """Income of Unterhaltsvorschuss recipient above threshold (this variable is
     defined on child level).
+
+    Reference: § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
     """
     return join(
         foreign_key=kindergeld__p_id_empfänger,
@@ -319,7 +350,10 @@ def mindesteinkommen_erreicht(
     einkommen_m: float,
     mindesteinkommen_m: float,
 ) -> bool:
-    """Check if income is above the threshold for advance alimony payments."""
+    """Check if income is above the threshold for advance alimony payments.
+
+    Reference: § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+    """
     return einkommen_m >= mindesteinkommen_m
 
 
@@ -345,6 +379,10 @@ def einkommen_m_bis_2022(
     wage-replacement benefits count. Deductions under § 11b SGB II do not reduce it,
     but income exempt under other laws does not count, such as the part of the
     Elterngeld exempt under § 10 Abs. 5 BEEG (UVG-Richtlinien, Nr. 1.7.4).
+
+    Reference:
+        - § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
     """
     return (
         einnahmen__bruttolohn_m
@@ -377,6 +415,12 @@ def einkommen_m_ab_2023(
     Mutterschaftsgeld is exempt in full under § 10 Abs. 5 S. 4 BEEG (inserted by Art. 12
     Abs. 7 G. v. 16.12.2022, BGBl. I S. 2328) and therefore does not count
     (UVG-Richtlinien, Nr. 1.7.4).
+
+    Reference:
+        - § 1 Abs. 1a Satz 1 Nr. 2 UhVorschG idF Art. 23 G. v. 14.08.2017 BGBl. I S. 3122
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+        - § 10 Abs. 5 Satz 4 BEEG idF Art. 12 G. v. 16.12.2022 BGBl. I S. 2328
     """
     return (
         einnahmen__bruttolohn_m

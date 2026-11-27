@@ -17,4 +17,7 @@ parameter_vermögensfreibetrag:
   2009-01-01:
     grundfreibetrag: 60000
     je_weitere_person: 30000
-    reference: Wohngeld-Verwaltungsvorschrift 2009.
+    reference: § 21 Nr. 3 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    note: >-
+      Die Beträge stammen aus der Wohngeld-Verwaltungsvorschrift 2009 (Nr. 21.37), die
+      den Begriff des erheblichen Vermögens in § 21 Nr. 3 WoGG auslegt.

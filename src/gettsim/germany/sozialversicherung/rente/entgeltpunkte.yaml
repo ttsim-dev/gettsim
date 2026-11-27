@@ -12,238 +12,331 @@ beitragspflichtiges_durchschnittsentgelt_y:
       insurance, which is needed to calculate the Entgeltpunkte.
   type: scalar
   1949-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 2838
     unit: DM_PER_YEAR
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1950-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 3161
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1951-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 3579
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1952-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 3852
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1953-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 4061
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1954-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 4234
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1955-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 4548
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1956-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 4844
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1957-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 5043
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1958-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 5330
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1959-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 5602
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1960-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 6101
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1961-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 6723
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1962-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 7328
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1963-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 7775
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1964-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 8467
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1965-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 9229
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1966-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 9893
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1967-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 10219
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1968-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 10842
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1969-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 11839
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1970-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 13343
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1971-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 14931
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1972-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 16335
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1973-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 18295
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1974-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 20381
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1975-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 21808
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1976-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 23335
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1977-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 24945
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1978-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 26242
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1979-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 27685
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1980-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 29485
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1981-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 30900
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1982-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 32198
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1983-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 33293
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1984-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 34292
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1985-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 35286
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1986-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 36627
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1987-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: Anlage 1 SGB VI.
     value: 37726
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
   1988-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1991 BGBl. I S. 2331
     value: 38896
-    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
     note: >-
       Die ursprüngliche Anlage 1 SGB VI (Art. 1 G. v. 18.12.1989 BGBl. I S. 2261) endet
       mit dem Jahr 1987. Die Werte für 1988 bis 1990 wurden durch die
       Sozialversicherungs-Rechengrößenverordnung 1992 ergänzt.
   1989-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Anlage 1 SGB VI, ergänzt durch die Sozialversicherungs-Rechengrößenverordnung
+      1992.
     value: 40063
-    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
   1990-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Anlage 1 SGB VI, ergänzt durch die Sozialversicherungs-Rechengrößenverordnung
+      1992.
     value: 41946
-    reference: § 1 V. v. 18.12.1991 BGBl. I S. 2331
   1991-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 22.12.1992 BGBl. I S. 2474
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1993.
     value: 44421
-    reference: V. v. 22.12.1992 BGBl. I S. 2474
   1992-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1994.
     value: 46820
-    reference: V. v. 01.12.1993 BGBl. I S. 1987
   1993-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 12.12.1994 BGBl. I S. 3806
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1995.
     value: 48178
-    reference: V. v. 12.12.1994 BGBl. I S. 3806
   1994-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 04.12.1995 BGBl. I S. 1577
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1996.
     value: 49142
-    reference: V. v. 04.12.1995 BGBl. I S. 1577
   1995-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 11.12.1996 BGBl. I S. 1870
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1997.
     value: 50665
-    reference: V. v. 11.12.1996 BGBl. I S. 1870
   1996-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 02.12.1997 BGBl. I S. 2782
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1998.
     value: 51678
-    reference: V. v. 02.12.1997 BGBl. I S. 2782
   1997-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1998 BGBl. I S. 3823
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 1999.
     value: 52143
-    reference: V. v. 18.12.1998 BGBl. I S. 3823
   1998-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 29.11.1999 BGBl. I S. 2375
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2000.
     value: 52925
-    reference: V. v. 29.11.1999 BGBl. I S. 2375
   1999-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 13.12.2000 BGBl. I S. 1710
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2001.
     value: 53507
-    reference: V. v. 13.12.2000 BGBl. I S. 1710
   2000-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 03.12.2001 BGBl. I S. 3302
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2002.
     value: 54256
-    reference: V. v. 03.12.2001 BGBl. I S. 3302
   2001-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 17.12.2002 BGBl. I S. 4561
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2003.
     value: 55216
-    reference: V. v. 17.12.2002 BGBl. I S. 4561
   2002-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 09.12.2003 BGBl. I S. 2497
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2004.
     value: 28626
     unit: EUR_PER_YEAR
-    reference: V. v. 09.12.2003 BGBl. I S. 2497
   2003-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 29.11.2004 BGBl. I S. 3098
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2005.
     value: 28938
-    reference: V. v. 29.11.2004 BGBl. I S. 3098
   2004-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 21.12.2005 BGBl. I S. 3627
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2006.
     value: 29060
-    reference: V. v. 21.12.2005 BGBl. I S. 3627
   2005-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
+    note: >-
+      Anlage 1 SGB VI, ergänzt durch das Sozialversicherungs-Rechengrößengesetz 2007.
     value: 29202
   2006-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 05.12.2007 BGBl. I S. 2797
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2008.
     value: 29494
   2007-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2008 BGBl. I S. 2336
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2009.
     value: 29951
   2008-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 07.12.2009 BGBl. I S. 3846
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2010.
     value: 30625
   2009-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 03.12.2010 BGBl. I S. 1761
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2011.
     value: 30506
   2010-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2011 BGBl. I S. 2421
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2012.
     value: 31144
   2011-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 26.11.2012 BGBl. I S. 2361
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2013.
     value: 32100
   2012-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2013 BGBl. I S. 4038
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2014.
     value: 33002
   2013-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 01.12.2014 BGBl. I S. 1957
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2015.
     value: 33659
   2014-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 30.11.2015 BGBl. I S. 2137
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2016.
     value: 34514
   2015-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 28.11.2016 BGBl. I S. 2665
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2017.
     value: 35363
   2016-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 16.11.2017 BGBl. I S. 3778
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2018.
     value: 36187
   2017-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 27.11.2018 BGBl. I S. 2024
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2019.
     value: 37077
   2018-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 17.12.2019 BGBl. I S. 2848
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2020.
     value: 38212
-    reference: V. v. 17.12.2019 BGBl. I S. 2848.
   2019-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 30.11.2020 BGBl. I S. 2612
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2021.
     value: 39301
-    reference: V. v. 30.11.2020 BGBl. I S. 2612.
   2020-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 30.11.2021 BGBl. I S. 5044
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2022.
     value: 39167
-    reference: §1 V. v. 30.11.2021, BGBl. I S. 5044.
   2021-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 28.11.2022 BGBl. I S. 2128
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2023.
     value: 40463
-    reference: §3 V. v. 28.11.2022 BGBl. I S. 2128 (Nr. 47).
   2022-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2024.
     value: 42053
-    reference: §3 V. v. 24.11.2023 BGBl. 2023 I Nr. 322
   2023-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2025.
     value: 44732
-    reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
   2024-01-01:
+    reference: § 70 Abs. 1 Satz 1 SGB VI idF V. v. 24.11.2025 BGBl. 2025 I Nr. 278
+    note: Anlage 1 SGB VI, ergänzt durch die Rechengrößenverordnung für 2026.
     value: 47085
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
-      Nr. 278
   2025-01-01:
+    reference: § 70 Abs. 1 Satz 2 SGB VI idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+    note: >-
+      Vorläufiges Durchschnittsentgelt, Anlage 1 SGB VI, ergänzt durch die
+      Rechengrößenverordnung für 2025.
     value: 50493
-    reference: §3 V. v. 25.11.2024 BGBl. 2024 I Nr. 365.
-    note: Vorläufiges Durchschnittsentgelt
   2026-01-01:
+    reference: § 70 Abs. 1 Satz 2 SGB VI idF V. v. 24.11.2025 BGBl. 2025 I Nr. 278
+    note: >-
+      Vorläufiges Durchschnittsentgelt, Anlage 1 SGB VI, ergänzt durch die
+      Rechengrößenverordnung für 2026.
     value: 51944
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
-      Nr. 278
-    note: Vorläufiges Durchschnittsentgelt
 umrechnung_entgeltpunkte_beitrittsgebiet:
   name:
     de: Umrechnung der Beitragsbemessungsgrundlagen des Beitrittgebietes
@@ -260,161 +353,383 @@ umrechnung_entgeltpunkte_beitrittsgebiet:
   unit: DIMENSIONLESS
   type: scalar
   1945-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0000
   1950-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 0.9931
   1951-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0502
   1952-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0617
   1953-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0458
   1954-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0185
   1955-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0656
   1956-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.1029
   1957-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.1081
   1958-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0992
   1959-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.0838
   1960-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.1451
   1961-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.2374
   1962-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.3156
   1963-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.3667
   1964-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.4568
   1965-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.5462
   1966-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.6018
   1967-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.5927
   1968-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.6405
   1969-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.7321
   1970-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 1.8875
   1971-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.0490
   1972-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.1705
   1973-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.3637
   1974-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.5451
   1975-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.6272
   1976-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.7344
   1977-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.8343
   1978-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.8923
   1979-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 2.9734
   1980-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.1208
   1981-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.1634
   1982-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2147
   1983-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2627
   1984-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2885
   1985-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.3129
   1986-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2968
   1987-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2548
   1988-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2381
   1989-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 146 G. v. 25.07.1991 BGBl. I S. 1606
+    note: Anlage 10 SGB VI.
     value: 3.2330
   1990-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Anlage 10 SGB VI, ergänzt durch die Sozialversicherungs-Rechengrößenverordnung
+      1992.
     value: 3.0707
-  1990-06-01:
+  1990-07-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1991 BGBl. I S. 2331
+    note: >-
+      Anlage 10 SGB VI, ergänzt durch die Sozialversicherungs-Rechengrößenverordnung
+      1992.
     value: 2.3473
   1991-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 22.12.1992 BGBl. I S. 2474
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1993.
     value: 1.7235
   1992-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1994.
     value: 1.4393
   1993-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 12.12.1994 BGBl. I S. 3806
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1995.
     value: 1.3197
   1994-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 04.12.1995 BGBl. I S. 1577
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1996.
     value: 1.2687
   1995-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 11.12.1996 BGBl. I S. 1870
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1997.
     value: 1.2317
   1996-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 02.12.1997 BGBl. I S. 2782
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1998.
     value: 1.2209
   1997-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 18.12.1998 BGBl. I S. 3823
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 1999.
     value: 1.2089
   1998-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 29.11.1999 BGBl. I S. 2375
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2000.
     value: 1.2113
   1999-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 13.12.2000 BGBl. I S. 1710
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2001.
     value: 1.2054
   2000-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 03.12.2001 BGBl. I S. 3302
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2002.
     value: 1.2030
   2001-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 17.12.2002 BGBl. I S. 4561
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2003.
     value: 1.2003
   2002-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 09.12.2003 BGBl. I S. 2497
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2004.
     value: 1.1972
   2003-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 29.11.2004 BGBl. I S. 3098
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2005.
     value: 1.1943
   2004-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 21.12.2005 BGBl. I S. 3627
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2006.
     value: 1.1932
   2005-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
+    note: >-
+      Anlage 10 SGB VI, ergänzt durch das Sozialversicherungs-Rechengrößengesetz 2007.
     value: 1.1827
   2006-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 05.12.2007 BGBl. I S. 2797
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2008.
     value: 1.1827
   2007-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2008 BGBl. I S. 2336
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2009.
     value: 1.1841
   2008-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 07.12.2009 BGBl. I S. 3846
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2010.
     value: 1.1857
   2009-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 03.12.2010 BGBl. I S. 1761
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2011.
     value: 1.1712
   2010-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2011 BGBl. I S. 2421
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2012.
     value: 1.1726
   2011-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 26.11.2012 BGBl. I S. 2361
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2013.
     value: 1.1740
   2012-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 02.12.2013 BGBl. I S. 4038
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2014.
     value: 1.1785
   2013-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 01.12.2014 BGBl. I S. 1957
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2015.
     value: 1.1762
   2014-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 30.11.2015 BGBl. I S. 2137
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2016.
     value: 1.1665
   2015-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 28.11.2016 BGBl. I S. 2665
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2017.
     value: 1.1502
   2016-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 16.11.2017 BGBl. I S. 3778
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2018.
     value: 1.1415
   2017-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 27.11.2018 BGBl. I S. 2024
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2019.
     value: 1.1374
   2018-01-01:
+    reference: § 256a Abs. 1 Satz 1 SGB VI idF V. v. 17.12.2019 BGBl. I S. 2848
+    note: Anlage 10 SGB VI, ergänzt durch die Rechengrößenverordnung für 2020.
     value: 1.1339
   2019-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0840
   2020-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0700
   2021-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0560
   2022-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0420
   2023-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0280
   2024-01-01:
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 45 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Anlage 10 SGB VI, Werte für 2019 bis 2024 durch das
+      Rentenüberleitungs-Abschlussgesetz festgelegt.
     value: 1.0140
   2025-01-01:
-    note: Umrechnung entfällt.
+    reference: >-
+      § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 Nr. 24 G. v. 17.07.2017 BGBl. I S. 2575
+    note: >-
+      Umrechnung entfällt für Beitragszeiten ab 2025
+      (Rentenüberleitungs-Abschlussgesetz).
 anteil_bemessungsentgelt_arbeitslosengeld:
   name:
     de: Beitragspflichtiger Anteil des Bemessungsentgelts bei Arbeitslosengeld
@@ -433,8 +748,8 @@ anteil_bemessungsentgelt_arbeitslosengeld:
   unit: DIMENSIONLESS
   type: scalar
   1995-01-01:
+    reference: § 166 Abs. 1 Nr. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     value: 0.8
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261, 2306
     note: >-
       In der Zeit vom 01.01.1992 bis 31.12.1994 waren gemäß § 276 Abs. 1 SGB VI a. F.
       abweichend von § 166 Abs. 1 Nr. 2 SGB VI die gezahlten Sozialleistungen

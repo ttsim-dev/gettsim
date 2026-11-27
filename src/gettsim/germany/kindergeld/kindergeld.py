@@ -57,6 +57,7 @@ def betrag_ohne_staffelung_m(
     Kindergeld claim is the same for each child, i.e. increases linearly with the number
     of children.
 
+    Reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     """
     return satz_m * anzahl_ansprüche
 
@@ -73,6 +74,9 @@ def betrag_gestaffelt_m(
     Kindergeld claim for each child depends on the number of children Kindergeld is
     being claimed for.
 
+    Reference:
+        - § 10 BKGG idF Art. 2 G. v. 05.08.1974 BGBl. I S. 1769
+        - § 66 Abs. 1 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     return satz_nach_anzahl_kinder.look_up(anzahl_ansprüche)
 
@@ -84,7 +88,10 @@ def betrag_gestaffelt_m(
     unit=TTSIMUnit.DIMENSIONLESS,
 )
 def leistungsbegründendes_kind_nach_lohn_bis_1995() -> bool:
-    pass
+    """Child gives rise to a Kindergeld claim (not implemented).
+
+    Reference: § 2 BKGG idF Art. 2 G. v. 05.08.1974 BGBl. I S. 1769
+    """
 
 
 @policy_function(
@@ -106,6 +113,10 @@ def leistungsbegründendes_kind_nach_lohn(
     returns a boolean variable whether a specific person is a child eligible for
     child benefit
 
+    Reference:
+        - § 32 Abs. 3 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+        - § 32 Abs. 4 Satz 1 Nr. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+        - § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     return (alter < altersgrenze["ohne_bedingungen"]) or (
         (alter < altersgrenze["mit_bedingungen"])
@@ -131,6 +142,11 @@ def leistungsbegründendes_kind_nach_stunden(
     The current eligibility rule is, that kids must not work more than 20
     hour and are below 25.
 
+    Reference:
+        - § 32 Abs. 3 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+        - § 32 Abs. 4 Satz 1 Nr. 2 EStG idF Art. 2 G. v. 26.06.2013 BGBl. I S. 1809
+        - § 32 Abs. 4 Satz 2 EStG idF Art. 2 G. v. 26.06.2013 BGBl. I S. 1809
+        - § 32 Abs. 4 Satz 3 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
     """
     return (alter < altersgrenze["ohne_bedingungen"]) or (
         (alter < altersgrenze["mit_bedingungen"])
@@ -144,7 +160,10 @@ def kind_bis_10_mit_kindergeld(
     alter: int,
     ist_leistungsbegründendes_kind: bool,
 ) -> bool:
-    """Child under the age of 11 and eligible for Kindergeld."""
+    """Child under the age of 11 and eligible for Kindergeld.
+
+    Reference: none (technical helper)
+    """
     return ist_leistungsbegründendes_kind and (
         alter <= cast_ttsim_unit(10, unit=TTSIMUnit.YEARS)
     )
@@ -157,7 +176,10 @@ def gleiche_fg_wie_empfänger(
     fg_id: IntColumn,
     xnp: ModuleType,
 ) -> BoolColumn:
-    """The child's Kindergeldempfänger is in the same Familiengemeinschaft."""
+    """The child's Kindergeldempfänger is in the same Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     fg_id_kindergeldempfänger = join(
         foreign_key=p_id_empfänger,
         primary_key=p_id,

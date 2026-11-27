@@ -20,7 +20,10 @@ if TYPE_CHECKING:
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m_bis_1998_07() -> float:
-    """Calculate individual unemployment benefit."""
+    """Calculate individual unemployment benefit.
+
+    Reference: none (Arbeitslosengeld under the AFG is not implemented in GETTSIM)
+    """
 
 
 @policy_function(start_date="1998-08-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -30,7 +33,12 @@ def betrag_m(
     mean_nettoeinkommen_in_12_monaten_vor_arbeitslosigkeit_m: float,
     satz: dict[str, float],
 ) -> float:
-    """Calculate individual unemployment benefit."""
+    """Calculate individual unemployment benefit.
+
+    Reference:
+        - § 129 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 149 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    """
     if einkommensteuer__anzahl_kinderfreibeträge == 0:
         arbeitsl_geld_satz = satz["allgemein"]
     else:
@@ -56,7 +64,14 @@ def monate_verbleibender_anspruchsdauer(
     anspruchsdauer_nach_alter: ConsecutiveIntLookupTableParamValue,
     anspruchsdauer_nach_versicherungspflichtigen_monaten: ConsecutiveIntLookupTableParamValue,
 ) -> int:
-    """Remaining amount of months of potential unemployment benefit claims."""
+    """Remaining amount of months of potential unemployment benefit claims.
+
+    Reference:
+        - § 127 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 127 Abs. 2 SGB III idF Art. 3 Nr. 2 G. v. 24.12.2003 BGBl. I S. 3002
+        - § 127 Abs. 2 SGB III idF Art. 1 Nr. 4 G. v. 08.04.2008 BGBl. I S. 681
+        - § 147 Abs. 2 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    """
     auf_altersbasis = anspruchsdauer_nach_alter.look_up(alter)
     auf_basis_versicherungspflichtiger_monate = (
         anspruchsdauer_nach_versicherungspflichtigen_monaten.look_up(
@@ -83,6 +98,10 @@ def mindestversicherungszeit_erreicht(
 ) -> bool:
     """At least 12 months of unemployment contributions in the 30 months before claiming
     unemployment insurance.
+
+    Reference:
+        - § 123 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 142 Abs. 1 Satz 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
     """
     return (
         monate_beitragspflichtig_versichert_in_letzten_30_monaten
@@ -98,7 +117,12 @@ def grundsätzlich_anspruchsberechtigt(
     arbeitsstunden_w: float,
     stundengrenze: float,
 ) -> bool:
-    """Check eligibility for unemployment benefit."""
+    """Check eligibility for unemployment benefit.
+
+    Reference:
+        - § 117 Abs. 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 137 Abs. 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    """
     return (
         arbeitssuchend
         and (monate_verbleibender_anspruchsdauer > 0)
@@ -122,6 +146,11 @@ def mean_nettoeinkommen_für_bemessungsgrundlage_bei_arbeitslosigkeit_y(
     of the gross wages in the 12 months before unemployment. For most datasets, except
     those with monthly income date (IAB, DRV data), the best approximation will likely
     be the gross wage in the calendar year before unemployment.
+
+    Reference:
+        - § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 133 Abs. 1 SGB III idF Art. 1 Nr. 71 G. v. 23.12.2003 BGBl. I S. 2848
+        - § 153 Abs. 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
     """
     berücksichtigungsfähige_einnahmen = min(
         einnahmen__bruttolohn_y,

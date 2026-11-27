@@ -17,6 +17,11 @@ def betrag_m() -> float:
 
     # TODO (@MImmesberger): Implement Hilfe zum Lebensunterhalt.
     # https://github.com/ttsim-dev/gettsim/issues/1153
+
+    Reference:
+        - § 19 Abs. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 19 Abs. 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 27 Abs. 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
     """
     return 0.0  # pragma: no cover
 

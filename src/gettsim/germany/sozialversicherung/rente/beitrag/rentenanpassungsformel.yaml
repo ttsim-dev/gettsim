@@ -14,8 +14,12 @@ alpha:
       the ratio of pensioners to contributors
   unit: DIMENSIONLESS
   type: scalar
-  2002-01-01:
+  2004-08-01:
     value: 0.25
+    note: >-
+      RV-Nachhaltigkeitsgesetz; führte den Nachhaltigkeitsfaktor mit Wirkung vom
+      1. August 2004 ein.
+    reference: § 68 Abs. 4 SGB VI idF Art. 1 G. v. 21.07.2004 BGBl. I S. 1791
 altersvorsorgeanteil:
   name:
     de: Altersvorsorgeanteil (AVA)
@@ -27,20 +31,51 @@ altersvorsorgeanteil:
   type: scalar
   2002-01-01:
     value: 0.5
+    note: >-
+      Altersvermögensergänzungsgesetz. Der Wert gilt für das jeweilige Kalenderjahr.
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.03.2001 BGBl. I S. 403
   2003-01-01:
     value: 1.0
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.03.2001 BGBl. I S. 403
   2004-01-01:
     value: 1.5
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.03.2001 BGBl. I S. 403
+  2004-08-01:
+    value: 1.0
+    note: >-
+      RV-Nachhaltigkeitsgesetz; verschob die Stufen um ein Jahr (2003 0,5 %, 2004 1,0 %,
+      ..., 2010 4,0 %).
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.07.2004 BGBl. I S. 1791
   2005-01-01:
+    value: 1.5
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.07.2004 BGBl. I S. 1791
+  2006-01-01:
     value: 2.0
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.07.2004 BGBl. I S. 1791
+  2007-01-01:
+    value: 2.5
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.07.2004 BGBl. I S. 1791
+  2008-01-01:
+    value: 3.0
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 52 G. v. 21.07.2004 BGBl. I S. 1791
+  2008-07-01:
+    value: 2.0
+    note: >-
+      Gesetz zur Rentenanpassung 2008; setzte die Stufen für 2007 und 2008 aus (2006 bis
+      2008 je 2,0 %, 2012 4,0 %).
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 3 G. v. 26.06.2008 BGBl. I S. 1076
   2009-01-01:
     value: 2.5
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 3 G. v. 26.06.2008 BGBl. I S. 1076
   2010-01-01:
     value: 3.0
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 3 G. v. 26.06.2008 BGBl. I S. 1076
   2011-01-01:
     value: 3.5
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 3 G. v. 26.06.2008 BGBl. I S. 1076
   2012-01-01:
     value: 4.0
+    reference: § 255e Abs. 3 SGB VI idF Art. 1 Nr. 3 G. v. 26.06.2008 BGBl. I S. 1076
 beitragsvolumen:
   name:
     de: Beitragsvolumen der gesetzlichen Rentenversicherung
@@ -57,63 +92,150 @@ beitragsvolumen:
   1991-01-01:
     unit: DM_PER_YEAR
     value: 212575251
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1992-01-01:
     value: 229534253
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1993-01-01:
     value: 235792909
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1994-01-01:
     value: 260004129
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1995-01-01:
     value: 273661689
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1996-01-01:
     value: 285864113
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1997-01-01:
     value: 300528926
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1998-01-01:
     value: 300734288
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1999-01-01:
     value: 313922450
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2000-01-01:
     value: 319518080
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2001-01-01:
     value: 322113466
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 165481000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2003-01-01:
     value: 169425000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2004-01-01:
     value: 169399000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2005-01-01:
     value: 168954000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2006-01-01:
     value: 180545000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2007-01-01:
     value: 174726000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2008-01-01:
     value: 180028000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2009-01-01:
     value: 181572000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2010-01-01:
     value: 185288000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2011-01-01:
     value: 189850000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2012-01-01:
     value: 193687000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2013-01-01:
     value: 194334000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2014-01-01:
     value: 201647000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2015-01-01:
     value: 207317000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2016-01-01:
     value: 215422000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2017-01-01:
     value: 225244000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2018-01-01:
     value: 236404000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2019-01-01:
     value: 247949000
+    reference: >-
+      none (statistical aggregate of the contributions to the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
 durchschnittslohn:
   name:
     de: Durchschnittslohn
@@ -125,28 +247,52 @@ durchschnittslohn:
   type: scalar
   2005-01-01:
     value: 28468.23
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2006-01-01:
     value: 28673.22
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2007-01-01:
     value: 28978.19
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2008-01-01:
     value: 29262.71
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2009-01-01:
     value: 29774.24
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2010-01-01:
     value: 30086.57
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2011-01-01:
     value: 30770.62
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2012-01-01:
     value: 31452.49
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2013-01-01:
     value: 31583.35
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2014-01-01:
     value: 32313.66
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2015-01-01:
     value: 33047.02
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
   2016-01-01:
     value: 33608.42
+    reference: >-
+      none (statistical average of the gross wages of all employees, not set by law)
 gesamtes_rentenvolumen:
   name:
     de: Rentenvolumen
@@ -159,60 +305,147 @@ gesamtes_rentenvolumen:
   1991-01-01:
     unit: DM_PER_YEAR
     value: 230615827
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1992-01-01:
     value: 256020103
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1993-01-01:
     value: 276124079
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1994-01-01:
     value: 298846912
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1995-01-01:
     value: 318066854
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1996-01-01:
     value: 330447258
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1997-01-01:
     value: 341251263
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1998-01-01:
     value: 352682698
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   1999-01-01:
     value: 360144580
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2000-01-01:
     value: 371994954
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2001-01-01:
     value: 382904574
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 202355000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2003-01-01:
     value: 207749000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2004-01-01:
     value: 210522000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2005-01-01:
     value: 211861000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2006-01-01:
     value: 212421000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2007-01-01:
     value: 213649000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2008-01-01:
     value: 216182000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2009-01-01:
     value: 220841000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2010-01-01:
     value: 224352000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2011-01-01:
     value: 225411000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2012-01-01:
     value: 229231000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2013-01-01:
     value: 232297000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2014-01-01:
     value: 238991000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2015-01-01:
     value: 249568000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2016-01-01:
     value: 259345000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2017-01-01:
     value: 286860000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2018-01-01:
     value: 277102000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)
   2019-01-01:
     value: 291359000
+    reference: >-
+      none (statistical aggregate of the pensions paid by the statutory pension
+      insurance, published by the Deutsche Rentenversicherung, not set by law)

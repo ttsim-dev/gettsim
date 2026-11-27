@@ -31,8 +31,9 @@ def ist_kind_in_familiengemeinschaft(
     fg_id: IntColumn,
     xnp: ModuleType,
 ) -> BoolColumn:
-    """
-    Determines whether the given person is a child in a family group.
+    """Determines whether the given person is a child in a family group.
+
+    Reference: none (technical helper)
     """
     fg_id_elternteil_1 = join(
         foreign_key=p_id_elternteil_1,
@@ -64,7 +65,10 @@ def anzahl_kinder_fg(ist_kind_in_familiengemeinschaft: bool, fg_id: int) -> int:
 def ist_kind_bis_2_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
-    """Child under the age of 3 in Familiengemeinschaft."""
+    """Child under the age of 3 in Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_familiengemeinschaft and (
         alter <= cast_ttsim_unit(2, unit=TTSIMUnit.YEARS)
     )
@@ -81,7 +85,10 @@ def anzahl_kinder_bis_2_fg(
 def ist_kind_bis_5_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
-    """Child under the age of 6 in Familiengemeinschaft."""
+    """Child under the age of 6 in Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_familiengemeinschaft and (
         alter <= cast_ttsim_unit(5, unit=TTSIMUnit.YEARS)
     )
@@ -98,7 +105,10 @@ def anzahl_kinder_bis_5_fg(
 def ist_kind_bis_6_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
-    """Child under the age of 7 in Familiengemeinschaft."""
+    """Child under the age of 7 in Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_familiengemeinschaft and (
         alter <= cast_ttsim_unit(6, unit=TTSIMUnit.YEARS)
     )
@@ -117,7 +127,10 @@ def anzahl_kinder_bis_6_fg(
 def ist_kind_bis_15_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
-    """Child under the age of 16 in Familiengemeinschaft."""
+    """Child under the age of 16 in Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_familiengemeinschaft and (
         alter <= cast_ttsim_unit(15, unit=TTSIMUnit.YEARS)
     )
@@ -136,7 +149,10 @@ def anzahl_kinder_bis_15_fg(
 def ist_kind_bis_17_in_familiengemeinschaft(
     alter: int, ist_kind_in_familiengemeinschaft: bool
 ) -> bool:
-    """Child under the age of 18 in Familiengemeinschaft."""
+    """Child under the age of 18 in Familiengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_familiengemeinschaft and (
         alter <= cast_ttsim_unit(17, unit=TTSIMUnit.YEARS)
     )
@@ -175,7 +191,10 @@ def ist_kind_in_bedarfsgemeinschaft(
     bg_id: IntColumn,
     xnp: ModuleType,
 ) -> BoolColumn:
-    """Child in a Bedarfsgemeinschaft."""
+    """Child in a Bedarfsgemeinschaft.
+
+    Reference: none (technical helper)
+    """
     bg_id_elternteil_1 = join(
         foreign_key=p_id_elternteil_1,
         primary_key=p_id,
@@ -199,7 +218,10 @@ def ist_kind_in_bedarfsgemeinschaft(
 def ist_erwachsener_in_bedarfsgemeinschaft(
     ist_kind_in_bedarfsgemeinschaft: bool,
 ) -> bool:
-    """Adult in a Bedarfsgemeinschaft."""
+    """Adult in a Bedarfsgemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return not ist_kind_in_bedarfsgemeinschaft
 
 
@@ -231,7 +253,10 @@ def anzahl_kinder_bg(ist_kind_in_bedarfsgemeinschaft: bool, bg_id: int) -> int:
 def ist_kind_bis_17_in_bedarfsgemeinschaft(
     alter: int, ist_kind_in_bedarfsgemeinschaft: bool
 ) -> bool:
-    """Child under the age of 18 in Bedarfsgemeinschaft."""
+    """Child under the age of 18 in Bedarfsgemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return ist_kind_in_bedarfsgemeinschaft and (
         alter <= cast_ttsim_unit(17, unit=TTSIMUnit.YEARS)
     )
@@ -258,7 +283,10 @@ def hat_kind_in_gleicher_bedarfsgemeinschaft(
     anzahl_kinder_bg: int,
     ist_erwachsener_in_bedarfsgemeinschaft: bool,
 ) -> bool:
-    """Has a child in the same Bedarfsgemeinschaft."""
+    """Has a child in the same Bedarfsgemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return (
         anzahl_kinder_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
         and ist_erwachsener_in_bedarfsgemeinschaft
@@ -287,7 +315,10 @@ def ist_kind_in_einsatzgemeinschaft(
     eg_id: IntColumn,
     xnp: ModuleType,
 ) -> BoolColumn:
-    """Child in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII)."""
+    """Child in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII).
+
+    Reference: none (technical helper)
+    """
     eg_id_elternteil_1 = join(
         foreign_key=p_id_elternteil_1,
         primary_key=p_id,
@@ -311,7 +342,10 @@ def ist_kind_in_einsatzgemeinschaft(
 def ist_erwachsener_in_einsatzgemeinschaft(
     ist_kind_in_einsatzgemeinschaft: bool,
 ) -> bool:
-    """Adult in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII)."""
+    """Adult in an Einsatzgemeinschaft (§ 27 Abs. 2 SGB XII).
+
+    Reference: none (technical helper)
+    """
     return not ist_kind_in_einsatzgemeinschaft
 
 
@@ -345,7 +379,10 @@ def anzahl_personen_ehe(ehe_id: int) -> int:
 
 @policy_function(unit=TTSIMUnit.DIMENSIONLESS)
 def volljährig(alter: int) -> bool:
-    """Person aged 18 years or older."""
+    """Person aged 18 years or older.
+
+    Reference: § 2 BGB idF Art. 1 G. v. 31.07.1974 BGBl. I S. 1713
+    """
     return alter >= cast_ttsim_unit(18, unit=TTSIMUnit.YEARS)
 
 
@@ -353,5 +390,8 @@ def volljährig(alter: int) -> bool:
 def ist_erwachsener_in_familiengemeinschaft(
     ist_kind_in_familiengemeinschaft: bool,
 ) -> bool:
-    """Person is an adult in the Familengemeinschaft."""
+    """Person is an adult in the Familengemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return not ist_kind_in_familiengemeinschaft

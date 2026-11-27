@@ -5,24 +5,33 @@ altersgrenze:
     en: Age at which child benefit is no longer paid.
   description:
     de: >-
-      § 32 Art. 2-4 EStG.
-      Für minderjährige Kinder besteht ohne Bedingungen ein Anspruch auf Kindergeld.
-      Auch für erwachsene Kinder kann bis zu einer Altersgrenze unter bestimmten
-      Bedingungen ein Anspruch auf Kindergeld bestehen.
+      § 32 Art. 2-4 EStG. Für minderjährige Kinder besteht ohne Bedingungen ein Anspruch
+      auf Kindergeld. Auch für erwachsene Kinder kann bis zu einer Altersgrenze unter
+      bestimmten Bedingungen ein Anspruch auf Kindergeld bestehen.
     en: >-
-      § 32 Art. 2-4 EStG.
-      Underage children are entitled to child benefit without any conditions. Also adult
-      children up to a specified age are entitled to child benefit under certain
-      conditions.
+      § 32 Art. 2-4 EStG. Underage children are entitled to child benefit without any
+      conditions. Also adult children up to a specified age are entitled to child
+      benefit under certain conditions.
   unit: YEARS
   type: dict
-  1984-01-01:
+  1996-01-01:
     mit_bedingungen: 27
     ohne_bedingungen: 18
+    reference:
+      - § 32 Abs. 3 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+      - § 32 Abs. 4 Satz 1 Nr. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    note: >-
+      Jahressteuergesetz 1996. Kindergeld is paid under the EStG from 1996 on; GETTSIM
+      does not implement Kindergeld eligibility before (previously § 2 BKGG).
   2007-01-01:
     mit_bedingungen: 25
     ohne_bedingungen: 18
-    reference: Art. 1 G. v. 19.07.2006 BGBl I S. 1652
+    reference:
+      - § 32 Abs. 3 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+      - § 32 Abs. 4 Satz 1 Nr. 2 EStG idF Art. 1 G. v. 19.07.2006 BGBl. I S. 1652
+    note: >-
+      Steueränderungsgesetz 2007. Transitional rule in § 52 Abs. 40 EStG for children
+      born in 1981 and 1982 (26 years) not implemented.
 satz_gestaffelt:
   name:
     de: Kindergeld pro Kind, Betrag je nach Reihenfolge der Kinder.
@@ -40,124 +49,169 @@ satz_gestaffelt:
     2: 70
     3: 120
     4: 120
+    reference: § 10 BKGG idF Art. 2 G. v. 05.08.1974 BGBl. I S. 1769
+    note: Einkommensteuerreformgesetz (EStRG)
   1978-01-01:
     1: 50
     2: 80
     3: 150
     4: 150
+    reference: § 10 BKGG idF Art. 2 G. v. 16.08.1977 BGBl. I S. 1586
+    note: Steueränderungsgesetz 1977
   1979-01-01:
+    1: 50
+    2: 80
+    3: 200
+    4: 200
+    reference: § 10 BKGG idF Art. 1 Nr. 4 G. v. 14.11.1978 BGBl. I S. 1757
+    note: >-
+      Achtes Gesetz zur Änderung des Bundeskindergeldgesetzes; Art. 1 Nr. 4 Buchst. b
+      (150 -> 200 DM) in the version of Art. 14 Nr. 1 Steueränderungsgesetz 1979 (G. v.
+      30.11.1978 BGBl. I S. 1849).
+  1979-07-01:
     1: 50
     2: 100
     3: 200
     4: 200
-  1979-07-01:
-    1: 50
-    2: 120
-    3: 200
-    4: 200
+    reference: § 10 BKGG idF Art. 1 Nr. 4 G. v. 14.11.1978 BGBl. I S. 1757
+    note: >-
+      Art. 1 Nr. 4 Buchst. a Achtes Gesetz zur Änderung des Bundeskindergeldgesetzes (80
+      -> 100 DM), in force from 1979-07-01 by Art. 14 Nr. 2 Steueränderungsgesetz 1979
+      (G. v. 30.11.1978 BGBl. I S. 1849).
   1981-02-01:
     1: 50
     2: 120
     3: 240
     4: 240
+    reference: § 10 BKGG idF Art. 4 G. v. 16.08.1980 BGBl. I S. 1381
+    note: Steuerentlastungsgesetz 1981
   1982-01-01:
     1: 50
     2: 100
     3: 220
     4: 240
+    reference: § 10 BKGG idF Art. 1 Nr. 2 G. v. 22.12.1981 BGBl. I S. 1566
+    note: Neuntes Gesetz zur Änderung des Bundeskindergeldgesetzes
   1990-07-01:
     1: 50
     2: 130
     3: 220
     4: 240
+    reference: § 10 Abs. 1 Satz 1 BKGG idF Art. 1 Nr. 4 G. v. 30.06.1989 BGBl. I S. 1294
+    note: Zwölftes Gesetz zur Änderung des Bundeskindergeldgesetzes
   1992-01-01:
     1: 70
     2: 130
     3: 220
     4: 240
+    reference: § 10 Abs. 1 Satz 1 BKGG idF Art. 25 Nr. 1 G. v. 25.02.1992 BGBl. I S. 297
+    note: Steueränderungsgesetz 1992, retroactive to 1992-01-01
   1996-01-01:
     1: 200
     2: 200
     3: 300
     4: 350
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    note: Jahressteuergesetz 1996
   1997-01-01:
     1: 220
     2: 220
     3: 300
     4: 350
+    reference: § 66 Abs. 1 EStG idF Art. 8 G. v. 20.12.1996 BGBl. I S. 2049
+    note: Jahressteuergesetz 1997
   1999-01-01:
     1: 250
     2: 250
     3: 300
     4: 350
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 19.12.1998 BGBl. I S. 3779
+    note: Steuerentlastungsgesetz 1999
   2000-01-01:
     1: 270
     2: 270
     3: 300
     4: 350
+    reference: § 66 Abs. 1 Satz 1 EStG idF Art. 1 G. v. 22.12.1999 BGBl. I S. 2552
+    note: Gesetz zur Familienförderung
   2002-01-01:
     unit: EUR_PER_MONTH
     1: 154
     2: 154
     3: 154
     4: 179
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    note: Zweites Gesetz zur Familienförderung
   2009-01-01:
-    reference: Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+    note: Familienleistungsgesetz (FamLeistG)
     1: 164
     2: 164
     3: 170
     4: 195
   2009-03-01:
-    reference: Art. 1 G. v. 02.03.2009 BGBl. I S. 416
+    reference: § 66 Abs. 1 Satz 1 EStG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2955
+    note: >-
+      Amounts unchanged. Art. 1 G. v. 02.03.2009 BGBl. I S. 416 (in force 2009-03-06)
+      added § 66 Abs. 1 Satz 2 EStG, a one-time payment of 100 Euro per child for 2009,
+      which is not implemented.
     1: 164
     2: 164
     3: 170
     4: 195
-  2009-12-01:
-    reference: Art. 1 G. v. 22.12.2009 BGBl. I S. 3950
+  2010-01-01:
+    reference: § 66 Abs. 1 Satz 1 EStG idF Art. 1 G. v. 22.12.2009 BGBl. I S. 3950
+    note: >-
+      Wachstumsbeschleunigungsgesetz. In force 2009-12-31, so the higher amounts apply
+      from January 2010.
     1: 184
     2: 184
     3: 190
     4: 215
-  2015-07-01:
-    reference: Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+  2015-01-01:
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+    note: >-
+      In force 2015-07-23, applies to periods from 2015-01-01 on (§ 52 Abs. 49a Satz 2
+      EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202).
     1: 188
     2: 188
     3: 194
     4: 219
   2016-01-01:
-    reference: Art. 2 G. v. 16.07.2015 BGBl. I S. 1202
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 16.07.2015 BGBl. I S. 1202
     1: 190
     2: 190
     3: 196
     4: 221
   2017-01-01:
-    reference: Art. 8 G. v. 20.12.2016 BGBl. I S. 3000
+    reference: § 66 Abs. 1 EStG idF Art. 8 G. v. 20.12.2016 BGBl. I S. 3000
     1: 192
     2: 192
     3: 198
     4: 223
   2018-01-01:
-    reference: Art. 9 G. v. 20.12.2016 BGBl. I S. 3000.
+    reference: § 66 Abs. 1 EStG idF Art. 9 G. v. 20.12.2016 BGBl. I S. 3000
     1: 194
     2: 194
     3: 200
     4: 225
   2019-07-01:
-    reference: Art. 2 G. v. 29.11.2018 BGBl. I S. 2210.
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 29.11.2018 BGBl. I S. 2210
+    note: Familienentlastungsgesetz (FamEntlastG)
     1: 204
     2: 204
     3: 210
     4: 235
   2021-01-01:
-    reference: Art. 1 Abs. 9 G. v. 01.12.2020 BGBl. I S. 2616.
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
     note: Zweites Familienentlastungsgesetz
     1: 219
     2: 219
     3: 225
     4: 250
   2023-01-01:
-    note: Superseded by satz
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Superseded by satz_m (same amount for every child).
 satz_m:
   name:
     de: Kindergeld pro Kind, identisch für alle Kinder.
@@ -172,15 +226,15 @@ satz_m:
   type: scalar
   2023-01-01:
     value: 250
-    reference: Art. 6 G. v. 08.12.2022 BGBl. I S. 2230.
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz
   2025-01-01:
     value: 255
-    reference: Art. 5 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: § 66 Abs. 1 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
     note: Steuerfortentwicklungsgesetz (SteFeG)
   2026-01-01:
     value: 259
-    reference: Art. 6 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
     note: Steuerfortentwicklungsgesetz (SteFeG) 2024
 maximales_einkommen_des_kindes_y:
   name:
@@ -195,28 +249,46 @@ maximales_einkommen_des_kindes_y:
   1996-01-01:
     unit: DM_PER_YEAR
     value: 12000
-    reference: Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    note: Jahressteuergesetz 1996
+  1998-01-01:
+    value: 12360
+    reference: § 52 Abs. 22a EStG idF Art. 8 G. v. 20.12.1996 BGBl. I S. 2049
+    note: >-
+      Jahressteuergesetz 1997: § 32 Abs. 4 Satz 2 EStG is applied with 12 360 DM instead
+      of 12 000 DM for the Veranlagungszeitraum 1998.
   1999-01-01:
     value: 13020
-    reference: Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
-    note: >-
-      § 32 Abs. 4 Satz 2 EStG ist ab dem Veranlagungszeitraum 1999 mit dem Betrag von
-      13 020 Deutsche Mark anzuwenden.
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 19.12.1998 BGBl. I S. 3779
+    note: Steuerentlastungsgesetz 1999
   2000-01-01:
     value: 13500
-    reference: Art. 1 G. v. 28.12.1999 BGBl. I S. 2552.
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 22.12.1999 BGBl. I S. 2552
+    note: Gesetz zur Familienförderung
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 7188
-    reference: Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    note: >-
+      Zweites Gesetz zur Familienförderung. The increase to 7 428 Euro scheduled for
+      2003 was postponed to 2004 (Art. 1 G. v. 19.09.2002 BGBl. I S. 3651) and replaced
+      by 7 680 Euro before it took effect.
   2004-01-01:
     value: 7680
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: Haushaltsbegleitgesetz 2004
   2009-01-01:
     value: 8004
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: § 32 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     note: Zurückdatiert auf das volle Kalenderjahr 2009
   2012-01-01:
-    note: Revoked in favour of maximale_arbeitsstunden_des_kindes
+    reference:
+      - § 32 Abs. 4 Satz 2 EStG idF Art. 2 G. v. 26.06.2013 BGBl. I S. 1809
+      - § 32 Abs. 4 Satz 3 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    note: >-
+      Revoked in favour of maximale_arbeitsstunden_des_kindes
+      (Steuervereinfachungsgesetz 2011; Satz 2 amended retroactively by the
+      Amtshilferichtlinie-Umsetzungsgesetz).
 maximale_arbeitsstunden_des_kindes:
   name:
     de: Wochenstundengrenze für Kindergeldanspruch
@@ -230,7 +302,8 @@ maximale_arbeitsstunden_des_kindes:
   type: scalar
   2012-01-01:
     value: 20
-    reference: Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    reference: § 32 Abs. 4 Satz 3 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    note: Steuervereinfachungsgesetz 2011
 kinderbonus_pro_kind_y:
   name:
     de: Kinderbonus pro Kind
@@ -244,10 +317,23 @@ kinderbonus_pro_kind_y:
   unit: EUR_PER_YEAR
   type: scalar
   2020-01-01:
-    reference: Art. 1 Zweites Corona-Steuerhilfegesetz v. 29.06.2020 BGBl. I S. 1512
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 1 G. v. 29.06.2020 BGBl. I S. 1512
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 1 G. v. 29.06.2020 BGBl. I S. 1512
+    note: Zweites Corona-Steuerhilfegesetz
     value: 300
   2021-01-01:
-    reference: Art. 1 Drittes Corona-Steuerhilfegesetz v. 10.03.2021 BGBl. I S. 330
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 1 G. v. 10.03.2021 BGBl. I S. 330
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 1 G. v. 10.03.2021 BGBl. I S. 330
+    note: Drittes Corona-Steuerhilfegesetz
     value: 150
   2022-01-01:
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+    note: Steuerentlastungsgesetz 2022
+    value: 100
+  2023-01-01:
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     note: only one-time payment

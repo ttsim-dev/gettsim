@@ -10,6 +10,9 @@ kohorte_abschaffung:
   unit: CALENDAR_YEAR
   type: scalar
   1997-12-16:
+    reference: § 237 Abs. 1 Nr. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+    note: Rentenreformgesetz 1999.
     value: 1952
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.

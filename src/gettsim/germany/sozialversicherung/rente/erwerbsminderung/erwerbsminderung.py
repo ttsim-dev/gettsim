@@ -31,7 +31,9 @@ def betrag_m_nach_wohnort(
 ) -> float:
     """Erwerbsminderungsrente (public disability insurance).
 
-    Legal reference: SGB VI § 64: Rentenformel für Monatsbetrag der Rente
+    Reference:
+        - § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 254b Abs. 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     if grundsätzlich_anspruchsberechtigt:
         out = (
@@ -61,7 +63,7 @@ def betrag_m_einheitlich(
 ) -> float:
     """Erwerbsminderungsrente (public disability insurance).
 
-    Legal reference: SGB VI § 64: Rentenformel für Monatsbetrag der Rente
+    Reference: § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     if grundsätzlich_anspruchsberechtigt:
         out = (
@@ -86,7 +88,11 @@ def grundsätzlich_anspruchsberechtigt(
     """
     Eligibility for Erwerbsminderungsrente.
 
-    Legal reference: § 43 Abs. 1  SGB VI.
+    Reference:
+        - § 43 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 43 Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 43 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 43 Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     return (
         (voll_erwerbsgemindert or teilweise_erwerbsgemindert)
@@ -109,6 +115,10 @@ def entgeltpunkte_west(
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference:
+        - § 71 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 254b Abs. 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     return sozialversicherung__rente__entgeltpunkte_west + (
         zusätzliche_entgeltpunkte_durch_zurechnungszeit * (1 - anteil_entgeltpunkte_ost)
@@ -130,6 +140,10 @@ def entgeltpunkte_ost(
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference:
+        - § 71 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 254b Abs. 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     return sozialversicherung__rente__entgeltpunkte_ost + (
         zusätzliche_entgeltpunkte_durch_zurechnungszeit * anteil_entgeltpunkte_ost
@@ -148,6 +162,8 @@ def entgeltpunkte(
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference: § 71 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return (
         sozialversicherung__rente__entgeltpunkte
@@ -179,6 +195,10 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference:
+        - § 253a SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 264c SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     claiming_month_since_ad = (
         y_to_m(sozialversicherung__rente__jahr_renteneintritt)
@@ -211,6 +231,8 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_einheitlicher_altersgre
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference: § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     return (
         zurechnungszeitgrenze - (sozialversicherung__rente__alter_bei_renteneintritt)
@@ -240,6 +262,12 @@ def zusätzliche_entgeltpunkte_durch_zurechnungszeit_mit_gestaffelter_altersgren
     In the case of the public disability insurance, pensioners are credited with
     additional earning points. They receive their average earned income points for each
     year between their age of retirement and the "Zurechnungszeitgrenze".
+
+    Reference:
+        - § 253a SGB VI idF Art. 1 G. v. 17.07.2017 BGBl. I S. 2509
+        - § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 17.07.2017 BGBl. I S. 2509
+        - § 253a SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+        - § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
     """
     claiming_month_since_ad = (
         y_to_m(sozialversicherung__rente__jahr_renteneintritt)
@@ -261,7 +289,9 @@ def rentenartfaktor(
 ) -> float:
     """Rentenartfaktor.
 
-    Legal reference: SGB VI § 67: rentenartfaktor
+    Reference:
+        - § 67 Nr. 2 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 67 Nr. 3 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     if teilweise_erwerbsgemindert:
         return parameter_rentenartfaktor["teilweise"]
@@ -287,7 +317,9 @@ def zugangsfaktor_ohne_gestaffelte_altersgrenze(
     pension is deducted. The maximum deduction is capped. This max deduction is the norm
     for the public disability insurance.
 
-    Legal reference: § 77 Abs. 2-4  SGB VI
+    Reference:
+        - § 77 Abs. 2 Satz 1 Nr. 3 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 77 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     zugangsfaktor = (
         1
@@ -329,11 +361,15 @@ def zugangsfaktor_mit_gestaffelter_altersgrenze(
     pension is deducted. The maximum deduction is capped. This max deduction is the norm
     for the public disability insurance.
 
-    Legal reference: § 77 Abs. 2-4  SGB VI
-
     Paragraph 4 regulates an exceptional case in which pensioners can already retire at
     63 without deductions if they can prove 40 years of (Pflichtbeiträge,
     Berücksichtigungszeiten and certain Anrechnungszeiten or Ersatzzeiten).
+
+    Reference:
+        - § 77 Abs. 2 Satz 1 Nr. 3 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 77 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 77 Abs. 4 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 264d SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     claiming_month_since_ad = (
         y_to_m(sozialversicherung__rente__jahr_renteneintritt)
@@ -378,6 +414,12 @@ def wartezeit_langjährig_versichert_erfüllt(
 
     This pathway makes it possible to claim pension benefits without deductions at the
     age of 63.
+
+    Reference:
+        - § 77 Abs. 4 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 264d Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 51 Abs. 3a SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 51 Abs. 3a SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     if (
         m_to_y(sozialversicherung__rente__pflichtbeitragsmonate)
@@ -407,7 +449,10 @@ def anteil_entgeltpunkte_ost(
     sozialversicherung__rente__entgeltpunkte_west: float,
     sozialversicherung__rente__entgeltpunkte_ost: float,
 ) -> float:
-    """Proportion of Entgeltpunkte accumulated in East Germany."""
+    """Proportion of Entgeltpunkte accumulated in East Germany.
+
+    Reference: none (technical helper)
+    """
     if (
         sozialversicherung__rente__entgeltpunkte_west == 0
         and sozialversicherung__rente__entgeltpunkte_ost == 0
@@ -439,7 +484,7 @@ def mean_entgeltpunkte_bewertungszeitraum_y_nach_wohnort(
     Earnings points are divided by the "belegungsfähiger Gesamtzeitraum", the period in
     years from the age of 17 until the start of the pension.
 
-    Legal reference: SGB VI § 72: Grundbewertung
+    Reference: § 72 Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
     """
     belegungsfähiger_gesamtzeitraum = (
         sozialversicherung__rente__alter_bei_renteneintritt
@@ -468,7 +513,7 @@ def mean_entgeltpunkte_bewertungszeitraum_y_einheitlich(
     Earnings points are divided by the "belegungsfähiger Gesamtzeitraum", the period in
     years from the age of 17 until the start of the pension.
 
-    Legal reference: SGB VI § 72: Grundbewertung
+    Reference: § 72 Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
     """
     belegungsfähiger_gesamtzeitraum = (
         sozialversicherung__rente__alter_bei_renteneintritt

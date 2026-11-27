@@ -46,7 +46,7 @@ outputs:
         entgeltpunkte_ost:
           - 0.0
         entgeltpunkte_west:
-          - 30.490909
+          - 38.1627907
         grundsätzlich_anspruchsberechtigt:
           - true
         rentenartfaktor:

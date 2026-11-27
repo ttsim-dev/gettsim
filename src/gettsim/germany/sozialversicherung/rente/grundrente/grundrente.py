@@ -14,13 +14,21 @@ from gettsim.tt import (
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
-    """Additional monthly pensions payments (Grundrentenzuschlag)."""
+    """Additional monthly pensions payments (Grundrentenzuschlag).
+
+    Reference:
+        - § 76g Abs. 4 Satz 6 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    """
     out = basisbetrag_m - anzurechnendes_einkommen_m
     return max(out, 0.0)
 
@@ -30,7 +38,10 @@ def betrag_m(basisbetrag_m: float, anzurechnendes_einkommen_m: float) -> float:
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -47,7 +58,11 @@ def anzurechnendes_einkommen_m(
     threshold, 60 % of the income up to the upper threshold is credited; above the
     upper threshold, the full excess is credited as well.
 
-    Reference: § 97a Abs. 1, Abs. 4 S. 1-4 SGB VI
+    Reference:
+        - § 97a Abs. 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     # The couple's income is compared with the thresholds, and the result is credited
     # in full against each spouse's Zuschlag, so the sum loses its group level here.
@@ -70,7 +85,7 @@ def anzurechnendes_einkommen_m(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="up",
-        reference="§ 97a Abs. 4 S. 1 SGB VI",
+        reference="§ 97a Abs. 4 Satz 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879",
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -90,7 +105,9 @@ def untere_einkommensgrenze_m(
     Einkommen verfügt.") and Abschnitt 2 ("Dies gilt auch für dauernd getrenntlebende
     Ehegatten").
 
-    Reference: § 97a Abs. 4 S. 1, 2, 4 SGB VI
+    Reference:
+        - § 97a Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     if familie__anzahl_personen_ehe > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EHE):
         out = (
@@ -110,7 +127,7 @@ def untere_einkommensgrenze_m(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="up",
-        reference="§ 97a Abs. 4 S. 1 SGB VI",
+        reference="§ 97a Abs. 4 Satz 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879",
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -127,7 +144,9 @@ def obere_einkommensgrenze_m(
     or lives apart. The statute does not settle this case; GETTSIM follows DRV, GRA zu
     § 97a SGB VI, Version 008.00, Abschnitte 2 and 5 (see `untere_einkommensgrenze_m`).
 
-    Reference: § 97a Abs. 4 S. 1, 3, 4 SGB VI
+    Reference:
+        - § 97a Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     if familie__anzahl_personen_ehe > cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EHE):
         out = (
@@ -167,7 +186,9 @@ def rentenwert_für_einkommensgrenzen_nach_wohnort_m(
     stated there (1 250, 1 600, 1 950 and 2 300 euros) equal the factors times the West
     value of 34.19 euros, rounded up.
 
-    Reference: § 97a Abs. 4 S. 5 i.V.m. Abs. 5 S. 2 SGB VI
+    Reference:
+        - § 97a Abs. 4 Satz 5 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 5 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     return sozialversicherung__rente__parameter_rentenwert_nach_wohnort_jahresanfang[
         "west"
@@ -187,7 +208,9 @@ def rentenwert_für_einkommensgrenzen_einheitlich_m(
     Changes of the thresholds take effect on 1 January, so the Rentenwert in force on
     1 January applies for the whole year.
 
-    Reference: § 97a Abs. 4 S. 5 i.V.m. Abs. 5 S. 2 SGB VI
+    Reference:
+        - § 97a Abs. 4 Satz 5 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 97a Abs. 5 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     return sozialversicherung__rente__rentenwert_m_jahresanfang
 
@@ -197,7 +220,10 @@ def rentenwert_für_einkommensgrenzen_einheitlich_m(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -214,6 +240,11 @@ def basisbetrag_m(
 
     The Zugangsfaktor is limited to 1 and considered Grundrentezeiten are limited to
     35 years (420 months).
+
+    Reference:
+        - § 76g Abs. 4 Satz 6 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 77 Abs. 5 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     bewertungszeiten = min(
         bewertungszeiten_monate,
@@ -237,7 +268,10 @@ def mean_entgeltpunkte_pro_bewertungsmonat_m(
     mean_entgeltpunkte: float,
     bewertungszeiten_monate: int,
 ) -> float:
-    """Average number of Entgeltpunkte earned per month of Grundrentenbewertungszeiten."""
+    """Average number of Entgeltpunkte earned per month of Grundrentenbewertungszeiten.
+
+    Reference: § 76g Abs. 4 Satz 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    """
     if bewertungszeiten_monate > 0:
         out = mean_entgeltpunkte / bewertungszeiten_monate
 
@@ -252,7 +286,7 @@ def mean_entgeltpunkte_pro_bewertungsmonat_m(
     rounding_spec=RoundingSpec(
         base=0.0001,
         direction="nearest",
-        reference="§ 76g Abs. 4 S. 4 SGB VI",
+        reference="§ 76g Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879",
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
@@ -262,7 +296,13 @@ def höchstbetrag_m(
     berücksichtigte_wartezeit_monate: dict[str, int],
     höchstwert_der_entgeltpunkte: dict[str, float],
 ) -> float:
-    """Maximum allowed number of average Entgeltpunkte."""
+    """Maximum allowed number of average Entgeltpunkte.
+
+    Reference:
+        - § 76g Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 76g Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 76g Abs. 4 Satz 5 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    """
     # The number of increment-steps above the threshold — a plain count multiplying
     # the per-month increment.
     months_above_thresh = cast_ttsim_unit(
@@ -284,7 +324,10 @@ def höchstbetrag_m(
     rounding_spec=RoundingSpec(
         base=0.0001,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 121 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     start_date="2021-01-01",
     unit=TTSIMUnit.DIMENSIONLESS.PER_MONTH,
@@ -302,7 +345,10 @@ def mean_entgeltpunkte_zuschlag_m(
     doubled, or extended to the individual Höchstwert if doubling would exceed the
     Höchstwert. Then, the value is multiplied by 0.875.
 
-    Legal reference: § 76g SGB VI
+    Reference:
+        - § 76g Abs. 4 Satz 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 76g Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 76g Abs. 4 Satz 6 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     # A per-month zero for the "no additional Entgeltpunkte" branches, so every branch
     # yields the declared `1 / month` (a bare 0.0 would infer dimensionless here).
@@ -334,7 +380,10 @@ def grundsätzlich_anspruchsberechtigt(
     grundrentenzeiten_monate: int,
     berücksichtigte_wartezeit_monate: dict[str, int],
 ) -> bool:
-    """Has accumulated enough insured years to be eligible."""
+    """Has accumulated enough insured years to be eligible.
+
+    Reference: § 76g Abs. 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    """
     return grundrentenzeiten_monate >= berücksichtigte_wartezeit_monate["min"]
 
 
@@ -371,7 +420,7 @@ def einkommen_für_einkommensanrechnung_im_übernächsten_jahr_y(
     negative amounts; this follows the wording of § 97a Abs. 2 S. 1 SGB VI, which sums
     the components.
 
-    Reference: § 97a Abs. 2 S. 1 SGB VI
+    Reference: § 97a Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
     """
     zu_versteuerndes_einkommen_y = (
         einkommensteuer__zu_versteuerndes_einkommen_y_sn / familie__anzahl_personen_sn

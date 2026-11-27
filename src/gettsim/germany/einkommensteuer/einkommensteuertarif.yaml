@@ -17,6 +17,9 @@ raw_parameter_einkommensteuertarif:
   output_unit: EUR_PER_YEAR
   type: require_converter
   2002-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz (StEuglG).
     intervals:
       - interval: (-inf, 7235)
         slope: 0
@@ -30,6 +33,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.485
         quadratic: 0
   2004-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004.
     intervals:
       - interval: (-inf, 7664)
         slope: 0
@@ -42,6 +48,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2005-01-01:
+    reference: § 52 Abs. 41 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004. The tariff for 2005 was set in § 52 Abs. 41 EStG.
     intervals:
       - interval: (-inf, 7664)
         slope: 0
@@ -55,6 +64,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.42
         quadratic: 0
   2007-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 19.07.2006 BGBl. I S. 1652
+    note: >-
+      Steueränderungsgesetz 2007 (Reichensteuer).
     intervals:
       - interval: (-inf, 7664)
         slope: 0
@@ -71,6 +83,10 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2009-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Gesetz zur Sicherung von Beschäftigung und Stabilität in Deutschland (retroactive
+      from 01.01.2009).
     intervals:
       - interval: (-inf, 7834)
         slope: 0
@@ -87,7 +103,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2010-01-01:
-    reference: Artikel 1 G. v. 02.03.2009 BGBl. I S. 416
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Gesetz zur Sicherung von Beschäftigung und Stabilität in Deutschland.
     intervals:
       - interval: (-inf, 8004)
         slope: 0
@@ -104,6 +122,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2013-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+    note: >-
+      Gesetz zum Abbau der kalten Progression.
     intervals:
       - interval: (-inf, 8130)
         slope: 0
@@ -121,7 +142,7 @@ raw_parameter_einkommensteuertarif:
         quadratic: 0
   2014-01-01:
     note: Gesetz zum Abbau der kalten Progression
-    reference: G. v. 20.2.2013, BGBl I S.283
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
     intervals:
       - interval: (-inf, 8354)
         slope: 0
@@ -138,8 +159,12 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2015-07-01:
-    note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
-    reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
+    note: >-
+      Gesetz zur Anhebung des Grundfreibetrags, des Kinderfreibetrags, des Kindergeldes
+      und des Kinderzuschlags. The law applies to the whole Veranlagungszeitraum 2015;
+      GETTSIM uses 01.07.2015 as the start date (the Lohnsteuer applied it from December
+      2015, § 52 Abs. 32a EStG).
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
     intervals:
       - interval: (-inf, 8472)
         slope: 0
@@ -156,8 +181,10 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2016-01-01:
-    note: Gesetz z. Anhebung des Gfb, des Kfb, des Kindergeldes und des Kiz
-    reference: G. v. 15.07.2015, BGBl. Nr. 30 2015
+    note: >-
+      Gesetz zur Anhebung des Grundfreibetrags, des Kinderfreibetrags, des Kindergeldes
+      und des Kinderzuschlags.
+    reference: § 32a Abs. 1 EStG idF Art. 2 G. v. 16.07.2015 BGBl. I S. 1202
     intervals:
       - interval: (-inf, 8652)
         slope: 0
@@ -174,7 +201,10 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2017-01-01:
-    reference: Artikel 8 G. v. 20.12.2016, BGBl I S. 3000
+    reference: § 32a Abs. 1 EStG idF Art. 8 G. v. 20.12.2016 BGBl. I S. 3000
+    note: >-
+      Gesetz zur Umsetzung der Änderungen der EU-Amtshilferichtlinie und von weiteren
+      Maßnahmen gegen Gewinnkürzungen und -verlagerungen.
     intervals:
       - interval: (-inf, 8820)
         slope: 0
@@ -191,7 +221,10 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2018-01-01:
-    reference: Artikel 9 G. v 23.12.2016, BGBL I, S. 3000
+    reference: § 32a Abs. 1 EStG idF Art. 9 G. v. 20.12.2016 BGBl. I S. 3000
+    note: >-
+      Gesetz zur Umsetzung der Änderungen der EU-Amtshilferichtlinie und von weiteren
+      Maßnahmen gegen Gewinnkürzungen und -verlagerungen.
     intervals:
       - interval: (-inf, 9000)
         slope: 0
@@ -208,6 +241,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2019-01-01:
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 29.11.2018 BGBl. I S. 2210
+    note: >-
+      Familienentlastungsgesetz.
     intervals:
       - interval: (-inf, 9168)
         slope: 0
@@ -224,7 +260,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2020-01-01:
-    reference: Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
+    reference: § 32a Abs. 1 EStG idF Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
+    note: >-
+      Familienentlastungsgesetz.
     intervals:
       - interval: (-inf, 9408)
         slope: 0
@@ -241,7 +279,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2021-01-01:
-    reference: Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
+    note: >-
+      Zweites Familienentlastungsgesetz.
     intervals:
       - interval: (-inf, 9744)
         slope: 0
@@ -258,10 +298,11 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2022-01-01:
-    reference: Art. 1 G. v. 23.05.2022 BGBl. I S. 749
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 23.05.2022 BGBl. I S. 749
     note: >-
-      First specified in Art. 2. G. v. 01.12.2020 BGBl. I S. 2616, new defined resp.
-      overridden in above reference.
+      Steuerentlastungsgesetz 2022 (retroactive from 01.01.2022). First specified in
+      Art. 2 G. v. 01.12.2020 BGBl. I S. 2616 (Zweites Familienentlastungsgesetz),
+      overridden by this act.
     intervals:
       - interval: (-inf, 10347)
         slope: 0
@@ -278,7 +319,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2023-01-01:
-    reference: Art. 2 G. v. 08.12.2022 BGBl. I S. 2230.
+    reference: § 32a Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: >-
+      Inflationsausgleichsgesetz.
     intervals:
       - interval: (-inf, 10908)
         slope: 0
@@ -295,7 +338,11 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2024-01-01:
-    reference: Art. 1 G. v. 05.12.2024 BGBl. 2024 I Nr. 386.
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 02.12.2024 BGBl. 2024 I Nr. 386
+    note: >-
+      Gesetz zur steuerlichen Freistellung des Existenzminimums 2024 (retroactive from
+      01.01.2024). First specified in Art. 3 G. v. 08.12.2022 BGBl. I S. 2230
+      (Inflationsausgleichsgesetz).
     intervals:
       - interval: (-inf, 11784)
         slope: 0
@@ -312,7 +359,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2025-01-01:
-    reference: Art. 1 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: § 32a Abs. 1 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
+    note: >-
+      Steuerfortentwicklungsgesetz.
     intervals:
       - interval: (-inf, 12096)
         slope: 0
@@ -329,7 +378,9 @@ raw_parameter_einkommensteuertarif:
         slope: 0.45
         quadratic: 0
   2026-01-01:
-    reference: Art. 2 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: § 32a Abs. 1 EStG idF Art. 2 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
+    note: >-
+      Steuerfortentwicklungsgesetz.
     intervals:
       - interval: (-inf, 12348)
         slope: 0

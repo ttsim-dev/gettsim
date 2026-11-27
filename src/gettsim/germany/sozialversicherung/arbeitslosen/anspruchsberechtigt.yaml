@@ -12,58 +12,142 @@ stundengrenze:
   type: scalar
   1969-07-01:
     value: 20
+    reference: § 102 Abs. 1 AFG idF G. v. 25.06.1969 BGBl. I S. 582
+    note: Arbeitsförderungsgesetz
   1986-01-01:
     value: 19
-    reference: Art. 1 G. v. 20.12.1985 BGBl I S. 2484
+    reference: § 102 Abs. 1 AFG idF Art. 1 G. v. 20.12.1985 BGBl. I S. 2484
   1989-01-01:
     value: 18
-    reference: Art. 1 G. v. 20.12.1988 BGBl I S. 2343
+    reference: § 102 Abs. 1 AFG idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2343
+  1998-01-01:
+    value: 15
+    reference:
+      - § 118 Abs. 2 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+      - § 8 Abs. 1 Nr. 1 SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+    note: >-
+      Arbeitsförderungs-Reformgesetz. Eine geringfügige Beschäftigung (§ 8 SGB IV:
+      regelmäßig weniger als 15 Stunden wöchentlich) schließt Beschäftigungslosigkeit
+      nicht aus. Die Entgeltgrenze des § 8 SGB IV ist nicht modelliert.
+  2005-01-01:
+    value: 15
+    reference: § 119 Abs. 3 Satz 1 SGB III idF Art. 1 G. v. 23.12.2003 BGBl. I S. 2848
+    note: Drittes Gesetz für moderne Dienstleistungen am Arbeitsmarkt
   2012-04-01:
     value: 15
-    reference: Art. 2 G. v. 20.12.2011 BGBl I S. 2854
+    reference: § 138 Abs. 3 Satz 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt
 anspruchsdauer_nach_alter:
   name:
     de: Anspruchsdauer für ALG 1 nach Alter.
     en: Period of ALG 1 eligibility based on age.
   description:
     de: >-
-      § 147 Abs. 2 SGB III
-      Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie viele Monate
-      eine Person versicherungsplichtig in den letzten 5 Jahren war.
+      § 147 Abs. 2 SGB III Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie
+      viele Monate eine Person versicherungsplichtig in den letzten 5 Jahren war.
     en: >-
-      § 147 Abs. 2 SGB III
-      The length of ALG 1 eligibility depends on age and on how many months a
-      person was subject to compulsory insurance
+      § 147 Abs. 2 SGB III The length of ALG 1 eligibility depends on age and on how
+      many months a person was subject to compulsory insurance
   input_unit: YEARS
   output_unit: MONTHS
   type: sparse_to_consecutive_int_lookup_table
-  1997-03-24:
+  1998-01-01:
+    0: 12
+    45: 18
+    47: 22
+    52: 26
+    57: 32
+    min_int_in_table: 0
+    max_int_in_table: 120
+    reference: § 127 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: >-
+      Arbeitsförderungs-Reformgesetz. GETTSIM bildet die Tabelle als Minimum der
+      Anspruchsdauer nach Alter und nach Versicherungsmonaten ab.
+  2006-02-01:
+    0: 12
+    55: 18
+    min_int_in_table: 0
+    max_int_in_table: 120
+    reference: § 127 Abs. 2 SGB III idF Art. 3 Nr. 2 G. v. 24.12.2003 BGBl. I S. 3002
+    note: >-
+      Gesetz zu Reformen am Arbeitsmarkt; applies to claims arising from
+      01.02.2006 (§ 434l Abs. 1 SGB III).
+  2008-01-01:
     0: 12
     50: 15
     55: 18
     58: 24
     min_int_in_table: 0
     max_int_in_table: 120
+    reference: § 127 Abs. 2 SGB III idF Art. 1 Nr. 4 G. v. 08.04.2008 BGBl. I S. 681
+    note: >-
+      Siebtes Gesetz zur Änderung des Dritten Buches Sozialgesetzbuch, rückwirkend zum
+      1. Januar 2008.
+  2012-04-01:
+    0: 12
+    50: 15
+    55: 18
+    58: 24
+    min_int_in_table: 0
+    max_int_in_table: 120
+    reference: § 147 Abs. 2 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: >-
+      Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt; § 127 SGB III
+      wird § 147 SGB III.
 anspruchsdauer_nach_versicherungspflichtigen_monaten:
   name:
     de: Anspruchsdauer für ALG 1 nach versicherungspflichtigen Monaten.
     en: Period of ALG 1 eligibility based on months of compulsory insurance.
   description:
     de: >-
-      § 147 Abs. 2 SGB III
-      Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie viele Monate
-      eine Person versicherungsplichtig in den letzten 5 Jahren war.
+      § 147 Abs. 2 SGB III Dauer des Anspruchs auf ALG 1 richtet sich nach Alter und wie
+      viele Monate eine Person versicherungsplichtig in den letzten 5 Jahren war.
     en: >-
-      § 147 Abs. 2 SGB III
-      The length of ALG 1 eligibility depends on age and on how many months a
-      person was subject to compulsory insurance
+      § 147 Abs. 2 SGB III The length of ALG 1 eligibility depends on age and on how
+      many months a person was subject to compulsory insurance
   input_unit: MONTHS
   output_unit: MONTHS
   type: sparse_to_consecutive_int_lookup_table
-  1997-03-24:
+  1998-01-01:
     0: 0
     12: 6
-    18: 8
+    16: 8
+    20: 10
+    24: 12
+    28: 14
+    32: 16
+    36: 18
+    40: 20
+    44: 22
+    48: 24
+    52: 26
+    56: 28
+    60: 30
+    64: 32
+    min_int_in_table: 0
+    max_int_in_table: 700
+    reference: § 127 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: >-
+      Arbeitsförderungs-Reformgesetz. GETTSIM bildet die Tabelle als Minimum der
+      Anspruchsdauer nach Alter und nach Versicherungsmonaten ab.
+  2006-02-01:
+    0: 0
+    12: 6
+    16: 8
+    20: 10
+    24: 12
+    30: 15
+    36: 18
+    min_int_in_table: 0
+    max_int_in_table: 700
+    reference: § 127 Abs. 2 SGB III idF Art. 3 Nr. 2 G. v. 24.12.2003 BGBl. I S. 3002
+    note: >-
+      Gesetz zu Reformen am Arbeitsmarkt; applies to claims arising from
+      01.02.2006 (§ 434l Abs. 1 SGB III).
+  2008-01-01:
+    0: 0
+    12: 6
+    16: 8
     20: 10
     24: 12
     30: 15
@@ -71,18 +155,45 @@ anspruchsdauer_nach_versicherungspflichtigen_monaten:
     48: 24
     min_int_in_table: 0
     max_int_in_table: 700
+    reference: § 127 Abs. 2 SGB III idF Art. 1 Nr. 4 G. v. 08.04.2008 BGBl. I S. 681
+    note: >-
+      Siebtes Gesetz zur Änderung des Dritten Buches Sozialgesetzbuch, rückwirkend zum
+      1. Januar 2008.
+  2012-04-01:
+    0: 0
+    12: 6
+    16: 8
+    20: 10
+    24: 12
+    30: 15
+    36: 18
+    48: 24
+    min_int_in_table: 0
+    max_int_in_table: 700
+    reference: § 147 Abs. 2 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: >-
+      Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt; § 127 SGB III
+      wird § 147 SGB III.
 mindestversicherungsmonate:
   name:
     de: Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten vor ALG 1 Bezug
     en: Minimum number of months of insurance in the last 30 months before ALG 1 receipt
   description:
     de: >-
-      § 142 Abs. 2 SGB III
-      Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten vor ALG 1 Bezug
+      § 142 Abs. 2 SGB III Mindestanzahl an Beitragsmonaten in den letzten 30 Monaten
+      vor ALG 1 Bezug
     en: >-
-      § 142 Abs. 2 SGB III
-      Minimum number of months of insurance in the last 30 months before ALG 1 receipt
+      § 142 Abs. 2 SGB III Minimum number of months of insurance in the last 30 months
+      before ALG 1 receipt
   unit: MONTHS
   type: scalar
-  1997-03-24:
+  1998-01-01:
     value: 12
+    reference: § 123 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: Arbeitsförderungs-Reformgesetz
+  2012-04-01:
+    value: 12
+    reference: § 142 Abs. 1 Satz 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: >-
+      Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt; § 123 SGB III
+      wird § 142 SGB III.

@@ -9,7 +9,10 @@ from gettsim.tt import RoundingSpec, TTSIMUnit, policy_function
         unit=TTSIMUnit.DM.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     leaf_name="bruttorente_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -24,6 +27,10 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze_bis_2001(
     """Pension benefits after earnings test for early retirees.
 
     If earnings are above an earnings limit, the pension is fully deducted.
+
+    Reference:
+        - § 34 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 34 Abs. 3 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     # TODO (@MImmesberger): Use age with monthly precision.
     # https://github.com/ttsim-dev/gettsim/issues/781
@@ -44,7 +51,10 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze_bis_2001(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     leaf_name="bruttorente_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -59,6 +69,12 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze_ab_2002(
     """Pension benefits after earnings test for early retirees.
 
     If earnings are above an earnings limit, the pension is fully deducted.
+
+    Reference:
+        - § 34 Abs. 3 Nr. 1 SGB VI idF Art. 6 G. v. 21.12.2000 BGBl. I S. 1983
+        - § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 34 Abs. 3 Nr. 1 SGB VI idF Art. 5 G. v. 08.04.2008 BGBl. I S. 681
+        - § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
     """
     # TODO (@MImmesberger): Use age with monthly precision.
     # https://github.com/ttsim-dev/gettsim/issues/781
@@ -80,7 +96,10 @@ def bruttorente_m_mit_harter_hinzuverdienstgrenze_ab_2002(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -95,6 +114,8 @@ def bruttorente_m_mit_hinzuverdienstdeckel(
 
     If sum of earnings and pension is larger than the highest income in the last 15
     years, the pension is fully deducted (Hinzuverdienstdeckel).
+
+    Reference: § 34 Abs. 3a SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
     """
     # TODO (@MImmesberger): Use age with monthly precision.
     # https://github.com/ttsim-dev/gettsim/issues/781
@@ -129,6 +150,13 @@ def zahlbetrag_ohne_deckel_m(
 ) -> float:
     """Pension benefits after earnings test without accounting for the earnings cap
     (Hinzuverdienstdeckel).
+
+    Reference:
+        - § 34 Abs. 2 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+        - § 34 Abs. 3 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+        - § 302 Abs. 8 Nr. 1 SGB VI idF Art. 4 G. v. 27.03.2020 BGBl. I S. 575
+        - § 302 Abs. 8 Nr. 1 SGB VI idF Art. 9c G. v. 22.12.2020 BGBl. I S. 3334
+        - § 302 Abs. 8 Nr. 1 SGB VI idF Art. 6a G. v. 22.11.2021 BGBl. I S. 4906
     """
     # TODO (@MImmesberger): Use age with monthly precision.
     # https://github.com/ttsim-dev/gettsim/issues/781
@@ -156,7 +184,10 @@ def differenz_bruttolohn_hinzuverdienstgrenze_m(
     einnahmen__bruttolohn_m: float,
     hinzuverdienstgrenze_m: float,
 ) -> float:
-    """Earnings that are subject to pension deductions."""
+    """Earnings that are subject to pension deductions.
+
+    Reference: § 34 Abs. 3 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+    """
     return max(
         einnahmen__bruttolohn_m - hinzuverdienstgrenze_m,
         0.0,
@@ -173,7 +204,10 @@ def differenz_bruttolohn_hinzuverdienstdeckel_m(
     zahlbetrag_ohne_deckel_m: float,
     höchster_bruttolohn_letzte_15_jahre_vor_rente_m: float,
 ) -> float:
-    """Income above the earnings cap (Hinzuverdienstdeckel)."""
+    """Income above the earnings cap (Hinzuverdienstdeckel).
+
+    Reference: § 34 Abs. 3a SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+    """
     return max(
         zahlbetrag_ohne_deckel_m
         + einnahmen__bruttolohn_m
@@ -189,12 +223,18 @@ def differenz_bruttolohn_hinzuverdienstdeckel_m(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def bruttorente_m_ohne_einkommensanrechnung(
     bruttorente_basisbetrag_m: float,
 ) -> float:
-    """Public pension claim before Grundrentenzuschlag."""
+    """Public pension claim before Grundrentenzuschlag.
+
+    Reference: § 34 SGB VI idF Art. 7 G. v. 20.12.2022 BGBl. I S. 2759
+    """
     return bruttorente_basisbetrag_m

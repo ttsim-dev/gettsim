@@ -18,23 +18,31 @@ obergrenze_vermögensgrundfreibetrag:
     1964: 13000
     min_int_in_table: 1900
     max_int_in_table: 2050
-    reference: Artikel 1 G. v. 23.12.2002 BGBl. I S. 4607.
+    reference:
+      - § 12 Abs. 2 Nr. 1 SGB II idF Art. 2 G. v. 19.11.2004 BGBl. I S. 2902
+      - § 65 Abs. 5 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
   2006-08-01:
     updates_previous: true
     1947: 33800
     1948: 9750
     1958: 9750
     1964: 9750
-    reference: Artikel 1 G. v. 20.07.2006 BGBl. I S. 1706.
+    reference:
+      - § 12 Abs. 2 Nr. 1 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+      - § 65 Abs. 5 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+    note: Gesetz zur Fortentwicklung der Grundsicherung für Arbeitsuchende.
   2008-01-01:
     updates_previous: true
     1947: 33800
     1948: 9750
     1958: 9900
     1964: 10050
-    note: Artikel 1 G. v. 20.04.2007 BGBl. I S. 554.
+    reference:
+      - § 12 Abs. 2 Satz 2 SGB II idF Art. 2 G. v. 20.04.2007 BGBl. I S. 554
+      - § 65 Abs. 5 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+    note: RV-Altersgrenzenanpassungsgesetz.
   2023-01-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference: § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Abolished in the Bürgergeld-Gesetz
 vermögensgrundfreibetrag_je_lebensjahr:
   name:
@@ -51,14 +59,19 @@ vermögensgrundfreibetrag_je_lebensjahr:
     1948: 200
     min_int_in_table: 1900
     max_int_in_table: 2050
-    reference: Artikel 1 G. v. 30.12.2002 BGBl. I S. 4619.
+    reference:
+      - § 12 Abs. 2 Nr. 1 SGB II idF Art. 2 G. v. 19.11.2004 BGBl. I S. 2902
+      - § 65 Abs. 5 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
   2006-08-01:
     updates_previous: true
     1947: 520
     1948: 150
-    reference: Artikel 1 G. v. 20.07.2006 BGBl. I S. 1706.
+    reference:
+      - § 12 Abs. 2 Nr. 1 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+      - § 65 Abs. 5 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+    note: Gesetz zur Fortentwicklung der Grundsicherung für Arbeitsuchende.
   2023-01-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference: § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Abolished in the Bürgergeld-Gesetz
 vermögensfreibetrag_austattung:
   name:
@@ -71,9 +84,9 @@ vermögensfreibetrag_austattung:
   type: scalar
   2005-01-01:
     value: 750
-    reference: Artikel 1 G. v. 24.12.2003 BGBl. I S. 2954.
+    reference: § 12 Abs. 2 Nr. 4 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
   2023-01-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference: § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Abolished in the Bürgergeld-Gesetz
 vermögensgrundfreibetrag_je_kind:
   name:
@@ -86,12 +99,13 @@ vermögensgrundfreibetrag_je_kind:
   type: scalar
   2005-01-01:
     value: 4100
-    reference: Artikel 1 G. v. 24.12.2003 BGBl. I S. 2954.
+    reference: § 12 Abs. 2 SGB II idF Art. 2 G. v. 19.11.2004 BGBl. I S. 2902
   2006-08-01:
     value: 3100
-    reference: Artikel 1 G. v. 20.07.2006 BGBl. I S. 1706.
+    reference: § 12 Abs. 2 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+    note: Gesetz zur Fortentwicklung der Grundsicherung für Arbeitsuchende.
   2023-01-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference: § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Abolished in the Bürgergeld-Gesetz
 abzugsfähige_pauschalen:
   name:
@@ -108,9 +122,16 @@ abzugsfähige_pauschalen:
   2005-01-01:
     versicherung: 30
     werbung: 15.33
-    reference: V. v. 20.10.2004 BGBl. I S. 2622
+    reference:
+      - § 3 Nr. 1 Alg II-V idF V. v. 20.10.2004 BGBl. I S. 2622
+      - § 3 Nr. 3 Buchst. a Alg II-V idF V. v. 20.10.2004 BGBl. I S. 2622
   2016-08-01:
-    note: V. v. 26.07.2016 BGBl. I S. 1858
+    reference: § 6 Abs. 1 Nr. 3 Alg II-V idF Art. 1 V. v. 26.07.2016 BGBl. I S. 1858
+    note: >-
+      Siebte Verordnung zur Änderung der Arbeitslosengeld II/Sozialgeld-Verordnung. Die
+      Pauschale für Werbungskosten entfällt. Die Versicherungspauschale von 30 Euro
+      (seit 2008 § 6 Abs. 1 Nr. 1 Alg II-V) gilt weiter; GETTSIM verwendet beide Werte
+      nur für die Nettoquote bis September 2005.
 parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   name:
     de: >-
@@ -135,7 +156,7 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2005-01-01:
-    reference: Artikel 1. G. v. 24.12.2003 BGBl. I S. 2954.
+    reference: § 30 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -149,7 +170,11 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       - interval: '[1500, inf)'
         slope: 0
   2005-10-01:
-    reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
+    reference:
+      - § 11 Abs. 2 Satz 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+      - § 30 Satz 2 Nr. 1 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+      - § 30 Satz 2 Nr. 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+    note: Freibetragsneuregelungsgesetz.
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -163,11 +188,15 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       - interval: '[1200, inf)'
         slope: 0
   2011-04-01:
-    reference: Artikel 1 G. v. 20.12.2011 BGBl. I 2854.
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     note: >-
-      Neufassung des SGB II. B. v. 13.5.2011 BGBl. I S. 850. Artikel 5.
-      ToDo: Check these laws -- did they really happen months after the date of the
-      policy change?
+      § 11b SGB II gilt seit 1. April 2011 (abweichendes Inkrafttreten der Änderung
+      durch Art. 2 G. v. 24.03.2011). Neufassung des SGB II: B. v. 13.5.2011 BGBl. I S.
+      850. Art. 5 G. v. 20.12.2011 BGBl. I S.
+      2854 hat in § 11b nur Abs. 1 Satz 1 Nr. 8 geändert.
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -181,6 +210,10 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       - interval: '[1200, inf)'
         slope: 0
   2023-01-01:
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
     note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   name:
@@ -205,7 +238,12 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2005-10-01:
-    reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
+    reference:
+      - § 11 Abs. 2 Satz 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+      - § 30 Satz 2 Nr. 1 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+      - § 30 Satz 2 Nr. 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+      - § 30 Satz 3 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+    note: Freibetragsneuregelungsgesetz.
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -219,6 +257,11 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
       - interval: '[1500, inf)'
         slope: 0
   2011-04-01:
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 11b Abs. 3 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -232,4 +275,9 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
       - interval: '[1500, inf)'
         slope: 0
   2023-01-01:
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     note: Bürgergeld replaces Arbeitslosengeld II.

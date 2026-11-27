@@ -15,64 +15,111 @@ beitragssatz:
   add_jahresanfang: true
   1984-01-01:
     value: 0.185
+    reference:
+      - § 1385 Abs. 1 RVO idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+      - § 112 Abs. 1 AVG idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+    note: >-
+      Einundzwanzigstes Rentenanpassungsgesetz; 18,5 % seit dem 1. Januar 1981.
   1985-01-01:
     value: 0.187
-    reference: >-
-      Art. 2 G. v. 20.12.1984 BGBl. I S. 1713 (Arbeitsförderungs- und
-      Rentenversicherungs-Änderungsgesetz).
-  1986-01-01:
+    reference:
+      - § 30b ArVNG idF Art. 2 G. v. 20.12.1984 BGBl. I S. 1713
+      - § 29b AnVNG idF Art. 3 G. v. 20.12.1984 BGBl. I S. 1713
+    note: >-
+      Arbeitsförderungs- und Rentenversicherungs-Änderungsgesetz. Zitiert ist Artikel 2
+      § 30b ArVNG bzw. Artikel 2 § 29b AnVNG.
+  1985-06-01:
     value: 0.192
-    reference: Art. 5 G. v. 16.05.1985 BGBl. I S. 766 (RVFinanzG).
+    reference:
+      - § 30b ArVNG idF Art. 5 G. v. 16.05.1985 BGBl. I S. 766
+      - § 29b AnVNG idF Art. 6 G. v. 16.05.1985 BGBl. I S. 766
+    note: >-
+      RVFinanzG: 19,2 % vom 1. Juni 1985 bis zum 31. Dezember 1986.
   1987-01-01:
     value: 0.187
-    reference: Art. 5 G. v. 16.05.1985 BGBl. I S. 766 (RVFinanzG).
-  1992-01-01:
+    reference:
+      - § 30b ArVNG idF Art. 5 G. v. 16.05.1985 BGBl. I S. 766
+      - § 29b AnVNG idF Art. 6 G. v. 16.05.1985 BGBl. I S. 766
+    note: RVFinanzG.
+  1991-04-01:
     value: 0.177
     reference: >-
-      § 287 Abs. 1 SGB VI (Fortgeltung des am 31.12.1991 geltenden Beitragssatzes);
-      Satz festgesetzt durch Art. 2 G. v. 22.03.1991 BGBl. I S. 790.
+      none (rate set directly in Art. 81 Abs. 2 of the Rentenreformgesetz 1992, an
+      article without paragraphs, idF Art. 2 G. v. 22.03.1991 BGBl. I S. 790)
+    note: >-
+      Gesetz zur Änderung der Beitragssätze in der gesetzlichen Rentenversicherung und
+      bei der Bundesanstalt für Arbeit: 17,7 % ab dem 1. April 1991.
+  1992-01-01:
+    value: 0.177
+    reference: § 287 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Rentenreformgesetz 1992: Fortgeltung des am 31. Dezember 1991 geltenden
+      Beitragssatzes.
   1993-01-01:
     value: 0.175
-    reference: § 25 Abs. 2 G. v. 21.12.1992 BGBl. I S. 2229 (Haushaltsgesetz 1993).
+    reference: § 25 Abs. 2 G. v. 21.12.1992 BGBl. I S. 2229
+    note: Haushaltsgesetz 1993.
   1994-01-01:
     value: 0.192
-    reference: § 1 V. v. 01.12.1993 BGBl. I S. 1987 (Beitragssatzverordnung 1994).
+    reference: § 1 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Beitragssatzverordnung 1994.
   1995-01-01:
     value: 0.186
-    reference: § 1 V. v. 14.11.1994 BGBl. I S. 3438 (Beitragssatzverordnung 1995).
+    reference: § 1 BSV 1995 idF V. v. 14.11.1994 BGBl. I S. 3438
+    note: Beitragssatzverordnung 1995.
   1996-01-01:
     value: 0.192
-    reference: § 1 V. v. 04.12.1995 BGBl. I S. 1584 (Beitragssatzverordnung 1996).
+    reference: § 1 BSV 1996 idF V. v. 04.12.1995 BGBl. I S. 1584
+    note: Beitragssatzverordnung 1996.
   1997-01-01:
     value: 0.203
-    reference: § 1 V. v. 19.12.1996 BGBl. I S. 2085 (Beitragssatzverordnung 1997).
+    reference: § 1 BSV 1997 idF V. v. 19.12.1996 BGBl. I S. 2085
+    note: >-
+      Beitragssatzverordnung 1997. Der Satz blieb 1998 (BSV 1998, V. v. 19.12.1997
+      BGBl. I S. 3219) und bis März 1999 (BSV 1999, V. v. 18.12.1998 BGBl. I S. 3827)
+      unverändert.
+  1999-04-01:
+    value: 0.195
+    reference: § 1 BSG 1999 idF Art. 5 G. v. 19.12.1998 BGBl. I S. 3843
+    note: >-
+      Beitragssatzgesetz 1999 (Gesetz zu Korrekturen in der Sozialversicherung und zur
+      Sicherung der Arbeitnehmerrechte): 19,5 % ab dem 1. April 1999.
   2000-01-01:
     value: 0.193
-    reference: >-
-      Art. 26 § 1 G. v. 22.12.1999 BGBl. I S. 2534 (Haushaltssanierungsgesetz).
+    reference: § 1 BSG 2000 idF Art. 26 G. v. 22.12.1999 BGBl. I S. 2534
+    note: Beitragssatzgesetz 2000 (Haushaltssanierungsgesetz).
   2001-01-01:
     value: 0.191
-    reference: § 1 V. v. 21.12.2000 BGBl. I S. 1877 (Beitragssatzverordnung 2001).
+    reference: § 1 BSV 2001 idF V. v. 21.12.2000 BGBl. I S. 1877
+    note: Beitragssatzverordnung 2001.
   2003-01-01:
     value: 0.195
-    reference: >-
-      Art. 8 § 1 G. v. 23.12.2002 BGBl. I S. 4637 (Beitragssatzsicherungsgesetz).
+    reference: § 1 BSG 2003 idF Art. 8 G. v. 23.12.2002 BGBl. I S. 4637
+    note: Beitragssatzgesetz 2003 (Beitragssatzsicherungsgesetz).
   2007-01-01:
     value: 0.199
-    reference: Art. 1 G. v. 21.12.2006 BGBl. I S. 3286 (Beitragssatzgesetz 2007).
+    reference: >-
+      none (rate set directly in Art. 1 of G. v. 21.12.2006 BGBl. I S. 3286, the
+      Beitragssatzgesetz 2007, which has no paragraphs)
+    note: Beitragssatzgesetz 2007.
   2012-01-01:
     value: 0.196
-    reference: § 1 V. v. 19.12.2011 BGBl. I S. 2795 (Beitragssatzverordnung 2012).
-    note: http://www.bmas.de/DE/Service/Presse/Pressemitteilungen/rentenbericht-16-11-2011.html
+    reference: § 1 BSV 2012 idF V. v. 19.12.2011 BGBl. I S. 2795
+    note: >-
+      Beitragssatzverordnung 2012.
+      http://www.bmas.de/DE/Service/Presse/Pressemitteilungen/rentenbericht-16-11-2011.html
   2013-01-01:
     value: 0.189
-    reference: § 1 G. v. 05.12.2012 BGBl. I S. 2446 (Beitragssatzgesetz 2013).
+    reference: § 1 BSG 2013 idF G. v. 05.12.2012 BGBl. I S. 2446
+    note: Beitragssatzgesetz 2013.
   2015-01-01:
     value: 0.187
-    reference: § 1 V. v. 22.12.2014 BGBl. I S. 2396 (Beitragssatzverordnung 2015).
+    reference: § 1 BSV 2015 idF V. v. 22.12.2014 BGBl. I S. 2396
+    note: Beitragssatzverordnung 2015.
   2018-01-01:
     value: 0.186
-    reference: § 1 V. v. 18.12.2017 BGBl. I S. 3976 (Beitragssatzverordnung 2018).
+    reference: § 1 BSV 2018 idF V. v. 18.12.2017 BGBl. I S. 3976
+    note: Beitragssatzverordnung 2018.
 beitragssatz_knappschaftliche_rentenversicherung:
   name:
     de: Beitragssatz zur knappschaftlichen Rentenversicherung
@@ -84,7 +131,9 @@ beitragssatz_knappschaftliche_rentenversicherung:
   type: scalar
   2015-01-01:
     value: 0.248
-    reference: Beitragssatzverordnung 2015 vom 22. Dezember 2014 BGBl. I S. 2396
+    reference: § 1 BSV 2015 idF V. v. 22.12.2014 BGBl. I S. 2396
+    note: Beitragssatzverordnung 2015.
   2018-01-01:
     value: 0.247
-    reference: Beitragssatzverordnung 2018 vom 18. Dezember 2017 BGBl. I S. 3976
+    reference: § 1 BSV 2018 idF V. v. 18.12.2017 BGBl. I S. 3976
+    note: Beitragssatzverordnung 2018.

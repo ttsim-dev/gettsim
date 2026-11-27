@@ -33,6 +33,11 @@ def regelbedarf_m(
     """Basic monthly subsistence level on individual level.
 
     This includes cost of dwelling.
+
+    Reference:
+        - § 19 Satz 1 Nr. 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 19 Satz 1 SGB II idF Art. 1 G. v. 20.07.2006 BGBl. I S. 1706
+        - § 19 Abs. 1 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     return regelsatz_m + kosten_der_unterkunft_m
 
@@ -53,7 +58,9 @@ def mehrbedarfsanteil_alleinerziehend(
     rules for parents of one child up to 6 years old and two or three children up to 15
     years old.
 
-    Reference: §21 SGB II
+    Reference:
+        - § 21 Abs. 3 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 21 Abs. 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     # A dimensionless share: the per-child share times the child count. The count
     # belongs to the FG (`1/[fg]`), so cast it to a plain dimensionless multiplier.
@@ -92,7 +99,15 @@ def kindersatz_m_anteilsbasiert(
     kindergeld__gleiche_fg_wie_empfänger: bool,
     regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs of children until 2010."""
+    """Basic monthly subsistence / SGB II needs of children until 2010.
+
+    Reference:
+        - § 28 Abs. 1 Satz 3 Nr. 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 20 Abs. 3 Satz 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 20 Abs. 2 Satz 2 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+        - § 28 Abs. 1 Satz 3 Nr. 1 SGB II idF Art. 8 G. v. 02.03.2009 BGBl. I S. 416
+        - § 74 SGB II idF Art. 8 G. v. 02.03.2009 BGBl. I S. 416
+    """
     basissatz = regelsatz_anteilsbasiert.basissatz
 
     if (
@@ -138,6 +153,12 @@ def kindersatz_m_nach_regelbedarfsstufen_ohne_sofortzuschlag(
     """Basic monthly subsistence / SGB II needs of children since 2011.
 
     Note: Since 2023, Arbeitslosengeld 2 is referred to as Bürgergeld.
+
+    Reference:
+        - § 23 Nr. 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 20 Abs. 2 Satz 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 23 Nr. 1 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
+        - § 20 Abs. 2 Satz 2 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
     """
     if (
         alter >= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.min_alter
@@ -177,7 +198,13 @@ def kindersatz_m_nach_regelbedarfsstufen_mit_sofortzuschlag(
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
     kindersofortzuschlag: float,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs of children since 2011."""
+    """Basic monthly subsistence / SGB II needs of children since 2011.
+
+    Reference:
+        - § 23 Nr. 1 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
+        - § 20 Abs. 2 Satz 2 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
+        - § 72 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 23.05.2022 BGBl. I S. 760
+    """
     if (
         alter >= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.min_alter
         and alter <= grundsicherung__regelbedarfsstufen.rbs_6.altersgrenzen.max_alter
@@ -216,7 +243,14 @@ def erwachsenensatz_m_bis_2010(
     p_id_einstandspartner: int,
     regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs for adults without dwelling."""
+    """Basic monthly subsistence / SGB II needs for adults without dwelling.
+
+    Reference:
+        - § 20 Abs. 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 20 Abs. 3 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 20 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+        - § 20 Abs. 3 Satz 1 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+    """
     if p_id_einstandspartner >= 0:
         # BG has 2 adults
         out = regelsatz_anteilsbasiert.basissatz * (
@@ -244,7 +278,14 @@ def erwachsenensatz_m_ab_2011(
     p_id_einstandspartner: int,
     grundsicherung__regelbedarfsstufen: Regelbedarfsstufen,
 ) -> float:
-    """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011."""
+    """Basic monthly subsistence / SGB II needs for adults without dwelling since 2011.
+
+    Reference:
+        - § 20 Abs. 2 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 20 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 20 Abs. 2 Satz 1 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
+        - § 20 Abs. 4 SGB II idF Art. 6 G. v. 22.12.2016 BGBl. I S. 3159
+    """
     if p_id_einstandspartner >= 0:
         # BG has 2 adults
         out = grundsicherung__regelbedarfsstufen.rbs_2
@@ -265,7 +306,10 @@ def regelsatz_m(
     erwachsenensatz_m: float,
     kindersatz_m: float,
 ) -> float:
-    """Basic monthly subsistence without dwelling."""
+    """Basic monthly subsistence without dwelling.
+
+    Reference: none (technical helper)
+    """
     return erwachsenensatz_m + kindersatz_m
 
 
@@ -279,7 +323,12 @@ def kosten_der_unterkunft_m_bis_2022(
     berechtigte_wohnfläche: float,
     anerkannte_warmmiete_je_qm_m: float,
 ) -> float:
-    """Costs of living eligible to claim."""
+    """Costs of living eligible to claim.
+
+    Reference:
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     return berechtigte_wohnfläche * anerkannte_warmmiete_je_qm_m
 
 
@@ -294,7 +343,12 @@ def anerkannte_warmmiete_je_qm_m(
     wohnfläche: float,
     mietobergrenze_pro_qm_m: float,
 ) -> float:
-    """Rent per square meter."""
+    """Rent per square meter.
+
+    Reference:
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     out = (bruttokaltmiete_m + heizkosten_m) / wohnfläche
     return min(out, mietobergrenze_pro_qm_m)
 
@@ -311,7 +365,12 @@ def berechtigte_wohnfläche(
     berechtigte_wohnfläche_miete: dict[str, float],
     berechtigte_wohnfläche_eigentum: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Size of dwelling eligible to claim."""
+    """Size of dwelling eligible to claim.
+
+    Reference:
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     if wohnen__bewohnt_eigentum_hh:
         maximum = berechtigte_wohnfläche_eigentum.look_up(anzahl_personen_hh)
     else:
@@ -337,9 +396,13 @@ def bruttokaltmiete_m(
 ) -> float:
     """Monthly rent attributed to a single person.
 
+    The costs are split equally among all household members (Kopfteilprinzip, BSG
+    Urteil v. 15.04.2008 - B 14/7b AS 58/06 R; BSG Urteil v. 09.03.2016 -
+    B 14 KG 1/15 R).
+
     Reference:
-    BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
-    BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     return wohnen__bruttokaltmiete_m_hh / anzahl_personen_hh
 
@@ -355,9 +418,13 @@ def heizkosten_m(
 ) -> float:
     """Monthly heating expenses attributed to a single person.
 
+    The costs are split equally among all household members (Kopfteilprinzip, BSG
+    Urteil v. 15.04.2008 - B 14/7b AS 58/06 R; BSG Urteil v. 09.03.2016 -
+    B 14 KG 1/15 R).
+
     Reference:
-    BSG Urteil v. 09.03.2016 - B 14 KG 1/15 R.
-    BSG Urteil vom 15.04.2008 - B 14/7b AS 58/06 R.
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     return wohnen__heizkosten_m_hh / anzahl_personen_hh
 
@@ -371,7 +438,12 @@ def wohnfläche(
     wohnen__wohnfläche_hh: float,
     anzahl_personen_hh: int,
 ) -> float:
-    """Share of household's dwelling size attributed to a single person."""
+    """Share of household's dwelling size attributed to a single person.
+
+    Reference:
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 22 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     return wohnen__wohnfläche_hh / anzahl_personen_hh
 
 

@@ -27,7 +27,13 @@ def lohn_und_einkommensersatzleistungen_ohne_elterngeld_m(
     sozialversicherung__kranken__mutterschaftsgeld_m: float,
     sozialversicherung__unfall__verletztengeld_m: float,
 ) -> float:
-    """Sum of the benefits under § 32b Abs. 1 S. 1 Nr. 1 EStG except Elterngeld."""
+    """Sum of the benefits under § 32b Abs. 1 S. 1 Nr. 1 EStG except Elterngeld.
+
+    Reference:
+        - § 32b Abs. 1 Nr. 1 EStG idF Art. 1 G. v. 15.12.2003 BGBl. I S. 2645
+        - § 32b Abs. 1 Nr. 1 EStG idF Art. 2 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 32b Abs. 1 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 19.12.2008 BGBl. I S. 2794
+    """
     return (
         sozialversicherung__arbeitslosen__betrag_m
         + sozialversicherung__arbeitslosen__kurzarbeitergeld_m
@@ -49,6 +55,8 @@ def lohn_und_einkommensersatzleistungen_m_bis_2006(
     """Sum of the benefits under § 32b Abs. 1 S. 1 Nr. 1 EStG.
 
     Before Elterngeld exists, the catalogue is the sum without it.
+
+    Reference: § 32b Abs. 1 Nr. 1 EStG idF Art. 1 G. v. 15.12.2003 BGBl. I S. 2645
     """
     return lohn_und_einkommensersatzleistungen_ohne_elterngeld_m
 
@@ -66,6 +74,10 @@ def lohn_und_einkommensersatzleistungen_m_ab_2007(
 
     Elterngeld is Buchstabe j of the catalogue (Art. 2 Abs. 6 Nr. 2 G. v. 05.12.2006
     BGBl. I S. 2748) and enters in full, including the Sockelbetrag (BFH v. 21.09.2009,
-    VI B 31/09).
+    VI B 31/09, on § 32b Abs. 1 Nr. 1 Buchst. j EStG).
+
+    Reference:
+        - § 32b Abs. 1 Nr. 1 EStG idF Art. 2 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 32b Abs. 1 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 19.12.2008 BGBl. I S. 2794
     """
     return lohn_und_einkommensersatzleistungen_ohne_elterngeld_m + elterngeld__betrag_m

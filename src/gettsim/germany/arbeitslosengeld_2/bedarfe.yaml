@@ -43,7 +43,11 @@ parameter_regelsatz_anteilsbasiert:
         min_alter: 0
         max_alter: 5
         anteil: 0.6
-    reference: Artikel 1 G. v. 24.12.2003 BGBl. I S. 2954.
+    reference:
+      - § 20 Abs. 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+      - § 20 Abs. 3 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+      - § 20 Abs. 3 Satz 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+      - § 28 Abs. 1 Satz 3 Nr. 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
     note: >-
       Der tatsächliche Wert unterscheidet sich zwischen Ost und West. Korrekte Werte
       sind in den alten Bundesländern einschließlich Berlin (Ost) 345 Euro, in den neuen
@@ -55,8 +59,9 @@ parameter_regelsatz_anteilsbasiert:
   2005-07-01:
     updates_previous: true
     basissatz: 338
-    reference: B. v. 01.09.2005 BGBl. I S. 2718.
+    reference: § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
     note: >-
+      Bekanntmachung über die Höhe der Regelleistung, B. v. 01.09.2005 BGBl. I S. 2718.
       Betrag unverändert. Der tatsächliche Wert unterscheidet sich zwischen Ost und
       West. Hier wurde vereinfachend 338 Euro als ungewichteter Mittelwert genommen.
       Korrekte Werte für die Zeit ab 1. Juli 2005 sind in den alten Bundesländern
@@ -64,15 +69,25 @@ parameter_regelsatz_anteilsbasiert:
   2006-07-01:
     updates_previous: true
     basissatz: 345
-    reference: B. v. 20.07.2006 BGBl. I S. 1702.
+    reference:
+      - § 20 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+      - § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+    note: >-
+      Einheitlicher Betrag in Ost und West seit 1. Juli 2006. Bekanntmachung über die
+      Höhe der Regelleistung, B. v. 20.07.2006 BGBl. I S. 1702.
   2007-07-01:
     updates_previous: true
     basissatz: 347
-    reference: B. v. 18.06.2007 BGBl. I S. 1139.
+    reference: § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 10.10.2007 BGBl. I S. 2326
+    note: >-
+      Bekanntmachung über die Höhe der Regelleistung, B. v. 18.06.2007 BGBl. I S. 1139.
+      § 20 Abs. 4 Satz 1 SGB II wurde rückwirkend zum 1. Juni 2007 geändert.
   2008-07-01:
     updates_previous: true
     basissatz: 351
-    reference: B. v. 26.06.2008 BGBl. I S. 1102.
+    reference: § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 10.10.2007 BGBl. I S. 2326
+    note: >-
+      Bekanntmachung über die Höhe der Regelleistung, B. v. 26.06.2008 BGBl. I S. 1102.
   2009-07-01:
     updates_previous: true
     basissatz: 359
@@ -89,12 +104,22 @@ parameter_regelsatz_anteilsbasiert:
         min_alter: 0
         max_alter: 5
         anteil: 0.6
-    reference: B. v. 17.06.2009 BGBl. I S. 1342.
+    reference:
+      - § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 10.10.2007 BGBl. I S. 2326
+      - § 74 SGB II idF Art. 8 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Bekanntmachung über die Höhe der Regelleistung, B. v. 17.06.2009 BGBl. I S. 1342.
+      Anteil für Kinder von 6 bis 13 Jahren nach § 74 SGB II (Gesetz zur Sicherung von
+      Beschäftigung und Stabilität in Deutschland).
   2010-07-01:
     updates_previous: true
     basissatz: 359
-    reference: B. v. 07.06.2010 BGBl. I S. 820. Betrag unverändert.
+    reference: § 20 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 10.10.2007 BGBl. I S. 2326
+    note: >-
+      Bekanntmachung über die Höhe der Regelleistung, B. v. 07.06.2010 BGBl. I S. 820.
+      Betrag unverändert.
   2011-01-01:
+    reference: § 20 Abs. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     note: Calculation method changed, see regelbedarfsstufen.
 kindersofortzuschlag:
   name:
@@ -115,7 +140,10 @@ kindersofortzuschlag:
   type: scalar
   2022-07-01:
     value: 20
+    reference: § 72 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 23.05.2022 BGBl. I S. 760
+    note: Sofortzuschlags- und Einmalzahlungsgesetz.
   2023-01-01:
+    reference: § 72 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_mehrbedarfsanteil_alleinerziehend:
   name:
@@ -144,6 +172,7 @@ parameter_mehrbedarfsanteil_alleinerziehend:
     basis_je_kind_bis_17: 0.12
     kind_bis_6_oder_2_3_kinder_bis_15: 0.36
     max: 0.6
-    reference: G. v. 24.12.2003 BGBl. I S. 2954.
+    reference: § 21 Abs. 3 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
   2023-01-01:
+    reference: § 21 Abs. 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     note: Bürgergeld replaces Arbeitslosengeld II.

@@ -15,8 +15,12 @@ altersgrenze:
   unit: YEARS
   type: scalar
   2001-01-01:
+    reference: >-
+      § 77 Abs. 2 Satz 1 Nr. 3 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+    note: Gesetz zur Reform der Renten wegen verminderter Erwerbsfähigkeit.
     value: 63
   2012-01-01:
+    reference: § 264d Satz 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     note: Superseded by `altersgrenze_gestaffelt`.
 altersgrenze_gestaffelt:
   name:
@@ -38,7 +42,12 @@ altersgrenze_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   2012-01-01:
-    reference: Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+    reference:
+      - § 264d Satz 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+      - § 77 Abs. 2 Satz 1 Nr. 3 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: >-
+      RV-Altersgrenzenanpassungsgesetz. Ab 2024 gilt die Altersgrenze von 65 Jahren
+      nach § 77 Abs. 2 Satz 1 Nr. 3 SGB VI.
     first_year_to_consider: 1990
     last_year_to_consider: 2030
     2011:
@@ -131,4 +140,11 @@ altersgrenze_langjährig_versichert:
   unit: YEARS
   type: scalar
   2001-01-01:
+    reference: >-
+      none (no special age threshold for long-term insured before § 77 Abs. 4 SGB VI
+      took effect on 1 January 2008)
+    value: 63
+  2008-01-01:
+    reference: § 77 Abs. 4 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: RV-Altersgrenzenanpassungsgesetz.
     value: 63

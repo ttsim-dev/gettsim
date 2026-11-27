@@ -22,6 +22,9 @@ mietobergrenze_pro_qm_m:
   type: scalar
   2023-01-01:
     value: 10
+    reference: >-
+      none (rule of thumb for the angemessene Miete under § 22 Abs. 1 Satz 1 SGB II; set
+      regionally by the Jobcenter, not by law)
 berechtigte_wohnfläche_miete:
   name:
     de: Berechtigte Mietwohnfläche für Bürgergeld-Empfänger*innen
@@ -44,6 +47,9 @@ berechtigte_wohnfläche_miete:
   2023-01-01:
     single: 45
     je_weitere_person: 15
+    reference: >-
+      none (rule of thumb for the angemessene Wohnfläche under § 22 Abs. 1 Satz 1 SGB
+      II; set by Land rules and case law, not by federal law)
 parameter_berechtigte_wohnfläche_eigentum:
   name:
     de: Berechtigte Eigentumsfläche für Bürgergeld-Empfänger*innen
@@ -64,7 +70,8 @@ parameter_berechtigte_wohnfläche_eigentum:
     max_anzahl_direkt: DIMENSIONLESS
   type: require_converter
   2023-01-01:
-    reference: Art. 1 Nr.12 Abschnitt 5, G. v. 20.12.2022 BGBl. I S. 2328
+    reference: >-
+      § 12 Abs. 1 Satz 2 Nr. 5 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Gilt für Eigenheime. Eigentumswohnungen dürfen nur bis zu 130qm groß sein.
     1: 140
     2: 140

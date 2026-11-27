@@ -43,6 +43,13 @@ def betrag_m_mit_kindeseinkommensgrenze(
     Alter if any first-degree descendant has annual Gesamteinkommen (§16 SGB IV)
     exceeding the threshold.
     §2 Abs. 1 SGB XII: Vorrangprüfung.
+
+    Reference:
+        - § 43 Abs. 2 Satz 6 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 43 Abs. 2 Satz 6 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 43 Abs. 3 Satz 6 SGB XII idF Art. 1 G. v. 20.12.2012 BGBl. I S. 2783
+        - § 43 Abs. 5 Satz 6 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
+        - § 43 Abs. 5 Satz 3 SGB XII idF Art. 3a G. v. 22.12.2016 BGBl. I S. 3159
     """
     if (
         hat_kind_mit_einkommen_über_einkommensgrenze
@@ -76,6 +83,8 @@ def betrag_m_ohne_kindeseinkommensgrenze(
     `hat_kind_mit_einkommen_über_einkommensgrenze` to False via the input data to turn
     it off. See the documentation page on children's income and Grundsicherung im
     Alter for details.
+
+    Reference: § 94 Abs. 1a Satz 1 SGB XII idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2135
     """
     # TODO (@MImmesberger): Model the Unterhaltsrückgriff of the Sozialhilfeträger
     # against children with income above 100,000 Euro (§94 Abs. 1a SGB XII, from 2020).
@@ -109,7 +118,14 @@ def anspruchshöhe_m_bis_2022(
     Überschuss is distributed proportionally to the individueller Restbedarf of the
     hilfebedürftigen members.
 
-    Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
+    Reference:
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 7 G. v. 20.04.2007 BGBl. I S. 554
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 43 Abs. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 43 Abs. 1 SGB XII idF Art. 10 G. v. 21.03.2005 BGBl. I S. 818
+        - § 43 Abs. 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 43 Abs. 1 Satz 2 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
     """
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
@@ -165,7 +181,9 @@ def anspruchshöhe_m_ab_2023(
     Überschuss is distributed proportionally to the individueller Restbedarf of the
     hilfebedürftigen members.
 
-    Reference: §19 Abs. 2 Satz 1 i.V.m. §43 Abs. 1 SGB XII, §27 Abs. 2 SGB XII
+    Reference:
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 43 Abs. 1 Satz 2 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
     """
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
@@ -210,6 +228,11 @@ def individueller_restbedarf_m(
 
     In the SGB XII Verhältnislösung, each person's income covers their own Bedarf
     first ('Vertikalmethode').
+
+    Reference:
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 7 G. v. 20.04.2007 BGBl. I S. 554
+        - § 19 Abs. 2 Satz 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
     """
     return max(0.0, bedarf_m - einkommen_zur_verteilung_m)
 
@@ -222,7 +245,16 @@ def bedarf_m_bis_2022(
     mehrbedarf_schwerbehinderung_g_m: float,
     sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
-    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
+    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII).
+
+    Reference:
+        - § 42 Satz 1 Nr. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 42 Satz 1 Nr. 1 SGB XII idF Art. 10 G. v. 21.03.2005 BGBl. I S. 818
+        - § 42 Satz 1 Nr. 1 SGB XII idF Art. 6 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 42 Nr. 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 42 Nr. 1 SGB XII idF Art. 1 G. v. 20.12.2012 BGBl. I S. 2783
+        - § 42 Nr. 1 SGB XII idF Art. 3 G. v. 30.11.2019 BGBl. I S. 1948
+    """
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
     # be eligible for this benefit, independently of the Regelaltersgrenze.
@@ -243,7 +275,10 @@ def bedarf_m_ab_2023(
     mehrbedarf_schwerbehinderung_g_m: float,
     sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht: bool,
 ) -> float:
-    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII)."""
+    """Total Bedarf for Grundsicherung im Alter (§42 SGB XII).
+
+    Reference: § 42 Nr. 1 SGB XII idF Art. 3 G. v. 30.11.2019 BGBl. I S. 1948
+    """
     # TODO (@MImmesberger): Grundsicherung bei Erwerbsminderung (§41 Abs. 3 SGB XII) is
     # not yet implemented. Persons who are dauerhaft voll erwerbsgemindert should also
     # be eligible for this benefit, independently of the Regelaltersgrenze.
@@ -264,6 +299,13 @@ def einkommen_zur_verteilung_m(
     """Total countable SGB XII income (§82 ff. SGB XII).
 
     Returns 0 for persons who have not reached the Regelaltersgrenze.
+
+    Reference:
+        - § 41 Abs. 2 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 41 Abs. 2 SGB XII idF Art. 1 G. v. 02.12.2006 BGBl. I S. 2670
+        - § 41 Abs. 1 SGB XII idF Art. 7 G. v. 20.04.2007 BGBl. I S. 554
+        - § 41 Abs. 1 Satz 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 43 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
     """
     if not sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
@@ -281,7 +323,9 @@ def überschusseinkommen_m_eg(
     Only the EG-level surplus (total income > total Bedarf) flows to the SGB II
     partner.
 
-    Reference: BSG B 14 AS 89/20 R
+    This follows the case law of the BSG (B 14 AS 89/20 R).
+
+    Reference: § 9 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
     """
     return max(0.0, einkommen_zur_verteilung_m_eg - bedarf_m_eg)
 
@@ -297,7 +341,13 @@ def mehrbedarf_schwerbehinderung_g_m_vor_2011(
     arbeitslosengeld_2__regelsatz_anteilsbasiert: RegelsatzAnteilsbasiert,
     mehrbedarf_bei_schwerbehinderungsgrad_g: float,
 ) -> float:
-    """Additional allowance for individuals with disabled person's pass G."""
+    """Additional allowance for individuals with disabled person's pass G.
+
+    Reference:
+        - § 30 Abs. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 30 Abs. 1 SGB XII idF Art. 1 G. v. 02.12.2006 BGBl. I S. 2670
+        - § 30 Abs. 1 SGB XII idF Art. 7 G. v. 20.04.2007 BGBl. I S. 554
+    """
     if (schwerbehindert_grad_g) and (
         familie__anzahl_erwachsene_eg == cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_EG)
     ):
@@ -334,6 +384,10 @@ def mehrbedarf_schwerbehinderung_g_m_ab_2011(
 
     Mehrbedarf is based on Regelbedarfsstufen starting in 2011 (via Gesetz vom
     24.03.2011 - BGBl. I 2011, Nr. 12 vom 29.03.2011, S. 453).
+
+    Reference:
+        - § 30 Abs. 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 30 Abs. 1 SGB XII idF Art. 13 G. v. 23.12.2016 BGBl. I S. 3234
     """
     mehrbedarf_single = (
         grundsicherung__regelbedarfsstufen.rbs_1
@@ -361,7 +415,10 @@ def vermögensgrenze_unterschritten_eg(
     vermögen_eg: float,
     vermögensfreibetrag_eg: float,
 ) -> bool:
-    """Wealth is below the eligibility threshold (§ 90 SGB XII)."""
+    """Wealth is below the eligibility threshold (§ 90 SGB XII).
+
+    Reference: § 90 Abs. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+    """
     return vermögen_eg < vermögensfreibetrag_eg
 
 
@@ -371,7 +428,12 @@ def vermögensfreibetrag_eg(
     familie__anzahl_erwachsene_eg: int,
     parameter_vermögensfreibetrag: dict[str, float],
 ) -> float:
-    """Wealth not considered for Grundsicherung im Alter."""
+    """Wealth not considered for Grundsicherung im Alter.
+
+    Reference:
+        - § 90 Abs. 2 Nr. 9 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 90 Abs. 2 Nr. 9 SGB XII idF Art. 5 G. v. 16.12.2022 BGBl. I S. 2328
+    """
     return (
         parameter_vermögensfreibetrag["erwachsene"] * familie__anzahl_erwachsene_eg
         + parameter_vermögensfreibetrag["kinder"] * familie__anzahl_kinder_eg
@@ -385,7 +447,12 @@ def hat_gesamteinkommen_über_kindeseinkommensgrenze(
 ) -> bool:
     """Whether a person's Gesamteinkommen exceeds the children's income threshold.
 
-    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    Reference:
+        - § 43 Abs. 2 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 43 Abs. 3 Satz 1 SGB XII idF Art. 1 G. v. 20.12.2012 BGBl. I S. 2783
+        - § 43 Abs. 5 Satz 1 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
+        - § 43 Abs. 5 Satz 1 SGB XII idF Art. 3a G. v. 22.12.2016 BGBl. I S. 3159
+        - § 94 Abs. 1a Satz 1 SGB XII idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2135
     """
     # The Gesamteinkommen is a Steuernummer-level total; compare it per person against
     # the children's income threshold.
@@ -426,7 +493,12 @@ def hat_kind_mit_einkommen_über_einkommensgrenze(
     `familie__p_id_elternteil_2`; both slots are covered so that a parent is caught
     regardless of which slot they occupy in the child's record.
 
-    Reference: § 43 SGB XII (BGBl. I 2003 S. 3022)
+    Reference:
+        - § 43 Abs. 2 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 43 Abs. 3 Satz 1 SGB XII idF Art. 1 G. v. 20.12.2012 BGBl. I S. 2783
+        - § 43 Abs. 5 Satz 1 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
+        - § 43 Abs. 5 Satz 1 SGB XII idF Art. 3a G. v. 22.12.2016 BGBl. I S. 3159
+        - § 94 Abs. 1a Satz 1 SGB XII idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2135
     """
     return (
         hat_kind_mit_einkommen_über_einkommensgrenze_als_elternteil_1

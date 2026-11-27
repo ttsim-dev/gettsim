@@ -13,8 +13,17 @@ minijob_arbeitgeberpauschale:
   add_jahresanfang: true
   1997-01-01:
     value: 0.2
-    reference: EStG 1997 BGBl. 1997 I S. 821
+    reference: § 40a Abs. 2 EStG idF B. v. 16.04.1997 BGBl. I S. 821
   2003-04-01:
     value: 0.02
+    reference: § 40a Abs. 2 EStG idF Art. 8 G. v. 23.12.2002 BGBl. I S. 4621
+    note: >-
+      Zweites Gesetz für moderne Dienstleistungen am Arbeitsmarkt. Einheitliche
+      Pauschsteuer of 2 percent, including Solidaritätszuschlag and Kirchensteuer.
   2022-10-01:
-    note: Ceased to exist
+    note: >-
+      Ceased to exist. The einheitliche Pauschsteuer (§ 40a Abs. 2 EStG) still exists,
+      but since 01.10.2022 the factor F for the Übergangsbereich only includes the
+      lump-sum contributions to health and pension insurance (28 percent), so the tax is
+      no longer relevant in GETTSIM.
+    reference: § 20 Abs. 2a Satz 2 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969

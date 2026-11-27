@@ -11,8 +11,9 @@ satz:
   unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 0.67
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 höchstbetrag_m:
   name:
     de: Höchstbetrag des Elterngeldes
@@ -23,8 +24,9 @@ höchstbetrag_m:
   unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 1800.0
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 mindestbetrag_m:
   name:
     de: Mindestbetrag des Elterngeldes
@@ -35,8 +37,9 @@ mindestbetrag_m:
   unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 5 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 300
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 max_zu_berücksichtigendes_einkommen_m:
   name:
     de: Maximal zu berücksichtigendes Einkommen vor Geburt.
@@ -47,11 +50,13 @@ max_zu_berücksichtigendes_einkommen_m:
   unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 3 Satz 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 2700.0
-    reference: BGBl. I S. 2748 Art. 1 G. v. 05.12.2006
   2012-09-18:
+    reference: § 2 Abs. 3 Satz 2 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+    note: Gesetz zur Vereinfachung des Elterngeldvollzugs.
     value: 2770.0
-    reference: Artikel 1 G. v. 10.09.2012 BGBl. I S. 1878
 nettoeinkommensstufen_für_lohnersatzrate:
   name:
     de: Nettoeinkommen an 1. und 2. Stufe
@@ -64,13 +69,19 @@ nettoeinkommensstufen_für_lohnersatzrate:
   unit: EUR_PER_MONTH
   type: dict
   2007-01-01:
+    reference: § 2 Abs. 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: >-
+      Gesetz zur Einführung des Elterngeldes. No reduction above an upper threshold
+      before 2011.
     lower_threshold: 1000.0
     upper_threshold: 1001.0
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
   2011-01-01:
+    reference:
+      - § 2 Abs. 2 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+      - § 2 Abs. 2 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    note: Haushaltsbegleitgesetz 2011.
     lower_threshold: 1000.0
-    upper_threshold: 1201.0
-    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    upper_threshold: 1200.0
 prozent_korrektur:
   name:
     de: Korrektur des Prozentsatzes für hohe und niedrige Einkommen
@@ -81,8 +92,9 @@ prozent_korrektur:
   unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 0.001
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 prozent_minimum:
   name:
     de: Minimaler Anteil des Elterngelds am vorherigen Nettoeinkommen
@@ -93,11 +105,13 @@ prozent_minimum:
   unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
     value: 0.67
     note: implizit
   2011-01-01:
+    reference: § 2 Abs. 2 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    note: Haushaltsbegleitgesetz 2011.
     value: 0.65
-    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
 einkommensschritte_korrektur_m:
   name:
     de: Einkommensschritte für die Korrektur
@@ -108,8 +122,9 @@ einkommensschritte_korrektur_m:
   unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 2
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 sozialversicherungspauschale:
   name:
     de: Sozialversicherungspauschale zur Berechnung des Nettoeinkommens
@@ -120,6 +135,8 @@ sozialversicherungspauschale:
   unit: DIMENSIONLESS
   type: scalar
   2012-09-18:
+    reference: § 2f Abs. 1 Satz 2 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+    note: >-
+      Gesetz zur Vereinfachung des Elterngeldvollzugs. 0.09 + 0.1 + 0.02 (§ 2f Abs. 1
+      Satz 2 Nr. 1 to 3).
     value: 0.21
-    reference: Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
-    note: 0.09 + 0.1 + 0.02

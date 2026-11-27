@@ -13,9 +13,12 @@ werbungskostenpauschbetrag_y:
       Nr. 1, 1a, and 5 EStG, capped at the income itself (§ 9a Satz 2 EStG).
   type: scalar
   1984-01-01:
+    reference: § 9a Satz 1 Nr. 3 EStG idF B. v. 24.01.1984 BGBl. I S. 113
     value: 200
     unit: DM_PER_YEAR
   2002-01-01:
     value: 102
     unit: EUR_PER_YEAR
-    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
+    reference: § 9a Satz 1 Nr. 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.

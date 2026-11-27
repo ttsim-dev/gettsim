@@ -15,83 +15,117 @@ beitragsbemessungsgrenze_m:
   1984-01-01:
     unit: DM_PER_MONTH
     value: 3900
+    reference: § 180 Abs. 1 Satz 3 RVO idF G. v. 27.06.1977 BGBl. I S. 1069
+    note: >-
+      Krankenversicherungs-Kostendämpfungsgesetz. 75 % der Beitragsbemessungsgrenze
+      der Rentenversicherung.
   1985-01-01:
     value: 4050
+    reference: § 180 Abs. 1 Satz 3 RVO idF G. v. 27.06.1977 BGBl. I S. 1069
   1986-01-01:
     value: 4200
+    reference: § 180 Abs. 1 Satz 3 RVO idF G. v. 27.06.1977 BGBl. I S. 1069
   1987-01-01:
     value: 4275
+    reference: § 180 Abs. 1 Satz 3 RVO idF G. v. 27.06.1977 BGBl. I S. 1069
   1988-01-01:
     value: 4500
+    reference: § 180 Abs. 1 Satz 3 RVO idF G. v. 27.06.1977 BGBl. I S. 1069
   1989-01-01:
     value: 4575
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    note: >-
+      Gesundheits-Reformgesetz. Ein Dreihundertsechzigstel der
+      Jahresarbeitsentgeltgrenze (75 % der Beitragsbemessungsgrenze der
+      Rentenversicherung) je Kalendertag.
   1990-01-01:
     note: >-
       The Bemessungsgrenze differs between West and East Germany. See
       ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   2001-01-01:
     value: 6525
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   2002-01-01:
     unit: EUR_PER_MONTH
     value: 3375
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   2003-01-01:
     value: 3450
+    reference: § 6 Abs. 7 SGB V idF Art. 1 Nr. 1 G. v. 23.12.2002 BGBl. I S. 4637
+    note: >-
+      Beitragssatzsicherungsgesetz. Die Beitragsbemessungsgrenze ist ein
+      Zwölftel der Jahresarbeitsentgeltgrenze nach § 6 Abs. 7 SGB V (41 400 Euro).
   2004-01-01:
-    value: 3488
+    value: 3487.5
+    reference: § 4 Abs. 2 V. v. 09.12.2003 BGBl. I S. 2497
+    note: Jahresarbeitsentgeltgrenze nach § 6 Abs. 7 SGB V von 41 850 Euro.
   2005-01-01:
     value: 3525
+    reference: § 4 Abs. 2 V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 3562.5
+    reference: § 4 Abs. 2 V. v. 21.12.2005 BGBl. I S. 3627
   2008-01-01:
     value: 3600
+    reference: § 4 Abs. 2 V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 3675
+    reference: § 4 Abs. 2 V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 3750
+    reference: § 4 Abs. 2 V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 3712.5
+    reference: § 4 Abs. 2 V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 3825
+    reference: § 4 Abs. 2 V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 3937.5
+    reference: § 4 Abs. 2 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 4050
+    reference: § 4 Abs. 2 SVBezGrV 2014 idF V. v. 02.12.2013 BGBl. I S. 4038
     note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
   2015-01-01:
     value: 4125
+    reference: § 4 Abs. 2 SVBezGrV 2015 idF V. v. 01.12.2014 BGBl. I S. 1957
   2016-01-01:
     value: 4237.5
+    reference: § 4 Abs. 2 SVBezGrV 2016 idF V. v. 30.11.2015 BGBl. I S. 2137
     note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
   2017-01-01:
     value: 4350
+    reference: § 4 Abs. 2 SVBezGrV 2017 idF V. v. 28.11.2016 BGBl. I S. 2665
     note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
   2018-01-01:
     value: 4425
+    reference: § 4 Abs. 2 SVBezGrV 2018 idF V. v. 16.11.2017 BGBl. I S. 3778
   2019-01-01:
     value: 4537.5
+    reference: § 4 Abs. 2 SVBezGrV 2019 idF V. v. 27.11.2018 BGBl. I S. 2024
   2020-01-01:
     value: 4687.5
-    reference: V. v. 17.12.2019 BGBl. I S. 2848
+    reference: § 4 Abs. 2 SVBezGrV 2020 idF V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     value: 4837.5
-    reference: §3, §4 V. v. 30.11.2020, BGBl. I S. 2612.
+    reference: § 4 Abs. 2 SVBezGrV 2021 idF V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     value: 4837.5
-    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+    reference: § 4 Abs. 2 SVBezGrV 2022 idF V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 4987.5
-    reference: V. v. 28.11.2022 BGBl. I. S. 2128.
+    reference: § 2 Abs. 2 SVBezGrV 2023 idF V. v. 28.11.2022 BGBl. I S. 2128
   2024-01-01:
     value: 5175
-    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+    reference: § 2 Abs. 2 SVBezGrV 2024 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
   2025-01-01:
     value: 5512.5
-    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+    reference: § 2 Abs. 2 SVBezGrV 2025 idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
   2026-01-01:
     value: 5812.5
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
-      Nr. 278
+    reference: § 2 Abs. 2 SVBezGrV 2026 idF V. v. 24.11.2025 BGBl. 2025 I Nr. 278
 parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Krankenversicherung
@@ -109,42 +143,61 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     unit: DM_PER_MONTH
     west: 4725
     ost: 2025
-    reference: § 6 Abs. 7 SGB V; Anlage 2 SGB VI.
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    note: >-
+      Ost: Das SGB V galt im Beitrittsgebiet erst ab 1991; der Wert für 1990 beruht
+      auf dem Recht der DDR.
   1991-01-01:
     west: 4875
     ost: 2250
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1991-07-01:
     updates_previous: true
     ost: 2550
-    reference: § 2 V. v. 19.06.1991 BGBl. I S. 1300 (drei Viertel von 3 400).
+    reference:
+      - § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+      - § 2 2. RAV idF V. v. 19.06.1991 BGBl. I S. 1300
+    note: >-
+      Zweite Rentenanpassungsverordnung: Beitragsbemessungsgrenze (Ost) der
+      Rentenversicherung 3 400 DM; davon drei Viertel.
   1992-01-01:
     west: 5100
     ost: 3600
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1993-01-01:
     west: 5400
     ost: 3975
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1994-01-01:
     west: 5700
     ost: 4425
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1995-01-01:
     west: 5850
     ost: 4800
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1996-01-01:
     west: 6000
     ost: 5100
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1997-01-01:
     west: 6150
     ost: 5325
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1998-01-01:
     west: 6300
     ost: 5250
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   1999-01-01:
     west: 6375
     ost: 5400
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   2000-01-01:
     west: 6450
     ost: 5325
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
   2001-01-01:
     note: >-
       The Bemessungsgrenze does not differ between West and East Germany. See
       ``beitragsbemessungsgrenze_m``.
+    reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477

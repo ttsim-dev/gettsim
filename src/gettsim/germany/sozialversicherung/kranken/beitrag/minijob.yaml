@@ -14,15 +14,19 @@ minijob_arbeitgeberpauschale:
   type: scalar
   1999-04-01:
     value: 0.1
-    reference: BGBl I 1999 S. 388
-    note: Introduction of '630 Mark' jobs.
+    reference: § 249b Satz 1 SGB V idF Art. 3 Nr. 4 G. v. 24.03.1999 BGBl. I S. 388
+    note: >-
+      Introduction of '630 Mark' jobs (Gesetz zur Neuregelung der geringfügigen
+      Beschäftigungsverhältnisse).
   2003-04-01:
     value: 0.11
-    reference: Art. 1 G. v. 23.12.2002 BGBl. I S. 4621
+    reference: § 249b Satz 1 SGB V idF Art. 3 Nr. 8 G. v. 23.12.2002 BGBl. I S. 4621
     note: >-
-      Seitdem gilt für geringfügige Beschäftigungen in Privathaushalten ein
-      ermäßigter Pauschalbeitrag von 5% (§ 249b Satz 2 SGB V). Dieser wird nicht
-      modelliert, GETTSIM verwendet stets den gewerblichen Satz.
+      Zweites Gesetz für moderne Dienstleistungen am Arbeitsmarkt. Seitdem gilt für
+      geringfügige Beschäftigungen in Privathaushalten ein ermäßigter Pauschalbeitrag
+      von 5% (§ 249b Satz 2 SGB V). Dieser wird nicht modelliert, GETTSIM verwendet
+      stets den gewerblichen Satz.
   2006-07-01:
     value: 0.13
-    reference: G. v. 29.06.2006 BGBl. I S. 1402 (Haushaltsbegleitgesetz 2006)
+    reference: § 249b Satz 1 SGB V idF Art. 10 G. v. 29.06.2006 BGBl. I S. 1402
+    note: Haushaltsbegleitgesetz 2006

@@ -43,7 +43,7 @@ class Einkommensgrenzen:
 
 
 @param_function(
-    start_date="2004-02-09",
+    start_date="2004-01-01",
     end_date="2008-12-31",
     unit=UNSET_UNIT,
 )
@@ -97,7 +97,9 @@ def betrag_m(
 ) -> float:
     """Total parental leave benefits (Erziehungsgeld) received by the parent.
 
-    Legal reference: BErzGG (BGBl. I 1985 S. 2154; BGBl. I 2004 S. 206)
+    Reference:
+        - § 4 Abs. 1 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     return anspruchshöhe_m if grundsätzlich_anspruchsberechtigt else 0.0
 
@@ -107,14 +109,20 @@ def betrag_m(
     end_date="2003-12-31",
     leaf_name="anspruchshöhe_kind_m",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=0.01,
+        direction="nearest",
+        reference="none (placeholder; GETTSIM does not implement Erziehungsgeld before 2004)",
     ),
     fail_msg_if_included="""Erziehungsgeld is not implemented yet prior to 2004, see
 https://github.com/ttsim-dev/gettsim/issues/673""",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
-    pass
+    """Erziehungsgeld before 2004 (not implemented).
+
+    Reference: none (placeholder; GETTSIM does not implement Erziehungsgeld before 2004)
+    """
 
 
 @policy_function(
@@ -122,7 +130,10 @@ def anspruchshöhe_kind_ohne_budgetsatz_m() -> float:
     end_date="2008-12-31",
     leaf_name="anspruchshöhe_kind_m",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="nearest"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=0.01,
+        direction="nearest",
+        reference="§ 5 Abs. 5 Satz 4 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -136,7 +147,7 @@ def anspruchshöhe_kind_mit_budgetsatz_m(
     For the calculation, the relevant income, the age of the youngest child, the income
     threshold and the eligibility for erziehungsgeld is needed.
 
-    Legal reference: BGBl I. v. 17.02.2004
+    Reference: § 5 Abs. 4 Satz 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if ist_leistungsbegründendes_kind:
         # Deliberate cross-level subtraction: The FG level income deduction is
@@ -163,7 +174,13 @@ def basisbetrag_m(
     altersgrenze_für_reduziertes_einkommenslimit_kind_monate: int,
     satz: dict[str, float],
 ) -> float:
-    """Parental leave benefit (Erziehungsgeld) without means-test on child level."""
+    """Parental leave benefit (Erziehungsgeld) without means-test on child level.
+
+    Reference:
+        - § 5 Abs. 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 3 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 3 Satz 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+    """
     if (
         anzurechnendes_einkommen_y_fg > einkommensgrenze_y_fg
         and alter_monate < altersgrenze_für_reduziertes_einkommenslimit_kind_monate
@@ -191,7 +208,9 @@ def abzug_durch_einkommen_m_fg(
 ) -> float:
     """Reduction of parental leave benefits (means-test).
 
-    Legal reference: BGBl I. v. 17.02.2004 S.209
+    Reference:
+        - § 5 Abs. 4 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 4 Satz 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if (
         anzurechnendes_einkommen_m_fg > einkommensgrenze_m_fg
@@ -218,7 +237,9 @@ def _leistungsbegründendes_kind_vor_abschaffung(
 ) -> bool:
     """Eligibility for parental leave benefit (Erziehungsgeld) on child level.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.207
+    Reference:
+        - § 4 Abs. 1 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if budgetsatz:
         out = p_id_empfänger >= 0 and alter_monate <= maximales_kindsalter_budgetsatz
@@ -255,7 +276,10 @@ def _leistungsbegründendes_kind_nach_abschaffung(
 
     Abolished for children born after the cut-off date.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.207
+    Reference:
+        - § 4 Abs. 1 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 27 Abs. 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
     """
     if budgetsatz and geburtsjahr <= abolishment_cohort:
         out = p_id_empfänger >= 0 and alter_monate <= maximales_kindsalter_budgetsatz
@@ -281,7 +305,9 @@ def grundsätzlich_anspruchsberechtigt(
 ) -> bool:
     """Eligibility for parental leave benefit (Erziehungsgeld) on parental level.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.207
+    Reference:
+        - § 1 Abs. 1 BErzGG idF Art. 1 G. v. 12.10.2000 BGBl. I S. 1426
+        - § 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     return leistungsbegründende_kinder_fg and (
         arbeitsstunden_w <= maximale_wochenarbeitszeit
@@ -300,10 +326,10 @@ def anzurechnendes_einkommen_y_fg(
 ) -> float:
     """Income relevant for means testing for parental leave benefit (Erziehungsgeld).
 
-    Legal reference: BGBl I. v. 17.02.2004 S.209
-
     There is special rule for "Beamte, Soldaten und Richter" which is not
     implemented yet.
+
+    Reference: § 6 Abs. 1 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if ist_leistungsbegründendes_kind:
         out = (
@@ -328,7 +354,7 @@ def einkommensgrenze_y_fg(
 ) -> float:
     """Income threshold for parental leave benefit (Erziehungsgeld).
 
-    Legal reference: BGBl I. v. 17.02.2004 S.208
+    Reference: § 5 Abs. 3 Satz 4 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if ist_leistungsbegründendes_kind:
         return (
@@ -357,7 +383,10 @@ def einkommensgrenze_ohne_geschwisterbonus_y_fg(
     """Income threshold for parental leave benefit (Erziehungsgeld) before adding the
     bonus for additional children.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.208
+    Reference:
+        - § 5 Abs. 3 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 3 Satz 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 3 Satz 3 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if alter_monate < altersgrenze_für_reduziertes_einkommenslimit_kind_monate:
         return einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y_fg
@@ -377,7 +406,9 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_jünger_als_reduzierungsgrenze_y
 ) -> float:
     """Base income threshold for parents of children younger than the age threshold.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.208
+    Reference:
+        - § 5 Abs. 3 Satz 1 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 5 Abs. 3 Satz 2 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if budgetsatz and familie__alleinerziehend_fg:
         satz = einkommensgrenzen.regulär_alleinerziehend.budgetsatz
@@ -402,7 +433,7 @@ def einkommensgrenze_ohne_geschwisterbonus_kind_älter_als_reduzierungsgrenze_y_
 ) -> float:
     """Base income threshold for parents of children older than age threshold.
 
-    Legal reference: BGBl I. v. 17.02.2004 S.208
+    Reference: § 5 Abs. 3 Satz 3 BErzGG idF Art. 20 G. v. 29.12.2003 BGBl. I S. 3076
     """
     if budgetsatz and familie__alleinerziehend_fg:
         return einkommensgrenzen.reduziert_alleinerziehend.budgetsatz

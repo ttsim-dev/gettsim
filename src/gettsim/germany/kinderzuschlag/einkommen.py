@@ -48,6 +48,10 @@ def bruttoeinkommen_eltern_m_bis_2022(
 
     This variable is used to check whether the minimum income threshold for child
     benefit is met.
+
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
     # https://github.com/ttsim-dev/gettsim/issues/1009
@@ -72,6 +76,8 @@ def bruttoeinkommen_eltern_m_ab_2023(
 
     This variable is used to check whether the minimum income threshold for child
     benefit is met.
+
+    Reference: § 6a Abs. 1 Nr. 2 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
     # https://github.com/ttsim-dev/gettsim/issues/1009
@@ -91,7 +97,7 @@ def bruttoeinkommen_eltern_m_ab_2023(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=10,
         direction="down",
-        reference="§ 6a Abs. 4 BKGG",
+        reference="§ 6a Abs. 4 Satz 6 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -101,6 +107,11 @@ def nettoeinkommen_eltern_m_mit_grober_rundung(
 ) -> float:
     """Parental income (after deduction of taxes, social insurance contributions, and
     other deductions) for calculation of child benefit.
+
+    Reference:
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 5 G. v. 24.03.2011 BGBl. I S. 453
+        - § 6a Abs. 4 Satz 4 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
     # https://github.com/ttsim-dev/gettsim/issues/1009
@@ -119,7 +130,7 @@ def nettoeinkommen_eltern_m_mit_grober_rundung(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="down",
-        reference="§ 11 Abs. 2 BKGG",
+        reference="§ 11 Abs. 2 BKGG idF Art. 2 G. v. 16.08.2001 BGBl. I S. 2074",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -129,6 +140,10 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_bis_2022(
 ) -> float:
     """Parental income (after deduction of taxes, social insurance contributions, and
     other deductions) for calculation of child benefit.
+
+    Reference:
+        - § 6a Abs. 5 Satz 1 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 5 Satz 2 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
     # https://github.com/ttsim-dev/gettsim/issues/1009
@@ -146,7 +161,7 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_bis_2022(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=1,
         direction="down",
-        reference="§ 11 Abs. 2 BKGG",
+        reference="§ 11 Abs. 2 BKGG idF Art. 2 G. v. 16.08.2001 BGBl. I S. 2074",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -156,6 +171,10 @@ def nettoeinkommen_eltern_m_mit_genauer_rundung_ab_2023(
 ) -> float:
     """Parental income (after deduction of taxes, social insurance contributions, and
     other deductions) for calculation of child benefit.
+
+    Reference:
+        - § 6a Abs. 5 Satz 1 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
+        - § 6a Abs. 5 Satz 2 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     # TODO(@MImmesberger): Treatment of children who live in their own BG may be wrong here.
     # https://github.com/ttsim-dev/gettsim/issues/1009
@@ -180,7 +199,11 @@ def maximales_nettoeinkommen_m_bg(
     (Kinderzuschlag).
 
     There is a maximum income threshold, depending on the need, plus the potential kiz
-    receipt (§6a (1) Nr. 3 BKGG).
+    receipt.
+
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 46 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 6a Abs. 1 Nr. 3 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
     """
     return erwachsenenbedarf_m_bg + satz_m * anzahl_kinder_bg
 
@@ -193,8 +216,11 @@ def mindestbruttoeinkommen_m_bg(
 ) -> float:
     """Calculate minimal claim of child benefit (kinderzuschlag).
 
-    Min income to be eligible for KIZ (different for singles and couples) (§6a (1) Nr. 2
-    BKGG).
+    Min income to be eligible for KIZ (different for singles and couples).
+
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     if anzahl_kinder_bg == 0:
         return 0.0
@@ -212,7 +238,9 @@ def anzurechnendes_einkommen_eltern_m_bg(
 ) -> float:
     """Calculate parental income subtracted from child benefit.
 
-    (§6a (6) S. 3 BKGG)
+    Reference:
+        - § 6a Abs. 4 Satz 6 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 6 Satz 3 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     out = entzugsrate_elterneinkommen * (
         nettoeinkommen_eltern_m_bg - erwachsenenbedarf_m_bg
@@ -235,6 +263,10 @@ def kosten_der_unterkunft_m_bg_bis_2022(
     """Calculate costs of living eligible to claim.
 
     Unlike ALG2, there is no check on whether living costs are "appropriate".
+
+    Reference:
+        - § 6a Abs. 4 Satz 2 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 5 Satz 3 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
     """
     warmmiete_m_bg = (
         arbeitslosengeld_2__bruttokaltmiete_m_bg + arbeitslosengeld_2__heizkosten_m_bg
@@ -256,6 +288,8 @@ def kosten_der_unterkunft_m_bg_ab_2023(
     """Calculate costs of living eligible to claim.
 
     Unlike ALG2, there is no check on whether living costs are "appropriate".
+
+    Reference: § 6a Abs. 5 Satz 4 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
     """
     warmmiete_m_bg = bürgergeld__bruttokaltmiete_m_bg + bürgergeld__heizkosten_m_bg
 
@@ -336,7 +370,10 @@ def wohnbedarf_anteil_eltern_bg(
     subsistence level on housing, divided by sum of subsistence level from parents and
     children.
 
-    Reference: § 6a Abs. 5 S. 3 BKGG
+    Reference:
+        - § 6a Abs. 4 Satz 2 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 5 Satz 3 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 5 Satz 4 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
     """
     if familie__alleinerziehend_bg:
         elternbetrag = (
@@ -374,7 +411,13 @@ def erwachsenenbedarf_m_bg_bis_2022(
     arbeitslosengeld_2__erwachsenensatz_m_bg: float,
     kosten_der_unterkunft_m_bg: float,
 ) -> float:
-    """Aggregate relevant income and rental costs."""
+    """Aggregate relevant income and rental costs.
+
+    Reference:
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 5 G. v. 24.03.2011 BGBl. I S. 453
+        - § 6a Abs. 5 Satz 1 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+    """
     return arbeitslosengeld_2__erwachsenensatz_m_bg + kosten_der_unterkunft_m_bg
 
 
@@ -387,5 +430,8 @@ def erwachsenenbedarf_m_bg_ab_2023(
     bürgergeld__erwachsenensatz_m_bg: float,
     kosten_der_unterkunft_m_bg: float,
 ) -> float:
-    """Adult need (Erwachsenenbedarf) for Kinderzuschlag calculation."""
+    """Adult need (Erwachsenenbedarf) for Kinderzuschlag calculation.
+
+    Reference: § 6a Abs. 5 Satz 1 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
+    """
     return bürgergeld__erwachsenensatz_m_bg + kosten_der_unterkunft_m_bg

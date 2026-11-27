@@ -39,6 +39,10 @@ def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_07_2005_bis_2008(
     From July 2005 the contribution rates consists of a general rate (split equally
     between employers and employees, differs across sickness funds) and a top-up rate,
     which is fully paid by employees.
+
+    Reference:
+        - § 241a Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 15.12.2004 BGBl. I S. 3445
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 26.03.2007 BGBl. I S. 378
     """
     return parameter_beitragssatz["mean_allgemein"] / 2 + zusatzbeitragssatz
 
@@ -77,6 +81,12 @@ def beitragssatz_arbeitnehmer_voller_zusatzbeitrag_ab_2009_bis_2018(
     From July 2005 the contribution rates consists of a general rate (split equally
     between employers and employees, differs across sickness funds) and a top-up rate,
     which is fully paid by employees.
+
+    Reference:
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 26.03.2007 BGBl. I S. 378
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 22.12.2011 BGBl. I S. 2983
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+        - § 242 Abs. 1 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
     """
     return parameter_beitragssatz["allgemein"] / 2 + zusatzbeitragssatz
 
@@ -135,6 +145,8 @@ def beitragssatz_arbeitnehmer_paritätischer_zusatzbeitrag(
     """Employee's health insurance contribution rate.
 
     Since 2019. Zusatzbeitrag is split equally between employers and employees.
+
+    Reference: § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2387
     """
     return (parameter_beitragssatz["allgemein"] + zusatzbeitragssatz) / 2
 
@@ -243,6 +255,8 @@ def beitragssatz_arbeitgeber_paritätischer_zusatzbeitrag(
 
     Since 2019, the full contribution rate is now split equally between employers and
     employees.
+
+    Reference: § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2387
     """
     return beitragssatz_arbeitnehmer
 

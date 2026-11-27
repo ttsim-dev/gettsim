@@ -12,7 +12,10 @@ parameter_solidaritätszuschlag:
   1991-01-01:
     input_unit: DM_PER_YEAR
     output_unit: DM_PER_YEAR
-    reference: Artikel 1 G. v. 24.06.1991 BGBl. I S. 1318.
+    reference: § 4 Nr. 1 SolZG idF Art. 1 G. v. 24.06.1991 BGBl. I S. 1318
+    note: >-
+      Solidaritätsgesetz. 7.5 percent for the period from July 1991 to June 1992, i.e.,
+      3.75 percent of the annual income tax for 1991 and 1992.
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -20,12 +23,18 @@ parameter_solidaritätszuschlag:
       - interval: '[0, inf)'
         slope: 0.0375
   1993-01-01:
+    reference: >-
+      none (the Solidaritätszuschlaggesetz of 1991 only levied the surcharge for 1991
+      and 1992; no surcharge was levied in 1993 and 1994)
     intervals:
       - interval: (-inf, inf)
         slope: 0
         intercept: 0
   1995-01-01:
-    reference: Artikel 31 G. v. 23.06.1993 BGBl. I S. 944.
+    reference:
+      - § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+      - § 4 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+    note: Gesetz zur Umsetzung des Föderalen Konsolidierungsprogramms (FKPG)
     intervals:
       - interval: (-inf, 1332)
         intercept: 0
@@ -35,7 +44,10 @@ parameter_solidaritätszuschlag:
       - interval: '[2131.2, inf)'
         slope: 0.075
   1998-01-01:
-    reference: Artikel 1 G. v. 21.11.1997 BGBl. I S. 2743.
+    reference:
+      - § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
+      - § 4 Satz 1 SolzG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
+    note: Gesetz zur Senkung des Solidaritätszuschlags
     intervals:
       - interval: (-inf, 1836)
         slope: 0
@@ -47,7 +59,10 @@ parameter_solidaritätszuschlag:
   2002-01-01:
     input_unit: EUR_PER_YEAR
     output_unit: EUR_PER_YEAR
-    reference: G. v. 15.10.2002 BGBl. I S. 4131.
+    reference: § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 6 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz (StEuglG). Neufassung of the SolzG 1995 by B. v.
+      15.10.2002 BGBl. I S. 4130.
     intervals:
       - interval: (-inf, 972)
         slope: 0
@@ -57,7 +72,12 @@ parameter_solidaritätszuschlag:
       - interval: '[1340.69, inf)'
         slope: 0.055
   2021-01-01:
-    reference: Artikel 1 G. v. 10.12.2019 BGBl. I S. 2115.
+    reference:
+      - § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+      - § 4 Satz 2 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+    note: >-
+      Gesetz zur Rückführung des Solidaritätszuschlags 1995. Applicable from 2021 (§ 6
+      SolzG 1995).
     intervals:
       - interval: (-inf, 16956)
         slope: 0
@@ -67,7 +87,9 @@ parameter_solidaritätszuschlag:
       - interval: '[31527.56, inf)'
         slope: 0.055
   2023-01-01:
-    reference: Art. 4 G. v. 08.12.2022 BGBl. I S. 2230.
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 17543)
         slope: 0
@@ -77,7 +99,9 @@ parameter_solidaritätszuschlag:
       - interval: '[32619.02, inf)'
         slope: 0.055
   2024-01-01:
-    reference: Art. 5 G. v. 08.12.2022 BGBl. I S. 2230.
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 5 G. v. 08.12.2022 BGBl. I S. 2230
+    note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 18130)
         slope: 0
@@ -87,7 +111,10 @@ parameter_solidaritätszuschlag:
       - interval: '[33710.47, inf)'
         slope: 0.055
   2025-01-01:
-    reference: Art. 3 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 3 G. v. 23.12.2024 BGBl. 2024 I Nr.
+      449
+    note: Steuerfortentwicklungsgesetz (SteFeG)
     intervals:
       - interval: (-inf, 19950)
         slope: 0
@@ -97,7 +124,10 @@ parameter_solidaritätszuschlag:
       - interval: '[37094.53, inf)'
         slope: 0.055
   2026-01-01:
-    reference: Art. 4 G. v. 30.12.2024 BGBl. 2024 Nr. 449.
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 4 G. v. 23.12.2024 BGBl. 2024 I Nr.
+      449
+    note: Steuerfortentwicklungsgesetz (SteFeG)
     intervals:
       - interval: (-inf, 20350)
         slope: 0

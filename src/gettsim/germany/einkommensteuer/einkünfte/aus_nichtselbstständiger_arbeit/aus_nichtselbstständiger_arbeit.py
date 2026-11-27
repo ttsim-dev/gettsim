@@ -11,7 +11,10 @@ from gettsim.tt import TTSIMUnit, param_function, policy_function
 def betrag_y_bis_03_1999(
     einnahmen_nach_abzug_werbungskosten_y: float,
 ) -> float:
-    """Taxable income from dependent employment."""
+    """Taxable income from dependent employment.
+
+    Reference: § 2 Abs. 2 Nr. 2 EStG idF B. v. 07.09.1990 BGBl. I S. 1898
+    """
     return einnahmen_nach_abzug_werbungskosten_y
 
 
@@ -27,6 +30,8 @@ def betrag_y_ab_04_1999(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference: § 3 Nr. 39 EStG idF Art. 10 G. v. 24.03.1999 BGBl. I S. 388
     """
     if sozialversicherung__geringfügig_beschäftigt:
         return 0.0
@@ -42,7 +47,10 @@ def einnahmen_nach_abzug_werbungskosten_y(
     einnahmen__bruttolohn_y: float,
     werbungskosten_y: float,
 ) -> float:
-    """Take gross wage and deduct Werbungskosten."""
+    """Take gross wage and deduct Werbungskosten.
+
+    Reference: § 2 Abs. 2 Nr. 2 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return max(einnahmen__bruttolohn_y - werbungskosten_y, 0.0)
 
 
@@ -58,6 +66,8 @@ def werbungskosten_y(
     Actual Werbungskosten that relate to both taxable and tax-free income are split
     proportionally (§ 3c Abs. 1 EStG). The Arbeitnehmer-Pauschbetrag applies in full —
     without proportional reduction — even when tax-exempt income is present.
+
+    Reference: § 9a Satz 1 Nr. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
     """
     if einnahmen__bruttolohn_y > 0.0:
         anrechenbare_werbungskosten = (
@@ -74,7 +84,10 @@ def anteil_steuerfälliger_einnahmen(
     einnahmen__bruttolohn_y: float,
     steuerbefreite_einnahmen_y: float,
 ) -> float:
-    """Anteil steuerfälliger Einnahmen an Einnahmen aus nichtselbstständiger Arbeit."""
+    """Anteil steuerfälliger Einnahmen an Einnahmen aus nichtselbstständiger Arbeit.
+
+    Reference: § 3c Abs. 1 EStG idF Art. 1 G. v. 23.10.2000 BGBl. I S. 1433
+    """
     if einnahmen__bruttolohn_y > 0.0:
         return (
             max(
@@ -112,6 +125,8 @@ def steuerbefreite_einnahmen_y_ab_2026(
     """Steuerbefreite Einnahmen aus abhängiger Beschäftigung.
 
     Since 2026, this includes the Aktivrente (§ 3 Nr. 21 EStG).
+
+    Reference: § 3 Nr. 21 Satz 1 EStG idF Art. 1 G. v. 22.12.2025 BGBl. 2025 I Nr. 361
     """
     return anspruchshöhe_steuerfreibetrag_aktivrente_y
 
@@ -147,8 +162,9 @@ def anspruchshöhe_steuerfreibetrag_aktivrente_m(
     If you want to calculate taxes with income that varies by month, pass the correct
     Aktivrente deduction as an input when calling GETTSIM.
 
-    Reference: § 3 Nr. 21 EStG.
+    Reference: § 3 Nr. 21 Satz 1 EStG idF Art. 1 G. v. 22.12.2025 BGBl. 2025 I Nr. 361
     """
+
     # Past the Regelaltersgrenze, every employment except Minijobs yields a positive
     # employer contribution in GETTSIM: § 168 Abs. 1 Nr. 1 SGB VI if the employee is
     # pflichtversichert, § 172 Abs. 1 SGB VI if versicherungsfrei. The check mirrors

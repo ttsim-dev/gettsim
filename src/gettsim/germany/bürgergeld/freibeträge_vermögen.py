@@ -13,6 +13,8 @@ def vermögensfreibetrag_in_karenzzeit_bg(
     """Wealth exemptions during Karenzzeit.
 
     This variable is also referred to as 'erhebliches Vermögen'.
+
+    Reference: § 12 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     """
     return (
         vermögensfreibetrag_je_person_nach_karenzzeit["während_karenzzeit"]
@@ -38,6 +40,8 @@ def vermögensfreibetrag_bg_ab_2023(
     """Actual wealth exemptions.
 
     During the first year (Karenzzeit), the wealth exemption is substantially larger.
+
+    Reference: § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     """
     if bezug_im_vorjahr:
         out = (

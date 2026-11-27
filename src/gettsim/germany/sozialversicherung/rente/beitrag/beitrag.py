@@ -14,7 +14,12 @@ def betrag_versicherter_m_bis_03_1999(
     versicherungsfrei_wegen_alters: bool,
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
-    """Public pension insurance contributions paid by the insured person."""
+    """Public pension insurance contributions paid by the insured person.
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 5 Abs. 4 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     if versicherungsfrei_wegen_alters:
         return 0.0
     else:
@@ -37,6 +42,11 @@ def betrag_versicherter_m_ohne_midijob(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1 SGB VI idF Art. 4 Nr. 22 G. v. 24.03.1999 BGBl. I S. 388
+        - § 168 Abs. 1 Nr. 1b SGB VI idF Art. 4 Nr. 22 G. v. 24.03.1999 BGBl. I S. 388
+        - § 5 Abs. 4 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     if versicherungsfrei_wegen_alters:
         return 0.0
@@ -62,6 +72,12 @@ def betrag_versicherter_m_mit_midijob(
     """Public pension insurance contributions paid by the insured person.
 
     After Midijob introduction in April 2003.
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1 SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 168 Abs. 1 Nr. 1b SGB VI idF Art. 4 Nr. 22 G. v. 24.03.1999 BGBl. I S. 388
+        - § 168 Abs. 1 Nr. 1d SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 5 Abs. 4 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     # TODO(@MImmesberger): Treatment of individuals that are not insured via the
     # public pension fund (or a berufsständische Rentenversicherung) is wrong.
@@ -87,6 +103,8 @@ def versicherungsfrei_wegen_alters_ohne_altersgrenze(
     """Exempt from mandatory pension insurance because an old-age pension is drawn.
 
     Drawing a Vollrente wegen Alters exempts at any age (§ 5 Abs. 4 Nr. 1 SGB VI).
+
+    Reference: § 5 Abs. 4 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return sozialversicherung__rente__altersrente__betrag_m > 0
 
@@ -105,6 +123,10 @@ def versicherungsfrei_wegen_alters_mit_altersgrenze(
 
     The Flexirentengesetz restricted the exemption to Vollrentner past the
     Regelaltersgrenze and allowed them to waive it (§ 5 Abs. 4 Nr. 1 und S. 2 SGB VI).
+
+    Reference:
+        - § 5 Abs. 4 Satz 1 Nr. 1 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+        - § 5 Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
     """
     return (
         sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze
@@ -126,6 +148,10 @@ def betrag_versicherter_geringfügige_beschäftigung_m(
     Without mandatory coverage the employer's Pauschalbeitrag is the only contribution
     (§ 172 Abs. 3 SGB VI). With it, the employer stays at the Pauschalbeitrag and the
     employee owes the remainder rather than half (§ 168 Abs. 1 Nr. 1b SGB VI).
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1b SGB VI idF Art. 4 Nr. 22 G. v. 24.03.1999 BGBl. I S. 388
+        - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 Nr. 25 G. v. 24.03.1999 BGBl. I S. 388
     """
     if sozialversicherung__rente__verzichtet_auf_versicherungsfreiheit_wegen_geringfügiger_beschäftigung:
         return (
@@ -143,7 +169,7 @@ def beitragspflichtige_einnahmen_geringfügige_beschäftigung_m(
 ) -> float:
     """Income subject to pension contributions in marginal employment.
 
-    Reference: § 163 Abs. 8 SGB VI
+    Reference: § 163 Abs. 8 SGB VI idF Art. 4 Nr. 18 G. v. 24.03.1999 BGBl. I S. 388
     """
     return max(
         einnahmen__bruttolohn_m,
@@ -156,7 +182,10 @@ def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Public pension insurance contributions paid by the insured person."""
+    """Public pension insurance contributions paid by the insured person.
+
+    Reference: § 168 Abs. 1 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return einkommen_m * beitragssatz / 2
 
 
@@ -171,6 +200,8 @@ def betrag_arbeitgeber_m_ohne_arbeitgeberpauschale(
     """Employer's public pension insurance contribution.
 
     Before Minijobs were subject to pension contributions.
+
+    Reference: § 168 Abs. 1 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return betrag_versicherter_regulärer_beitragssatz_m
 
@@ -191,6 +222,10 @@ def betrag_arbeitgeber_m_mit_arbeitgeberpauschale(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1 SGB VI idF Art. 4 Nr. 22 G. v. 24.03.1999 BGBl. I S. 388
+        - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 Nr. 25 G. v. 24.03.1999 BGBl. I S. 388
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
@@ -217,6 +252,11 @@ def betrag_arbeitgeber_m_mit_midijob(
     """Employer's public pension insurance contribution.
 
     After Midijob introduction in April 2003.
+
+    Reference:
+        - § 168 Abs. 1 Nr. 1 SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 168 Abs. 1 Nr. 1d SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 Nr. 25 G. v. 24.03.1999 BGBl. I S. 388
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
@@ -251,6 +291,12 @@ def betrag_arbeitgeber_m_mit_midijob_ab_10_2022(
     The asymmetric split of the Übergangsbereich is confined to versicherungspflichtige
     Beschäftigte (§ 168 Abs. 1 Nr. 1d SGB VI). Outside the Übergangsbereich that half is
     the regular employee-rate contribution.
+
+    Reference:
+        - § 172 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+        - § 20 Abs. 2a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+        - § 168 Abs. 1 Nr. 1d SGB VI idF Art. 9 G. v. 28.06.2022 BGBl. I S. 969
+        - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = einnahmen__bruttolohn_m * minijob_arbeitgeberpauschale
@@ -269,7 +315,12 @@ def einkommen_m(
     einnahmen__bruttolohn_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
-    """Wage subject to pension and unemployment insurance contributions."""
+    """Wage subject to pension and unemployment insurance contributions.
+
+    Reference:
+        - § 157 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 162 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return min(
         einnahmen__bruttolohn_m,
         beitragsbemessungsgrenze_m,
@@ -286,7 +337,12 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
     wohnort_ost_hh: bool,
     parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
 ) -> float:
-    """Income threshold up to which pension insurance payments apply."""
+    """Income threshold up to which pension insurance payments apply.
+
+    Reference:
+        - § 159 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 275a SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
+    """
     return (
         parameter_beitragsbemessungsgrenze_nach_wohnort["ost"]
         if wohnort_ost_hh
@@ -301,6 +357,10 @@ def betrag_in_gleitzone_gesamt_m(
 ) -> float:
     """Sum of employer and employee pension insurance contribution for midijobs.
     Midijobs were introduced in April 2003.
+
+    Reference:
+        - § 163 Abs. 10 Satz 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 20 Abs. 2a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
     """
     return sozialversicherung__midijob_bemessungsentgelt_m * beitragssatz
 
@@ -315,7 +375,10 @@ def betrag_in_gleitzone_arbeitgeber_m_mit_festem_beitragssatz(
     einnahmen__bruttolohn_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's public pension insurance contribution for midijobs until Sep 2022."""
+    """Employer's public pension insurance contribution for midijobs until Sep 2022.
+
+    Reference: § 168 Abs. 1 Nr. 1d SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+    """
     return einnahmen__bruttolohn_m * beitragssatz / 2
 
 
@@ -328,7 +391,10 @@ def betrag_in_gleitzone_arbeitgeber_m_als_differenz_von_gesamt_und_arbeitnehmerb
     betrag_in_gleitzone_gesamt_m: float,
     betrag_in_gleitzone_arbeitnehmer_m: float,
 ) -> float:
-    """Employer's public pension insurance contribution for midijobs since Oct 2022."""
+    """Employer's public pension insurance contribution for midijobs since Oct 2022.
+
+    Reference: § 168 Abs. 1 Nr. 1d SGB VI idF Art. 9 G. v. 28.06.2022 BGBl. I S. 969
+    """
     return betrag_in_gleitzone_gesamt_m - betrag_in_gleitzone_arbeitnehmer_m
 
 
@@ -342,7 +408,10 @@ def betrag_in_gleitzone_arbeitnehmer_m_als_differenz_von_gesamt_und_arbeitgeberb
     betrag_in_gleitzone_arbeitgeber_m: float,
     betrag_in_gleitzone_gesamt_m: float,
 ) -> float:
-    """Employee's public pension insurance contribution for midijobs until Sep 2022."""
+    """Employee's public pension insurance contribution for midijobs until Sep 2022.
+
+    Reference: § 168 Abs. 1 Nr. 1d SGB VI idF Art. 4 Nr. 10 G. v. 23.12.2002 BGBl. I S. 4621
+    """
     return betrag_in_gleitzone_gesamt_m - betrag_in_gleitzone_arbeitgeber_m
 
 
@@ -355,7 +424,10 @@ def betrag_in_gleitzone_arbeitnehmer_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employee's public pension insurance contribution for midijobs since Oct 2022."""
+    """Employee's public pension insurance contribution for midijobs since Oct 2022.
+
+    Reference: § 168 Abs. 1 Nr. 1d SGB VI idF Art. 9 G. v. 28.06.2022 BGBl. I S. 969
+    """
     return (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
         * beitragssatz
@@ -392,6 +464,8 @@ def beitragspflichtige_einnahmen_aus_arbeitslosengeld_y_ohne_midijob(
 
     The Beitragsbemessungsgrenze follows the current place of residence, not where the
     wage underlying the benefit was earned.
+
+    Reference: § 166 Abs. 1 Nr. 2 SGB VI idF Art. 4 Nr. 20 G. v. 24.03.1999 BGBl. I S. 388
     """
     bemessungsentgelt_y = min(
         sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,
@@ -435,6 +509,11 @@ def beitragspflichtige_einnahmen_aus_arbeitslosengeld_y_mit_midijob(
 
     The Beitragsbemessungsgrenze follows the current place of residence, not where the
     wage underlying the benefit was earned.
+
+    Reference:
+        - § 166 Abs. 1 Nr. 2 SGB VI idF Art. 4 Nr. 20 G. v. 24.03.1999 BGBl. I S. 388
+        - § 163 Abs. 10 Satz 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 20 Abs. 2a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
     """
     bemessungsentgelt_y = min(
         sozialversicherung__arbeitslosen__mean_bruttoeinkommen_in_12_monaten_vor_arbeitslosigkeit_y,

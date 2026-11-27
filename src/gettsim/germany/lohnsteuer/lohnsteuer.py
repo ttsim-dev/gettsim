@@ -70,6 +70,8 @@ def parameter_max_lohnsteuer_klasse_5_6(
 ) -> PiecewisePolynomialParamValue:
     """Create parameter values for the piecewise polynomial that represents the
     maximum Lohnsteuer for incomes above thresholds for Steuerklasse 5 and 6.
+
+    Reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
     """
     thresholds = numpy.asarray(
         [
@@ -109,7 +111,10 @@ def basistarif_y(
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer in the Basistarif."""
+    """Lohnsteuer in the Basistarif.
+
+    Reference: § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+    """
     return piecewise_polynomial(
         x=einkommen_y,
         parameters=einkommensteuer__parameter_einkommensteuertarif,
@@ -123,7 +128,10 @@ def splittingtarif_y(
     einkommensteuer__parameter_einkommensteuertarif: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer in the Splittingtarif."""
+    """Lohnsteuer in the Splittingtarif.
+
+    Reference: § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+    """
     return 2 * piecewise_polynomial(
         x=einkommen_y / 2,
         parameters=einkommensteuer__parameter_einkommensteuertarif,
@@ -144,7 +152,10 @@ def tarif_klassen_5_und_6_y(
     parameter_max_lohnsteuer_klasse_5_6: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer for Lohnsteuerklassen 5 and 6."""
+    """Lohnsteuer for Lohnsteuerklassen 5 and 6.
+
+    Reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+    """
     basis = basis_für_klassen_5_6(
         einkommen_y=einkommen_y,
         parameter_einkommensteuertarif=einkommensteuer__parameter_einkommensteuertarif,
@@ -168,7 +179,12 @@ def betrag_y(
     splittingtarif_y: float,
     tarif_klassen_5_und_6_y: float,
 ) -> float:
-    """Withholding tax on earnings (Lohnsteuer)"""
+    """Withholding tax on earnings (Lohnsteuer).
+
+    Reference:
+        - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+        - § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+    """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
         out = basistarif_y
     elif steuerklasse == 3:
@@ -185,7 +201,14 @@ def basistarif_mit_kinderfreibetrag_y(
     kinderfreibetrag_soli_y: float,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer in the Basistarif deducting the Kindefreibetrag."""
+    """Lohnsteuer in the Basistarif deducting the Kindefreibetrag.
+
+    Reference:
+        - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+    """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
         0,
@@ -204,7 +227,14 @@ def splittingtarif_mit_kinderfreibetrag_y(
     kinderfreibetrag_soli_y: float,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer in the Splittingtarif deducting the Kindefreibetrag."""
+    """Lohnsteuer in the Splittingtarif deducting the Kindefreibetrag.
+
+    Reference:
+        - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+    """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
         0,
@@ -230,7 +260,14 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag_y(
     kinderfreibetrag_soli_y: float,
     xnp: ModuleType,
 ) -> float:
-    """Lohnsteuer for Lohnsteuerklassen 5 and 6 deducting the Kindefreibetrag."""
+    """Lohnsteuer for Lohnsteuerklassen 5 and 6 deducting the Kindefreibetrag.
+
+    Reference:
+        - § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+    """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
         0,
@@ -265,6 +302,11 @@ def betrag_mit_kinderfreibetrag_y(
     Same as betrag_m, but with an alternative income definition that
     takes child allowance into account. Important only for calculation
     of Solidaritätszuschlag on Lohnsteuer!
+
+    Reference:
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
         out = basistarif_mit_kinderfreibetrag_y
@@ -281,7 +323,16 @@ def betrag_soli_y(
     solidaritätszuschlag__parameter_solidaritätszuschlag: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Solidarity surcharge on Lohnsteuer (withholding tax on earnings)."""
+    """Solidarity surcharge on Lohnsteuer (withholding tax on earnings).
+
+    GETTSIM applies the annual Freigrenze of § 3 Abs. 3 SolzG 1995 to the annual
+    Lohnsteuer; the law applies the corresponding Freigrenze per Lohnzahlungszeitraum
+    (§ 3 Abs. 4 SolzG 1995).
+
+    Reference:
+        - § 4 SolzG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
+        - § 4 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+    """
     return piecewise_polynomial(
         x=betrag_mit_kinderfreibetrag_y,
         parameters=solidaritätszuschlag__parameter_solidaritätszuschlag,
@@ -299,6 +350,11 @@ def kinderfreibetrag_soli_y(
     For the purpose of Soli on Lohnsteuer, Steuerklasse 1/2/3 gets twice the child
     benefit, Steuerklasse 4 gets the child benefit once, and Steuerklasse 5/6 gets
     nothing.
+
+    Reference:
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 3:
         out = 2 * einkommensteuer__kinderfreibetrag_y

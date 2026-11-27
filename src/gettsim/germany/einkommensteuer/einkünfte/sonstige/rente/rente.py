@@ -28,7 +28,10 @@ def steuerpflichtige_einnahmen_m_nach_ertragsanteil(
     einnahmen__renten__betriebliche_altersvorsorge_m: float,
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
 ) -> float:
-    """Steuerpflichtige Einnahmen aus Renten i.S.d. § 22 EStG."""
+    """Steuerpflichtige Einnahmen aus Renten i.S.d. § 22 EStG.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return (
         ertragsanteil_gesetzliche_rente * einnahmen__renten__gesetzliche_m
         + ertragsanteil_berufsständische_altersvorsorge
@@ -55,7 +58,7 @@ def steuerpflichtige_einnahmen_m_nach_besteuerungsanteil(
 ) -> float:
     """Steuerpflichtige Einnahmen aus Renten i.S.d. § 22 EStG.
 
-    Reference: § 22 Nr. 1 Satz 3 Buchstabe a EStG
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     return (
         steuerpflichtiger_anteil_der_renteneinnahmen_m
@@ -73,7 +76,9 @@ def steuerpflichtiger_anteil_der_renteneinnahmen_m(
 ) -> float:
     """Taxable share of the pensions from the Basisversorgung.
 
-    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     return besteuerungsanteil * renten_aus_basisversorgung_m
 
@@ -91,7 +96,9 @@ def renten_aus_basisversorgung_m_bis_2020(
 ) -> float:
     """Pensions from the Basisversorgung, taxed at the Besteuerungsanteil.
 
-    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG
+    § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     return (
         einnahmen__renten__gesetzliche_m
@@ -125,8 +132,13 @@ def renten_aus_basisversorgung_m_ohne_grundrentenzuschlag(
     Rentenversicherung, including Erwerbsminderungsrenten. GETTSIM models the Zuschlag
     for Altersrenten only.
 
-    Reference: § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe aa EStG; § 3 Nr. 14a EStG
-    (Art. 3 G. v. 16.12.2022 BGBl. I S. 2294, applicable from VZ 2021)
+    The Besteuerungsanteil applies under § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe
+    aa EStG. § 3 Nr. 14a EStG was inserted by Art. 3 G. v. 16.12.2022 BGBl. I S. 2294
+    and applies from VZ 2021.
+
+    Reference:
+        - § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 2 G. v. 21.12.2020 BGBl. I S. 3096
+        - § 3 Nr. 14a EStG idF Art. 3 G. v. 16.12.2022 BGBl. I S. 2294
     """
     grundrentenzuschlag_m = (
         sozialversicherung__rente__grundrente__betrag_m
@@ -146,7 +158,15 @@ def ertragsanteil_sonstige_private_vorsorge(
     alter_beginn_leistungsbezug_sonstige_private_vorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Ertragsanteil."""
+    """Ertragsanteil.
+
+    Since 2005, the Ertragsanteil is in § 22 Nr. 1 Satz 3 Buchstabe a Doppelbuchstabe bb
+    EStG.
+
+    Reference:
+        - § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    """
     return parameter_ertragsanteil.look_up(
         alter_beginn_leistungsbezug_sonstige_private_vorsorge
     )
@@ -157,7 +177,10 @@ def ertragsanteil_berufsständische_altersvorsorge(
     alter_beginn_leistungsbezug_berufsständische_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Ertragsanteil."""
+    """Ertragsanteil.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return parameter_ertragsanteil.look_up(
         alter_beginn_leistungsbezug_berufsständische_altersvorsorge
     )
@@ -172,7 +195,10 @@ def ertragsanteil_gesetzliche_rente(
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Ertragsanteil."""
+    """Ertragsanteil.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return parameter_ertragsanteil.look_up(
         xnp.floor(sozialversicherung__rente__alter_bei_renteneintritt).astype(int)
     )
@@ -183,7 +209,10 @@ def ertragsanteil_betriebliche_altersvorsorge(
     alter_beginn_leistungsbezug_betriebliche_altersvorsorge: int,
     parameter_ertragsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Ertragsanteil."""
+    """Ertragsanteil.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return parameter_ertragsanteil.look_up(
         alter_beginn_leistungsbezug_betriebliche_altersvorsorge
     )
@@ -194,7 +223,10 @@ def besteuerungsanteil(
     sozialversicherung__rente__jahr_renteneintritt: int,
     parameter_besteuerungsanteil: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Share of pensions subject to income taxation."""
+    """Share of pensions subject to income taxation.
+
+    Reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    """
     return parameter_besteuerungsanteil.look_up(
         sozialversicherung__rente__jahr_renteneintritt
     )

@@ -6,18 +6,15 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       Parameters for calculating the share of deductible pension insurance contributions
   description:
     de: >-
-      § 39b (4) EStG
-      Der Anteil der Rentenversicherungsbeiträge, die bei der Lohnsteuerberechnung
-      abgezogen werden
-      Funktion erst ab 2005 vorhanden. Steigt ab 2005 jährlich um 4 Prozentpunkte
-      (20% in 2005, 40% in 2010, 88% in 2022). 2023 wurde der Wert vorzeitig auf
-      100% gesetzt.
+      § 39b (4) EStG Der Anteil der Rentenversicherungsbeiträge, die bei der
+      Lohnsteuerberechnung abgezogen werden Funktion erst ab 2005 vorhanden. Steigt ab
+      2005 jährlich um 4 Prozentpunkte (20% in 2005, 40% in 2010, 88% in 2022). 2023
+      wurde der Wert vorzeitig auf 100% gesetzt.
     en: >-
-      § 39b (4) EStG
-      The share of pension insurance contributions deducted in the withholding tax
-      calculation.
-      Rises by 4 percentage points annually from 2005 (20% in 2005, 40% in 2010,
-      88% in 2022). In 2023, it was prematurely set to 100 percent.
+      § 39b (4) EStG The share of pension insurance contributions deducted in the
+      withholding tax calculation. Rises by 4 percentage points annually from 2005 (20%
+      in 2005, 40% in 2010, 88% in 2022). In 2023, it was prematurely set to 100
+      percent.
   input_unit: CALENDAR_YEAR
   output_unit: DIMENSIONLESS
   type: piecewise_linear
@@ -32,48 +29,80 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       - interval: '[2025, inf)'
         slope: 0
         intercept: 1
+    reference: § 10c Abs. 2 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz (AltEinkG). Until 2009, the share applied to the
+      Vorsorgepauschale of § 10c Abs. 2 EStG.
+  2010-01-01:
+    intervals:
+      - interval: (-inf, 2005)
+        slope: 0
+        intercept: 0.2
+      - interval: '[2005, 2025)'
+        slope: 0.04
+        intercept: 0.2
+      - interval: '[2025, inf)'
+        slope: 0
+        intercept: 1
+    reference: § 39b Abs. 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: >-
+      Bürgerentlastungsgesetz Krankenversicherung. Same schedule (40 percent in 2010,
+      plus 4 percentage points per year), now in § 39b Abs. 4 EStG.
   2023-01-01:
-    note: Prematurely set to 100% in 2023.
+    note: >-
+      Prematurely set to 100% in 2023. § 39b Abs. 4 EStG was repealed by Art. 4 G. v.
+      16.12.2022 BGBl. I S. 2294 (JStG 2022), so the full amount of § 39b Abs. 2 Satz 5
+      Nr. 3 Buchst. a EStG is deducted.
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S.
+      1959
 vorsorgepauschale_mindestanteil:
   name:
     de: Mindestanteil für Mindestvorsorgepauschale
     en: Minimum share for Mindestvorsorgepauschale
   description:
     de: >-
-      39b (2) Nr.3 EStG
-      Mindestanteil an Beiträgen zu GKV und GPV, der abgesetzt wird bei
-      Mindestvorsorgepauschale
+      39b (2) Nr.3 EStG Mindestanteil an Beiträgen zu GKV und GPV, der abgesetzt wird
+      bei Mindestvorsorgepauschale
     en: >-
-      39b (2) Nr.3 EStG
-      Minimum share of minimum contributions to health care and care insurance deducted
-      from Mindestvorsorgepauschale
+      39b (2) Nr.3 EStG Minimum share of minimum contributions to health care and care
+      insurance deducted from Mindestvorsorgepauschale
   unit: DIMENSIONLESS
   type: scalar
   2010-01-01:
     value: 0.12
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
-  2025-12-31:
-    note: Mindestvorsorgepauschale revoked.
-    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: Bürgerentlastungsgesetz Krankenversicherung
+  2026-01-01:
+    note: >-
+      Mindestvorsorgepauschale revoked. § 39b Abs. 2 Satz 5 Nr. 3 EStG was rewritten by
+      Art. 5 G. v. 21.12.2020 BGBl. I S. 3096 (JStG 2020) without it; by § 52 Abs. 36
+      EStG the new version applies from 01.01.2026. See also the Anwendungsregelung BMF
+      v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
 maximal_absetzbare_krankenversicherungskosten:
   name:
     de: Höchstbetrag Mindestvorsorgepauschale
     en: Maximum amount Mindestvorsorgepauschale
   description:
     de: >-
-      39b (2) Nr.3 EStG. Depends on Steuerklasse.
-      Höchsbetrag für Mindestvorsorgepauschale der Beiträge zu GKV und PKV, die von der
-      Lohnsteuer abgesetzt werden können.
+      39b (2) Nr.3 EStG. Depends on Steuerklasse. Höchsbetrag für
+      Mindestvorsorgepauschale der Beiträge zu GKV und PKV, die von der Lohnsteuer
+      abgesetzt werden können.
     en: >-
-      39b (2) Nr.3 EStG. Depends on Steuerklasse.
-      Maximum amount considered for Mindestvorsorgepauschale of contributions to health
-      care and care insurance that can be deducted from withholding tax
+      39b (2) Nr.3 EStG. Depends on Steuerklasse. Maximum amount considered for
+      Mindestvorsorgepauschale of contributions to health care and care insurance that
+      can be deducted from withholding tax
   unit: EUR_PER_YEAR
   type: dict
   2010-01-01:
     steuerklasse_3: 3000
     steuerklasse_nicht_3: 1900
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: Bürgerentlastungsgesetz Krankenversicherung
 vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y:
   name:
     de: >-
@@ -95,4 +124,9 @@ vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeitr
   type: scalar
   2026-01-01:
     value: 1900
-    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG idF Art. 5 G. v. 21.12.2020 BGBl. I S.
+      3096
+    note: >-
+      Jahressteuergesetz 2020. By § 52 Abs. 36 EStG, applicable from 01.01.2026. See
+      also the Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).

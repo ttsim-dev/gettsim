@@ -54,7 +54,10 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 215
-    reference: Artikel 1 G. v. 24.03.2011 BGBl. I S. 453.
+    reference:
+      - § 20 Abs. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 20 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+      - § 77 Abs. 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
   2012-01-01:
     1: 374
     2: 337
@@ -71,7 +74,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 219
-    reference: V. v. 20.10.2011 BGBl. I S. 2093.
+    reference: § 2 Abs. 1 RBSFV 2012 idF V. v. 17.10.2011 BGBl. I S. 2090
   2013-01-01:
     1: 382
     2: 345
@@ -88,7 +91,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 224
-    reference: B. v. 18.10.2012 BGBl. I S. 2175.
+    reference: § 2 RBSFV 2013 idF V. v. 18.10.2012 BGBl. I S. 2173
   2014-01-01:
     1: 391
     2: 353
@@ -105,7 +108,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 229
-    reference: B. v. 16.10.2013 BGBl. I S. 3857.
+    reference: § 2 RBSFV 2014 idF V. v. 15.10.2013 BGBl. I S. 3856
   2015-01-01:
     1: 399
     2: 360
@@ -122,7 +125,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 234
-    reference: B. v. 15.10.2014 BGBl. I S. 1620.
+    reference: § 2 RBSFV 2015 idF V. v. 14.10.2014 BGBl. I S. 1618
   2016-01-01:
     1: 404
     2: 364
@@ -139,7 +142,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 237
-    reference: B. v. 22.10.2015 BGBl. I S. 1792.
+    reference: § 2 RBSFV 2016 idF V. v. 22.10.2015 BGBl. I S. 1788
   2017-01-01:
     1: 409
     2: 368
@@ -155,8 +158,13 @@ parameter_regelbedarfsstufen:
     6:
       min_alter: 0
       max_alter: 5
-      betrag: 236
-    reference: G. v. 22.12.2016 BGBl. I S. 3159.
+      betrag: 237
+    reference:
+      - § 8 Abs. 1 RBEG idF Art. 1 G. v. 22.12.2016 BGBl. I S. 3159
+      - § 8 Abs. 2 RBEG idF Art. 1 G. v. 22.12.2016 BGBl. I S. 3159
+    note: >-
+      § 8 Abs. 1 Satz 1 Nr. 6 RBEG ermittelt 236 Euro für die Regelbedarfsstufe 6; nach
+      § 8 Abs. 2 RBEG gilt stattdessen weiter der Betrag von 237 Euro (Besitzschutz).
   2018-01-01:
     1: 416
     2: 374
@@ -173,7 +181,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 240
-    reference: V. v. 08.11.2017 BGBl. I S. 3767.
+    reference: § 2 RBSFV 2018 idF V. v. 08.11.2017 BGBl. I S. 3767
   2019-01-01:
     1: 424
     2: 382
@@ -190,7 +198,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 245
-    reference: V. v. 19.10.2018 BGBl. I S. 1766.
+    reference: § 2 RBSFV 2019 idF V. v. 19.10.2018 BGBl. I S. 1766
   2020-01-01:
     1: 432
     2: 389
@@ -207,7 +215,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 250
-    reference: V. v. 15.10.2019 BGBl. I S. 1452.
+    reference: § 2 RBSFV 2020 idF V. v. 15.10.2019 BGBl. I S. 1452
   2021-01-01:
     1: 446
     2: 401
@@ -224,7 +232,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 283
-    reference: G. v. 09.12.2020 BGBl. I S. 2855.
+    reference: § 8 Abs. 1 RBEG idF Art. 1 G. v. 09.12.2020 BGBl. I S. 2855
   2022-01-01:
     1: 449
     2: 404
@@ -241,7 +249,7 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 285
-    reference: V. v. 13.10.2021 BGBl. I S. 4674.
+    reference: § 2 RBSFV 2022 idF V. v. 13.10.2021 BGBl. I S. 4674
   2023-01-01:
     1: 502
     2: 451
@@ -258,8 +266,11 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 318
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
-    note: Bürgergeld-Gesetz
+    reference: § 134 Abs. 1 SGB XII idF Art. 5 G. v. 16.12.2022 BGBl. I S. 2328
+    note: >-
+      Bürgergeld-Gesetz. § 134 Abs. 1 SGB XII legt die Veränderungsraten fest, mit
+      denen die Regelbedarfsstufen zum 1. Januar 2023 fortgeschrieben werden; die
+      Beträge stehen in der Anlage zu § 28 SGB XII.
   2024-01-01:
     1: 563
     2: 506
@@ -276,4 +287,4 @@ parameter_regelbedarfsstufen:
       min_alter: 0
       max_alter: 5
       betrag: 357
-    reference: §2 V. v. 24.10.2024 BGBl. I Nr. 287
+    reference: § 2 RBSFV 2024 idF V. v. 24.10.2023 BGBl. 2023 I Nr. 287

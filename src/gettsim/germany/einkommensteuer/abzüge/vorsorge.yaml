@@ -5,19 +5,20 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     en: Deduction for pension expenses, regime until 2004.
   description:
     de: >-
-      Vorwegabzug:
-      § 10 (4a) EStG. Früher §10 (3) EStG. Hier steht jeweils der Wert für den
-      Steuerpflichtigen. Wird verdoppelt für gemeinsam veranlagte Ehegatten. Der gesamte
-      Zeitverlauf wurde bereits 2005 festgelegt.
-      Grundhöchstbetrag:
-      § 10 (3) EStG.
-      Kürzung bei abhängig Beschäftigten:
-      §10 (3) S. 2 EStG (vor 2004). Der Vorwegabzug wird pauschal um einen Anteil
-      gekürzt bei abhängig Beschäftigten (vereinfacht).
-      Achtung: Heterogene Einträge im dict!
+      Vorwegabzug: § 10 (4a) EStG. Früher §10 (3) EStG. Hier steht jeweils der Wert für
+      den Steuerpflichtigen. Wird verdoppelt für gemeinsam veranlagte Ehegatten. Der
+      gesamte Zeitverlauf wurde bereits 2005 festgelegt. Grundhöchstbetrag: § 10 (3)
+      EStG. Kürzung bei abhängig Beschäftigten: §10 (3) S. 2 EStG (vor 2004). Der
+      Vorwegabzug wird pauschal um einen Anteil gekürzt bei abhängig Beschäftigten
+      (vereinfacht). Achtung: Heterogene Einträge im dict!
     en: null
   type: dict
   1985-01-01:
+    reference: § 10 Abs. 3 EStG idF B. v. 12.06.1985 BGBl. I S. 977
+    note: >-
+      Grundhöchstbetrag nach § 10 Abs. 3 Nr. 1, Vorwegabzug nach § 10 Abs. 3 Nr. 2 EStG.
+      Der Vorwegabzug wird um den Arbeitgeberbeitrag zur Rentenversicherung gekürzt; der
+      Kürzungsanteil entspricht dem Arbeitgeberanteil am Beitragssatz.
     unit:
       vorwegabzug: DM_PER_YEAR
       grundhöchstbetrag: DM_PER_YEAR
@@ -25,30 +26,45 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     vorwegabzug: 3000
     grundhöchstbetrag: 2340
     kürzungsanteil_abhängig_beschäftigte: 0.0935
-    reference: >-
-      § 10 Abs. 3 EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
   1986-01-01:
+    reference: § 10 Abs. 3 Nr. 2 EStG idF B. v. 12.06.1985 BGBl. I S. 977
+    note: >-
+      Kürzungsanteil folgt dem Arbeitgeberanteil am Beitragssatz der Rentenversicherung.
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.096
   1987-01-01:
+    reference: § 10 Abs. 3 Nr. 2 EStG idF B. v. 12.06.1985 BGBl. I S. 977
+    note: >-
+      Kürzungsanteil folgt dem Arbeitgeberanteil am Beitragssatz der Rentenversicherung.
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.0935
-  1989-01-01:
+  1990-01-01:
+    reference: § 10 Abs. 3 Nr. 2 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+    note: >-
+      Steuerreformgesetz 1990 (anzuwenden ab VZ 1990, § 52 Abs. 1 EStG).
     updates_previous: true
     vorwegabzug: 4000
     kürzungsanteil_abhängig_beschäftigte: 0.12
-    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
-  1992-01-01:
-    updates_previous: true
-    grundhöchstbetrag: 2610
   1993-01-01:
+    reference:
+      - § 10 Abs. 3 Nr. 1 EStG idF Art. 1 G. v. 09.11.1992 BGBl. I S. 1853
+      - § 10 Abs. 3 Nr. 2 EStG idF Art. 1 G. v. 09.11.1992 BGBl. I S. 1853
+    note: >-
+      Zinsabschlaggesetz (anzuwenden ab VZ 1993, § 52 Abs. 1 EStG).
     updates_previous: true
     vorwegabzug: 6000
+    grundhöchstbetrag: 2610
   1994-01-01:
+    reference: § 10 Abs. 3 EStG idF Art. 1 G. v. 21.12.1993 BGBl. I S. 2310
+    note: >-
+      Missbrauchsbekämpfungs- und Steuerbereinigungsgesetz.
     updates_previous: true
     kürzungsanteil_abhängig_beschäftigte: 0.16
-    reference: Art. 1 G. v. 21.12.1993 BGBl. I S. 2310.
   2002-01-01:
+    reference: § 10 Abs. 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz. Ab 2005 gilt die Rechtslage bis 2004 über die
+      Günstigerprüfung nach § 10 Abs. 4a EStG fort.
     unit:
       vorwegabzug: EUR_PER_YEAR
       grundhöchstbetrag: EUR_PER_YEAR
@@ -56,35 +72,49 @@ parameter_altersvorsorgeaufwendungen_regime_bis_2004:
     vorwegabzug: 3068
     grundhöchstbetrag: 1334
     kürzungsanteil_abhängig_beschäftigte: 0.16
-    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
   2011-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: >-
+      Tabelle in § 10 Abs. 4a Satz 1 EStG, festgelegt durch das Alterseinkünftegesetz
+      (Art. 1 G. v. 05.07.2004 BGBl. I S. 1427).
     updates_previous: true
     vorwegabzug: 2700
   2012-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     updates_previous: true
     vorwegabzug: 2400
   2013-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     updates_previous: true
     vorwegabzug: 2100
   2014-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
+    note: >-
+      Altersvorsorge-Verbesserungsgesetz (Tabelle beginnt mit 2013, Werte unverändert).
     updates_previous: true
     vorwegabzug: 1800
   2015-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     updates_previous: true
     vorwegabzug: 1500
   2016-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     updates_previous: true
     vorwegabzug: 1200
   2017-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     updates_previous: true
     vorwegabzug: 900
   2018-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     updates_previous: true
     vorwegabzug: 600
   2019-01-01:
+    reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     updates_previous: true
     vorwegabzug: 300
   2020-01-01:
+    reference: none (the table in § 10 Abs. 4a Satz 1 EStG ends with 2019)
     note: Wird im code nicht mehr verwendet, ggf. Referenz raussuchen.
 parameter_einführungsfaktor_altersvorsorgeaufwendungen:
   name:
@@ -92,22 +122,25 @@ parameter_einführungsfaktor_altersvorsorgeaufwendungen:
     en: Introductory factor for pension contributions
   description:
     de: >-
-      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
-      In den Jahren 2005-2022 stieg der Anteil der abzugsfähigen Beiträge von 60% in
-      2005 jährlich um 2 Prozentpunkte an bis 94% in 2022 erreicht wurden. Eigentlich
-      war geplant, dass der Parameter weiter mit dieser Rate steigt, bis ab 2025 100%
-      erreicht sind. Abweichend von diesem Plan, wurden die abzugsfähigen Beiträge schon
-      2023 auf 100% gesetzt.
+      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG In den Jahren 2005-2022 stieg der Anteil
+      der abzugsfähigen Beiträge von 60% in 2005 jährlich um 2 Prozentpunkte an bis 94%
+      in 2022 erreicht wurden. Eigentlich war geplant, dass der Parameter weiter mit
+      dieser Rate steigt, bis ab 2025 100% erreicht sind. Abweichend von diesem Plan,
+      wurden die abzugsfähigen Beiträge schon 2023 auf 100% gesetzt.
     en: >-
-      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
-      In the years 2005-2022, the share of deductible contributions increased by 2
-      percentage points each year from 60% in 2005 to 94% in 2022. It was planned that
-      100% are reached in 2025. Deviating from this plan, the deductible contributions
-      were set to 100% already in 2023.
+      § 10 Abs. 1 Nr. 2 Buchst. a und b EStG In the years 2005-2022, the share of
+      deductible contributions increased by 2 percentage points each year from 60% in
+      2005 to 94% in 2022. It was planned that 100% are reached in 2025. Deviating from
+      this plan, the deductible contributions were set to 100% already in 2023.
   input_unit: CALENDAR_YEAR
   output_unit: DIMENSIONLESS
   type: piecewise_linear
   2005-01-01:
+    reference:
+      - § 10 Abs. 3 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+      - § 10 Abs. 3 Satz 6 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz.
     intervals:
       - interval: (-inf, 2005)
         slope: 0
@@ -117,7 +150,10 @@ parameter_einführungsfaktor_altersvorsorgeaufwendungen:
       - interval: '[2025, inf)'
         slope: 0
   2023-01-01:
-    note: Abgeschafft durch G. v. 20.12.2022 BGBl. I S. 2294.
+    reference: § 10 Abs. 3 Satz 6 EStG idF Art. 4 G. v. 16.12.2022 BGBl. I S. 2294
+    note: >-
+      Abgeschafft durch das Jahressteuergesetz 2022 (Art. 4 G. v. 16.12.2022 BGBl. I S.
+      2294): ab 2023 100 Prozent.
 maximalbetrag_sonstige_vorsorgeaufwendungen:
   name:
     de: >-
@@ -131,10 +167,14 @@ maximalbetrag_sonstige_vorsorgeaufwendungen:
   type: scalar
   2005-01-01:
     value: 1500
-    reference: Art. 1 G. v. 05.07.2004 BGBl. I S.1427
+    reference: § 10 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz.
   2010-01-01:
     value: 1900
-    reference: Art. 1 G. v. 23.07.2009 BGBl. I S.1959.
+    reference: § 10 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: >-
+      Bürgerentlastungsgesetz Krankenversicherung (anzuwenden ab VZ 2010).
 maximalbetrag_altersvorsorgeaufwendungen_y:
   name:
     de: Maximalbetrag der Altersvorsorgeaufwendungen, 2005er Rechtsstand
@@ -145,23 +185,32 @@ maximalbetrag_altersvorsorgeaufwendungen_y:
   unit: EUR_PER_YEAR
   type: scalar
   2005-01-01:
+    reference: § 10 Abs. 3 Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     value: 20000
-    note: Art. 1 G. v. 05.07.2004 BGBl. I S.1427
-  2015-01-01:
     note: >-
-      Ab 2015 knappschaftlicher Höchstbetrag, d.h. knappschaftlicher Beitragssatz *
-      knappschaftliche Beitragsbemessungsgrenze
+      Alterseinkünftegesetz.
+  2015-01-01:
+    reference: § 10 Abs. 3 Satz 1 EStG idF Art. 5 G. v. 22.12.2014 BGBl. I S. 2417
+    note: >-
+      Ab 2015 knappschaftlicher Höchstbeitrag, d.h. knappschaftlicher Beitragssatz *
+      knappschaftliche Beitragsbemessungsgrenze, aufgerundet auf einen vollen Betrag in
+      Euro.
 minderungsanteil_vorsorgeaufwendungen_für_krankenversicherungsbeiträge:
   name:
     de: >-
-      Anteil, um den Krankenversicherungsbeiträge bei abhängig Beschäftigten
-      gemindert werden .
+      Anteil, um den Krankenversicherungsbeiträge bei abhängig Beschäftigten gemindert
+      werden .
     en: null
   description:
     de: §10 (3) a) S.4 EStG
     en: null
   unit: DIMENSIONLESS
   type: scalar
-  2009-07-23:
+  2010-01-01:
     value: 0.04
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: >-
+      § 10 Abs. 1 Nr. 3 Buchst. a Satz 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S.
+      1959
+    note: >-
+      Bürgerentlastungsgesetz Krankenversicherung (anzuwenden ab VZ 2010, § 52 Abs. 1
+      EStG).

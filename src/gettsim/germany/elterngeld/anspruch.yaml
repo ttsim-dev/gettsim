@@ -14,9 +14,12 @@ max_bezugsmonate:
     partnermonate: MONTHS_PER_FG
   type: dict
   2007-01-01:
+    reference:
+      - § 4 Abs. 2 Satz 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+      - § 4 Abs. 2 Satz 3 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     basismonate: 12
     partnermonate: 2
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 max_zu_versteuerndes_einkommen_vorjahr_nach_alleinerziehendenstatus:
   name:
     de: Maximales zu versteuerndes Einkommen im Jahr vor der Geburt des Kindes.
@@ -32,15 +35,22 @@ max_zu_versteuerndes_einkommen_vorjahr_nach_alleinerziehendenstatus:
   unit: EUR_PER_YEAR_PER_SN
   type: dict
   2011-01-01:
+    reference:
+      - § 1 Abs. 8 Satz 1 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+      - § 1 Abs. 8 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    note: Haushaltsbegleitgesetz 2011.
     alleinerziehend: 250000.0
     paar: 500000.0
-    reference: Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
   2021-09-01:
+    reference: § 1 Abs. 8 Satz 2 BEEG idF Art. 1 G. v. 15.02.2021 BGBl. I S. 239
+    note: Zweites Gesetz zur Änderung des Bundeselterngeld- und Elternzeitgesetzes.
     updates_previous: true
     paar: 300000.0
-    reference: Art. 1 G. v. 15.02.2021 BGBl. I S. 239
   2024-04-01:
-    note: Pauschalisiert, siehe 'max_zu_versteuerndes_einkommen_vorjahr_pauschal'
+    reference:
+      - § 28 Abs. 5 Satz 2 BEEG idF Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107
+      - § 28 Abs. 5 Satz 3 BEEG idF Art. 1 G. v. 22.12.2023 BGBl. 2023 I Nr. 412
+    note: Pauschalisiert, siehe 'max_zu_versteuerndes_einkommen_vorjahr_pauschal'.
 max_zu_versteuerndes_einkommen_vorjahr_pauschal:
   name:
     de: Maximales zu versteuerndes Einkommen im Jahr vor der Geburt des Kindes.
@@ -56,15 +66,22 @@ max_zu_versteuerndes_einkommen_vorjahr_pauschal:
   unit: EUR_PER_YEAR_PER_SN
   type: scalar
   2024-04-01:
+    reference:
+      - § 28 Abs. 5 Satz 2 BEEG idF Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107
+      - § 28 Abs. 5 Satz 3 BEEG idF Art. 1 G. v. 22.12.2023 BGBl. 2023 I Nr. 412
+    note: >-
+      Haushaltsfinanzierungsgesetz 2024 (§ 28 Abs. 5 Satz 3, couples) and Zweites
+      Haushaltsfinanzierungsgesetz 2024 (§ 28 Abs. 5 Satz 2, singles). Applies to births
+      from 1 April 2024 to 31 March 2025.
     value: 200000.0
-    reference: >-
-      Single: Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107, Paar: Art. 1 G. v.
-      22.12.2023 BGBl. 2023 I Nr. 412
   2025-04-01:
+    reference:
+      - § 1 Abs. 8 Satz 1 BEEG idF Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107
+      - § 1 Abs. 8 Satz 2 BEEG idF Art. 1 G. v. 22.12.2023 BGBl. 2023 I Nr. 412
+    note: >-
+      Haushaltsfinanzierungsgesetz 2024 (§ 1 Abs. 8 Satz 2) and Zweites
+      Haushaltsfinanzierungsgesetz 2024 (§ 1 Abs. 8 Satz 1).
     value: 175000.0
-    reference: >-
-      Single: Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107, Paar: Art. 1 G. v.
-      22.12.2023 BGBl. 2023 I Nr. 412
 max_arbeitsstunden_w:
   name:
     de: >-
@@ -77,8 +94,10 @@ max_arbeitsstunden_w:
   unit: HOURS_PER_WEEK
   type: scalar
   2007-01-01:
+    reference: § 1 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 30
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
   2021-09-01:
+    reference: § 1 Abs. 6 BEEG idF Art. 1 G. v. 15.02.2021 BGBl. I S. 239
+    note: Zweites Gesetz zur Änderung des Bundeselterngeld- und Elternzeitgesetzes.
     value: 32
-    reference: Art. 1 G. v. 15.02.2021 BGBl. I S. 239

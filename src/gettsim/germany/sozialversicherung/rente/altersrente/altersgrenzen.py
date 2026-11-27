@@ -33,6 +33,10 @@ def altersgrenze_mit_arbeitslosigkeit_frauen_ohne_besonders_langjährig(
     Age at which pension can be claimed without deductions. This age is smaller or equal
     to the normal retirement age (FRA<=NRA) and depends on personal characteristics as
     gender, insurance duration, health/disability, employment status.
+
+    Reference:
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     out = regelaltersrente__altersgrenze
     if für_frauen__grundsätzlich_anspruchsberechtigt:
@@ -77,6 +81,8 @@ def altersgrenze_mit_arbeitslosigkeit_frauen_besonders_langjährig(
     besonders langjährig Versicherte) is introduced. Policy becomes inactive in 2018
     because then all potential beneficiaries of the Rente wg. Arbeitslosigkeit and
     Rente für Frauen have reached the normal retirement age.
+
+    Reference: § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     out = regelaltersrente__altersgrenze
     if für_frauen__grundsätzlich_anspruchsberechtigt:
@@ -116,6 +122,8 @@ def altersgrenze_mit_besonders_langjährig_ohne_arbeitslosigkeit_frauen(
     Age at which pension can be claimed without deductions. This age is smaller or equal
     to the normal retirement age (FRA<=NRA) and depends on personal characteristics as
     gender, insurance duration, health/disability, employment status.
+
+    Reference: § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     out = regelaltersrente__altersgrenze
     if langjährig__grundsätzlich_anspruchsberechtigt:
@@ -150,6 +158,10 @@ def altersgrenze_vorzeitig_mit_arbeitslosigkeit_frauen(
     duration, health/disability, employment status. Policy becomes inactive in 2018
     because then all potential beneficiaries of the Rente wg. Arbeitslosigkeit and Rente
     für Frauen have reached the normal retirement age.
+
+    Reference:
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     frauen_vorzeitig = für_frauen__altersgrenze_vorzeitig
 
@@ -181,6 +193,8 @@ def altersgrenze_vorzeitig_ohne_arbeitslosigkeit_frauen(
 
     Early retirement age depends on personal characteristics as gender, insurance
     duration, health/disability, employment status.
+
+    Reference: § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     out = regelaltersrente__altersgrenze
 
@@ -208,6 +222,10 @@ def vorzeitig_grundsätzlich_anspruchsberechtigt_mit_arbeitslosigkeit_frauen(
     Frauen" or "Rente für Arbeitslose" (or -not yet implemented - for disabled). Policy
     becomes inactive in 2018 because then all potential beneficiaries of the Rente wg.
     Arbeitslosigkeit and Rente für Frauen have reached the normal retirement age.
+
+    Reference:
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     return (
         für_frauen__grundsätzlich_anspruchsberechtigt
@@ -227,6 +245,8 @@ def vorzeitig_grundsätzlich_anspruchsberechtigt_vorzeitig_ohne_arbeitslosigkeit
     """Eligibility for early retirement.
 
     Can only be claimed if eligible for "Rente für langjährig Versicherte".
+
+    Reference: § 89 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     """
     return langjährig__grundsätzlich_anspruchsberechtigt
 
@@ -250,6 +270,10 @@ def referenzalter_abschlag_mit_arbeitslosigkeit_frauen(
     Normal retirement age if not eligible for early retirement. Policy becomes inactive
     in 2018 because then all potential beneficiaries of the Rente wg. Arbeitslosigkeit
     and Rente für Frauen have reached the normal retirement age.
+
+    Reference:
+        - § 77 Abs. 2 Satz 1 Nr. 2 Buchst. a SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I
+          S. 1827
     """
     if (
         langjährig__grundsätzlich_anspruchsberechtigt
@@ -313,6 +337,10 @@ def referenzalter_abschlag_ohne_arbeitslosigkeit_frauen(
     (Zugangsfaktor).
 
     Normal retirement age if not eligible for early retirement.
+
+    Reference:
+        - § 77 Abs. 2 Satz 1 Nr. 2 Buchst. a SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I
+          S. 1827
     """
     if langjährig__grundsätzlich_anspruchsberechtigt:
         out = langjährig__altersgrenze
@@ -329,7 +357,12 @@ def hat_regelaltersgrenze_erreicht(
 ) -> bool:
     """The person has reached the Regelaltersgrenze.
 
-    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II
+    Used for § 41 Abs. 1 SGB XII and § 7 Abs. 1 Satz 1 Nr. 1 SGB II.
+
+    Reference:
+        - § 35 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 35 Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 235 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     return (
         m_to_y(alter_monate)
@@ -344,7 +377,12 @@ def älter_als_regelaltersgrenze(
 ) -> bool:
     """The person is older than the Regelaltersgrenze.
 
-    Reference: §41 Abs. 1 SGB XII, §7 Abs. 1 Satz 1 Nr. 1 SGB II
+    Used for § 41 Abs. 1 SGB XII and § 7 Abs. 1 Satz 1 Nr. 1 SGB II.
+
+    Reference:
+        - § 35 Nr. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 35 Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 235 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     # Floating comparison may fail due to rounding errors if alter == Regelaltersgrenze.
     # Hence, we add a number << 1 / 12 to the RHS.

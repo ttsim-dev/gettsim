@@ -21,7 +21,10 @@ vermögensfreibetrag_je_person_nach_karenzzeit:
   2023-01-01:
     während_karenzzeit: 40000
     normaler_satz: 15000
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference:
+      - § 12 Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 12 Abs. 4 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+    note: Bürgergeld-Gesetz.
 parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   name:
     de: >-
@@ -46,11 +49,13 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
   output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2023-01-01:
-    reference: Artikel 1 G. v. 20.12.2011 BGBl. I 2854.
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
     note: >-
-      Neufassung des SGB II. B. v. 13.5.2011 BGBl. I S. 850. Artikel 5.
-      ToDo: Check these laws -- did they really happen months after the date of the
-      policy change?
+      Bis zum 30. Juni 2023 gelten die Freibeträge nach § 11b Abs. 3 SGB II in der
+      Fassung vor dem Bürgergeld-Gesetz weiter.
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -64,7 +69,11 @@ parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg:
       - interval: '[1200, inf)'
         slope: 0
   2023-07-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 11b Abs. 3 Satz 2 Nr. 3 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Bürgergeld-Gesetz
     intervals:
       - interval: (-inf, 0)
@@ -103,7 +112,11 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
   output_unit: EUR_PER_MONTH
   type: piecewise_linear
   2023-01-01:
-    reference: Artikel 1 G. v. 14.08.2005 BGBl. I S. 2407.
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
+      - § 11b Abs. 3 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     intervals:
       - interval: (-inf, 0)
         slope: 0
@@ -117,7 +130,12 @@ parameter_anrechnungsfreies_einkommen_mit_kindern_in_bg:
       - interval: '[1500, inf)'
         slope: 0
   2023-07-01:
-    reference: G. v. 20.12.2022 BGBl. I S. 2328.
+    reference:
+      - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+      - § 11b Abs. 3 Satz 2 Nr. 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 11b Abs. 3 Satz 2 Nr. 2 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 11b Abs. 3 Satz 2 Nr. 3 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
+      - § 11b Abs. 3 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     note: Bürgergeld-Gesetz
     intervals:
       - interval: (-inf, 0)

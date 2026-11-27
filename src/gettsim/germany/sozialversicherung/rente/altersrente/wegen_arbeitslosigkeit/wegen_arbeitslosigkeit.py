@@ -36,6 +36,8 @@ def altersgrenze_bis_1996(
     """Full retirement age for unemployed without Vertrauensschutz.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
@@ -59,6 +61,11 @@ def altersgrenze_mit_vertrauensschutzprüfung(
     because then all potential beneficiaries have reached the Regelaltersgrenze.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference:
+        - § 237 Abs. 2 SGB VI idF Art. 2 Nr. 17 G. v. 23.07.1996 BGBl. I S. 1078
+        - § 237 Abs. 4 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 237 Abs. 4 SGB VI idF Art. 1 G. v. 21.07.2004 BGBl. I S. 1791
     """
     if vertrauensschutz_1997:
         return altersgrenze_mit_vertrauensschutz
@@ -81,6 +88,8 @@ def altersgrenze_ab_2010(
     because then all potential beneficiaries have reached the Regelaltersgrenze.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 237 Abs. 3 SGB VI idF Art. 1 Nr. 78 G. v. 21.07.2004 BGBl. I S. 1791
     """
     return altersgrenze_ohne_vertrauensschutz
 
@@ -103,6 +112,8 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_bis_1996_07(
     """Early retirement age of pension for unemployed.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
@@ -125,6 +136,8 @@ def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_1996_bis_09_1996(
     Includes Vertrauensschutz rules implemented from July to September 1996.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 237 Abs. 2 SGB VI idF Art. 2 Nr. 17 G. v. 23.07.1996 BGBl. I S. 1078
     """
     if vertrauensschutz_1997:
         return altersgrenze_vorzeitig_mit_vertrauensschutz
@@ -150,6 +163,8 @@ def altersgrenze_vorzeitig_mit_vertrauensschutzprüfung_ab_07_2004(
     age.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 237 Abs. 5 SGB VI idF Art. 1 Nr. 45 G. v. 21.07.2004 BGBl. I S. 1791
     """
     if vertrauensschutz_2004:
         return altersgrenze_vorzeitig_mit_vertrauensschutz
@@ -176,6 +191,13 @@ def altersgrenze_ohne_vertrauensschutz(
     Full retirement age depends on birth year and month.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference:
+        - § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 41 Abs. 1a SGB VI idF Art. 2 Nr. 5 G. v. 23.07.1996 BGBl. I S. 1078
+        - § 41 Abs. 1 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+        - § 237 Abs. 3 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 237 Abs. 3 SGB VI idF Art. 1 Nr. 78 G. v. 21.07.2004 BGBl. I S. 1791
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
@@ -196,7 +218,13 @@ def altersgrenze_mit_vertrauensschutz(
     geburtsmonat: int,
     altersgrenze_gestaffelt_vertrauensschutz: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Full retirement age for unemployed for individuals under Vertrauensschutz."""
+    """Full retirement age for unemployed for individuals under Vertrauensschutz.
+
+    Reference:
+        - § 237 Abs. 2 SGB VI idF Art. 2 Nr. 17 G. v. 23.07.1996 BGBl. I S. 1078
+        - § 237 Abs. 4 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 237 Abs. 4 SGB VI idF Art. 1 G. v. 21.07.2004 BGBl. I S. 1791
+    """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
     return altersgrenze_gestaffelt_vertrauensschutz.look_up(birth_month_since_ad)
@@ -222,6 +250,10 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_12_1989_bis_09_1996(
     Relevant if the early retirement age depends on birth year and month.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference:
+        - § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 41 Abs. 1a SGB VI idF Art. 2 Nr. 5 G. v. 23.07.1996 BGBl. I S. 1078
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
@@ -248,6 +280,8 @@ def altersgrenze_vorzeitig_ohne_vertrauensschutz_ab_07_2004(
     Relevant if the early retirement age depends on birth year and month.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 237 Abs. 3 SGB VI idF Art. 1 Nr. 78 G. v. 21.07.2004 BGBl. I S. 1791
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
 
@@ -271,6 +305,12 @@ def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
     unemployed at the time of claiming the pension. As there are no restrictions
     regarding voluntary unemployment this requirement may be viewed as always satisfied
     and is therefore not included when checking for eligibility.
+
+    Reference:
+        - § 1248 Abs. 2 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+        - § 38 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 237 Abs. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 237 Abs. 1 SGB VI idF Art. 1 G. v. 21.07.2004 BGBl. I S. 1791
     """
     return (
         arbeitslos_für_1_jahr_nach_alter_58_ein_halb
@@ -301,6 +341,8 @@ def grundsätzlich_anspruchsberechtigt_mit_prüfung_geburtsjahr(
     always satisfied and is therefore not included when checking for eligibility. Policy
     becomes inactive in 2018 because then all potential beneficiaries have reached the
     Regelaltersgrenze.
+
+    Reference: § 237 Abs. 1 SGB VI idF Art. 1 G. v. 21.07.2004 BGBl. I S. 1791
     """
     return (
         arbeitslos_für_1_jahr_nach_alter_58_ein_halb

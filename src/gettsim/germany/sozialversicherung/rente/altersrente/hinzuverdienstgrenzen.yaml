@@ -13,8 +13,11 @@ abzugsrate_hinzuverdienst:
   unit: DIMENSIONLESS
   type: scalar
   2017-07-01:
+    reference: § 34 Abs. 3 Satz 2 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+    note: Flexirentengesetz.
     value: 0.4
   2023-01-01:
+    reference: § 34 SGB VI idF Art. 7 G. v. 20.12.2022 BGBl. I S. 2759
     note: Revoked in 2023.
 hinzuverdienstgrenze_m:
   name:
@@ -28,12 +31,30 @@ hinzuverdienstgrenze_m:
   unit: EUR_PER_MONTH
   type: scalar
   2002-01-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 6 G. v. 21.12.2000 BGBl. I S. 1983
+    note: Viertes Euro-Einführungsgesetz.
+    value: 325.0
+  2003-04-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+    note: Ein Siebtel der monatlichen Bezugsgröße (2 380 Euro).
+    value: 340.0
+  2004-01-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+    note: Ein Siebtel der monatlichen Bezugsgröße (2 415 Euro in 2004 und 2005).
+    value: 345.0
+  2006-01-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+    note: Ein Siebtel der monatlichen Bezugsgröße (2 450 Euro in 2006 und 2007).
     value: 350.0
   2008-01-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 5 G. v. 08.04.2008 BGBl. I S. 681
+    note: Rückwirkend ab 1.1.2008.
     value: 400.0
   2013-01-01:
+    reference: § 34 Abs. 3 Nr. 1 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
     value: 450.0
-  2017-01-01:
+  2017-07-01:
+    reference: § 34 Abs. 2 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
     note: Yearly additional earnings threshold, see 'hinzuverdienstgrenze_y'.
 hinzuverdienstgrenze_y:
   name:
@@ -46,11 +67,21 @@ hinzuverdienstgrenze_y:
       § 34 SGB VI, additional earnings threshold during early retirement
   unit: EUR_PER_YEAR
   type: scalar
-  2017-01-01:
+  2017-07-01:
+    reference: § 34 Abs. 2 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
+    note: Flexirentengesetz.
     value: 6300.0
   2020-01-01:
+    reference: § 302 Abs. 8 Nr. 1 SGB VI idF Art. 4 G. v. 27.03.2020 BGBl. I S. 575
+    note: Sozialschutz-Paket, rückwirkend ab 1.1.2020.
     value: 44590.0
   2021-01-01:
+    reference: § 302 Abs. 8 Nr. 1 SGB VI idF Art. 9c G. v. 22.12.2020 BGBl. I S. 3334
+    value: 46060.0
+  2022-01-01:
+    reference: § 302 Abs. 8 Nr. 1 SGB VI idF Art. 6a G. v. 22.11.2021 BGBl. I S. 4906
+    note: Verlängerung der Hinzuverdienstgrenze für 2021 auf 2022.
     value: 46060.0
   2023-01-01:
+    reference: § 34 SGB VI idF Art. 7 G. v. 20.12.2022 BGBl. I S. 2759
     note: Revoked in 2023.

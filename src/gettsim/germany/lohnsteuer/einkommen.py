@@ -16,11 +16,21 @@ from gettsim.tt import (
     policy_function,
 )
 
+_REFERENCE_PAP = (
+    "none (rounding prescribed by the Programmablaufplan of the BMF under § 39b Abs. 6 "
+    "EStG, published in the BStBl, not in the BGBl)"
+)
+
 
 @policy_function(
     start_date="2002-01-01",
     end_date="2025-12-31",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference=_REFERENCE_PAP,
+    ),
     leaf_name="einkommen_y",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -32,7 +42,18 @@ def einkommen_y_bis_2025(
     einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
 ) -> float:
-    """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
+    """Steuerbasis for Lohnsteuer (withholding tax on earnings).
+
+    Until 2007, the zu versteuernde Jahresbetrag was defined in § 39b Abs. 2 Satz 6
+    EStG.
+
+    Reference:
+        - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 39b Abs. 2 Satz 6 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 39b Abs. 2 Satz 5 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
+        - § 39b Abs. 2 Satz 5 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 39b Abs. 2 Satz 5 Nr. 4 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+    """
     if steuerklasse == 6:
         werbungskosten = 0.0
     else:
@@ -62,7 +83,12 @@ def einkommen_y_bis_2025(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="down"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="down",
+        reference=_REFERENCE_PAP,
+    ),
     leaf_name="einkommen_y",
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -74,7 +100,13 @@ def einkommen_y_ab_2026(
     einkommensteuer__abzüge__alleinerziehendenfreibetrag_basis_y: float,
     einkommensteuer__abzüge__sonderausgabenpauschbetrag: float,
 ) -> float:
-    """Steuerbasis for Lohnsteuer (withholding tax on earnings)."""
+    """Steuerbasis for Lohnsteuer (withholding tax on earnings).
+
+    By § 52 Abs. 36 EStG, the version of § 39b Abs. 2 Satz 5 Nr. 3 EStG introduced by
+    the JStG 2020 applies from 2026.
+
+    Reference: § 39b Abs. 2 Satz 5 EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
+    """
     if steuerklasse == 6:
         werbungskosten = 0.0
     else:
@@ -117,8 +149,10 @@ def steuerpflichtiger_arbeitslohn_y(
     The Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG) is not deducted yet, see
     https://github.com/ttsim-dev/gettsim/issues/1259.
 
-    Reference: § 3 Nr. 21 EStG; BMF FAQ zur Aktivrente III.4; BMF-Schreiben vom
-    14.08.2025 zur Vorsorgepauschale, Rn. 5.
+    See also BMF FAQ zur Aktivrente III.4 and BMF-Schreiben vom 14.08.2025 zur
+    Vorsorgepauschale, Rn. 5.
+
+    Reference: § 3 Nr. 21 EStG idF Art. 1 G. v. 22.12.2025 BGBl. 2025 I Nr. 361
     """
     if steuerklasse == 6:
         # TODO(@MImmesberger): With Steuerklasse 6, the deduction is only applied if the
@@ -146,8 +180,9 @@ def vorsorge_krankenversicherungsbeiträge_option_a_y(
     """Option a for calculating deductible health insurance contributions.
 
     This function calculates option a where at least 12% of earnings can be deducted,
-    but only up to a certain threshold.
+    but only up to a certain threshold (Mindestvorsorgepauschale).
 
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     vorsorge_krankenversicherungsbeiträge_option_a_basis = (
         vorsorgepauschale_mindestanteil
@@ -186,6 +221,10 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2015_bis_2018(
     For health care deductions, there are two ways to calculate the deductions: "Option
     a" and "Option b". This function calculates option b where the actual contributions
     are used.
+
+    Reference:
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b EStG idF Art. 3 G. v. 25.07.2014 BGBl. I S. 1266
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. c EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     return (
         sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
@@ -214,6 +253,10 @@ def vorsorge_krankenversicherungsbeiträge_option_b_ab_2019(
     For health care deductions, there are two ways to calculate the deductions: "Option
     a" and "Option b". This function calculates option b where the actual contributions
     are used.
+
+    Reference:
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b EStG idF Art. 3 G. v. 25.07.2014 BGBl. I S. 1266
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. c EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     return (
         sozialversicherung__kranken__beitrag__einkommen_bis_beitragsbemessungsgrenze_y
@@ -238,7 +281,9 @@ def vorsorge_gesetzliche_krankenversicherungsbeiträge_y(
 
     The Übergangsbereich is ignored (BMF-Schreiben 14.08.2025, Rn. 7).
 
-    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b und c EStG.
+    Reference:
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b EStG idF Art. 3 G. v. 25.07.2014 BGBl. I S. 1266
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. c EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
     """
     if sozialversicherung__kranken__beitrag__privat_versichert:
         return 0.0
@@ -265,7 +310,7 @@ def vorsorge_arbeitslosenversicherungsbeiträge_y(
     Employees past the Regelaltersgrenze are versicherungsfrei (§ 28 Abs. 1 Nr. 1 SGB
     III).
 
-    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG.
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG idF Art. 5 G. v. 21.12.2020 BGBl. I S. 3096
     """
     if sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze:
         return 0.0
@@ -298,7 +343,12 @@ def vorsorge_rentenversicherungsbeiträge_teilweise_anrechnung_y(
 
     Only employees who are pflichtversichert in the public pension insurance or befreit
     under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
-    Buchst. a EStG).
+    Buchst. a EStG). Until 2009, the Vorsorgepauschale was defined in § 10c Abs. 2 EStG.
+
+    Reference:
+        - § 10c Abs. 2 Satz 2 Nr. 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 39b Abs. 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
     # insured via the public pension fund (or a berufsständische Rentenversicherung),
@@ -329,11 +379,13 @@ def vorsorge_rentenversicherungsbeiträge_volle_anrechnung_y(
 ) -> float:
     """Vorsorgepauschale für Rentenversicherungsbeiträge.
 
-    Since 2023 the contributions are fully deductible.
+    Since 2023 the contributions are fully deductible: § 39b Abs. 4 EStG was repealed
+    by Art. 4 G. v. 16.12.2022 BGBl. I S. 2294 (JStG 2022).
 
     Only employees who are pflichtversichert in the public pension insurance or befreit
-    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag (§ 39b Abs. 2 Satz 5 Nr. 3
-    Buchst. a EStG).
+    under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag.
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
     # insured via the public pension fund (or a berufsständische Rentenversicherung),
@@ -369,7 +421,7 @@ def vorsorge_rentenversicherungsbeiträge_auf_steuerpflichtigen_arbeitslohn_y(
     Only employees who are pflichtversichert in the public pension insurance or befreit
     under § 6 Abs. 1 Nr. 1 SGB VI get this Teilbetrag.
 
-    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG.
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     # TODO(@MImmesberger): Should also return 0 for other individuals that are not
     # insured via the public pension fund (or a berufsständische Rentenversicherung),
@@ -402,7 +454,11 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
     The share rises by 4 percentage points each year from 40% in 2010 to 88% in 2022.
     Since 2023, contributions are fully deductible.
 
-    Reference: § 39b Abs. 4 EStG.
+    Until 2009, the share was set in § 10c Abs. 2 Satz 4 EStG.
+
+    Reference:
+        - § 10c Abs. 2 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 39b Abs. 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     return piecewise_polynomial(
         x=policy_year,
@@ -413,7 +469,12 @@ def einführungsfaktor_rentenversicherungsaufwendungen(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="up",
+        reference=_REFERENCE_PAP,
+    ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
@@ -425,8 +486,14 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
 ) -> float:
     """Vorsorgepauschale without unemployment insurance contributions.
 
-    Reference: Calculation of 'MVSPKVPV' in Programmablaufplan Lohnsteuer BMF
-    2025-11-12; § 39b Absatz 2 Satz 5 Nummer 3 Buchstaben b bis d EStG
+    See the calculation of 'MVSPKVPV' in the Programmablaufplan Lohnsteuer of the BMF
+    of 2025-11-12.
+
+    Reference:
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. b EStG idF Art. 3 G. v. 25.07.2014 BGBl. I S. 1266
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. c EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
+        - § 39b Abs. 2 Satz 5 Nr. 3 Buchst. d EStG idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1259
     """
     if sozialversicherung__kranken__beitrag__privat_versichert and steuerklasse == 6:
         kv_pv_aufwendungen_y = 0.0
@@ -442,7 +509,12 @@ def vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y(
 
 @policy_function(
     start_date="2026-01-01",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="up",
+        reference=_REFERENCE_PAP,
+    ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
@@ -455,8 +527,10 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
 
     Unemployment insurance contributions are now deductible up to a certain limit.
 
-    Reference: Calculation of 'MVSPHB' in Programmablaufplan Lohnsteuer BMF 2025-11-12;
-    § 39b Absatz 2 Satz 5 Nummer 3 Buchstabe e EStG.
+    See the calculation of 'MVSPHB' in the Programmablaufplan Lohnsteuer of the BMF of
+    2025-11-12.
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG idF Art. 5 G. v. 21.12.2020 BGBl. I S. 3096
     """
     summe_av_kv_pv = min(
         vorsorge_arbeitslosenversicherungsbeiträge_y
@@ -474,14 +548,22 @@ def vorsorgepauschale_mit_arbeitslosenversicherungsbeiträgen_y(
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2005_bis_2009() -> float:
-    pass
+    """Vorsorgepauschale for Lohnsteuer between 2005 and 2009 (not implemented).
+
+    Reference: § 10c Abs. 2 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    """
 
 
 @policy_function(
     start_date="2010-01-01",
     end_date="2025-12-31",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="up",
+        reference=_REFERENCE_PAP,
+    ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2010_bis_2025(
@@ -493,6 +575,8 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
 
     Those are deducted from gross earnings. Idea is similar, but not identical, to
     Vorsorgeaufwendungen used when calculating Einkommensteuer.
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     kranken = max(
         vorsorge_krankenversicherungsbeiträge_option_a_y,
@@ -504,7 +588,12 @@ def vorsorgepauschale_y_ab_2010_bis_2025(
 @policy_function(
     start_date="2026-01-01",
     leaf_name="vorsorgepauschale_y",
-    rounding_spec=RoundingSpec(unit=TTSIMUnit.EUR.PER_YEAR, base=1, direction="up"),
+    rounding_spec=RoundingSpec(
+        unit=TTSIMUnit.EUR.PER_YEAR,
+        base=1,
+        direction="up",
+        reference=_REFERENCE_PAP,
+    ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
 def vorsorgepauschale_y_ab_2026(
@@ -517,8 +606,13 @@ def vorsorgepauschale_y_ab_2026(
     Favorability check between Vorsorgepauschale with and without unemployment insurance
     contributions.
 
-    Reference: Last part of calculation of 'MVSPKVPV' and 'MVSPHB' in Programmablaufplan
-    Lohnsteuer BMF 2025-11-12
+    The Teilbetrag for unemployment insurance is only taken into account to the extent
+    that it does not raise the sum of the Teilbeträge for health, long-term care and
+    unemployment insurance above the cap. See the last part of the calculation of
+    'MVSPKVPV' and 'MVSPHB' in the Programmablaufplan Lohnsteuer of the BMF of
+    2025-11-12.
+
+    Reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG idF Art. 5 G. v. 21.12.2020 BGBl. I S. 3096
     """
     # TODO(@MImmesberger): Should return
     # vorsorgepauschale_ohne_arbeitslosenversicherungsbeiträge_y for individuals other

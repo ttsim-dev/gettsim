@@ -34,6 +34,11 @@ def altersgrenze_mit_staffelung(
     FRA differs by birth cohort.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference:
+        - § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 41 Abs. 2 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
+        - § 237a Abs. 2 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
@@ -59,6 +64,8 @@ def altersgrenze_vorzeitig_mit_staffelung(
     ERA depends on birth year and month.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
     return altersgrenze_vorzeitig_gestaffelt.look_up(birth_month_since_ad)
@@ -81,6 +88,10 @@ def grundsätzlich_anspruchsberechtigt_ohne_prüfung_geburtsjahr(
 
     Policy becomes inactive in 2018 because then all potential beneficiaries have
     reached the normal retirement age.
+
+    Reference:
+        - § 1248 Abs. 3 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+        - § 39 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return (
         weiblich
@@ -110,6 +121,8 @@ def grundsätzlich_anspruchsberechtigt_mit_prüfung_geburtsjahr(
     Wartezeit 15 years, contributions for 10 years after age 40, being a woman. Policy
     becomes inactive in 2018 because then all potential beneficiaries have reached the
     normal retirement age.
+
+    Reference: § 237a Abs. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
     """
     return (
         weiblich

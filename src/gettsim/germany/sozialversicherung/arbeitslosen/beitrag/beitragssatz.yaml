@@ -15,37 +15,82 @@ beitragssatz:
   add_jahresanfang: true
   1984-01-01:
     value: 0.046
+    reference: § 174 Abs. 1 Satz 1 AFG idF G. v. 20.12.1982 BGBl. I S. 1857
+    note: Haushaltsbegleitgesetz 1983. Je 2,3 % für Arbeitnehmer und Arbeitgeber.
   1985-01-01:
     value: 0.044
-  1986-01-01:
+    reference: § 174 Abs. 1 Satz 1 AFG idF G. v. 20.12.1984 BGBl. I S. 1713
+    note: Je 2,2 % für Arbeitnehmer und Arbeitgeber.
+  1985-06-01:
     value: 0.041
+    reference: § 174 Abs. 1 Satz 2 AFG idF Art. 1 G. v. 16.05.1985 BGBl. I S. 766
+    note: Je 2,05 % für Arbeitnehmer und Arbeitgeber.
+  1986-01-01:
+    value: 0.04
+    reference: >-
+      § 174 Abs. 1 Satz 2 AFG idF Art. 1 Nr. 44 G. v. 20.12.1985 BGBl. I S. 2484
+    note: Je 2 % für Arbeitnehmer und Arbeitgeber.
   1987-01-01:
     value: 0.043
+    reference: >-
+      § 174 Abs. 1 Satz 1 AFG idF Art. 1 Nr. 44 G. v. 20.12.1985 BGBl. I S. 2484
+    note: Je 2,15 % für Arbeitnehmer und Arbeitgeber.
+  1991-04-01:
+    value: 0.068
+    reference: § 174 Abs. 1 Satz 2 AFG idF Art. 1 Nr. 2 G. v. 22.03.1991 BGBl. I S. 790
+    note: Je 3,4 % für Arbeitnehmer und Arbeitgeber.
   1992-01-01:
     value: 0.063
+    reference: § 174 Abs. 1 Satz 1 AFG idF Art. 1 Nr. 1 G. v. 22.03.1991 BGBl. I S. 790
+    note: Je 3,15 % für Arbeitnehmer und Arbeitgeber.
   1993-01-01:
     value: 0.065
+    reference: § 25 Abs. 1 G. v. 21.12.1992 BGBl. I S. 2229
+    note: >-
+      Haushaltsgesetz 1993: abweichend von § 174 Abs. 1 Satz 1 AFG je 3,25 % für
+      Arbeitnehmer und Arbeitgeber im Jahr 1993.
+  1994-01-01:
+    value: 0.065
+    reference: >-
+      § 174 Abs. 1 Satz 1 AFG idF Art. 1 Nr. 53 G. v. 21.12.1993 BGBl. I S. 2353
+    note: Erstes Gesetz zur Umsetzung des Spar-, Konsolidierungs- und Wachstumsprogramms
+  1998-01-01:
+    value: 0.065
+    reference: § 341 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: Arbeitsförderungs-Reformgesetz
   2007-01-01:
     value: 0.042
+    reference: § 341 Abs. 2 SGB III idF Art. 7 G. v. 29.06.2006 BGBl. I S. 1402
+    note: Haushaltsbegleitgesetz 2006
   2008-01-01:
-    value: 0.032
+    value: 0.033
+    reference: § 341 Abs. 2 SGB III idF Art. 1 G. v. 22.12.2007 BGBl. I S. 3245
   2009-01-01:
     value: 0.028
+    reference:
+      - § 1 V. v. 21.12.2008 BGBl. I S. 2979
+      - § 341 Abs. 2 SGB III idF Art. 10 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Beitragssatzverordnung 2009 (01.01.2009 to 30.06.2010); from 01.02.2009 also set
+      in § 341 Abs. 2 SGB III (Gesetz zur Sicherung von Beschäftigung und Stabilität in
+      Deutschland).
   2011-01-01:
     value: 0.03
+    reference: § 341 Abs. 2 SGB III idF Art. 12 G. v. 02.03.2009 BGBl. I S. 416
   2019-01-01:
     value: 0.025
     note: >-
-      Set to 0.013 in Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651. Temporarily
-      reduced to 0.0125 in BeiSaV 2019.
-    reference: V. v. 21.12.2018 BGBl. I S. 2663
+      Set to 0.026 in § 341 Abs. 2 SGB III idF Art. 1 Nr. 15 G. v. 18.12.2018 BGBl. I
+      S. 2651 (Qualifizierungschancengesetz). Temporarily reduced to 0.025 in BeiSaV
+      2019.
+    reference: § 1 BeiSaV 2019 idF V. v. 18.12.2018 BGBl. I S. 2663
   2020-01-01:
     value: 0.024
-    note: Temporarily reduced to 0.012 in BeiSaV 2019.
-    reference: V. v. 02.12.2019 BGBl. I S. 1998
+    note: Temporarily reduced to 0.024 in BeiSaV 2019 for 2020 to 2022.
+    reference: § 1 Satz 2 BeiSaV 2019 idF Art. 1 V. v. 02.12.2019 BGBl. I S. 1998
   2023-01-01:
     value: 0.026
     note: >-
       Contribution rate was temporarily reduced from 2019 to 2022 in BeiSaV 2019. Back
       to level specified in § 341 Abs. 2 SGB III.
-    reference: Art. 2 Nr. 15 G. v. 18.12.2018 BGBl. I S. 2651
+    reference: § 341 Abs. 2 SGB III idF Art. 1 G. v. 18.12.2018 BGBl. I S. 2651

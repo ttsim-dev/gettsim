@@ -23,6 +23,8 @@ def altersgrenze(
     years) can claim their full pension without deductions.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 236b Abs. 2 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     return altersgrenze_gestaffelt.look_up(geburtsjahr)
 
@@ -33,5 +35,9 @@ def grundsätzlich_anspruchsberechtigt(
 ) -> bool:
     """Determining the eligibility for Altersrente für besonders langjährig Versicherte
     (pension for very long-term insured). Wartezeit 45 years. aka "Rente mit 63".
+
+    Reference:
+        - § 38 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 236b Abs. 1 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     return sozialversicherung__rente__wartezeit_45_jahre_erfüllt

@@ -13,7 +13,10 @@ from gettsim.tt import TTSIMUnit, policy_function
 def betrag_versicherter_m_bis_03_1999(
     betrag_versicherter_aus_erwerbseinkommen_m: float,
 ) -> float:
-    """Public health insurance contributions paid by the insured person."""
+    """Public health insurance contributions paid by the insured person.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_aus_erwerbseinkommen_m
 
 
@@ -26,7 +29,10 @@ def betrag_versicherter_m_ab_04_1999(
     betrag_versicherter_aus_erwerbseinkommen_m: float,
     betrag_rentner_m: float,
 ) -> float:
-    """Contributions paid by the insured person, including those on pensions."""
+    """Contributions paid by the insured person, including those on pensions.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_aus_erwerbseinkommen_m + betrag_rentner_m
 
 
@@ -38,7 +44,10 @@ def betrag_versicherter_m_ab_04_1999(
 def betrag_versicherter_aus_erwerbseinkommen_m_bis_03_1999(
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
-    """Contributions on wages and self-employment income paid by the insured person."""
+    """Contributions on wages and self-employment income paid by the insured person.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_regulärer_beitragssatz_m
 
 
@@ -57,6 +66,11 @@ def betrag_versicherter_aus_erwerbseinkommen_m_ohne_midijob(
     """Contributions on wages and self-employment income paid by the insured person.
 
     Before Midijob introduction in April 2003.
+
+    Reference:
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 7 SGB V idF Art. 3 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
     """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = betrag_selbstständig_m
@@ -84,6 +98,13 @@ def betrag_versicherter_aus_erwerbseinkommen_m_mit_midijob(
     """Contributions on wages and self-employment income paid by the insured person.
 
     After Midijob introduction in April 2003.
+
+    Reference:
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 249 Abs. 4 SGB V idF Art. 3 Nr. 7 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 249 Abs. 3 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+        - § 249 Abs. 3 SGB V idF Art. 8 G. v. 28.06.2022 BGBl. I S. 969
     """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = betrag_selbstständig_m
@@ -107,7 +128,10 @@ def betrag_arbeitgeber_m_bis_03_1999(
     einkommensteuer__einkünfte__ist_selbstständig: bool,
     beitragssatz_arbeitgeber: float,
 ) -> float:
-    """Employer's public health insurance contribution."""
+    """Employer's public health insurance contribution.
+
+    Reference: § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    """
     if einkommensteuer__einkünfte__ist_selbstständig:
         out = 0.0
     else:
@@ -134,6 +158,10 @@ def betrag_arbeitgeber_m_ohne_midijob(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 249b Satz 1 SGB V idF Art. 3 Nr. 4 G. v. 24.03.1999 BGBl. I S. 388
     """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = 0.0
@@ -163,6 +191,14 @@ def betrag_arbeitgeber_m_mit_midijob(
     """Employer's public health insurance contribution.
 
     After Midijob introduction in April 2003.
+
+    Reference:
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 249b Satz 1 SGB V idF Art. 3 Nr. 8 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 249b Satz 1 SGB V idF Art. 10 G. v. 29.06.2006 BGBl. I S. 1402
+        - § 249 Abs. 4 SGB V idF Art. 3 Nr. 7 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 249 Abs. 3 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+        - § 249 Abs. 3 SGB V idF Art. 8 G. v. 28.06.2022 BGBl. I S. 969
     """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = 0.0
@@ -181,7 +217,16 @@ def betrag_versicherter_regulärer_beitragssatz_m(
     einkommen_m: float,
     beitragssatz_arbeitnehmer: float,
 ) -> float:
-    """Employee's health insurance contributions for regular jobs."""
+    """Employee's health insurance contributions for regular jobs.
+
+    Reference:
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 26.03.2007 BGBl. I S. 378
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 26.03.2007 BGBl. I S. 378
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 22.12.2011 BGBl. I S. 2983
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+        - § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2387
+    """
     return beitragssatz_arbeitnehmer * einkommen_m
 
 
@@ -196,6 +241,8 @@ def betrag_selbstständig_m_mit_einheitlichen_beitragssatz(
 ) -> float:
     """Health insurance contributions for self-employed's income. The self-employed
     pay the full reduced contribution.
+
+    Reference: § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
     """
     return beitragssatz * bemessungsgrundlage_selbstständig_m
 
@@ -212,6 +259,10 @@ def betrag_selbstständig_m_ohne_ermäßigtem_beitragssatz(
 ) -> float:
     """Health insurance contributions for self-employed's income. The self-employed
     pay the full reduced contribution.
+
+    Reference:
+        - § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 241a Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 15.12.2004 BGBl. I S. 3445
     """
     return (
         parameter_beitragssatz["mean_allgemein"] * bemessungsgrundlage_selbstständig_m
@@ -230,6 +281,11 @@ def betrag_selbstständig_m_ohne_zusatzbeitrag(
 ) -> float:
     """Health insurance contributions for self-employed's income. The self-employed
     pay the full reduced contribution.
+
+    Reference:
+        - § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 243 SGB V idF Art. 2 G. v. 26.03.2007 BGBl. I S. 378
+        - § 243 SGB V idF Art. 1 G. v. 22.12.2010 BGBl. I S. 2309
     """
     return parameter_beitragssatz["ermäßigt"] * bemessungsgrundlage_selbstständig_m
 
@@ -249,6 +305,12 @@ def betrag_selbstständig_m_mit_zusatzbeitrag(
 
     Contribution rate includes the insurance provider-specific Zusatzbeitrag introduced
     in 2015.
+
+    Reference:
+        - § 250 Abs. 2 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 243 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+        - § 243 SGB V idF Art. 1 G. v. 04.04.2017 BGBl. I S. 778
+        - § 242 Abs. 1 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
     """
     beitrag = parameter_beitragssatz["ermäßigt"] + zusatzbeitragssatz
     return beitrag * bemessungsgrundlage_selbstständig_m
@@ -259,7 +321,13 @@ def betrag_rentner_m(
     bemessungsgrundlage_rente_m: float,
     beitragssatz_arbeitnehmer: float,
 ) -> float:
-    """Health insurance contributions for pension incomes."""
+    """Health insurance contributions for pension incomes.
+
+    Reference:
+        - § 249a Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 249a Satz 1 SGB V idF Art. 1 G. v. 26.03.2007 BGBl. I S. 378
+        - § 249a Satz 1 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    """
     return beitragssatz_arbeitnehmer * bemessungsgrundlage_rente_m
 
 
@@ -272,6 +340,10 @@ def betrag_gesamt_in_gleitzone_m(
     """Sum of employee and employer health insurance contribution for midijobs.
 
     Midijobs were introduced in April 2003.
+
+    Reference:
+        - § 226 Abs. 4 SGB V idF Art. 3 Nr. 5 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 226 Abs. 4 SGB V idF Art. 8 G. v. 28.06.2022 BGBl. I S. 969
     """
     return (
         beitragssatz_arbeitnehmer + beitragssatz_arbeitgeber
@@ -292,6 +364,10 @@ def betrag_arbeitgeber_in_gleitzone_m_mit_festem_beitragssatz(
     """Employers' health insurance contribution for midijobs until September 2022.
 
     Midijobs were introduced in April 2003.
+
+    Reference:
+        - § 249 Abs. 4 SGB V idF Art. 3 Nr. 7 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 249 Abs. 3 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
     """
     if sozialversicherung__in_gleitzone:
         out = beitragssatz_arbeitgeber * einnahmen__bruttolohn_m
@@ -313,6 +389,8 @@ def betrag_arbeitgeber_in_gleitzone_m_als_differenz_von_gesamt_und_versichertenb
 ) -> float:
     """Employer's health insurance contribution for midijobs since October
     2022.
+
+    Reference: § 249 Abs. 3 SGB V idF Art. 8 G. v. 28.06.2022 BGBl. I S. 969
     """
     if sozialversicherung__in_gleitzone:
         out = betrag_gesamt_in_gleitzone_m - betrag_versicherter_in_gleitzone_m
@@ -332,7 +410,12 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
     betrag_gesamt_in_gleitzone_m: float,
     betrag_arbeitgeber_in_gleitzone_m: float,
 ) -> float:
-    """Employee's health insurance contribution for midijobs until September 2022."""
+    """Employee's health insurance contribution for midijobs until September 2022.
+
+    Reference:
+        - § 249 Abs. 4 SGB V idF Art. 3 Nr. 7 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 249 Abs. 3 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    """
     return betrag_gesamt_in_gleitzone_m - betrag_arbeitgeber_in_gleitzone_m
 
 
@@ -345,7 +428,10 @@ def betrag_versicherter_in_gleitzone_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
     beitragssatz_arbeitnehmer: float,
 ) -> float:
-    """Employee's health insurance contribution for midijobs since October 2022."""
+    """Employee's health insurance contribution for midijobs since October 2022.
+
+    Reference: § 249 Abs. 3 SGB V idF Art. 8 G. v. 28.06.2022 BGBl. I S. 969
+    """
     return (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
         * beitragssatz_arbeitnehmer

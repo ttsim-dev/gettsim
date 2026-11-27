@@ -20,7 +20,10 @@ def gesamtbetrag_der_einkünfte_y_mit_kapiteleinkünften(
     familie__anzahl_personen_sn: int,
     sonstige__betrag_y: float,
 ) -> float:
-    """Gesamtbetrag der Einkünfte (GdE) with capital income."""
+    """Gesamtbetrag der Einkünfte (GdE) with capital income.
+
+    Reference: § 2 Abs. 1 Satz 1 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+    """
     return (
         aus_forst_und_landwirtschaft__betrag_y
         + aus_gewerbebetrieb__betrag_y
@@ -53,7 +56,10 @@ def gesamtbetrag_der_einkünfte_y_ohne_kapitaleinkünfte(
     """Gesamtbetrag der Einkünfte (GdE) without capital income.
 
     Since 2009 capital income is not subject to normal taxation.
+
+    Reference: § 2 Abs. 5b Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
     """
+
     return (
         aus_forst_und_landwirtschaft__betrag_y
         + aus_gewerbebetrieb__betrag_y

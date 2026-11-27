@@ -15,44 +15,81 @@ beitragssatz:
   add_jahresanfang: true
   1984-01-01:
     value: 0.1144
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1985-01-01:
     value: 0.118
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1986-01-01:
     value: 0.122
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1987-01-01:
     value: 0.1248
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1988-01-01:
     value: 0.1288
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1989-01-01:
     value: 0.129
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1990-01-01:
     value: 0.125
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1991-01-01:
     value: 0.128
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1993-01-01:
     value: 0.134
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1995-01-01:
     value: 0.132
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1997-01-01:
     value: 0.134
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   1998-01-01:
     value: 0.136
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2000-01-01:
     value: 0.1357
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2001-01-01:
     value: 0.1358
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2002-01-01:
     value: 0.14
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2003-01-01:
     value: 0.144
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2004-01-01:
     value: 0.142
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2005-01-01:
     value: 0.142
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2005-07-01:
     note: >-
       Einführung von Sonder- und Zusatzbeiträgen. See
       ``parameter_beitragssatz``.
+    reference: § 241a Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 15.12.2004 BGBl. I S. 3445
 parameter_beitragssatz:
   name:
     de: Beitragssatz zur gesetzlichen Krankenversicherung mit Zusatzbeitrag
@@ -77,65 +114,108 @@ parameter_beitragssatz:
     sonderbeitrag: 0.009
     note: >-
       Allgemeiner Beitragssatz wird nicht mehr gleichmäßig aufgeteilt, Einführung des
-      Sonderbeitrags
-    reference: Art. 1 G. v. 15.12.2004, BGBl I S. 3445.
+      Sonderbeitrags (Gesetz zur Anpassung der Finanzierung von Zahnersatz).
+      mean_allgemein ist ein Durchschnitt der Beitragssätze der Krankenkassen.
+    reference: § 241a Abs. 1 Satz 1 SGB V idF Art. 1 G. v. 15.12.2004 BGBl. I S. 3445
   2007-01-01:
     updates_previous: true
     mean_allgemein: 0.139
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2008-01-01:
     updates_previous: true
     mean_allgemein: 0.14
+    reference: >-
+      none (average of the contribution rates set by the individual Krankenkassen)
   2009-01-01:
     allgemein: 0.146
     sonderbeitrag: 0.009
     ermäßigt: 0.140
+    reference:
+      - § 1 GKV-BSV idF V. v. 29.10.2008 BGBl. I S. 2109
+      - § 2 GKV-BSV idF V. v. 29.10.2008 BGBl. I S. 2109
+      - § 249 Abs. 1 Satz 1 SGB V idF Art. 2 G. v. 26.03.2007 BGBl. I S. 378
+    note: >-
+      GKV-Beitragssatzverordnung: allgemeiner Beitragssatz 15,5 %, ermäßigter
+      Beitragssatz 14,9 %, jeweils einschließlich 0,9 Prozentpunkten, die die
+      Mitglieder allein tragen.
   2009-07-01:
     updates_previous: true
     allgemein: 0.14
     ermäßigt: 0.134
+    reference:
+      - § 1 GKV-BSV idF Art. 14 G. v. 02.03.2009 BGBl. I S. 416
+      - § 2 GKV-BSV idF Art. 14 G. v. 02.03.2009 BGBl. I S. 416
+    note: Gesetz zur Sicherung von Beschäftigung und Stabilität in Deutschland
   2011-01-01:
     updates_previous: true
     allgemein: 0.146
     ermäßigt: 0.14
-    reference: Art. 1 G. v. 22.12.2010 BGBl. I S. 2309
+    reference:
+      - § 241 SGB V idF Art. 1 G. v. 22.12.2010 BGBl. I S. 2309
+      - § 243 SGB V idF Art. 1 G. v. 22.12.2010 BGBl. I S. 2309
+    note: GKV-Finanzierungsgesetz
   2015-01-01:
     allgemein: 0.146
     ermäßigt: 0.14
     mean_zusatzbeitrag: 0.009
-    note: Abschaffung Sonderbeitrag, Einführung kassenabhängiger Zusatzbeitrag
+    note: >-
+      Abschaffung Sonderbeitrag, Einführung kassenabhängiger Zusatzbeitrag
+      (GKV-Finanzstruktur- und Qualitäts-Weiterentwicklungsgesetz). Der
+      durchschnittliche Zusatzbeitragssatz wurde im Bundesanzeiger bekannt gegeben.
+    reference:
+      - § 241 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+      - § 243 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+      - § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
   2016-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.011
     note: Bekanntmachung Bundesanzeiger 30.12.2015
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
   2018-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.01
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: Bekanntmachung im Bundesanzeiger
   2019-01-01:
     allgemein: 0.146
     ermäßigt: 0.14
     mean_zusatzbeitrag: 0.009
-    note: Wiedereinführung der Parität. Art. 2 G. v. 11.12.2018, BGBl. I S. 2387
+    note: >-
+      Wiedereinführung der Parität (GKV-Versichertenentlastungsgesetz). Der
+      durchschnittliche Zusatzbeitragssatz wurde im Bundesanzeiger bekannt gegeben.
+    reference:
+      - § 241 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+      - § 243 SGB V idF Art. 1 G. v. 04.04.2017 BGBl. I S. 778
+      - § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+      - § 249 Abs. 1 SGB V idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2387
   2020-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.011
-    reference: BAnz AT 28.10.2019 B3
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 28.10.2019 B3
   2021-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.013
-    reference: BAnz AT 30.10.2020 B5
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 30.10.2020 B5
   2023-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.016
-    reference: BAnz AT 31.10.2022 B5
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 31.10.2022 B5
   2024-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.017
-    reference: BAnz AT 31.10.2023 B3
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 31.10.2023 B3
   2025-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.025
-    reference: BAnz AT 07.11.2024 B4
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 07.11.2024 B4
   2026-01-01:
     updates_previous: true
     mean_zusatzbeitrag: 0.029
-    reference: BAnz AT 10.11.2025 B7
+    reference: § 242a Abs. 2 SGB V idF Art. 1 G. v. 21.07.2014 BGBl. I S. 1133
+    note: BAnz AT 10.11.2025 B7

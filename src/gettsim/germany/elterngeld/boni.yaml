@@ -18,6 +18,8 @@ geschwisterbonus_altersgrenzen:
   unit: COUNT_PER_FG
   type: dict
   2007-01-01:
+    reference: § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     3: 2
     6: 3
 geschwisterbonus_aufschlag:
@@ -30,8 +32,9 @@ geschwisterbonus_aufschlag:
   unit: DIMENSIONLESS
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 0.1
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 geschwisterbonus_minimum_m_fg:
   name:
     de: Minimaler Geschwisterbonus als Euro-Betrag
@@ -42,8 +45,9 @@ geschwisterbonus_minimum_m_fg:
   unit: EUR_PER_MONTH_PER_FG
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 75.0
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
 mehrlingsbonus_pro_kind_m:
   name:
     de: Pauschale für jedes weitere Mehrlingskind
@@ -54,5 +58,6 @@ mehrlingsbonus_pro_kind_m:
   unit: EUR_PER_MONTH
   type: scalar
   2007-01-01:
+    reference: § 2 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    note: Gesetz zur Einführung des Elterngeldes.
     value: 300.0
-    reference: Art. 1 G. v. 05.12.2006 BGBl. I S. 2748

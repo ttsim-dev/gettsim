@@ -19,7 +19,7 @@ def betrag_m(
 ) -> float:
     """Final monthly Bürgergeld payment per person.
 
-    Reference: §19 Abs. 1 SGB II
+    Reference: § 19 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     """
     if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         return 0.0
@@ -41,7 +41,7 @@ def anspruchshöhe_m(
     In gemischten Bedarfsgemeinschaften, the SGB XII partner's needs and income are
     excluded from the pool ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: §9 Abs. 2 Satz 3 SGB II
+    Reference: § 9 Abs. 2 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     # Deliberate cross-level summation: the EG's Überschusseinkommen is transferred
     # into the BG's income pool, so re-tag it from the EG to the BG level.
@@ -80,7 +80,7 @@ def ungedeckter_bedarf_m(
     In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
     excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: §9 Abs. 2 Satz 3 SGB II
+    Reference: § 9 Abs. 2 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
@@ -104,7 +104,7 @@ def einkommen_zur_verteilung_m(
     In gemischten Bedarfsgemeinschaften, persons past the Regelaltersgrenze are
     excluded from the Bedarfsanteilsmethode ('Vertikalmethode', BSG B 14 AS 89/20 R).
 
-    Reference: §9 Abs. 2 Satz 3 SGB II
+    Reference: § 9 Abs. 2 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     if sozialversicherung__rente__altersrente__hat_regelaltersgrenze_erreicht:
         return 0.0
@@ -128,6 +128,8 @@ def überschusseinkommen_m_bg(
     one SGB XII), if the SGB II members' total income exceeds their total Bedarf, the
     surplus is counted as income for the SGB XII partner's Grundsicherung calculation.
 
-    Reference: BSG B 14 AS 89/20 R
+    This follows the case law of the BSG (B 14 AS 89/20 R).
+
+    Reference: § 43 Abs. 1 Satz 2 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
     """
     return max(0.0, einkommen_zur_verteilung_m_bg - ungedeckter_bedarf_m_bg)

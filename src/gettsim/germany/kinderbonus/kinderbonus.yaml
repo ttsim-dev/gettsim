@@ -12,10 +12,23 @@ satz_y:
   unit: EUR_PER_YEAR
   type: scalar
   2020-01-01:
-    reference: Art. 1 Zweites Corona-Steuerhilfegesetz v. 29.06.2020 BGBl. I S. 1512
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 1 G. v. 29.06.2020 BGBl. I S. 1512
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 1 G. v. 29.06.2020 BGBl. I S. 1512
+    note: Zweites Corona-Steuerhilfegesetz
     value: 300
   2021-01-01:
-    reference: Art. 1 Drittes Corona-Steuerhilfegesetz v. 10.03.2021 BGBl. I S. 330
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 1 G. v. 10.03.2021 BGBl. I S. 330
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 1 G. v. 10.03.2021 BGBl. I S. 330
+    note: Drittes Corona-Steuerhilfegesetz
     value: 150
   2022-01-01:
+    reference:
+      - § 66 Abs. 1 Satz 2 EStG idF Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+      - § 66 Abs. 1 Satz 3 EStG idF Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+    note: Steuerentlastungsgesetz 2022 (paid in July 2022).
+    value: 100
+  2023-01-01:
+    reference: § 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
     note: ad-hoc measure ended again.

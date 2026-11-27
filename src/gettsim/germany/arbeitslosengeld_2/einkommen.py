@@ -33,6 +33,11 @@ def anzurechnendes_einkommen_m(
     necessary because the Kindergeld received by the child may enter
     `anzurechnendes_einkommen_m_hh` twice: once as Kindergeld and once as
     Kindergeldübertrag.
+
+    Reference:
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
     """
     return (
         nettoeinkommen_nach_abzug_freibetrag_m
@@ -50,7 +55,13 @@ def nettoeinkommen_nach_abzug_freibetrag_m(
     nettoeinkommen_vor_abzug_freibetrag_m: float,
     anrechnungsfreies_einkommen_m: float,
 ) -> float:
-    """Net income after deductions for calculation of basic subsistence."""
+    """Net income after deductions for calculation of basic subsistence.
+
+    Reference:
+        - § 30 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 30 Satz 1 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+        - § 11b Abs. 3 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     return nettoeinkommen_vor_abzug_freibetrag_m - anrechnungsfreies_einkommen_m
 
 
@@ -64,7 +75,16 @@ def nettoeinkommen_vor_abzug_freibetrag_m(
     familie__anzahl_personen_sn: int,
     sozialversicherung__beiträge_versicherter_m: float,
 ) -> float:
-    """Net income for calculation of basic subsistence."""
+    """Net income for calculation of basic subsistence.
+
+    Reference:
+        - § 11 Abs. 2 Nr. 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 2 Nr. 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 2 Satz 1 Nr. 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 2 Satz 1 Nr. 2 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11b Abs. 1 Satz 1 Nr. 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11b Abs. 1 Satz 1 Nr. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+    """
     return (
         bruttoeinkommen_m
         - (einkommensteuer__betrag_m_sn / familie__anzahl_personen_sn)
@@ -85,7 +105,13 @@ def bruttoeinkommen_m(
     einkommensteuer__einkünfte__sonstige__alle_weiteren_m: float,
     einnahmen__lohn_und_einkommensersatzleistungen_m: float,
 ) -> float:
-    """Sum up the gross income for calculation of basic subsistence."""
+    """Sum up the gross income for calculation of basic subsistence.
+
+    Reference:
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11 Abs. 1 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+    """
     return (
         einnahmen__bruttolohn_m
         + einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -111,6 +137,8 @@ def nettoquote(
     """Share of net to gross wage.
 
     Quotienten von bereinigtem Nettoeinkommen und Bruttoeinkommen. § 3 Abs. 2 Alg II-V.
+
+    Reference: § 3 Nr. 2 Alg II-V idF V. v. 20.10.2004 BGBl. I S. 2622
     """
     # Bereinigtes monatliches Einkommen aus Erwerbstätigkeit nach § 11 Abs. 2 Nr. 1-5.
     alg2_2005_bne = max(
@@ -140,7 +168,12 @@ def anrechnungsfreies_einkommen_m_basierend_auf_nettoquote(
     parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg: PiecewisePolynomialParamValue,
     xnp: ModuleType,
 ) -> float:
-    """Share of income which remains to the individual."""
+    """Share of income which remains to the individual.
+
+    Reference:
+        - § 30 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 3 Nr. 2 Alg II-V idF V. v. 20.10.2004 BGBl. I S. 2622
+    """
     return nettoquote * piecewise_polynomial(
         x=einnahmen__bruttolohn_m,
         parameters=parameter_anrechnungsfreies_einkommen_ohne_kinder_in_bg,
@@ -167,6 +200,16 @@ def anrechnungsfreies_einkommen_m(
     Sozialgesetzbuch (SGB) Zweites Buch (II) - Arbeitslosengeld II, Grundsicherung für
     Arbeitsuchende. SGB II §11b Abs 3
     https://www.gesetze-im-internet.de/sgb_2/__11b.html
+
+    Reference:
+        - § 11 Abs. 2 Satz 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+        - § 30 Satz 2 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+        - § 30 Satz 3 SGB II idF Art. 1 G. v. 14.08.2005 BGBl. I S. 2407
+        - § 11b Abs. 2 Satz 1 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11b Abs. 3 Satz 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11b Abs. 3 Satz 3 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11b Abs. 2 Satz 1 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
+        - § 11b Abs. 3 Satz 2 SGB II idF Art. 2 G. v. 02.06.2021 BGBl. I S. 1387
     """
     # Beneficiaries who live with a minor child in a group home or who have a minor
     # child have slightly different thresholds. We currently do not consider the second

@@ -10,32 +10,71 @@ minijobgrenze_m:
   1984-01-01:
     unit: DM_PER_MONTH
     value: 390
+    reference: § 8 Abs. 1 Nr. 1 Buchst. a SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+    note: >-
+      Sozialgesetzbuch - Zusammenarbeit der Leistungsträger und ihre Beziehungen zu
+      Dritten, Art. II § 16 Nr. 2. Until the end of 1984 a fixed amount of 390 DM.
   1985-01-01:
     value: 400
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 4 V. v. 20.12.1984 BGBl. I S. 1650
+    note: Ein Siebtel der monatlichen Bezugsgröße.
   1986-01-01:
     value: 410
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 20.12.1985 BGBl. I S. 2557
+    note: Ein Siebtel der monatlichen Bezugsgröße.
   1987-01-01:
     value: 430
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 09.12.1986 BGBl. I S. 2451
+    note: Ein Siebtel der monatlichen Bezugsgröße.
   1988-01-01:
     value: 440
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 07.12.1987 BGBl. I S. 2530
+    note: Ein Siebtel der monatlichen Bezugsgröße.
   1989-01-01:
     value: 450
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 07.12.1988 BGBl. I S. 2222
+    note: Ein Siebtel der monatlichen Bezugsgröße.
   1990-01-01:
     note: >-
       Minijobgrenze differs between West and East Germany. See
       ``parameter_minijobgrenze_ost_west_unterschied``.
-  2000-01-01:
+    reference: § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+  1999-04-01:
     value: 630
+    reference: § 8 Abs. 1 Nr. 1 SGB IV idF Art. 1 Nr. 2 G. v. 24.03.1999 BGBl. I S. 388
+    note: Gesetz zur Neuregelung der geringfügigen Beschäftigungsverhältnisse
   2002-01-01:
     unit: EUR_PER_MONTH
     value: 325
+    reference: § 8 Abs. 1 Nr. 1 SGB IV idF Art. 5 G. v. 21.12.2000 BGBl. I S. 1983
+    note: >-
+      Gesetz zur Einführung des Euro im Sozial- und Arbeitsrecht (4.
+      Euro-Einführungsgesetz)
   2003-04-01:
     value: 400
+    reference: § 8 Abs. 1 Nr. 1 SGB IV idF Art. 2 G. v. 23.12.2002 BGBl. I S. 4621
+    note: Zweites Gesetz für moderne Dienstleistungen am Arbeitsmarkt
   2013-01-01:
     value: 450
+    reference: § 8 Abs. 1 Nr. 1 SGB IV idF Art. 1 G. v. 05.12.2012 BGBl. I S. 2474
+    note: Gesetz zu Änderungen im Bereich der geringfügigen Beschäftigung
   2022-10-01:
-    note: Minijob thresholds now calculated based on statutory minimum wage
-    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+    note: >-
+      Minijob thresholds now calculated based on statutory minimum wage
+      (Mindestlohnerhöhungsgesetz).
+    reference:
+      - § 8 Abs. 1 Nr. 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+      - § 8 Abs. 1a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
 parameter_minijobgrenze_ost_west_unterschied:
   name:
     de: Minijobgrenze
@@ -48,51 +87,90 @@ parameter_minijobgrenze_ost_west_unterschied:
   1990-01-01:
     west: 470
     ost: 200
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 07.12.1989 BGBl. I S. 2168
+    note: >-
+      West: ein Siebtel der Bezugsgröße von 3 290 DM. Ost: Das SGB IV galt im
+      Beitrittsgebiet erst ab 1991; der Wert für 1990 beruht auf dem Recht der DDR.
   1991-01-01:
     west: 480
     ost: 220
-    reference: § 8 Abs. 1 Nr. 1 SGB IV.
-    note: >-
-      Ein Siebtel der Bezugsgröße (West 3 360, Ost 1 540 Deutsche Mark). Die
-      Bezugsgröße (Ost) für das erste Halbjahr 1991 beruht auf dem Gesetz über die
-      Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38 S. 486) und steht nicht
-      im Bundesgesetzblatt.
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 V. v. 18.12.1990 BGBl. I S. 2940
+      - § 1 V. v. 18.12.1990 BGBl. I S. 2941
+    note: Ein Siebtel der Bezugsgröße (West 3 360, Ost 1 540 Deutsche Mark).
   1991-07-01:
     updates_previous: true
     ost: 250
-    reference: >-
-      § 1 V. v. 19.06.1991 BGBl. I S. 1300 (Zweite V. zur Anpassung der Renten).
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 1 2. RAV idF V. v. 19.06.1991 BGBl. I S. 1300
     note: >-
-      Die Bezugsgröße (Ost) steigt zum 1. Juli 1991 von 1 540 auf 1 750 Deutsche Mark;
-      die Grenze ist ein Siebtel davon (§ 8 Abs. 1 Nr. 1 SGB IV).
+      Die Bezugsgröße (Ost) steigt zum 1. Juli 1991 von 1 540 auf 1 750 Deutsche Mark
+      (Zweite Rentenanpassungsverordnung); die Grenze ist ein Siebtel davon.
   1992-01-01:
     west: 500
     ost: 300
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 18.12.1991 BGBl. I S. 2331
+      - § 1 3. RAV idF V. v. 19.12.1991 BGBl. I S. 2344
+    note: Bezugsgröße (Ost) in der Dritten Rentenanpassungsverordnung.
   1993-01-01:
     west: 530
     ost: 390
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 22.12.1992 BGBl. I S. 2474
+      - § 2 Abs. 2 V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     west: 560
     ost: 440
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 6 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Bezugsgrößen 1994 in der Beitragssatzverordnung 1994.
   1995-01-01:
     west: 580
     ost: 470
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 12.12.1994 BGBl. I S. 3806
+      - § 2 Abs. 2 V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     west: 590
     ost: 500
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 04.12.1995 BGBl. I S. 1577
+      - § 2 Abs. 2 V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     west: 610
     ost: 520
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 11.12.1996 BGBl. I S. 1870
+      - § 2 Abs. 2 V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     updates_previous: true
     west: 620
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     west: 630
     ost: 530
-  2000-01-01:
+    reference:
+      - § 8 Abs. 1 Nr. 1 Buchst. b SGB IV idF G. v. 04.11.1982 BGBl. I S. 1450
+      - § 2 Abs. 1 V. v. 18.12.1998 BGBl. I S. 3823
+      - § 2 Abs. 2 V. v. 18.12.1998 BGBl. I S. 3823
+  1999-04-01:
     note: >-
       Minijob thresholds do not differ between West and East Germany. See
       `minijobgrenze_m`.
+    reference: § 8 Abs. 1 Nr. 1 SGB IV idF Art. 1 Nr. 2 G. v. 24.03.1999 BGBl. I S. 388
 faktoren_minijobformel:
   name:
     de: Zähler und Nenner im Faktor für die Berechnung der Geringfügigkeitsgrenze.
@@ -109,4 +187,4 @@ faktoren_minijobformel:
   2022-10-01:
     zähler: 130
     nenner: 3
-    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+    reference: § 8 Abs. 1a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969

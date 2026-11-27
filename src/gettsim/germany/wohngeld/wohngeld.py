@@ -37,7 +37,15 @@ def betrag_m_wthh(
     anspruchshöhe_m_wthh: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
 ) -> float:
-    """Housing benefit after priority checks (§12a SGB II)."""
+    """Housing benefit after priority checks (§12a SGB II).
+
+    Recipients of Arbeitslosengeld II / Bürgergeld are excluded from Wohngeld unless
+    Wohngeld avoids their Hilfebedürftigkeit.
+
+    Reference:
+        - § 1 Abs. 2 WoGG idF Art. 25 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 7 Abs. 1 Satz 3 Nr. 2 WoGG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2963
+    """
     if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         return anspruchshöhe_m_wthh
     else:
@@ -49,7 +57,10 @@ def anspruchshöhe_m_wthh(
     basisbetrag_m_wthh: float,
     grundsätzlich_anspruchsberechtigt_wthh: bool,
 ) -> float:
-    """Housing benefit after eligibility checks."""
+    """Housing benefit after eligibility checks.
+
+    Reference: none (technical helper)
+    """
     if grundsätzlich_anspruchsberechtigt_wthh:
         return basisbetrag_m_wthh
     else:
@@ -63,7 +74,7 @@ def anspruchshöhe_m_wthh(
         unit=TTSIMUnit.DM.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
-        reference="§ 19 WoGG Abs.2 Anlage 3",
+        reference="none (the Wohngeldtabellen state Wohngeld in whole Deutsche Mark)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
@@ -74,7 +85,13 @@ def basisbetrag_m_wthh_bis_2000(
     basisformel_params: BasisformelParamValues,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit from the basis formula."""
+    """Housing benefit from the basis formula.
+
+    Until 2000, the law sets Wohngeld by tables (Anlagen 1 to 10 WoGG). GETTSIM
+    approximates these tables by a formula whose parameters are estimated by regression.
+
+    Reference: § 2 Abs. 1 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+    """
     a = basisformel_params.a.look_up(anzahl_personen_wthh)
     b = basisformel_params.b.look_up(anzahl_personen_wthh)
     c = basisformel_params.c.look_up(anzahl_personen_wthh)
@@ -106,7 +123,7 @@ def basisbetrag_m_wthh_bis_2000(
         unit=TTSIMUnit.DM.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
-        reference="§ 19 WoGG Abs.2 Anlage 3",
+        reference="§ 2 Abs. 2 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
@@ -117,7 +134,12 @@ def basisbetrag_m_wthh_2001(
     basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit from the basis formula."""
+    """Housing benefit from the basis formula.
+
+    Reference:
+        - § 2 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 2 Abs. 4 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    """
     a = basisformel_params.a.look_up(anzahl_personen_wthh)
     b = basisformel_params.b.look_up(anzahl_personen_wthh)
     c = basisformel_params.c.look_up(anzahl_personen_wthh)
@@ -153,7 +175,7 @@ def basisbetrag_m_wthh_2001(
         unit=TTSIMUnit.EUR.PER_MONTH.PER_WTHH,
         base=1,
         direction="nearest",
-        reference="§ 19 WoGG Abs.2 Anlage 3",
+        reference="§ 2 Abs. 2 WoGG idF Art. 6 G. v. 22.12.1999 BGBl. I S. 2671",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH.PER_WTHH,
 )
@@ -164,7 +186,14 @@ def basisbetrag_m_wthh_ab_2002(
     basisformel_params: BasisformelParamValuesMitZusatzbetragNachHaushaltsgröße,
     xnp: ModuleType,
 ) -> float:
-    """Housing benefit from the basis formula."""
+    """Housing benefit from the basis formula.
+
+    Reference:
+        - § 2 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 2 Abs. 4 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 19 Abs. 1 Satz 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+        - § 19 Abs. 3 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     a = basisformel_params.a.look_up(anzahl_personen_wthh)
     b = basisformel_params.b.look_up(anzahl_personen_wthh)
     c = basisformel_params.c.look_up(anzahl_personen_wthh)

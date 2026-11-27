@@ -13,10 +13,12 @@ zurechnungszeitgrenze:
   unit: YEARS
   type: scalar
   2014-07-01:
+    reference: § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
+    note: RV-Leistungsverbesserungsgesetz.
     value: 62
   2017-07-17:
+    reference: § 253a SGB VI idF Art. 1 G. v. 17.07.2017 BGBl. I S. 2509
     note: Claiming year and month based limit. See `zurechnungszeitgrenze`.
-    reference: G. v. 17.07.2017 BGBl. I S. 2509
 zurechnungszeitgrenze_gestaffelt:
   name:
     de: Alter bis zu dem Zurechnungszeiten angerechnet werden
@@ -32,7 +34,14 @@ zurechnungszeitgrenze_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   2000-12-23:
-    reference: Anlage 23, G. v. 20.12.2000 BGBl. I S. 1827
+    reference:
+      - § 253a SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+      - § 264c SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+    note: >-
+      Anlage 23 SGB VI. Die Werte sind die Lebensalter, die nach § 264c SGB VI für den
+      Zugangsfaktor an die Stelle von 60 Jahren treten; nach § 253a SGB VI endete die
+      Zurechnungszeit bei Rentenbeginn vor 2004 mit 55 Jahren, ergänzt um einen Anteil
+      der Zeit bis 60 Jahre.
     first_year_to_consider: 1990
     last_year_to_consider: 2030
     2000:
@@ -151,10 +160,13 @@ zurechnungszeitgrenze_gestaffelt:
         years: 60
         months: 0
   2014-07-01:
-    reference: Art. 1 Nr. 4 G. v. 23.06.2014 BGBl. I S. 787
+    reference: § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     note: Uniform age threshold of 62 years. See `zurechnungszeitgrenze`.
   2017-07-17:
-    reference: G. v. 17.07.2017 BGBl. I S. 2509
+    reference:
+      - § 253a SGB VI idF Art. 1 G. v. 17.07.2017 BGBl. I S. 2509
+      - § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 17.07.2017 BGBl. I S. 2509
+    note: EM-Leistungsverbesserungsgesetz, in Kraft ab 1.1.2018.
     first_year_to_consider: 1990
     last_year_to_consider: 2030
     2017:
@@ -190,7 +202,12 @@ zurechnungszeitgrenze_gestaffelt:
         years: 65
         months: 0
   2018-11-28:
-    reference: Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+    reference:
+      - § 253a Abs. 1 SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+      - § 253a Abs. 2 SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+      - § 253a Abs. 3 SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+      - § 59 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 28.11.2018 BGBl. I S. 2016
+    note: RV-Leistungsverbesserungs- und -Stabilisierungsgesetz, in Kraft ab 1.1.2019.
     first_year_to_consider: 1990
     last_year_to_consider: 2040
     2018:
@@ -262,7 +279,9 @@ min_zugangsfaktor:
     en: Deductions for early retirement are capped at 10.8%.
   unit: DIMENSIONLESS
   type: scalar
-  2000-01-01:
+  2001-01-01:
+    reference: § 77 Abs. 2 Satz 2 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+    note: Höchstens 36 Kalendermonate mit 0,003 Abschlag.
     value: 0.892
 parameter_rentenartfaktor:
   name:
@@ -283,6 +302,9 @@ parameter_rentenartfaktor:
   unit: DIMENSIONLESS
   type: dict
   2001-01-01:
+    reference:
+      - § 67 Nr. 2 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+      - § 67 Nr. 3 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
     teilweise: 0.5
     voll: 1.0
 altersgrenze_grundbewertung:
@@ -301,4 +323,6 @@ altersgrenze_grundbewertung:
   unit: YEARS
   type: scalar
   2001-01-01:
-    value: 16
+    reference: § 72 Abs. 2 Satz 1 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
+    note: Wachstums- und Beschäftigungsförderungsgesetz (Art. 1 Nr. 15).
+    value: 17

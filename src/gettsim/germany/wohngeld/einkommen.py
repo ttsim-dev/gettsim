@@ -84,7 +84,10 @@ def einkommen_m_wthh(
 ) -> float:
     """Income relevant for Wohngeld calculation.
 
-    Reference: § 13 WoGG
+    Reference:
+        - § 9 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+        - § 9 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 13 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     einkommen_ohne_freibetrag = einkommen_vor_freibetrag_m_wthh - freibetrag_m_wthh
     mindesteinkommen = mindesteinkommen_nach_haushaltsgröße_m_wthh_lookup_table.look_up(
@@ -109,6 +112,10 @@ def abzugsanteil_vom_einkommen_für_steuern_sozialversicherung(
     Note that einkommensteuer__betrag_y_sn is used as an approximation for taxes
     on income (as mentioned in § 16 WoGG Satz 1 Nr. 1).
 
+    Reference:
+        - § 17 WoGG idF Art. 14 G. v. 20.12.1982 BGBl. I S. 1857
+        - § 12 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 16 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     stufe = 0
 
@@ -140,8 +147,10 @@ def einkommen_vor_freibetrag_m_ohne_elterngeld(
 ) -> float:
     """Sum gross incomes relevant for housing benefit calculation on individual level
     and deducting individual housing benefit subtractions.
-    Reference: § 14 WoGG
 
+    Reference:
+        - § 10 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+        - § 10 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
     """
     einkommen = (
         einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m
@@ -183,9 +192,11 @@ def einkommen_vor_freibetrag_m_mit_elterngeld(
 ) -> float:
     """Sum gross incomes relevant for housing benefit calculation on individual level
     and deducting individual housing benefit subtractions.
-    Reference: § 14 WoGG
 
-
+    Reference:
+        - § 10 WoGG idF B. v. 07.07.2005 BGBl. I S. 2029
+        - § 10 Abs. 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 14 WoGG idF Art. 1 G. v. 22.12.2008 BGBl. I S. 2963
     """
     # TODO(@MImmesberger): Find out whether unterhalt__tatsächlich_erhaltener_betrag_m and
     # unterhaltsvorschuss__betrag_m are counted as income for Wohngeld income check.
@@ -224,7 +235,17 @@ def freibetrag_m_bis_2015(
     freibetrag_kinder_m: dict[str, float],
     xnp: ModuleType,
 ) -> float:
-    """Calculate housing benefit subtractions for one individual until 2015."""
+    """Calculate housing benefit subtractions for one individual until 2015.
+
+    Reference:
+        - § 15 Abs. 2 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+        - § 15 Abs. 3 WoGG idF Art. 1 G. v. 11.07.1985 BGBl. I S. 1318
+        - § 16 Abs. 3 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+        - § 16 Abs. 2 WoGG idF Art. 1 G. v. 10.08.1990 BGBl. I S. 1522
+        - § 13 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 13 Abs. 1 Nr. 4 WoGG idF Art. 17 G. v. 13.09.2001 BGBl. I S. 2376
+        - § 17 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     freibetrag_bei_behinderung = per_y_to_per_m(
         piecewise_polynomial(
             x=behinderungsgrad,
@@ -263,7 +284,13 @@ def freibetrag_m_ab_2016_bis_2020(
     freibetrag_bei_behinderung_pauschal_m: float,
     freibetrag_kinder_m: dict[str, float],
 ) -> float:
-    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2016 to 2020."""
+    """Freibeträge on Einkommen relevant for Wohngeld calculation from 2016 to 2020.
+
+    Reference:
+        - § 17 Nr. 1 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+        - § 17 Nr. 3 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+        - § 17 Nr. 4 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+    """
     freibetrag_bei_behinderung = (
         freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
     )
@@ -310,6 +337,12 @@ def freibetrag_m_ab_2021(
     Freibetrag is computed from the public pension actually received (§ 17a Abs. 1
     Satz 2 WoGG; BMI-Hinweise v. 15.12.2021: "Nur Rentner [...] erhalten im
     Wohngeld einen Freibetrag").
+
+    Reference:
+        - § 17 Nr. 1 WoGG idF Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+        - § 17 Nr. 3 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+        - § 17 Nr. 4 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+        - § 17a Abs. 1 WoGG idF Art. 5 G. v. 12.08.2020 BGBl. I S. 1879
     """
     freibetrag_bei_behinderung = (
         freibetrag_bei_behinderung_pauschal_m if behinderungsgrad > 0 else 0
@@ -349,7 +382,10 @@ def ist_kind_mit_erwerbseinkommen(
     einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m: float,
     kindergeld__ist_leistungsbegründendes_kind: bool,
 ) -> bool:
-    """Check if children are working."""
+    """Check if children are working.
+
+    Reference: none (technical helper)
+    """
     return (
         einnahmen__bruttolohn_m > 0
         or einkommensteuer__einkünfte__aus_selbstständiger_arbeit__betrag_m > 0

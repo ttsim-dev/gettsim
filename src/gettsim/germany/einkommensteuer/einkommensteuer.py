@@ -53,7 +53,7 @@ def anzahl_kindergeld_ansprüche_2(
         unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S. 6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF B. v. 07.09.1990 BGBl. I S. 1898",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -62,6 +62,8 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
 ) -> float:
     """Income tax calculation on Steuernummer level allowing for claiming
     Kinderfreibetrag and receiving Kindergeld at the same time.
+
+    Reference: § 32 Abs. 6 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
     """
     return betrag_mit_kinderfreibetrag_y_sn
 
@@ -74,7 +76,7 @@ def betrag_y_sn_kindergeld_kinderfreibetrag_parallel(
         unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S.6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF B. v. 16.04.1997 BGBl. I S. 821",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -84,7 +86,10 @@ def betrag_y_sn_kindergeld_oder_kinderfreibetrag_bis_2001(
     kinderfreibetrag_günstiger_sn: bool,
     relevantes_kindergeld_y_sn: float,
 ) -> float:
-    """Income tax calculation on Steuernummer level since 1997."""
+    """Income tax calculation on Steuernummer level since 1997.
+
+    Reference: § 31 Satz 4 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    """
     if kinderfreibetrag_günstiger_sn:
         out = betrag_mit_kinderfreibetrag_y_sn + relevantes_kindergeld_y_sn
     else:
@@ -100,7 +105,7 @@ def betrag_y_sn_kindergeld_oder_kinderfreibetrag_bis_2001(
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S.6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -110,7 +115,15 @@ def betrag_y_sn_kindergeld_oder_kinderfreibetrag_ab_2002(
     kinderfreibetrag_günstiger_sn: bool,
     relevantes_kindergeld_y_sn: float,
 ) -> float:
-    """Income tax calculation on Steuernummer level since 1997."""
+    """Income tax calculation on Steuernummer level since 1997.
+
+    From 2004, the tax amount is rounded down under § 32a Abs. 1 Satz 6 EStG idF Art.
+    9 G. v. 29.12.2003 BGBl. I S. 3076.
+
+    Reference:
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 22.12.1999 BGBl. I S. 2552
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 13.12.2006 BGBl. I S. 2878
+    """
     if kinderfreibetrag_günstiger_sn:
         out = betrag_mit_kinderfreibetrag_y_sn + relevantes_kindergeld_y_sn
     else:
@@ -125,7 +138,13 @@ def kinderfreibetrag_günstiger_sn(
     betrag_mit_kinderfreibetrag_y_sn: float,
     relevantes_kindergeld_y_sn: float,
 ) -> bool:
-    """Kinderfreibetrag more favorable than Kindergeld."""
+    """Kinderfreibetrag more favorable than Kindergeld.
+
+    Reference:
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 22.12.1999 BGBl. I S. 2552
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 13.12.2006 BGBl. I S. 2878
+    """
     unterschiedsbeitrag = (
         betrag_ohne_kinderfreibetrag_y_sn - betrag_mit_kinderfreibetrag_y_sn
     )
@@ -140,13 +159,16 @@ def kinderfreibetrag_günstiger_sn(
         unit=TTSIMUnit.DM.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S.6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF B. v. 07.09.1990 BGBl. I S. 1898",
     ),
     fail_msg_if_included="Tax system before 2002 is not implemented yet.",
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
-    pass
+    """Taxes with child allowance on Steuernummer level (not implemented).
+
+    Reference: § 32a Abs. 1 EStG idF B. v. 07.09.1990 BGBl. I S. 1898
+    """
 
 
 @policy_function(
@@ -156,7 +178,7 @@ def betrag_mit_kinderfreibetrag_y_sn_bis_2001() -> float:
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S.6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -175,6 +197,13 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
     Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
     income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
     Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
+
+    From 2004, the tax amount is rounded down under § 32a Abs. 1 Satz 6 EStG idF Art.
+    9 G. v. 29.12.2003 BGBl. I S. 3076.
+
+    Reference:
+        - § 32a Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     # If there are no benefits under § 32b, § 32a gives the tax amount directly (FG
     # Düsseldorf v. 17.04.2019, 15 K 1127/18 E). If not, a rounded 'besonderer
@@ -202,7 +231,7 @@ def betrag_mit_kinderfreibetrag_y_sn_ab_2002(
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S.6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -220,6 +249,13 @@ def betrag_ohne_kinderfreibetrag_y_sn(
     Without benefits under the Progressionsvorbehalt, the tariff applies to the taxable
     income. With such benefits, the besonderer Steuersatz applies to it instead (§ 32b
     Abs. 2 EStG); the rate is zero when the Steuersatzeinkommen is not positive.
+
+    From 2004, the tax amount is rounded down under § 32a Abs. 1 Satz 6 EStG idF Art.
+    9 G. v. 29.12.2003 BGBl. I S. 3076.
+
+    Reference:
+        - § 32a Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     # If there are no benefits under § 32b, § 32a gives the tax amount directly (FG
     # Düsseldorf v. 17.04.2019, 15 K 1127/18 E). If not, a rounded 'besonderer
@@ -253,9 +289,12 @@ def relevantes_kindergeld_mit_staffelung_m(
     Note: It doesn't matter which parent actually receives the Kindergeld. For income
     tax purposes, only the eligibility to claim Kindergeld is relevant.
 
-    Source: § 31 Satz 4 EStG: "Bei nicht zusammenveranlagten Eltern wird der
+    § 31 Satz 4 EStG: "Bei nicht zusammenveranlagten Eltern wird der
     Kindergeldanspruch im Umfang des Kinderfreibetrags angesetzt."
 
+    Reference:
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 22.12.1999 BGBl. I S. 2552
+        - § 31 Satz 4 EStG idF Art. 1 G. v. 13.12.2006 BGBl. I S. 2878
     """
     kindergeld_ansprüche = anzahl_kindergeld_ansprüche_1 + anzahl_kindergeld_ansprüche_2
 
@@ -278,9 +317,10 @@ def relevantes_kindergeld_ohne_staffelung_m(
     Note: It doesn't matter which parent actually receives the Kindergeld. For income
     tax purposes, only the eligibility to claim Kindergeld is relevant.
 
-    Source: § 31 Satz 4 EStG: "Bei nicht zusammenveranlagten Eltern wird der
+    § 31 Satz 4 EStG: "Bei nicht zusammenveranlagten Eltern wird der
     Kindergeldanspruch im Umfang des Kinderfreibetrags angesetzt."
 
+    Reference: § 31 Satz 4 EStG idF Art. 1 G. v. 13.12.2006 BGBl. I S. 2878
     """
     kindergeld_ansprüche = anzahl_kindergeld_ansprüche_1 + anzahl_kindergeld_ansprüche_2
     return kindergeld__satz_m * kindergeld_ansprüche / 2

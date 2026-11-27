@@ -33,6 +33,10 @@ def altersentlastungsbetrag_erstes_anspruchsjahr(
     it is also the row of the table in § 24a Satz 5 EStG. People born on 1 January
     complete a year of life in the preceding calendar year (§ 108 Abs. 1 AO, § 187
     Abs. 2 Satz 2, § 188 Abs. 2 BGB).
+
+    Reference:
+        - § 24a Satz 3 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 24a Satz 3 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     if geburtsmonat == 1 and geburtstag == 1:
         out = geburtsjahr + altersentlastungsbetrag_altersgrenze
@@ -62,6 +66,8 @@ def altersentlastungsbetrag_sonstige_einkünfte_ohne_leibrenten_y_bis_2004(
     part of the Leibrenten first, and only the remainder off the other § 22 Einnahmen
     (R 24a Abs. 1 Satz 3 EStR). Before 2005, payouts of the betriebliche
     Altersvorsorge are taxed with their Ertragsanteil and count as Leibrenten.
+
+    Reference: § 24a Satz 2 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     einnahmen_ohne_leibrenten = (
         einkommensteuer__einkünfte__sonstige__alle_weiteren_y
@@ -102,6 +108,8 @@ def altersentlastungsbetrag_sonstige_einkünfte_ohne_leibrenten_y_ab_2005(
     statute, Betriebsrenten from a Direktzusage or Unterstützungskasse are
     Versorgungsbezüge (§ 19 Abs. 2 EStG) and stay out (§ 24a Satz 2 Nr. 1 EStG), as do
     parts taxed like a Leibrente (§ 24a Satz 2 Nr. 4 und 5 EStG).
+
+    Reference: § 24a Satz 2 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     einnahmen_ohne_leibrenten = (
         einkommensteuer__einkünfte__sonstige__alle_weiteren_y
@@ -141,6 +149,8 @@ def altersentlastungsbetrag_bemessungsgrundlage_y_bis_2004(
     """Arbeitslohn plus the positive sum of all other Einkünfte.
 
     § 24a Sätze 1 und 2 EStG. Leibrenten (§ 22 Nr. 1 Satz 3 Buchst. a EStG) stay out.
+
+    Reference: § 24a Satz 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
     """
     einkünfte_aus_kapitalvermögen = max(
         einnahmen__kapitalerträge_y
@@ -182,6 +192,8 @@ def altersentlastungsbetrag_bemessungsgrundlage_y_2005_bis_2008(
     § 24a Sätze 1 und 2 EStG. Leibrenten (§ 22 Nr. 1 Satz 3 Buchst. a EStG) stay out.
     Wage from marginal employment is taxed at a flat rate outside the assessment and
     stays out.
+
+    Reference: § 24a Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     arbeitslohn = (
         0.0 if sozialversicherung__geringfügig_beschäftigt else einnahmen__bruttolohn_y
@@ -223,6 +235,10 @@ def altersentlastungsbetrag_bemessungsgrundlage_y_ab_2009(
     Abs. 5b EStG, Unternehmensteuerreformgesetz 2008), as do Leibrenten (§ 22 Nr. 1
     Satz 3 Buchst. a EStG). Wage from marginal employment is taxed at a flat rate
     outside the assessment and stays out.
+
+    Reference:
+        - § 24a Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 2 Abs. 5b Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
     """
     arbeitslohn = (
         0.0 if sozialversicherung__geringfügig_beschäftigt else einnahmen__bruttolohn_y
@@ -244,7 +260,7 @@ def altersentlastungsbetrag_bemessungsgrundlage_y_ab_2009(
         unit=TTSIMUnit.DM.PER_YEAR,
         base=1,
         direction="up",
-        reference="Abschn. 171a Abs. 1 EStR 1990, R 171a Abs. 1 EStR 1993 bis 2003",
+        reference="none (rounding set by the EStR, not by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -255,7 +271,13 @@ def altersfreibetrag_y_bis_2001(
     maximaler_altersentlastungsbetrag_y: float,
     altersentlastungsquote: float,
 ) -> float:
-    """Altersentlastungsbetrag, § 24a EStG: a share of the base up to a maximum."""
+    """Altersentlastungsbetrag, § 24a EStG: a share of the base up to a maximum.
+
+    Rounded up to a full Deutsche Mark amount (Abschn. 171a Abs. 1 EStR 1990, R 171a
+    Abs. 1 EStR 1993).
+
+    Reference: § 24a Satz 1 EStG idF B. v. 24.01.1984 BGBl. I S. 113
+    """
     if evaluation_year >= altersentlastungsbetrag_erstes_anspruchsjahr:
         out = min(
             altersentlastungsquote * altersentlastungsbetrag_bemessungsgrundlage_y,
@@ -275,7 +297,7 @@ def altersfreibetrag_y_bis_2001(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="up",
-        reference="Abschn. 171a Abs. 1 EStR 1990, R 171a Abs. 1 EStR 1993 bis 2003",
+        reference="none (rounding set by the EStR, not by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -286,7 +308,12 @@ def altersfreibetrag_y_2002_bis_2004(
     maximaler_altersentlastungsbetrag_y: float,
     altersentlastungsquote: float,
 ) -> float:
-    """Altersentlastungsbetrag, § 24a EStG: a share of the base up to a maximum."""
+    """Altersentlastungsbetrag, § 24a EStG: a share of the base up to a maximum.
+
+    Rounded up to a full Euro amount (R 171a Abs. 1 EStR 1993 bis 2003).
+
+    Reference: § 24a Satz 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    """
     if evaluation_year >= altersentlastungsbetrag_erstes_anspruchsjahr:
         out = min(
             altersentlastungsquote * altersentlastungsbetrag_bemessungsgrundlage_y,
@@ -305,7 +332,7 @@ def altersfreibetrag_y_2002_bis_2004(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="up",
-        reference="R 24a Abs. 1 Satz 4 EStR",
+        reference="none (rounding set by the EStR, not by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -319,7 +346,12 @@ def altersfreibetrag_y_ab_2005(
     """Altersentlastungsbetrag, § 24a EStG (Alterseinkünftegesetz).
 
     Share and maximum are those of the calendar year following the completion of the
-    64th year of life (§ 24a Satz 5 EStG) and stay fixed for life.
+    64th year of life (§ 24a Satz 5 EStG) and stay fixed for life. The amount is rounded
+    up to a full Euro amount (R 24a Abs. 1 Satz 4 EStR).
+
+    Reference:
+        - § 24a Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 24a Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     if evaluation_year >= altersentlastungsbetrag_erstes_anspruchsjahr:
         out = min(

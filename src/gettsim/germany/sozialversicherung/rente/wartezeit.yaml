@@ -11,10 +11,32 @@ wartezeitgrenzen:
   unit: YEARS
   type: dict
   1980-01-01:
+    reference:
+      - § 1246 Abs. 3 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 1248 Abs. 7 Satz 2 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+      - § 1248 Abs. 7 Satz 1 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: >-
+      Wartezeit von 60 Kalendermonaten für Renten wegen Berufs- und Erwerbsunfähigkeit,
+      180 Kalendermonate für das vorgezogene Altersruhegeld wegen Arbeitslosigkeit und
+      für Frauen, 35 anrechnungsfähige Versicherungsjahre für das flexible
+      Altersruhegeld; entsprechend §§ 23, 24, 25 AVG.
+    wartezeit_5: 5
+    wartezeit_15: 15
+    wartezeit_35: 35
+  1992-01-01:
+    reference:
+      - § 50 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+      - § 50 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+      - § 50 Abs. 5 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Rentenreformgesetz 1992. Nach dem Rentenreformgesetz 1999 steht die Wartezeit von
+      15 Jahren in §§ 237, 237a SGB VI und die von 35 Jahren in § 50 Abs. 4 SGB VI.
     wartezeit_5: 5
     wartezeit_15: 15
     wartezeit_35: 35
   2012-01-01:
+    reference: § 50 Abs. 5 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: RV-Altersgrenzenanpassungsgesetz.
     updates_previous: true
     wartezeit_45: 45
 mindestpflichtbeitragsjahre_für_anrechenbarkeit_freiwilliger_beitragszeiten:
@@ -34,4 +56,12 @@ mindestpflichtbeitragsjahre_für_anrechenbarkeit_freiwilliger_beitragszeiten:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: >-
+      none (voluntary contributions did not count towards the Wartezeit von 45 Jahren
+      before 1 July 2014)
+    value: 18
+  2014-07-01:
+    reference: >-
+      § 51 Abs. 3a Satz 1 Nr. 4 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
+    note: RV-Leistungsverbesserungsgesetz.
     value: 18

@@ -11,7 +11,11 @@ def betrag_y(
     alle_weiteren_y: float,
     werbungskostenpauschbetrag_y: float,
 ) -> float:
-    """Sonstige Einkünfte nach Abzug der Werbungskosten."""
+    """Sonstige Einkünfte nach Abzug der Werbungskosten.
+
+    Reference: § 9a Satz 1 Nr. 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    """
+
     return max(
         rente__steuerpflichtige_einnahmen_y
         + alle_weiteren_y

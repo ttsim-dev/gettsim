@@ -8,5 +8,7 @@ def alter_bis_24(alter: int) -> bool:
     """Age is 24 years at most.
 
     Trivial, but necessary in order to use the target for aggregation.
+
+    Reference: none (technical helper)
     """
     return alter <= cast_ttsim_unit(24, unit=TTSIMUnit.YEARS)

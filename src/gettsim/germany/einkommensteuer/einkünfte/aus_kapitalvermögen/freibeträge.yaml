@@ -12,14 +12,10 @@ sparerfreibetrag_y:
   1975-01-01:
     unit: DM_PER_YEAR
     value: 300
-    reference: >-
-      § 20 Abs. 4 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
+    reference: § 20 Abs. 4 EStG idF B. v. 05.09.1974 BGBl. I S. 2165
   1989-01-01:
     value: 600
-    reference: >-
-      Art. 1 Nr. 6 c) G. v. 30.06.1989 BGBl. I S. 1267 (G. zur Änderung des
-      Steuerreformgesetzes 1990 sowie zur Förderung des Mietwohnungsbaus und von
-      Arbeitsplätzen in Privathaushalten).
+    reference: § 20 Abs. 4 EStG idF Art. 1 G. v. 30.06.1989 BGBl. I S. 1267
     note: >-
       Art. 1 Nr. 6 c) ersetzt in § 20 Abs. 4 EStG „300" durch „600" (und „600"
       durch „1 200"). Die Anwendungsvorschrift in Art. 1 Nr. 25 b) (§ 52 Abs. 20
@@ -27,25 +23,32 @@ sparerfreibetrag_y:
       anzuwenden."
   1993-01-01:
     value: 6000
-    reference: Art. 1 Nr. 4 G. v. 09.11.1992 BGBl. I S. 1853 (Zinsabschlaggesetz).
+    reference: § 20 Abs. 4 EStG idF Art. 1 G. v. 09.11.1992 BGBl. I S. 1853
+    note: >-
+      Zinsabschlaggesetz.
   2000-01-01:
     value: 3000
-    reference: >-
-      Art. 1 Nr. 29 G. v. 24.03.1999 BGBl. I S. 402
-      (Steuerentlastungsgesetz 1999/2000/2002).
+    reference: § 20 Abs. 4 EStG idF Art. 1 G. v. 24.03.1999 BGBl. I S. 402
+    note: >-
+      Steuerentlastungsgesetz 1999/2000/2002.
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 1550
-    reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
+    reference: § 20 Abs. 4 Satz 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
   2004-01-01:
     value: 1370
-    reference: >-
-      Art. 9 Nr. 19 G. v. 29.12.2003 BGBl. I S. 3076 (Haushaltsbegleitgesetz 2004).
+    reference: § 20 Abs. 4 Satz 1 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004.
   2007-01-01:
     value: 750
-    reference: >-
-      Art. 1 Nr. 10 G. v. 19.07.2006 BGBl. I S. 1652 (Steueränderungsgesetz 2007).
+    reference: § 20 Abs. 4 Satz 1 EStG idF Art. 1 G. v. 19.07.2006 BGBl. I S. 1652
+    note: >-
+      Steueränderungsgesetz 2007.
   2009-01-01:
+    reference: § 20 Abs. 9 Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
@@ -58,13 +61,17 @@ werbungskostenpauschbetrag_y:
     en: null
   type: scalar
   1975-01-01:
+    reference: § 9a Nr. 2 EStG idF B. v. 05.09.1974 BGBl. I S. 2165
     unit: DM_PER_YEAR
     value: 100
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 51
-    reference: Art. 1 G. v. 19.12.2000 BGBl I S. 1790.
+    reference: § 9a Satz 1 Nr. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
   2009-01-01:
+    reference: § 20 Abs. 9 Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
     note: >-
       Integration von Sparerfreibetrag, Werbungskostenpauschbetrag bei
       Zinseinkünften in Sparerpauschbetrag.
@@ -81,10 +88,12 @@ sparerpauschbetrag_y:
   type: scalar
   2009-01-01:
     value: 801
-    reference: Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
+    reference: § 20 Abs. 9 Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
     note: >-
       Integration von Werbungskostenpauschbetrag für Zinseinkünfte in
       Sparerpauschbetrag.
   2023-01-01:
     value: 1000
-    reference: G. v. 20.12.2022 BGBl. I S. 2294.
+    reference: § 20 Abs. 9 Satz 1 EStG idF Art. 4 G. v. 16.12.2022 BGBl. I S. 2294
+    note: >-
+      Jahressteuergesetz 2022.

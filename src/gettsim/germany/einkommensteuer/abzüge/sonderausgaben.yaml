@@ -10,15 +10,19 @@ sonderausgabenpauschbetrag:
   1984-01-01:
     unit: DM_PER_YEAR
     value: 270
-    reference: § 10c EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
-  1988-01-01:
+    reference: § 10c Abs. 1 EStG idF B. v. 24.01.1984 BGBl. I S. 113
+  1990-01-01:
     value: 108
-    reference: Art. 1 Nr. 15 G. v. 25.07.1988, BGBl. I S. 1093
-    note: Rückdatiert auf das gesamte Jahr.
+    reference: § 10c Abs. 1 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+    note: >-
+      Steuerreformgesetz 1990, applicable from VZ 1990 (§ 52 Abs. 1 EStG idF Art. 1 G.
+      v. 25.07.1988 BGBl. I S. 1093).
   2002-01-01:
+    reference: § 10c Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
     unit: EUR_PER_YEAR
     value: 36
-    note: Art. 1 G. v. 19.12.2000, BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
 parameter_absetzbare_kinderbetreuungskosten:
   name:
     de: Parameter zur Berechnung der absetzbaren Kinderbetreuungsaufwendungen
@@ -33,8 +37,13 @@ parameter_absetzbare_kinderbetreuungskosten:
   2012-01-01:
     anteil: 0.6666666
     maximum: 4000.0
-    reference: Art. 1 G. v. 01.11.2011 BGBl. I S.2131
+    reference: § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    note: >-
+      Steuervereinfachungsgesetz 2011.
   2025-01-01:
     anteil: 0.8
     maximum: 4800.0
-    reference: Jahressteuergesetz 2024 Art. 4 BGBl. 2024 I Nr. 387 vom 05.12.2024
+    reference: >-
+      § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 4 G. v. 02.12.2024 BGBl. 2024 I Nr. 387
+    note: >-
+      Jahressteuergesetz 2024.

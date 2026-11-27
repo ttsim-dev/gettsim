@@ -21,6 +21,7 @@ max_anzahl_personen:
   unit: COUNT_PER_HH
   type: dict
   1984-01-01:
+    reference: none (technical parameter that sets the size of the lookup tables)
     normale_berechnung: 12
     indizierung: 50
 skalierungsfaktor:
@@ -34,12 +35,15 @@ skalierungsfaktor:
   type: scalar
   1984-01-01:
     value: 1
+    reference: >-
+      none (the Wohngeld formula has no scaling factor; until 2000, Wohngeld is read
+      off the Wohngeldtabellen)
   2009-01-01:
     value: 1.08
-    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+    reference: § 19 Abs. 1 Satz 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
   2016-01-01:
     value: 1.15
-    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+    reference: § 19 Abs. 1 Satz 1 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
 koeffizienten_berechnungsformel:
   name:
     de: Parameter a, b, c der Wohngeldformel
@@ -54,6 +58,9 @@ koeffizienten_berechnungsformel:
   type: require_converter
   1984-01-01:
     note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    reference: >-
+      none (regression approximation of the Wohngeldtabellen; the law contains no
+      formula before 2001)
     1:
       a: 0.0532
       b: 0.00135
@@ -104,6 +111,9 @@ koeffizienten_berechnungsformel:
       c: 0.0000481
   1990-01-01:
     note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    reference: >-
+      none (regression approximation of the Wohngeldtabellen; the law contains no
+      formula before 2001)
     updates_previous: true
     1:
       a: 0.0648
@@ -155,6 +165,9 @@ koeffizienten_berechnungsformel:
       c: 0.0000386
   1992-01-01:
     note: Parameter aus Regressionsanalyse der Wohngeldtabellen
+    reference: >-
+      none (regression approximation of the Wohngeldtabellen; the law contains no
+      formula before 2001)
     updates_previous: true
     1:
       a: 0.0666
@@ -205,7 +218,8 @@ koeffizienten_berechnungsformel:
       b: 0.000377
       c: 0.0000173
   2001-01-01:
-    reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    reference: § 2 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    note: Werte in Anlage 1 WoGG.
     updates_previous: true
     1:
       a: 0.063
@@ -256,7 +270,8 @@ koeffizienten_berechnungsformel:
       b: 0.000136
       c: 0.00006182
   2009-01-01:
-    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+    reference: § 19 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    note: Werte in Anlage 1 WoGG.
     1:
       a: 0.063
       b: 0.0007963
@@ -306,7 +321,8 @@ koeffizienten_berechnungsformel:
       b: 0.000109
       c: 0.00006182
   2016-01-01:
-    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+    reference: § 19 Abs. 1 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+    note: Werte in Anlage 1 WoGG.
     1:
       a: 0.04
       b: 0.00063
@@ -356,7 +372,8 @@ koeffizienten_berechnungsformel:
       b: 0.00011
       c: 0.00006
   2020-01-01:
-    reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    reference: § 19 Abs. 1 WoGG idF Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    note: Werte in Anlage 2 WoGG.
     updates_previous: true
     1:
       a: 0.04
@@ -407,7 +424,10 @@ koeffizienten_berechnungsformel:
       b: 0.000101
       c: 0.0000513
   2022-01-01:
-    reference: V. v. 03.06.2021 BGBl. I S. 1369.
+    reference: § 19 Abs. 1 WoGG idF Art. 1 V. v. 03.06.2021 BGBl. I S. 1369
+    note: >-
+      Werte in Anlage 2 WoGG; Erste Verordnung zur Fortschreibung des Wohngeldes nach
+      § 43 des Wohngeldgesetzes.
     updates_previous: true
     1:
       a: 0.04
@@ -458,7 +478,8 @@ koeffizienten_berechnungsformel:
       b: 0.000098
       c: 0.0000503
   2023-01-01:
-    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+    reference: § 19 Abs. 1 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
+    note: Werte in Anlage 2 WoGG; Wohngeld-Plus-Gesetz.
     updates_previous: true
     1:
       a: 0.04
@@ -509,7 +530,10 @@ koeffizienten_berechnungsformel:
       b: 0.0001152
       c: 0.0000251
   2025-01-01:
-    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    reference: § 19 Abs. 1 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    note: >-
+      Werte in Anlage 2 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
+      § 43 des Wohngeldgesetzes.
     updates_previous: true
     1:
       b: 4.797E-4
@@ -570,23 +594,24 @@ zusatzbetrag_pro_person_in_großen_haushalten_m:
   2001-01-01:
     unit: DM_PER_MONTH
     value: 78.23
-    reference: Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    reference: § 2 Abs. 4 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+    note: Das Gesetz nennt 40 Euro; hier in Deutsche Mark umgerechnet.
   2002-01-01:
     unit: EUR_PER_MONTH
     value: 40
-    reference: Art. 6 G. v. 22.12.1999 BGBl. I S. 2671
+    reference: § 2 Abs. 4 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
   2009-01-01:
     value: 43
-    reference: Art. 1 G. v. 24.09 2008 BGBl. I S. 1856
+    reference: § 19 Abs. 3 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
   2016-01-01:
     value: 47
-    reference: Art. 1 G. v. 08.10.2015 BGBl 38 S.1610
+    reference: § 19 Abs. 3 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
   2020-01-01:
     value: 51
-    reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    reference: § 19 Abs. 3 WoGG idF Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
   2023-01-01:
     value: 57
-    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+    reference: § 19 Abs. 3 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
   2025-01-01:
     value: 65
-    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    reference: § 19 Abs. 3 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314

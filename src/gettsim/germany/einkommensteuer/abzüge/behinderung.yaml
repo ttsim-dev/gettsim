@@ -8,7 +8,9 @@ parameter_behindertenpauschbetrag:
     en: null
   type: piecewise_constant
   1975-01-01:
-    reference: G. v. 05.08.1974 BGBl. I S. 1769.
+    reference: § 33b Abs. 3 EStG idF Art. 1 G. v. 05.08.1974 BGBl. I S. 1769
+    note: >-
+      Einkommensteuerreformgesetz (EStRG).
     input_unit: DIMENSIONLESS
     output_unit: DM_PER_YEAR
     intervals:
@@ -31,7 +33,9 @@ parameter_behindertenpauschbetrag:
       - interval: '[95, inf)'
         intercept: 2760
   2002-01-01:
-    reference: Art. 1 G. v. 19.12.2000 BGBl. I S. 1790.
+    reference: § 33b Abs. 3 Satz 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
     input_unit: DIMENSIONLESS
     output_unit: EUR_PER_YEAR
     intervals:
@@ -54,7 +58,10 @@ parameter_behindertenpauschbetrag:
       - interval: '[95, inf)'
         intercept: 1420
   2021-01-01:
-    reference: Art. 1 G. v. 09.12.2020 BGBL. I  S. 2770.
+    reference: § 33b Abs. 3 Satz 2 EStG idF Art. 1 G. v. 09.12.2020 BGBl. I S. 2770
+    note: >-
+      Gesetz zur Erhöhung der Behinderten-Pauschbeträge und zur Anpassung weiterer
+      steuerlicher Regelungen.
     intervals:
       - interval: (-inf, 20)
         intercept: 0
@@ -67,7 +74,7 @@ parameter_behindertenpauschbetrag:
       - interval: '[50, 60)'
         intercept: 1140
       - interval: '[60, 70)'
-        intercept: 1140
+        intercept: 1440
       - interval: '[70, 80)'
         intercept: 1780
       - interval: '[80, 90)'

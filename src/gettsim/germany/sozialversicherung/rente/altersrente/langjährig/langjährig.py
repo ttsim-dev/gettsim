@@ -34,6 +34,14 @@ def altersgrenze_gestaffelt_ab_1989(
     as reference for calculating the zugangsfaktor.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference:
+        - § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 41 Abs. 3 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+        - § 236 Abs. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 36 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 236 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 36 Satz 1 Nr. 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     birth_month_since_ad = y_to_m(geburtsjahr) + (geburtsmonat - 1)
     return altersgrenze_gestaffelt.look_up(birth_month_since_ad)
@@ -52,6 +60,8 @@ def altersgrenze_vorzeitig_gestaffelt_ab_1989_bis_1996(
     """Early retirement age (ERA) for Renten für langjährig Versicherte.
 
     Does not check for eligibility for this pathway into retirement.
+
+    Reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return altersgrenze_vorzeitig_gestaffelt.look_up(geburtsjahr)
 
@@ -63,5 +73,11 @@ def grundsätzlich_anspruchsberechtigt(
     """Determining the eligibility for Altersrente für langjährig
     Versicherte (pension for long-term insured). Wartezeit 35 years and
     crossing the age threshold.
+
+    Reference:
+        - § 1248 Abs. 1 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+        - § 36 Nr. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 36 Nr. 2 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 36 Satz 1 Nr. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     return sozialversicherung__rente__wartezeit_35_jahre_erfüllt

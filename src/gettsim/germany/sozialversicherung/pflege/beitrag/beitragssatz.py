@@ -34,6 +34,10 @@ def beitragssatz_arbeitnehmer_zusatz_kinderlos_dummy(
     """Employee's long-term care insurance contribution rate.
 
     Since 2005, the contribution rate is increased for childless individuals.
+
+    Reference:
+        - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+        - § 58 Abs. 1 Satz 3 SGB XI idF Art. 1 Nr. 3 G. v. 15.12.2004 BGBl. I S. 3448
     """
     # Add additional contribution for childless individuals
     if zahlt_zusatzbetrag_kinderlos:
@@ -61,6 +65,11 @@ def beitragssatz_arbeitnehmer_mit_abschlag_nach_kinderzahl(
 
     Since July 2023, the contribution rate is reduced for individuals with children
     younger than 25.
+
+    Reference:
+        - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+        - § 55 Abs. 3 Satz 4 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+        - § 58 Abs. 1 Satz 3 SGB XI idF Art. 1 Nr. 3 G. v. 15.12.2004 BGBl. I S. 3448
     """
     base = beitragssatz_nach_kinderzahl["standard"] / 2
 
@@ -86,6 +95,8 @@ def zahlt_zusatzbetrag_kinderlos(
 
     Not relevant before 2005 because the contribution rate was independent of the number
     of children.
+
+    Reference: § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
     """
     return (not hat_kinder) and alter >= zusatz_kinderlos_mindestalter
 
@@ -121,7 +132,10 @@ def anzahl_kinder_bis_24(
     anzahl_kinder_bis_24_elternteil_1: int,
     anzahl_kinder_bis_24_elternteil_2: int,
 ) -> int:
-    """Number of children under 25 years of age."""
+    """Number of children under 25 years of age.
+
+    Reference: § 55 Abs. 3 Satz 4 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+    """
     return anzahl_kinder_bis_24_elternteil_1 + anzahl_kinder_bis_24_elternteil_2
 
 
