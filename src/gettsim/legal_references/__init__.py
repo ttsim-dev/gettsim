@@ -251,7 +251,7 @@ class GermanLegalReferenceParser:
         paragraph = paragraphs[0]
         provision = Provision(
             paragraph=paragraph.paragraph if strict else paragraph.paragraph.lower(),
-            parts=tuple((sr.level, sr.number) for sr in paragraph.sub_refs),
+            parts=_parts(paragraph.sub_refs, normalized),
             law=self._law(parsed.law, strict=strict),
         )
         if strict and str(provision) != normalized:
@@ -279,6 +279,26 @@ class GermanLegalReferenceParser:
             f"Unknown law {law!r}. Laws are cited by their official abbreviation as "
             f"listed in {LAWS_PATH.name}, e.g., 'EStG' or 'SGB II'.{hint}"
         )
+
+
+def _parts(sub_refs: list, text: str) -> tuple[tuple[str, str], ...]:
+    """The levels of a provision.
+
+    `bundesrecht` splits `Nr. 1a` into `Nr. 1 Buchst. a`. Undo this where the text has
+    the letter attached to the number.
+    """
+    parts: list[tuple[str, str]] = []
+    for sr in sub_refs:
+        if (
+            sr.level == "Buchst"
+            and parts
+            and parts[-1][0] == "Nr"
+            and re.search(rf"\bNr\. {re.escape(parts[-1][1] + sr.number)}\b", text)
+        ):
+            parts[-1] = ("Nr", parts[-1][1] + sr.number)
+        else:
+            parts.append((sr.level, sr.number))
+    return tuple(parts)
 
 
 def _has_ranges(paragraph: object) -> bool:
