@@ -232,6 +232,18 @@ def test_parse_reference(reference, expected):
     assert str(parsed) == reference
 
 
+def test_parse_reference_keeps_letter_of_nummer():
+    parsed = LEGAL_REFERENCES_PARSER.parse_reference(
+        "§ 12 Abs. 2 Nr. 1a SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328"
+    )
+    assert isinstance(parsed, LegalReference)
+    assert parsed.provision is not None
+    assert parsed.provision.parts == (("Abs", "2"), ("Nr", "1a"))
+    assert not LEGAL_REFERENCES_PARSER.matches(
+        LEGAL_REFERENCES_PARSER.parse_query("§ 12 Abs. 2 Nr. 1 SGB II"), parsed
+    )
+
+
 def test_parse_reference_accepts_s_for_satz():
     parsed = LEGAL_REFERENCES_PARSER.parse_reference(
         "§ 66 Abs. 1 S. 2 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230"
