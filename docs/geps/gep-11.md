@@ -376,8 +376,8 @@ The `note` key continues to hold any additional information. The name of an act 
 | `reference` of a `RoundingSpec`                           | required, or `none (<reason>)`            |
 | Date entries of parameters, including the end of a period | required, or `reference: none (<reason>)` |
 | Parameter functions                                       | optional                                  |
-| Aggregation functions, group creation functions, inputs   | not checked                               |
-| Policy functions and parameters written by users          | not checked                               |
+| Aggregation functions, group creation functions, inputs   | not required                              |
+| Policy functions and parameters written by users          | not required                              |
 
 ### TTSIM and GETTSIM
 
@@ -424,16 +424,6 @@ fails if
 - a reference does not follow the format of this GEP; or
 - a reference cites a law that is not listed in `laws.yaml`.
 
-When the test is introduced, all policy objects that fail it are recorded in a baseline
-file. The test skips these objects and fails if the baseline file grows. Thus, new code
-has to follow this GEP from the start, while existing code can be converted one area at
-a time. The baseline file is removed once it is empty.
-
-The test does not check whether the cited provision exists or existed in the cited
-version, whether the act is cited with the correct date, article, and page, or whether
-the code implements the provision. References are not checked when a policy environment
-is set up, so users are never affected by a missing or malformed reference.
-
 ## Related Work
 
 - [OpenFisca](https://openfisca.org/doc/) and
@@ -470,26 +460,10 @@ Steps 3 to 5 require steps 1 and 2. Step 6 only requires step 1.
 
 ## Alternatives
 
-Regarding the place of references, we considered an argument of the decorators (e.g.,
-`legal_basis="§ 66 Abs. 1 EStG"`). This would have required changing the decorators in
-TTSIM and separated the reference from the description of the function. Marking
-references anywhere in the text of the docstring would make it hard to distinguish
-provisions that a function implements from provisions it merely mentions. For the
-parameter files, a separate key for the provision, with the `reference` key holding only
-the act, would avoid repeating the provision whenever the value changes. However, two
-keys would have to be kept consistent.
-
-Regarding the format, citing only the provision is not stable over time, and resolving
-it would require historical versions of the law. Citing only the act in the BGBl is
-stable, but does not allow for a lookup by paragraph. A manually maintained list of
-amending acts, to which references would point, cannot be kept up to date without an API
-that lists all publications in the BGBl.
-
 Regarding renumberings, we considered adding dates to the references of a policy
 function (e.g., `since 2011-01-01: § 11b Abs. 3 SGB II …`). This would make the lookup
 exact for every date, but it would specify the validity of a policy function in a second
-place next to `start_date` and `end_date`. Splitting a policy function whenever a cited
-provision moves would lead to duplicate code that does not change any calculation.
+place next to `start_date` and `end_date`.
 
 Regarding checks, we would like to verify references against the texts of the law.
 bundesrecht only covers the current version of the law and would reject correct
@@ -498,20 +472,7 @@ federal government only contains versions that are currently in force, with hist
 versions announced for 2028. It contains neither the EStG, SGB IV, SGB V, SGB VI, SGB
 XI, and AO, nor any amending acts. We will reconsider this question once historical
 versions are available, together with a list of provisions that do not have a
-counterpart in GETTSIM. A test that the same act is always cited with the same date and
-article would catch some typos in the `idF` part, but we do not think it is worth the
-additional complexity.
-
-Regarding the introduction, converting all policy objects before introducing the test
-would require one very large pull request. Raising an error when the policy environment
-is set up would confront users with problems that only concern developers. Requiring
-references for parameter functions would mostly lead to exceptions, since most of them
-only convert or combine parameters.
-
-For the lookup, we considered a separate function `find_node_by_legal_reference`. It
-would have to set up the policy environment itself and accept the same arguments as
-`main` for this purpose (e.g., a modified policy environment). As a main target, the
-lookup reuses this logic and works on any policy environment that `main` can produce.
+counterpart in GETTSIM.
 
 ## Discussion
 
