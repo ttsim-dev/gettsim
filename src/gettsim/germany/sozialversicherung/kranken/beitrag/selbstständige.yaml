@@ -315,8 +315,8 @@ mindestanteil_bezugsgröße_selbstständige:
   type: scalar
   1990-01-01:
     note: >-
-      Gesundheits-Reformgesetz. Der neunzigste Teil der monatlichen Bezugsgröße je
-      Kalendertag, also ein Drittel der monatlichen Bezugsgröße für 30 Tage. In Kraft
-      seit 1989; GETTSIM bildet die Regel ab 1990 ab.
+      Gesundheits-Reformgesetz. The ninetieth part of the monthly Bezugsgröße per
+      calendar day, i.e. a third of the monthly Bezugsgröße for 30 days. In force since
+      1989; GETTSIM models the rule from 1990.
     value: 0.33333333
     reference: § 240 Abs. 4 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477

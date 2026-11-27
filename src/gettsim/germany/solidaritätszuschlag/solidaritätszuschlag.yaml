@@ -24,8 +24,8 @@ parameter_solidaritätszuschlag:
         slope: 0.0375
   1993-01-01:
     reference: >-
-      none (the Solidaritätszuschlaggesetz of 1991 only levied the surcharge for 1991 and
-      1992; no surcharge was levied in 1993 and 1994)
+      none (the Solidaritätszuschlaggesetz of 1991 only levied the surcharge for 1991
+      and 1992; no surcharge was levied in 1993 and 1994)
     intervals:
       - interval: (-inf, inf)
         slope: 0
@@ -87,7 +87,8 @@ parameter_solidaritätszuschlag:
       - interval: '[31527.56, inf)'
         slope: 0.055
   2023-01-01:
-    reference: § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 17543)
@@ -98,7 +99,8 @@ parameter_solidaritätszuschlag:
       - interval: '[32619.02, inf)'
         slope: 0.055
   2024-01-01:
-    reference: § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 5 G. v. 08.12.2022 BGBl. I S. 2230
+    reference: >-
+      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 5 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 18130)
