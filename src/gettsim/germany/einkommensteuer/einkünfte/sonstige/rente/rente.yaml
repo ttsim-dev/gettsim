@@ -288,7 +288,8 @@ parameter_besteuerungsanteil:
     2039: 0.99
     2040: 1
   2023-01-01:
-    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 27.03.2024 BGBl. 2024 I Nr. 108
+    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 27.03.2024 BGBl. 2024 I Nr.
+      108
     note: >-
       Wachstumschancengesetz (retroactive from 01.01.2023). The table is in § 22 Nr. 1
       Satz 3 Buchstabe a Doppelbuchstabe aa Satz 3 EStG.
