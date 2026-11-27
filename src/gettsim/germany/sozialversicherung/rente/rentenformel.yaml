@@ -47,7 +47,7 @@ parameter_rentenwert_nach_wohnort:
   1992-01-01:
     reference:
       - § 68 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
-      - § 5 3.RAV idF V. v. 19.12.1991 BGBl. I S. 2344
+      - § 5 3. RAV idF V. v. 19.12.1991 BGBl. I S. 2344
     note: >-
       West: Rentenwert bis 30. Juni 1992 gleich der Rente für Dezember 1991 bei einem
       Entgeltpunkt (41,44 DM). Ost: Dritte Rentenanpassungsverordnung (3. RAV).
@@ -62,7 +62,7 @@ parameter_rentenwert_nach_wohnort:
     west: 42.63
     ost: 26.57
   1993-01-01:
-    reference: § 1 5.RAV idF V. v. 08.12.1992 BGBl. I S. 1998
+    reference: § 1 5. RAV idF V. v. 08.12.1992 BGBl. I S. 1998
     note: Fünfte Rentenanpassungsverordnung (5. RAV).
     updates_previous: true
     ost: 28.19
@@ -86,7 +86,7 @@ parameter_rentenwert_nach_wohnort:
     west: 46.00
     ost: 34.49
   1995-01-01:
-    reference: § 1 9.RAV idF V. v. 12.12.1994 BGBl. I S. 3805
+    reference: § 1 9. RAV idF V. v. 12.12.1994 BGBl. I S. 3805
     note: Neunte Rentenanpassungsverordnung (9. RAV).
     updates_previous: true
     ost: 35.45
@@ -98,7 +98,7 @@ parameter_rentenwert_nach_wohnort:
     west: 46.23
     ost: 36.33
   1996-01-01:
-    reference: § 1 11.RAV idF V. v. 04.12.1995 BGBl. I S. 1582
+    reference: § 1 11. RAV idF V. v. 04.12.1995 BGBl. I S. 1582
     note: Elfte Rentenanpassungsverordnung (11. RAV).
     updates_previous: true
     ost: 37.92

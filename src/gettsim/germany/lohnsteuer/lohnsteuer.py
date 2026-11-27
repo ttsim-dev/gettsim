@@ -205,9 +205,9 @@ def basistarif_mit_kinderfreibetrag_y(
 
     Reference:
         - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
@@ -231,9 +231,9 @@ def splittingtarif_mit_kinderfreibetrag_y(
 
     Reference:
         - § 39b Abs. 2 Satz 6 EStG idF Art. 1 G. v. 20.12.2007 BGBl. I S. 3150
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
@@ -264,9 +264,9 @@ def tarif_klassen_5_und_6_mit_kinderfreibetrag_y(
 
     Reference:
         - § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     einkommen_abzüglich_kinderfreibetrag_soli = xnp.maximum(
         einkommen_y - kinderfreibetrag_soli_y,
@@ -304,9 +304,9 @@ def betrag_mit_kinderfreibetrag_y(
     of Solidaritätszuschlag on Lohnsteuer!
 
     Reference:
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 4:
         out = basistarif_mit_kinderfreibetrag_y
@@ -325,13 +325,13 @@ def betrag_soli_y(
 ) -> float:
     """Solidarity surcharge on Lohnsteuer (withholding tax on earnings).
 
-    GETTSIM applies the annual Freigrenze of § 3 Abs. 3 SolZG 1995 to the annual
+    GETTSIM applies the annual Freigrenze of § 3 Abs. 3 SolzG 1995 to the annual
     Lohnsteuer; the law applies the corresponding Freigrenze per Lohnzahlungszeitraum
-    (§ 3 Abs. 4 SolZG 1995).
+    (§ 3 Abs. 4 SolzG 1995).
 
     Reference:
-        - § 4 SolZG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
-        - § 4 SolZG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+        - § 4 SolzG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
+        - § 4 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
     """
     return piecewise_polynomial(
         x=betrag_mit_kinderfreibetrag_y,
@@ -352,9 +352,9 @@ def kinderfreibetrag_soli_y(
     nothing.
 
     Reference:
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
-        - § 3 Abs. 2a Satz 1 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 9 G. v. 22.12.2009 BGBl. I S. 3950
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 3 G. v. 16.07.2015 BGBl. I S. 1202
+        - § 3 Abs. 2a Satz 1 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     """
     if steuerklasse == 1 or steuerklasse == 2 or steuerklasse == 3:
         out = 2 * einkommensteuer__kinderfreibetrag_y

@@ -16,27 +16,27 @@ bezugsgröße_selbstständige_m:
       16.12.1983 BGBl. I S. 1469), auf 840 DM jährlich aufgerundet, durch zwölf.
   1985-01-01:
     value: 2800
-    reference: § 4 SVBezGrV 1985 idF V. v. 20.12.1984 BGBl. I S. 1650
+    reference: § 4 V. v. 20.12.1984 BGBl. I S. 1650
     note: Sozialversicherungs-Bezugsgrößenverordnung 1985
   1986-01-01:
     value: 2870
-    reference: § 2 SVBezGrV 1986 idF V. v. 20.12.1985 BGBl. I S. 2557
+    reference: § 2 V. v. 20.12.1985 BGBl. I S. 2557
     note: Sozialversicherungs-Bezugsgrößenverordnung 1986
   1987-01-01:
     value: 3010
-    reference: § 2 SVBezGrV 1987 idF V. v. 09.12.1986 BGBl. I S. 2451
+    reference: § 2 V. v. 09.12.1986 BGBl. I S. 2451
     note: Sozialversicherungs-Bezugsgrößenverordnung 1987
   1988-01-01:
     value: 3080
-    reference: § 2 SVBezGrV 1988 idF V. v. 07.12.1987 BGBl. I S. 2530
+    reference: § 2 V. v. 07.12.1987 BGBl. I S. 2530
     note: Sozialversicherungs-Bezugsgrößenverordnung 1988
   1989-01-01:
     value: 3150
-    reference: § 2 SVBezGrV 1989 idF V. v. 07.12.1988 BGBl. I S. 2222
+    reference: § 2 V. v. 07.12.1988 BGBl. I S. 2222
     note: Sozialversicherungs-Bezugsgrößenverordnung 1989
   1990-01-01:
     value: 3290
-    reference: § 2 SVBezGrV 1990 idF V. v. 07.12.1989 BGBl. I S. 2168
+    reference: § 2 V. v. 07.12.1989 BGBl. I S. 2168
     note: Sozialversicherungs-Bezugsgrößenverordnung 1990
   1991-01-01:
     note: >-
@@ -45,8 +45,8 @@ bezugsgröße_selbstständige_m:
       Beitrittsgebiet erst ab dem 01.01.1991, eine Bezugsgröße (Ost) gibt es
       daher für 1990 noch nicht.
     reference:
-      - § 2 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
-      - § 1 SVBezGrV-Ost 1991 idF V. v. 18.12.1990 BGBl. I S. 2941
+      - § 2 V. v. 18.12.1990 BGBl. I S. 2940
+      - § 1 V. v. 18.12.1990 BGBl. I S. 2941
   2025-01-01:
     unit: EUR_PER_MONTH
     value: 3745
@@ -70,22 +70,22 @@ bezugsgröße_selbstständige_nach_wohnort:
     west: 3360
     ost: 1540
     reference:
-      - § 2 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
-      - § 1 SVBezGrV-Ost 1991 idF V. v. 18.12.1990 BGBl. I S. 2941
+      - § 2 V. v. 18.12.1990 BGBl. I S. 2940
+      - § 1 V. v. 18.12.1990 BGBl. I S. 2941
     note: >-
       Sozialversicherungs-Bezugsgrößenverordnung 1991 (West); Erste Verordnung über
       maßgebende Rechengrößen im Beitrittsgebiet (Ost)
   1991-07-01:
     updates_previous: true
     ost: 1750
-    reference: § 1 RAV 1991 idF V. v. 19.06.1991 BGBl. I S. 1300
+    reference: § 1 2. RAV idF V. v. 19.06.1991 BGBl. I S. 1300
     note: Zweite Rentenanpassungsverordnung
   1992-01-01:
     west: 3500
     ost: 2100
     reference:
-      - § 2 Abs. 1 SVBezGrV 1992 idF V. v. 18.12.1991 BGBl. I S. 2331
-      - § 1 3.RAV idF V. v. 19.12.1991 BGBl. I S. 2344
+      - § 2 Abs. 1 V. v. 18.12.1991 BGBl. I S. 2331
+      - § 1 3. RAV idF V. v. 19.12.1991 BGBl. I S. 2344
     note: >-
       Sozialversicherungs-Rechengrößenverordnung 1992 (West); Dritte
       Rentenanpassungsverordnung (Ost)
@@ -93,8 +93,8 @@ bezugsgröße_selbstständige_nach_wohnort:
     west: 3710
     ost: 2730
     reference:
-      - § 2 Abs. 1 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
-      - § 2 Abs. 2 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
+      - § 2 Abs. 1 V. v. 22.12.1992 BGBl. I S. 2474
+      - § 2 Abs. 2 V. v. 22.12.1992 BGBl. I S. 2474
     note: Sozialversicherungs-Rechengrößenverordnung 1993
   1994-01-01:
     west: 3920
@@ -105,111 +105,111 @@ bezugsgröße_selbstständige_nach_wohnort:
     west: 4060
     ost: 3290
     reference:
-      - § 2 Abs. 1 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
-      - § 2 Abs. 2 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
+      - § 2 Abs. 1 V. v. 12.12.1994 BGBl. I S. 3806
+      - § 2 Abs. 2 V. v. 12.12.1994 BGBl. I S. 3806
     note: Sozialversicherungs-Rechengrößenverordnung 1995
   1996-01-01:
     west: 4130
     ost: 3500
     reference:
-      - § 2 Abs. 1 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
-      - § 2 Abs. 2 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
+      - § 2 Abs. 1 V. v. 04.12.1995 BGBl. I S. 1577
+      - § 2 Abs. 2 V. v. 04.12.1995 BGBl. I S. 1577
     note: Sozialversicherungs-Rechengrößenverordnung 1996
   1997-01-01:
     west: 4270
     ost: 3640
     reference:
-      - § 2 Abs. 1 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
-      - § 2 Abs. 2 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
+      - § 2 Abs. 1 V. v. 11.12.1996 BGBl. I S. 1870
+      - § 2 Abs. 2 V. v. 11.12.1996 BGBl. I S. 1870
     note: Sozialversicherungs-Rechengrößenverordnung 1997
   1998-01-01:
     west: 4340
     ost: 3640
     reference:
-      - § 2 Abs. 1 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
-      - § 2 Abs. 2 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
+      - § 2 Abs. 1 V. v. 02.12.1997 BGBl. I S. 2782
+      - § 2 Abs. 2 V. v. 02.12.1997 BGBl. I S. 2782
     note: Sozialversicherungs-Rechengrößenverordnung 1998
   1999-01-01:
     west: 4410
     ost: 3710
     reference:
-      - § 2 Abs. 1 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
-      - § 2 Abs. 2 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
+      - § 2 Abs. 1 V. v. 18.12.1998 BGBl. I S. 3823
+      - § 2 Abs. 2 V. v. 18.12.1998 BGBl. I S. 3823
     note: Sozialversicherungs-Rechengrößenverordnung 1999
   2000-01-01:
     west: 4480
     ost: 3640
     reference:
-      - § 2 Abs. 1 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
-      - § 2 Abs. 2 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
+      - § 2 Abs. 1 V. v. 29.11.1999 BGBl. I S. 2375
+      - § 2 Abs. 2 V. v. 29.11.1999 BGBl. I S. 2375
     note: Sozialversicherungs-Rechengrößenverordnung 2000
   2001-01-01:
     updates_previous: true
     ost: 3780
-    reference: § 2 Abs. 2 SVBezGrV 2001 idF V. v. 13.12.2000 BGBl. I S. 1710
+    reference: § 2 Abs. 2 V. v. 13.12.2000 BGBl. I S. 1710
     note: Sozialversicherungs-Rechengrößenverordnung 2001
   2002-01-01:
     unit: EUR_PER_MONTH
     west: 2345
     ost: 1960
     reference:
-      - § 2 Abs. 1 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
-      - § 2 Abs. 2 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
+      - § 2 Abs. 1 V. v. 03.12.2001 BGBl. I S. 3302
+      - § 2 Abs. 2 V. v. 03.12.2001 BGBl. I S. 3302
     note: Sozialversicherungs-Rechengrößenverordnung 2002
   2003-01-01:
     west: 2380
     ost: 1995
     reference:
-      - § 2 Abs. 1 SVBezGrV 2003 idF V. v. 17.12.2002 BGBl. I S. 4561
-      - § 2 Abs. 2 SVBezGrV 2003 idF V. v. 17.12.2002 BGBl. I S. 4561
+      - § 2 Abs. 1 V. v. 17.12.2002 BGBl. I S. 4561
+      - § 2 Abs. 2 V. v. 17.12.2002 BGBl. I S. 4561
     note: Sozialversicherungs-Rechengrößenverordnung 2003
   2004-01-01:
     west: 2415
     ost: 2030
     reference:
-      - § 2 Abs. 1 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
-      - § 2 Abs. 2 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
+      - § 2 Abs. 1 V. v. 09.12.2003 BGBl. I S. 2497
+      - § 2 Abs. 2 V. v. 09.12.2003 BGBl. I S. 2497
     note: Sozialversicherungs-Rechengrößenverordnung 2004
   2006-01-01:
     west: 2450
     ost: 2065
     reference:
-      - § 2 Abs. 1 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
-      - § 2 Abs. 2 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
+      - § 2 Abs. 1 V. v. 21.12.2005 BGBl. I S. 3627
+      - § 2 Abs. 2 V. v. 21.12.2005 BGBl. I S. 3627
     note: Sozialversicherungs-Rechengrößenverordnung 2006
   2007-01-01:
     updates_previous: true
     ost: 2100
-    reference: § 2 SVRechGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
+    reference: § 2 SVBezGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
     note: Sozialversicherungs-Rechengrößengesetz 2007
   2008-01-01:
     updates_previous: true
     west: 2485
-    reference: § 2 Abs. 1 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
+    reference: § 2 Abs. 1 V. v. 05.12.2007 BGBl. I S. 2797
     note: Sozialversicherungs-Rechengrößenverordnung 2008
   2009-01-01:
     west: 2520
     ost: 2135
     reference:
-      - § 2 Abs. 1 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
-      - § 2 Abs. 2 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
+      - § 2 Abs. 1 V. v. 02.12.2008 BGBl. I S. 2336
+      - § 2 Abs. 2 V. v. 02.12.2008 BGBl. I S. 2336
     note: Sozialversicherungs-Rechengrößenverordnung 2009
   2010-01-01:
     west: 2555
     ost: 2170
     reference:
-      - § 2 Abs. 1 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
-      - § 2 Abs. 2 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
+      - § 2 Abs. 1 V. v. 07.12.2009 BGBl. I S. 3846
+      - § 2 Abs. 2 V. v. 07.12.2009 BGBl. I S. 3846
     note: Sozialversicherungs-Rechengrößenverordnung 2010
   2011-01-01:
     updates_previous: true
     ost: 2240
-    reference: § 2 Abs. 2 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
+    reference: § 2 Abs. 2 V. v. 03.12.2010 BGBl. I S. 1761
     note: Sozialversicherungs-Rechengrößenverordnung 2011
   2012-01-01:
     updates_previous: true
     west: 2625
-    reference: § 2 Abs. 1 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
+    reference: § 2 Abs. 1 V. v. 02.12.2011 BGBl. I S. 2421
     note: Sozialversicherungs-Rechengrößenverordnung 2012
   2013-01-01:
     west: 2695

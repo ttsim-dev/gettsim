@@ -138,8 +138,8 @@ def bezugsgröße_selbstständige_m(
     rate of health insurance contributions apply.
 
     Reference:
-        - § 2 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
-        - § 1 SVBezGrV-Ost 1991 idF V. v. 18.12.1990 BGBl. I S. 2941
+        - § 2 V. v. 18.12.1990 BGBl. I S. 2940
+        - § 1 V. v. 18.12.1990 BGBl. I S. 2941
     """
     return (
         bezugsgröße_selbstständige_nach_wohnort["ost"]

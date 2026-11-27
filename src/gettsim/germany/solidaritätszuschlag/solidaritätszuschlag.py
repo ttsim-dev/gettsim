@@ -46,7 +46,7 @@ def betrag_y_sn_ohne_abgelt_st(
     """Calculate the Solidarity Surcharge on Steuernummer level.
 
     Solidaritätszuschlaggesetz (SolZG) in 1991 and 1992.
-    Solidaritätszuschlaggesetz 1995 (SolZG 1995) since 1995.
+    Solidaritätszuschlaggesetz 1995 (SolzG 1995) since 1995.
 
     The Solidarity Surcharge is an additional tax on top of the income tax which
     is the tax base. As opposed to the 'standard' income tax, child allowance is
@@ -55,9 +55,9 @@ def betrag_y_sn_ohne_abgelt_st(
     Reference:
         - § 3 Abs. 1 Nr. 1 SolZG idF Art. 1 G. v. 24.06.1991 BGBl. I S. 1318
         - § 4 SolZG idF Art. 1 G. v. 24.06.1991 BGBl. I S. 1318
-        - § 3 Abs. 1 Nr. 1 SolZG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
-        - § 4 SolZG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
-        - § 3 Abs. 2 SolZG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130
+        - § 3 Abs. 1 Nr. 1 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+        - § 4 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+        - § 3 Abs. 2 SolzG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130
     """
     return solidaritätszuschlagstarif(
         steuer_pro_person=einkommensteuer__betrag_mit_kinderfreibetrag_y_sn,
@@ -84,7 +84,7 @@ def betrag_y_sn_mit_abgelt_st(
 ) -> float:
     """Calculate the Solidarity Surcharge on Steuernummer level.
 
-    Solidaritätszuschlaggesetz 1995 (SolZG 1995).
+    Solidaritätszuschlaggesetz 1995 (SolzG 1995).
 
     The Solidarity Surcharge is an additional tax on top of the income tax which
     is the tax base. As opposed to the 'standard' income tax, child allowance is
@@ -93,13 +93,13 @@ def betrag_y_sn_mit_abgelt_st(
     The Solidarity Surcharge on the income tax under § 32d Abs. 3 and 4 EStG
     (Abgeltungsteuer) is always levied at the full rate, without Freigrenze. The
     version of the JStG 2010 also applies to 2009 and 2010 if it is favourable to the
-    taxpayer (§ 6 Abs. 12 SolZG 1995).
+    taxpayer (§ 6 Abs. 12 SolzG 1995).
 
     Reference:
-        - § 3 Abs. 2 SolZG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130
-        - § 3 Abs. 3 SolZG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
-        - § 4 SolZG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
-        - § 4 SolZG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+        - § 3 Abs. 2 SolzG 1995 idF B. v. 15.10.2002 BGBl. I S. 4130
+        - § 3 Abs. 3 SolzG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
+        - § 4 SolzG 1995 idF Art. 31 G. v. 08.12.2010 BGBl. I S. 1768
+        - § 4 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
     """
     return (
         solidaritätszuschlagstarif(

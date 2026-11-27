@@ -58,29 +58,29 @@ beitragsbemessungsgrenze_m:
       Zwölftel der Jahresarbeitsentgeltgrenze nach § 6 Abs. 7 SGB V (41 400 Euro).
   2004-01-01:
     value: 3487.5
-    reference: § 4 Abs. 2 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
+    reference: § 4 Abs. 2 V. v. 09.12.2003 BGBl. I S. 2497
     note: Jahresarbeitsentgeltgrenze nach § 6 Abs. 7 SGB V von 41 850 Euro.
   2005-01-01:
     value: 3525
-    reference: § 4 Abs. 2 SVBezGrV 2005 idF V. v. 29.11.2004 BGBl. I S. 3098
+    reference: § 4 Abs. 2 V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 3562.5
-    reference: § 4 Abs. 2 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
+    reference: § 4 Abs. 2 V. v. 21.12.2005 BGBl. I S. 3627
   2008-01-01:
     value: 3600
-    reference: § 4 Abs. 2 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
+    reference: § 4 Abs. 2 V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 3675
-    reference: § 4 Abs. 2 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
+    reference: § 4 Abs. 2 V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 3750
-    reference: § 4 Abs. 2 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
+    reference: § 4 Abs. 2 V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 3712.5
-    reference: § 4 Abs. 2 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
+    reference: § 4 Abs. 2 V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 3825
-    reference: § 4 Abs. 2 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
+    reference: § 4 Abs. 2 V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 3937.5
     reference: § 4 Abs. 2 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
@@ -156,7 +156,7 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     ost: 2550
     reference:
       - § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
-      - § 2 RAV 1991 idF V. v. 19.06.1991 BGBl. I S. 1300
+      - § 2 2. RAV idF V. v. 19.06.1991 BGBl. I S. 1300
     note: >-
       Zweite Rentenanpassungsverordnung: Beitragsbemessungsgrenze (Ost) der
       Rentenversicherung 3 400 DM; davon drei Viertel.

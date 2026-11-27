@@ -32,8 +32,8 @@ parameter_solidaritätszuschlag:
         intercept: 0
   1995-01-01:
     reference:
-      - § 3 Abs. 3 Nr. 2 SolZG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
-      - § 4 SolZG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+      - § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
+      - § 4 SolzG 1995 idF Art. 31 G. v. 23.06.1993 BGBl. I S. 944
     note: Gesetz zur Umsetzung des Föderalen Konsolidierungsprogramms (FKPG)
     intervals:
       - interval: (-inf, 1332)
@@ -45,8 +45,8 @@ parameter_solidaritätszuschlag:
         slope: 0.075
   1998-01-01:
     reference:
-      - § 3 Abs. 3 Nr. 2 SolZG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
-      - § 4 Satz 1 SolZG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
+      - § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
+      - § 4 Satz 1 SolzG 1995 idF Art. 1 G. v. 21.11.1997 BGBl. I S. 2743
     note: Gesetz zur Senkung des Solidaritätszuschlags
     intervals:
       - interval: (-inf, 1836)
@@ -59,9 +59,9 @@ parameter_solidaritätszuschlag:
   2002-01-01:
     input_unit: EUR_PER_YEAR
     output_unit: EUR_PER_YEAR
-    reference: § 3 Abs. 3 Nr. 2 SolZG 1995 idF Art. 6 G. v. 19.12.2000 BGBl. I S. 1790
+    reference: § 3 Abs. 3 Nr. 2 SolzG 1995 idF Art. 6 G. v. 19.12.2000 BGBl. I S. 1790
     note: >-
-      Steuer-Euroglättungsgesetz (StEuglG). Neufassung of the SolZG 1995 by B. v.
+      Steuer-Euroglättungsgesetz (StEuglG). Neufassung of the SolzG 1995 by B. v.
       15.10.2002 BGBl. I S. 4130.
     intervals:
       - interval: (-inf, 972)
@@ -73,11 +73,11 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2021-01-01:
     reference:
-      - § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
-      - § 4 Satz 2 SolZG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+      - § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
+      - § 4 Satz 2 SolzG 1995 idF Art. 1 G. v. 10.12.2019 BGBl. I S. 2115
     note: >-
       Gesetz zur Rückführung des Solidaritätszuschlags 1995. Applicable from 2021 (§ 6
-      SolZG 1995).
+      SolzG 1995).
     intervals:
       - interval: (-inf, 16956)
         slope: 0
@@ -88,7 +88,7 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2023-01-01:
     reference: >-
-      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 4 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 17543)
@@ -100,7 +100,7 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2024-01-01:
     reference: >-
-      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 5 G. v. 08.12.2022 BGBl. I S. 2230
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 5 G. v. 08.12.2022 BGBl. I S. 2230
     note: Inflationsausgleichsgesetz (InflAusG)
     intervals:
       - interval: (-inf, 18130)
@@ -112,7 +112,7 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2025-01-01:
     reference: >-
-      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 3 G. v. 23.12.2024 BGBl. 2024 I Nr.
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 3 G. v. 23.12.2024 BGBl. 2024 I Nr.
       449
     note: Steuerfortentwicklungsgesetz (SteFeG)
     intervals:
@@ -125,7 +125,7 @@ parameter_solidaritätszuschlag:
         slope: 0.055
   2026-01-01:
     reference: >-
-      § 3 Abs. 3 Satz 1 Nr. 2 SolZG 1995 idF Art. 4 G. v. 23.12.2024 BGBl. 2024 I Nr.
+      § 3 Abs. 3 Satz 1 Nr. 2 SolzG 1995 idF Art. 4 G. v. 23.12.2024 BGBl. 2024 I Nr.
       449
     note: Steuerfortentwicklungsgesetz (SteFeG)
     intervals:
