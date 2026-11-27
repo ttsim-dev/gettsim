@@ -288,7 +288,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -567,7 +567,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.16-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -809,7 +809,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.5-h5dbc3f3_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/05/ac/a9f131ae07efa8fd7b17961bdcdd5b6a00b0b49480cf66e379fe06459614/simplejson-4.1.2-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -1051,7 +1051,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h6eb0046_12.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -1294,7 +1294,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-h3a581c9_12.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -1592,7 +1592,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -1883,7 +1883,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -2138,7 +2138,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -2393,7 +2393,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -2649,7 +2649,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -2936,7 +2936,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -3222,7 +3222,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -3470,7 +3470,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1a/f7/7cd4c9f2a3b7574414222ec425d5eee21cc690d867a013315e3be8ba185c/coverage-7.16.1-cp312-cp312-macosx_10_13_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -3718,7 +3718,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -3967,7 +3967,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4259,7 +4259,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4544,7 +4544,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -4793,7 +4793,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -5042,7 +5042,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -5292,7 +5292,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/0d/9e/3edd04a587b77874802dc8607691aad313f0f6458a5fde1bc3eed0e0eed8/optree-0.20.0-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/0e/30/df2f6114f6a17cffe94721bd1d298f77f86aad493717fa5bc03cb291a1a6/coverage-7.16.1-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
@@ -5584,7 +5584,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -5869,7 +5869,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -6118,7 +6118,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/05/ac/a9f131ae07efa8fd7b17961bdcdd5b6a00b0b49480cf66e379fe06459614/simplejson-4.1.2-cp314-cp314-macosx_10_15_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
@@ -6367,7 +6367,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -6617,7 +6617,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/cd/c883e1a7c447479d6e13985565080e3fea88ab5a107c21684c813dba1875/flexcache-0.3-py3-none-any.whl
@@ -6909,7 +6909,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/14/fb/94933e00bb3dcfdf66ea3456739c6a51d322353f7cc64fa1f5f660e695ac/nvidia_nccl_cu13-2.31.2-py3-none-manylinux_2_18_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1c/b1/1831dd8c9b06c013085d31a2ac4f03392d43bd36bfc6ff591a08bcedc1cf/ml_dtypes-0.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
@@ -7222,7 +7222,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.0-pyhcf101f3_0.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1c/b1/1831dd8c9b06c013085d31a2ac4f03392d43bd36bfc6ff591a08bcedc1cf/ml_dtypes-0.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7476,7 +7476,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/9d/3931253e6f3148abf2cbe14830367042a4806b362ea520df2303db188fb9/orjson-3.12.0-cp314-cp314-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
@@ -7731,7 +7731,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
       - pypi: ./
       - pypi: git+https://github.com/ttsim-dev/gettsim-personas.git?branch=main#e03e77d9fa278139cc78ad21eea80f7301a113f9
-      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+      - pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
       - pypi: https://files.pythonhosted.org/packages/12/24/96b041b800d1de465758106353bedc1e682c5671b3a18142e71e67613996/choreographer-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/cd/066e86230ae37ed0be70aae89aabf03ca8d9f39c8aea0dec8029455b5540/opt_einsum-3.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
@@ -18965,9 +18965,9 @@ packages:
   - dags>=0.6
   - gettsim>=1.3.1
   requires_python: '>=3.12'
-- pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#ad3abb3e30299d9336e70ab765e4686f5d701d38
+- pypi: git+https://github.com/ttsim-dev/ttsim.git?branch=claude%2Fproject-thread-y388yx#354a807124dfaccc2382c3424594b7efa4518504
   name: ttsim-backend
-  version: 1.4.1.dev3+gad3abb3e3
+  version: 1.4.1.dev4+g354a80712
   requires_dist:
   - beartype>=0.18
   - dags>=0.7
