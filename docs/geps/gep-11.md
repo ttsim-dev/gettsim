@@ -445,16 +445,18 @@ fails if
 1. TTSIM: Extract references from docstrings and parameter files, store them in the
    policy objects, accept a parser from the country package, and add the
    `legal_references_query` argument and the main targets.
-1. GETTSIM: Add `laws.yaml`, the parser, and the test including the baseline file.
-1. GETTSIM: Convert the `reference` keys in all parameter files and the references of
-   all `RoundingSpec`s.
-1. GETTSIM: Add `Reference:` sections to policy functions, one area at a time.
-1. GETTSIM: Pass the parser to TTSIM in `gettsim.main`, add the generated page with all
-   references, and add a how-to guide on finding the code for a provision.
+1. GETTSIM: Add `laws.yaml`, the parser, and the test, and pass the parser to TTSIM in
+   `gettsim.main`.
+1. GETTSIM: In a single pull request on top of step 2, convert the `reference` keys in
+   all parameter files and the references of all `RoundingSpec`s, and add `Reference:`
+   sections to all policy functions. Steps 2 and 3 are merged together, so that there is
+   no version of GETTSIM in which only some policy objects satisfy this GEP.
+1. GETTSIM: Add the generated page with all references and a how-to guide on finding the
+   code for a provision.
 1. TTSIM: Show references in plots of the DAG.
 1. Update the contributor guide.
 
-Steps 3 to 5 require steps 1 and 2. Step 6 only requires step 1.
+Step 2 requires step 1, step 3 requires step 2, and step 5 only requires step 1.
 
 (gep-11-alternatives)=
 
