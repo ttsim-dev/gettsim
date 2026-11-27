@@ -1,7 +1,9 @@
 ---
-# Laws that GETTSIM cites (GEP 11), by their official abbreviation as used on
+# Laws that GETTSIM cites (GEP 11), by their abbreviation as used on
 # gesetze-im-internet.de. Laws that are no longer in force are listed by the
-# abbreviation they had.
+# abbreviation that the act defines in its title. Acts without an abbreviation are
+# not listed; they are cited by their publication in the BGBl.
+2. RAV: Zweite Rentenanpassungsverordnung
 3. RAV: Dritte Rentenanpassungsverordnung
 5. RAV: Fünfte Rentenanpassungsverordnung
 9. RAV: Neunte Rentenanpassungsverordnung
@@ -44,7 +46,6 @@ MiLoV4: Vierte Mindestlohnanpassungsverordnung
 MiLoV5: Fünfte Mindestlohnanpassungsverordnung
 MuSchG: Mutterschutzgesetz
 PBAV 2025: Pflegebeitragsanpassungsverordnung 2025
-2. RAV: Zweite Rentenanpassungsverordnung
 RAV 1992: Rentenanpassungsverordnung 1992
 RAV 1993: Rentenanpassungsverordnung 1993
 RAV 1994: Rentenanpassungsverordnung 1994
@@ -103,6 +104,7 @@ SGB XI: Elftes Buch Sozialgesetzbuch
 SGB XII: Zwölftes Buch Sozialgesetzbuch
 SolZG: Solidaritätszuschlaggesetz
 SolzG 1995: Solidaritätszuschlaggesetz 1995
+SVBezGrG 2007: Gesetz über maßgebende Rechengrößen der Sozialversicherung für 2007
 SVBezGrV 2013: Sozialversicherungs-Rechengrößenverordnung 2013
 SVBezGrV 2014: Sozialversicherungs-Rechengrößenverordnung 2014
 SVBezGrV 2015: Sozialversicherungs-Rechengrößenverordnung 2015
@@ -117,10 +119,7 @@ SVBezGrV 2023: Sozialversicherungsrechengrößen-Verordnung 2023
 SVBezGrV 2024: Sozialversicherungsrechengrößen-Verordnung 2024
 SVBezGrV 2025: Sozialversicherungsrechengrößen-Verordnung 2025
 SVBezGrV 2026: Sozialversicherungsrechengrößen-Verordnung 2026
-  Erste Verordnung über maßgebende Rechengrößen in dem in Artikel 3 des
-  Einigungsvertrages genannten Gebiet
 SvEV: Sozialversicherungsentgeltverordnung
-SVBezGrG 2007: Sozialversicherungs-Rechengrößengesetz 2007
 UhVorschG: Unterhaltsvorschussgesetz
 WoGG: Wohngeldgesetz
 WoGV: Wohngeldverordnung
