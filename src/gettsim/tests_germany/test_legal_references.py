@@ -7,6 +7,7 @@ GETTSIM, the second part the parser for German references.
 from __future__ import annotations
 
 import datetime
+from collections.abc import Hashable
 from typing import Any
 
 import pytest
@@ -17,6 +18,7 @@ from ttsim.tt.legal_references import (
     NoLegalReference,
     legal_references_from_spec,
 )
+from ttsim.tt.rounding import RoundingSpec
 
 from gettsim import MainTarget, main
 from gettsim.legal_references import (
@@ -67,10 +69,12 @@ def _problems(
     return problems
 
 
-def _references_of(obj: object) -> LegalReferences | str | None:
+def _references_of(
+    obj: PolicyFunction | ParamFunction | RoundingSpec,
+) -> LegalReferences | str | None:
     """The references of a policy object, or the error message if they are malformed."""
     try:
-        return obj.legal_references  # type: ignore[attr-defined]
+        return obj.legal_references
     except ValueError as e:
         return str(e).splitlines()[0]
 
@@ -168,8 +172,8 @@ class _SubstringParser:
     def parse_query(self, query: str) -> str:
         return query
 
-    def matches(self, query: str, reference: str) -> bool:
-        return query in reference
+    def matches(self, query: Hashable, reference: Hashable) -> bool:
+        return str(query) in str(reference)
 
 
 @pytest.mark.parametrize(

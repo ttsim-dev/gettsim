@@ -21,7 +21,7 @@ import re
 from collections.abc import Hashable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Literal, cast
 
 import yaml
 from bundesrecht import parse_reference as _bundesrecht_parse_reference
@@ -329,9 +329,9 @@ def _parse_act(text: str, *, strict: bool) -> Act:
         date = datetime.datetime.strptime(m.group("date"), "%d.%m.%Y").date()  # noqa: DTZ007
     except ValueError as e:
         raise ValueError(f"Invalid date in the act {text!r}.") from e
-    kind = f"{m.group('kind').upper()}."
+    kind = cast("ActKind", f"{m.group('kind').upper()}.")
     act = Act(
-        kind=kind,  # type: ignore[arg-type]
+        kind=kind,
         date=date,
         article=m.group("article").lower() if m.group("article") else None,
         article_number=(
