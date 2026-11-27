@@ -270,22 +270,38 @@ def test_parse_reference_keeps_order_of_parts(reference):
     assert str(LEGAL_REFERENCES_PARSER.parse_reference(reference)) == reference
 
 
+_V_1992 = Act(kind="V.", date=datetime.date(1992, 6, 5), page=1017)
+
+
 @pytest.mark.parametrize(
     ("reference", "expected"),
     [
         (
             "§ 1 Abs. 1 V. v. 05.06.1992 BGBl. I S. 1017",
             LegalReference(
-                provision=Provision(paragraph="1", parts=(("Abs", "1"),), law=None),
-                act=Act(kind="V.", date=datetime.date(1992, 6, 5), page=1017),
+                provision=Provision(
+                    paragraph="1",
+                    parts=(("Abs", "1"),),
+                    law=None,
+                    act=_V_1992,
+                ),
+                act=_V_1992,
             ),
         ),
         (
-            "§ 1 Art. 5 G. v. 19.12.1998 BGBl. I S. 3843",
+            (
+                "§ 1 V. v. 03.12.2015 BGBl. I S. 2188 idF "
+                "Art. 1 V. v. 28.09.2017 BGBl. I S. 3525"
+            ),
             LegalReference(
-                provision=Provision(paragraph="1", parts=(), law=None),
+                provision=Provision(
+                    paragraph="1",
+                    parts=(),
+                    law=None,
+                    act=Act(kind="V.", date=datetime.date(2015, 12, 3), page=2188),
+                ),
                 act=Act(
-                    kind="G.", date=datetime.date(1998, 12, 19), article="5", page=3843
+                    kind="V.", date=datetime.date(2017, 9, 28), article="1", page=3525
                 ),
             ),
         ),
@@ -314,6 +330,20 @@ def test_matches_provision_of_act(query, expected):
     assert parser.matches(parser.parse_query(query), reference) is expected
 
 
+def test_matches_amended_provision_of_act():
+    parser = LEGAL_REFERENCES_PARSER
+    reference = parser.parse_reference(
+        "§ 1 V. v. 03.12.2015 BGBl. I S. 2188 idF Art. 1 V. v. 28.09.2017 BGBl. I "
+        "S. 3525"
+    )
+    assert parser.matches(
+        parser.parse_query("§ 1 V. v. 03.12.2015 BGBl. I S. 2188"), reference
+    )
+    assert parser.matches(
+        parser.parse_query("Art. 1 V. v. 28.09.2017 BGBl. I S. 3525"), reference
+    )
+
+
 def test_parse_reference_accepts_s_for_satz():
     parsed = LEGAL_REFERENCES_PARSER.parse_reference(
         "§ 66 Abs. 1 S. 2 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230"
@@ -340,9 +370,13 @@ def test_parse_reference_accepts_s_for_satz():
             "single paragraph",
         ),
         ("§ 66 Abs. 1 idF G. v. 08.12.2022 BGBl. I S. 2230", "law is missing"),
-        ("Abs. 1 EStG idF G. v. 08.12.2022 BGBl. I S. 2230", "starts with the"),
-        ("§ 1 Abs. 1 EStG V. v. 05.06.1992 BGBl. I S. 1017", "names a law"),
+        ("Abs. 1 EStG idF G. v. 08.12.2022 BGBl. I S. 2230", "must have the form"),
+        ("§ 1 Abs. 1 EStG V. v. 05.06.1992 BGBl. I S. 1017", "names both a law"),
         ("§ 1 Abs 1 V. v. 05.06.1992 BGBl. I S. 1017", "canonical form"),
+        (
+            "§ 1 V. v. 05.06.1992 BGBl. I S. 1017 idF V. v. 05.06.1992 BGBl. I S. 1017",
+            "canonical form",
+        ),
         ("§§ 66, 67 EStG idF G. v. 08.12.2022 BGBl. I S. 2230", "single paragraph"),
         ("§ 66 Abs. 1 bis 3 EStG idF G. v. 08.12.2022 BGBl. I S. 2230", "single"),
         ("§ 66 EStG idF Artikel 2 G. v. 08.12.2022 BGBl. I S. 2230", "Cannot parse"),

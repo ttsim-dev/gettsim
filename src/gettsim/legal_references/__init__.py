@@ -12,7 +12,7 @@ BGBl.
 A provision of an act without an official abbreviation, typically a Verordnung that sets
 the values for one year, is cited by the act itself, without `idF`::
 
-    § 1 Abs. 1 V. v. 05.06.1992 BGBl. I S. 1017
+    § 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421
 
 References in the code are parsed strictly: they must be written in canonical form.
 Queries entered by users are parsed leniently, e.g., `§66 Estg` and `§ 66 (1) EStG` are
@@ -114,22 +114,28 @@ _IDF_LENIENT_RE = re.compile(r"\s+i\.?\s*d\.?\s*F\.?(?:\s+|$)", re.IGNORECASE)
 class Provision:
     """A provision of a law, e.g., `§ 66 Abs. 1 Satz 2 EStG`.
 
-    `law` is `None` for a provision of an act without an official abbreviation, which
-    is then identified by the act of the reference.
+    The provision belongs either to a law with an official abbreviation (`law`) or to
+    an act without one, which is then identified by its publication (`act`), e.g.,
+    `§ 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421`.
     """
 
     paragraph: str
     parts: tuple[tuple[str, str], ...]
     law: str | None
+    act: Act | None = None
 
     def __str__(self) -> str:
         parts = "".join(f" {_format_part(level, n)}" for level, n in self.parts)
-        law = "" if self.law is None else f" {self.law}"
-        return f"§ {self.paragraph}{parts}{law}"
+        source = self.law if self.act is None else str(self.act)
+        return f"§ {self.paragraph}{parts} {source}"
 
     def covers(self, other: Provision) -> bool:
         """Whether one provision is part of the other or vice versa."""
         if (self.law, self.paragraph) != (other.law, other.paragraph):
+            return False
+        if self.act is not None and (
+            other.act is None or not self.act.matches(other.act)
+        ):
             return False
         return all(a == b for a, b in zip(self.parts, other.parts, strict=False))
 
@@ -185,8 +191,9 @@ class Act:
 class LegalReference:
     """A parsed reference or query.
 
-    A reference always has a provision and an act. If the provision has no law, it is a
-    provision of the act itself. A query may lack either of them.
+    A reference always has a provision and an act. For a provision of an act without
+    an official abbreviation that was never amended, both acts are the same and `idF`
+    is left out. A query may lack either of them.
     """
 
     provision: Provision | None
@@ -197,8 +204,8 @@ class LegalReference:
             return str(self.act)
         if self.act is None:
             return str(self.provision)
-        if self.provision.law is None:
-            return f"{self.provision} {self.act}"
+        if self.provision.act == self.act:
+            return str(self.provision)
         return f"{self.provision} {IDF} {self.act}"
 
 
@@ -231,27 +238,21 @@ class GermanLegalReferenceParser:
 
     def parse_reference(self, reference: str) -> Hashable:
         """Parse a reference as written in the code (strict)."""
-        provision, sep, act = reference.partition(f" {IDF} ")
-        if sep and f" {IDF} " not in act:
-            return LegalReference(
-                provision=self._parse_provision(provision, strict=True),
-                act=_parse_act(act, strict=True),
+        provision_text, sep, act_text = reference.partition(f" {IDF} ")
+        if not reference.startswith("§") or f" {IDF} " in act_text:
+            raise ValueError(_FORM_ERROR)
+        provision = self._parse_provision(provision_text, strict=True)
+        if not sep:
+            if provision.act is None:
+                raise ValueError(_FORM_ERROR)
+            return LegalReference(provision=provision, act=provision.act)
+        act = _parse_act(act_text, strict=True)
+        if act == provision.act:
+            raise ValueError(
+                f"The reference {reference!r} is not written in canonical form. "
+                f"Expected:\n\n    {provision}"
             )
-        start = _ACT_START_STRICT_RE.search(reference)
-        if not sep and reference.startswith("§") and start is not None:
-            return LegalReference(
-                provision=self._parse_provision(
-                    reference[: start.start()], strict=True, law_required=False
-                ),
-                act=_parse_act(reference[start.end() :], strict=True),
-            )
-        raise ValueError(
-            f"A reference must have the form '<provision> {IDF} <act>', or "
-            "'<provision> <act>' for a provision of an act without an official "
-            f"abbreviation, e.g.,\n\n"
-            f"    § 66 Abs. 1 EStG {IDF} Art. 2 G. v. 08.12.2022 BGBl. I S. 2230\n"
-            "    § 1 Abs. 1 V. v. 05.06.1992 BGBl. I S. 1017"
-        )
+        return LegalReference(provision=provision, act=act)
 
     def parse_query(self, query: str) -> Hashable:
         """Parse a reference as entered by a user (lenient).
@@ -265,14 +266,6 @@ class GermanLegalReferenceParser:
             text = _IDF_LENIENT_RE.sub("", f" {text}", count=1).strip()
             return LegalReference(provision=None, act=_parse_act(text, strict=False))
         parts = _IDF_LENIENT_RE.split(text, maxsplit=1)
-        start = _ACT_START_LENIENT_RE.search(text)
-        if len(parts) == 1 and start is not None:
-            return LegalReference(
-                provision=self._parse_provision(
-                    text[: start.start()], strict=False, law_required=False
-                ),
-                act=_parse_act(text[start.end() :], strict=False),
-            )
         provision = self._parse_provision(parts[0], strict=False)
         act = _parse_act(parts[1], strict=False) if len(parts) > 1 else None
         return LegalReference(provision=provision, act=act)
@@ -297,9 +290,12 @@ class GermanLegalReferenceParser:
             reference.act is not None and query.act.matches(reference.act)
         )
 
-    def _parse_provision(
-        self, text: str, *, strict: bool, law_required: bool = True
-    ) -> Provision:
+    def _parse_provision(self, text: str, *, strict: bool) -> Provision:
+        start = (_ACT_START_STRICT_RE if strict else _ACT_START_LENIENT_RE).search(text)
+        source = None
+        if start is not None:
+            source = _parse_act(text[start.end() :], strict=strict)
+            text = text[: start.start()]
         normalized = (
             _normalize_provision_strict(text)
             if strict
@@ -311,20 +307,23 @@ class GermanLegalReferenceParser:
                 "paragraph, e.g., '§ 66 Abs. 1 Satz 2 EStG'."
             )
         paragraph, parts, law = _split_provision(
-            _normalize_provision_lenient(text), law_required=law_required
+            _normalize_provision_lenient(text), law_required=source is None
         )
-        if law and not law_required:
+        if law and source is not None:
             raise ValueError(
-                f"The provision {text!r} names a law ({law!r}). A provision of a law "
-                f"is cited with '{IDF}', e.g., '§ 66 Abs. 1 EStG {IDF} Art. 2 G. v. "
-                "08.12.2022 BGBl. I S. 2230'."
+                f"The provision {text!r} names both a law ({law!r}) and an act. A "
+                f"provision of a law is cited with '{IDF}', e.g., '§ 66 Abs. 1 EStG "
+                f"{IDF} Art. 2 G. v. 08.12.2022 BGBl. I S. 2230'."
             )
         provision = Provision(
             paragraph=paragraph,
             parts=parts,
             law=self._law(law, strict=strict) if law else None,
+            act=source,
         )
-        if strict and str(provision) != normalized:
+        if strict and str(provision) != (
+            normalized if source is None else f"{normalized} {source}"
+        ):
             raise ValueError(
                 f"The provision {text!r} is not written in canonical form. Expected:"
                 f"\n\n    {provision}"
@@ -439,6 +438,14 @@ def _validate_act(act: Act, text: str) -> None:
             f"or the following year, got:\n\n    {text}"
         )
 
+
+_FORM_ERROR = (
+    f"A reference must have the form '<provision> <law> {IDF} <act>', or "
+    "'<provision> <act>' for a provision of an act without an official abbreviation, "
+    "e.g.,\n\n"
+    f"    § 66 Abs. 1 EStG {IDF} Art. 2 G. v. 08.12.2022 BGBl. I S. 2230\n"
+    "    § 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421"
+)
 
 #: The parser GETTSIM passes to TTSIM.
 LEGAL_REFERENCES_PARSER = GermanLegalReferenceParser()

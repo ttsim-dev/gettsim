@@ -103,12 +103,12 @@ levels, they should be included in the reference. However, because we cannot det
 the depth of a provision without the text of the law, GETTSIM only enforces that the
 paragraph and the act are cited automatically.
 
-Some values are set by acts that have no official abbreviation, typically a Verordnung
-that sets the values for a single year. Such a provision is cited by the act itself,
-without `idF`:
+Some values are set by acts that have no official abbreviation, e.g., the
+Sozialversicherungs-Rechengrößenverordnungen before 2013. Such a provision is cited by
+the act itself, without `idF`:
 
 ```
-§ 1 Abs. 1 V. v. 05.06.1992 BGBl. I S. 1017
+§ 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421
 ```
 
 In policy functions, references are listed in a `Reference:` section at the end of the
@@ -200,13 +200,13 @@ Docstrings of policy functions gain a `Reference:` section.
 
 ### Format of a reference
 
-A reference consists of a provision and the act that gave the provision its wording. If
-the provision belongs to an act without an official abbreviation, the act is the one
-that contains the provision:
+A reference consists of a provision and the act that gave the provision its wording. The
+provision belongs either to a law with an official abbreviation or to an act without
+one, which is then identified by its publication:
 
 ```
 reference = <provision> <law> idF <act>     (provision of a law)
-          | <provision> <act>               (provision of an act without abbreviation)
+          | <provision> <act> [idF <act>]   (provision of an act without abbreviation)
 
 provision = § <n>[a-z] [Abs. <n>[a-z]] [Satz <n> | S. <n>] [Halbsatz <n>]
                        [Nr. <n>[a-z]] [Buchst. <x>] [Doppelbuchst. <xx>]
@@ -217,27 +217,29 @@ act       = [Art. <n> [Nr. <n>]] G.|V.|B. v. DD.MM.YYYY BGBl. I S. <page>      (
 The parts of a provision are written in the order in which the law nests them, e.g.,
 `§ 10 Abs. 1 Nr. 2 Satz 1 EStG`.
 
-#### When to cite `idF` and when to cite the act directly
+#### Abbreviations, `idF`, and acts without an abbreviation
 
-- A provision of a law that has an official abbreviation is cited as
-  `<provision> <law> idF <act>`. The act is the amending act (or the Bekanntmachung)
-  that gave the cited part its wording as of the relevant date. Example: the Kindergeld
-  of 2023 is `§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230`, because the
-  Inflationsausgleichsgesetz amended § 66 Abs. 1 EStG.
-- A provision of an act that has no official abbreviation is cited as
-  `<provision> <act>`, where the act is the act that contains the provision. There is no
-  `idF`, because the act is the source itself. This is typical for Verordnungen that set
-  the values for a single year and are never amended, e.g., the
-  Rentenanpassungsverordnungen before 2007:
-  `§ 1 Abs. 1 V. v. 05.06.1992 BGBl. I S. 1017`.
-- If an act without an official abbreviation consists of articles and the cited
-  provision is part of one of them, the article goes into the act, e.g.,
-  `§ 1 Art. 5 G. v. 19.12.1998 BGBl. I S. 3843` for § 1 of the Beitragssatzgesetz 1999
-  (Art. 5 of the Gesetz v. 19.12.1998).
-- We do not invent abbreviations. If gesetze-im-internet.de lists an official
-  abbreviation (e.g., `RWBestV 2023` or `SVBezGrV 2024`), the law is cited by it with
-  `idF`, even if it was never amended; the act is then the Verordnung itself:
+- A law is cited by the abbreviation used on gesetze-im-internet.de, e.g., `EStG`,
+  `RAV 1995`, or `3. RAV`. Laws that are no longer in force are not listed there; they
+  are cited by the abbreviation that the act itself defines in its title, e.g.,
+  "(Beitragssatzverordnung 2019 – BeiSaV 2019)". We do not invent abbreviations. The
+  books of the Sozialgesetzbuch are the exception: gesetze-im-internet.de writes
+  `SGB 2`, we write `SGB II` as in their official titles.
+- A provision of a law with an abbreviation is cited as `<provision> <law> idF <act>`.
+  The act is the amending act (or the Bekanntmachung) that gave the cited part its
+  wording as of the relevant date. Example: the Kindergeld of 2023 is
+  `§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230`, because the
+  Inflationsausgleichsgesetz amended § 66 Abs. 1 EStG. This also holds for a Verordnung
+  with an abbreviation that was never amended; the act is then the Verordnung itself:
   `§ 1 Abs. 1 RWBestV 2023 idF V. v. 21.06.2023 BGBl. 2023 I Nr. 164`.
+- A provision of an act without an abbreviation is cited by the act that contains it,
+  e.g., the Sozialversicherungs-Rechengrößenverordnung 2012:
+  `§ 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421`. There is no `idF`, because the
+  act is the source itself. If the act consists of articles, the article goes into the
+  act.
+- If such an act was amended later, the amending act follows after `idF`, as for a law:
+  `§ 1 V. v. 03.12.2015 BGBl. I S. 2188 idF Art. 1 V. v. 28.09.2017 BGBl. I S. 3525` for
+  the Mindestunterhaltsverordnung as amended in 2017.
 
 The following rules apply to both forms:
 
@@ -255,9 +257,7 @@ The following rules apply to both forms:
   {ref}`GEP 3 <gep-3>`.
 - For acts published until 2022, the page is the first page of the act, not the page of
   the provision.
-- `<law>` is the official abbreviation of the law as used on gesetze-im-internet.de,
-  e.g., `EStG` or `SGB II` (not `SGB 2`). The abbreviations we accept are listed in a
-  file called `laws.yaml`.
+- The abbreviations we accept are listed in a file called `laws.yaml`.
 
 Examples:
 
