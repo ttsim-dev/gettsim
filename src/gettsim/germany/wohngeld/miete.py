@@ -230,6 +230,10 @@ def miete_m_wthh(
 ) -> float:
     """Rent considered in housing benefit calculation on wohngeldrechtlicher
     Teilhaushalt level.
+
+    Reference:
+        - § 7 Abs. 4 WoGG idF Art. 25 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 3 Satz 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     household_share = cast_ttsim_unit(
         anzahl_personen_wthh, unit=TTSIMUnit.DIMENSIONLESS
@@ -245,7 +249,12 @@ def min_miete_m_hh(
     anzahl_personen_hh: int,
     min_miete_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Minimum rent considered in Wohngeld calculation."""
+    """Minimum rent considered in Wohngeld calculation.
+
+    Reference:
+        - § 2 Abs. 2 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 19 Abs. 2 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     return min_miete_lookup.look_up(anzahl_personen_hh)
 
 
@@ -267,7 +276,10 @@ def miete_m_hh_mit_baujahr(
     max_miete_m_lookup: LookupTableBaujahr,
     xnp: ModuleType,
 ) -> float:
-    """Rent considered in housing benefit calculation on household level until 2008."""
+    """Rent considered in housing benefit calculation on household level until 2008.
+
+    Reference: § 8 Abs. 1 WoGG idF B. v. 27.12.1982 BGBl. I S. 1921
+    """
     baujahr_index = xnp.searchsorted(
         max_miete_m_lookup.baujahre,
         wohnen__baujahr_immobilie_hh,
@@ -292,7 +304,12 @@ def miete_m_hh_ohne_baujahr_ohne_heizkostenentlastung(
     min_miete_m_hh: float,
     max_miete_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Rent considered in housing benefit since 2009."""
+    """Rent considered in housing benefit from 2009 to 2020.
+
+    Reference:
+        - § 11 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+        - § 12 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
     return max(min(wohnen__bruttokaltmiete_m_hh, max_miete_m), min_miete_m_hh)
@@ -312,7 +329,12 @@ def miete_m_hh_mit_heizkostenentlastung(
     max_miete_m_lookup: ConsecutiveIntLookupTableParamValue,
     heizkostenentlastung_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Rent considered in housing benefit since 2009."""
+    """Rent considered in housing benefit in 2021 and 2022.
+
+    Reference:
+        - § 11 Abs. 1 WoGG idF Art. 1 G. v. 15.05.2020 BGBl. I S. 1015
+        - § 12 Abs. 6 WoGG idF Art. 1 G. v. 15.05.2020 BGBl. I S. 1015
+    """
     max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
     heating_allowance_m = heizkostenentlastung_m_lookup.look_up(anzahl_personen_hh)
@@ -338,7 +360,13 @@ def miete_m_hh_mit_heizkostenentlastung_dauerhafte_heizkostenkomponente_klimakom
     dauerhafte_heizkostenkomponente_m_lookup: ConsecutiveIntLookupTableParamValue,
     klimakomponente_m_lookup: ConsecutiveIntLookupTableParamValue,
 ) -> float:
-    """Rent considered in housing benefit since 2009."""
+    """Rent considered in housing benefit since 2023.
+
+    Reference:
+        - § 11 Abs. 1 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
+        - § 12 Abs. 6 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
+        - § 12 Abs. 7 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
+    """
     max_miete_m = max_miete_m_lookup.look_up(anzahl_personen_hh, mietstufe_hh)
 
     heizkostenentlastung = heizkostenentlastung_m_lookup.look_up(anzahl_personen_hh)

@@ -16,7 +16,10 @@ def kinderfreibetrag_y(
     anzahl_kinderfreibeträge: int,
     kinderfreibetrag_pro_kind_y: float,
 ) -> float:
-    """Individual child allowance."""
+    """Individual child allowance.
+
+    Reference: § 32 Abs. 6 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    """
     return kinderfreibetrag_pro_kind_y * anzahl_kinderfreibeträge
 
 
@@ -37,6 +40,8 @@ def anzahl_kinderfreibeträge(
     Note: Users should overwrite this function if there are single parents in the data
     who should receive two instead of one Kinderfreibeträge. GETTSIM does not
     automatically do this, even if the p_id of the other parent is set to missing (-1).
+
+    Reference: § 32 Abs. 6 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
     """
     return anzahl_kinderfreibeträge_1 + anzahl_kinderfreibeträge_2
 
@@ -63,7 +68,10 @@ def anzahl_kinderfreibeträge_2(
 def p_id_kinderfreibetragsempfänger_1(
     familie__p_id_elternteil_1: int,
 ) -> int:
-    """Assigns child allowance to parent 1."""
+    """Assigns child allowance to parent 1.
+
+    Reference: § 32 Abs. 6 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    """
     return familie__p_id_elternteil_1
 
 
@@ -71,5 +79,9 @@ def p_id_kinderfreibetragsempfänger_1(
 def p_id_kinderfreibetragsempfänger_2(
     familie__p_id_elternteil_2: int,
 ) -> int:
-    """Assigns child allowance to parent 2."""
+    """Assigns child allowance to parent 2.
+
+    Reference: § 32 Abs. 6 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    """
+
     return familie__p_id_elternteil_2

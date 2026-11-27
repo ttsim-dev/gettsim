@@ -22,7 +22,13 @@ mietobergrenze_pro_qm_m:
   type: scalar
   2005-01-01:
     value: 10
+    reference: >-
+      none (rule of thumb for the angemessene Miete under § 22 Abs. 1 Satz 1 SGB II; set
+      regionally by the Jobcenter, not by law)
   2023-01-01:
+    reference: >-
+      none (rule of thumb for the angemessene Miete under § 22 Abs. 1 Satz 1 SGB II; set
+      regionally by the Jobcenter, not by law)
     note: Bürgergeld replaces Arbeitslosengeld II.
 berechtigte_wohnfläche_miete:
   name:
@@ -46,7 +52,13 @@ berechtigte_wohnfläche_miete:
   2005-01-01:
     single: 45
     je_weitere_person: 15
+    reference: >-
+      none (rule of thumb for the angemessene Wohnfläche under § 22 Abs. 1 Satz 1 SGB
+      II; set by Land rules and case law, not by federal law)
   2023-01-01:
+    reference: >-
+      none (rule of thumb for the angemessene Wohnfläche under § 22 Abs. 1 Satz 1 SGB
+      II; set by Land rules and case law, not by federal law)
     note: Bürgergeld replaces Arbeitslosengeld II.
 parameter_berechtigte_wohnfläche_eigentum:
   name:
@@ -74,5 +86,10 @@ parameter_berechtigte_wohnfläche_eigentum:
     4: 120
     je_weitere_person: 20
     max_anzahl_direkt: 4
+    reference: >-
+      none (case law on the angemessene Größe of owner-occupied housing under § 12 Abs.
+      3 Satz 1 Nr. 4 SGB II; not set by law)
   2023-01-01:
+    reference: >-
+      § 12 Abs. 1 Satz 2 Nr. 5 SGB II idF Art. 1 G. v. 16.12.2022 BGBl. I S. 2328
     note: Bürgergeld replaces Arbeitslosengeld II.

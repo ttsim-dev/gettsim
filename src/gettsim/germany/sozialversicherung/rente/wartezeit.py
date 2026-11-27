@@ -14,7 +14,13 @@ def mindestwartezeit_erfüllt(
     ersatzzeiten_monate: float,
     wartezeitgrenzen: dict[str, float],
 ) -> bool:
-    """Minimal Wartezeit has been completed."""
+    """Minimal Wartezeit has been completed.
+
+    Reference:
+        - § 1246 Abs. 3 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+        - § 50 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 51 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return (
         m_to_y(pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate)
         >= wartezeitgrenzen["wartezeit_5"]
@@ -28,7 +34,15 @@ def wartezeit_15_jahre_erfüllt(
     ersatzzeiten_monate: float,
     wartezeitgrenzen: dict[str, float],
 ) -> bool:
-    """Wartezeit of 15 years completed."""
+    """Wartezeit of 15 years completed.
+
+    Reference:
+        - § 1248 Abs. 7 Satz 2 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+        - § 50 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 51 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 237 Abs. 1 Nr. 5 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+        - § 237a Abs. 1 Nr. 4 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+    """
     return (
         m_to_y(pflichtbeitragsmonate + freiwillige_beitragsmonate + ersatzzeiten_monate)
         >= wartezeitgrenzen["wartezeit_15"]
@@ -48,6 +62,11 @@ def wartezeit_35_jahre_erfüllt(
     """Wartezeit of 35 years completed.
 
     All "rentenrechtliche Zeiten" are considered.
+
+    Reference:
+        - § 1248 Abs. 7 Satz 1 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+        - § 50 Abs. 5 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 51 Abs. 3 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     return (
         m_to_y(
@@ -79,6 +98,11 @@ def wartezeit_45_jahre_erfüllt(
     are only considered if at least 18 years of mandatory contributions
     (pflichtbeitragsmonate). Not all anrechnungszeiten are considered, but only specific
     ones (e.g. ALG I, Kurzarbeit but not ALG II).
+
+    Reference:
+        - § 50 Abs. 5 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 51 Abs. 3a SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 51 Abs. 3a SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     if (
         m_to_y(pflichtbeitragsmonate)
@@ -112,8 +136,13 @@ def anrechnungsmonate_35_jahre_wartezeit(
 ) -> float:
     """Anrechnungszeit for 35 years of Wartezeit.
 
-    Reference: Studientext der Deutschen Rentenversicherung, Nr. 19,
-    Wartezeiten, Ausgabe 2021, S. 24.
+    See Studientext der Deutschen Rentenversicherung, Nr. 19, Wartezeiten, Ausgabe
+    2021, S. 24.
+
+    Reference:
+        - § 51 Abs. 3 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 58 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 58 Abs. 1 Satz 1 SGB VI idF Art. 6 G. v. 12.06.2020 BGBl. I S. 1248
     """
     return (
         monate_in_arbeitsunfähigkeit
@@ -133,10 +162,15 @@ def anrechnungsmonate_45_jahre_wartezeit(
 ) -> float:
     """Anrechnungszeit relevant for 45 years of Wartezeit.
 
-    Reference: Studientext der Deutschen Rentenversicherung, Nr. 19, Wartezeiten,
-    Ausgabe 2021, S. 24.
-    > "nur Anrechnungszeiten mit Bezug von Entgeltersatzleistungen der Arbeitsförderung,
-    > Leistungen bei Krankheit und Übergangsgeld".
+    Studientext der Deutschen Rentenversicherung, Nr. 19, Wartezeiten, Ausgabe 2021,
+    S. 24: "nur Anrechnungszeiten mit Bezug von Entgeltersatzleistungen der
+    Arbeitsförderung, Leistungen bei Krankheit und Übergangsgeld".
+
+    Before 1 July 2014, § 51 Abs. 3a SGB VI counted none of these periods.
+
+    Reference:
+        - § 51 Abs. 3a SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+        - § 51 Abs. 3a Satz 1 Nr. 3 SGB VI idF Art. 1 G. v. 23.06.2014 BGBl. I S. 787
     """
     return (
         monate_in_arbeitsunfähigkeit

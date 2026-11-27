@@ -29,6 +29,11 @@ def ist_leistungsbegründendes_kind(
 
     This function returns True if the person is young enough to give rise to a potential
     Elterngeld claim.
+
+    Reference:
+        - § 4 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 4 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 18.12.2014 BGBl. I S. 2325
+        - § 4 Abs. 1 Satz 3 BEEG idF Art. 1 G. v. 15.02.2021 BGBl. I S. 239
     """
     # TODO(@MImmesberger): This age threshold is not correct once we account for
     # Elterngeld plus (currently not implemented).
@@ -92,7 +97,10 @@ def bezugsmonate_partner_ab_2023(
 @policy_function(
     start_date="2011-01-01",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="down"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=0.01,
+        direction="down",
+        reference="none (the BEEG sets no rounding rule for the Elterngeld amount)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -103,7 +111,11 @@ def betrag_m(
 ) -> float:
     """Parental leave benefit (Elterngeld) received by the parent.
 
-    Mutterschaftsgeld is credited against the Elterngeld (§ 3 Abs. 1 S. 1 Nr. 1 BEEG).
+    Mutterschaftsgeld is credited against the Elterngeld.
+
+    Reference:
+        - § 3 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 3 Abs. 1 Satz 1 Nr. 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     if grundsätzlich_anspruchsberechtigt:
         return anspruchshöhe_m - angerechnete_mutterschaftsleistungen_m
@@ -117,11 +129,15 @@ def angerechnete_mutterschaftsleistungen_m(
     anspruchshöhe_m: float,
     sozialversicherung__kranken__mutterschaftsgeld_m: float,
 ) -> float:
-    """Mutterschaftsgeld credited against the Elterngeld (§ 3 Abs. 1 S. 1 Nr. 1 BEEG).
+    """Mutterschaftsgeld credited against the Elterngeld.
 
     Only Mutterschaftsgeld for the time after the birth is credited. GETTSIM assumes
     that Mutterschaftsgeld received in a month with an Elterngeld claim relates to the
     same birth.
+
+    Reference:
+        - § 3 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 3 Abs. 1 Satz 1 Nr. 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     if grundsätzlich_anspruchsberechtigt:
         return min(sozialversicherung__kranken__mutterschaftsgeld_m, anspruchshöhe_m)
@@ -140,6 +156,11 @@ def basisbetrag_m(
 
     Basisbetrag is calculated on the parental level.
 
+    Reference:
+        - § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 3 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 3 Satz 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     berücksichtigtes_einkommen = min(
         mean_nettoeinkommen_in_12_monaten_vor_geburt_m,
@@ -155,13 +176,19 @@ def basisbetrag_m(
     end_date="2010-12-31",
     leaf_name="betrag_m",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="down"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=0.01,
+        direction="down",
+        reference="none (placeholder; GETTSIM does not implement Elterngeld before 2011)",
     ),
     fail_msg_if_included="Elterngeld is not implemented prior to 2011.",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
 def elterngeld_not_implemented() -> float:
-    pass
+    """Elterngeld before 2011 (not implemented).
+
+    Reference: none (placeholder; GETTSIM does not implement Elterngeld before 2011)
+    """
 
 
 @policy_function(start_date="2007-01-01", unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -176,6 +203,15 @@ def anspruchshöhe_m(
 
     Anspruchshöhe is calculated on the parental level.
 
+    Reference:
+        - § 2 Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 5 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 1 Satz 2 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+        - § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+        - § 2a Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+        - § 2a Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     # Deliberate cross-level summation: FG-level bonuses are added to the
     # individual-level base amount
@@ -204,7 +240,10 @@ def grundsätzlich_anspruchsberechtigt_ohne_maximales_vorjahreseinkommen(
     bezugsmonate_unter_grenze_fg: bool,
     max_arbeitsstunden_w: int,
 ) -> bool:
-    """Parent is eligible to receive Elterngeld."""
+    """Parent is eligible to receive Elterngeld.
+
+    Reference: § 1 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    """
     return (
         claimed
         and arbeitsstunden_w <= max_arbeitsstunden_w
@@ -228,7 +267,13 @@ def grundsätzlich_anspruchsberechtigt_mit_maximales_vorjahreseinkommen(
 ) -> bool:
     """Parent is eligible to receive Elterngeld.
 
-    Maximum income in the previous year introduced via § 1 (8) BEEG.
+    Maximum income in the previous year introduced in 2011.
+
+    Reference:
+        - § 1 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 1 Abs. 8 Satz 1 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+        - § 1 Abs. 8 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+        - § 1 Abs. 6 Nr. 1 BEEG idF Art. 57 G. v. 23.10.2024 BGBl. 2024 I Nr. 323
     """
     return (
         claimed
@@ -250,6 +295,13 @@ def bezugsmonate_unter_grenze_fg(
     """Elterngeld claimed for less than the maximum number of months in the past by the
     parent.
 
+    Reference:
+        - § 4 Abs. 2 Satz 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 4 Abs. 2 Satz 3 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 4 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 18.12.2014 BGBl. I S. 2325
+        - § 4 Abs. 4 Satz 2 BEEG idF Art. 1 G. v. 18.12.2014 BGBl. I S. 2325
+        - § 4 Abs. 3 Satz 1 BEEG idF Art. 1 G. v. 15.02.2021 BGBl. I S. 239
+        - § 4 Abs. 3 Satz 2 BEEG idF Art. 1 G. v. 15.02.2021 BGBl. I S. 239
     """
     grenze_mit_partnermonaten_fg = (
         max_bezugsmonate["basismonate"] + max_bezugsmonate["partnermonate"]
@@ -283,9 +335,12 @@ def lohnersatzanteil(
 ) -> float:
     """Replacement rate of Elterngeld (before applying floor and ceiling rules).
 
-    According to § 2 (2) BEEG the percentage increases below the first step and
+    The percentage increases below the first step and
     decreases above the second step until prozent_minimum.
 
+    Reference:
+        - § 2 Abs. 2 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2 Abs. 2 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
     """
     # Higher replacement rate if considered income is below a threshold
     if (
@@ -336,6 +391,10 @@ def freibetrag_paragraph_10_abs_1_beeg_m(
     exempt up to the Mindestbetrag per child (§ 10 Abs. 1 and 4 BEEG). Transfers that
     use this exemption subtract it from the full Lohn- und Einkommensersatzleistungen,
     which contain the paid Elterngeld and the Mutterschaftsgeld.
+
+    Reference:
+        - § 10 Abs. 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 10 Abs. 4 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
     """
     return min(
         betrag_m + angerechnete_mutterschaftsleistungen_m,
@@ -358,9 +417,11 @@ def freibetrag_paragraph_10_abs_5_beeg_m_ohne_angerechnete_einnahmen(
     """Elterngeld that does not count as income for SGB II, SGB XII and Kinderzuschlag.
 
     The Elterngeld remains exempt in the amount of the income from employment before
-    the birth, up to the Mindestbetrag (§ 10 Abs. 5 S. 2 BEEG, inserted by Art. 14 Nr. 4
-    G. v. 09.12.2010, BGBl. I S. 1896). Unlike § 10 Abs. 4 BEEG for the other transfers,
-    the exemption does not multiply with the number of children of a multiple birth.
+    the birth, up to the Mindestbetrag. Unlike § 10 Abs. 4 BEEG for the other
+    transfers, the exemption does not multiply with the number of children of a
+    multiple birth.
+
+    Reference: § 10 Abs. 5 Satz 2 BEEG idF Art. 14 Nr. 4 G. v. 09.12.2010 BGBl. I S. 1885
     """
     # TODO(@MImmesberger): Arbeitslosengeld II and Kinderzuschlag do not use this
     # exemption yet.
@@ -385,9 +446,10 @@ def freibetrag_paragraph_10_abs_5_beeg_m_mit_angerechneten_einnahmen(
 
     The Elterngeld together with the Mutterschaftsgeld credited against it remains
     exempt in the amount of the income from employment before the birth, up to the
-    Mindestbetrag (§ 10 Abs. 5 S. 2 BEEG, amended by Art. 1 Nr. 10 c G. v. 10.09.2012,
-    BGBl. I S. 1878). Unlike § 10 Abs. 4 BEEG for the other transfers, the exemption
+    Mindestbetrag. Unlike § 10 Abs. 4 BEEG for the other transfers, the exemption
     does not multiply with the number of children of a multiple birth.
+
+    Reference: § 10 Abs. 5 Satz 2 BEEG idF Art. 1 Nr. 10 G. v. 10.09.2012 BGBl. I S. 1878
     """
     # TODO(@MImmesberger): Arbeitslosengeld II and Kinderzuschlag do not use this
     # exemption yet.
@@ -412,10 +474,13 @@ def freibetrag_paragraph_10_abs_5_beeg_m_ohne_mutterschaftsgeld(
     """Elterngeld that does not count as income for SGB II, SGB XII and Kinderzuschlag.
 
     The Elterngeld remains exempt in the amount of the income from employment before
-    the birth, up to the Mindestbetrag (§ 10 Abs. 5 S. 2 BEEG). Mutterschaftsgeld
-    credited against the Elterngeld no longer counts towards this exemption because it
-    is exempt in full (§ 10 Abs. 5 S. 4 BEEG, inserted by Art. 12 Abs. 7 G. v.
-    16.12.2022, BGBl. I S. 2328); the transfers subtract it themselves.
+    the birth, up to the Mindestbetrag. Mutterschaftsgeld credited against the
+    Elterngeld no longer counts towards this exemption because it is exempt in full;
+    the transfers subtract it themselves.
+
+    Reference:
+        - § 10 Abs. 5 Satz 2 BEEG idF Art. 1 Nr. 10 G. v. 10.09.2012 BGBl. I S. 1878
+        - § 10 Abs. 5 Satz 4 BEEG idF Art. 12 G. v. 16.12.2022 BGBl. I S. 2328
     """
     # TODO(@MImmesberger): The exemption halves for Elterngeld Plus (§ 10 Abs. 5 S. 3
     # BEEG).
@@ -436,6 +501,7 @@ def jüngstes_kind_oder_mehrling(
     # ToDo: Check definition as relevant for Elterngeld. Currently, it is calculated as
     # ToDo: age not being larger than 0.1 of a month
 
+    Reference: none (technical helper)
     """
     return (
         (

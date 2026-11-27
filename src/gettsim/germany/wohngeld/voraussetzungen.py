@@ -14,7 +14,12 @@ from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 def grundsätzlich_anspruchsberechtigt_wthh_ohne_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
 ) -> bool:
-    """Check whether the household meets the conditions for Wohngeld."""
+    """Check whether the household meets the conditions for Wohngeld.
+
+    Before 2009, high wealth is no reason for exclusion from Wohngeld.
+
+    Reference: none (technical helper)
+    """
     return mindesteinkommen_erreicht_wthh
 
 
@@ -27,7 +32,10 @@ def grundsätzlich_anspruchsberechtigt_wthh_mit_vermögensprüfung(
     mindesteinkommen_erreicht_wthh: bool,
     vermögensgrenze_unterschritten_wthh: bool,
 ) -> bool:
-    """Household meets the conditions for Wohngeld."""
+    """Household meets the conditions for Wohngeld.
+
+    Reference: § 21 Nr. 3 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     return mindesteinkommen_erreicht_wthh and vermögensgrenze_unterschritten_wthh
 
 
@@ -37,7 +45,13 @@ def vermögensgrenze_unterschritten_wthh(
     anzahl_personen_wthh: int,
     parameter_vermögensfreibetrag: dict[str, float],
 ) -> bool:
-    """Wealth is below the eligibility threshold for housing benefits."""
+    """Wealth is below the eligibility threshold for housing benefits.
+
+    The thresholds are set by the Wohngeld-Verwaltungsvorschrift (Nr. 21.37), which
+    interprets "erhebliches Vermögen" in § 21 Nr. 3 WoGG.
+
+    Reference: § 21 Nr. 3 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    """
     vermögensfreibetrag = parameter_vermögensfreibetrag[
         "grundfreibetrag"
     ] + parameter_vermögensfreibetrag["je_weitere_person"] * (
@@ -68,6 +82,9 @@ def mindesteinkommen_erreicht_wthh_bis_2022(
 
     The allowance for discretionary judgment is ignored here.
 
+    Reference:
+        - § 11 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 15 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     return (
         einkommen_für_mindesteinkommen_m_wthh >= arbeitslosengeld_2__regelbedarf_m_wthh
@@ -94,6 +111,7 @@ def mindesteinkommen_erreicht_wthh_ab_2023(
 
     The allowance for discretionary judgment is ignored here.
 
+    Reference: § 15 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     return einkommen_für_mindesteinkommen_m_wthh >= bürgergeld__regelbedarf_m_wthh
 
@@ -121,6 +139,9 @@ def einkommen_für_mindesteinkommen_m_wthh_bis_2022(
     According to BMI Erlass of 11.03.2020, Unterhaltsvorschuss, Kinderzuschlag and
     Kindergeld count as income for this check.
 
+    Reference:
+        - § 11 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
+        - § 15 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     return (
         arbeitslosengeld_2__nettoeinkommen_vor_abzug_freibetrag_m_wthh
@@ -154,6 +175,7 @@ def einkommen_für_mindesteinkommen_m_wthh_ab_2023(
     According to BMI Erlass of 11.03.2020, Unterhaltsvorschuss, Kinderzuschlag and
     Kindergeld count as income for this check.
 
+    Reference: § 15 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
     """
     return (
         bürgergeld__nettoeinkommen_vor_abzug_freibetrag_m_wthh

@@ -15,6 +15,14 @@ wartezeitgrenze_langjährig_versicherte:
   unit: YEARS
   type: scalar
   2001-01-01:
+    reference: >-
+      none (no special age threshold for long-term insured before § 77 Abs. 4 SGB VI
+      took effect on 1 January 2008)
+    value: 35
+  2008-01-01:
+    reference: § 264d Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: 35 statt 40 Jahre für Renten, die vor dem 1.1.2024 beginnen.
     value: 35
   2024-01-01:
+    reference: § 77 Abs. 4 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     value: 40

@@ -16,7 +16,12 @@ def betrag_y_sn_mit_sparerfreibetrag_und_werbungskostenpauschbetrag(
     sparerfreibetrag_y: float,
     werbungskostenpauschbetrag_y: float,
 ) -> float:
-    """Taxable capital income on Steuernummer level."""
+    """Taxable capital income on Steuernummer level.
+
+    Reference:
+        - § 20 Abs. 4 Satz 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 9a Satz 1 Nr. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    """
     return max(
         einnahmen__kapitalerträge_y_sn
         - familie__anzahl_personen_sn
@@ -35,7 +40,10 @@ def betrag_y_sn_mit_sparerpauschbetrag(
     familie__anzahl_personen_sn: int,
     sparerpauschbetrag_y: float,
 ) -> float:
-    """Taxable capital income on Steuernummer level."""
+    """Taxable capital income on Steuernummer level.
+
+    Reference: § 20 Abs. 9 Satz 1 EStG idF Art. 1 G. v. 14.08.2007 BGBl. I S. 1912
+    """
     return max(
         einnahmen__kapitalerträge_y_sn
         - familie__anzahl_personen_sn * sparerpauschbetrag_y,

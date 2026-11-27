@@ -19,6 +19,14 @@ zugangsfaktor_veränderung_pro_jahr:
     späterer_renteneintritt: DIMENSIONLESS_PER_YEAR
   type: dict
   2001-01-01:
+    reference:
+      - >-
+        § 77 Abs. 2 Satz 1 Nr. 2 Buchst. a SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I
+        S. 1827
+      - >-
+        § 77 Abs. 2 Satz 1 Nr. 2 Buchst. b SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I
+        S. 1827
+    note: 0,003 bzw. 0,005 je Kalendermonat.
     vorzeitiger_renteneintritt: 0.036
     späterer_renteneintritt: 0.06
 parameter_rentenwert_nach_wohnort:
@@ -37,173 +45,245 @@ parameter_rentenwert_nach_wohnort:
   type: dict
   add_jahresanfang: true
   1992-01-01:
+    reference:
+      - § 68 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+      - § 5 3.RAV idF V. v. 19.12.1991 BGBl. I S. 2344
+    note: >-
+      West: Rentenwert bis 30. Juni 1992 gleich der Rente für Dezember 1991 bei einem
+      Entgeltpunkt (41,44 DM). Ost: Dritte Rentenanpassungsverordnung (3. RAV).
     unit: DM_PER_MONTH
     west: 41.44
     ost: 23.57
-    reference: § 68 Abs. 1 SGB VI; Art. 1 V. v. 19.12.1991 BGBl. I S. 2344 (Ost).
   1992-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1992 idF V. v. 05.06.1992 BGBl. I S. 1017
+      - § 1 Abs. 2 RAV 1992 idF V. v. 05.06.1992 BGBl. I S. 1017
+    note: Rentenanpassungsverordnung 1992.
     west: 42.63
     ost: 26.57
-    reference: V. v. 05.06.1992 BGBl. I S. 1017.
   1993-01-01:
+    reference: § 1 5.RAV idF V. v. 08.12.1992 BGBl. I S. 1998
+    note: Fünfte Rentenanpassungsverordnung (5. RAV).
     updates_previous: true
     ost: 28.19
-    reference: V. v. 08.12.1992 BGBl. I S. 1998.
   1993-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1993 idF V. v. 09.06.1993 BGBl. I S. 917
+      - § 1 Abs. 2 RAV 1993 idF V. v. 09.06.1993 BGBl. I S. 917
+    note: Rentenanpassungsverordnung 1993.
     west: 44.49
     ost: 32.17
-    reference: V. v. 09.06.1993 BGBl. I S. 917.
   1994-01-01:
+    reference: § 2 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Beitragssatzverordnung 1994.
     updates_previous: true
     ost: 33.34
-    reference: § 2 V. v. 01.12.1993 BGBl. I S. 1987.
   1994-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1994 idF V. v. 10.06.1994 BGBl. I S. 1224
+      - § 1 Abs. 2 RAV 1994 idF V. v. 10.06.1994 BGBl. I S. 1224
+    note: Rentenanpassungsverordnung 1994.
     west: 46.00
     ost: 34.49
-    reference: V. v. 10.06.1994 BGBl. I S. 1224.
   1995-01-01:
+    reference: § 1 9.RAV idF V. v. 12.12.1994 BGBl. I S. 3805
+    note: Neunte Rentenanpassungsverordnung (9. RAV).
     updates_previous: true
     ost: 35.45
-    reference: V. v. 12.12.1994 BGBl. I S. 3805.
   1995-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1995 idF V. v. 01.06.1995 BGBl. I S. 772
+      - § 1 Abs. 2 RAV 1995 idF V. v. 01.06.1995 BGBl. I S. 772
+    note: Rentenanpassungsverordnung 1995.
     west: 46.23
     ost: 36.33
-    reference: V. v. 01.06.1995 BGBl. I S. 772.
   1996-01-01:
+    reference: § 1 11.RAV idF V. v. 04.12.1995 BGBl. I S. 1582
+    note: Elfte Rentenanpassungsverordnung (11. RAV).
     updates_previous: true
     ost: 37.92
-    reference: V. v. 04.12.1995 BGBl. I S. 1582.
   1996-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1996 idF V. v. 10.06.1996 BGBl. I S. 813
+      - § 1 Abs. 2 RAV 1996 idF V. v. 10.06.1996 BGBl. I S. 813
+    note: Rentenanpassungsverordnung 1996.
     west: 46.67
     ost: 38.38
-    reference: V. v. 10.06.1996 BGBl. I S. 813.
   1997-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1997 idF V. v. 10.06.1997 BGBl. I S. 1352
+      - § 1 Abs. 2 RAV 1997 idF V. v. 10.06.1997 BGBl. I S. 1352
+    note: Rentenanpassungsverordnung 1997.
     west: 47.44
     ost: 40.51
-    reference: V. v. 10.06.1997 BGBl. I S. 1352.
   1998-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1998 idF V. v. 20.05.1998 BGBl. I S. 1166
+      - § 1 Abs. 2 RAV 1998 idF V. v. 20.05.1998 BGBl. I S. 1166
+    note: Rentenanpassungsverordnung 1998.
     west: 47.65
     ost: 40.87
-    reference: V. v. 20.05.1998 BGBl. I S. 1166.
   1999-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 1999 idF V. v. 27.05.1999 BGBl. I S. 1078
+      - § 1 Abs. 2 RAV 1999 idF V. v. 27.05.1999 BGBl. I S. 1078
+    note: Rentenanpassungsverordnung 1999.
     west: 48.29
     ost: 42.01
-    reference: V. v. 27.05.1999 BGBl. I S. 1078.
   2000-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 2000 idF V. v. 31.05.2000 BGBl. I S. 788
+      - § 1 Abs. 2 RAV 2000 idF V. v. 31.05.2000 BGBl. I S. 788
+    note: Rentenanpassungsverordnung 2000.
     west: 48.58
     ost: 42.26
-    reference: V. v. 31.05.2000 BGBl. I S. 788.
   2001-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 2001 idF V. v. 14.06.2001 BGBl. I S. 1040
+      - § 1 Abs. 2 RAV 2001 idF V. v. 14.06.2001 BGBl. I S. 1040
+    note: Rentenanpassungsverordnung 2001.
     west: 49.51
     ost: 43.15
-    reference: V. v. 14.06.2001 BGBl. I S. 1040.
   2002-01-01:
+    reference:
+      - § 1 Abs. 1 RAV 2001 idF V. v. 14.06.2001 BGBl. I S. 1040
+      - § 1 Abs. 2 RAV 2001 idF V. v. 14.06.2001 BGBl. I S. 1040
     unit: EUR_PER_MONTH
     west: 25.31406
     ost: 22.06224
-    reference: § 1 V. v. 14.06.2001 BGBl. I S. 1040; § 255d SGB VI.
     note: >-
       § 255d SGB VI verlangt, den zum 1. Januar 2002 in Euro umgerechneten aktuellen
       Rentenwert mit fünf Dezimalstellen in der Rentenanpassungsverordnung 2001
       bekannt zu geben.
   2002-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 2002 idF V. v. 07.06.2002 BGBl. I S. 1799
+      - § 1 Abs. 2 RAV 2002 idF V. v. 07.06.2002 BGBl. I S. 1799
+    note: Rentenanpassungsverordnung 2002.
     west: 25.86
     ost: 22.70
-    reference: V. v. 07.06.2002 BGBl. I S. 1799.
   2003-07-01:
+    reference:
+      - § 1 Abs. 1 RAV 2003 idF V. v. 04.06.2003 BGBl. I S. 784
+      - § 1 Abs. 2 RAV 2003 idF V. v. 04.06.2003 BGBl. I S. 784
+    note: Rentenanpassungsverordnung 2003.
     west: 26.13
     ost: 22.97
-    reference: >-
-      § 1 V. v. 04.06.2003 BGBl. I S. 784 (Rentenanpassungsverordnung 2003).
   2007-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2007 idF V. v. 14.06.2007 BGBl. I S. 1113
+      - § 1 Abs. 2 RWBestV 2007 idF V. v. 14.06.2007 BGBl. I S. 1113
+    note: Rentenwertbestimmungsverordnung 2007.
     west: 26.27
     ost: 23.09
-    reference: >-
-      § 1 V. v. 14.06.2007 BGBl. I S. 1113
-      (Rentenwertbestimmungsverordnung 2007).
   2008-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestG 2008 idF Art. 2 G. v. 26.06.2008 BGBl. I S. 1076
+      - § 1 Abs. 2 RWBestG 2008 idF Art. 2 G. v. 26.06.2008 BGBl. I S. 1076
+    note: >-
+      Rentenwertbestimmungsgesetz 2008 (Art. 2 des Gesetzes zur Rentenanpassung 2008).
     west: 26.56
     ost: 23.34
-    reference: >-
-      Art. 2 § 1 G. v. 26.06.2008 BGBl. I S. 1076 (Gesetz zur Rentenanpassung 2008,
-      Rentenwertbestimmungsgesetz 2008).
   2009-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2009 idF V. v. 17.06.2009 BGBl. I S. 1335
+      - § 1 Abs. 2 RWBestV 2009 idF V. v. 17.06.2009 BGBl. I S. 1335
+    note: Rentenwertbestimmungsverordnung 2009.
     west: 27.2
     ost: 24.13
-    reference: >-
-      § 1 V. v. 17.06.2009 BGBl. I S. 1335
-      (Rentenwertbestimmungsverordnung 2009).
   2011-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2011 idF V. v. 06.06.2011 BGBl. I S. 1039
+      - § 1 Abs. 2 RWBestV 2011 idF V. v. 06.06.2011 BGBl. I S. 1039
+    note: Rentenwertbestimmungsverordnung 2011.
     west: 27.47
     ost: 24.37
-    reference: >-
-      § 1 V. v. 06.06.2011 BGBl. I S. 1039
-      (Rentenwertbestimmungsverordnung 2011).
   2012-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2012 idF V. v. 21.06.2012 BGBl. I S. 1389
+      - § 1 Abs. 2 RWBestV 2012 idF V. v. 21.06.2012 BGBl. I S. 1389
+    note: Rentenwertbestimmungsverordnung 2012.
     west: 28.07
     ost: 24.92
-    reference: >-
-      § 1 V. v. 21.06.2012 BGBl. I S. 1389
-      (Rentenwertbestimmungsverordnung 2012).
   2013-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2013 idF V. v. 12.06.2013 BGBl. I S. 1574
+      - § 1 Abs. 2 RWBestV 2013 idF V. v. 12.06.2013 BGBl. I S. 1574
+    note: Rentenwertbestimmungsverordnung 2013.
     west: 28.14
     ost: 25.74
-    reference: >-
-      § 1 V. v. 12.06.2013 BGBl. I S. 1574
-      (Rentenwertbestimmungsverordnung 2013).
   2014-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2014 idF V. v. 16.06.2014 BGBl. I S. 746
+      - § 1 Abs. 2 RWBestV 2014 idF V. v. 16.06.2014 BGBl. I S. 746
+    note: Rentenwertbestimmungsverordnung 2014.
     west: 28.61
     ost: 26.39
-    reference: >-
-      § 1 V. v. 16.06.2014 BGBl. I S. 746 (Rentenwertbestimmungsverordnung 2014).
   2015-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2015 idF V. v. 12.06.2015 BGBl. I S. 965
+      - § 1 Abs. 2 RWBestV 2015 idF V. v. 12.06.2015 BGBl. I S. 965
+    note: Rentenwertbestimmungsverordnung 2015.
     west: 29.21
     ost: 27.05
-    reference: >-
-      § 1 V. v. 12.06.2015 BGBl. I S. 965 (Rentenwertbestimmungsverordnung 2015).
   2016-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2016 idF V. v. 20.06.2016 BGBl. I S. 1360
+      - § 1 Abs. 2 RWBestV 2016 idF V. v. 20.06.2016 BGBl. I S. 1360
+    note: Rentenwertbestimmungsverordnung 2016.
     west: 30.45
     ost: 28.66
-    reference: >-
-      § 1 V. v. 20.06.2016 BGBl. I S. 1360
-      (Rentenwertbestimmungsverordnung 2016).
   2017-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2017 idF V. v. 08.06.2017 BGBl. I S. 1522
+      - § 1 Abs. 2 RWBestV 2017 idF V. v. 08.06.2017 BGBl. I S. 1522
+    note: Rentenwertbestimmungsverordnung 2017.
     west: 31.03
     ost: 29.69
-    reference: >-
-      § 1 V. v. 08.06.2017 BGBl. I S. 1522
-      (Rentenwertbestimmungsverordnung 2017).
   2018-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2018 idF V. v. 12.06.2018 BGBl. I S. 838
+      - § 1 Abs. 2 RWBestV 2018 idF V. v. 12.06.2018 BGBl. I S. 838
+    note: Rentenwertbestimmungsverordnung 2018.
     west: 32.03
     ost: 30.69
-    reference: >-
-      § 1 V. v. 12.06.2018 BGBl. I S. 838 (Rentenwertbestimmungsverordnung 2018).
   2019-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2019 idF V. v. 13.06.2019 BGBl. I S. 791
+      - § 1 Abs. 2 RWBestV 2019 idF V. v. 13.06.2019 BGBl. I S. 791
+    note: Rentenwertbestimmungsverordnung 2019.
     west: 33.05
     ost: 31.89
-    reference: >-
-      § 1 V. v. 13.06.2019 BGBl. I S. 791 (Rentenwertbestimmungsverordnung 2019).
   2020-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestV 2020 idF V. v. 08.06.2020 BGBl. I S. 1220
+      - § 1 Abs. 2 RWBestV 2020 idF V. v. 08.06.2020 BGBl. I S. 1220
+    note: Rentenwertbestimmungsverordnung 2020.
     west: 34.19
     ost: 33.23
-    reference: >-
-      § 1 V. v. 08.06.2020 BGBl. I S. 1220
-      (Rentenwertbestimmungsverordnung 2020).
   2021-07-01:
+    reference: § 1 Abs. 2 RWBestV 2021 idF V. v. 31.05.2021 BGBl. I S. 1254
+    note: >-
+      Rentenwertbestimmungsverordnung 2021; der aktuelle Rentenwert (West) bleibt nach
+      § 1 Abs. 1 bei 34,19 Euro.
     updates_previous: true
     ost: 33.47
-    reference: >-
-      § 1 V. v. 31.05.2021 BGBl. I S. 1254
-      (Rentenwertbestimmungsverordnung 2021).
   2022-07-01:
+    reference:
+      - § 1 Abs. 1 RWBestG 2022 idF Art. 3 G. v. 28.06.2022 BGBl. I S. 975
+      - § 1 Abs. 2 RWBestG 2022 idF Art. 3 G. v. 28.06.2022 BGBl. I S. 975
+    note: >-
+      Rentenwertbestimmungsgesetz 2022 (Art. 3 des Rentenanpassungs- und
+      Erwerbsminderungsrenten-Bestandsverbesserungsgesetzes).
     west: 36.02
     ost: 35.52
-    reference: >-
-      Art. 3 § 1 G. v. 28.06.2022 BGBl. I S. 975 (Rentenanpassungs- und
-      Erwerbsminderungsrenten-Bestandsverbesserungsgesetz,
-      Rentenwertbestimmungsgesetz 2022).
   2023-07-01:
-    note: Rentenwert einheitlich. Siehe `rentenwert_m`.
+    reference:
+      - § 1 Abs. 1 RWBestV 2023 idF V. v. 21.06.2023 BGBl. 2023 I Nr. 164
+      - § 1 Abs. 2 RWBestV 2023 idF V. v. 21.06.2023 BGBl. 2023 I Nr. 164
+    note: >-
+      Rentenwert einheitlich (aktueller Rentenwert und aktueller Rentenwert (Ost)
+      betragen 37,60 Euro). Siehe `rentenwert_m`.
 rentenwert_m:
   name:
     de: Rentenwert (Wert eines Entgeltpunktes).
@@ -221,14 +301,18 @@ rentenwert_m:
   type: scalar
   add_jahresanfang: true
   2023-07-01:
+    reference: § 1 Abs. 1 RWBestV 2023 idF V. v. 21.06.2023 BGBl. 2023 I Nr. 164
+    note: Rentenwertbestimmungsverordnung 2023.
     value: 37.60
-    reference: V.v. 21.06.2023 BGBl. 2023 I Nr. 164.
   2024-07-01:
+    reference: § 1 RWBestV 2024 idF V. v. 17.06.2024 BGBl. 2024 I Nr. 194
+    note: Rentenwertbestimmungsverordnung 2024.
     value: 39.32
-    reference: V. v. 17.06.2024 BGBl. 2024 I Nr. 194.
   2025-07-01:
+    reference: § 1 RWBestV 2025 idF V. v. 23.06.2025 BGBl. 2025 I Nr. 148
+    note: Rentenwertbestimmungsverordnung 2025.
     value: 40.79
-    reference: V. v. 25.06.2025 BGBl. 2025 Nr. 148.
   2026-07-01:
+    reference: § 1 RWBestV 2026 idF V. v. 16.06.2026 BGBl. 2026 I Nr. 178
+    note: Rentenwertbestimmungsverordnung 2026.
     value: 42.52
-    reference: V. v. 18.06.2026 BGBl. 2026 Nr. 178.

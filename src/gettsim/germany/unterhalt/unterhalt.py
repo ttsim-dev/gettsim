@@ -14,6 +14,10 @@ def kind_festgelegter_zahlbetrag_m(
 ) -> float:
     """Monthly actual child alimony payments to be received by the child after
     deductions.
+
+    Reference:
+        - § 1612b Abs. 1 Satz 1 Nr. 1 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
+        - § 1612b Abs. 1 Satz 1 Nr. 2 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
     """
     if familie__volljährig:
         abzugsrate = abzugsrate_kindergeld["volljährig"]

@@ -16,8 +16,9 @@ def in_gleitzone(
     Employed people with their wage in the range of Gleitzone pay reduced social
     insurance contributions.
 
-    Legal reference: § 20 Abs. 2 SGB IV
-
+    Reference:
+        - § 20 Abs. 2 SGB IV idF Art. 2 Nr. 5 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 20 Abs. 2 SGB IV idF Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
     """
     return (einnahmen__bruttolohn_m <= midijobgrenze_m) and (
         not geringfügig_beschäftigt
@@ -33,7 +34,9 @@ def beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m(
     """Income subject to employee social insurance contributions for Bruttolöhne in
     Gleitzone.
 
-    Legal reference: § 20 SGB IV ("Gesonderte beitragspflichtige Einnahmen")
+    Reference:
+        - § 20 Abs. 2a Satz 6 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+        - § 20 Abs. 2a Satz 6 SGB IV idF Art. 3 G. v. 07.11.2022 BGBl. I S. 1985
     """
     quotient = midijobgrenze_m / (midijobgrenze_m - minijobgrenze_m)
     einkommen_diff = einnahmen__bruttolohn_m - minijobgrenze_m
@@ -102,8 +105,10 @@ def midijob_faktor_f_mit_minijob_steuerpauschale_ab_2005_bis_2022_09(
 ) -> float:
     """Midijob Faktor F between 2005 and September 2025.
 
-    Legal reference: § 163 Abs. 10 SGB VI
-
+    Reference:
+        - § 163 Abs. 10 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 163 Abs. 10 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+        - § 20 Abs. 2a SGB IV idF Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
     """
     # First calculate the factor F from the formula in § 163 (10) SGB VI
     # Therefore sum the contributions which are the same for employee and employer
@@ -190,8 +195,10 @@ def midijob_bemessungsentgelt_m_bis_09_2022(
     Bemessungsgeld (Gleitzonenentgelt) is the reference income for midijobs subject to
     social insurance contribution.
 
-    Legal reference: § 163 Abs. 10 SGB VI
-
+    Reference:
+        - § 163 Abs. 10 SGB VI idF Art. 4 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 163 Abs. 10 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+        - § 20 Abs. 2a SGB IV idF Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
     """
     # Now use the factor to calculate the overall bemessungsentgelt
     minijob_anteil = midijob_faktor_f * minijobgrenze_m
@@ -222,8 +229,9 @@ def midijob_bemessungsentgelt_m_ab_10_2022(
     Beitragspflichtige Einnahme is the reference income for midijobs subject to employer
     and employee social insurance contribution.
 
-    Legal reference: Changes in § 20 SGB IV from 01.10.2022
-
+    Reference:
+        - § 20 Abs. 2a Satz 1 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+        - § 20 Abs. 2a Satz 1 SGB IV idF Art. 3 G. v. 07.11.2022 BGBl. I S. 1985
     """
     quotient1 = (midijobgrenze_m) / (midijobgrenze_m - minijobgrenze_m)
     quotient2 = (minijobgrenze_m) / (midijobgrenze_m - minijobgrenze_m)

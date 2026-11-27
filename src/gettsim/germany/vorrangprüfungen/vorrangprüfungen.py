@@ -23,6 +23,10 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_bis_2022(
     Note that this check assumes WTHH=BG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
+
+    Reference:
+        - § 12a Satz 1 SGB II idF Art. 2 G. v. 08.04.2008 BGBl. I S. 681
+        - § 12a Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165
@@ -57,6 +61,8 @@ def wohngeld_kinderzuschlag_vorrangig_oder_günstiger_ab_2023(
     Note that this check assumes WTHH=BG; it will not work in more complex situations.
     When calculating `wthh_id` and `bg_id` using the serious implementation in [link],
     you will need to replace this function, too.
+
+    Reference: § 12a Satz 2 Nr. 2 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
     """
     # TODO (@MImmesberger): Vorrangprüfung probably not precise for SGB XII households.
     # https://github.com/ttsim-dev/gettsim/issues/1165

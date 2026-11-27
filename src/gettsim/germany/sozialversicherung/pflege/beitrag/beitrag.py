@@ -13,7 +13,10 @@ from gettsim.tt import TTSIMUnit, policy_function
 def betrag_versicherter_m_bis_03_1999(
     betrag_versicherter_aus_erwerbseinkommen_m: float,
 ) -> float:
-    """Long-term care insurance contributions paid by the insured person."""
+    """Long-term care insurance contributions paid by the insured person.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_aus_erwerbseinkommen_m
 
 
@@ -26,7 +29,10 @@ def betrag_versicherter_m_ab_04_1999(
     betrag_versicherter_aus_erwerbseinkommen_m: float,
     betrag_rentner_m: float,
 ) -> float:
-    """Contributions paid by the insured person, including those on pensions."""
+    """Contributions paid by the insured person, including those on pensions.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_aus_erwerbseinkommen_m + betrag_rentner_m
 
 
@@ -38,7 +44,10 @@ def betrag_versicherter_m_ab_04_1999(
 def betrag_versicherter_aus_erwerbseinkommen_m_bis_03_1999(
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
-    """Contributions on wages and self-employment income paid by the insured person."""
+    """Contributions on wages and self-employment income paid by the insured person.
+
+    Reference: none (technical helper)
+    """
     return betrag_versicherter_regulärer_beitragssatz_m
 
 
@@ -58,6 +67,12 @@ def betrag_versicherter_aus_erwerbseinkommen_m_ohne_midijob(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 57 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 7 SGB V idF Art. 3 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
     """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = betrag_selbstständig_m
@@ -82,7 +97,15 @@ def betrag_versicherter_aus_erwerbseinkommen_m_mit_midijob(
     betrag_versicherter_in_gleitzone_m: float,
     betrag_versicherter_regulärer_beitragssatz_m: float,
 ) -> float:
-    """Contributions on wages and self-employment income paid by the insured person."""
+    """Contributions on wages and self-employment income paid by the insured person.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 57 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 58 Abs. 5 SGB XI idF Art. 6 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 58 Abs. 5 SGB XI idF Art. 10 G. v. 28.06.2022 BGBl. I S. 969
+    """
     if einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig:
         out = betrag_selbstständig_m
     elif sozialversicherung__geringfügig_beschäftigt:
@@ -103,7 +126,10 @@ def betrag_versicherter_aus_erwerbseinkommen_m_mit_midijob(
 def betrag_arbeitgeber_m_bis_03_1999(
     betrag_arbeitgeber_regulärer_beitragssatz_m: float,
 ) -> float:
-    """Long-term care insurance contribution paid by the employer."""
+    """Long-term care insurance contribution paid by the employer.
+
+    Reference: none (technical helper)
+    """
     return betrag_arbeitgeber_regulärer_beitragssatz_m
 
 
@@ -121,6 +147,11 @@ def betrag_arbeitgeber_m_ohne_midijob(
     """Long-term care insurance contribution paid by the employer.
 
     Before Midijob introduction in April 2003.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 7 SGB V idF Art. 3 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
     """
     if (
         einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig
@@ -148,6 +179,12 @@ def betrag_arbeitgeber_m_mit_midijob(
     """Long-term care insurance contribution paid by the employer.
 
     After Midijob introduction in April 2003.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 58 Abs. 5 SGB XI idF Art. 6 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 58 Abs. 5 SGB XI idF Art. 10 G. v. 28.06.2022 BGBl. I S. 969
     """
     if (
         einkommensteuer__einkünfte__ist_hauptberuflich_selbstständig
@@ -172,6 +209,10 @@ def betrag_selbstständig_m(
 
     Self-employed pay the full contribution (employer + employee), which is either
     assessed on their self-employement income or 3/4 of the 'Bezugsgröße'
+
+    Reference:
+        - § 59 Abs. 4 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 57 Abs. 4 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
     """
     return sozialversicherung__kranken__beitrag__bemessungsgrundlage_selbstständig_m * (
         beitragssatz_arbeitnehmer + beitragssatz_arbeitgeber
@@ -185,6 +226,11 @@ def betrag_versicherter_regulärer_beitragssatz_m(
 ) -> float:
     """Long-term care insurance contributions paid by the insured person if regularly
     employed.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 8 G. v. 26.03.2007 BGBl. I S. 378
+        - § 57 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
     """
     return sozialversicherung__kranken__beitrag__einkommen_m * beitragssatz_arbeitnehmer
 
@@ -196,6 +242,11 @@ def betrag_arbeitgeber_regulärer_beitragssatz_m(
 ) -> float:
     """Long-term care insurance contributions paid by the employer under regular
     employment.
+
+    Reference:
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+        - § 58 Abs. 1 Satz 1 SGB XI idF Art. 8 G. v. 26.03.2007 BGBl. I S. 378
+        - § 57 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
     """
     return sozialversicherung__kranken__beitrag__einkommen_m * beitragssatz_arbeitgeber
 
@@ -210,7 +261,12 @@ def betrag_gesamt_in_gleitzone_m(
     beitragssatz_arbeitnehmer: float,
     beitragssatz_arbeitgeber: float,
 ) -> float:
-    """Sum of employee and employer long-term care insurance contributions."""
+    """Sum of employee and employer long-term care insurance contributions.
+
+    Reference:
+        - § 226 Abs. 4 SGB V idF Art. 3 Nr. 5 G. v. 23.12.2002 BGBl. I S. 4621
+        - § 57 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+    """
     return sozialversicherung__midijob_bemessungsentgelt_m * (
         beitragssatz_arbeitnehmer + beitragssatz_arbeitgeber
     )
@@ -226,7 +282,10 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
     betrag_arbeitgeber_in_gleitzone_m: float,
     betrag_gesamt_in_gleitzone_m: float,
 ) -> float:
-    """Employee's long-term care insurance contribution for Midijobs."""
+    """Employee's long-term care insurance contribution for Midijobs.
+
+    Reference: § 58 Abs. 5 SGB XI idF Art. 6 G. v. 23.12.2002 BGBl. I S. 4621
+    """
     return betrag_gesamt_in_gleitzone_m - betrag_arbeitgeber_in_gleitzone_m
 
 
@@ -250,8 +309,10 @@ def betrag_versicherter_in_gleitzone_m_mit_zusatzbetrag_auf_bemessungsentgelt(
     Abs. 1 S. 3 SGB XI), and is assessed separately on the income subject to
     contributions of § 20 Abs. 2a S. 1 SGB IV.
 
-    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
-    Abs. 3 SGB V
+    Reference:
+        - § 58 Abs. 5 SGB XI idF Art. 10 G. v. 28.06.2022 BGBl. I S. 969
+        - § 2 Abs. 2 BVV idF Art. 13 G. v. 28.06.2022 BGBl. I S. 969
+        - § 58 Abs. 1 Satz 3 SGB XI idF Art. 1 Nr. 3 G. v. 15.12.2004 BGBl. I S. 3448
     """
     base = (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
@@ -290,8 +351,10 @@ def betrag_versicherter_midijob_m_mit_verringertem_beitrag_für_eltern_mit_mehre
     contributions of § 20 Abs. 2a S. 1 SGB IV. The reduction for parents of more than
     one child below 25 (§ 55 Abs. 3 S. 4 SGB XI) lowers the employee's share only.
 
-    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
-    Abs. 3 SGB V
+    Reference:
+        - § 58 Abs. 5 SGB XI idF Art. 10 G. v. 28.06.2022 BGBl. I S. 969
+        - § 55 Abs. 3 Satz 4 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+        - § 58 Abs. 1 Satz 3 SGB XI idF Art. 1 Nr. 3 G. v. 15.12.2004 BGBl. I S. 3448
     """
     base = (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
@@ -326,7 +389,10 @@ def betrag_arbeitgeber_in_gleitzone_m_als_anteil_des_bruttolohns(
     einnahmen__bruttolohn_m: float,
     beitragssatz_arbeitgeber: float,
 ) -> float:
-    """Employer's long-term care insurance contribution for Midijobs."""
+    """Employer's long-term care insurance contribution for Midijobs.
+
+    Reference: § 58 Abs. 5 SGB XI idF Art. 6 G. v. 23.12.2002 BGBl. I S. 4621
+    """
     return einnahmen__bruttolohn_m * beitragssatz_arbeitgeber
 
 
@@ -350,8 +416,9 @@ def betrag_arbeitgeber_in_gleitzone_m_als_anteil_der_beitragspflichtigen_einnahm
     parents of more than one child below 25 are left out of that deduction, so neither
     changes the employer's share.
 
-    Legal reference: § 2 Abs. 2 BVV, § 58 Abs. 5 SGB XI in conjunction with § 249
-    Abs. 3 SGB V
+    Reference:
+        - § 58 Abs. 5 SGB XI idF Art. 10 G. v. 28.06.2022 BGBl. I S. 969
+        - § 2 Abs. 2 BVV idF Art. 13 G. v. 28.06.2022 BGBl. I S. 969
     """
     return (
         sozialversicherung__midijob_bemessungsentgelt_m
@@ -374,6 +441,8 @@ def betrag_rentner_m_reduzierter_beitrag(
     """Long-term care insurance contribution from pension income.
 
     Pensioners pay the same contribution as employees.
+
+    Reference: § 59 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
     """
     return (
         sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m
@@ -394,6 +463,8 @@ def betrag_rentner_m_ohne_zusatz_für_kinderlose(
     """Health insurance contribution from pension income.
 
     Pensioners pay twice the contribution of employees.
+
+    Reference: § 59 Abs. 1 Satz 1 SGB XI idF Art. 6 G. v. 27.12.2003 BGBl. I S. 3013
     """
     return sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m * (
         beitragssatz
@@ -414,6 +485,11 @@ def betrag_rentner_m_mit_zusatz_für_kinderlose(
 
     Pensioners pay twice the contribution of employees, but only once the additional
     charge for childless individuals.
+
+    Reference:
+        - § 59 Abs. 1 Satz 1 SGB XI idF Art. 6 G. v. 27.12.2003 BGBl. I S. 3013
+        - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+        - § 59 Abs. 5 SGB XI idF Art. 1 Nr. 4 G. v. 15.12.2004 BGBl. I S. 3448
     """
     return sozialversicherung__kranken__beitrag__bemessungsgrundlage_rente_m * (
         beitragssatz_arbeitnehmer + beitragssatz_nach_kinderzahl["standard"] / 2

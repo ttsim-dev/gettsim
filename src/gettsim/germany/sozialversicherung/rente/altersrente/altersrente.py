@@ -11,7 +11,10 @@ from gettsim.tt import RoundingSpec, TTSIMUnit, policy_function
         unit=TTSIMUnit.DM.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     leaf_name="betrag_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -20,6 +23,10 @@ def betrag_m_bis_2001(
     bruttorente_m: float,
     sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
+    """Old-age pension.
+
+    Reference: § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return bruttorente_m if sozialversicherung__rente__bezieht_altersrente else 0.0
 
 
@@ -30,7 +37,10 @@ def betrag_m_bis_2001(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     leaf_name="betrag_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -39,6 +49,10 @@ def betrag_m_ab_2002(
     bruttorente_m: float,
     sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
+    """Old-age pension.
+
+    Reference: § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return bruttorente_m if sozialversicherung__rente__bezieht_altersrente else 0.0
 
 
@@ -48,7 +62,10 @@ def betrag_m_ab_2002(
         unit=TTSIMUnit.EUR.PER_MONTH,
         base=0.01,
         direction="nearest",
-        reference="§ 123 SGB VI Abs. 1",
+        reference=(
+            "§ 123 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+            "§ 121 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261",
+        ),
     ),
     leaf_name="betrag_m",
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
@@ -58,7 +75,12 @@ def betrag_m_mit_grundrente(
     sozialversicherung__rente__grundrente__betrag_m: float,
     sozialversicherung__rente__bezieht_altersrente: bool,
 ) -> float:
-    """Calculate total individual public pension including Grundrentenzuschlag."""
+    """Calculate total individual public pension including Grundrentenzuschlag.
+
+    Reference:
+        - § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 76g Abs. 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    """
     return (
         bruttorente_m + sozialversicherung__rente__grundrente__betrag_m
         if sozialversicherung__rente__bezieht_altersrente
@@ -88,6 +110,10 @@ def bruttorente_basisbetrag_m_nach_wohnort(
     See:
     - https://de.wikipedia.org/wiki/Rentenformel
     - https://de.wikipedia.org/wiki/Rentenanpassungsformel
+
+    Reference:
+        - § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 254b Abs. 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     if sozialversicherung__rente__bezieht_altersrente:
         out = (
@@ -118,6 +144,8 @@ def bruttorente_basisbetrag_m(
     See:
     - https://de.wikipedia.org/wiki/Rentenformel
     - https://de.wikipedia.org/wiki/Rentenanpassungsformel
+
+    Reference: § 64 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     if sozialversicherung__rente__bezieht_altersrente:
         out = (
@@ -154,8 +182,6 @@ def zugangsfaktor(
     Zugangsfaktor and therefore the pension claim is higher or lower. The Zugangsfaktor
     is 1.0 in [FRA, NRA].
 
-    Legal reference: § 77 Abs. 2 Nr. 2 SGB VI
-
     Since pension payments of the GRV always start at 1st day of month, day of birth
     within month does not matter. The eligibility always starts in the month after
     reaching the required age.
@@ -165,6 +191,10 @@ def zugangsfaktor(
     person is not eligible for pension benefits because
     `regelaltersrente__grundsätzlich_anspruchsberechtigt`
     is False.
+
+    Reference:
+        - § 77 Abs. 2 Satz 1 Nr. 2 SGB VI idF Art. 1 G. v. 20.12.2000 BGBl. I S. 1827
+        - § 77 Abs. 2 Satz 1 Nr. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
     """
     if regelaltersrente__grundsätzlich_anspruchsberechtigt:
         # Early retirement (before full retirement age): Zugangsfaktor < 1

@@ -17,6 +17,7 @@ raw_min_miete_m_hh:
   type: dict
   1984-01-01:
     unit: DM_PER_MONTH_PER_HH
+    reference: none (no minimum value for M before the formula was introduced in 2001)
     1: 0
     2: 0
     3: 0
@@ -45,9 +46,9 @@ raw_min_miete_m_hh:
     10: 73.34
     11: 146.69
     12: 303.15
-    reference: Art. 5 G. v. 22.12.1999, BGBl I S. 2671 (Anlage 2 Nr. 3).
+    reference: § 2 Abs. 2 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
     note: >-
-      Anlage 2 nennt die Mindestwerte für „M“ in Euro und schreibt vor, eine in
+      Anlage 2 Nr. 3 WoGG. Anlage 2 nennt die Mindestwerte für „M“ in Euro und schreibt vor, eine in
       Deutsche Mark angegebene Miete zuvor durch 1,95583 zu teilen; daher hier in
       Deutsche Mark umgerechnet.
   2002-01-01:
@@ -64,8 +65,11 @@ raw_min_miete_m_hh:
     10: 37.5
     11: 75
     12: 155
-    reference: Art. 6 G. v. 22.12.1999, BGBl I S. 2671 (Anlage 2 Nr. 3).
+    reference: § 2 Abs. 2 WoGG idF Art. 6 G. v. 22.12.1999 BGBl. I S. 2671
+    note: Anlage 2 Nr. 3 WoGG.
   2009-01-01:
+    reference: § 19 Abs. 2 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
+    note: Anlage 2 Nr. 3 WoGG.
     1: 45
     2: 55
     3: 65
@@ -79,7 +83,8 @@ raw_min_miete_m_hh:
     11: 155
     12: 245
   2016-01-01:
-    reference: Art. 1 G. v. 08.10.2015 BGBl Nr.38, S.1617
+    reference: § 19 Abs. 2 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
+    note: Anlage 2 WoGG.
     1: 48
     2: 59
     3: 70
@@ -93,7 +98,8 @@ raw_min_miete_m_hh:
     11: 155
     12: 263
   2020-01-01:
-    reference: Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    reference: § 19 Abs. 2 WoGG idF Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    note: Anlage 3 WoGG; die Werte für „M“ bleiben 2023 unverändert.
     1: 52
     2: 64
     3: 76
@@ -107,7 +113,10 @@ raw_min_miete_m_hh:
     11: 180
     12: 286
   2025-01-01:
-    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    reference: § 19 Abs. 2 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    note: >-
+      Anlage 3 Nr. 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
+      § 43 des Wohngeldgesetzes.
     1: 54
     2: 67
     3: 79
@@ -237,11 +246,11 @@ raw_max_miete_m_nach_baujahr_hh:
         1: 88
         2: 91
         3: 94
-    reference: Art. 1 G. v. 04.08.1980 BGBl I S. 1159.
+    reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 04.08.1980 BGBl. I S. 1159
     note: >-
       Bis 1985 nur drei Mietstufen, streng abhängig von der Größe der Gemeinde. Es
       wird "Wohnung mit Sammelheizung und mit Bad oder Duschraum" angenommen.
-  1985-01-01:
+  1986-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
       1965:
@@ -393,7 +402,7 @@ raw_max_miete_m_nach_baujahr_hh:
         3: 100
         4: 110
         5: 115
-    reference: Art. 1 G. v. 11.07.1985 BGBl I S. 1318.
+    reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 11.07.1985 BGBl. I S. 1318
     note: >-
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
@@ -573,7 +582,7 @@ raw_max_miete_m_nach_baujahr_hh:
         4: 110
         5: 115
         6: 120
-    reference: Art. 1 G. v. 13.12.1989 BGBl I S. 2148.
+    reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 13.12.1989 BGBl. I S. 2148
     note: >-
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
@@ -711,11 +720,11 @@ raw_max_miete_m_nach_baujahr_hh:
         4: 120
         5: 125
         6: 135
-    reference: Art. 1 G. v. 10.08.1990 BGBl I S. 1522.
+    reference: § 8 Abs. 1 WoGG idF Art. 1 G. v. 10.08.1990 BGBl. I S. 1522
     note: >-
       Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
       angenommen.
-  1993-01-01:
+  1992-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
       1965:
@@ -891,10 +900,10 @@ raw_max_miete_m_nach_baujahr_hh:
         4: 135
         5: 145
         6: 155
-    reference: Neufassung WoGG v. 11.02.1993 BGBl I S. 183.
+    reference: § 8 Abs. 1 WoGG idF Art. 37 G. v. 25.02.1992 BGBl. I S. 297
     note: >-
-      Es wird eine Wohnung mit "Sammelheizung und mit Bad oder Duschraum"
-      angenommen.
+      Steueränderungsgesetz 1992, rückwirkend zum 1. Januar 1992. Es wird eine Wohnung
+      mit "Sammelheizung und mit Bad oder Duschraum" angenommen.
   2001-01-01:
     unit: DM_PER_MONTH_PER_HH
     1:
@@ -1029,7 +1038,7 @@ raw_max_miete_m_nach_baujahr_hh:
         4: 146.69
         5: 156.47
         6: 176.02
-    reference: Art. 5 G. v. 22.12.1999, BGBl I S. 2671.
+    reference: § 8 Abs. 1 WoGG idF Art. 5 G. v. 22.12.1999 BGBl. I S. 2671
   2002-01-01:
     unit: EUR_PER_MONTH_PER_HH
     1:
@@ -1164,9 +1173,10 @@ raw_max_miete_m_nach_baujahr_hh:
         4: 75
         5: 80
         6: 90
-    reference: Art. 6 G. v. 22.12.1999, BGBl I S. 2671.
+    reference: § 8 Abs. 1 WoGG idF Art. 6 G. v. 22.12.1999 BGBl. I S. 2671
   2009-01-01:
     note: Keine Differenzierung nach Baujahr, siehe `raw_max_miete_m_hh`.
+    reference: § 12 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
 raw_max_miete_m_hh:
   name:
     de: Höchstbeträge für Miete und Belastung
@@ -1227,7 +1237,7 @@ raw_max_miete_m_hh:
       4: 83
       5: 88
       6: 99
-    reference: Art. 1 G. v. 24.09.2008, BGBl I S. 1856.
+    reference: § 12 Abs. 1 WoGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1856
   2016-01-01:
     1:
       1: 312
@@ -1271,7 +1281,7 @@ raw_max_miete_m_hh:
       4: 101
       5: 111
       6: 126
-    reference: Art. 1 G. v. 02.10.2015, BGBl I S. 1610.
+    reference: § 12 Abs. 1 WoGG idF Art. 1 G. v. 02.10.2015 BGBl. I S. 1610
   2020-01-01:
     1:
       1: 338
@@ -1321,7 +1331,8 @@ raw_max_miete_m_hh:
       5: 121
       6: 139
       7: 153
-    reference: Art. 1 G. v. 30.11.2019, BGBl I S. 1877.
+    reference: § 12 Abs. 1 WoGG idF Art. 1 G. v. 30.11.2019 BGBl. I S. 1877
+    note: Werte seit 2020 in Anlage 1 WoGG.
   2022-01-01:
     1:
       1: 347
@@ -1371,9 +1382,15 @@ raw_max_miete_m_hh:
       5: 124
       6: 143
       7: 157
-    reference: V. v. 03.06.2021 BGBl. I S. 1369.
+    reference: § 12 Abs. 1 WoGG idF Art. 1 V. v. 03.06.2021 BGBl. I S. 1369
+    note: >-
+      Werte in Anlage 1 WoGG; Erste Verordnung zur Fortschreibung des Wohngeldes nach
+      § 43 des Wohngeldgesetzes.
   2025-01-01:
-    reference: Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    reference: § 12 Abs. 1 WoGG idF Art. 1 V. v. 21.10.2024 BGBl. 2024 I Nr. 314
+    note: >-
+      Werte in Anlage 1 WoGG; Zweite Verordnung zur Fortschreibung des Wohngeldes nach
+      § 43 des Wohngeldgesetzes.
     1:
       1: 361
       2: 408
@@ -1437,7 +1454,7 @@ raw_heizkostenentlastung_m_hh:
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2021-01-01:
-    reference: §12 (6) WoGG, Art. 1 G. v. 15.05.2020, BGBl I S. 1015.
+    reference: § 12 Abs. 6 WoGG idF Art. 1 G. v. 15.05.2020 BGBl. I S. 1015
     1: 14.4
     2: 18.6
     3: 22.2
@@ -1459,7 +1476,7 @@ raw_dauerhafte_heizkostenkomponente_m_hh:
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
-    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+    reference: § 12 Abs. 6 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
     1: 96
     2: 124
     3: 148
@@ -1483,7 +1500,7 @@ raw_klimakomponente_m_hh:
   output_unit: EUR_PER_MONTH_PER_HH
   type: require_converter
   2023-01-01:
-    reference: Art. 1 G. v. 08.12.2022 BGBl. I Nr. 48 S. 2160
+    reference: § 12 Abs. 7 WoGG idF Art. 1 G. v. 05.12.2022 BGBl. I S. 2160
     1: 19.20
     2: 24.80
     3: 29.60

@@ -33,7 +33,9 @@ def sonderausgaben_y_sn_nur_pauschale(
 
     Only a lump sum payment is implemented.
 
-
+    Reference:
+        - § 10c Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 10c Satz 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     return sonderausgabenpauschbetrag * familie__anzahl_personen_sn
 
@@ -50,9 +52,12 @@ def sonderausgaben_y_sn_mit_kinderbetreuung(
 ) -> float:
     """Sonderausgaben on Steuernummer level since 2012.
 
-    We follow 10 Abs.1 Nr. 5 EStG. You can find
+    We follow § 10 Abs. 1 Nr. 5 EStG. You can find
     details here https://www.buzer.de/s1.htm?a=10&g=estg.
 
+    Reference:
+        - § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+        - § 10c Satz 1 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
     """
     return max(
         absetzbare_kinderbetreuungskosten_y_sn,
@@ -65,7 +70,10 @@ def gedeckelte_kinderbetreuungskosten_y(
     kinderbetreuungskosten_elternteil_y: float,
     parameter_absetzbare_kinderbetreuungskosten: dict[str, float],
 ) -> float:
-    """Individual deductible childcare cost for each individual child under 14."""
+    """Individual deductible childcare cost for each individual child under 14.
+
+    Reference: § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    """
     return min(
         kinderbetreuungskosten_elternteil_y,
         parameter_absetzbare_kinderbetreuungskosten["maximum"],
@@ -75,7 +83,10 @@ def gedeckelte_kinderbetreuungskosten_y(
 @policy_function(
     start_date="2002-01-01",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN, base=1, direction="up"
+        unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
+        base=1,
+        direction="up",
+        reference="none (rounding in the tax assessment, not set by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -85,12 +96,12 @@ def absetzbare_kinderbetreuungskosten_y_sn(
 ) -> float:
     """Sonderausgaben for childcare on Steuernummer level.
 
-    We follow 10 Abs.1 Nr. 5 EStG. You can
+    We follow § 10 Abs. 1 Nr. 5 EStG. You can find
     details here https://www.buzer.de/s1.htm?a=10&g=estg.
 
-
-
+    Reference: § 10 Abs. 1 Nr. 5 Satz 1 EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
     """
+
     return (
         gedeckelte_kinderbetreuungskosten_y_sn
         * parameter_absetzbare_kinderbetreuungskosten["anteil"]

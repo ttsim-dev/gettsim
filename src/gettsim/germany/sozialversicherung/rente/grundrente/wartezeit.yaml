@@ -16,5 +16,9 @@ berücksichtigte_wartezeit_monate:
   unit: MONTHS
   type: dict
   2021-01-01:
+    reference:
+      - § 76g Abs. 1 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+      - § 76g Abs. 4 Satz 6 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     min: 396
     max: 420

@@ -23,9 +23,11 @@ altersgrenze:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 3 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 3 AVG.
     value: 60
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Increase of full retirement age from 60 to 65 for birth cohort 1941-1952. See
       `altersgrenze_gestaffelt`.
@@ -54,7 +56,7 @@ altersgrenze_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of full retirement age from 60 to 65 for birth cohort 1941-1952.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
@@ -255,8 +257,11 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
-    note: Increase of FRA accelerated with exemption (Vertrauensschutz).
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
+    note: >-
+      Increase of FRA accelerated with exemption (Vertrauensschutz). Wachstums- und
+      Beschäftigungsförderungsgesetz, Anlage 20 SGB VI. Seit dem Rentenreformgesetz
+      1999 in § 237a Abs. 2 SGB VI.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
     1939:
@@ -449,6 +454,7 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_vorzeitig:
   name:
@@ -467,17 +473,22 @@ altersgrenze_vorzeitig:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 3 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 3 AVG.
     value: 60.0
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Increase of early retirement age from 60 to 62 for birth cohort 1949-1952. See
       `altersgrenze_vorzeitig_gestaffelt`.
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
-    note: Increase of ERA was revoked.
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
+    note: >-
+      Increase of ERA was revoked. Wachstums- und Beschäftigungsförderungsgesetz,
+      Anlage 20 SGB VI. Seit dem Rentenreformgesetz 1999 in § 237a Abs. 2 SGB VI.
     value: 60.0
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.
 altersgrenze_vorzeitig_gestaffelt:
   name:
@@ -497,7 +508,7 @@ altersgrenze_vorzeitig_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of early retirement age from 60 to 62 for birth cohort 1949-1952.
     first_year_to_consider: 1900
     last_year_to_consider: 2030
@@ -582,5 +593,7 @@ altersgrenze_vorzeitig_gestaffelt:
         years: 62
         months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461
-    note: Increase of ERA was revoked. See `altersgrenze_vorzeitig`.
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 25.09.1996 BGBl. I S. 1461
+    note: >-
+      Increase of ERA was revoked. See `altersgrenze_vorzeitig`. Wachstums- und
+      Beschäftigungsförderungsgesetz, Anlage 20 SGB VI.

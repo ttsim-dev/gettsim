@@ -19,10 +19,12 @@ einkommensgrenzen_ohne_ehegatte:
     obere_grenze: DIMENSIONLESS
   type: dict
   2021-01-01:
+    reference:
+      - § 97a Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+      - § 97a Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     untere_grenze: 36.56
     obere_grenze: 46.78
-    reference: >-
-      Art. 1 Nr. 6 G. v. 12.08.2020 BGBl. I S. 1879 (Grundrentengesetz).
 einkommensgrenzen_mit_ehegatte:
   name:
     de: Einkommensgrenzen der Grundrente für Berechtigte mit Ehegatten
@@ -43,10 +45,10 @@ einkommensgrenzen_mit_ehegatte:
     obere_grenze: DIMENSIONLESS
   type: dict
   2021-01-01:
+    reference: § 97a Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     untere_grenze: 57.03
     obere_grenze: 67.27
-    reference: >-
-      Art. 1 Nr. 6 G. v. 12.08.2020 BGBl. I S. 1879 (Grundrentengesetz).
 anrechnungssätze:
   name:
     de: Anrechnungssätze der Grundrente
@@ -66,7 +68,9 @@ anrechnungssätze:
     über_der_oberen_grenze: DIMENSIONLESS
   type: dict
   2021-01-01:
+    reference:
+      - § 97a Abs. 4 Satz 2 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+      - § 97a Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     zwischen_den_grenzen: 0.6
     über_der_oberen_grenze: 1.0
-    reference: >-
-      Art. 1 Nr. 6 G. v. 12.08.2020 BGBl. I S. 1879 (Grundrentengesetz).

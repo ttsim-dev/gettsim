@@ -14,7 +14,11 @@ def geschwisterbonus_m_fg(
 ) -> float:
     """Elterngeld bonus for (older) siblings.
 
-    According to § 2a parents of siblings get a bonus.
+    Parents of siblings get a bonus.
+
+    Reference:
+        - § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2a Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     if geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg:
         out = max(
@@ -31,7 +35,12 @@ def geschwisterbonus_m_fg(
 def mehrlingsbonus_m_fg(
     anzahl_mehrlinge_fg: int, mehrlingsbonus_pro_kind_m: float
 ) -> float:
-    """Elterngeld bonus for multiples."""
+    """Elterngeld bonus for multiples.
+
+    Reference:
+        - § 2 Abs. 6 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2a Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+    """
     return anzahl_mehrlinge_fg * mehrlingsbonus_pro_kind_m
 
 
@@ -41,7 +50,12 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
     familie__anzahl_kinder_bis_5_fg: int,
     geschwisterbonus_altersgrenzen: dict[int, int],
 ) -> bool:
-    """Siblings that give rise to Elterngeld siblings bonus."""
+    """Siblings that give rise to Elterngeld siblings bonus.
+
+    Reference:
+        - § 2 Abs. 4 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+        - § 2a Abs. 1 Satz 1 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+    """
     geschwister_unter_3 = (
         familie__anzahl_kinder_bis_2_fg >= geschwisterbonus_altersgrenzen[3]
     )
@@ -56,7 +70,10 @@ def geschwisterbonus_grundsätzlich_anspruchsberechtigt_fg(
 def anzahl_mehrlinge_fg(
     anzahl_mehrlinge_jüngstes_kind_fg: int,
 ) -> int:
-    """Number of multiples of the youngest child."""
+    """Number of multiples of the youngest child.
+
+    Reference: none (technical helper)
+    """
     out = anzahl_mehrlinge_jüngstes_kind_fg - cast_ttsim_unit(
         1, unit=TTSIMUnit.COUNT.PER_FG
     )

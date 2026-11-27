@@ -13,7 +13,10 @@ from gettsim.tt import TTSIMUnit, policy_function
 def einkommen_m_bis_03_1999(
     einkommen_bis_beitragsbemessungsgrenze_m: float,
 ) -> float:
-    """Wage subject to public health insurance contributions."""
+    """Wage subject to public health insurance contributions.
+
+    Reference: § 226 Abs. 1 Satz 1 Nr. 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    """
     return einkommen_bis_beitragsbemessungsgrenze_m
 
 
@@ -30,6 +33,11 @@ def einkommen_m_ab_04_1999(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 226 Abs. 1 Satz 1 Nr. 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 7 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 226 Abs. 4 SGB V idF Art. 3 Nr. 5 G. v. 23.12.2002 BGBl. I S. 4621
     """
     if sozialversicherung__regulär_beschäftigt:
         out = einkommen_bis_beitragsbemessungsgrenze_m
@@ -47,6 +55,10 @@ def einkommen_bis_beitragsbemessungsgrenze_m(
 
     This does not consider reduced contributions for Mini- and Midijobs. Relevant for
     the computation of payroll taxes.
+
+    Reference:
+        - § 226 Abs. 1 Satz 1 Nr. 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
     """
     return min(
         einnahmen__bruttolohn_m,
@@ -68,7 +80,9 @@ def bemessungsgrundlage_selbstständig_m(
     The value is bounded from below and from above. Only affects those self-employed who
     voluntarily contribute to the public health system.
 
-    Reference: §240 SGB V Abs. 4
+    Reference:
+        - § 240 Abs. 4 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
     """
     # Calculate if self employed insures via public health insurance.
     if (
@@ -98,7 +112,10 @@ def beitragsbemessungsgrenze_m_nach_wohnort(
     wohnort_ost_hh: bool,
     parameter_beitragsbemessungsgrenze_nach_wohnort: dict[str, float],
 ) -> float:
-    """Income threshold up to which health insurance payments apply."""
+    """Income threshold up to which health insurance payments apply.
+
+    Reference: § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    """
     return (
         parameter_beitragsbemessungsgrenze_nach_wohnort["ost"]
         if wohnort_ost_hh
@@ -119,6 +136,10 @@ def bezugsgröße_selbstständige_m(
 
     Selecting by place of living the income threshold for self employed up to which the
     rate of health insurance contributions apply.
+
+    Reference:
+        - § 2 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
+        - § 1 SVBezGrV-Ost 1991 idF V. v. 18.12.1990 BGBl. I S. 2941
     """
     return (
         bezugsgröße_selbstständige_nach_wohnort["ost"]
@@ -134,7 +155,12 @@ def bemessungsgrundlage_rente_m(
     einnahmen__renten__aus_berufsständischen_versicherungen_m: float,
     beitragsbemessungsgrenze_m: float,
 ) -> float:
-    """Pension income which is subject to health insurance contribution."""
+    """Pension income which is subject to health insurance contribution.
+
+    Reference:
+        - § 237 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+        - § 223 Abs. 3 Satz 1 SGB V idF Art. 1 G. v. 20.12.1988 BGBl. I S. 2477
+    """
     return min(
         einnahmen__renten__gesetzliche_m
         + einnahmen__renten__betriebliche_altersvorsorge_m

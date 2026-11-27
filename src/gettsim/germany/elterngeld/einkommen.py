@@ -11,7 +11,10 @@ def anzurechnendes_nettoeinkommen_m(
     lohnsteuer__betrag_m: float,
     lohnsteuer__betrag_soli_m: float,
 ) -> float:
-    """Income that reduces the Elterngeld claim."""
+    """Income that reduces the Elterngeld claim.
+
+    Reference: § 2 Abs. 3 Satz 1 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    """
     # TODO(@MImmesberger): In this case, lohnsteuer__betrag_m should be calculated
     # without taking into account adaptions to the standard care insurance rate.
     # https://github.com/ttsim-dev/gettsim/issues/792
@@ -21,7 +24,10 @@ def anzurechnendes_nettoeinkommen_m(
 @policy_function(
     start_date="2007-01-01",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=2, direction="down", reference="§ 2 (2) BEEG"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=2,
+        direction="down",
+        reference="§ 2 Abs. 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -29,7 +35,10 @@ def lohnersatzanteil_einkommen_untere_grenze_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     nettoeinkommensstufen_für_lohnersatzrate: dict[str, float],
 ) -> float:
-    """Lower threshold for replacement rate adjustment minus net income."""
+    """Lower threshold for replacement rate adjustment minus net income.
+
+    Reference: § 2 Abs. 2 BEEG idF Art. 1 G. v. 05.12.2006 BGBl. I S. 2748
+    """
     return (
         nettoeinkommensstufen_für_lohnersatzrate["lower_threshold"]
         - mean_nettoeinkommen_in_12_monaten_vor_geburt_m
@@ -39,7 +48,10 @@ def lohnersatzanteil_einkommen_untere_grenze_m(
 @policy_function(
     start_date="2007-01-01",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=2, direction="down", reference="§ 2 (2) BEEG"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=2,
+        direction="down",
+        reference="§ 2 Abs. 2 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -47,7 +59,10 @@ def lohnersatzanteil_einkommen_obere_grenze_m(
     mean_nettoeinkommen_in_12_monaten_vor_geburt_m: float,
     nettoeinkommensstufen_für_lohnersatzrate: dict[str, float],
 ) -> float:
-    """Net income minus upper threshold for replacement rate adjustment."""
+    """Net income minus upper threshold for replacement rate adjustment.
+
+    Reference: § 2 Abs. 2 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    """
     return (
         mean_nettoeinkommen_in_12_monaten_vor_geburt_m
         - nettoeinkommensstufen_für_lohnersatzrate["upper_threshold"]
@@ -68,7 +83,12 @@ def einkommen_vorjahr_unter_bezugsgrenze_mit_unterscheidung_single_paar(
         float,
     ],
 ) -> bool:
-    """Income before birth is below income threshold for Elterngeld."""
+    """Income before birth is below income threshold for Elterngeld.
+
+    Reference:
+        - § 1 Abs. 8 Satz 1 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+        - § 1 Abs. 8 Satz 2 BEEG idF Art. 14 G. v. 09.12.2010 BGBl. I S. 1885
+    """
     if familie__alleinerziehend:
         out = (
             zu_versteuerndes_einkommen_vorjahr_y_sn
@@ -95,7 +115,14 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
     zu_versteuerndes_einkommen_vorjahr_y_sn: float,
     max_zu_versteuerndes_einkommen_vorjahr_pauschal: float,
 ) -> bool:
-    """Income before birth is below income threshold for Elterngeld."""
+    """Income before birth is below income threshold for Elterngeld.
+
+    Reference:
+        - § 28 Abs. 5 Satz 2 BEEG idF Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107
+        - § 28 Abs. 5 Satz 3 BEEG idF Art. 1 G. v. 22.12.2023 BGBl. 2023 I Nr. 412
+        - § 1 Abs. 8 Satz 1 BEEG idF Art. 7 G. v. 27.03.2024 BGBl. 2024 I Nr. 107
+        - § 1 Abs. 8 Satz 2 BEEG idF Art. 1 G. v. 22.12.2023 BGBl. 2023 I Nr. 412
+    """
     return (
         zu_versteuerndes_einkommen_vorjahr_y_sn
         <= max_zu_versteuerndes_einkommen_vorjahr_pauschal
@@ -105,7 +132,10 @@ def einkommen_vorjahr_unter_bezugsgrenze_ohne_unterscheidung_single_paar(
 @policy_function(
     start_date="2012-09-18",
     rounding_spec=RoundingSpec(
-        unit=TTSIMUnit.EUR.PER_MONTH, base=0.01, direction="down"
+        unit=TTSIMUnit.EUR.PER_MONTH,
+        base=0.01,
+        direction="down",
+        reference="none (the BEEG sets no rounding rule for the Bemessungsgrundlage)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_MONTH,
 )
@@ -122,6 +152,10 @@ def mean_nettoeinkommen_für_bemessungsgrundlage_nach_geburt_m(
     in the 12 months before the birth of the child. For most datasets, except those with
     monthly income date (IAB, DRV data), the best approximation will likely be the gross
     wage in the calendar year before the birth of the child.
+
+    Reference:
+        - § 2 Abs. 1 Satz 3 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
+        - § 2f Abs. 1 Satz 2 BEEG idF Art. 1 G. v. 10.09.2012 BGBl. I S. 1878
     """
     prox_ssc = sozialversicherungspauschale * einnahmen__bruttolohn_m
     return (

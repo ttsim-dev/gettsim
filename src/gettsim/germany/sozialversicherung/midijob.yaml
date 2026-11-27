@@ -10,14 +10,23 @@ midijobgrenze_m:
   type: scalar
   2003-04-01:
     value: 800
+    reference: § 20 Abs. 2 SGB IV idF Art. 2 Nr. 5 G. v. 23.12.2002 BGBl. I S. 4621
+    note: Zweites Gesetz für moderne Dienstleistungen am Arbeitsmarkt
   2013-01-01:
     value: 850
-  2019-01-01:
+    reference: § 20 Abs. 2 SGB IV idF Art. 1 Nr. 4 G. v. 05.12.2012 BGBl. I S. 2474
+    note: Gesetz zu Änderungen im Bereich der geringfügigen Beschäftigung
+  2019-07-01:
     value: 1300
-    reference: Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
+    reference: § 20 Abs. 2 SGB IV idF Art. 4 G. v. 28.11.2018 BGBl. I S. 2016
+    note: RV-Leistungsverbesserungs- und -Stabilisierungsgesetz
   2022-10-01:
     value: 1600
-    reference: Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+    reference: § 20 Abs. 2 SGB IV idF Art. 7 G. v. 28.06.2022 BGBl. I S. 969
+    note: Mindestlohnerhöhungsgesetz
   2023-01-01:
     value: 2000
-    reference: Art. 3 G. v. 11.11.2022 BGBl. I S. 1985
+    reference: § 20 Abs. 2 SGB IV idF Art. 3 G. v. 07.11.2022 BGBl. I S. 1985
+    note: >-
+      Gesetz zur Zahlung einer Energiepreispauschale an Renten- und
+      Versorgungsbeziehende

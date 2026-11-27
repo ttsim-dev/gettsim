@@ -19,6 +19,10 @@ def betrag_versicherter_m_bis_03_1999(
 
     Reaching the Regelaltersgrenze exempts from unemployment insurance regardless of
     whether a pension is drawn (§ 28 Abs. 1 Nr. 1 SGB III).
+
+    Reference:
+        - § 174 Abs. 1 Satz 1 AFG idF G. v. 20.12.1982 BGBl. I S. 1857
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
     """
     if sozialversicherung__rente__altersrente__älter_als_regelaltersgrenze:
         out = 0.0
@@ -47,6 +51,10 @@ def betrag_versicherter_m_ohne_midijob(
 
     Reaching the Regelaltersgrenze exempts from unemployment insurance regardless of
     whether a pension is drawn (§ 28 Abs. 1 Nr. 1 SGB III).
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
     """
     if (
         sozialversicherung__geringfügig_beschäftigt
@@ -76,6 +84,12 @@ def betrag_versicherter_m_mit_midijob(
 
     Reaching the Regelaltersgrenze exempts from unemployment insurance regardless of
     whether a pension is drawn (§ 28 Abs. 1 Nr. 1 SGB III).
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 28 Abs. 1 Nr. 1 SGB III idF Art. 3 G. v. 20.04.2007 BGBl. I S. 554
+        - § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
     """
     if (
         sozialversicherung__geringfügig_beschäftigt
@@ -99,7 +113,12 @@ def betrag_arbeitgeber_m_bis_03_1999(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution until March 1999."""
+    """Employer's unemployment insurance contribution until March 1999.
+
+    Reference:
+        - § 174 Abs. 1 Satz 1 AFG idF G. v. 20.12.1982 BGBl. I S. 1857
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    """
     return sozialversicherung__rente__beitrag__einkommen_m * beitragssatz / 2
 
 
@@ -118,6 +137,10 @@ def betrag_arbeitgeber_m_ab_04_1999_bis_03_2003(
 
     Special rules for marginal employment have been introduced in April 1999 as part of
     the '630 Mark' job introduction.
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
@@ -140,7 +163,13 @@ def betrag_arbeitgeber_m_ab_04_2003_bis_12_2016(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution from Apr 2003 to Dec 2016."""
+    """Employer's unemployment insurance contribution from Apr 2003 to Dec 2016.
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
+    """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     elif sozialversicherung__in_gleitzone:
@@ -169,6 +198,12 @@ def betrag_arbeitgeber_m_ab_01_2017_bis_12_2021(
 
     The Flexirentengesetz suspended the employer's contribution for employees exempt
     because of age through the end of 2021 (§ 346 Abs. 3 S. 3 SGB III).
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 346 Abs. 3 Satz 3 SGB III idF Art. 4 G. v. 08.12.2016 BGBl. I S. 2838
+        - § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
     """
     if (
         sozialversicherung__geringfügig_beschäftigt
@@ -196,7 +231,14 @@ def betrag_arbeitgeber_m_ab_01_2022_bis_09_2022(
     sozialversicherung__rente__beitrag__einkommen_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employer's unemployment insurance contribution from Jan 2022 to Sep 2022."""
+    """Employer's unemployment insurance contribution from Jan 2022 to Sep 2022.
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 346 Abs. 3 Satz 1 SGB III idF Art. 3 G. v. 20.04.2007 BGBl. I S. 554
+        - § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
+    """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
     elif sozialversicherung__in_gleitzone:
@@ -228,6 +270,12 @@ def betrag_arbeitgeber_m_ab_10_2022(
     reduced beitragspflichtige Einnahme of the Übergangsbereich (§ 20 Abs. 2a Satz 1
     SGB IV). The asymmetric split of the Übergangsbereich is confined to
     versicherungspflichtige Beschäftigte (§ 346 Abs. 1a SGB III).
+
+    Reference:
+        - § 346 Abs. 1 Satz 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+        - § 27 Abs. 2 Satz 1 SGB III idF Art. 2 Nr. 1 G. v. 24.03.1999 BGBl. I S. 388
+        - § 346 Abs. 3 Satz 1 SGB III idF Art. 3 G. v. 20.04.2007 BGBl. I S. 554
+        - § 346 Abs. 1a SGB III idF Art. 6 G. v. 28.06.2022 BGBl. I S. 969
     """
     if sozialversicherung__geringfügig_beschäftigt:
         out = 0.0
@@ -251,6 +299,10 @@ def betrag_gesamt_in_gleitzone_m(
 ) -> float:
     """Sum of employee's and employer's unemployment insurance contribution
     for Midijobs.
+
+    Reference:
+        - § 344 Abs. 4 SGB III idF Art. 1 Nr. 3c G. v. 23.12.2002 BGBl. I S. 4621
+        - § 344 Abs. 4 SGB III idF Art. 6 G. v. 28.06.2022 BGBl. I S. 969
     """
     return sozialversicherung__midijob_bemessungsentgelt_m * beitragssatz
 
@@ -267,6 +319,8 @@ def betrag_arbeitgeber_in_gleitzone_m_anteil_bruttolohn(
 ) -> float:
     """Employers' unemployment insurance contribution for Midijobs until September
     2022.
+
+    Reference: § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
     """
     return einnahmen__bruttolohn_m * beitragssatz / 2
 
@@ -280,7 +334,10 @@ def betrag_arbeitgeber_in_gleitzone_m_als_differenz_von_gesamt_und_versichertenb
     betrag_gesamt_in_gleitzone_m: float,
     betrag_versicherter_in_gleitzone_m: float,
 ) -> float:
-    """Employer's unemployment insurance contribution since October 2022."""
+    """Employer's unemployment insurance contribution since October 2022.
+
+    Reference: § 346 Abs. 1a Nr. 2 SGB III idF Art. 6 G. v. 28.06.2022 BGBl. I S. 969
+    """
     return betrag_gesamt_in_gleitzone_m - betrag_versicherter_in_gleitzone_m
 
 
@@ -296,6 +353,8 @@ def betrag_versicherter_in_gleitzone_m_als_differenz_von_gesamt_und_arbeitgeberb
 ) -> float:
     """Employee's unemployment insurance contribution for Midijobs until September
     2022.
+
+    Reference: § 346 Abs. 1a SGB III idF Art. 1 Nr. 3d G. v. 23.12.2002 BGBl. I S. 4621
     """
     return betrag_gesamt_in_gleitzone_m - betrag_arbeitgeber_in_gleitzone_m
 
@@ -309,7 +368,10 @@ def betrag_versicherter_in_gleitzone_m_mit_festem_beitragssatz(
     sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m: float,
     beitragssatz: float,
 ) -> float:
-    """Employee's unemployment insurance contribution since October 2022."""
+    """Employee's unemployment insurance contribution since October 2022.
+
+    Reference: § 346 Abs. 1a Nr. 1 SGB III idF Art. 6 G. v. 28.06.2022 BGBl. I S. 969
+    """
     return (
         sozialversicherung__beitragspflichtige_einnahmen_aus_midijob_arbeitnehmer_m
         * beitragssatz

@@ -22,3 +22,7 @@ abzugsrate_kindergeld:
   2008-01-01:
     minderjährig: 0.5
     volljährig: 1
+    reference:
+      - § 1612b Abs. 1 Satz 1 Nr. 1 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
+      - § 1612b Abs. 1 Satz 1 Nr. 2 BGB idF Art. 1 G. v. 21.12.2007 BGBl. I S. 3189
+    note: Gesetz zur Änderung des Unterhaltsrechts

@@ -30,10 +30,7 @@ if TYPE_CHECKING:
     rounding_spec=RoundingSpec(
         base=1e-6,
         direction="down",
-        reference=(
-            "H 32b EStH 2025 'Allgemeines', Beispiele (Fall B: 6,8648 %); "
-            "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
-        ),
+        reference="none (administrative practice: the rate is truncated to four decimal places of a percent)",
     ),
     unit=TTSIMUnit.DIMENSIONLESS,
 )
@@ -44,7 +41,13 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) without Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    truncated to four decimals of a percent.
+    truncated to four decimals of a percent. The truncation is administrative practice
+    (H 32b EStH 2025 'Allgemeines', Beispiele, Fall B: 6,8648 %; Bescheid in FG
+    Brandenburg, VZ 2017: 19,3919 %).
+
+    Reference:
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     if steuersatzeinkommen_ohne_kinderfreibetrag_y_sn > 0.0:
         # A share of two Steuernummer totals; GEP 10 ('Restricted group calculations',
@@ -65,10 +68,7 @@ def besonderer_steuersatz_ohne_kinderfreibetrag(
     rounding_spec=RoundingSpec(
         base=1e-6,
         direction="down",
-        reference=(
-            "H 32b EStH 2025 'Allgemeines', Beispiele (Fall B: 6,8648 %); "
-            "Bescheid in FG Brandenburg, VZ 2017 (19,3919 %)"
-        ),
+        reference="none (administrative practice: the rate is truncated to four decimal places of a percent)",
     ),
     unit=TTSIMUnit.DIMENSIONLESS,
 )
@@ -79,7 +79,13 @@ def besonderer_steuersatz_mit_kinderfreibetrag(
     """Besonderer Steuersatz (§ 32b Abs. 2 EStG) with Kinderfreibetrag.
 
     The tariff tax on the Steuersatzeinkommen divided by the Steuersatzeinkommen,
-    truncated to four decimals of a percent.
+    truncated to four decimals of a percent. The truncation is administrative practice
+    (H 32b EStH 2025 'Allgemeines', Beispiele, Fall B: 6,8648 %; Bescheid in FG
+    Brandenburg, VZ 2017: 19,3919 %).
+
+    Reference:
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     if steuersatzeinkommen_mit_kinderfreibetrag_y_sn > 0.0:
         # A share of two Steuernummer totals; GEP 10 ('Restricted group calculations',
@@ -100,7 +106,12 @@ def steuersatzeinkommen_ohne_kinderfreibetrag_y_sn(
     gesamteinkommen_y_sn: float,
     dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
 ) -> float:
-    """Steuersatzeinkommen without Kinderfreibetrag (§ 32b Abs. 2 EStG)."""
+    """Steuersatzeinkommen without Kinderfreibetrag (§ 32b Abs. 2 EStG).
+
+    Reference:
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    """
     return (
         gesamteinkommen_y_sn + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
     )
@@ -111,7 +122,12 @@ def steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
     zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn: float,
     dem_progressionsvorbehalt_unterliegende_leistungen_y_sn: float,
 ) -> float:
-    """Steuersatzeinkommen with Kinderfreibetrag (§ 32b Abs. 2 EStG)."""
+    """Steuersatzeinkommen with Kinderfreibetrag (§ 32b Abs. 2 EStG).
+
+    Reference:
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
+    """
     return (
         zu_versteuerndes_einkommen_mit_kinderfreibetrag_y_sn
         + dem_progressionsvorbehalt_unterliegende_leistungen_y_sn
@@ -127,7 +143,7 @@ def steuersatzeinkommen_mit_kinderfreibetrag_y_sn(
         base=36,
         direction="down",
         to_add_after_rounding=18,
-        reference="§ 32a Abs. 2 und Abs. 5 EStG",
+        reference="§ 32a Abs. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -140,6 +156,10 @@ def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_bis_2003(
     The amount the tariff is applied to under the splitting procedure, rounded down to
     the next multiple of 36 Euro and increased by 18 Euro. Under the splitting
     procedure, the rounding applies to half of the joint amount (§ 32a Abs. 5 EStG).
+
+    Reference:
+        - § 32a Abs. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return steuersatzeinkommen_mit_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
 
@@ -151,7 +171,7 @@ def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_bis_2003(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S. 1 und Abs. 5 EStG",
+        reference="§ 32a Abs. 1 Satz 5 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -163,6 +183,10 @@ def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_ab_2004(
 
     The amount the tariff is applied to under the splitting procedure, rounded down to
     a full Euro amount.
+
+    Reference:
+        - § 32a Abs. 1 Satz 5 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return steuersatzeinkommen_mit_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
 
@@ -176,7 +200,7 @@ def steuersatzeinkommen_je_person_mit_kinderfreibetrag_y_ab_2004(
         base=36,
         direction="down",
         to_add_after_rounding=18,
-        reference="§ 32a Abs. 2 und Abs. 5 EStG",
+        reference="§ 32a Abs. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -189,6 +213,10 @@ def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_bis_2003(
     The amount the tariff is applied to under the splitting procedure, rounded down to
     the next multiple of 36 Euro and increased by 18 Euro. Under the splitting
     procedure, the rounding applies to half of the joint amount (§ 32a Abs. 5 EStG).
+
+    Reference:
+        - § 32a Abs. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return steuersatzeinkommen_ohne_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
 
@@ -200,7 +228,7 @@ def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_bis_2003(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S. 1 und Abs. 5 EStG",
+        reference="§ 32a Abs. 1 Satz 5 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -212,6 +240,10 @@ def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_ab_2004(
 
     The amount the tariff is applied to under the splitting procedure, rounded down to
     a full Euro amount.
+
+    Reference:
+        - § 32a Abs. 1 Satz 5 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return steuersatzeinkommen_ohne_kinderfreibetrag_y_sn / familie__anzahl_personen_sn
 
@@ -222,7 +254,7 @@ def steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y_ab_2004(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S. 6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -234,7 +266,12 @@ def steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
     """Tariff tax on the Steuersatzeinkommen per person, without Kinderfreibetrag.
 
     Summed over the Steuernummer, this is the tariff tax on the Steuersatzeinkommen
-    (§ 32a Abs. 5 EStG).
+    (§ 32a Abs. 5 EStG). From 2004, the tax amount is rounded down under § 32a Abs. 1
+    Satz 6 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076.
+
+    Reference:
+        - § 32a Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return piecewise_polynomial(
         x=steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y,
@@ -249,7 +286,7 @@ def steuer_auf_steuersatzeinkommen_je_person_ohne_kinderfreibetrag_y(
         unit=TTSIMUnit.EUR.PER_YEAR,
         base=1,
         direction="down",
-        reference="§ 32a Abs. 1 S. 6 EStG",
+        reference="§ 32a Abs. 3 Satz 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR,
 )
@@ -261,7 +298,12 @@ def steuer_auf_steuersatzeinkommen_je_person_mit_kinderfreibetrag_y(
     """Tariff tax on the Steuersatzeinkommen per person, with Kinderfreibetrag.
 
     Summed over the Steuernummer, this is the tariff tax on the Steuersatzeinkommen
-    (§ 32a Abs. 5 EStG).
+    (§ 32a Abs. 5 EStG). From 2004, the tax amount is rounded down under § 32a Abs. 1
+    Satz 6 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076.
+
+    Reference:
+        - § 32a Abs. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 32a Abs. 5 EStG idF B. v. 16.04.1997 BGBl. I S. 821
     """
     return piecewise_polynomial(
         x=steuersatzeinkommen_je_person_mit_kinderfreibetrag_y,
@@ -290,6 +332,10 @@ def dem_progressionsvorbehalt_unterliegende_leistungen_y(
     vermindert"; for wage-replacement benefits this codified the existing procedure
     ("insoweit entsprechend dem bisher angewendeten Verfahren", BT-Drs. 13/901, p.
     136), so one rule applies throughout.
+
+    Reference:
+        - § 32b Abs. 2 Nr. 1 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 Nr. 1 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     netto = (
         einnahmen__lohn_und_einkommensersatzleistungen_y
@@ -315,6 +361,10 @@ def nicht_abziehbarer_arbeitnehmerpauschbetrag_y(
     EStG), so the remainder above the wages is left for the benefits. Nothing is left
     when actual Werbungskosten above the Pauschbetrag are deducted from wages (H 32b
     EStH 'Arbeitnehmer-Pauschbetrag'; BFH v. 25.09.2014, III R 61/12).
+
+    Reference:
+        - § 32b Abs. 2 Nr. 1 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+        - § 32b Abs. 2 Nr. 1 EStG idF Art. 1 G. v. 11.10.1995 BGBl. I S. 1250
     """
     # TODO(@MImmesberger): Pauschal taxed wages (e.g. Minijobs) are not deductible from
     # wage income and should not use up the Pauschbetrag.

@@ -18,7 +18,7 @@ parameter_ertragsanteil:
   output_unit: DIMENSIONLESS
   type: sparse_to_consecutive_int_lookup_table
   1997-01-01:
-    reference: Neubekanntmachung EStG BGBl. I Nr. 26 S. 821 vom 16.04.1997
+    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF B. v. 16.04.1997 BGBl. I S. 821
     min_int_in_table: 0
     max_int_in_table: 120
     0: 0.73
@@ -120,7 +120,10 @@ parameter_ertragsanteil:
     96: 0.03
     97: 0.02
   2005-01-01:
-    reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
+    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz. Since 2005, the table is in § 22 Nr. 1 Satz 3 Buchstabe a
+      Doppelbuchstabe bb EStG.
     min_int_in_table: 0
     max_int_in_table: 120
     0: 0.59
@@ -242,7 +245,10 @@ parameter_besteuerungsanteil:
   output_unit: DIMENSIONLESS
   type: sparse_to_consecutive_int_lookup_table
   2005-01-01:
-    reference: Alterseinkünftegesetz 2004 BGBl. 2004 I Nr. 33 vom 05.07.2004
+    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz. The table is in § 22 Nr. 1 Satz 3 Buchstabe a
+      Doppelbuchstabe aa Satz 3 EStG.
     min_int_in_table: 1950
     max_int_in_table: 2100
     2005: 0.5
@@ -281,8 +287,11 @@ parameter_besteuerungsanteil:
     2038: 0.98
     2039: 0.99
     2040: 1
-  2022-01-01:
-    reference: Art. 1 Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
+  2023-01-01:
+    reference: § 22 Nr. 1 Satz 3 Buchst. a EStG idF Art. 1 G. v. 27.03.2024 BGBl. 2024 I Nr. 108
+    note: >-
+      Wachstumschancengesetz (retroactive from 01.01.2023). The table is in § 22 Nr. 1
+      Satz 3 Buchstabe a Doppelbuchstabe aa Satz 3 EStG.
     min_int_in_table: 1950
     max_int_in_table: 2100
     2005: 0.5

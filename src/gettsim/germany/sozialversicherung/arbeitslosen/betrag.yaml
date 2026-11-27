@@ -10,11 +10,20 @@ freibetrag_nebeneinkommen_m:
   1999-08-01:
     unit: DM_PER_MONTH
     value: 315
-    reference: Art. 1 Nr. 21 G. v. 21.07.1999 BGBl. I S. 1648
+    reference: >-
+      § 141 Abs. 1 Satz 1 SGB III idF Art. 1 Nr. 21 G. v. 21.07.1999 BGBl. I S. 1648
+    note: Zweites SGB III-Änderungsgesetz
   2002-01-01:
     unit: EUR_PER_MONTH
     value: 165
-    reference: Art. 3 G. v. 21.12.2000 BGBl. I S. 1983
+    reference: § 141 Abs. 1 Satz 1 SGB III idF Art. 3 G. v. 21.12.2000 BGBl. I S. 1983
+    note: Viertes Euro-Einführungsgesetz
+  2012-04-01:
+    value: 165
+    reference: § 155 Abs. 1 Satz 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: >-
+      Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt; § 141 SGB III
+      wird § 155 SGB III.
 sozialversicherungspauschale:
   name:
     de: Sozialversicherungspauschale zur Berechnung des Leistungsentgelts
@@ -27,64 +36,125 @@ sozialversicherungspauschale:
   type: scalar
   1984-01-01:
     value: 0.1727
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1985-01-01:
     value: 0.1745
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1986-01-01:
     value: 0.1775
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1987-01-01:
     value: 0.1774
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1988-01-01:
     value: 0.1794
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1989-01-01:
     value: 0.1795
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1990-01-01:
     value: 0.1775
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1991-01-01:
     value: 0.179
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1992-01-01:
     value: 0.184
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1993-01-01:
     value: 0.187
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1994-01-01:
     value: 0.1955
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1995-01-01:
     value: 0.1915
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1996-01-01:
     value: 0.1995
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1997-01-01:
     value: 0.2095
+    reference: >-
+      none (sum of the employee contribution rates; under the AFG, the
+      Leistungsentgelt was read from the tables of the annual
+      AFG-Leistungsverordnung)
   1998-01-01:
     value: 0.2105
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: >-
+      Arbeitsförderungs-Reformgesetz. Beiträge zur Sozialversicherung, die zu Beginn
+      des Kalenderjahres maßgeblich sind.
   2000-01-01:
     value: 0.20535
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
   2001-01-01:
     value: 0.2044
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
   2002-01-01:
     value: 0.2065
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
   2003-01-01:
     value: 0.2105
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
   2004-01-01:
     value: 0.2095
+    reference: § 136 Abs. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
   2005-01-01:
-    value: 0.2074
-  2006-01-01:
-    value: 0.2141
-  2007-01-01:
-    value: 0.2075
-  2008-01-01:
-    value: 0.20475
-  2009-01-01:
-    value: 0.20525
-  2010-01-01:
-    value: 0.20225
-  2011-01-01:
-    value: 0.20625
-  2012-01-01:
     value: 0.21
-    reference: Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    reference: >-
+      § 133 Abs. 1 Satz 2 Nr. 1 SGB III idF Art. 1 Nr. 71 G. v. 23.12.2003 BGBl. I S.
+      2848
+    note: Drittes Gesetz für moderne Dienstleistungen am Arbeitsmarkt
+  2012-04-01:
+    value: 0.21
+    reference: >-
+      § 153 Abs. 1 Satz 2 Nr. 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt
   2019-01-01:
     value: 0.2
-    reference: Art. 1 G. v. 18.12.2018 BGBl. I S. 2651
+    reference: >-
+      § 153 Abs. 1 Satz 2 Nr. 1 SGB III idF Art. 1 G. v. 18.12.2018 BGBl. I S. 2651
+    note: Qualifizierungschancengesetz
 satz:
   name:
     de: Ersatzrate des Arbeitslosengelds
@@ -100,4 +170,16 @@ satz:
   1998-08-01:
     allgemein: 0.6
     erhöht: 0.67
-    reference: Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    reference:
+      - § 129 Nr. 1 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+      - § 129 Nr. 2 SGB III idF Art. 1 G. v. 24.03.1997 BGBl. I S. 594
+    note: Arbeitsförderungs-Reformgesetz
+  2012-04-01:
+    allgemein: 0.6
+    erhöht: 0.67
+    reference:
+      - § 149 Nr. 1 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+      - § 149 Nr. 2 SGB III idF Art. 2 G. v. 20.12.2011 BGBl. I S. 2854
+    note: >-
+      Gesetz zur Verbesserung der Eingliederungschancen am Arbeitsmarkt; § 129 SGB III
+      wird § 149 SGB III.

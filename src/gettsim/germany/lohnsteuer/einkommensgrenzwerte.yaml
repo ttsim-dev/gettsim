@@ -15,73 +15,148 @@ einkommensgrenzwerte_steuerklassen_5_6:
   unit: EUR_PER_YEAR
   type: dict
   2002-01-01:
+    reference: § 39b Abs. 2 Satz 8 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz (StEuglG). Until 2004, there was no third threshold
+      (top rate of 48.5 percent above the second threshold).
     1: 8946
     2: 27306
     3: 10000000
   2004-01-01:
+    reference: § 39b Abs. 2 Satz 8 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: Haushaltsbegleitgesetz 2004. No third threshold (top rate of 45 percent).
     1: 9228
     2: 26072
     3: 10000000
   2005-01-01:
+    reference: § 52 Abs. 52 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004. § 52 Abs. 52 EStG replaced the amounts in § 39b Abs.
+      2 Satz 8 EStG from 2005. No third threshold (top rate of 42 percent).
+    1: 9144
+    2: 25812
+    3: 10000000
+  2007-01-01:
+    reference: § 39b Abs. 2 Satz 8 EStG idF Art. 1 G. v. 19.07.2006 BGBl. I S. 1652
+    note: >-
+      Steueränderungsgesetz 2007. Introduced the third threshold (45 percent). Satz 8
+      became Satz 7 with Art. 1 G. v. 20.12.2007 BGBl. I S. 3150 (JStG 2008).
     1: 9144
     2: 25812
     3: 200000
-  2009-01-01:
+  2009-03-06:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Gesetz zur Sicherung von Beschäftigung und Stabilität in Deutschland (in force
+      since 06.03.2009).
     1: 9225
     2: 26276
     3: 200320
   2010-01-01:
+    reference: § 52 Abs. 51 EStG idF Art. 1 G. v. 02.03.2009 BGBl. I S. 416
+    note: >-
+      Gesetz zur Sicherung von Beschäftigung und Stabilität in Deutschland. § 52 Abs. 51
+      EStG replaced the amounts in § 39b Abs. 2 Satz 7 EStG from 2010; they were
+      written into § 39b Abs. 2 Satz 7 EStG by Art. 1 G. v. 01.11.2011 BGBl. I S. 2131.
     1: 9429
     2: 26441
     3: 200584
   2013-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+    note: Gesetz zum Abbau der kalten Progression
     1: 9550
     2: 26441
     3: 200584
   2014-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 20.02.2013 BGBl. I S. 283
+    note: Gesetz zum Abbau der kalten Progression
     1: 9763
     2: 26441
     3: 200584
+  2015-07-23:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+    note: >-
+      Gesetz zur Anhebung des Grundfreibetrags, des Kinderfreibetrags, des Kindergeldes
+      und des Kinderzuschlags (in force since 23.07.2015).
+    1: 9873
+    2: 26441
+    3: 200584
   2016-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 2 G. v. 16.07.2015 BGBl. I S. 1202
+    note: >-
+      Gesetz zur Anhebung des Grundfreibetrags, des Kinderfreibetrags, des Kindergeldes
+      und des Kinderzuschlags
     1: 10070
     2: 26832
     3: 203557
   2017-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 8 G. v. 20.12.2016 BGBl. I S. 3000
+    note: >-
+      Gesetz zur Umsetzung der Änderungen der EU-Amtshilferichtlinie und von weiteren
+      Maßnahmen gegen Gewinnkürzungen und -verlagerungen
     1: 10240
     2: 27029
     3: 205043
   2018-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 9 G. v. 20.12.2016 BGBl. I S. 3000
+    note: >-
+      Gesetz zur Umsetzung der Änderungen der EU-Amtshilferichtlinie und von weiteren
+      Maßnahmen gegen Gewinnkürzungen und -verlagerungen
     1: 10440
     2: 27475
     3: 208426
   2019-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 29.11.2018 BGBl. I S. 2210
+    note: Familienentlastungsgesetz (FamEntlastG)
     1: 10635
     2: 27980
     3: 212261
   2020-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 3 G. v. 29.11.2018 BGBl. I S. 2210
+    note: Familienentlastungsgesetz (FamEntlastG)
     1: 10898
     2: 28526
     3: 216400
   2021-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 01.12.2020 BGBl. I S. 2616
+    note: Zweites Familienentlastungsgesetz (2. FamEntlastG)
     1: 11237
     2: 28959
     3: 219690
   2022-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 23.05.2022 BGBl. I S. 749
+    note: >-
+      Steuerentlastungsgesetz 2022 (retroactive to 01.01.2022) raised the first
+      threshold; the other thresholds were set by Art. 2 G. v. 01.12.2020 BGBl. I S.
+      2616 (2. FamEntlastG).
     1: 11793
     2: 29298
     3: 222260
   2023-01-01:
-    note: https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2023-02-13-geaenderte-PAP-2023-anwendung-ab-dem-1-april-2023-anlage-1.pdf?__blob=publicationFile&v=3
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230
+    note: >-
+      Inflationsausgleichsgesetz (InflAusG).
+      https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2023-02-13-geaenderte-PAP-2023-anwendung-ab-dem-1-april-2023-anlage-1.pdf?__blob=publicationFile&v=3
     1: 12485
     2: 31404
     3: 222260
   2024-01-01:
-    note: https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2024-02-23-geaenderte-PAP-2024-anwendung-ab-dem-1-april-2024-anlage-2.pdf?__blob=publicationFile&v=3
-    1: 13279
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 02.12.2024 BGBl. 2024 I Nr. 386
+    note: >-
+      Gesetz zur steuerlichen Freistellung des Existenzminimums 2024, retroactive to
+      01.01.2024; it raised the first threshold from 13.279 Euro (Art. 3 G. v.
+      08.12.2022 BGBl. I S. 2230, InflAusG, which also set the second threshold). By §
+      52 Abs. 32a EStG, the new amount applies to the withholding tax on wages for
+      periods ending after 30.11.2024 (with a catch-up in December 2024); the PAP 2024
+      below still used 13.279 Euro.
+      https://www.bundesfinanzministerium.de/Content/DE/Downloads/Steuern/Steuerarten/Lohnsteuer/Programmablaufplan/2024-02-23-geaenderte-PAP-2024-anwendung-ab-dem-1-april-2024-anlage-2.pdf?__blob=publicationFile&v=3
+    1: 13432
     2: 33380
     3: 222260
   2025-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 1 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
     note: >-
+      Steuerfortentwicklungsgesetz (SteFeG).
       Programmablaufplan für die maschinelle Berechnung der vom Arbeitslohn
       einzubehaltenden Lohnsteuer für 2025 und Programmablaufplan für die Begrenzung der
       von Versorgungsbezügen einzubehaltenden Lohnsteuer und des Solidaritätszuschlags
@@ -91,7 +166,9 @@ einkommensgrenzwerte_steuerklassen_5_6:
     2: 34240
     3: 222260
   2026-01-01:
+    reference: § 39b Abs. 2 Satz 7 EStG idF Art. 2 G. v. 23.12.2024 BGBl. 2024 I Nr. 449
     note: >-
+      Steuerfortentwicklungsgesetz (SteFeG).
       Programmablaufplan für die maschinelle Berechnung der vom Arbeitslohn
       einzubehaltenden Lohnsteuer für 2026 und Programmablaufplan für die Begrenzung der
       von Versorgungsbezügen einzubehaltenden Lohnsteuer und des Solidaritätszuschlags

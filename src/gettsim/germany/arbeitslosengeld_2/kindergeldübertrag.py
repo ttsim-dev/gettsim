@@ -48,6 +48,7 @@ def _mean_kindergeld_per_child_gestaffelt_m(
     Returns the average Kindergeld per child. If there are no children, the function
     returns 0. Helper function for `kindergeld_zur_bedarfsdeckung_m`.
 
+    Reference: none (technical helper)
     """
     if kindergeld__anzahl_ansprüche > 0:
         out = kindergeld__betrag_m / kindergeld__anzahl_ansprüche
@@ -77,6 +78,11 @@ def kindergeld_zur_bedarfsdeckung_m(
     children divided by the amount of children. Hence, the age of the child (in
     comparison to siblings) does not matter.
 
+    Reference:
+        - § 11 Abs. 1 Satz 3 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 1 Satz 3 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+        - § 11 Abs. 1 Satz 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11 Abs. 1 Satz 5 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
     """
     return join(
         foreign_key=kindergeld__p_id_empfänger,
@@ -108,6 +114,12 @@ def differenz_kindergeld_kindbedarf_m(
 
     Kindergeldübertrag (`kindergeldübertrag_m`) is obtained by aggregating this function
     to the parental level.
+
+    Reference:
+        - § 11 Abs. 1 Satz 3 SGB II idF Art. 1 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 11 Abs. 1 Satz 3 SGB II idF Art. 1 G. v. 24.03.2006 BGBl. I S. 558
+        - § 11 Abs. 1 Satz 4 SGB II idF Art. 2 G. v. 24.03.2011 BGBl. I S. 453
+        - § 11 Abs. 1 Satz 5 SGB II idF Art. 1 G. v. 26.07.2016 BGBl. I S. 1824
     """
     fehlbetrag = max(
         cast_ttsim_unit(regelbedarf_m_bg, unit=TTSIMUnit.CURRENCY.PER_MONTH)
@@ -143,6 +155,8 @@ def in_anderer_bg_als_kindergeldempfänger(
 ) -> BoolColumn:
     """True if the person is in a different Bedarfsgemeinschaft than the
     Kindergeldempfänger of that person.
+
+    Reference: none (technical helper)
     """
     bg_id_empfänger = join(
         foreign_key=kindergeld__p_id_empfänger,

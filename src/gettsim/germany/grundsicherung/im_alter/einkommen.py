@@ -48,6 +48,12 @@ def einkommen_m_bis_2006(
     All pension income and wage-replacement benefits are fully counted as income
     (§ 82 Abs. 1 S. 1 SGB XII). Erziehungsgeld is not counted as income (§8 Abs. 1
     BErzGG).
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 02.12.2006 BGBl. I S. 2670
+        - § 82 Abs. 2 Nr. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 82 Abs. 2 Nr. 2 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
     """
     total_income = (
         erwerbseinkommen_m
@@ -106,6 +112,11 @@ def einkommen_m_ab_2007_bis_2010(
     Introduces Elterngeld as income, exempt up to 300 € together with the Mutterschaftsgeld
     credited against it (§ 10 Abs. 1 BEEG). All pension income is fully counted as
     income.
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 02.12.2006 BGBl. I S. 2670
+        - § 82 Abs. 2 Nr. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 82 Abs. 2 Nr. 2 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
     """
     total_income = (
         erwerbseinkommen_m
@@ -165,6 +176,11 @@ def einkommen_m_ab_2011_bis_2017(
     Elterngeld is exempt only in the amount of the income from employment before the
     birth, up to 300 € (§ 10 Abs. 5 BEEG, Art. 14 Nr. 4 G. v. 09.12.2010, BGBl. I S.
     1896). All pension income is fully counted as income.
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 21 G. v. 09.12.2010 BGBl. I S. 1885
+        - § 82 Abs. 2 Nr. 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 82 Abs. 2 Nr. 2 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
     """
     total_income = (
         erwerbseinkommen_m
@@ -220,6 +236,12 @@ def einkommen_m_ab_2018_bis_2022(
     From 2018, § 82 Abs. 4, 5 SGB XII (Art. 2 Nr. 7 Betriebsrentenstärkungsgesetz v.
     17.08.2017, BGBl. I S. 3214) introduces a Freibetrag for 'zusätzliche
     Altersvorsorge', applied via einkommen_aus_zusätzlicher_altersvorsorge_m.
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 02.06.2021 BGBl. I S. 1387
+        - § 82 Abs. 2 Satz 1 Nr. 1 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
+        - § 82 Abs. 2 Satz 1 Nr. 2 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
     """
     total_income = (
         erwerbseinkommen_m
@@ -268,6 +290,12 @@ def einkommen_m_ab_2023(
 
     Mutterschaftsgeld is exempt in full (§ 82 Abs. 1 S. 2 Nr. 5 SGB XII, inserted by
     Art. 5 Nr. 13 G. v. 16.12.2022, BGBl. I S. 2328).
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 02.06.2021 BGBl. I S. 1387
+        - § 82 Abs. 1 Satz 2 Nr. 5 SGB XII idF Art. 5 G. v. 16.12.2022 BGBl. I S. 2328
+        - § 82 Abs. 2 Satz 1 Nr. 1 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
+        - § 82 Abs. 2 Satz 1 Nr. 2 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
     """
     total_income = (
         erwerbseinkommen_m
@@ -302,7 +330,9 @@ def erwerbseinkommen_m(
 ) -> float:
     """Earnings considered for Grundsicherung im Alter.
 
-    Legal reference: § 82 SGB XII Abs. 3
+    Reference:
+        - § 82 Abs. 3 Satz 1 SGB XII idF Art. 3 G. v. 24.03.2011 BGBl. I S. 453
+        - § 82 Abs. 3 Satz 1 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
     """
     earnings = (
         einnahmen__bruttolohn_m
@@ -325,7 +355,10 @@ def erwerbseinkommen_m(
 def kapitaleinkommen_brutto_m_ohne_freibetrag(
     einnahmen__kapitalerträge_m: float,
 ) -> float:
-    """Capital income."""
+    """Capital income.
+
+    Reference: none (technical helper)
+    """
     return max(0.0, einnahmen__kapitalerträge_m)
 
 
@@ -340,7 +373,7 @@ def kapitaleinkommen_brutto_m_mit_freibetrag(
 ) -> float:
     """Capital income minus the capital income exemption.
 
-    Legal reference: § 43 SGB XII Abs. 2
+    Reference: § 43 Abs. 2 SGB XII idF Art. 1 G. v. 21.12.2015 BGBl. I S. 2557
     """
     capital_income_y = einnahmen__kapitalerträge_y - freibetrag_kapitaleinkünfte
 
@@ -360,16 +393,18 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 ) -> float:
     """Private and occupational pension income for Grundsicherung im Alter.
 
-    Legal reference: § 82 Abs. 4, 5 SGB XII (eingeführt durch Art. 2 Nr. 7
-    Betriebsrentenstärkungsgesetz v. 17.08.2017, BGBl. I S. 3214)
-
-    The Freibetrag for 'zusätzliche Altersvorsorge' applies as defined in § 82 Abs. 5
+    § 82 Abs. 4, 5 SGB XII was introduced by the Betriebsrentenstärkungsgesetz. The
+    Freibetrag for 'zusätzliche Altersvorsorge' applies as defined in § 82 Abs. 5
     SGB XII:
 
     - Betriebliche Altersversorgung i.S.d. BetrAVG (Abs. 5 Satz 2 Nr. 1)
     - Zertifizierte Altersvorsorge / Riester (Abs. 5 Satz 2 Nr. 2)
     - Basisrente / Rürup (Abs. 5 Satz 1: freiwillig, lebenslang)
     - Sonstige private Altersvorsorge (Abs. 5 Satz 1: freiwillig, lebenslang)
+
+    Reference:
+        - § 82 Abs. 4 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
+        - § 82 Abs. 5 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
     """
     zusätzliche_altersvorsorge_m = (
         einnahmen__renten__basisrente_m
@@ -398,7 +433,14 @@ def einkommen_aus_zusätzlicher_altersvorsorge_m(
 def gesetzliche_rente_m_bis_2020(
     einnahmen__renten__gesetzliche_m: float,
 ) -> float:
-    """Public pension benefits considered for Grundsicherung im Alter until 2020."""
+    """Public pension benefits considered for Grundsicherung im Alter until 2020.
+
+    Reference:
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 27.12.2003 BGBl. I S. 3022
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 1 G. v. 02.12.2006 BGBl. I S. 2670
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 21 G. v. 09.12.2010 BGBl. I S. 1885
+        - § 82 Abs. 1 Satz 1 SGB XII idF Art. 2 G. v. 17.08.2017 BGBl. I S. 3214
+    """
     return einnahmen__renten__gesetzliche_m
 
 
@@ -416,12 +458,13 @@ def gesetzliche_rente_m_ab_2021(
 ) -> float:
     """Public pension income for Grundsicherung im Alter, with Grundrentenzeiten-Freibetrag.
 
-    Legal reference: § 82a SGB XII (eingeführt durch Art. 3 Grundrentengesetz
-    v. 12.08.2020, BGBl. I S. 1879, effective 2021-01-01)
+    § 82a SGB XII was introduced by the Grundrentengesetz. Persons with ≥ 33 years of
+    Grundrentenzeiten (§ 76g Abs. 2 SGB VI) receive a Freibetrag: 100 € + 30 % of
+    public pension income above 100 €, capped at 50 % of Regelbedarfsstufe 1.
 
-    Persons with ≥ 33 years of Grundrentenzeiten (§ 76g Abs. 2 SGB VI) receive
-    a Freibetrag: 100 € + 30 % of public pension income above 100 €, capped at
-    50 % of Regelbedarfsstufe 1.
+    Reference:
+        - § 82a Abs. 1 SGB XII idF Art. 3 G. v. 12.08.2020 BGBl. I S. 1879
+        - § 82a Abs. 2 SGB XII idF Art. 3 G. v. 12.08.2020 BGBl. I S. 1879
     """
     freibetrag = piecewise_polynomial(
         x=einnahmen__renten__gesetzliche_m,

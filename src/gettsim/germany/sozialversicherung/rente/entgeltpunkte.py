@@ -13,7 +13,10 @@ from gettsim.tt import TTSIMUnit, cast_ttsim_unit, policy_function
 def neue_entgeltpunkte_ohne_arbeitslosengeld(
     neue_entgeltpunkte_aus_beschäftigung_y: float,
 ) -> float:
-    """Earnings points earned in the current year."""
+    """Earnings points earned in the current year.
+
+    Reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     # TODO(@MImmesberger): Arbeitslosengeld is not modelled before August 1998, so this
     # function does not include earnings points from drawing it.
     # https://github.com/ttsim-dev/gettsim/issues/1253
@@ -29,7 +32,10 @@ def neue_entgeltpunkte_mit_arbeitslosengeld(
     neue_entgeltpunkte_aus_beschäftigung_y: float,
     neue_entgeltpunkte_aus_arbeitslosengeld_y: float,
 ) -> float:
-    """Earnings points earned in the current year."""
+    """Earnings points earned in the current year.
+
+    Reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    """
     return (
         neue_entgeltpunkte_aus_beschäftigung_y
         + neue_entgeltpunkte_aus_arbeitslosengeld_y
@@ -58,6 +64,10 @@ def neue_entgeltpunkte_aus_beschäftigung_bis_1989(
     at the Beitragsbemessungsgrenze (§ 256a Abs. 1, § 260 Satz 2 SGB VI). There is no cap
     before the scaling: the Beitragsbemessungsgrenze (Ost) of Anlage 2a only exists from
     1 July 1990, and § 256a Abs. 3 SGB VI counts wages above the limits of the GDR.
+
+    Reference:
+        - § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -102,6 +112,10 @@ def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort_ohne_geringfügige_besch�
     Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
     scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
     (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
+
+    Reference:
+        - § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -157,6 +171,14 @@ def neue_entgeltpunkte_aus_beschäftigung_nach_wohnort(
     Wages in the Beitrittsgebiet count up to the Beitragsbemessungsgrenze (Ost), are
     scaled up by Anlage 10, and the result is capped at the Beitragsbemessungsgrenze
     (West) (§ 275a mit Anlage 2a, § 256a Abs. 1, § 260 Satz 2 SGB VI).
+
+    Reference:
+        - § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
+        - § 76b Abs. 1 SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+        - § 76b Abs. 1 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+        - § 76b Abs. 2 Satz 1 SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+        - § 76b Abs. 4 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
     """
     # Earnings in the Beitrittsgebiet are scaled up before they are compared to the
     # national Durchschnittsentgelt (§ 256a SGB VI).
@@ -222,6 +244,12 @@ def neue_entgeltpunkte_aus_beschäftigung_einheitlich(
     Pauschalbeitrag (§ 76b Abs. 1 und 2 SGB VI); the counterfactual Entgelt appears in
     both factors of that product and cancels. With mandatory coverage the
     Mindestbeitragsbemessungsgrundlage applies (§ 163 Abs. 8 SGB VI).
+
+    Reference:
+        - § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 76b Abs. 1 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+        - § 76b Abs. 2 Satz 1 SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+        - § 76b Abs. 4 SGB VI idF Art. 1 G. v. 08.12.2016 BGBl. I S. 2838
     """
     if beitrag__versicherungsfrei_wegen_alters:
         out = 0.0
@@ -254,7 +282,10 @@ def neue_entgeltpunkte_aus_beschäftigung_einheitlich(
     unit=TTSIMUnit.DIMENSIONLESS.PER_YEAR,
 )
 def neue_entgeltpunkte_aus_arbeitslosengeld_bis_1998_07() -> float:
-    """Earnings points for drawing Arbeitslosengeld in the current year."""
+    """Earnings points for drawing Arbeitslosengeld in the current year.
+
+    Reference: none (Arbeitslosengeld before August 1998 is not implemented)
+    """
 
 
 @policy_function(
@@ -281,6 +312,10 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_nach_wohnort(
     The Rechtskreis follows the current place of residence. The statute uses the place
     where the wage underlying the benefit was earned (GRA zu § 166 SGB VI), so a person
     who moved between East and West after losing the job is assigned the wrong one.
+
+    Reference:
+        - § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+        - § 256a Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
     """
     if wohnort_ost_hh:
         umrechnungswert = umrechnung_entgeltpunkte_beitrittsgebiet
@@ -319,6 +354,8 @@ def neue_entgeltpunkte_aus_arbeitslosengeld_einheitlich(
 
     A person covered under § 3 Satz 1 Nr. 3 SGB VI pays contributions on the
     beitragspflichtige Einnahme of § 166 Abs. 1 Nr. 2 SGB VI.
+
+    Reference: § 70 Abs. 1 Satz 1 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     """
     if (
         sozialversicherung__arbeitslosen__grundsätzlich_anspruchsberechtigt
@@ -345,7 +382,10 @@ def rentenwert_nach_wohnort(
     wohnort_ost_hh: bool,
     sozialversicherung__rente__parameter_rentenwert_nach_wohnort: dict[str, float],
 ) -> float:
-    """Rentenwert."""
+    """Rentenwert.
+
+    Reference: § 254b Abs. 1 SGB VI idF Art. 1 G. v. 25.07.1991 BGBl. I S. 1606
+    """
     return (
         sozialversicherung__rente__parameter_rentenwert_nach_wohnort["ost"]
         if wohnort_ost_hh

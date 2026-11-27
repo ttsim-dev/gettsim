@@ -15,7 +15,10 @@ def betrag_gesamt_m_ohne_basisrente(
     betriebliche_altersvorsorge_m: float,
     aus_berufsständischen_versicherungen_m: float,
 ) -> float:
-    """Sum of all Renteneinnahmen."""
+    """Sum of all Renteneinnahmen.
+
+    Reference: none (technical helper)
+    """
     return (
         gesetzliche_m
         + sonstige_private_vorsorge_m
@@ -42,6 +45,8 @@ def betrag_gesamt_m_mit_basisrente(
 
     Basisrente / Rürup did not exist before the Alterseinkünftegesetz took effect on
     2005-01-01.
+
+    Reference: none (technical helper)
     """
     return (
         gesetzliche_m

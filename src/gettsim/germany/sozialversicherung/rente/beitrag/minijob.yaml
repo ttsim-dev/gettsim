@@ -17,18 +17,27 @@ minijob_arbeitgeberpauschale:
   type: scalar
   1999-04-01:
     value: 0.12
-    reference: BGBl I 1999 S. 388
-    note: Introduction of '630 Mark' jobs.
+    reference:
+      - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+      - § 168 Abs. 1 Nr. 1b SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+    note: >-
+      Introduction of '630 Mark' jobs (Gesetz zur Neuregelung der geringfügigen
+      Beschäftigungsverhältnisse).
   2003-04-01:
     value: 0.12
-    reference: Art. 1 G. v. 23.12.2002 BGBl. I S. 4621
+    reference:
+      - § 172 Abs. 3 Satz 1 SGB VI idF Art. 4 G. v. 24.03.1999 BGBl. I S. 388
+      - § 172 Abs. 3a SGB VI idF Art. 4 Nr. 12 G. v. 23.12.2002 BGBl. I S. 4621
     note: >-
       Seitdem gilt für geringfügige Beschäftigungen in Privathaushalten ein
       ermäßigter Pauschalbeitrag von 5% (§ 168 Abs. 1 Nr. 1c SGB VI). Dieser wird
       nicht modelliert, GETTSIM verwendet stets den gewerblichen Satz.
   2006-07-01:
     value: 0.15
-    reference: G. v. 29.06.2006 BGBl. I S. 1402 (Haushaltsbegleitgesetz 2006)
+    reference:
+      - § 172 Abs. 3 Satz 1 SGB VI idF Art. 11 Nr. 4 G. v. 29.06.2006 BGBl. I S. 1402
+      - § 168 Abs. 1 Nr. 1b SGB VI idF Art. 11 Nr. 3 G. v. 29.06.2006 BGBl. I S. 1402
+    note: Haushaltsbegleitgesetz 2006.
 mindestbeitragsbemessungsgrundlage_geringfügige_beschäftigung_m:
   name:
     de: >-
@@ -49,15 +58,17 @@ mindestbeitragsbemessungsgrundlage_geringfügige_beschäftigung_m:
   1999-04-01:
     value: 300
     unit: DM_PER_MONTH
-    reference: Art. 4 Nr. 13 G. v. 24.03.1999 BGBl. I S. 388
+    reference: § 163 Abs. 8 SGB VI idF Art. 4 Nr. 18 G. v. 24.03.1999 BGBl. I S. 388
     note: Introduction of '630 Mark' jobs.
   2002-01-01:
     value: 155
     unit: EUR_PER_MONTH
-    reference: Art. 7 G. v. 21.12.2000 BGBl. I S. 1983
+    reference: § 163 Abs. 8 SGB VI idF Art. 7 Nr. 9 G. v. 21.12.2000 BGBl. I S. 1983
     note: >-
       Das Vierte Euro-Einführungsgesetz ersetzte die Angabe '300 Deutsche Mark' durch
       '155 Euro'. Der Betrag wurde glatt gestellt, nicht umgerechnet.
   2013-01-01:
     value: 175
-    reference: Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+    reference: § 163 Abs. 8 SGB VI idF Art. 4 G. v. 05.12.2012 BGBl. I S. 2474
+    note: >-
+      Gesetz zu Änderungen im Bereich der geringfügigen Beschäftigung.

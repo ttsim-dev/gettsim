@@ -13,12 +13,18 @@ beitragssatz:
   add_jahresanfang: true
   1995-01-01:
     value: 0.01
-  1997-01-01:
+    reference: § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+    note: Pflege-Versicherungsgesetz
+  1996-07-01:
     value: 0.017
+    reference: § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+    note: Pflege-Versicherungsgesetz
   2005-01-01:
     note: >-
       Special contribution rate for childless individuals. See
       beitragssatz_nach_kinderzahl.
+    reference: >-
+      § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
 beitragssatz_nach_kinderzahl:
   name:
     de: Beitragssätze zur gesetzlichen Pflegeversicherung
@@ -34,25 +40,46 @@ beitragssatz_nach_kinderzahl:
   2005-01-01:
     standard: 0.017
     zusatz_kinderlos: 0.0025
-  2008-01-01:
+    reference:
+      - § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 26.05.1994 BGBl. I S. 1014
+      - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+    note: Kinder-Berücksichtigungsgesetz
+  2008-07-01:
     standard: 0.0195
     zusatz_kinderlos: 0.0025
+    reference:
+      - § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 28.05.2008 BGBl. I S. 874
+      - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+    note: Pflege-Weiterentwicklungsgesetz
   2013-01-01:
     updates_previous: true
     standard: 0.0205
+    reference: § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 23.10.2012 BGBl. I S. 2246
+    note: Pflege-Neuausrichtungs-Gesetz
   2015-01-01:
     standard: 0.0235
     zusatz_kinderlos: 0.0025
+    reference:
+      - § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 17.12.2014 BGBl. I S. 2222
+      - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+    note: Erstes Pflegestärkungsgesetz
   2017-01-01:
     updates_previous: true
     standard: 0.0255
+    reference: § 55 Abs. 1 Satz 1 SGB XI idF Art. 2 G. v. 21.12.2015 BGBl. I S. 2424
+    note: Zweites Pflegestärkungsgesetz
   2019-01-01:
     standard: 0.0305
     zusatz_kinderlos: 0.0025
+    reference:
+      - § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 17.12.2018 BGBl. I S. 2587
+      - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+    note: Fünftes Gesetz zur Änderung des Elften Buches Sozialgesetzbuch
   2022-01-01:
     updates_previous: true
     zusatz_kinderlos: 0.0035
-    reference: Art. 2 Nr. 14 G. v. 11.07.2021, BGBl. I S. 2754.
+    reference: § 55 Abs. 3 Satz 1 SGB XI idF Art. 2 G. v. 11.07.2021 BGBl. I S. 2754
+    note: Gesundheitsversorgungsweiterentwicklungsgesetz
   2023-07-01:
     standard: 0.034
     zusatz_kinderlos: 0.006
@@ -61,11 +88,15 @@ beitragssatz_nach_kinderzahl:
       Pflegeunterstützungs- und -entlastungsgesetz - PUEG
       Increase of contribution rates and introduction of reduction of contribution rates
       for people with children.
+    reference:
+      - § 55 Abs. 1 Satz 1 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+      - § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
+      - § 55 Abs. 3 Satz 4 SGB XI idF Art. 1 G. v. 19.06.2023 BGBl. 2023 I Nr. 155
   2025-01-01:
     updates_previous: true
     standard: 0.036
-    reference: >-
-      Pflege-Beitragssatz-Anpassungsverordnung 2025, Bundestag-Drucksache 20/1371
+    reference: § 1 Abs. 1 PBAV 2025 idF V. v. 20.12.2024 BGBl. 2024 I Nr. 446
+    note: Pflegebeitragsanpassungsverordnung 2025
 zusatz_kinderlos_mindestalter:
   name:
     de: Mindestalter Beitragszuschlag für Kinderlose
@@ -84,3 +115,6 @@ zusatz_kinderlos_mindestalter:
   type: scalar
   2005-01-01:
     value: 23
+    reference: >-
+      § 55 Abs. 3 Satz 1 SGB XI idF Art. 1 Nr. 1 G. v. 15.12.2004 BGBl. I S. 3448
+    note: Kinder-Berücksichtigungsgesetz

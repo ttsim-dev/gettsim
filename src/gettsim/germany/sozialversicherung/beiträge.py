@@ -12,7 +12,10 @@ def beiträge_versicherter_m(
     rente__beitrag__betrag_versicherter_m: float,
     arbeitslosen__beitrag__betrag_versicherter_m: float,
 ) -> float:
-    """Sum of social insurance contributions paid by the insured person."""
+    """Sum of social insurance contributions paid by the insured person.
+
+    Reference: none (technical helper)
+    """
     return (
         pflege__beitrag__betrag_versicherter_m
         + kranken__beitrag__betrag_versicherter_m
@@ -28,7 +31,10 @@ def beiträge_arbeitgeber_m(
     rente__beitrag__betrag_arbeitgeber_m: float,
     arbeitslosen__beitrag__betrag_arbeitgeber_m: float,
 ) -> float:
-    """Sum of employer's social insurance contributions."""
+    """Sum of employer's social insurance contributions.
+
+    Reference: none (technical helper)
+    """
     return (
         pflege__beitrag__betrag_arbeitgeber_m
         + kranken__beitrag__betrag_arbeitgeber_m
@@ -42,5 +48,8 @@ def beiträge_gesamt_m(
     beiträge_versicherter_m: float,
     beiträge_arbeitgeber_m: float,
 ) -> float:
-    """Sum of employer's and insured person's social insurance contributions."""
+    """Sum of employer's and insured person's social insurance contributions.
+
+    Reference: none (technical helper)
+    """
     return beiträge_versicherter_m + beiträge_arbeitgeber_m

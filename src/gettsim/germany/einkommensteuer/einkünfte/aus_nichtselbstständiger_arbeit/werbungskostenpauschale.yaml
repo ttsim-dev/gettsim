@@ -10,27 +10,37 @@ arbeitnehmerpauschbetrag:
   1975-01-01:
     unit: DM_PER_YEAR
     value: 564
-    reference: >-
-      § 9a Nr. 1 EStG 1975 i. d. F. der Bek. v. 05.09.1974 BGBl. I S. 2165.
+    reference: § 9a Nr. 1 EStG idF B. v. 05.09.1974 BGBl. I S. 2165
   1990-01-01:
     value: 2000
-    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
+    reference: § 9a Satz 1 Nr. 1 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+    note: >-
+      Steuerreformgesetz 1990.
   2002-01-01:
     unit: EUR_PER_YEAR
     value: 1044
-    reference: >-
-      Art. 1 Nr. 11 G. v. 19.12.2000 BGBl. I S. 1790 (Steuer-Euroglättungsgesetz).
+    reference: § 9a Satz 1 Nr. 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
   2004-01-01:
     value: 920
-    reference: >-
-      Art. 9 Nr. 12 G. v. 29.12.2003 BGBl. I S. 3076 (Haushaltsbegleitgesetz 2004).
-  2012-01-01:
+    reference: § 9a Satz 1 Nr. 1 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004.
+  2011-01-01:
     value: 1000
-    reference: Art. 1 G. v. 01.11.2011 BGBl. I S. 2131.
-    note: Für Lohnsteuerabzug gültig ab 2011-11-05.
+    reference: § 9a Satz 1 Nr. 1 Buchst. a EStG idF Art. 1 G. v. 01.11.2011 BGBl. I S. 2131
+    note: >-
+      Steuervereinfachungsgesetz 2011. Applicable from VZ 2011 (§ 52 Abs. 23e EStG idF
+      Art. 1 G. v. 01.11.2011 BGBl. I S. 2131); for the Lohnsteuer from December 2011.
   2022-01-01:
     value: 1200
-    reference: Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+    reference: § 9a Satz 1 Nr. 1 Buchst. a EStG idF Art. 2 G. v. 23.05.2022 BGBl. I S. 749
+    note: >-
+      Steuerentlastungsgesetz 2022 (in force from 28.05.2022, applicable to the whole
+      Veranlagungszeitraum 2022).
   2023-01-01:
     value: 1230
-    reference: G. v. 20.12.2022 BGBl. I S. 2294.
+    reference: § 9a Satz 1 Nr. 1 Buchst. a EStG idF Art. 4 G. v. 16.12.2022 BGBl. I S. 2294
+    note: >-
+      Jahressteuergesetz 2022.

@@ -21,6 +21,8 @@ def alter_bei_renteneintritt(
     month after reaching the age threshold (§ 99 SGB VI) persons who retire in same
     month will be considered a month too young. Hence, subtract 1 additional month from
     monat_renteneintritt.
+
+    Reference: none (technical helper)
     """
     return (
         jahr_renteneintritt

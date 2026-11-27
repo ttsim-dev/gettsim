@@ -10,28 +10,56 @@ alleinerziehendenfreibetrag_basis_y:
   1984-01-01:
     unit: DM_PER_YEAR
     value: 4212
-    reference: >-
-      § 32 Abs. 3 EStG i. d. F. der Bekanntmachung v. 06.12.1981 BGBl. I S. 1249.
+    reference: § 32 Abs. 3 EStG idF B. v. 24.01.1984 BGBl. I S. 113
+    note: >-
+      Haushaltsfreibetrag.
   1986-01-01:
     value: 4536
-    reference: Art. 1 G. v. 26.06.1985 BGBl. I S. 1153.
-  1989-01-01:
+    reference: § 32 Abs. 7 EStG idF Art. 1 G. v. 26.06.1985 BGBl. I S. 1153
+    note: >-
+      Steuersenkungsgesetz 1986/1988. Haushaltsfreibetrag.
+  1990-01-01:
     value: 5616
-    reference: Art. 1 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
+    reference: § 32 Abs. 7 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+    note: >-
+      Steuerreformgesetz 1990, applicable from VZ 1990 (§ 52 Abs. 1 EStG idF Art. 1 G.
+      v. 25.07.1988 BGBl. I S. 1093).
   2002-01-01:
+    reference: § 32 Abs. 7 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+    note: >-
+      Zweites Gesetz zur Familienförderung. Haushaltsfreibetrag.
     unit: EUR_PER_YEAR
     value: 2340
   2004-01-01:
+    reference: § 24b Abs. 1 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    note: >-
+      Haushaltsbegleitgesetz 2004. Entlastungsbetrag für Alleinerziehende replaces the
+      Haushaltsfreibetrag.
     value: 1308
   2015-01-01:
     value: 1908
-    reference: Art. 1 G. v. 16.07.2015 BGBl. I S.1202
+    reference: § 24b Abs. 2 Satz 1 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+    note: >-
+      Gesetz zur Anhebung des Grundfreibetrags, des Kinderfreibetrags, des Kindergeldes
+      und des Kinderzuschlags.
   2020-01-01:
     value: 4008
-    reference: Art. 3 Nr. 2 G. v. 29.12.2020 BGBl. I S.3096
+    reference:
+      - § 24b Abs. 2 Satz 1 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+      - § 24b Abs. 2 Satz 3 EStG idF Art. 1 G. v. 29.06.2020 BGBl. I S. 1512
+    note: >-
+      Zweites Corona-Steuerhilfegesetz: 1908 Euro plus 2100 Euro for 2020 and 2021 (§
+      24b Abs. 2 Satz 3 EStG).
+  2022-01-01:
+    reference: § 24b Abs. 2 Satz 1 EStG idF Art. 3 G. v. 21.12.2020 BGBl. I S. 3096
+    note: >-
+      Jahressteuergesetz 2020. The increase to 4008 Euro becomes permanent.
+    value: 4008
   2023-01-01:
     value: 4260
-    reference: G. v. 20.12.2022 BGBl. I S. 2294.
+    reference: § 24b Abs. 2 Satz 1 EStG idF Art. 4 G. v. 16.12.2022 BGBl. I S. 2294
+    note: >-
+      Jahressteuergesetz 2022.
 alleinerziehendenfreibetrag_zusatz_pro_kind_y:
   name:
     de: Zusätzlicher Entlastungsbetrag für Alleinerziehende
@@ -45,4 +73,4 @@ alleinerziehendenfreibetrag_zusatz_pro_kind_y:
   type: scalar
   2015-01-01:
     value: 240
-    reference: Art. 1 G. vs. 16.07.2015 BGBl. I S.1202
+    reference: § 24b Abs. 2 Satz 2 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202

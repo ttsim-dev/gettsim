@@ -32,8 +32,31 @@ parameter_einführungsfaktor_rentenversicherungsaufwendungen:
       - interval: '[2025, inf)'
         slope: 0
         intercept: 1
+    reference: § 10c Abs. 2 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz (AltEinkG). Until 2009, the share applied to the
+      Vorsorgepauschale of § 10c Abs. 2 EStG.
+  2010-01-01:
+    intervals:
+      - interval: (-inf, 2005)
+        slope: 0
+        intercept: 0.2
+      - interval: '[2005, 2025)'
+        slope: 0.04
+        intercept: 0.2
+      - interval: '[2025, inf)'
+        slope: 0
+        intercept: 1
+    reference: § 39b Abs. 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: >-
+      Bürgerentlastungsgesetz Krankenversicherung. Same schedule (40 percent in 2010,
+      plus 4 percentage points per year), now in § 39b Abs. 4 EStG.
   2023-01-01:
-    note: Prematurely set to 100% in 2023.
+    note: >-
+      Prematurely set to 100% in 2023. § 39b Abs. 4 EStG was repealed by Art. 4 G. v.
+      16.12.2022 BGBl. I S. 2294 (JStG 2022), so the full amount of § 39b Abs. 2 Satz
+      5 Nr. 3 Buchst. a EStG is deducted.
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 Buchst. a EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
 vorsorgepauschale_mindestanteil:
   name:
     de: Mindestanteil für Mindestvorsorgepauschale
@@ -51,10 +74,15 @@ vorsorgepauschale_mindestanteil:
   type: scalar
   2010-01-01:
     value: 0.12
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
-  2025-12-31:
-    note: Mindestvorsorgepauschale revoked.
-    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: Bürgerentlastungsgesetz Krankenversicherung
+  2026-01-01:
+    note: >-
+      Mindestvorsorgepauschale revoked. § 39b Abs. 2 Satz 5 Nr. 3 EStG was rewritten by
+      Art. 5 G. v. 21.12.2020 BGBl. I S. 3096 (JStG 2020) without it; by § 52 Abs. 36
+      EStG the new version applies from 01.01.2026. See also the Anwendungsregelung BMF
+      v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 20 G. v. 22.12.2023 BGBl. 2023 I Nr. 411
 maximal_absetzbare_krankenversicherungskosten:
   name:
     de: Höchstbetrag Mindestvorsorgepauschale
@@ -73,7 +101,8 @@ maximal_absetzbare_krankenversicherungskosten:
   2010-01-01:
     steuerklasse_3: 3000
     steuerklasse_nicht_3: 1900
-    reference: Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    reference: § 39b Abs. 2 Satz 5 Nr. 3 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+    note: Bürgerentlastungsgesetz Krankenversicherung
 vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeiträge_y:
   name:
     de: >-
@@ -95,4 +124,9 @@ vorsorgeaufwendungen_grenze_zur_berücksichtigung_arbeitslosenversicherungsbeitr
   type: scalar
   2026-01-01:
     value: 1900
-    reference: Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).
+    reference: >-
+      § 39b Abs. 2 Satz 5 Nr. 3 Buchst. e EStG idF Art. 5 G. v. 21.12.2020 BGBl. I S.
+      3096
+    note: >-
+      Jahressteuergesetz 2020. By § 52 Abs. 36 EStG, applicable from 01.01.2026. See also
+      the Anwendungsregelung BMF v. 14.08.2025 (BStBl 2025 I S. 1628).

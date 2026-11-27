@@ -16,6 +16,7 @@ altersentlastungsbetrag_altersgrenze:
   unit: YEARS
   type: scalar
   1984-01-01:
+    reference: § 24a Satz 3 EStG idF B. v. 24.01.1984 BGBl. I S. 113
     value: 64
 maximaler_altersentlastungsbetrag_y:
   name:
@@ -32,14 +33,21 @@ maximaler_altersentlastungsbetrag_y:
   1984-01-01:
     unit: DM_PER_YEAR
     value: 3000
-    reference: § 24a EStG i. d. F. der Bekanntmachung v. 27.02.1987 BGBl. I S. 657.
-  1989-01-01:
+    reference: § 24a Satz 1 EStG idF B. v. 24.01.1984 BGBl. I S. 113
+  1990-01-01:
     value: 3720
-    reference: Art. 1 Nr. 23 G. v. 25.07.1988 BGBl. I S. 1093 (Steuerreformgesetz 1990).
+    reference: § 24a Satz 1 EStG idF Art. 1 G. v. 25.07.1988 BGBl. I S. 1093
+    note: >-
+      Steuerreformgesetz 1990, applicable from VZ 1990 (§ 52 Abs. 1 EStG idF Art. 1 G.
+      v. 25.07.1988 BGBl. I S. 1093).
   2002-01-01:
+    reference: § 24a Satz 1 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    note: >-
+      Steuer-Euroglättungsgesetz.
     unit: EUR_PER_YEAR
     value: 1908
   2005-01-01:
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     note: Ausschleichung per `raw_maximaler_altersentlastungsbetrag_y_gestaffelt`
 raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
   name:
@@ -54,7 +62,9 @@ raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
   output_unit: EUR_PER_YEAR
   type: require_converter
   2005-01-01:
-    reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz.
     # The table in § 24a Satz 5 EStG starts at 2005; earlier first years of
     # entitlement get its first row.
     first_calendar_year_to_consider: 1900
@@ -96,7 +106,10 @@ raw_maximaler_altersentlastungsbetrag_y_gestaffelt:
     2039: 38
     2040: 0
   2023-01-01:
-    reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 27.03.2024 BGBl. 2024 I Nr. 108
+    note: >-
+      Wachstumschancengesetz (retroactive from 01.01.2023; for the Lohnsteuer from
+      01.01.2025, § 52 Abs. 26a EStG).
     # The table in § 24a Satz 5 EStG starts at 2005; earlier first years of
     # entitlement get its first row.
     first_calendar_year_to_consider: 1900
@@ -174,8 +187,10 @@ altersentlastungsquote:
   unit: DIMENSIONLESS
   type: scalar
   1984-01-01:
+    reference: § 24a Satz 1 EStG idF B. v. 24.01.1984 BGBl. I S. 113
     value: 0.4
   2005-01-01:
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     note: Ausschleichung per `raw_altersentlastungsquote_gestaffelt`
 raw_altersentlastungsquote_gestaffelt:
   name:
@@ -197,7 +212,9 @@ raw_altersentlastungsquote_gestaffelt:
   output_unit: DIMENSIONLESS
   type: require_converter
   2005-01-01:
-    reference: Artikel 1 G. v. 05.07.2004 BGBl. I S. 1427.
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    note: >-
+      Alterseinkünftegesetz.
     # The table in § 24a Satz 5 EStG starts at 2005; earlier first years of
     # entitlement get its first row.
     first_calendar_year_to_consider: 1900
@@ -239,7 +256,10 @@ raw_altersentlastungsquote_gestaffelt:
     2039: 0.008
     2040: 0
   2023-01-01:
-    reference: Wachstumschancengesetz 2024 BGBl. 2024 I Nr. 108 vom 27.03.2024
+    reference: § 24a Satz 5 EStG idF Art. 1 G. v. 27.03.2024 BGBl. 2024 I Nr. 108
+    note: >-
+      Wachstumschancengesetz (retroactive from 01.01.2023; for the Lohnsteuer from
+      01.01.2025, § 52 Abs. 26a EStG).
     # The table in § 24a Satz 5 EStG starts at 2005; earlier first years of
     # entitlement get its first row.
     first_calendar_year_to_consider: 1900

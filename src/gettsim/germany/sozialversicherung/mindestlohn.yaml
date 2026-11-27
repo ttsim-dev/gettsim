@@ -17,35 +17,55 @@ mindestlohn:
   type: scalar
   2015-01-01:
     value: 8.5
+    reference: § 1 Abs. 2 Satz 1 MiLoG idF Art. 1 G. v. 11.08.2014 BGBl. I S. 1348
+    note: Tarifautonomiestärkungsgesetz
   2017-01-01:
     value: 8.84
+    reference: § 1 MiLoV idF V. v. 15.11.2016 BGBl. I S. 2530
+    note: Mindestlohnanpassungsverordnung
   2019-01-01:
     value: 9.19
+    reference: § 1 Buchst. a MiLoV2 idF V. v. 13.11.2018 BGBl. I S. 1876
+    note: Zweite Mindestlohnanpassungsverordnung
   2020-01-01:
     value: 9.35
+    reference: § 1 Buchst. b MiLoV2 idF V. v. 13.11.2018 BGBl. I S. 1876
+    note: Zweite Mindestlohnanpassungsverordnung
   2021-01-01:
     value: 9.5
+    reference: § 1 Nr. 1 MiLoV3 idF V. v. 09.11.2020 BGBl. I S. 2356
+    note: Dritte Mindestlohnanpassungsverordnung
   2021-07-01:
     value: 9.6
+    reference: § 1 Nr. 2 MiLoV3 idF V. v. 09.11.2020 BGBl. I S. 2356
+    note: Dritte Mindestlohnanpassungsverordnung
   2022-01-01:
     value: 9.82
+    reference: § 1 Nr. 3 MiLoV3 idF V. v. 09.11.2020 BGBl. I S. 2356
+    note: Dritte Mindestlohnanpassungsverordnung
   2022-07-01:
     value: 10.45
+    reference: § 1 Nr. 4 MiLoV3 idF V. v. 09.11.2020 BGBl. I S. 2356
+    note: Dritte Mindestlohnanpassungsverordnung
   2022-10-01:
     value: 12
+    reference: § 1 Abs. 2 Satz 1 MiLoG idF Art. 1 G. v. 28.06.2022 BGBl. I S. 969
+    note: Mindestlohnerhöhungsgesetz
   2024-01-01:
     value: 12.41
-    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+    reference: § 1 Nr. 1 MiLoV4 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+    note: Vierte Mindestlohnanpassungsverordnung
   2025-01-01:
     value: 12.82
-    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+    reference: § 1 Nr. 2 MiLoV4 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 321
+    note: Vierte Mindestlohnanpassungsverordnung
   2026-01-01:
     value: 13.9
-    reference: >-
-      Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr.
-      268)
+    reference: § 1 Nr. 1 MiLoV5 idF V. v. 05.11.2025 BGBl. 2025 I Nr. 268
+    note: Fünfte Mindestlohnanpassungsverordnung
   2027-01-01:
     value: 14.6
-    reference: >-
-      Fünfte Mindestlohnanpassungsverordnung vom 05. November 2025 (BGBl. 2025 I Nr.
-      268)
+    reference: § 1 Nr. 2 MiLoV5 idF B. v. 08.12.2025 BGBl. 2025 I Nr. 312
+    note: >-
+      Fünfte Mindestlohnanpassungsverordnung vom 05.11.2025 (BGBl. 2025 I Nr. 268),
+      § 1 Nr. 2 berichtigt durch Bekanntmachung vom 08.12.2025.

@@ -79,7 +79,15 @@ def betrag_m_bg(
     anspruchshöhe_m_bg: float,
     vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger: bool,
 ) -> float:
-    """Amount of Kinderzuschlag at the Bedarfsgemeinschaft level."""
+    """Amount of Kinderzuschlag at the Bedarfsgemeinschaft level.
+
+    Reference:
+        - § 6a Abs. 1 Nr. 3 BKGG idF Art. 46 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 6a Abs. 1 Nr. 4 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
+        - § 6a Abs. 1 Nr. 4 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 1 Nr. 3 BKGG idF Art. 2 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 1 Nr. 3 BKGG idF Art. 5 G. v. 01.12.2020 BGBl. I S. 2616
+    """
     if vorrangprüfungen__wohngeld_kinderzuschlag_vorrangig_oder_günstiger:
         return anspruchshöhe_m_bg
     else:
@@ -91,7 +99,10 @@ def anspruchshöhe_m(
     anspruchshöhe_m_bg: float,
     familie__anzahl_personen_bg: int,
 ) -> float:
-    """Kinderzuschlag claim per member of the Bedarfsgemeinschaft."""
+    """Kinderzuschlag claim per member of the Bedarfsgemeinschaft.
+
+    Reference: none (technical helper)
+    """
     return anspruchshöhe_m_bg / familie__anzahl_personen_bg
 
 
@@ -101,7 +112,12 @@ def anspruchshöhe_m_bg(
     vermögen_bg: float,
     vermögensfreibetrag_bg: float,
 ) -> float:
-    """Kinderzuschlag claim at the Bedarfsgemeinschaft level."""
+    """Kinderzuschlag claim at the Bedarfsgemeinschaft level.
+
+    Reference:
+        - § 6a Abs. 4 Satz 7 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 6 Satz 4 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+    """
     if vermögen_bg > vermögensfreibetrag_bg:
         # Excess wealth reduces the monthly claim (a stock netted against a flow).
         out = max(
@@ -126,7 +142,13 @@ def anspruchshöhe_m_bg(
 def vermögensfreibetrag_bg_bis_2022(
     arbeitslosengeld_2__vermögensfreibetrag_bg: float,
 ) -> float:
-    """Wealth exemptions for Kinderzuschlag until 2022."""
+    """Wealth exemptions for Kinderzuschlag until 2022.
+
+    Reference:
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
+        - § 6a Abs. 4 Satz 1 BKGG idF Art. 5 G. v. 24.03.2011 BGBl. I S. 453
+        - § 6a Abs. 5 Satz 1 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+    """
     return arbeitslosengeld_2__vermögensfreibetrag_bg
 
 
@@ -138,7 +160,12 @@ def vermögensfreibetrag_bg_bis_2022(
 def vermögensfreibetrag_bg_ab_2023(
     bürgergeld__vermögensfreibetrag_in_karenzzeit_bg: float,
 ) -> float:
-    """Wealth exemptions for Kinderzuschlag since 2023."""
+    """Wealth exemptions for Kinderzuschlag since 2023.
+
+    Reference:
+        - § 6a Abs. 3 Satz 5 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
+        - § 6a Abs. 5 Satz 3 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
+    """
     return bürgergeld__vermögensfreibetrag_in_karenzzeit_bg
 
 
@@ -164,6 +191,9 @@ def basisbetrag_m_bg_check_maximales_netteinkommen(
     Kinderzuschlag is only paid out if parents are part of the BG
     (familie__anzahl_erwachsene_bg >= 1).
 
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 46 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 6a Abs. 4 Satz 3 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
     """
     if (nettoeinkommen_eltern_m_bg <= maximales_nettoeinkommen_m_bg) and (
         familie__anzahl_erwachsene_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
@@ -200,6 +230,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen_und_maximales_nettoeinkommen(
     Kinderzuschlag is only paid out if parents are part of the BG
     (familie__anzahl_erwachsene_bg >= 1).
 
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
+        - § 6a Abs. 1 Nr. 3 BKGG idF Art. 1 G. v. 24.09.2008 BGBl. I S. 1854
+        - § 6a Abs. 4 Satz 3 BKGG idF Art. 14a G. v. 30.07.2004 BGBl. I S. 2014
     """
     if (
         (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg)
@@ -237,6 +271,10 @@ def basisbetrag_m_bg_check_mindestbruttoeinkommen(
     Kinderzuschlag is only paid out if parents are part of the BG
     (familie__anzahl_erwachsene_bg >= 1).
 
+    Reference:
+        - § 6a Abs. 1 Nr. 2 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 6 Satz 1 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+        - § 6a Abs. 6 Satz 1 BKGG idF Art. 10 G. v. 16.12.2022 BGBl. I S. 2328
     """
     if (bruttoeinkommen_eltern_m_bg >= mindestbruttoeinkommen_m_bg) and (
         familie__anzahl_erwachsene_bg >= cast_ttsim_unit(1, unit=TTSIMUnit.COUNT.PER_BG)
@@ -263,7 +301,12 @@ def basisbetrag_kind_m_bis_2022(
     satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
-    """Kinderzuschlag after income for each possibly eligible child is considered."""
+    """Kinderzuschlag after income for each possibly eligible child is considered.
+
+    Reference:
+        - § 6a Abs. 3 Satz 1 BKGG idF Art. 46 G. v. 24.12.2003 BGBl. I S. 2954
+        - § 6a Abs. 3 Satz 3 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+    """
     if kindergeld__ist_leistungsbegründendes_kind:
         out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m
@@ -291,7 +334,10 @@ def basisbetrag_kind_m_ab_2023(
     satz_m: float,
     entzugsrate_kindeseinkommen: float,
 ) -> float:
-    """Kinderzuschlag after income for each possibly eligible child is considered."""
+    """Kinderzuschlag after income for each possibly eligible child is considered.
+
+    Reference: § 6a Abs. 3 Satz 3 BKGG idF Art. 1 G. v. 29.04.2019 BGBl. I S. 530
+    """
     if kindergeld__ist_leistungsbegründendes_kind:
         out = satz_m - entzugsrate_kindeseinkommen * (
             einnahmen__bruttolohn_m

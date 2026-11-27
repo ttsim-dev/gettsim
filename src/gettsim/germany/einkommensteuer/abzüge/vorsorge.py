@@ -24,14 +24,17 @@ if TYPE_CHECKING:
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="up",
-        reference="§ 10 Abs. 3 EStG",
+        reference="none (rounding in the tax assessment, not set by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
 def vorsorgeaufwendungen_y_sn_bis_2004(
     vorsorgeaufwendungen_regime_bis_2004_y_sn: float,
 ) -> float:
-    """Vorsorgeaufwendungen until 2004."""
+    """Vorsorgeaufwendungen until 2004.
+
+    Reference: § 10 Abs. 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    """
     return vorsorgeaufwendungen_regime_bis_2004_y_sn
 
 
@@ -43,7 +46,7 @@ def vorsorgeaufwendungen_y_sn_bis_2004(
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="up",
-        reference="§ 10 Abs. 3 EStG",
+        reference="none (rounding in the tax assessment, not set by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -55,6 +58,7 @@ def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
 
     Günstigerprüfung against the regime until 2004.
 
+    Reference: § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     return max(
         vorsorgeaufwendungen_regime_bis_2004_y_sn,
@@ -70,7 +74,7 @@ def vorsorgeaufwendungen_y_sn_ab_2005_bis_2009(
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="up",
-        reference="§ 10 Abs. 3 EStG",
+        reference="none (rounding in the tax assessment, not set by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -82,6 +86,9 @@ def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
 
     Günstigerprüfung against the regime until 2004.
 
+    Reference:
+        - § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 24.06.2013 BGBl. I S. 1667
     """
     return max(
         vorsorgeaufwendungen_regime_bis_2004_y_sn,
@@ -96,7 +103,7 @@ def vorsorgeaufwendungen_y_sn_ab_2010_bis_2019(
         unit=TTSIMUnit.EUR.PER_YEAR.PER_SN,
         base=1,
         direction="up",
-        reference="§ 10 Abs. 3 EStG",
+        reference="none (rounding in the tax assessment, not set by law)",
     ),
     unit=TTSIMUnit.CURRENCY.PER_YEAR.PER_SN,
 )
@@ -105,8 +112,10 @@ def vorsorgeaufwendungen_y_sn_ab_2020(
 ) -> float:
     """Vorsorgeaufwendungen since 2020.
 
-    Günstigerprüfung against the regime until 2004 is revoked.
+    Günstigerprüfung against the regime until 2004 is revoked: the table in § 10 Abs. 4a
+    Satz 1 EStG ends with 2019.
 
+    Reference: § 10 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     return vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn
 
@@ -128,7 +137,14 @@ def vorsorgeaufwendungen_regime_bis_2004_y_sn(
     familie__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
-    """Vorsorgeaufwendungen calculated using the regime until 2004."""
+    """Vorsorgeaufwendungen calculated using the regime until 2004.
+
+    From 2005, this regime applies through the Günstigerprüfung of § 10 Abs. 4a EStG.
+
+    Reference:
+        - § 10 Abs. 3 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+        - § 10 Abs. 4a Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+    """
     multiplikator1 = max(
         (
             (
@@ -177,6 +193,7 @@ def vorsorgeaufwendungen_globale_kappung_y_sn(
 
     All deductions for social insurance contributions are capped.
 
+    Reference: § 10 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     sum_vorsorge = (
         abziehbare_krankenversicherungsbeiträge_y_sn
@@ -208,6 +225,10 @@ def vorsorgeaufwendungen_keine_kappung_krankenversicherung_y_sn(
 
     Expenses for health insurance contributions are not subject to any caps.
 
+    Reference:
+        - § 10 Abs. 4 Satz 2 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 4 Satz 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 1 Nr. 3 Buchst. a Satz 4 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
     """
     basiskrankenversicherung = (
         abziehbare_pflegeversicherungsbeiträge_y_sn
@@ -247,9 +268,9 @@ def rate_abzugsfähige_altersvorsorgeaufwendungen(
     In the years 2005-2025 the share of deductible contributions increases by
     2 percentage points each year from 60% in 2005 to 100% in 2025.
 
-    Reference: § 10 Abs. 1 Nr. 2 Buchst. a und b EStG
-
-
+    Reference:
+        - § 10 Abs. 3 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 10 Abs. 3 Satz 6 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     return piecewise_polynomial(
         x=policy_year,
@@ -280,6 +301,13 @@ def altersvorsorge_y_sn_phase_in(
     far as they are not linked to tax-free wages (BMF-Schreiben vom 24.05.2017, Rz 199).
 
     The employer share is taken to equal the employee share.
+
+    Reference:
+        - § 10 Abs. 3 Satz 1 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 10 Abs. 3 Satz 1 EStG idF Art. 5 G. v. 22.12.2014 BGBl. I S. 2417
+        - § 10 Abs. 3 Satz 4 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 10 Abs. 3 Satz 5 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
+        - § 10 Abs. 3 Satz 6 EStG idF Art. 1 G. v. 05.07.2004 BGBl. I S. 1427
     """
     capped = min(
         2 * abziehbare_rentenversicherungsbeiträge_y_sn
@@ -311,6 +339,10 @@ def altersvorsorge_y_sn_volle_anrechnung(
     (BMF-Schreiben vom 24.05.2017, Rz 199).
 
     The employer share is taken to equal the employee share.
+
+    Reference:
+        - § 10 Abs. 3 Satz 1 EStG idF Art. 5 G. v. 22.12.2014 BGBl. I S. 2417
+        - § 10 Abs. 3 Satz 6 EStG idF Art. 4 G. v. 16.12.2022 BGBl. I S. 2294
     """
     capped = min(
         2 * abziehbare_rentenversicherungsbeiträge_y_sn
@@ -332,6 +364,11 @@ def abziehbare_rentenversicherungsbeiträge_y(
     EStG). They are split in proportion to the tax-free share of the wage (BMF-Schreiben
     vom 24.05.2017, Rz 199). The ratio uses the whole wage, also above the
     Beitragsbemessungsgrenze (BMF-Schreiben vom 05.09.2024, Abschnitt I Nr. 15).
+
+    Reference:
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2338
     """
     if einnahmen__bruttolohn_y > 0.0:
         return (
@@ -353,6 +390,11 @@ def abziehbare_arbeitslosenversicherungsbeiträge_y(
     Contributions linked to tax-free wages are not deductible (§ 10 Abs. 2 Satz 1 Nr. 1
     EStG). They are split in proportion to the tax-free share of the wage (BMF-Schreiben
     vom 24.05.2017, Rz 199; BMF-Schreiben vom 05.09.2024, Abschnitt I Nr. 15).
+
+    Reference:
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2338
     """
     if einnahmen__bruttolohn_y > 0.0:
         return (
@@ -375,6 +417,11 @@ def abziehbare_krankenversicherungsbeiträge_y(
     Contributions linked to tax-free wages are not deductible (§ 10 Abs. 2 Satz 1 Nr. 1
     EStG). The tax-free share of the contributions on wages is subtracted (BMF-Schreiben
     vom 24.05.2017, Rz 199); contributions on pensions are deductible in full (Rz 200).
+
+    Reference:
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2338
     """
     if einnahmen__bruttolohn_y > 0.0:
         return (
@@ -401,6 +448,11 @@ def abziehbare_pflegeversicherungsbeiträge_y(
     Contributions linked to tax-free wages are not deductible (§ 10 Abs. 2 Satz 1 Nr. 1
     EStG). The tax-free share of the contributions on wages is subtracted (BMF-Schreiben
     vom 24.05.2017, Rz 199); contributions on pensions are deductible in full (Rz 200).
+
+    Reference:
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF B. v. 16.04.1997 BGBl. I S. 821
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 1 G. v. 16.07.2009 BGBl. I S. 1959
+        - § 10 Abs. 2 Satz 1 Nr. 1 EStG idF Art. 2 G. v. 11.12.2018 BGBl. I S. 2338
     """
     if einnahmen__bruttolohn_y > 0.0:
         return (
@@ -424,7 +476,10 @@ def vorwegabzug_lohnsteuer_y_sn(
     familie__anzahl_personen_sn: int,
     parameter_altersvorsorgeaufwendungen_regime_bis_2004: dict[str, float],
 ) -> float:
-    """Vorwegabzug for Vorsorgeaufwendungen via Lohnsteuer."""
+    """Vorwegabzug for Vorsorgeaufwendungen via Lohnsteuer.
+
+    Reference: § 10 Abs. 3 Nr. 2 EStG idF Art. 1 G. v. 19.12.2000 BGBl. I S. 1790
+    """
     out = (
         familie__anzahl_personen_sn
         * parameter_altersvorsorgeaufwendungen_regime_bis_2004["vorwegabzug"]

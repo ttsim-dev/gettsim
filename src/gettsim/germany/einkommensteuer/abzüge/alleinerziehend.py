@@ -14,7 +14,15 @@ def alleinerziehend_betrag_y_pauschal(
     familie__alleinerziehend_sn: bool,
     alleinerziehendenfreibetrag_basis_y: float,
 ) -> float:
-    """Calculate tax deduction allowance for single parents until 2014"""
+    """Calculate tax deduction allowance for single parents until 2014.
+
+    Until 2003, the Haushaltsfreibetrag (§ 32 Abs. 7 EStG); from 2004, the
+    Entlastungsbetrag für Alleinerziehende (§ 24b EStG).
+
+    Reference:
+        - § 32 Abs. 7 Satz 1 EStG idF Art. 1 G. v. 16.08.2001 BGBl. I S. 2074
+        - § 24b Abs. 1 EStG idF Art. 9 G. v. 29.12.2003 BGBl. I S. 3076
+    """
     return alleinerziehendenfreibetrag_basis_y if familie__alleinerziehend_sn else 0.0
 
 
@@ -29,7 +37,11 @@ def alleinerziehend_betrag_y_nach_kinderzahl(
     alleinerziehendenfreibetrag_basis_y: float,
     alleinerziehendenfreibetrag_zusatz_pro_kind_y: float,
 ) -> float:
-    """Calculate tax deduction allowance for single parents since 2015."""
+    """Calculate tax deduction allowance for single parents since 2015.
+
+    Reference: § 24b Abs. 2 EStG idF Art. 1 G. v. 16.07.2015 BGBl. I S. 1202
+    """
+
     if familie__alleinerziehend_sn:
         out = (
             alleinerziehendenfreibetrag_basis_y

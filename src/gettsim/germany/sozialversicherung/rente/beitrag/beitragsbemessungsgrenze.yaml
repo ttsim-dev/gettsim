@@ -14,119 +14,215 @@ beitragsbemessungsgrenze_y:
   1949-01-01:
     value: 3600
     unit: DM_PER_YEAR
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: >-
+      none (set before the founding of the Federal Republic, not published in the
+      BGBl.; the value is recorded in Anlage 2 SGB VI)
   1949-06-01:
     value: 7200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: >-
+      none (set by the Sozialversicherungs-Anpassungsgesetz of 17.06.1949, published in
+      the Gesetzblatt der Verwaltung des Vereinigten Wirtschaftsgebietes before the
+      BGBl. existed)
   1952-09-01:
     value: 9000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 3 AVG idF Art. 3 G. v. 13.08.1952 BGBl. I S. 437
+    note: >-
+      Gesetz über die Erhöhung der Einkommensgrenzen in der Sozialversicherung und der
+      Arbeitslosenversicherung. Die Grenze galt in der Angestelltenversicherung.
   1959-01-01:
     value: 9600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
+    note: Arbeiterrentenversicherungs- und Angestelltenversicherungs-Neuregelungsgesetz.
   1960-01-01:
     value: 10200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1961-01-01:
     value: 10800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1962-01-01:
     value: 11400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1963-01-01:
     value: 12000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1964-01-01:
     value: 13200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1965-01-01:
     value: 14400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1966-01-01:
     value: 15600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1967-01-01:
     value: 16800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 23.02.1957 BGBl. I S. 45
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 23.02.1957 BGBl. I S. 88
   1968-01-01:
     value: 19200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+    note: Finanzänderungsgesetz 1967.
   1969-01-01:
     value: 20400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1970-01-01:
     value: 21600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1971-01-01:
     value: 22800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1972-01-01:
     value: 25200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1973-01-01:
     value: 27600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1974-01-01:
     value: 30000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1975-01-01:
     value: 33600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1976-01-01:
     value: 37200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1977-01-01:
     value: 40800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
+      - § 112 Abs. 2 AVG idF Art. 1 G. v. 21.12.1967 BGBl. I S. 1259
   1978-01-01:
     value: 44400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
+      - § 112 Abs. 2 AVG idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
+    note: Zwanzigstes Rentenanpassungsgesetz.
   1979-01-01:
     value: 48000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+      - § 112 Abs. 2 AVG idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+    note: Einundzwanzigstes Rentenanpassungsgesetz.
   1980-01-01:
     value: 50400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+      - § 112 Abs. 2 AVG idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
   1981-01-01:
     value: 52800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
+      - § 112 Abs. 2 AVG idF Art. 2 G. v. 25.07.1978 BGBl. I S. 1089
   1982-01-01:
     value: 56400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 Nr. 33 G. v. 01.12.1981 BGBl. I S. 1205
+      - § 112 Abs. 2 AVG idF Art. 3 Nr. 9 G. v. 01.12.1981 BGBl. I S. 1205
+    note: Rentenanpassungsgesetz 1982.
   1983-01-01:
     value: 60000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 2 Nr. 33 G. v. 01.12.1981 BGBl. I S. 1205
+      - § 112 Abs. 2 AVG idF Art. 3 Nr. 9 G. v. 01.12.1981 BGBl. I S. 1205
   1984-01-01:
     value: 62400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: Haushaltsbegleitgesetz 1984; der Wert für 1984 steht im Gesetz.
   1985-01-01:
     value: 64800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: >-
+      Wert bestimmt durch die Sozialversicherungs-Bezugsgrößenverordnung 1985 (V. v.
+      20.12.1984 BGBl. I S. 1650).
   1986-01-01:
     value: 67200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: >-
+      Wert bestimmt durch die Sozialversicherungs-Bezugsgrößenverordnung 1986 (V. v.
+      20.12.1985 BGBl. I S. 2557).
   1987-01-01:
     value: 68400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: >-
+      Wert bestimmt durch die Sozialversicherungs-Bezugsgrößenverordnung 1987 (V. v.
+      09.12.1986 BGBl. I S. 2451).
   1988-01-01:
     value: 72000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: >-
+      Wert bestimmt durch die Sozialversicherungs-Bezugsgrößenverordnung 1988 (V. v.
+      07.12.1987 BGBl. I S. 2530).
   1989-01-01:
     value: 73200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
+    note: >-
+      Wert bestimmt durch die Sozialversicherungs-Bezugsgrößenverordnung 1989 (V. v.
+      07.12.1988 BGBl. I S. 2222).
   1990-01-01:
     note: >-
       Die Beitragsbemessungsgrenze unterscheidet sich zwischen West und Ost. Siehe
       ``parameter_beitragsbemessungsgrenze_nach_wohnort``.
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
   2025-01-01:
     value: 96600
     unit: EUR_PER_YEAR
-    reference: V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+    reference: § 4 Abs. 1 Nr. 1 SVBezGrV 2025 idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
+    note: >-
+      Sozialversicherungsrechengrößen-Verordnung 2025. Seit 2025 einheitliche
+      Beitragsbemessungsgrenze; §§ 275a, 275b SGB VI aufgehoben durch Art. 1 G. v.
+      17.07.2017 BGBl. I S. 2575 (Rentenüberleitungs-Abschlussgesetz).
   2026-01-01:
     value: 101400
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
-      Nr. 278
+    reference: § 4 Abs. 1 Nr. 1 SVBezGrV 2026 idF V. v. 24.11.2025 BGBl. 2025 I Nr. 278
 parameter_beitragsbemessungsgrenze_nach_wohnort:
   name:
     de: Beitragsbemessungsgrenze der gesetzlichen Rentenversicherung
@@ -143,143 +239,237 @@ parameter_beitragsbemessungsgrenze_nach_wohnort:
     unit: DM_PER_MONTH
     west: 6300
     ost: 2700
-    reference: Anlage 2 SGB VI i. d. F. des § 3 V. v. 18.12.1991 BGBl. I S. 2331 (West).
     note: >-
       Die Werte für das Beitrittsgebiet 1990 und für das erste Halbjahr 1991 beruhen auf
       dem Gesetz über die Sozialversicherung der DDR v. 28.06.1990 (GBl. I Nr. 38
       S. 486) und stehen nicht im Bundesgesetzblatt.
+    reference:
+      - § 1385 Abs. 2 RVO idF Art. 1 Nr. 52 G. v. 22.12.1983 BGBl. I S. 1532
+      - § 112 Abs. 2 AVG idF Art. 2 Nr. 29 G. v. 22.12.1983 BGBl. I S. 1532
   1991-01-01:
     west: 6500
     ost: 3000
-    reference: Anlage 2 SGB VI i. d. F. des § 3 V. v. 18.12.1991 BGBl. I S. 2331 (West).
+    reference: § 3 Nr. 1 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
   1991-07-01:
     updates_previous: true
     ost: 3400
-    reference: § 2 V. v. 19.06.1991 BGBl. I S. 1300.
+    reference: § 2 RAV 1991 idF V. v. 19.06.1991 BGBl. I S. 1300
+    note: Zweite Rentenanpassungsverordnung (Beitrittsgebiet).
   1992-01-01:
     west: 6800
     ost: 4800
-    reference: >-
-      § 3 V. v. 18.12.1991 BGBl. I S. 2331; § 2 V. v. 19.12.1991 BGBl. I S. 2344.
+    reference:
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1992 idF V. v. 18.12.1991 BGBl. I S. 2331
+      - § 2 Nr. 1 3.RAV idF V. v. 19.12.1991 BGBl. I S. 2344
+    note: >-
+      West: Sozialversicherungs-Rechengrößenverordnung 1992 (Anlage 2 SGB VI). Ost:
+      Dritte Rentenanpassungsverordnung (Anlage 2a SGB VI).
   1993-01-01:
     west: 7200
     ost: 5300
-    reference: V. v. 22.12.1992 BGBl. I S. 2474.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     west: 7600
     ost: 5900
-    reference: V. v. 01.12.1993 BGBl. I S. 1987.
+    reference:
+      - § 7 Abs. 1 Nr. 1 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
+      - § 7 Abs. 2 Nr. 1 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
+    note: Beitragssatzverordnung 1994 (Anlagen 2 und 2a SGB VI).
   1995-01-01:
     west: 7800
     ost: 6400
-    reference: V. v. 12.12.1994 BGBl. I S. 3805.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     west: 8000
     ost: 6800
-    reference: V. v. 04.12.1995 BGBl. I S. 1577.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     west: 8200
     ost: 7100
-    reference: V. v. 11.12.1996 BGBl. I S. 1870.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     west: 8400
     ost: 7000
-    reference: V. v. 02.12.1997 BGBl. I S. 2782.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     west: 8500
     ost: 7200
-    reference: V. v. 18.12.1998 BGBl. I S. 3823.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
   2000-01-01:
     west: 8600
     ost: 7100
-    reference: V. v. 29.11.1999 BGBl. I S. 2375.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
   2001-01-01:
     west: 8700
     ost: 7300
-    reference: V. v. 13.12.2000 BGBl. I S. 1710.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2001 idF V. v. 13.12.2000 BGBl. I S. 1710
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2001 idF V. v. 13.12.2000 BGBl. I S. 1710
   2002-01-01:
     unit: EUR_PER_MONTH
     west: 4500
     ost: 3750
-    reference: V. v. 03.12.2001 BGBl. I S. 3302.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     west: 5100
     ost: 4250
+    reference:
+      - § 275c Abs. 1 SGB VI idF Art. 2 Nr. 4 G. v. 23.12.2002 BGBl. I S. 4637
+      - § 275c Abs. 2 SGB VI idF Art. 2 Nr. 4 G. v. 23.12.2002 BGBl. I S. 4637
+    note: >-
+      Beitragssatzsicherungsgesetz; ersetzte die Werte der V. v. 17.12.2002 BGBl. I S.
+      4561.
   2004-01-01:
     west: 5150
     ost: 4350
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     west: 5200
     ost: 4400
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2005 idF V. v. 29.11.2004 BGBl. I S. 3098
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2005 idF V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     west: 5250
     ost: 4400
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     west: 5250
     ost: 4550
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVRechGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
+      - § 3 Abs. 2 Nr. 1 SVRechGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
+    note: Sozialversicherungs-Rechengrößengesetz 2007.
   2008-01-01:
     west: 5300
     ost: 4500
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     west: 5400
     ost: 4550
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     west: 5500
     ost: 4650
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     west: 5500
     ost: 4800
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     west: 5600
     ost: 4800
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     west: 5800
     ost: 4900
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     west: 5950
     ost: 5000
     note: http://www.bundesregierung.de/ContentArchiv/DE/Archiv17/Artikel/2013/10/2013-10-16-rechengroessen-sozialversicherung.html
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2014 idF V. v. 02.12.2013 BGBl. I S. 4038
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2014 idF V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     west: 6050
     ost: 5200
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2015 idF V. v. 01.12.2014 BGBl. I S. 1957
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2015 idF V. v. 01.12.2014 BGBl. I S. 1957
   2016-01-01:
     west: 6200
     ost: 5400
     note: https://www.bundesregierung.de/Content/DE/Artikel/2015/10/2015-10-14-sozialversicherung.html
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2016 idF V. v. 30.11.2015 BGBl. I S. 2137
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2016 idF V. v. 30.11.2015 BGBl. I S. 2137
   2017-01-01:
     west: 6350
     ost: 5700
     note: https://www.bundesregierung.de/Content/DE/Artikel/2016/10/2016-10-12-bemessunggrenzen-sozialversicherung.html
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2017 idF V. v. 28.11.2016 BGBl. I S. 2665
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2017 idF V. v. 28.11.2016 BGBl. I S. 2665
   2018-01-01:
     west: 6500
     ost: 5800
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2018 idF V. v. 16.11.2017 BGBl. I S. 3778
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2018 idF V. v. 16.11.2017 BGBl. I S. 3778
   2019-01-01:
     west: 6700
     ost: 6150
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2019 idF V. v. 27.11.2018 BGBl. I S. 2024
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2019 idF V. v. 27.11.2018 BGBl. I S. 2024
   2020-01-01:
     west: 6900
     ost: 6450
-    reference: V. v. 17.12.2019 BGBl. I S. 2848
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2020 idF V. v. 17.12.2019 BGBl. I S. 2848
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2020 idF V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     west: 7100
     ost: 6700
-    reference: §3, §4 V. v. 30.11.2020, BGBl. I S. 2612.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2021 idF V. v. 30.11.2020 BGBl. I S. 2612
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2021 idF V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     west: 7050
     ost: 6750
-    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+    reference:
+      - § 3 Abs. 1 Nr. 1 SVBezGrV 2022 idF V. v. 30.11.2021 BGBl. I S. 5044
+      - § 3 Abs. 2 Nr. 1 SVBezGrV 2022 idF V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     west: 7300
     ost: 7100
-    reference: V. v. 28.11.2022 BGBl. I. S. 2128.
+    reference:
+      - § 4 Abs. 1 Nr. 1 SVBezGrV 2023 idF V. v. 28.11.2022 BGBl. I S. 2128
+      - § 4 Abs. 2 Nr. 1 SVBezGrV 2023 idF V. v. 28.11.2022 BGBl. I S. 2128
   2024-01-01:
     west: 7550
     ost: 7450
-    reference: V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+    reference:
+      - § 4 Abs. 1 Nr. 1 SVBezGrV 2024 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
+      - § 4 Abs. 2 Nr. 1 SVBezGrV 2024 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
   2025-01-01:
     note: >-
       Beitragsbemessungsgrenze ist einheitlich zwischen West und Ost. Siehe
       ``beitragsbemessungsgrenze_m``.
+    reference: § 4 Abs. 1 Nr. 1 SVBezGrV 2025 idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
 beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   name:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (West)
@@ -295,237 +485,225 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y:
   1949-01-01:
     value: 7200
     unit: DM_PER_YEAR
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.3.1947-31.5.1949.
+    reference: >-
+      none (set before the founding of the Federal Republic, not published in the
+      BGBl.; the value is recorded in Anlage 2 SGB VI)
   1949-06-01:
     value: 8400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Anlage 2 SGB VI, Zeitraum 1.6.1949-31.8.1952.
+    reference: >-
+      none (set by the Knappschaftsversicherungs-Anpassungsgesetz of 30.07.1949,
+      published in the Gesetzblatt der Verwaltung des Vereinigten Wirtschaftsgebietes
+      before the BGBl. existed)
   1952-09-01:
     value: 12000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Anlage 2 SGB VI, Zeitraum 1.9.1952-31.12.1958. Der Wert bleibt laut Anlage 2 auch
       1959 und 1960 unverändert.
+    reference: § 28 Nr. 2 RKG idF Art. 6 G. v. 13.08.1952 BGBl. I S. 437
   1961-01-01:
     value: 13200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Der Wert bleibt laut Anlage 2 SGB VI auch 1962 unverändert.
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1963-01-01:
     value: 14400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1964-01-01:
     value: 16800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1965-01-01:
     value: 18000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1966-01-01:
     value: 19200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1967-01-01:
     value: 20400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1968-01-01:
     value: 22800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1969-01-01:
     value: 24000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1970-01-01:
     value: 25200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1971-01-01:
     value: 27600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1972-01-01:
     value: 30000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1973-01-01:
     value: 33600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1974-01-01:
     value: 37200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1975-01-01:
     value: 40800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1976-01-01:
     value: 45600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1977-01-01:
     value: 50400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 1 G. v. 21.05.1957 BGBl. I S. 533
   1978-01-01:
     value: 55200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
   1979-01-01:
     value: 57600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
   1980-01-01:
     value: 61200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
   1981-01-01:
     value: 64800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 2 G. v. 27.06.1977 BGBl. I S. 1040
   1982-01-01:
     value: 69600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 4 Nr. 13 G. v. 01.12.1981 BGBl. I S. 1205
   1983-01-01:
     value: 73200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 4 Nr. 13 G. v. 01.12.1981 BGBl. I S. 1205
   1984-01-01:
     value: 76800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1985-01-01:
     value: 80400
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1986-01-01:
     value: 82800
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1987-01-01:
     value: 85200
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1988-01-01:
     value: 87600
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1989-01-01:
     value: 90000
-    reference: Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1990-01-01:
     value: 93600
-    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
     note: >-
       Die ursprüngliche Anlage 2 SGB VI (Art. 1 G. v. 18.12.1989 BGBl. I S. 2261) endet
       mit dem Jahr 1989. Die Werte für 1990 bis 1992 wurden durch die
       Sozialversicherungs-Rechengrößenverordnung 1992 ergänzt.
+    reference: § 130 Abs. 3 RKG idF Art. 3 Nr. 38 G. v. 22.12.1983 BGBl. I S. 1532
   1991-01-01:
     value: 96000
-    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
+    reference: § 3 Nr. 2 SVBezGrV 1991 idF V. v. 18.12.1990 BGBl. I S. 2940
   1992-01-01:
     value: 100800
-    reference: § 3 V. v. 18.12.1991 BGBl. I S. 2331
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1992 idF V. v. 18.12.1991 BGBl. I S. 2331
   1993-01-01:
     value: 106800
-    reference: V. v. 22.12.1992 BGBl. I S. 2474
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     value: 112800
-    reference: V. v. 01.12.1993 BGBl. I S. 1987
+    reference: § 7 Abs. 1 Nr. 2 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
   1995-01-01:
     value: 115200
-    reference: V. v. 12.12.1994 BGBl. I S. 3806
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     value: 117600
-    reference: V. v. 04.12.1995 BGBl. I S. 1577
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     value: 121200
-    reference: V. v. 11.12.1996 BGBl. I S. 1870
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     value: 123600
-    reference: V. v. 02.12.1997 BGBl. I S. 2782
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 124800
-    reference: V. v. 18.12.1998 BGBl. I S. 3823
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
   2000-01-01:
     value: 127200
-    reference: V. v. 29.11.1999 BGBl. I S. 2375
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
   2001-01-01:
     value: 128400
-    reference: V. v. 13.12.2000 BGBl. I S. 1710
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2001 idF V. v. 13.12.2000 BGBl. I S. 1710
   2002-01-01:
     value: 66600
     unit: EUR_PER_YEAR
-    reference: V. v. 03.12.2001 BGBl. I S. 3302
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 75000
-    reference: V. v. 17.12.2002 BGBl. I S. 4561
+    reference: § 275c Abs. 1 SGB VI idF Art. 2 Nr. 4 G. v. 23.12.2002 BGBl. I S. 4637
   2004-01-01:
     value: 76200
-    reference: V. v. 09.12.2003 BGBl. I S. 2497
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 76800
-    reference: V. v. 29.11.2004 BGBl. I S. 3098
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2005 idF V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 77400
-    reference: V. v. 21.12.2005 BGBl. I S. 3627
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 77400
-    reference: G. v. 02.12.2006 BGBl. I S. 2742
+    reference: >-
+      § 3 Abs. 1 Nr. 2 SVRechGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 78600
-    reference: V. v. 05.12.2007 BGBl. I S. 2797
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 79800
-    reference: V. v. 02.12.2008 BGBl. I S. 2336
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 81600
-    reference: V. v. 07.12.2009 BGBl. I S. 3846
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 81000
-    reference: V. v. 03.12.2010 BGBl. I S. 1761
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 82800
-    reference: V. v. 02.12.2011 BGBl. I S. 2421
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 85200
-    reference: V. v. 26.11.2012 BGBl. I S. 2361
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 87600
-    reference: V. v. 02.12.2013 BGBl. I S. 4038
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2014 idF V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 89400
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
-      1957
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2015 idF V. v. 01.12.2014 BGBl. I S. 1957
   2016-01-01:
     value: 91800
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
-      2137
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2016 idF V. v. 30.11.2015 BGBl. I S. 2137
   2017-01-01:
     value: 94200
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
-      2665
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2017 idF V. v. 28.11.2016 BGBl. I S. 2665
   2018-01-01:
     value: 96000
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
-      3778
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2018 idF V. v. 16.11.2017 BGBl. I S. 3778
   2019-01-01:
     value: 98400
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
-      2024
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2019 idF V. v. 27.11.2018 BGBl. I S. 2024
   2020-01-01:
     value: 101400
-    reference: Art. 3 V. v. 17.12.2019 BGBl I S. 2848.
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2020 idF V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     value: 104400
-    reference: §3 V. v. 30.11.2020 BGBl. I S. 2612.
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2021 idF V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     value: 103800
-    reference: §3 V. v. 30.11.2021, BGBl. I S. 5044.
+    reference: § 3 Abs. 1 Nr. 2 SVBezGrV 2022 idF V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 107400
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
-      2128
+    reference: § 4 Abs. 1 Nr. 2 SVBezGrV 2023 idF V. v. 28.11.2022 BGBl. I S. 2128
   2024-01-01:
     value: 111600
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
-      Nr. 322
+    reference: § 4 Abs. 1 Nr. 2 SVBezGrV 2024 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
   2025-01-01:
     value: 118800
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2025 vom 25. November 2024 BGBl. 2024 I
-      Nr. 365
+    reference: § 4 Abs. 1 Nr. 2 SVBezGrV 2025 idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365
   2026-01-01:
     value: 124800
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2026 vom 24. November 2025 BGBl. 2025 I
-      Nr. 278
+    reference: § 4 Abs. 1 Nr. 2 SVBezGrV 2026 idF V. v. 24.11.2025 BGBl. 2025 I Nr. 278
 beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   name:
     de: Beitragsbemessungsgrenze der knappschaftlichen Rentenversicherung (Ost)
@@ -543,131 +721,125 @@ beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_ost_y:
   1990-01-01:
     value: 32400
     unit: DM_PER_YEAR
-    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, eingefügt durch das Renten-Überleitungsgesetz.
+    reference: >-
+      none (set by the law of the GDR, not published in the BGBl.; the value is
+      recorded in Anlage 2a SGB VI, inserted by Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I
+      S. 1606)
   1991-01-01:
     value: 36000
-    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, Zeitraum 1.1.1991-30.6.1991.
+    reference: >-
+      none (set by the law of the GDR, not published in the BGBl.; the value is
+      recorded in Anlage 2a SGB VI, inserted by Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I
+      S. 1606)
   1991-07-01:
     value: 40800
-    reference: Art. 1 Nr. 144 G. v. 25.07.1991 BGBl. I S. 1606
     note: Anlage 2a SGB VI, Zeitraum 1.7.1991-31.12.1991.
+    reference: § 2 RAV 1991 idF V. v. 19.06.1991 BGBl. I S. 1300
   1992-01-01:
     value: 70800
-    reference: § 2 V. v. 19.12.1991 BGBl. I S. 2344 (3. Rentenanpassungsverordnung)
+    reference: § 2 Nr. 2 3.RAV idF V. v. 19.12.1991 BGBl. I S. 2344
   1993-01-01:
     value: 78000
-    reference: V. v. 22.12.1992 BGBl. I S. 2474
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1993 idF V. v. 22.12.1992 BGBl. I S. 2474
   1994-01-01:
     value: 87600
-    reference: V. v. 01.12.1993 BGBl. I S. 1987
+    reference: § 7 Abs. 2 Nr. 2 BSV 1994 idF V. v. 01.12.1993 BGBl. I S. 1987
   1995-01-01:
     value: 93600
-    reference: V. v. 12.12.1994 BGBl. I S. 3806
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1995 idF V. v. 12.12.1994 BGBl. I S. 3806
   1996-01-01:
     value: 100800
-    reference: V. v. 04.12.1995 BGBl. I S. 1577
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1996 idF V. v. 04.12.1995 BGBl. I S. 1577
   1997-01-01:
     value: 104400
-    reference: V. v. 11.12.1996 BGBl. I S. 1870
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1997 idF V. v. 11.12.1996 BGBl. I S. 1870
   1998-01-01:
     value: 103200
-    reference: V. v. 02.12.1997 BGBl. I S. 2782
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1998 idF V. v. 02.12.1997 BGBl. I S. 2782
   1999-01-01:
     value: 105600
-    reference: V. v. 18.12.1998 BGBl. I S. 3823
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 1999 idF V. v. 18.12.1998 BGBl. I S. 3823
   2000-01-01:
     value: 104400
-    reference: V. v. 29.11.1999 BGBl. I S. 2375
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2000 idF V. v. 29.11.1999 BGBl. I S. 2375
   2001-01-01:
     value: 108000
-    reference: V. v. 13.12.2000 BGBl. I S. 1710
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2001 idF V. v. 13.12.2000 BGBl. I S. 1710
   2002-01-01:
     value: 55800
     unit: EUR_PER_YEAR
-    reference: V. v. 03.12.2001 BGBl. I S. 3302
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2002 idF V. v. 03.12.2001 BGBl. I S. 3302
   2003-01-01:
     value: 63000
-    reference: V. v. 17.12.2002 BGBl. I S. 4561
+    reference: § 275c Abs. 2 SGB VI idF Art. 2 Nr. 4 G. v. 23.12.2002 BGBl. I S. 4637
   2004-01-01:
     value: 64200
-    reference: V. v. 09.12.2003 BGBl. I S. 2497
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2004 idF V. v. 09.12.2003 BGBl. I S. 2497
   2005-01-01:
     value: 64800
-    reference: V. v. 29.11.2004 BGBl. I S. 3098
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2005 idF V. v. 29.11.2004 BGBl. I S. 3098
   2006-01-01:
     value: 64800
-    reference: V. v. 21.12.2005 BGBl. I S. 3627
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2006 idF V. v. 21.12.2005 BGBl. I S. 3627
   2007-01-01:
     value: 66600
-    reference: G. v. 02.12.2006 BGBl. I S. 2742
+    reference: >-
+      § 3 Abs. 2 Nr. 2 SVRechGrG 2007 idF Art. 12 G. v. 02.12.2006 BGBl. I S. 2742
   2008-01-01:
     value: 66600
-    reference: V. v. 05.12.2007 BGBl. I S. 2797
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2008 idF V. v. 05.12.2007 BGBl. I S. 2797
   2009-01-01:
     value: 67200
-    reference: V. v. 02.12.2008 BGBl. I S. 2336
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2009 idF V. v. 02.12.2008 BGBl. I S. 2336
   2010-01-01:
     value: 68400
-    reference: V. v. 07.12.2009 BGBl. I S. 3846
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2010 idF V. v. 07.12.2009 BGBl. I S. 3846
   2011-01-01:
     value: 70800
-    reference: V. v. 03.12.2010 BGBl. I S. 1761
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2011 idF V. v. 03.12.2010 BGBl. I S. 1761
   2012-01-01:
     value: 70800
-    reference: V. v. 02.12.2011 BGBl. I S. 2421
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2012 idF V. v. 02.12.2011 BGBl. I S. 2421
   2013-01-01:
     value: 72600
-    reference: V. v. 26.11.2012 BGBl. I S. 2361
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2013 idF V. v. 26.11.2012 BGBl. I S. 2361
   2014-01-01:
     value: 73800
-    reference: V. v. 02.12.2013 BGBl. I S. 4038
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2014 idF V. v. 02.12.2013 BGBl. I S. 4038
   2015-01-01:
     value: 76200
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2015 vom 1. Dezember 2014 BGBl. I S.
-      1957
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2015 idF V. v. 01.12.2014 BGBl. I S. 1957
   2016-01-01:
     value: 79800
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2016 vom 30. November 2015 BGBl. I S.
-      2137
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2016 idF V. v. 30.11.2015 BGBl. I S. 2137
   2017-01-01:
     value: 84000
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2017 vom 28. November 2016 BGBl. I S.
-      2665
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2017 idF V. v. 28.11.2016 BGBl. I S. 2665
   2018-01-01:
     value: 85800
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2018 vom 16. November 2017 BGBl. I S.
-      3778
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2018 idF V. v. 16.11.2017 BGBl. I S. 3778
   2019-01-01:
     value: 91200
-    reference: >-
-      Sozialversicherungs-Rechengrößenverordnung 2019 vom 27. November 2018 BGBl. I S.
-      2024
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2019 idF V. v. 27.11.2018 BGBl. I S. 2024
   2020-01-01:
     value: 94800
-    reference: V. v. 17.12.2019 BGBl. I S. 2848
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2020 idF V. v. 17.12.2019 BGBl. I S. 2848
   2021-01-01:
     value: 99000
-    reference: V. v. 30.11.2020 BGBl. I S. 2612
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2021 idF V. v. 30.11.2020 BGBl. I S. 2612
   2022-01-01:
     value: 100200
-    reference: V. v. 30.11.2021 BGBl. I S. 5044
+    reference: § 3 Abs. 2 Nr. 2 SVBezGrV 2022 idF V. v. 30.11.2021 BGBl. I S. 5044
   2023-01-01:
     value: 104400
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2023 vom 28. November 2022 BGBl. I S.
-      2128
+    reference: § 4 Abs. 2 Nr. 2 SVBezGrV 2023 idF V. v. 28.11.2022 BGBl. I S. 2128
   2024-01-01:
     value: 110400
-    reference: >-
-      Sozialversicherungsrechengrößen-Verordnung 2024 vom 24. November 2023 BGBl. 2023 I
-      Nr. 322
+    reference: § 4 Abs. 2 Nr. 2 SVBezGrV 2024 idF V. v. 24.11.2023 BGBl. 2023 I Nr. 322
   2025-01-01:
     note: >-
       Beitragsbemessungsgrenze ist einheitlich zwischen West und Ost. Siehe
       ``beitragsbemessungsgrenze_knappschaftliche_rentenversicherung_west_y``.
+    reference: § 4 Abs. 1 Nr. 2 SVBezGrV 2025 idF V. v. 25.11.2024 BGBl. 2024 I Nr. 365

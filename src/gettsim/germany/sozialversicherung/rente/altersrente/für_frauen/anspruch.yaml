@@ -13,9 +13,11 @@ kohorte_abschaffung:
   unit: CALENDAR_YEAR
   type: scalar
   1997-12-16:
-    reference: § 237a SGB VI, Rentenreformgesetz 1999. BGBl. I 1997 S. 2998
+    reference: § 237a Abs. 1 Nr. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+    note: Rentenreformgesetz 1999.
     value: 1952
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.
 mindestpflichtbeitragsjahre_ab_alter_40:
   name:
@@ -35,6 +37,16 @@ mindestpflichtbeitragsjahre_ab_alter_40:
   unit: YEARS
   type: scalar
   1950-01-01:
+    reference: >-
+      none (before 1992, § 1248 Abs. 3 RVO required mandatory contributions in most of
+      the last 20 years instead)
+    value: 10
+  1992-01-01:
+    reference: § 39 Nr. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
+    note: >-
+      Rentenreformgesetz 1992. Seit dem Rentenreformgesetz 1999 in § 237a Abs. 1 Nr. 3
+      SGB VI.
     value: 10
   2018-01-01:
+    reference: none (all eligible cohorts have reached the Regelaltersgrenze)
     note: Irrelevant because last cohort has passed the normal retirement age.

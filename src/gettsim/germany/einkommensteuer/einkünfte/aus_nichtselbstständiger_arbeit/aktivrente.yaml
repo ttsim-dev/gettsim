@@ -12,4 +12,6 @@ steuerfreibetrag_aktivrente_y:
   type: scalar
   2026-01-01:
     value: 24000
-    reference: BGBl. 2025 I Nr. 361 vom 23.12.2025 ("Aktivrentengesetz")
+    reference: § 3 Nr. 21 Satz 1 EStG idF Art. 1 G. v. 22.12.2025 BGBl. 2025 I Nr. 361
+    note: >-
+      Aktivrentengesetz.

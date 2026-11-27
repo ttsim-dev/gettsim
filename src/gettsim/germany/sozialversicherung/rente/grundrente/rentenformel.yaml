@@ -17,6 +17,10 @@ höchstwert_der_entgeltpunkte:
     increment: DIMENSIONLESS_PER_MONTH
   type: dict
   2021-01-01:
+    reference:
+      - § 76g Abs. 4 Satz 3 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+      - § 76g Abs. 4 Satz 4 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     base: 0.0334
     increment: 0.001389
 maximaler_zugangsfaktor:
@@ -29,6 +33,8 @@ maximaler_zugangsfaktor:
   unit: DIMENSIONLESS
   type: scalar
   2021-01-01:
+    reference: § 77 Abs. 5 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     value: 1
 bonusfaktor:
   name:
@@ -46,4 +52,6 @@ bonusfaktor:
   unit: DIMENSIONLESS
   type: scalar
   2021-01-01:
+    reference: § 76g Abs. 4 Satz 6 SGB VI idF Art. 1 G. v. 12.08.2020 BGBl. I S. 1879
+    note: Grundrentengesetz.
     value: 0.875

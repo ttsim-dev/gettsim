@@ -15,9 +15,11 @@ altersgrenze:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 1 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 1 AVG.
     value: 63.0
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
 altersgrenze_gestaffelt:
   name:
@@ -36,7 +38,7 @@ altersgrenze_gestaffelt:
   output_unit: YEARS
   type: month_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Increase of full retirement age from 63 to 65 for birth cohort 1938-1943.
     first_year_to_consider: 1900
     last_year_to_consider: 2100
@@ -123,8 +125,11 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
-    note: FRA increase accelerated.
+    reference: § 41 Abs. 3 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+    note: >-
+      FRA increase accelerated. Wachstums- und Beschäftigungsförderungsgesetz, Anlage
+      21 SGB VI. Seit dem Rentenreformgesetz 1999 in § 236 Abs. 1 SGB VI (vor 1948
+      Geborene) und § 36 SGB VI.
     first_year_to_consider: 1900
     last_year_to_consider: 2100
     1936:
@@ -206,8 +211,12 @@ altersgrenze_gestaffelt:
         years: 65
         months: 0
   2007-04-20:
-    reference: RV-Altersgrenzenanpassungsgesetz 2007. BGBl. I S. 554 2007
-    note: Increase of FRA from 65 to 67 for birth cohort 1949-1963.
+    reference:
+      - § 236 Abs. 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+      - § 36 Satz 1 Nr. 1 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: >-
+      Increase of FRA from 65 to 67 for birth cohort 1949-1963.
+      RV-Altersgrenzenanpassungsgesetz, in Kraft ab 1.1.2008.
     first_year_to_consider: 1900
     last_year_to_consider: 2100
     1948:
@@ -303,23 +312,29 @@ altersgrenze_vorzeitig:
   unit: YEARS
   type: scalar
   1980-01-01:
+    reference: § 1248 Abs. 1 RVO idF Art. 1 G. v. 16.10.1972 BGBl. I S. 1965
+    note: Entsprechend § 25 Abs. 1 AVG.
     value: 63.0
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: >-
       Early retirement age decreased from 63 to 62 starting from birth cohort 1944. See
       `altersgrenze_vorzeitig_gestaffelt`.
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
-    note: ERA back to 63.
+    reference: § 41 Abs. 3 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
+    note: ERA back to 63. Anlage 21 SGB VI.
     value: 63.0
   1997-12-16:
-    reference: Rentenreformgesetz 1999. BGBl. I S. 2998 1997
-    note: ERA back to 62.
+    reference: § 36 Nr. 1 SGB VI idF Art. 1 G. v. 16.12.1997 BGBl. I S. 2998
+    note: >-
+      ERA back to 62. Für vor 1948 Geborene blieb es nach § 236 Abs. 1 SGB VI und
+      Anlage 21 bei 63 Jahren.
     value: 62.0
   2007-04-20:
-    reference: RV-Nachhaltigkeitsgesetz 2004. BGBl. I S. 1791 2004
-    note: ERA back to 63.
+    reference:
+      - § 36 Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+      - § 236 Abs. 1 Satz 2 SGB VI idF Art. 1 G. v. 20.04.2007 BGBl. I S. 554
+    note: ERA back to 63. RV-Altersgrenzenanpassungsgesetz, in Kraft ab 1.1.2008.
     value: 63.0
 altersgrenze_vorzeitig_gestaffelt:
   name:
@@ -341,7 +356,7 @@ altersgrenze_vorzeitig_gestaffelt:
   output_unit: YEARS
   type: year_based_phase_inout_of_age_thresholds
   1989-12-18:
-    reference: Rentenreformgesetz 1992. BGBl. I S. 2261 1989 § 41
+    reference: § 41 Abs. 2 SGB VI idF Art. 1 G. v. 18.12.1989 BGBl. I S. 2261
     note: Early retirement age decreased from 63 to 62 starting from birth cohort 1944.
     first_year_to_consider: 1900
     last_year_to_consider: 2100
@@ -352,5 +367,5 @@ altersgrenze_vorzeitig_gestaffelt:
       years: 62
       months: 0
   1996-09-27:
-    reference: Wachstums- und Beschäftigungsförderungsgesetz 1996. BGBl. I S. 1461 1996
+    reference: § 41 Abs. 3 SGB VI idF Art. 1 Nr. 10 G. v. 25.09.1996 BGBl. I S. 1461
     note: ERA back to 63. See `altersgrenze_vorzeitig`.
