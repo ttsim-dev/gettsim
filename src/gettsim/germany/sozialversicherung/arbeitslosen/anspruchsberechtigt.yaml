@@ -70,8 +70,8 @@ anspruchsdauer_nach_alter:
     max_int_in_table: 120
     reference: § 127 Abs. 2 SGB III idF Art. 3 Nr. 2 G. v. 24.12.2003 BGBl. I S. 3002
     note: >-
-      Gesetz zu Reformen am Arbeitsmarkt; anzuwenden auf Ansprüche, die ab dem 1.
-      Februar 2006 entstehen (§ 434l Abs. 1 SGB III).
+      Gesetz zu Reformen am Arbeitsmarkt; applies to claims arising from
+      01.02.2006 (§ 434l Abs. 1 SGB III).
   2008-01-01:
     0: 12
     50: 15
@@ -142,8 +142,8 @@ anspruchsdauer_nach_versicherungspflichtigen_monaten:
     max_int_in_table: 700
     reference: § 127 Abs. 2 SGB III idF Art. 3 Nr. 2 G. v. 24.12.2003 BGBl. I S. 3002
     note: >-
-      Gesetz zu Reformen am Arbeitsmarkt; anzuwenden auf Ansprüche, die ab dem 1.
-      Februar 2006 entstehen (§ 434l Abs. 1 SGB III).
+      Gesetz zu Reformen am Arbeitsmarkt; applies to claims arising from
+      01.02.2006 (§ 434l Abs. 1 SGB III).
   2008-01-01:
     0: 0
     12: 6
