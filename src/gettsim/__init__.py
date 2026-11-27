@@ -66,8 +66,10 @@ from ttsim import (
 from ttsim.main_args import MainArg
 from ttsim.main_args import OrigPolicyObjects as TTSimOrigPolicyObjects
 from ttsim.tt import UnitSystem
+from ttsim.tt.legal_references import LegalReferenceParser
 
 from gettsim import germany
+from gettsim.legal_references import LEGAL_REFERENCES_PARSER
 
 if TYPE_CHECKING:
     import datetime
@@ -126,6 +128,8 @@ def main(
     evaluation_date: datetime.date | None = None,
     orig_policy_objects: OrigPolicyObjects | None = None,
     unit_system: UnitSystem | None = None,
+    legal_references_parser: LegalReferenceParser | None = None,
+    legal_references_query: str | tuple[str, ...] | None = None,
     policy_environment: PolicyEnvironment | None = None,
     processed_data: QNameData | None = None,
     labels: Labels | None = None,
@@ -142,6 +146,8 @@ def main(
         )
     if unit_system is None:
         unit_system = germany.UNIT_SYSTEM
+    if legal_references_parser is None:
+        legal_references_parser = LEGAL_REFERENCES_PARSER
 
     return _ttsim.main(**locals())
 

@@ -103,6 +103,14 @@ levels, they should be included in the reference. However, because we cannot det
 the depth of a provision without the text of the law, GETTSIM only enforces that the
 paragraph and the act are cited automatically.
 
+Some values are set by acts that have no official abbreviation, e.g., the
+Sozialversicherungs-Rechengrößenverordnungen before 2013. Such a provision is cited by
+the act itself, without `idF`:
+
+```
+§ 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421
+```
+
 In policy functions, references are listed in a `Reference:` section at the end of the
 docstring:
 
@@ -192,32 +200,64 @@ Docstrings of policy functions gain a `Reference:` section.
 
 ### Format of a reference
 
-A reference consists of a provision and the act that gave the provision its wording:
+A reference consists of a provision and the act that gave the provision its wording. The
+provision belongs either to a law with an official abbreviation or to an act without
+one, which is then identified by its publication:
 
 ```
-reference = <provision> idF <act>
+reference = <provision> <law> idF <act>     (provision of a law)
+          | <provision> <act> [idF <act>]   (provision of an act without abbreviation)
 
-provision = § <n>[a-z] [Abs. <n>] [Satz <n> | S. <n>] [Nr. <n>] [Buchst. <x>] <law>
+provision = § <n>[a-z] [Abs. <n>[a-z]] [Satz <n> | S. <n>] [Halbsatz <n>]
+                       [Nr. <n>[a-z]] [Buchst. <x>] [Doppelbuchst. <xx>]
 act       = [Art. <n> [Nr. <n>]] G.|V.|B. v. DD.MM.YYYY BGBl. I S. <page>      (until 2022)
           | [Art. <n> [Nr. <n>]] G.|V.|B. v. DD.MM.YYYY BGBl. YYYY I Nr. <n>   (from 2023 on)
 ```
 
-The following rules apply:
+The parts of a provision are written in the order in which the law nests them, e.g.,
+`§ 10 Abs. 1 Nr. 2 Satz 1 EStG`.
+
+#### Abbreviations, `idF`, and acts without an abbreviation
+
+- A law is cited by the abbreviation used on gesetze-im-internet.de, e.g., `EStG`,
+  `RAV 1995`, or `3. RAV`. Laws that are no longer in force are not listed there; they
+  are cited by the abbreviation that the act itself defines in its title, e.g.,
+  "(Beitragssatzverordnung 2019 – BeiSaV 2019)". We do not invent abbreviations. The
+  books of the Sozialgesetzbuch are the exception: gesetze-im-internet.de writes
+  `SGB 2`, we write `SGB II` as in their official titles.
+- A provision of a law with an abbreviation is cited as `<provision> <law> idF <act>`.
+  The act is the amending act (or the Bekanntmachung) that gave the cited part its
+  wording as of the relevant date. Example: the Kindergeld of 2023 is
+  `§ 66 Abs. 1 EStG idF Art. 2 G. v. 08.12.2022 BGBl. I S. 2230`, because the
+  Inflationsausgleichsgesetz amended § 66 Abs. 1 EStG. This also holds for a Verordnung
+  with an abbreviation that was never amended; the act is then the Verordnung itself:
+  `§ 1 Abs. 1 RWBestV 2023 idF V. v. 21.06.2023 BGBl. 2023 I Nr. 164`.
+- A provision of an act without an abbreviation is cited by the act that contains it,
+  e.g., the Sozialversicherungs-Rechengrößenverordnung 2012:
+  `§ 3 Abs. 1 Nr. 1 V. v. 02.12.2011 BGBl. I S. 2421`. There is no `idF`, because the
+  act is the source itself. If the act consists of articles, the article goes into the
+  act.
+- If such an act was amended later, the amending act follows after `idF`, as for a law:
+  `§ 1 V. v. 03.12.2015 BGBl. I S. 2188 idF Art. 1 V. v. 28.09.2017 BGBl. I S. 3525` for
+  the Mindestunterhaltsverordnung as amended in 2017.
+
+The following rules apply to both forms:
 
 - The paragraph (`§`) is required. Absatz, Satz, and lower levels are optional, but
   should be given wherever they add precision. Whether a paragraph has Absätze cannot be
   determined without the text of the law, hence the depth of a reference is not checked.
 - Within the provision, both `Satz` and `S.` denote a sentence. Within the act, `S.`
-  denotes the page of the BGBl. The position relative to `idF` resolves the ambiguity.
+  denotes the page of the BGBl. The position relative to the act resolves the ambiguity.
+- A Nummer with a letter, e.g., `§ 3 Nr. 14a EStG`, is a Nummer of its own that was
+  inserted later. It differs from a Buchstabe within a Nummer, e.g.,
+  `§ 3 Nr. 14 Buchst. a EStG`, and the two do not match each other in lookups.
 - Articles are abbreviated as `Art.`. For acts that do not consist of articles, `Art.`
   is left out.
 - `G.`, `V.`, and `B.` stand for Gesetz, Verordnung, and Bekanntmachung, as in
   {ref}`GEP 3 <gep-3>`.
 - For acts published until 2022, the page is the first page of the act, not the page of
   the provision.
-- `<law>` is the official abbreviation of the law as used on gesetze-im-internet.de,
-  e.g., `EStG` or `SGB II` (not `SGB 2`). The abbreviations we accept are listed in a
-  file called `laws.yaml`.
+- The abbreviations we accept are listed in a file called `laws.yaml`.
 
 Examples:
 
@@ -402,12 +442,9 @@ TTSIM
 
 GETTSIM
 
-- supplies the parser for German references. It consists of a thin wrapper around the
-  [bundesrecht](https://pypi.org/project/bundesrecht/) package for the provision, a
-  small grammar for the act (bundesrecht does not parse references to the BGBl), and the
-  list of accepted laws in `laws.yaml` (bundesrecht accepts, e.g.,
-  `§ 32 Art. 2-4 EStG`). The parser is lenient for queries (see {ref}`gep-11-lookup`),
-  but strict for references in the code;
+- supplies the parser for German references. It implements the grammar of
+  {ref}`gep-11-format` and checks laws against the list in `laws.yaml`. The parser is
+  lenient for queries (see {ref}`gep-11-lookup`), but strict for references in the code;
 - passes the parser to TTSIM in `gettsim.main`; and
 - checks the requirements of this GEP in its test suite.
 
@@ -432,7 +469,10 @@ fails if
 - [Catala](https://catala-lang.org/) takes a different approach and writes the code
   alongside the text of the law.
 - [bundesrecht](https://pypi.org/project/bundesrecht/) parses references to German
-  federal law and resolves them against the current version of the law.
+  federal law and resolves them against the current version of the law. We do not use
+  it: it does not parse acts, it accepts much that this GEP rules out (ranges, `ff.`,
+  `i.V.m.`, several paragraphs), and the grammar of this GEP is small enough to parse
+  directly.
 - The
   [legal information portal of the federal government](https://docs.rechtsinformationen.bund.de/)
   provides an open API. Laws are identified by the European Legislation Identifier
